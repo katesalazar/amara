@@ -1,0 +1,19 @@
+application naturals_substraction
+	is an awesome command line interface application
+	with entry point at function main
+and that is application naturals_substraction
+
+function main
+	receives nothing at all
+	and returns nothing at all
+	so it causes side effects
+	and does
+	print 9 without line feed nor carriage return
+	and print ' minus ' without line feed nor carriage return
+	and print 2 without line feed nor carriage return
+	and print ' equals to ' without line feed nor carriage return
+	and print 9 minus 2 without line feed nor carriage return
+	and print ', which is of type ' without line feed nor carriage return
+	and print type of 9 minus 2
+	with a substraction operator
+and that is function main

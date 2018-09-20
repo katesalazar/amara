@@ -1,0 +1,26 @@
+application machine_number_types
+	is an awesome command line interface application
+	with entry point at function main
+and that is application machine_number_types
+
+function main
+	receives nothing at all
+	and returns nothing at all
+	so it causes side effects
+	and does
+	print a b c d e f g h i j k l m
+	where a is a machine unsigned    single byte integer
+	and   b is a machine unsigned    double byte integer
+	and   c is a machine unsigned quadruple byte integer
+	and   d is a machine unsigned   octuple byte integer
+	and   e is a machine   signed    single byte integer
+	and   f is a machine   signed    double byte integer
+	and   g is a machine   signed quadruple byte integer
+	and   h is a machine   signed   octuple byte integer
+	and   i is a machine      half precision floating point rational
+	and   j is a machine    single precision floating point rational
+	and   k is a machine    double precision floating point rational
+	and   l is a machine quadruple precision floating point rational
+	and   m is a machine   octuple precision floating point rational
+	with an implicit chain of commands
+and that is function main

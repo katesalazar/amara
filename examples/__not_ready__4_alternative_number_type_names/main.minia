@@ -1,0 +1,21 @@
+application alternative_number_types
+	is an awesome command line interface application
+	with entry point at function main
+and that is application alternative_number_types
+
+function main
+	receives nothing at all
+	and returns nothing at all
+	so it causes side effects
+	and does
+	print a
+	and print type of a
+	and print b
+	and print type of b
+	and print c
+	and print type of c
+	where a is 32993 belonging to N
+	where b is -32993 belonging to Z
+	where c is 32993 divided by 2 belonging to Q
+	with alternative type names
+and that is function main

@@ -1,0 +1,76 @@
+/*   A doc is a collection of functions, applications, and execution
+ * requests. */
+doc :
+  fns_and_apps_defs_and_exectn_reqs
+;
+fns_and_apps_defs_and_exectn_reqs :
+  fn_def fns_and_apps_defs_and_exectn_reqs
+| app_def fns_and_apps_defs_and_exectn_reqs
+| exectn_req fns_and_apps_defs_and_exectn_reqs
+|
+;
+app_def :
+  cli_app_def
+;
+cli_app_def :
+  APPLICATION IDENTIFIER IS AN AWESOME COMMAND LINE INTERFACE
+  APPLICATION AND THE ENTRY POINT IS FUNCTION IDENTIFIER AND
+    THAT IS APPLICATION IDENTIFIER
+;
+fn_def :
+  cli_fn_def
+;
+cli_fn_def :
+  FUNCTION IDENTIFIER IS AN AWESOME COMMAND LINE INTERFACE
+  APPLICATION FUNCTION AND RECEIVES NOTHING AT ALL AND
+  RETURNS
+    NOTHING AT ALL SO IT CAUSES SIDE EFFECTS AND DOES
+    cli_fn_ops cli_fn_def_with_clause AND THAT IS FUNCTION
+    IDENTIFIER
+;
+/*
+cli_fn_receives_def :
+  RECEIVES cli_fn_receives_def_inner
+;
+cli_fn_receives_def_inner :
+  NO ARGS AT ALL
+;
+*/
+cli_fn_def_with_clause :
+  WITH EASE
+| WITH A SMALL CHAIN OF COMMANDS
+| WITH A SUBSTRACTION OPERATOR
+| WITH A DIVISION OPERATOR
+;
+exectn_req :
+  RUN COMMAND LINE INTERFACE APPLICATION IDENTIFIER
+;
+cli_fn_ops :
+  cli_fn_op AND cli_fn_ops
+| cli_fn_op
+;
+cli_fn_op :
+  PRINT printable
+| PRINT printable WITHOUT LINE FEED NOR CARRIAGE RETURN
+;
+printable :
+  lvalue
+;
+lvalue :
+  string_lvalue
+| numeric_lvalue
+;
+string_lvalue :
+  STRING_LITERAL
+| TYPE OF numeric_lvalue
+;
+numeric_lvalue :
+  number_literal
+| numeric_lvalue DIVIDED_BY numeric_lvalue
+| numeric_lvalue MINUS numeric_lvalue
+;
+number_literal :
+  NATURAL
+| INTEGER
+| RATIONAL
+;

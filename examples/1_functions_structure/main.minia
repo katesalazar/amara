@@ -1,0 +1,17 @@
+function main
+	is an awesome command line interface application function
+	and receives nothing at all
+	and returns nothing at all
+	so it causes side effects
+	and does
+	print 'hello' without line feed nor carriage return
+	and print ', world'
+	with a small chain of commands
+	and that is function main
+
+application functions_structure
+	is an awesome command line interface application
+	and the entry point is function main
+	and that is application functions_structure
+
+run command line interface application functions_structure

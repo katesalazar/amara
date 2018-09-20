@@ -1,0 +1,16 @@
+function main
+	is an awesome command line interface application function
+	and receives nothing at all
+	and returns nothing at all
+	so it causes side effects
+	and does
+	print 'hello, world'
+	with ease
+	and that is function main
+
+application hello_world
+	is an awesome command line interface application
+	and the entry point is function main
+	and that is application hello_world
+
+run command line interface application hello_world

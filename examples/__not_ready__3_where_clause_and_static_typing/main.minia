@@ -1,0 +1,21 @@
+application static_typing
+	is an awesome command line interface application
+	with entry point at function main
+and that is application functions_structure
+
+function main
+	receives nothing at all
+	and returns nothing at all
+	so it causes side effects
+	and does
+	print a
+	and print type of a
+	and print b
+	and print type of b
+	and print c
+	and print type of c
+	where a is a natural set to 32993
+	where b is an integer set to -32993
+	where c is a rational set to 32993 divided by 2
+	with static typing
+and that is function main

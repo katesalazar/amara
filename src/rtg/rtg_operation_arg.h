@@ -1,0 +1,61 @@
+/*
+ * Copyright 2018 Mercedes Catherine Salazar
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * src/rtg/rtg_operation_arg.h: Amara run time graph application
+ * function operation argument.
+ */
+
+#ifndef __AMARA__RUN_TIME_GRAPH__OPERATION_ARG__H__
+#define __AMARA__RUN_TIME_GRAPH__OPERATION_ARG__H__
+
+/*   For `uint_fast8_t`. */
+#include <stdint.h>
+
+/*   For `amara_string`. */
+#include "../cmn/amara_string.h"
+
+/*   For `stt_operation_arg`. */
+#include "../stt/stt_operation_arg.h"
+
+/*   This is an enumeration. */
+
+#define RTG_OPERATION_ARG_TYPE_INVALID        0x00
+#define RTG_OPERATION_ARG_TYPE_STRING_LITERAL 0xFF
+
+typedef struct rtg_operation_arg {
+	uint_fast8_t type_;
+	amara_string * string_literal_;
+} rtg_operation_arg;
+
+rtg_operation_arg *
+rtg_operation_arg_copy_constructor(const rtg_operation_arg * operation)
+__attribute__((warn_unused_result))
+;
+
+#define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_INVALID 0x00
+#define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS 0xFF
+
+typedef struct rtg_operation_arg_out_of_stt_operation_arg_ret {
+	uint_fast8_t status;
+	rtg_operation_arg * operation_arg;
+} rtg_operation_arg_out_of_stt_operation_arg_ret;
+
+rtg_operation_arg_out_of_stt_operation_arg_ret *
+rtg_operation_arg_out_of_stt_operation_arg(
+		const stt_operation_arg * operation_arg)
+__attribute__((warn_unused_result))
+;
+
+#endif

@@ -1,0 +1,54 @@
+application lost_numbers
+	is an awesome command line interface application
+	with entry point at function main
+
+function sum_two_numbers
+	receives a natural a
+	and another natural b
+	and returns a natural
+	without causing side effects
+	and does
+	return a plus b
+	with just a single sum
+
+function lost_numbers_sum
+	receives a list of naturals list_of_naturals
+	and returns a natural
+	without causing side effects
+	and does
+	return fold function sum_two_numbers to iterable list_of_naturals
+	with several sums
+
+function squared_pi_approximation
+	receives nothing at all
+	and returns a rational
+	without causing side effects
+	and does
+	return pi_approximation raised to the power of 2
+	with an approximation of pi and an exponentiation
+
+function yet_another_function
+	receives a natural something
+	and returns a natural
+	causing side effects
+	and does
+	print something plus call to squared_pi_approximation
+	and return something plus call to squared_pi_approximation
+	with an awesome automatic pi
+
+function another_function
+	receives a natural whatever
+	and returns a natural
+	depending on a functions hierarchy which causes side effects
+	and does
+	return call to yet_another_function passing whatever
+	with triviality
+
+function main
+	receives nothing at all
+	and returns nothing at all
+	so it causes side effects
+	and does
+	print call to lost_numbers_sum passing list containing 4, 8, 15, 16, 23, and 42
+	and print call to another_function passing 4
+	with ease

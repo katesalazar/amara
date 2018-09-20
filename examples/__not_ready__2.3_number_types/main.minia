@@ -1,0 +1,28 @@
+application number_types
+	is an awesome command line interface application
+	with entry point at function main
+and that is application functions_structure
+
+function main
+	receives nothing at all
+	and returns nothing at all
+	so it causes side effects
+	and does
+	print 0
+	and print type of 0
+	and print 1
+	and print type of 1
+	and print 32993
+	and print type of 32993
+	and print 8 minus 1
+	and print type of 8 minus 1
+	and print 5 minus 8
+	and print type of 5 minus 8
+	and print 18 divided by 3
+	and print type of 18 divided by 3
+	and print 7 divided by 6
+	and print type of 7 divided by 6
+	and print pi_approximation
+	and print type of pi_approximation
+	with an utility for inspecting types
+and that is function main

@@ -1,0 +1,19 @@
+application naturals_division
+	is an awesome command line interface application
+	with entry point at function main
+and that is application naturals_division
+
+function main
+	receives nothing at all
+	and returns nothing at all
+	so it causes side effects
+	and does
+	print 18 without line feed nor carriage return
+	and print ' divided_by ' without line feed nor carriage return
+	and print 3 without line feed nor carriage return
+	and print ' equals to ' without line feed nor carriage return
+	and print 18 divided_by 3 without line feed nor carriage return
+	and print ', with type ' without line feed nor carriage return
+	and print type of 18 divided_by 3
+	with a division operator
+and that is function main

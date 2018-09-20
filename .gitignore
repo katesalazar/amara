@@ -1,0 +1,66 @@
+#   Vim stuff.
+*.swp
+
+#   KDevelop stuff.
+amara.kdev4
+.kdev4/
+
+#   macOS stuff.
+.DS_Store
+
+#   Xcode stuff.
+amara.xcodeproj/project.xcworkspace/
+amara.xcodeproj/xcuserdata/
+
+#   Bison object docs.
+minia.tab.h
+minia.tab.c
+
+#   Bison reporting stuff.
+src/bsn/minia.report
+src/bsn/minia.dot
+
+#   Flex object docs.
+lex.minia.c
+
+#   Bison object docs.
+minia.tab.h
+minia.tab.c
+
+#   Bison reporting.
+src/bsn/minia.report
+src/bsn/minia.dot
+
+#   Object docs.
+build/debug/*.o
+build/release/*.o
+build/debug/amara_g
+build/release/amara
+# FIXME REMOVE THIS LEGACY.
+amara_g
+# FIXME REMOVE THIS LEGACY.
+amara
+
+#   macOS debugging symbols.
+amara_g.dSYM/
+
+#   `gprof` stuff.
+gmon.out
+
+#   GCC coverage output docs.
+build/debug/*.gcno
+build/release/*.gcno
+# FIXME REMOVE THIS LEGACY.
+*.gcno
+
+#   Coverage raw data.
+*.gcda
+
+#   `gcov` output docs.
+*.gcov
+
+#   `lcov` output docs.
+lcov.info
+
+#   `lcov`'s `genhtml` output docs.
+gcov_results/

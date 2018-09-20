@@ -1,0 +1,108 @@
+(*   Numeric algebraic types. Minia will use primitive data types for
+ * these, but will promote them to arbitrary precision devices whenever
+ * necessary. *)
+
+natural n0 = 0  (*   Natural numbers start from 0 and it is an unbound
+                 * set. *)
+n0 + 1  (*   Shall return a `natural`, because `n` is `natural` and `1`
+         * is evaluated as `natural`, and addition of two `natural`s
+         * results in a new `natural`. *)
+1 + 1  (*   Shall return a `natural`, even though that natural number
+        * also belongs in the integer and rational sets. *)
+(* natural n1 = -3 *)  (*   This must raise a compile or interpretation
+                        * error. *)
+N n2 = 2 ^ 355  (*   The classic `N` (for the natural set) can also be
+                 * used as a type definition. *)
+
+integer i0 = -3  (*   There is the `integer` type with support for
+                  * integer numbers. *)
+Z i1 = 4
+(* Z i2 = 3 / 2 *)  (*   This must raise a compile or interpretation
+                     * error. *)
+integer i3 = 24 / 2  (*   Here the compiler or interpreter is required
+                      * to realize that `24 / 2` is an expression
+                      * reducible to `12`, and perform that optimization
+                      * way before run time. *)
+
+rational r0 = 6 / 10  (*   Some fractions can not be reduced to integers,
+                       * so the `rational` numeric type exists. *)
+Q r1 = 4
+
+
+(*   The classic numeric unsigned integers shall be made available, when
+ * provided by the underlying platform. *)
+
+machine unsigned    single byte integer smallest_musbi =
+		0x 00                  (*                          0 *)
+machine unsigned    single byte integer  largest_musbi =
+		0x FF                  (*                        255 *)
+machine unsigned    double byte integer smallest_mudbi =
+		0x 00 00               (*                          0 *)
+machine unsigned    double byte integer  largest_mudbi =
+		0x FF FF               (*                     65 535 *)
+machine unsigned quadruple byte integer smallest_muqbi =
+		0x 0000 0000           (*                          0 *)
+machine unsigned quadruple byte integer  largest_muqbi =
+		0x FFFF FFFF           (*              4 294 967 295 *)
+machine unsigned   octuple byte integer smallest_muobi =
+		0x 0000 0000 0000 0000 (*                          0 *)
+machine unsigned   octuple byte integer  largest_muobi =
+		0x FFFF FFFF FFFF FFFF (* 18 446 744 073 709 551 615 *)
+
+
+(*   The classic numeric signed integers shall be made available, when
+ * provided by the underlying platform. *)
+
+machine signed    single byte integer smallest_mssbi =
+		0x 80                  (*                       -128 *)
+machine signed    single byte integer  largest_mssbi =
+		0x 7F                  (*                        127 *)
+machine signed    double byte integer smallest_msdbi =
+		0x 80 00               (*                    -32 768 *)
+machine signed    double byte integer  largest_msdbi =
+		0x 7F FF               (*                     32 767 *)
+machine signed quadruple byte integer smallest_msqbi =
+		0x 8000 0000           (*             -2 147 483 648 *)
+machine signed quadruple byte integer  largest_msqbi =
+		0x 7FFF FFFF           (*              2 147 483 647 *)
+machine signed   octuple byte integer smallest_msobi =
+		0x 8000 0000 0000 0000 (* -9 223 372 036 854 775 808 *)
+machine signed   octuple byte integer  largest_msobi =
+		0x 7FFF FFFF FFFF FFFF (*  9 223 372 036 854 775 807 *)
+
+
+(*   The classic floating point arithmetic shall be available, when
+ * provided by the underlying platform. *)
+
+machine floating point      half precision  mfp16 =
+		0b 0 01111 00 0000 0001
+		(* 1 + 2 ^ −10 = 1.0009765625 *)
+
+machine floating point    single precision  mfp32 =
+		0x 4049 0fdb
+		(* 0 10000000 10010010000111111011011
+		 * 3.1415927410 *)
+
+machine floating point    double precision  mfp64 =
+		0b 0 11111111110 1111111111111111111111111111111111111111111111111111
+		(* 2 ^ 1023 * (1 + (1 − 2 ^ −52))
+		 * 1.7976931348623157 * 10 ^ 308 *)
+
+machine floating point quadruple precision mpf128 =
+		0x 7ffe ffff ffff ffff ffff ffff ffff ffff
+		(* 1.189731495357231765085759326628007 * 10 ^ 4932 *)
+		(max quadruple precision)
+
+machine floating point   octuple precision mpf256 =
+		0x 7fff f000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000
+		(* Infinity *)
+
+
+(*   Texts. *)
+
+string s = 'foo'
+
+
+(*   Just an expression to be evaluated. *)
+
+0
