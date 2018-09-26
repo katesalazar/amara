@@ -26,15 +26,6 @@
 /*   For own definitions. */
 #include "rtg_operation.h"
 
-/*
-
-typedef struct rtg_operation {
-	uint_fast8_t type_;
-	rtg_operation_args_simple_list * args_;
-} rtg_operation;
-
-*/
-
 rtg_operation *
 rtg_operation_copy_constructor(const rtg_operation * operation)
 {
@@ -46,22 +37,43 @@ rtg_operation_copy_constructor(const rtg_operation * operation)
 	return ret_;
 }
 
-/*
+void
+rtg_operation_destructor(rtg_operation * operation)
+{
+	assertion(operation != NULL);
+	if (operation->type_ == RTG_OPERATION_TYPE_INVALID) {
+		assertion(operation->args_ == NULL);
+	} else {
+		assertion(operation->args_ != NULL);
+		rtg_operation_args_simple_list_destructor(operation->args_);
+	}
+	free(operation);
+}
 
-#define RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_INVALID 0x00
-#define RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS 0xFF
-
-typedef struct rtg_operation_out_of_stt_operation_ret {
-	uint_fast8_t status;
-	rtg_operation * operation;
-} rtg_operation_out_of_stt_operation_ret;
-
-typedef struct stt_operation {
-	uint_fast8_t type_;
-	stt_operation_args_simple_list * args_;
-} stt_operation;
-
-*/
+void
+rtg_operation_out_of_stt_operation_ret_destructor(
+		rtg_operation_out_of_stt_operation_ret * rtg_operation_out_of_stt_operation_ret_)
+{
+	assertion(rtg_operation_out_of_stt_operation_ret_ != NULL);
+	if (rtg_operation_out_of_stt_operation_ret_->status ==
+			RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS) {
+		assertion(rtg_operation_out_of_stt_operation_ret_->operation !=
+				NULL);
+		if (rtg_operation_out_of_stt_operation_ret_->operation_was_moved ==
+				AMARA_BOOLEAN_FALSE) {
+			rtg_operation_destructor(
+					rtg_operation_out_of_stt_operation_ret_->operation);
+		}
+	} else {
+		assertion(rtg_operation_out_of_stt_operation_ret_->status ==
+					RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_INVALID ||
+				rtg_operation_out_of_stt_operation_ret_->status ==
+					RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_ERROR_UNSPECIFIC);
+		assertion(rtg_operation_out_of_stt_operation_ret_->operation ==
+				NULL);
+	}
+	free(rtg_operation_out_of_stt_operation_ret_);
+}
 
 rtg_operation_out_of_stt_operation_ret *
 rtg_operation_out_of_stt_operation(const stt_operation * operation)
@@ -74,13 +86,17 @@ rtg_operation_out_of_stt_operation(const stt_operation * operation)
 	ret_ = malloc(sizeof(rtg_operation_out_of_stt_operation_ret));
 	ret_->status = RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_INVALID;
 	ret_->operation = NULL;
+	ret_->operation_was_moved = AMARA_BOOLEAN_FALSE;
 	rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_ =
 			rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list(
 					operation->args_);
 	assertion(rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_->status ==
 			RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_SUCCESS);
 	sub_ret_args_ = rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_->operation_args;
-	free(rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_);
+	rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_->operation_args_were_moved =
+			AMARA_BOOLEAN_TRUE;
+	rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_destructor(
+			rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_);
 	sub_ret_ = malloc(sizeof(rtg_operation));
 	sub_ret_->args_ = sub_ret_args_;
 	sub_ret_->type_ = operation->type_;

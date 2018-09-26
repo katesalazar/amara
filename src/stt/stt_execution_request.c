@@ -23,15 +23,6 @@
 /*   For own definitions. */
 #include "stt_execution_request.h"
 
-/*
-
-typedef struct stt_execution_request {
-	uint_fast8_t type_;
-	amara_string * application_name_;
-} stt_execution_request;
-
-*/
-
 stt_execution_request *
 stt_execution_request_copy_constructor(
 		const stt_execution_request * execution_request)

@@ -32,11 +32,6 @@
  * char * one, const char * two, cont char * three)`. */
 #include "../cmn/char_array.h"
 
-/*   For `char_arrays_simple_list * char_arrays_simple_list_concat(
- * char_arrays_simple_list * list_zero,
- * char_arrays_simple_list * list_one)`. */
-/* #include "../cmn/char_arrays_simple_list.h" */
-
 /*   For `stt_operations_simple_list_copy_constructor`. */
 #include "stt_operations_simple_list.h"
 
@@ -563,10 +558,6 @@ stt_node_type_name(const stt_node * node)
 	default:
 		assertion(node->type_ == SYNTAX_TREE_NODE_TYPE_INVALID);
 		return amara_string_exhaustive_constructor("invalid");
-	/*
-		fprintf(stderr, "%s:%u:fatal: unexpected syntax tree node\n", __FILE__, __LINE__);
-		exit(EXIT_FAILURE);
-	*/
 	}
 }
 
@@ -631,7 +622,6 @@ register_application(stt_node * node, const stt_node * application_node)
 	new_application_->entry_point_function_name_ =
 			application_node->application_subnode_
 					->entry_point_function_name_;
-	/* new_application_->entry_point_function = NULL; */ /* MOVING RESPONSIBILITY AWAY TOWARDS THE STT/RTG SYSTEMS INTERFACE */
 	new_applications_list_node_ =
 			malloc(sizeof(stt_applications_simple_list));
 	new_applications_list_node_->first = new_application_;
@@ -666,7 +656,6 @@ register_execution_request(
 			execution_request_node->execution_request_subnode_->type_;
 	new_execution_request_->application_name_ =
 			execution_request_node->execution_request_subnode_->application_name_;
-	/* new_execution_request_->application_ = NULL; */ /* RESPONSIBILITY MOVED TO THE STT/RTG TRANSLATION SYSTEM */
 	new_execution_requests_list_node_ =
 			malloc(sizeof(stt_execution_requests_simple_list));
 	new_execution_requests_list_node_->first = new_execution_request_;
@@ -680,9 +669,6 @@ register_execution_request(
 void
 dump_syntax_tree(const stt_node * node)
 {
-	/*
-	uint_fast8_t functions_index_;
-	*/
 	uint_fast8_t functions_len_;
 	stt_applications_simple_list * applications_ptr_;
 	uint_fast8_t applications_len_;
@@ -717,21 +703,24 @@ dump_syntax_tree(const stt_node * node)
 				amara_string_get_value(
 						application_->entry_point_function_name_);
 		fprintf(stderr, "%s:%u - %s\n", __FILE__, __LINE__, entry_point_function_name_chars_array_);
-		/* assertion(application_->entry_point_function != NULL); FIXME */
-		/* printf("%p\n", (void *) application_->entry_point_function_); */ /* RESPONSIBILITY MOVED AWAY FROM HERE, OUT TO A STT/RTG [FUTURE] TRANSLATION SYSTEM */
 		free(entry_point_function_name_chars_array_);
 		applications_ptr_ = applications_ptr_->next;
 	}
-	/* execution_requests_len_ = */
 	fprintf(stderr, "%s:%u <---- void dump_syntax_tree(const stt_node *)\n",
 			__FILE__, __LINE__);
 }
 
-/*
-#define LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID 0x00
-#define LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_OK      0x0F
-#define LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR   0xF0
-*/
+void
+look_for_undefined_labels_ret_destructor(
+		look_for_undefined_labels_ret * look_for_undefined_labels_ret_)
+{
+	assertion(look_for_undefined_labels_ret_ != NULL);
+	if (look_for_undefined_labels_ret_->messages != NULL) {
+		char_arrays_simple_list_destructor(
+				look_for_undefined_labels_ret_->messages);
+	}
+	free(look_for_undefined_labels_ret_);
+}
 
 look_for_undefined_labels_ret *
 look_for_undefined_labels_in_functions_(const stt_node * node)
@@ -745,12 +734,12 @@ look_for_undefined_labels_in_functions_(const stt_node * node)
 	fprintf(stderr, "%s:%u ----> look_for_undefined_labels_ret * look_for_undefined_labels_in_functions(const stt_node *)\n",
 			__FILE__, __LINE__);
 	ret_ = malloc(sizeof(look_for_undefined_labels_ret));
-	ret_->status_ = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID;
-	ret_->messages_ = NULL;
+	ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID;
+	ret_->messages = NULL;
 	assertion(node != NULL);
 	assertion(node->type_ == SYNTAX_TREE_NODE_TYPE_DOC);
 	assertion(node->doc_subnode_ != NULL);
-	ret_->status_ = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_OK;
+	ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_OK;
 	fprintf(stderr, "%s:%u <---- look_for_undefined_labels_ret * look_for_undefined_labels_in_functions(const stt_node *)\n",
 			__FILE__, __LINE__);
 	return ret_;
@@ -773,8 +762,8 @@ look_for_undefined_labels_in_applications_(const stt_node * node)
 	const char * target_entry_point_function_name_chars_array_;
 	const char * applications_ptr_first_name_chars_array_;
 	ret_ = malloc(sizeof(look_for_undefined_labels_ret));
-	ret_->status_ = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID;
-	ret_->messages_ = NULL;
+	ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID;
+	ret_->messages = NULL;
 	assertion(node != NULL);
 	assertion(node->type_ == SYNTAX_TREE_NODE_TYPE_DOC);
 	assertion(node->doc_subnode_ != NULL);
@@ -797,8 +786,8 @@ look_for_undefined_labels_in_applications_(const stt_node * node)
 			/*   No function with a matching name with the
 			 * requested function as entry point for this
 			 * application was found in the functions list. */
-			messages_ptr_ = ret_->messages_;
-			ret_->messages_ =
+			messages_ptr_ = ret_->messages;
+			ret_->messages =
 					char_arrays_simple_list_default_constructor();
 			target_entry_point_function_name_chars_array_ =
 					amara_string_get_value(
@@ -806,22 +795,18 @@ look_for_undefined_labels_in_applications_(const stt_node * node)
 			applications_ptr_first_name_chars_array_ =
 					amara_string_get_value(
 							applications_ptr_->first->name_);
-			ret_->messages_->first = concatenate_four_char_arrays(
+			ret_->messages->first = concatenate_four_char_arrays(
 					"error, function '",
 					target_entry_point_function_name_chars_array_,
 					"' not found but has been requested as entry point function by application '",
 					applications_ptr_first_name_chars_array_);
 			free((char *) target_entry_point_function_name_chars_array_);
 			free((char *) applications_ptr_first_name_chars_array_);
-			ret_->messages_->next = messages_ptr_;
-			ret_->status_ = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR;
+			ret_->messages->next = messages_ptr_;
+			ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR;
 		} else {
 			/*   Entry point function name found. */
 			assertion(function_name_found_);
-			/*   Fix the link. */
-			/* TODO    Remove by virtue of the single responsibility principle? */
-			/* applications_ptr_->first->entry_point_function_ =
-					functions_ptr_->first; */ /* MIGRATE TO A STT/RTG TRANSLATION SYSTEM */
 		}
 		applications_ptr_ = applications_ptr_->next;
 	}
@@ -844,8 +829,8 @@ look_for_undefined_labels_in_execution_requests_(const stt_node * node)
 	const char * target_application_requested_to_be_run_name_chars_array_;
 	char_arrays_simple_list * messages_ptr_;
 	ret_ = malloc(sizeof(look_for_undefined_labels_ret));
-	ret_->status_ = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID;
-	ret_->messages_ = NULL;
+	ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID;
+	ret_->messages = NULL;
 	assertion(node != NULL);
 	assertion(node->type_ == SYNTAX_TREE_NODE_TYPE_DOC);
 	assertion(node->doc_subnode_ != NULL);
@@ -869,25 +854,21 @@ look_for_undefined_labels_in_execution_requests_(const stt_node * node)
 			 * the requested application as application to
 			 * be run by this execution request was found in
 			 * the applications list. */
-			messages_ptr_ = ret_->messages_;
-			ret_->messages_ = char_arrays_simple_list_default_constructor();
+			messages_ptr_ = ret_->messages;
+			ret_->messages = char_arrays_simple_list_default_constructor();
 			target_application_requested_to_be_run_name_chars_array_ =
 					amara_string_get_value(
 							target_application_requested_to_be_run_name_);
-			ret_->messages_->first = concatenate_three_char_arrays(
+			ret_->messages->first = concatenate_three_char_arrays(
 					"error, application '",
 					target_application_requested_to_be_run_name_chars_array_,
 					"' not found but has been requested to be executed");
 			free((char *) target_application_requested_to_be_run_name_chars_array_);
-			ret_->messages_->next = messages_ptr_;
-			ret_->status_ = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR;
+			ret_->messages->next = messages_ptr_;
+			ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR;
 		} else {
 			/*   Application to be run was found. */
 			assertion(application_name_found_);
-			/*   Fix the link. */
-			/* TODO    Remove by virtue of the single responsibility principle? */
-			/* execution_requests_ptr_->first->application_ =
-					applications_ptr_->first; */ /* MIGRATED TO AN AD HOC SYSTEM FOR STT/RTG TRANSLATION */
 		}
 		execution_requests_ptr_ = execution_requests_ptr_->next;
 	}
@@ -903,8 +884,8 @@ look_for_undefined_labels(const stt_node * node)
 	look_for_undefined_labels_ret * execution_requests_sub_ret_;
 	look_for_undefined_labels_ret * ret_ =
 			malloc(sizeof(look_for_undefined_labels_ret));
-	ret_->status_ = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID;
-	ret_->messages_ = NULL;
+	ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID;
+	ret_->messages = NULL;
 	assertion_two(node != NULL, "unexpected value NULL for `node`");
 	assertion_two_located_interim(node->type_ == SYNTAX_TREE_NODE_TYPE_DOC,
 			"unexpected value %u for `node->type`", __FILE__,
@@ -913,81 +894,46 @@ look_for_undefined_labels(const stt_node * node)
 			"`node->doc` unexpectedly NULL", __FILE__, __LINE__);
 	functions_sub_ret_ =
 			look_for_undefined_labels_in_functions_(node);
-	if (functions_sub_ret_->status_ ==
+	if (functions_sub_ret_->status ==
 			LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR) {
-		ret_->status_ = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR;
-		temp_ = ret_->messages_;
-		ret_->messages_ = char_arrays_simple_list_concat_destructive(
+		ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR;
+		temp_ = ret_->messages;
+		ret_->messages = char_arrays_simple_list_concat_destructive(
 				temp_,
-				functions_sub_ret_->messages_);
+				functions_sub_ret_->messages);
 	}
 	applications_sub_ret_ =
 			look_for_undefined_labels_in_applications_(node);
-	if (applications_sub_ret_->status_ ==
+	if (applications_sub_ret_->status ==
 			LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR) {
-		ret_->status_ = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR;
-		temp_ = ret_->messages_;
-		ret_->messages_ = char_arrays_simple_list_concat_destructive(
+		ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR;
+		temp_ = ret_->messages;
+		ret_->messages = char_arrays_simple_list_concat_destructive(
 				temp_,
-				applications_sub_ret_->messages_);
+				applications_sub_ret_->messages);
 	}
 	execution_requests_sub_ret_ =
 			look_for_undefined_labels_in_execution_requests_(node);
-	if (execution_requests_sub_ret_->status_ ==
+	if (execution_requests_sub_ret_->status ==
 			LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR) {
-		ret_->status_ = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR;
-		temp_ = ret_->messages_;
-		ret_->messages_ = char_arrays_simple_list_concat_destructive(
+		ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR;
+		temp_ = ret_->messages;
+		ret_->messages = char_arrays_simple_list_concat_destructive(
 				temp_,
-				execution_requests_sub_ret_->messages_);
+				execution_requests_sub_ret_->messages);
 	}
-	if (ret_->status_ == LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID) {
-		ret_->status_ = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_OK;
+	if (ret_->status == LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID) {
+		ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_OK;
 	}
-	return ret_;
-}
-
-rtg_doc_out_of_stt_doc_ret *
-rtg_doc_out_of_stt_doc(const stt_node * node)
-{
-	rtg_doc_out_of_stt_doc_ret * ret_;
-	rtg_functions_out_of_stt_doc_ret * rtg_functions_out_of_stt_doc_ret_;
-	rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list_ret * rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list_ret_;
-	rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret * rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_;
-	rtg_functions_simple_list * rtg_functions_;
-	rtg_applications_simple_list * rtg_applications_;
-	rtg_execution_requests_simple_list * rtg_execution_requests_;
-	fprintf(stderr, "%s:%u ----> rtg_doc_out_of_stt_doc_ret * rtg_doc_out_of_stt_doc(const stt_node *)\n",
-			__FILE__, __LINE__);
-	ret_ = malloc(sizeof(rtg_doc_out_of_stt_doc_ret));
-	ret_->status_ = RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_INVALID;
-	ret_->doc_ = NULL;
-	assertion(node->type_ == SYNTAX_TREE_NODE_TYPE_DOC);
-	rtg_functions_out_of_stt_doc_ret_ =
-			rtg_functions_out_of_stt_doc(node->doc_subnode_);
-	assertion(rtg_functions_out_of_stt_doc_ret_->status ==
-			RTG_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_SUCCESS);
-	rtg_functions_ = rtg_functions_out_of_stt_doc_ret_->functions;
-	rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list_ret_ =
-			rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list(
-					node->doc_subnode_, rtg_functions_);
-	assertion(rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list_ret_->status ==
-			RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
-	rtg_applications_ =
-			rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list_ret_->applications;
-	rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_ =
-			rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list(
-					node->doc_subnode_, rtg_applications_);
-	assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->status ==
-			RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
-	rtg_execution_requests_ =
-			rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests;
-	ret_->doc_ = rtg_doc_exhaustive_constructor(
-			rtg_functions_, rtg_applications_,
-			rtg_execution_requests_);
-	ret_->status_ = RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_OK;
-	fprintf(stderr, "%s:%u <---- rtg_doc_out_of_stt_doc_ret * rtg_doc_out_of_stt_doc(const stt_node *)\n",
-			__FILE__, __LINE__);
+	look_for_undefined_labels_ret_destructor(
+			execution_requests_sub_ret_);
+	execution_requests_sub_ret_ = NULL;
+	look_for_undefined_labels_ret_destructor(
+			applications_sub_ret_);
+	applications_sub_ret_ = NULL;
+	look_for_undefined_labels_ret_destructor(
+			functions_sub_ret_);
+	functions_sub_ret_ = NULL;
 	return ret_;
 }
 

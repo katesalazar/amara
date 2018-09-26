@@ -81,25 +81,6 @@ void yyerror(stt_node * syntax_tree, const char * s);
 
 const uint_fast8_t bison_trace_constant = TRACE_BISON_CONSTANT_VALUE;
 
-/*   Removes potential instances of `%n`. */
-/*
-void
-disarm(const char * message)
-{
-  size_t message_len;
-  size_t i;
-  message_len = strlen(message);
-  for (i = 0; i < message_len - 1 - 1; i++) {
-    if (message[i] == '\0') {
-      break;
-    }
-    if (message[i] == '%' && message[i + 1] == 'n') {
-      ((char *) message)[i + 1] = '%';
-    }
-  }
-}
-*/
-
 void
 bison_trace_chars_array(const char * message)
 {
@@ -127,25 +108,6 @@ b_trace_uintfast8t(uint_fast8_t value)
 {
   bison_trace_uint_fast8_t(value);
 }
-
-/*   Disarms the characters array `char_array` from any possible
- * sequence of rogue `%n` placeholders. */
-/*
-void disarm_pct_n(const char * char_array)
-{
-  size_t char_array_len;
-  size_t i;
-  char_array_len = strlen(char_array);
-  for (i = 0; i < char_array_len - 1 - 1; i++) {
-    if (char_array[i] == '\0') {
-      break;
-    }
-    if (char_array[i] == '%' && char_array[i + 1] == 'n') {
-      ((char *) char_array)[i + 1] = '%';
-    }
-  }
-}
-*/
 
 %}
 
@@ -206,6 +168,7 @@ doc :
       "`fns_and_apps_defs_and_exectn_reqs->doc` unexpectedly NULL");
   syntax_tree->type_ = SYNTAX_TREE_NODE_TYPE_DOC;
   syntax_tree->doc_subnode_ = $1->doc_subnode_;
+  free($1);
 }
 ;
 
@@ -220,12 +183,16 @@ fns_and_apps_defs_and_exectn_reqs :
     $$->doc_subnode_ = stt_doc_subnode_default_constructor();
     $$ = register_function($$, $1);
     assertion($$->doc_subnode_ != NULL);
+    free($1->function_subnode_);
+    free($1);
   } else {
     assertion_two($2->type_ = SYNTAX_TREE_NODE_TYPE_DOC_FRAGMENT,
         "unexpected type of `fns_and_apps_defs_and_exectn_reqs`");
     assertion($2->doc_subnode_ != NULL);
     $$ = register_function($2, $1);
-    assertion($2->doc_subnode_ != NULL);
+    assertion($$->doc_subnode_ != NULL);
+    free($1->function_subnode_);
+    free($1);
   }
 }
 | app_def fns_and_apps_defs_and_exectn_reqs
@@ -238,12 +205,16 @@ fns_and_apps_defs_and_exectn_reqs :
     $$->doc_subnode_ = stt_doc_subnode_default_constructor();
     $$ = register_application($$, $1);
     assertion($$->doc_subnode_ != NULL);
+    free($1->application_subnode_);
+    free($1);
   } else {
     assertion_two($2->type_ = SYNTAX_TREE_NODE_TYPE_DOC_FRAGMENT,
         "unexpected type of `fns_and_apps_defs_and_exectn_reqs`");
     assertion($2->doc_subnode_ != NULL);
     $$ = register_application($2, $1);
-    assertion($2->doc_subnode_ != NULL);
+    assertion($$->doc_subnode_ != NULL);
+    free($1->application_subnode_);
+    free($1);
   }
 }
 | exectn_req fns_and_apps_defs_and_exectn_reqs
@@ -256,12 +227,16 @@ fns_and_apps_defs_and_exectn_reqs :
     $$->doc_subnode_ = stt_doc_subnode_default_constructor();
     $$ = register_execution_request($$, $1);
     assertion($$->doc_subnode_ != NULL);
+    free($1->execution_request_subnode_);
+    free($1);
   } else {
     assertion_two($2->type_ = SYNTAX_TREE_NODE_TYPE_DOC_FRAGMENT,
         "unexpected type of `fns_and_apps_defs_and_exectn_reqs`");
     assertion($2->doc_subnode_ != NULL);
     $$ = register_execution_request($2, $1);
-    assertion($2->doc_subnode_ != NULL);
+    assertion($$->doc_subnode_ != NULL);
+    free($1->execution_request_subnode_);
+    free($1);
   }
 }
 |
@@ -320,8 +295,12 @@ cli_app_def :
       STT_APPLICATION_SUBNODE_TYPE_CLI_APPLICATION;
   $$->type_ = SYNTAX_TREE_NODE_TYPE_APPLICATION;
 
+  free($2->identifier_subnode_);
   free($2);
+  free($16->identifier_subnode_);
   free($16);
+  free($21->identifier_subnode_->value_);
+  free($21->identifier_subnode_);
   free($21);
 }
 ;
@@ -404,8 +383,12 @@ cli_fn_def :
 
   $$->type_ = SYNTAX_TREE_NODE_TYPE_FUNCTION;
 
+  free($2->identifier_subnode_);
   free($2);
+  free($28->operations_list_subnode_);
   free($28);
+  free($34->identifier_subnode_->value_);
+  free($34->identifier_subnode_);
   free($34);
 }
 ;
@@ -466,7 +449,13 @@ exectn_req :
       EXECUTION_REQUEST_SUBNODE_TYPE_RUN_CLI_APPLICATION;
   $$->execution_request_subnode_->application_name_ =
       $6->identifier_subnode_->value_;
+
+  free($6->identifier_subnode_);
   free($6);
+
+  /* stt_node_destructor($6); */
+
+  /* free($6); */
 }
 ;
 
@@ -487,6 +476,8 @@ cli_fn_ops :
   new_node_->next = $3->operations_list_subnode_->operations_;
   $3->operations_list_subnode_->operations_ = new_node_;
   $$ = $3;
+  free($3);
+  free($1->operation_subnode_);
   free($1);
 }
 | cli_fn_op
@@ -505,6 +496,8 @@ cli_fn_ops :
       $1->operation_subnode_->operation_;
   $$->operations_list_subnode_->operations_->next = NULL;
   $$->type_ = SYNTAX_TREE_NODE_TYPE_CLI_OPERATIONS_LIST;
+  free($1->operation_subnode_);
+  free($1);
 }
 ;
 

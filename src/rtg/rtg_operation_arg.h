@@ -44,13 +44,24 @@ rtg_operation_arg_copy_constructor(const rtg_operation_arg * operation)
 __attribute__((warn_unused_result))
 ;
 
+void
+rtg_operation_arg_destructor(rtg_operation_arg * operation)
+;
+
 #define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_INVALID 0x00
+#define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_ERROR_UNSPECIFIC 0x0F
 #define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_operation_arg_out_of_stt_operation_arg_ret {
 	uint_fast8_t status;
 	rtg_operation_arg * operation_arg;
+	amara_boolean operation_arg_was_moved;
 } rtg_operation_arg_out_of_stt_operation_arg_ret;
+
+void
+rtg_operation_arg_out_of_stt_operation_arg_ret_destructor(
+		rtg_operation_arg_out_of_stt_operation_arg_ret * rtg_operation_arg_out_of_stt_operation_arg_ret_)
+;
 
 rtg_operation_arg_out_of_stt_operation_arg_ret *
 rtg_operation_arg_out_of_stt_operation_arg(

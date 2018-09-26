@@ -24,10 +24,6 @@
  * const char * src)`. */
 #include <string.h>
 
-/*   For `amara_boolean`. */
-/* #include "amara_boolean.h" */ /* FIXME    Remove this? Got via the
-                                  * FIXME  own definitions..? */
-
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 

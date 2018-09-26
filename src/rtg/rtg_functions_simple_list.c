@@ -59,18 +59,43 @@ rtg_functions_simple_list_copy_constructor(rtg_functions_simple_list * list)
 	return ret_;
 }
 
-/*
+void
+rtg_functions_simple_list_destructor(rtg_functions_simple_list * list)
+{
+	assertion(list != NULL);
+	if (list->first == NULL) {
+		assertion(list->next == NULL);
+	} else {
+		rtg_function_destructor(list->first);
+	}
+	if (list->next != NULL) {
+		rtg_functions_simple_list_destructor(list->next);
+	}
+	free(list);
+}
 
-#define FIND_RTG_FUNCTION_BY_NAME_RET_STATUS_INVALID   0x00
-#define FIND_RTG_FUNCTION_BY_NAME_RET_STATUS_SUCCESS   0x0F
-#define FIND_RTG_FUNCTION_BY_NAME_RET_STATUS_NOT_FOUND 0xF0
-
-typedef struct find_rtg_function_by_name_ret {
-	uint_fast8_t status;
-	rtg_function * function;
-} find_rtg_function_by_name_ret;
-
-*/
+void
+find_rtg_function_by_name_ret_destructor(
+		find_rtg_function_by_name_ret * find_rtg_function_by_name_ret_)
+{
+	assertion(find_rtg_function_by_name_ret_ != NULL);
+	if (find_rtg_function_by_name_ret_->status ==
+			FIND_RTG_FUNCTION_BY_NAME_RET_STATUS_SUCCESS) {
+		assertion(find_rtg_function_by_name_ret_->function != NULL);
+		if (find_rtg_function_by_name_ret_->function_was_moved ==
+				AMARA_BOOLEAN_FALSE) {
+			rtg_function_destructor(
+					find_rtg_function_by_name_ret_->function);
+		}
+	} else {
+		assertion(find_rtg_function_by_name_ret_->status ==
+					FIND_RTG_FUNCTION_BY_NAME_RET_STATUS_NOT_FOUND ||
+				find_rtg_function_by_name_ret_->status ==
+						FIND_RTG_FUNCTION_BY_NAME_RET_STATUS_INVALID);
+		assertion(find_rtg_function_by_name_ret_->function == NULL);
+	}
+	free(find_rtg_function_by_name_ret_);
+}
 
 find_rtg_function_by_name_ret *
 find_rtg_function_by_name(
@@ -85,9 +110,11 @@ find_rtg_function_by_name(
 			__FILE__, __LINE__);
 	ret_->status = FIND_RTG_FUNCTION_BY_NAME_RET_STATUS_INVALID;
 	ret_->function = NULL;
+	ret_->function_was_moved = AMARA_BOOLEAN_FALSE;
 	if (haystack == NULL) {
 		ret_->status = FIND_RTG_FUNCTION_BY_NAME_RET_STATUS_NOT_FOUND;
 		ret_->function = NULL;
+		ret_->function_was_moved = AMARA_BOOLEAN_FALSE;
 		fprintf(stderr, "<---- %s:%u:find_rtg_function_by_name_ret * find_rtg_function_by_name(const amara_string *, const rtg_functions_simple_list *) - not found\n",
 				__FILE__, __LINE__);
 		return ret_;
@@ -97,6 +124,7 @@ find_rtg_function_by_name(
 		ret_->status = FIND_RTG_FUNCTION_BY_NAME_RET_STATUS_SUCCESS;
 		function_ = rtg_function_copy_constructor(haystack->first);
 		ret_->function = function_;
+		ret_->function_was_moved = AMARA_BOOLEAN_FALSE;
 		fprintf(stderr, "<---- %s:%u:find_rtg_function_by_name_ret * find_rtg_function_by_name(const amara_string *, const rtg_functions_simple_list *) - found\n",
 				__FILE__, __LINE__);
 		return ret_;
@@ -106,7 +134,8 @@ find_rtg_function_by_name(
 	rec_ret_ = find_rtg_function_by_name(needle, haystack->next);
 	ret_->status = rec_ret_->status;
 	ret_->function = rec_ret_->function;
-	free(rec_ret_);
+	rec_ret_->function_was_moved = AMARA_BOOLEAN_TRUE;
+	find_rtg_function_by_name_ret_destructor(rec_ret_);
 	fprintf(stderr, "<---- %s:%u:find_rtg_function_by_name_ret * find_rtg_function_by_name(const amara_string *, const rtg_functions_simple_list *) - returning recursive case result inconditionally\n",
 			__FILE__, __LINE__);
 	return ret_;
@@ -139,6 +168,9 @@ rtg_functions_simple_list_out_of_stt_functions_simple_list(
 	assertion(sub_ret_fun_ret_->status ==
 			RTG_FUNCTION_OUT_OF_STT_FUNCTION_RET_STATUS_SUCCESS);
 	sub_ret_->first = sub_ret_fun_ret_->function;
+	sub_ret_fun_ret_->function_was_moved = AMARA_BOOLEAN_TRUE;
+	rtg_function_out_of_stt_function_ret_destructor(
+			sub_ret_fun_ret_);
 	list_ptr_ = list;
 	sub_ret_ptr_ = sub_ret_;
 	while (list_ptr_->next != NULL) {
@@ -150,6 +182,9 @@ rtg_functions_simple_list_out_of_stt_functions_simple_list(
 		assertion(sub_ret_fun_ret_->status ==
 				RTG_FUNCTION_OUT_OF_STT_FUNCTION_RET_STATUS_SUCCESS);
 		sub_ret_ptr_->next->first = sub_ret_fun_ret_->function;
+		sub_ret_fun_ret_->function_was_moved = AMARA_BOOLEAN_TRUE;
+		rtg_function_out_of_stt_function_ret_destructor(
+				sub_ret_fun_ret_);
 		list_ptr_ = list_ptr_->next;
 		sub_ret_ptr_ = sub_ret_ptr_->next;
 	}

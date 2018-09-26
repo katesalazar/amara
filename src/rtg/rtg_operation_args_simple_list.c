@@ -61,6 +61,22 @@ rtg_operation_args_simple_list_copy_constructor(
 	return ret_;
 }
 
+void
+rtg_operation_args_simple_list_destructor(
+		rtg_operation_args_simple_list * operation_args)
+{
+	assertion(operation_args != NULL);
+	if (operation_args->first == NULL) {
+		assertion(operation_args->next == NULL);
+	} else {
+		rtg_operation_arg_destructor(operation_args->first);
+	}
+	if (operation_args->next != NULL) {
+		rtg_operation_args_simple_list_destructor(
+				operation_args->next);
+	}
+}
+
 uint_fast8_t
 rtg_operation_args_simple_list_size_inner(
 		const rtg_operation_args_simple_list * operation_args)
@@ -92,17 +108,31 @@ rtg_operation_args_simple_list_size(
 	return rtg_operation_args_simple_list_size_inner(operation_args);
 }
 
-/*
-
-#define RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_INVALID 0x00
-#define RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
-
-typedef struct rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret {
-	uint_fast8_t status;
-	rtg_operation_args_simple_list * operation_args;
-} rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret;
-
-*/
+void
+rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_destructor(
+		rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret * rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_)
+{
+	assertion(rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_ !=
+			NULL);
+	if (rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_->status ==
+			RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
+		assertion(rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_->operation_args !=
+				NULL);
+		if (rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_->operation_args_were_moved ==
+				AMARA_BOOLEAN_FALSE) {
+			rtg_operation_args_simple_list_destructor(
+					rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_->operation_args);
+		}
+	} else {
+		assertion(rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_->status ==
+					RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_INVALID ||
+				rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_->status ==
+						RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC);
+		assertion(rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_->operation_args ==
+				NULL);
+	}
+	free(rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_);
+}
 
 rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret *
 rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list(
@@ -138,6 +168,10 @@ rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list(
 		assertion(sub_ret_ptr_element_ret_->status ==
 				RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS);
 		sub_ret_ptr_element_ = sub_ret_ptr_element_ret_->operation_arg;
+		sub_ret_ptr_element_ret_->operation_arg_was_moved =
+				AMARA_BOOLEAN_TRUE;
+		rtg_operation_arg_out_of_stt_operation_arg_ret_destructor(
+				sub_ret_ptr_element_ret_);
 		sub_ret_ptr_->first = sub_ret_ptr_element_;
 		sub_ret_ptr_->next =
 				malloc(sizeof(rtg_operation_args_simple_list));
@@ -150,6 +184,10 @@ rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list(
 	assertion(sub_ret_ptr_element_ret_->status ==
 			RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS);
 	sub_ret_ptr_element_ = sub_ret_ptr_element_ret_->operation_arg;
+	sub_ret_ptr_element_ret_->operation_arg_was_moved =
+			AMARA_BOOLEAN_TRUE;
+	rtg_operation_arg_out_of_stt_operation_arg_ret_destructor(
+			sub_ret_ptr_element_ret_);
 	sub_ret_ptr_->first = sub_ret_ptr_element_;
 	sub_ret_ptr_->next = NULL;
 	ret_->operation_args = sub_ret_;

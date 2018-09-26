@@ -25,9 +25,6 @@
 /*   For `char_arrays_simple_list`. */
 #include "../cmn/char_arrays_simple_list.h"
 
-/*   For `rtg_doc`. */
-#include "../rtg/rtg_doc.h"
-
 /*   For `stt_application_subnode`. */
 #include "stt_application_subnode.h"
 
@@ -172,55 +169,19 @@ dump_syntax_tree(const stt_node * node)
 #define LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR   0xF0
 
 typedef struct look_for_undefined_labels_ret {
-	uint_fast8_t status_;
-	char_arrays_simple_list * messages_;
-	/* rtg_doc * rtg_doc_; */ /* migrated to somewhere else */
+	uint_fast8_t status;
+	char_arrays_simple_list * messages;
 } look_for_undefined_labels_ret;
+
+void
+look_for_undefined_labels_ret_destructor(
+		look_for_undefined_labels_ret * look_for_undefined_labels_ret_)
+;
 
 look_for_undefined_labels_ret *
 look_for_undefined_labels(const stt_node * node)
-__attribute__((warn_unused_result));
-
-#define RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_INVALID 0x00
-#define RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_OK      0x0F
-#define RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_ERROR   0xF0
-
-typedef struct rtg_doc_out_of_stt_doc_ret {
-	uint_fast8_t status_;
-	rtg_doc * doc_;
-} rtg_doc_out_of_stt_doc_ret;
-
-rtg_doc_out_of_stt_doc_ret *
-rtg_doc_out_of_stt_doc(const stt_node * node)
-__attribute__((warn_unused_result));
-
-/*
-
-#define RTG_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_INVALID 0x00
-#define RTG_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_SUCCESS 0xFF
-
-typedef struct rtg_functions_out_of_stt_doc_ret {
-	uint_fast8_t status_;
-	rtg_functions_simple_list * rtg_functions_;
-} rtg_functions_out_of_stt_doc_ret;
-
-#define RTG_APPLICATIONS_OUT_OF_STT_DOC_RET_STATUS_INVALID 0x00
-#define RTG_APPLICACIONS_OUT_OF_STT_DOC_RET_STATUS_SUCCESS 0xFF
-
-typedef struct rtg_applications_out_of_stt_doc_ret {
-	uint_fast8_t status_;
-	rtg_applications_simple_list * rtg_applications_;
-} rtg_applications_out_of_stt_doc_ret;
-
-#define RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_RET_STATUS_INVALID 0x00
-#define RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_RET_STATUS_SUCCESS 0xFF
-
-typedef struct rtg_execution_requests_out_of_stt_doc_ret {
-	uint_fast8_t status_;
-	rtg_execution_requests_simple_list * rtg_execution_requests_;
-} rtg_execution_requests_out_of_stt_doc_ret;
-
-*/
+__attribute__((warn_unused_result))
+;
 
 void
 assert_pure_natural_node(const stt_node * node)

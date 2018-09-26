@@ -49,6 +49,47 @@ rtg_application_copy_constructor(const rtg_application * application)
 	return ret_;
 }
 
+void
+rtg_application_destructor(rtg_application * application)
+{
+	assertion(application != NULL);
+	if (application->type_ == RTG_APPLICATION_TYPE_INVALID) {
+		assertion(application->name_ == NULL);
+		assertion(application->entry_point_function_ == NULL);
+	} else {
+		assertion(application->name_ != NULL);
+		amara_string_destructor(application->name_);
+		assertion(application->entry_point_function_ != NULL);
+		rtg_function_destructor(application->entry_point_function_);
+	}
+	free(application);
+}
+
+void
+rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret_destructor(
+		rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret * rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret_)
+{
+	assertion(rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret_ != NULL);
+	if (rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret_->status ==
+			RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
+		assertion(rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret_->application !=
+				NULL);
+		if (rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret_->application_was_moved ==
+				AMARA_BOOLEAN_FALSE) {
+			rtg_application_destructor(
+					rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret_->application);
+		}
+	} else {
+		assertion(rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret_->status ==
+					RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID ||
+				rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret_->status ==
+					RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC);
+		assertion(rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret_->application ==
+				NULL);
+	}
+	free(rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret_);
+}
+
 rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret *
 rtg_application_out_of_stt_application_and_rtg_functions_simple_list(
 		const stt_application * application,
@@ -75,12 +116,17 @@ rtg_application_out_of_stt_application_and_rtg_functions_simple_list(
 			"unable to find function with particular name in list of functions (function set to NULL inconsistently given the status code returned was success)");
 	application_entry_point_function_ =
 			find_entry_point_rtg_function_ret_->function;
+	find_entry_point_rtg_function_ret_->function_was_moved =
+			AMARA_BOOLEAN_TRUE;
+	find_rtg_function_by_name_ret_destructor(
+			find_entry_point_rtg_function_ret_);
 	assertion(application_entry_point_function_ != NULL);
 	ret_->application->entry_point_function_ =
 			application_entry_point_function_;
 	ret_->application->name_ =
 			amara_string_copy_constructor(application->name_);
 	ret_->application->type_ = application->type_;
+	ret_->application_was_moved = AMARA_BOOLEAN_FALSE;
 	ret_->status = RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
 	fprintf(stderr, "<---- rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret * rtg_application_out_of_stt_application_and_rtg_functions_simple_list(const stt_application *, const rtg_functions_simple_list *) (%s:%u)\n",
 			__FILE__, __LINE__);

@@ -19,6 +19,9 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__DOC__H__
 #define __AMARA__RUN_TIME_GRAPH__DOC__H__
 
+/*   For `stt_node`. */
+#include "../stt/stt_node.h"
+
 /*   For `rtg_functions_simple_list`. */
 #include "rtg_functions_simple_list.h"
 
@@ -39,6 +42,29 @@ rtg_doc_exhaustive_constructor(
 		rtg_functions_simple_list * functions,
 		rtg_applications_simple_list * applications,
 		rtg_execution_requests_simple_list * execution_requests)
+__attribute__((warn_unused_result))
+;
+
+void
+rtg_doc_destructor(rtg_doc * doc)
+;
+
+#define RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_INVALID 0x00
+#define RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_SUCCESS          0x0F
+#define RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_ERROR_UNSPECIFIC 0xF0
+
+typedef struct rtg_doc_out_of_stt_doc_ret {
+	uint_fast8_t status;
+	rtg_doc * doc;
+} rtg_doc_out_of_stt_doc_ret;
+
+void
+rtg_doc_out_of_stt_doc_ret_destructor(
+		rtg_doc_out_of_stt_doc_ret * rtg_doc_out_of_stt_doc_ret_)
+;
+
+rtg_doc_out_of_stt_doc_ret *
+rtg_doc_out_of_stt_doc(const stt_node * node)
 __attribute__((warn_unused_result))
 ;
 

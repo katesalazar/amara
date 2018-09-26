@@ -58,12 +58,19 @@ stt_doc_subnode_destructor(stt_doc_subnode * subnode)
 ;
 
 #define RTG_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_INVALID 0x00
+#define RTG_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_ERROR_UNSPECIFIC 0x0F
 #define RTG_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_functions_out_of_stt_doc_ret {
 	uint_fast8_t status;
 	rtg_functions_simple_list * functions;
+	amara_boolean functions_were_moved;
 } rtg_functions_out_of_stt_doc_ret;
+
+void
+rtg_functions_out_of_stt_doc_ret_destructor(
+		rtg_functions_out_of_stt_doc_ret * rtg_functions_out_of_stt_doc_ret_)
+;
 
 rtg_functions_out_of_stt_doc_ret *
 rtg_functions_out_of_stt_doc(const stt_doc_subnode * subnode)
@@ -71,12 +78,19 @@ __attribute__((warn_unused_result))
 ;
 
 #define RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID 0x00
+#define RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC 0x0F
 #define RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list_ret {
 	uint_fast8_t status;
 	rtg_applications_simple_list * applications;
+	amara_boolean applications_were_moved;
 } rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list_ret;
+
+void
+rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list_ret_destructor(
+		rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list_ret * rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list_ret_)
+;
 
 rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list_ret *
 rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list(
@@ -86,12 +100,19 @@ __attribute__((warn_unused_result))
 ;
 
 #define RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_INVALID 0x00
+#define RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC 0x0F
 #define RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret {
 	uint_fast8_t status;
 	rtg_execution_requests_simple_list * execution_requests;
+	amara_boolean execution_requests_were_moved;
 } rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret;
+
+void
+rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_destructor(
+		rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret * rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_)
+;
 
 rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret *
 rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list(

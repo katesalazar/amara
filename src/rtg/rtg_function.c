@@ -48,6 +48,44 @@ rtg_function_copy_constructor(const rtg_function * original)
 	return ret_;
 }
 
+void
+rtg_function_destructor(rtg_function * function)
+{
+	assertion(function != NULL);
+	if (function->type_ == RTG_FUNCTION_TYPE_INVALID) {
+		assertion(function->name_ == NULL);
+		assertion(function->operations_ == NULL);
+	} else {
+		assertion(function->name_ != NULL);
+		amara_string_destructor(function->name_);
+		assertion(function->operations_ != NULL);
+		rtg_operations_simple_list_destructor(function->operations_);
+	}
+	free(function);
+}
+
+void
+rtg_function_out_of_stt_function_ret_destructor(
+	rtg_function_out_of_stt_function_ret * rtg_function_out_of_stt_function_ret_)
+{
+	if (rtg_function_out_of_stt_function_ret_->status ==
+			RTG_FUNCTION_OUT_OF_STT_FUNCTION_RET_STATUS_SUCCESS) {
+		if (rtg_function_out_of_stt_function_ret_->function_was_moved ==
+				AMARA_BOOLEAN_FALSE) {
+			rtg_function_destructor(
+					rtg_function_out_of_stt_function_ret_->function);
+		}
+	} else {
+		assertion(rtg_function_out_of_stt_function_ret_->status ==
+					RTG_FUNCTION_OUT_OF_STT_FUNCTION_RET_STATUS_INVALID ||
+				rtg_function_out_of_stt_function_ret_->status ==
+						RTG_FUNCTION_OUT_OF_STT_FUNCTION_RET_STATUS_ERROR_UNSPECIFIC);
+		assertion(rtg_function_out_of_stt_function_ret_->function ==
+				NULL);
+	}
+	free(rtg_function_out_of_stt_function_ret_);
+}
+
 rtg_function_out_of_stt_function_ret *
 rtg_function_out_of_stt_function(const stt_function * function)
 {
@@ -64,8 +102,12 @@ rtg_function_out_of_stt_function(const stt_function * function)
 	assertion(sub_ret_->status ==
 			RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
 	ret_->function->operations_ = sub_ret_->operations;
+	sub_ret_->operations_were_moved = AMARA_BOOLEAN_TRUE;
+	rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_destructor(
+			sub_ret_);
 	ret_->function->name_ = amara_string_copy_constructor(function->name_);
 	ret_->function->type_ = function->type_;
+	ret_->function_was_moved = AMARA_BOOLEAN_FALSE;
 	ret_->status = RTG_FUNCTION_OUT_OF_STT_FUNCTION_RET_STATUS_SUCCESS;
 	fprintf(stderr, "<---- %s:%u rtg_function_out_of_stt_function_ret * rtg_function_out_of_stt_function(const stt_function *)\n",
 			__FILE__, __LINE__);

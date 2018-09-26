@@ -36,6 +36,10 @@ rtg_functions_simple_list_copy_constructor(rtg_functions_simple_list * list)
 __attribute__((warn_unused_result))
 ;
 
+void
+rtg_functions_simple_list_destructor(rtg_functions_simple_list * list)
+;
+
 #define FIND_RTG_FUNCTION_BY_NAME_RET_STATUS_INVALID   0x00
 #define FIND_RTG_FUNCTION_BY_NAME_RET_STATUS_SUCCESS   0x0F
 #define FIND_RTG_FUNCTION_BY_NAME_RET_STATUS_NOT_FOUND 0xF0
@@ -43,7 +47,13 @@ __attribute__((warn_unused_result))
 typedef struct find_rtg_function_by_name_ret {
 	uint_fast8_t status;
 	rtg_function * function;
+	amara_boolean function_was_moved;
 } find_rtg_function_by_name_ret;
+
+void
+find_rtg_function_by_name_ret_destructor(
+		find_rtg_function_by_name_ret * find_rtg_function_by_name_ret_)
+;
 
 find_rtg_function_by_name_ret *
 find_rtg_function_by_name(
@@ -53,11 +63,13 @@ __attribute__((warn_unused_result))
 ;
 
 #define RTG_FUNCTIONS_SIMPLE_LIST_OUT_OF_STT_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID 0x00
+#define RTG_FUNCTIONS_SIMPLE_LIST_OUT_OF_STT_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC 0x0F
 #define RTG_FUNCTIONS_SIMPLE_LIST_OUT_OF_STT_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_functions_simple_list_out_of_stt_functions_simpe_list_ret {
 	uint_fast8_t status;
 	rtg_functions_simple_list * functions;
+	amara_boolean functions_were_moved;
 } rtg_functions_simple_list_out_of_stt_functions_simple_list_ret;
 
 rtg_functions_simple_list_out_of_stt_functions_simple_list_ret *

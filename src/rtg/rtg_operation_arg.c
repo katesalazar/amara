@@ -41,6 +41,43 @@ rtg_operation_arg_copy_constructor(const rtg_operation_arg * operation_arg)
 	return ret_;
 }
 
+void
+rtg_operation_arg_destructor(rtg_operation_arg * operation_arg)
+{
+	assertion(operation_arg != NULL);
+	if (operation_arg->type_ == RTG_OPERATION_ARG_TYPE_INVALID) {
+		assertion(operation_arg->string_literal_ == NULL);
+	} else {
+		amara_string_destructor(operation_arg->string_literal_);
+	}
+	free(operation_arg);
+}
+
+void
+rtg_operation_arg_out_of_stt_operation_arg_ret_destructor(
+		rtg_operation_arg_out_of_stt_operation_arg_ret * rtg_operation_arg_out_of_stt_operation_arg_ret_)
+{
+	assertion(rtg_operation_arg_out_of_stt_operation_arg_ret_ != NULL);
+	if (rtg_operation_arg_out_of_stt_operation_arg_ret_->status ==
+			RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS) {
+		assertion(rtg_operation_arg_out_of_stt_operation_arg_ret_->operation_arg !=
+				NULL);
+		if (rtg_operation_arg_out_of_stt_operation_arg_ret_->operation_arg_was_moved ==
+				AMARA_BOOLEAN_FALSE) {
+			rtg_operation_arg_destructor(
+					rtg_operation_arg_out_of_stt_operation_arg_ret_->operation_arg);
+		}
+	} else {
+		assertion(rtg_operation_arg_out_of_stt_operation_arg_ret_->status ==
+					RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_INVALID ||
+				rtg_operation_arg_out_of_stt_operation_arg_ret_->status ==
+					RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_ERROR_UNSPECIFIC);
+		assertion(rtg_operation_arg_out_of_stt_operation_arg_ret_->operation_arg ==
+				NULL);
+	}
+	free(rtg_operation_arg_out_of_stt_operation_arg_ret_);
+}
+
 rtg_operation_arg_out_of_stt_operation_arg_ret *
 rtg_operation_arg_out_of_stt_operation_arg(
 		const stt_operation_arg * operation_arg)
@@ -49,6 +86,8 @@ rtg_operation_arg_out_of_stt_operation_arg(
 	rtg_operation_arg * sub_ret_;
 	ret_ = malloc(sizeof(rtg_operation_arg_out_of_stt_operation_arg_ret));
 	ret_->status = RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_INVALID;
+	ret_->operation_arg = NULL;
+	ret_->operation_arg_was_moved = AMARA_BOOLEAN_FALSE;
 	assertion(operation_arg != NULL);
 	assertion(operation_arg->node_ != NULL);
 	/* assert_stt_node_is_valid(operation_arg->node_); */

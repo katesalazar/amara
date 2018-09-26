@@ -25,16 +25,6 @@
 /*   For own definitions. */
 #include "stt_function.h"
 
-/*
-
-typedef struct stt_function {
-	uint_fast8_t type_;
-	amara_string * name_;
-	stt_operations_simple_list * operations_;
-} stt_function;
-
-*/
-
 stt_function *
 stt_function_copy_constructor(const stt_function * function)
 {

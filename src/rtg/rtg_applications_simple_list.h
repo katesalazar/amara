@@ -33,8 +33,13 @@ typedef struct rtg_applications_simple_list {
 
 rtg_applications_simple_list *
 rtg_applications_simple_list_copy_constructor(
-		rtg_applications_simple_list * list)
+		const rtg_applications_simple_list * list)
 __attribute__((warn_unused_result))
+;
+
+void
+rtg_applications_simple_list_destructor(
+		rtg_applications_simple_list * list)
 ;
 
 #define FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_INVALID   0x00
@@ -44,7 +49,13 @@ __attribute__((warn_unused_result))
 typedef struct find_rtg_application_by_name_ret {
 	uint_fast8_t status;
 	rtg_application * application;
+	amara_boolean application_was_moved;
 } find_rtg_application_by_name_ret;
+
+void
+find_rtg_application_by_name_ret_destructor(
+		find_rtg_application_by_name_ret * find_rtg_application_by_name_ret_)
+;
 
 find_rtg_application_by_name_ret *
 find_rtg_application_by_name(
@@ -54,6 +65,7 @@ __attribute__((warn_unused_result))
 ;
 
 #define RTG_APPLICATIONS_SIMPLE_LIST_OUT_OF_STT_APPLICATIONS_SIMPLE_LIST_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID 0x00
+#define RTG_APPLICATIONS_SIMPLE_LIST_OUT_OF_STT_APPLICATIONS_SIMPLE_LIST_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC 0x0F
 #define RTG_APPLICATIONS_SIMPLE_LIST_OUT_OF_STT_APPLICATIONS_SIMPLE_LIST_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_functions_simple_list_ret {

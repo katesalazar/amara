@@ -37,6 +37,11 @@ rtg_operation_args_simple_list_copy_constructor(
 __attribute__((warn_unused_result))
 ;
 
+void
+rtg_operation_args_simple_list_destructor(
+		rtg_operation_args_simple_list * operation_args)
+;
+
 uint_fast8_t
 rtg_operation_args_simple_list_size(
 		const rtg_operation_args_simple_list * operation_args)
@@ -44,12 +49,19 @@ __attribute__((warn_unused_result))
 ;
 
 #define RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_INVALID 0x00
+#define RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC 0x0F
 #define RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret {
 	uint_fast8_t status;
 	rtg_operation_args_simple_list * operation_args;
+	amara_boolean operation_args_were_moved;
 } rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret;
+
+void
+rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_destructor(
+		rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret * rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_)
+;
 
 rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret *
 rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list(

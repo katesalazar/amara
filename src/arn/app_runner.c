@@ -63,12 +63,14 @@
 
 uint_fast8_t
 run_app_dir_exists(const char * app_name)
-__attribute__((warn_unused_result));
+__attribute__((warn_unused_result))
+;
 
 uint_fast8_t
 run_app_main_doc_exists(
 		const char * app_name, const FILE * main_doc_descriptor)
-__attribute__((warn_unused_result));
+__attribute__((warn_unused_result))
+;
 
 uint_fast8_t run_app(const char * app_name)
 {
@@ -83,15 +85,9 @@ uint_fast8_t run_app(const char * app_name)
 				app_name);
 		printf("The directory does not exist.\n");
 		return APP_RUNNER_RUN_APP_RET_ERROR_DIR_DOES_NOT_EXIST;
-	/* } else if (acquire_dir_return_status_ ==
-			PERSISTENCE_ACQUIRE_DIR_ERR_UNSPECIFIC) {
-		printf("An error happened while accessing the dir '%s'. ",
-				app_name);
-		printf("There is no additional information about the ");
-		printf("error.\n"); */
 	}
-	inner_status_ = run_app_dir_exists(app_name); /* XXX */
-	return inner_status_; /* XXX */
+	inner_status_ = run_app_dir_exists(app_name);
+	return inner_status_;
 }
 
 uint_fast8_t run_app_dir_exists(const char * app_name)
@@ -129,13 +125,14 @@ uint_fast8_t run_app_dir_exists(const char * app_name)
 			app_name, main_doc_descriptor_);
 	assertion(path_to_main_ != NULL);
 	free((char *) path_to_main_);
-	assertion(inner_status_ == 0x00); /* XXX */
-	return 0x00; /* XXX */
+	assertion(inner_status_ == 0x00);
+	return 0x00;
 }
 
 stt_node *
 minia_bison_main(FILE * file)
-__attribute__((warn_unused_result));
+__attribute__((warn_unused_result))
+;
 
 uint_fast8_t
 run_app_main_doc_exists(
@@ -143,10 +140,9 @@ run_app_main_doc_exists(
 {
 	stt_node * minia_bison_main_ret_;
 	look_for_undefined_labels_ret * look_for_undefined_labels_ret_;
-	/* uint_fast8_t process_rtg_doc_execution_requests_ret_; */
 	process_rtg_doc_execution_requests_ret * process_rtg_doc_execution_requests_ret_;
 	char_arrays_simple_list * ptr_;
-	const rtg_doc_out_of_stt_doc_ret * rtg_doc_out_of_stt_doc_ret_;
+	rtg_doc_out_of_stt_doc_ret * rtg_doc_out_of_stt_doc_ret_;
 	assertion(main_doc_descriptor != NULL);
 	assertion(app_name != NULL);
 
@@ -158,29 +154,30 @@ run_app_main_doc_exists(
 	look_for_undefined_labels_ret_ =
 			look_for_undefined_labels(minia_bison_main_ret_);
 
-	if (look_for_undefined_labels_ret_->status_ !=
+	if (look_for_undefined_labels_ret_->status !=
 			LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_OK) {
-		assertion(look_for_undefined_labels_ret_->status_ ==
+		assertion(look_for_undefined_labels_ret_->status ==
 				LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR);
 		fprintf(stderr, "error: undefined labels exist\n");
 		fprintf(stderr, "%s:%u - look_for_undefined_labels_ret_->status: %u\n",
 				__FILE__, __LINE__,
-				look_for_undefined_labels_ret_->status_);
-		ptr_ = look_for_undefined_labels_ret_->messages_;
+				look_for_undefined_labels_ret_->status);
+		ptr_ = look_for_undefined_labels_ret_->messages;
 		while (ptr_ != NULL) {
 			fprintf(stderr, "%s\n", ptr_->first);
 			ptr_ = ptr_->next;
 		}
+		look_for_undefined_labels_ret_destructor(
+				look_for_undefined_labels_ret_);
+		look_for_undefined_labels_ret_ = NULL;
 		return APP_RUNNER_RUN_APP_RET_ERROR_MALFORMED_DOC;
 	} else {
 		/*   If there were no undefined labels, defined labels
 		 * have already been used to help all necessary pointer
 		 * resolutions. */
-		/*
-		process_rtg_doc_execution_requests_ret_ =
-				process_rtg_doc_execution_requests(
-						look_for_undefined_labels_ret_->rtg_doc_);
-		assertion(process_rtg_doc_execution_requests_ret_); */ /* XXX */
+		look_for_undefined_labels_ret_destructor(
+				look_for_undefined_labels_ret_);
+		look_for_undefined_labels_ret_ = NULL;
 
 		/*   Now it is known there are no missing labels, ask
 		 * for a run time ready graph where all labels have been
@@ -188,15 +185,22 @@ run_app_main_doc_exists(
 		rtg_doc_out_of_stt_doc_ret_ =
 				rtg_doc_out_of_stt_doc(minia_bison_main_ret_);
 
-		assertion(rtg_doc_out_of_stt_doc_ret_->status_ ==
-				RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_OK);
+		assertion(rtg_doc_out_of_stt_doc_ret_->status ==
+				RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_SUCCESS);
 
 		process_rtg_doc_execution_requests_ret_ =
 				process_rtg_doc_execution_requests(
-						rtg_doc_out_of_stt_doc_ret_->doc_);
+						rtg_doc_out_of_stt_doc_ret_->doc);
 
-		assertion(process_rtg_doc_execution_requests_ret_->status_ ==
+		assertion(process_rtg_doc_execution_requests_ret_->status ==
 				PROCESS_RTG_DOC_EXECUTION_REQUESTS_RET_STATUS_SUCCESS);
+
+		process_rtg_doc_execution_requests_ret_destructor(
+				process_rtg_doc_execution_requests_ret_);
+		process_rtg_doc_execution_requests_ret_ = NULL;
+
+		rtg_doc_out_of_stt_doc_ret_destructor(
+				rtg_doc_out_of_stt_doc_ret_);
 
 		return APP_RUNNER_RUN_APP_RET_SUCCESS;
 	}
@@ -244,7 +248,6 @@ run_function(const rtg_function * function)
 		run_operation(operations_ptr_->first);
 		operations_ptr_ = operations_ptr_->next;
 	}
-	/* FIXM<E operations_ptr_ is null */
 }
 
 void
@@ -257,28 +260,12 @@ run_application(const rtg_application * application)
 	run_function(entry_point_function_);
 }
 
-/*
-uint_fast8_t
-process_rtg_doc_execution_requests(const rtg_doc * doc)
+void
+process_rtg_doc_execution_requests_ret_destructor(
+		process_rtg_doc_execution_requests_ret * process_rtg_doc_execution_requests_ret_)
 {
-	rtg_execution_requests_simple_list * execution_requests_ptr_;
-	*/
-	/* XXX */
-	/*
-	fprintf(stderr, "%s:%u ----> process_rtg_doc_execution_requests - %d\n",
-			__FILE__, __LINE__, doc == NULL);
-	assertion(doc != NULL);
-	execution_requests_ptr_ = doc->execution_requests_;
-	while (execution_requests_ptr_ != NULL) {
-		run_application(execution_requests_ptr_->first->application_);
-		execution_requests_ptr_ = execution_requests_ptr_->next;
-	}
-	*/
-	/* XXX */
-	/*
-	return 0xFF;
+	free(process_rtg_doc_execution_requests_ret_);
 }
-*/
 
 process_rtg_doc_execution_requests_ret *
 process_rtg_doc_execution_requests(const rtg_doc * doc)
@@ -286,13 +273,13 @@ process_rtg_doc_execution_requests(const rtg_doc * doc)
 	process_rtg_doc_execution_requests_ret * ret_;
 	rtg_execution_requests_simple_list * execution_requests_ptr_;
 	ret_ = malloc(sizeof(process_rtg_doc_execution_requests_ret));
-	ret_->status_ = PROCESS_RTG_DOC_EXECUTION_REQUESTS_RET_STATUS_INVALID;
+	ret_->status = PROCESS_RTG_DOC_EXECUTION_REQUESTS_RET_STATUS_INVALID;
 	assertion(doc != NULL);
 	execution_requests_ptr_ = doc->execution_requests_;
 	while (execution_requests_ptr_ != NULL) {
 		run_application(execution_requests_ptr_->first->application_);
 		execution_requests_ptr_ = execution_requests_ptr_->next;
 	}
-	ret_->status_ = PROCESS_RTG_DOC_EXECUTION_REQUESTS_RET_STATUS_SUCCESS;
+	ret_->status = PROCESS_RTG_DOC_EXECUTION_REQUESTS_RET_STATUS_SUCCESS;
 	return ret_;
 }

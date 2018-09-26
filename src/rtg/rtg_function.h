@@ -50,13 +50,24 @@ rtg_function_copy_constructor(const rtg_function * original)
 __attribute__((warn_unused_result))
 ;
 
+void
+rtg_function_destructor(rtg_function * function)
+;
+
 #define RTG_FUNCTION_OUT_OF_STT_FUNCTION_RET_STATUS_INVALID 0x00
+#define RTG_FUNCTION_OUT_OF_STT_FUNCTION_RET_STATUS_ERROR_UNSPECIFIC 0x0F
 #define RTG_FUNCTION_OUT_OF_STT_FUNCTION_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_function_out_of_stt_function_ret {
 	uint_fast8_t status;
 	rtg_function * function;
+	amara_boolean function_was_moved;
 } rtg_function_out_of_stt_function_ret;
+
+void
+rtg_function_out_of_stt_function_ret_destructor(
+	rtg_function_out_of_stt_function_ret * rtg_function_out_of_stt_function_ret_)
+;
 
 rtg_function_out_of_stt_function_ret *
 rtg_function_out_of_stt_function(const stt_function * function)

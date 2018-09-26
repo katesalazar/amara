@@ -23,21 +23,12 @@
 /*   For own definitions. */
 #include "rtg_execution_requests_simple_list.h"
 
-/*
-
-typedef struct rtg_execution_requests_simple_list {
-	rtg_execution_request * first;
-	struct rtg_execution_requests_simple_list * next;
-} rtg_execution_requests_simple_list;
-
-*/
-
 rtg_execution_requests_simple_list *
 rtg_execution_requests_simple_list_copy_constructor(
-		rtg_execution_requests_simple_list * list)
+		const rtg_execution_requests_simple_list * list)
 {
 	rtg_execution_requests_simple_list * ret_;
-	rtg_execution_requests_simple_list * list_ptr_;
+	const rtg_execution_requests_simple_list * list_ptr_;
 	rtg_execution_requests_simple_list * ret_ptr_;
 	rtg_execution_request * execution_request_;
 	assertion(list != NULL);
@@ -66,6 +57,22 @@ rtg_execution_requests_simple_list_copy_constructor(
 	ret_ptr_->first = execution_request_;
 	ret_ptr_->next = NULL;
 	return ret_;
+}
+
+void
+rtg_execution_requests_simple_list_destructor(
+		rtg_execution_requests_simple_list * list)
+{
+	assertion(list != NULL);
+	if (list->first == NULL) {
+		assertion(list->next == NULL);
+	} else {
+		rtg_execution_request_destructor(list->first);
+	}
+	if (list->next != NULL) {
+		rtg_execution_requests_simple_list_destructor(list->next);
+	}
+	free(list);
 }
 
 rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list_ret *
