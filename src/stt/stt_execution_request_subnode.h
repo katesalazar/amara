@@ -26,8 +26,8 @@
 /*   For `amara_string`. */
 #include "../cmn/amara_string.h"
 
-#define EXECUTION_REQUEST_SUBNODE_TYPE_INVALID             0x00
-#define EXECUTION_REQUEST_SUBNODE_TYPE_RUN_CLI_APPLICATION 0xFF
+#define STT_EXECUTION_REQUEST_SUBNODE_TYPE_INVALID             0x00
+#define STT_EXECUTION_REQUEST_SUBNODE_TYPE_RUN_CLI_APPLICATION 0xFF
 
 typedef struct stt_execution_request_subnode {
 	uint_fast8_t type_;

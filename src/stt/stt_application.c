@@ -23,6 +23,17 @@
 #include "stt_application.h"
 
 stt_application *
+stt_application_default_constructor()
+{
+	stt_application * ret_;
+	ret_ = malloc(sizeof(stt_application));
+	ret_->entry_point_function_name_ = NULL;
+	ret_->name_ = NULL;
+	ret_->type_ = STT_APPLICATION_TYPE_INVALID;
+	return ret_;
+}
+
+stt_application *
 stt_application_copy_constructor(const stt_application * application)
 {
 	stt_application * ret_;
@@ -40,13 +51,42 @@ stt_application_copy_constructor(const stt_application * application)
 	return ret_;
 }
 
+stt_application *
+stt_application_exhaustive_constructor(
+		const amara_string * name,
+		const amara_string * entry_point_function_name,
+		uint_fast8_t flags)
+{
+	stt_application * ret_;
+	assertion(name != NULL);
+	assertion(name->value_ != NULL);
+	assertion(entry_point_function_name != NULL);
+	assertion(entry_point_function_name->value_ != NULL);
+	assertion(flags);
+	ret_ = malloc(sizeof(stt_application));
+	ret_->type_ = STT_APPLICATION_TYPE_INVALID;
+	ret_->name_ = NULL;
+	ret_->entry_point_function_name_ = NULL;
+	ret_->entry_point_function_name_ = amara_string_copy_constructor(
+			entry_point_function_name);
+	ret_->name_ = amara_string_copy_constructor(name);
+	assertion(flags ==
+			STT_APPLICATION_EXHAUSTIVE_CONSTRUCTOR_FLAG_CLI_APPLICATION);
+	ret_->type_ = STT_APPLICATION_TYPE_CLI_APPLICATION;
+	return ret_;
+}
+
 void
 stt_application_destructor(stt_application * application)
 {
-	if (application->name_ != NULL) {
+	assertion(application != NULL);
+	if (application->type_ == STT_APPLICATION_TYPE_INVALID) {
+		assertion(application->name_ == NULL);
+		assertion(application->entry_point_function_name_ == NULL);
+	} else {
+		assertion(application->name_ != NULL);
 		amara_string_destructor(application->name_);
-	}
-	if (application->entry_point_function_name_ != NULL) {
+		assertion(application->entry_point_function_name_ != NULL);
 		amara_string_destructor(
 				application->entry_point_function_name_);
 	}

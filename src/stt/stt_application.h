@@ -35,7 +35,22 @@ typedef struct stt_application {
 } stt_application;
 
 stt_application *
+stt_application_default_constructor()
+__attribute__((warn_unused_result))
+;
+
+stt_application *
 stt_application_copy_constructor(const stt_application * application)
+__attribute__((warn_unused_result))
+;
+
+#define STT_APPLICATION_EXHAUSTIVE_CONSTRUCTOR_FLAG_CLI_APPLICATION 0x01
+
+stt_application *
+stt_application_exhaustive_constructor(
+		const amara_string * name,
+		const amara_string * entry_point_function_name,
+		uint_fast8_t flags)
 __attribute__((warn_unused_result))
 ;
 

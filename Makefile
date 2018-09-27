@@ -175,6 +175,7 @@ UTILS_DIR = utils
 	$(SRC_DIR)/brt/rational.c \
 	$(SRC_DIR)/rtg/rtg_application.c \
 	$(SRC_DIR)/rtg/rtg_applications_simple_list.c \
+	$(SRC_DIR)/rtg/rtg_applications_simple_list_tests.c \
 	$(SRC_DIR)/rtg/rtg_doc.c \
 	$(SRC_DIR)/rtg/rtg_execution_request.c \
 	$(SRC_DIR)/rtg/rtg_execution_requests_simple_list.c \
@@ -183,30 +184,48 @@ UTILS_DIR = utils
 	$(SRC_DIR)/rtg/rtg_operation.c \
 	$(SRC_DIR)/rtg/rtg_operation_arg.c \
 	$(SRC_DIR)/rtg/rtg_operation_args_simple_list.c \
+	$(SRC_DIR)/rtg/rtg_operation_args_simple_list_tests.c \
 	$(SRC_DIR)/rtg/rtg_operations_simple_list.c \
+	$(SRC_DIR)/rtg/rtg_tests.c \
 	$(SRC_DIR)/tst/tests_runner.c \
 	$(SRC_DIR)/stt/stt_application.c \
 	$(SRC_DIR)/stt/stt_application_subnode.c \
+	$(SRC_DIR)/stt/stt_application_subnode_tests.c \
+	$(SRC_DIR)/stt/stt_application_tests.c \
 	$(SRC_DIR)/stt/stt_applications_simple_list.c \
+	$(SRC_DIR)/stt/stt_applications_simple_list_tests.c \
 	$(SRC_DIR)/stt/stt_doc_subnode.c \
 	$(SRC_DIR)/stt/stt_execution_request.c \
 	$(SRC_DIR)/stt/stt_execution_request_subnode.c \
+	$(SRC_DIR)/stt/stt_execution_request_subnode_tests.c \
+	$(SRC_DIR)/stt/stt_execution_request_tests.c \
 	$(SRC_DIR)/stt/stt_execution_requests_simple_list.c \
+	$(SRC_DIR)/stt/stt_execution_requests_simple_list_tests.c \
 	$(SRC_DIR)/stt/stt_function.c \
 	$(SRC_DIR)/stt/stt_function_subnode.c \
+	$(SRC_DIR)/stt/stt_function_subnode_tests.c \
+	$(SRC_DIR)/stt/stt_function_tests.c \
 	$(SRC_DIR)/stt/stt_functions_simple_list.c \
+	$(SRC_DIR)/stt/stt_functions_simple_list_tests.c \
 	$(SRC_DIR)/stt/stt_identifier_subnode.c \
-	$(SRC_DIR)/stt/stt_natural_subnode.c \
+	$(SRC_DIR)/stt/stt_identifier_subnode_tests.c \
 	$(SRC_DIR)/stt/stt_integer_subnode.c \
-	$(SRC_DIR)/stt/stt_rational_subnode.c \
+	$(SRC_DIR)/stt/stt_integer_subnode_tests.c \
+	$(SRC_DIR)/stt/stt_natural_subnode.c \
+	$(SRC_DIR)/stt/stt_natural_subnode_tests.c \
 	$(SRC_DIR)/stt/stt_node.c \
 	$(SRC_DIR)/stt/stt_operation.c \
 	$(SRC_DIR)/stt/stt_operation_arg.c \
 	$(SRC_DIR)/stt/stt_operation_args_simple_list.c \
+	$(SRC_DIR)/stt/stt_operation_args_simple_list_tests.c \
 	$(SRC_DIR)/stt/stt_operation_subnode.c \
+	$(SRC_DIR)/stt/stt_operation_subnode_tests.c \
 	$(SRC_DIR)/stt/stt_operations_list_subnode.c \
+	$(SRC_DIR)/stt/stt_operations_list_subnode_tests.c \
 	$(SRC_DIR)/stt/stt_operations_simple_list.c \
+	$(SRC_DIR)/stt/stt_operations_simple_list_tests.c \
 	$(SRC_DIR)/stt/stt_rational_subnode.c \
+	$(SRC_DIR)/stt/stt_rational_subnode_tests.c \
 	$(SRC_DIR)/stt/stt_string_literal_subnode.c \
 	$(SRC_DIR)/stt/stt_tests.c
 OBJ_DEBUG = \
@@ -229,6 +248,7 @@ OBJ_DEBUG = \
 		$(BUILD_DIR_DEBUG)/rational.o \
 		$(BUILD_DIR_DEBUG)/rtg_application.o \
 		$(BUILD_DIR_DEBUG)/rtg_applications_simple_list.o \
+		$(BUILD_DIR_DEBUG)/rtg_applications_simple_list_tests.o \
 		$(BUILD_DIR_DEBUG)/rtg_doc.o \
 		$(BUILD_DIR_DEBUG)/rtg_execution_request.o \
 		$(BUILD_DIR_DEBUG)/rtg_execution_requests_simple_list.o \
@@ -237,29 +257,48 @@ OBJ_DEBUG = \
 		$(BUILD_DIR_DEBUG)/rtg_operation.o \
 		$(BUILD_DIR_DEBUG)/rtg_operation_arg.o \
 		$(BUILD_DIR_DEBUG)/rtg_operation_args_simple_list.o \
+		$(BUILD_DIR_DEBUG)/rtg_operation_args_simple_list_tests.o \
 		$(BUILD_DIR_DEBUG)/rtg_operations_simple_list.o \
+		$(BUILD_DIR_DEBUG)/rtg_tests.o \
 		$(BUILD_DIR_DEBUG)/tests_runner.o \
 		$(BUILD_DIR_DEBUG)/stt_application.o \
 		$(BUILD_DIR_DEBUG)/stt_application_subnode.o \
+		$(BUILD_DIR_DEBUG)/stt_application_subnode_tests.o \
+		$(BUILD_DIR_DEBUG)/stt_application_tests.o \
 		$(BUILD_DIR_DEBUG)/stt_applications_simple_list.o \
+		$(BUILD_DIR_DEBUG)/stt_applications_simple_list_tests.o \
 		$(BUILD_DIR_DEBUG)/stt_doc_subnode.o \
 		$(BUILD_DIR_DEBUG)/stt_execution_request.o \
 		$(BUILD_DIR_DEBUG)/stt_execution_request_subnode.o \
+		$(BUILD_DIR_DEBUG)/stt_execution_request_subnode_tests.o \
+		$(BUILD_DIR_DEBUG)/stt_execution_request_tests.o \
 		$(BUILD_DIR_DEBUG)/stt_execution_requests_simple_list.o \
+		$(BUILD_DIR_DEBUG)/stt_execution_requests_simple_list_tests.o \
 		$(BUILD_DIR_DEBUG)/stt_function.o \
 		$(BUILD_DIR_DEBUG)/stt_function_subnode.o \
+		$(BUILD_DIR_DEBUG)/stt_function_subnode_tests.o \
+		$(BUILD_DIR_DEBUG)/stt_function_tests.o \
 		$(BUILD_DIR_DEBUG)/stt_functions_simple_list.o \
+		$(BUILD_DIR_DEBUG)/stt_functions_simple_list_tests.o \
 		$(BUILD_DIR_DEBUG)/stt_identifier_subnode.o \
+		$(BUILD_DIR_DEBUG)/stt_identifier_subnode_tests.o \
 		$(BUILD_DIR_DEBUG)/stt_integer_subnode.o \
+		$(BUILD_DIR_DEBUG)/stt_integer_subnode_tests.o \
 		$(BUILD_DIR_DEBUG)/stt_natural_subnode.o \
+		$(BUILD_DIR_DEBUG)/stt_natural_subnode_tests.o \
 		$(BUILD_DIR_DEBUG)/stt_node.o \
 		$(BUILD_DIR_DEBUG)/stt_operation.o \
 		$(BUILD_DIR_DEBUG)/stt_operation_arg.o \
 		$(BUILD_DIR_DEBUG)/stt_operation_args_simple_list.o \
+		$(BUILD_DIR_DEBUG)/stt_operation_args_simple_list_tests.o \
 		$(BUILD_DIR_DEBUG)/stt_operation_subnode.o \
+		$(BUILD_DIR_DEBUG)/stt_operation_subnode_tests.o \
 		$(BUILD_DIR_DEBUG)/stt_operations_list_subnode.o \
+		$(BUILD_DIR_DEBUG)/stt_operations_list_subnode_tests.o \
 		$(BUILD_DIR_DEBUG)/stt_operations_simple_list.o \
+		$(BUILD_DIR_DEBUG)/stt_operations_simple_list_tests.o \
 		$(BUILD_DIR_DEBUG)/stt_rational_subnode.o \
+		$(BUILD_DIR_DEBUG)/stt_rational_subnode_tests.o \
 		$(BUILD_DIR_DEBUG)/stt_string_literal_subnode.o \
 		$(BUILD_DIR_DEBUG)/stt_tests.o
 OBJ_RELEASE = \
@@ -282,6 +321,7 @@ OBJ_RELEASE = \
 		$(BUILD_DIR_RELEASE)/rational.o \
 		$(BUILD_DIR_RELEASE)/rtg_application.o \
 		$(BUILD_DIR_RELEASE)/rtg_applications_simple_list.o \
+		$(BUILD_DIR_RELEASE)/rtg_applications_simple_list_tests.o \
 		$(BUILD_DIR_RELEASE)/rtg_doc.o \
 		$(BUILD_DIR_RELEASE)/rtg_execution_request.o \
 		$(BUILD_DIR_RELEASE)/rtg_execution_requests_simple_list.o \
@@ -290,29 +330,48 @@ OBJ_RELEASE = \
 		$(BUILD_DIR_RELEASE)/rtg_operation.o \
 		$(BUILD_DIR_RELEASE)/rtg_operation_arg.o \
 		$(BUILD_DIR_RELEASE)/rtg_operation_args_simple_list.o \
+		$(BUILD_DIR_RELEASE)/rtg_operation_args_simple_list_tests.o \
 		$(BUILD_DIR_RELEASE)/rtg_operations_simple_list.o \
+		$(BUILD_DIR_RELEASE)/rtg_tests.o \
 		$(BUILD_DIR_RELEASE)/tests_runner.o \
 		$(BUILD_DIR_RELEASE)/stt_application.o \
 		$(BUILD_DIR_RELEASE)/stt_application_subnode.o \
+		$(BUILD_DIR_RELEASE)/stt_application_subnode_tests.o \
+		$(BUILD_DIR_RELEASE)/stt_application_tests.o \
 		$(BUILD_DIR_RELEASE)/stt_applications_simple_list.o \
+		$(BUILD_DIR_RELEASE)/stt_applications_simple_list_tests.o \
 		$(BUILD_DIR_RELEASE)/stt_doc_subnode.o \
 		$(BUILD_DIR_RELEASE)/stt_execution_request.o \
 		$(BUILD_DIR_RELEASE)/stt_execution_request_subnode.o \
+		$(BUILD_DIR_RELEASE)/stt_execution_request_subnode_tests.o \
+		$(BUILD_DIR_RELEASE)/stt_execution_request_tests.o \
 		$(BUILD_DIR_RELEASE)/stt_execution_requests_simple_list.o \
+		$(BUILD_DIR_RELEASE)/stt_execution_requests_simple_list_tests.o \
 		$(BUILD_DIR_RELEASE)/stt_function.o \
 		$(BUILD_DIR_RELEASE)/stt_function_subnode.o \
+		$(BUILD_DIR_RELEASE)/stt_function_subnode_tests.o \
+		$(BUILD_DIR_RELEASE)/stt_function_tests.o \
 		$(BUILD_DIR_RELEASE)/stt_functions_simple_list.o \
+		$(BUILD_DIR_RELEASE)/stt_functions_simple_list_tests.o \
 		$(BUILD_DIR_RELEASE)/stt_identifier_subnode.o \
+		$(BUILD_DIR_RELEASE)/stt_identifier_subnode_tests.o \
 		$(BUILD_DIR_RELEASE)/stt_integer_subnode.o \
+		$(BUILD_DIR_RELEASE)/stt_integer_subnode_tests.o \
 		$(BUILD_DIR_RELEASE)/stt_natural_subnode.o \
+		$(BUILD_DIR_RELEASE)/stt_natural_subnode_tests.o \
 		$(BUILD_DIR_RELEASE)/stt_node.o \
 		$(BUILD_DIR_RELEASE)/stt_operation.o \
 		$(BUILD_DIR_RELEASE)/stt_operation_arg.o \
 		$(BUILD_DIR_RELEASE)/stt_operation_args_simple_list.o \
+		$(BUILD_DIR_RELEASE)/stt_operation_args_simple_list_tests.o \
 		$(BUILD_DIR_RELEASE)/stt_operation_subnode.o \
+		$(BUILD_DIR_RELEASE)/stt_operation_subnode_tests.o \
 		$(BUILD_DIR_RELEASE)/stt_operations_list_subnode.o \
+		$(BUILD_DIR_RELEASE)/stt_operations_list_subnode_tests.o \
 		$(BUILD_DIR_RELEASE)/stt_operations_simple_list.o \
+		$(BUILD_DIR_RELEASE)/stt_operations_simple_list_tests.o \
 		$(BUILD_DIR_RELEASE)/stt_rational_subnode.o \
+		$(BUILD_DIR_RELEASE)/stt_rational_subnode_tests.o \
 		$(BUILD_DIR_RELEASE)/stt_string_literal_subnode.o \
 		$(BUILD_DIR_RELEASE)/stt_tests.o
 DEBUG_RESOURCES = \
@@ -487,6 +546,12 @@ $(BUILD_DIR_DEBUG)/rtg_applications_simple_list.o: $(SRC_DIR)/rtg/rtg_applicatio
 $(BUILD_DIR_RELEASE)/rtg_applications_simple_list.o: $(SRC_DIR)/rtg/rtg_applications_simple_list.c $(SRC_DIR)/rtg/rtg_applications_simple_list.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
+$(BUILD_DIR_DEBUG)/rtg_applications_simple_list_tests.o: $(SRC_DIR)/rtg/rtg_applications_simple_list_tests.c $(SRC_DIR)/rtg/rtg_applications_simple_list_tests.h $(SRC_DIR)/rtg/rtg_applications_simple_list.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/rtg_applications_simple_list_tests.o: $(SRC_DIR)/rtg/rtg_applications_simple_list_tests.c $(SRC_DIR)/rtg/rtg_applications_simple_list_tests.h $(SRC_DIR)/rtg/rtg_applications_simple_list.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
 $(BUILD_DIR_DEBUG)/rtg_doc.o: $(SRC_DIR)/rtg/rtg_doc.c $(SRC_DIR)/rtg/rtg_doc.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
@@ -535,10 +600,22 @@ $(BUILD_DIR_DEBUG)/rtg_operation_args_simple_list.o: $(SRC_DIR)/rtg/rtg_operatio
 $(BUILD_DIR_RELEASE)/rtg_operation_args_simple_list.o: $(SRC_DIR)/rtg/rtg_operation_args_simple_list.c $(SRC_DIR)/rtg/rtg_operation_args_simple_list.h $(SRC_DIR)/rtg/rtg_operation_arg.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
+$(BUILD_DIR_DEBUG)/rtg_operation_args_simple_list_tests.o: $(SRC_DIR)/rtg/rtg_operation_args_simple_list_tests.c $(SRC_DIR)/rtg/rtg_operation_args_simple_list_tests.h $(SRC_DIR)/rtg/rtg_operation_args_simple_list.h $(SRC_DIR)/rtg/rtg_operation_arg.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/rtg_operation_args_simple_list_tests.o: $(SRC_DIR)/rtg/rtg_operation_args_simple_list_tests.c $(SRC_DIR)/rtg/rtg_operation_args_simple_list_tests.h $(SRC_DIR)/rtg/rtg_operation_args_simple_list.h $(SRC_DIR)/rtg/rtg_operation_arg.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
 $(BUILD_DIR_DEBUG)/rtg_operations_simple_list.o: $(SRC_DIR)/rtg/rtg_operations_simple_list.c $(SRC_DIR)/rtg/rtg_operations_simple_list.h $(SRC_DIR)/rtg/rtg_operation.h $(SRC_DIR)/rtg/rtg_operation_args_simple_list.h $(SRC_DIR)/rtg/rtg_operation_arg.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
 $(BUILD_DIR_RELEASE)/rtg_operations_simple_list.o: $(SRC_DIR)/rtg/rtg_operations_simple_list.c $(SRC_DIR)/rtg/rtg_operations_simple_list.h $(SRC_DIR)/rtg/rtg_operation.h $(SRC_DIR)/rtg/rtg_operation_args_simple_list.h $(SRC_DIR)/rtg/rtg_operation_arg.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/rtg_tests.o: $(SRC_DIR)/rtg/rtg_tests.c $(SRC_DIR)/rtg/rtg_tests.h $(SRC_DIR)/rtg/rtg_applications_simple_list.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/rtg_tests.o: $(SRC_DIR)/rtg/rtg_tests.c $(SRC_DIR)/rtg/rtg_tests.h $(SRC_DIR)/rtg/rtg_applications_simple_list.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_DEBUG)/stt_application.o: $(SRC_DIR)/stt/stt_application.c $(SRC_DIR)/stt/stt_application.h $(SRC_DIR)/cmn/amara_string.h
@@ -553,10 +630,28 @@ $(BUILD_DIR_DEBUG)/stt_application_subnode.o: $(SRC_DIR)/stt/stt_application_sub
 $(BUILD_DIR_RELEASE)/stt_application_subnode.o: $(SRC_DIR)/stt/stt_application_subnode.c $(SRC_DIR)/stt/stt_application_subnode.h $(SRC_DIR)/stt/stt_functions_simple_list.h $(SRC_DIR)/stt/stt_applications_simple_list.h $(SRC_DIR)/stt/stt_execution_requests_simple_list.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
+$(BUILD_DIR_DEBUG)/stt_application_subnode_tests.o: $(SRC_DIR)/stt/stt_application_subnode_tests.c $(SRC_DIR)/stt/stt_application_subnode_tests.h $(SRC_DIR)/stt/stt_application_subnode.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_application_subnode_tests.o: $(SRC_DIR)/stt/stt_application_subnode_tests.c $(SRC_DIR)/stt/stt_application_subnode_tests.h $(SRC_DIR)/stt/stt_application_subnode.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/stt_application_tests.o: $(SRC_DIR)/stt/stt_application_tests.c $(SRC_DIR)/stt/stt_application_tests.h $(SRC_DIR)/stt/stt_application.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_application_tests.o: $(SRC_DIR)/stt/stt_application_tests.c $(SRC_DIR)/stt/stt_application_tests.h $(SRC_DIR)/stt/stt_application.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
 $(BUILD_DIR_DEBUG)/stt_applications_simple_list.o: $(SRC_DIR)/stt/stt_applications_simple_list.c $(SRC_DIR)/stt/stt_applications_simple_list.h $(SRC_DIR)/stt/stt_application.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
 $(BUILD_DIR_RELEASE)/stt_applications_simple_list.o: $(SRC_DIR)/stt/stt_applications_simple_list.c $(SRC_DIR)/stt/stt_applications_simple_list.h $(SRC_DIR)/stt/stt_application.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/stt_applications_simple_list_tests.o: $(SRC_DIR)/stt/stt_applications_simple_list_tests.c $(SRC_DIR)/stt/stt_applications_simple_list_tests.h $(SRC_DIR)/stt/stt_applications_simple_list.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_applications_simple_list_tests.o: $(SRC_DIR)/stt/stt_applications_simple_list_tests.c $(SRC_DIR)/stt/stt_applications_simple_list_tests.h $(SRC_DIR)/stt/stt_applications_simple_list.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_DEBUG)/stt_doc_subnode.o: $(SRC_DIR)/stt/stt_doc_subnode.c $(SRC_DIR)/stt/stt_doc_subnode.h $(SRC_DIR)/stt/stt_applications_simple_list.h $(SRC_DIR)/stt/stt_functions_simple_list.h $(SRC_DIR)/stt/stt_execution_requests_simple_list.h
@@ -577,10 +672,28 @@ $(BUILD_DIR_DEBUG)/stt_execution_request_subnode.o: $(SRC_DIR)/stt/stt_execution
 $(BUILD_DIR_RELEASE)/stt_execution_request_subnode.o: $(SRC_DIR)/stt/stt_execution_request_subnode.c $(SRC_DIR)/stt/stt_execution_request_subnode.h $(SRC_DIR)/cmn/amara_string.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
+$(BUILD_DIR_DEBUG)/stt_execution_request_subnode_tests.o: $(SRC_DIR)/stt/stt_execution_request_subnode_tests.c $(SRC_DIR)/stt/stt_execution_request_subnode_tests.h $(SRC_DIR)/stt/stt_execution_request_subnode.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_execution_request_subnode_tests.o: $(SRC_DIR)/stt/stt_execution_request_subnode_tests.c $(SRC_DIR)/stt/stt_execution_request_subnode_tests.h $(SRC_DIR)/stt/stt_execution_request_subnode.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/stt_execution_request_tests.o: $(SRC_DIR)/stt/stt_execution_request_tests.c $(SRC_DIR)/stt/stt_execution_request_tests.h $(SRC_DIR)/stt/stt_execution_request.h $(SRC_DIR)/cmn/amara_string.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_execution_request_tests.o: $(SRC_DIR)/stt/stt_execution_request_tests.c $(SRC_DIR)/stt/stt_execution_request_tests.h $(SRC_DIR)/stt/stt_execution_request.h $(SRC_DIR)/cmn/amara_string.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
 $(BUILD_DIR_DEBUG)/stt_execution_requests_simple_list.o: $(SRC_DIR)/stt/stt_execution_requests_simple_list.c $(SRC_DIR)/stt/stt_execution_requests_simple_list.h $(SRC_DIR)/stt/stt_execution_request.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
 $(BUILD_DIR_RELEASE)/stt_execution_requests_simple_list.o: $(SRC_DIR)/stt/stt_execution_requests_simple_list.c $(SRC_DIR)/stt/stt_execution_requests_simple_list.h $(SRC_DIR)/stt/stt_execution_request.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/stt_execution_requests_simple_list_tests.o: $(SRC_DIR)/stt/stt_execution_requests_simple_list_tests.c $(SRC_DIR)/stt/stt_execution_requests_simple_list_tests.h $(SRC_DIR)/stt/stt_execution_requests_simple_list.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_execution_requests_simple_list_tests.o: $(SRC_DIR)/stt/stt_execution_requests_simple_list_tests.c $(SRC_DIR)/stt/stt_execution_requests_simple_list_tests.h $(SRC_DIR)/stt/stt_execution_requests_simple_list.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_DEBUG)/stt_function.o: $(SRC_DIR)/stt/stt_function.c $(SRC_DIR)/stt/stt_function.h $(SRC_DIR)/cmn/amara_string.h $(SRC_DIR)/stt/stt_operations_simple_list.h
@@ -595,10 +708,28 @@ $(BUILD_DIR_DEBUG)/stt_function_subnode.o: $(SRC_DIR)/stt/stt_function_subnode.c
 $(BUILD_DIR_RELEASE)/stt_function_subnode.o: $(SRC_DIR)/stt/stt_function_subnode.c $(SRC_DIR)/stt/stt_function_subnode.h $(SRC_DIR)/cmn/amara_string.h $(SRC_DIR)/stt/stt_operations_simple_list.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
+$(BUILD_DIR_DEBUG)/stt_function_subnode_tests.o: $(SRC_DIR)/stt/stt_function_subnode_tests.c $(SRC_DIR)/stt/stt_function_subnode_tests.h $(SRC_DIR)/stt/stt_function_subnode.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_function_subnode_tests.o: $(SRC_DIR)/stt/stt_function_subnode_tests.c $(SRC_DIR)/stt/stt_function_subnode_tests.h $(SRC_DIR)/stt/stt_function_subnode.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/stt_function_tests.o: $(SRC_DIR)/stt/stt_function_tests.c $(SRC_DIR)/stt/stt_function_tests.h $(SRC_DIR)/stt/stt_function.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_function_tests.o: $(SRC_DIR)/stt/stt_function_tests.c $(SRC_DIR)/stt/stt_function_tests.h $(SRC_DIR)/stt/stt_function.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
 $(BUILD_DIR_DEBUG)/stt_functions_simple_list.o: $(SRC_DIR)/stt/stt_functions_simple_list.c $(SRC_DIR)/stt/stt_functions_simple_list.h $(SRC_DIR)/stt/stt_function.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
 $(BUILD_DIR_RELEASE)/stt_functions_simple_list.o: $(SRC_DIR)/stt/stt_functions_simple_list.c $(SRC_DIR)/stt/stt_functions_simple_list.h $(SRC_DIR)/stt/stt_function.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/stt_functions_simple_list_tests.o: $(SRC_DIR)/stt/stt_functions_simple_list_tests.c $(SRC_DIR)/stt/stt_functions_simple_list_tests.h $(SRC_DIR)/stt/stt_functions_simple_list.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_functions_simple_list_tests.o: $(SRC_DIR)/stt/stt_functions_simple_list_tests.c $(SRC_DIR)/stt/stt_functions_simple_list_tests.h $(SRC_DIR)/stt/stt_functions_simple_list.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_DEBUG)/stt_identifier_subnode.o: $(SRC_DIR)/stt/stt_identifier_subnode.c $(SRC_DIR)/stt/stt_identifier_subnode.h $(SRC_DIR)/cmn/amara_string.h $(SRC_DIR)/asr/assertion.h
@@ -607,10 +738,22 @@ $(BUILD_DIR_DEBUG)/stt_identifier_subnode.o: $(SRC_DIR)/stt/stt_identifier_subno
 $(BUILD_DIR_RELEASE)/stt_identifier_subnode.o: $(SRC_DIR)/stt/stt_identifier_subnode.c $(SRC_DIR)/stt/stt_identifier_subnode.h $(SRC_DIR)/cmn/amara_string.h $(SRC_DIR)/asr/assertion.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
+$(BUILD_DIR_DEBUG)/stt_identifier_subnode_tests.o: $(SRC_DIR)/stt/stt_identifier_subnode_tests.c $(SRC_DIR)/stt/stt_identifier_subnode_tests.h $(SRC_DIR)/stt/stt_identifier_subnode.h $(SRC_DIR)/cmn/amara_string.h $(SRC_DIR)/asr/assertion.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_identifier_subnode_tests.o: $(SRC_DIR)/stt/stt_identifier_subnode_tests.c $(SRC_DIR)/stt/stt_identifier_subnode_tests.h $(SRC_DIR)/stt/stt_identifier_subnode.h $(SRC_DIR)/cmn/amara_string.h $(SRC_DIR)/asr/assertion.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
 $(BUILD_DIR_DEBUG)/stt_integer_subnode.o: $(SRC_DIR)/stt/stt_integer_subnode.c $(SRC_DIR)/stt/stt_integer_subnode.h $(SRC_DIR)/cmn/amara_string.h $(SRC_DIR)/asr/assertion.h $(SRC_DIR)/brt/integer.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
 $(BUILD_DIR_RELEASE)/stt_integer_subnode.o: $(SRC_DIR)/stt/stt_integer_subnode.c $(SRC_DIR)/stt/stt_integer_subnode.h $(SRC_DIR)/cmn/amara_string.h $(SRC_DIR)/asr/assertion.h $(SRC_DIR)/brt/integer.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/stt_integer_subnode_tests.o: $(SRC_DIR)/stt/stt_integer_subnode_tests.c $(SRC_DIR)/stt/stt_integer_subnode_tests.h $(SRC_DIR)/stt/stt_integer_subnode.h $(SRC_DIR)/cmn/amara_string.h $(SRC_DIR)/asr/assertion.h $(SRC_DIR)/brt/integer.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_integer_subnode_tests.o: $(SRC_DIR)/stt/stt_integer_subnode_tests.c $(SRC_DIR)/stt/stt_integer_subnode_tests.h $(SRC_DIR)/stt/stt_integer_subnode.h $(SRC_DIR)/cmn/amara_string.h $(SRC_DIR)/asr/assertion.h $(SRC_DIR)/brt/integer.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_DEBUG)/stt_natural_subnode.o: $(SRC_DIR)/stt/stt_natural_subnode.c $(SRC_DIR)/stt/stt_natural_subnode.h $(SRC_DIR)/cmn/amara_string.h $(SRC_DIR)/brt/natural.h
@@ -619,10 +762,16 @@ $(BUILD_DIR_DEBUG)/stt_natural_subnode.o: $(SRC_DIR)/stt/stt_natural_subnode.c $
 $(BUILD_DIR_RELEASE)/stt_natural_subnode.o: $(SRC_DIR)/stt/stt_natural_subnode.c $(SRC_DIR)/stt/stt_natural_subnode.h $(SRC_DIR)/cmn/amara_string.h $(SRC_DIR)/brt/natural.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
-$(BUILD_DIR_DEBUG)/stt_node.o: $(SRC_DIR)/stt/stt_node.c $(SRC_DIR)/stt/stt_node.h $(SRC_DIR)/cmn/char_array.h $(SRC_DIR)/cmn/char_arrays_simple_list.h
+$(BUILD_DIR_DEBUG)/stt_natural_subnode_tests.o: $(SRC_DIR)/stt/stt_natural_subnode_tests.c $(SRC_DIR)/stt/stt_natural_subnode_tests.h $(SRC_DIR)/stt/stt_natural_subnode.h $(SRC_DIR)/cmn/amara_string.h $(SRC_DIR)/brt/natural.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
-$(BUILD_DIR_RELEASE)/stt_node.o: $(SRC_DIR)/stt/stt_node.c $(SRC_DIR)/stt/stt_node.h $(SRC_DIR)/cmn/char_array.h $(SRC_DIR)/cmn/char_arrays_simple_list.h
+$(BUILD_DIR_RELEASE)/stt_natural_subnode_tests.o: $(SRC_DIR)/stt/stt_natural_subnode_tests.c $(SRC_DIR)/stt/stt_natural_subnode_tests.h $(SRC_DIR)/stt/stt_natural_subnode.h $(SRC_DIR)/cmn/amara_string.h $(SRC_DIR)/brt/natural.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/stt_node.o: $(SRC_DIR)/stt/stt_node.c $(SRC_DIR)/stt/stt_node.h $(SRC_DIR)/stt/stt_doc_subnode.h $(SRC_DIR)/cmn/char_array.h $(SRC_DIR)/cmn/char_arrays_simple_list.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_node.o: $(SRC_DIR)/stt/stt_node.c $(SRC_DIR)/stt/stt_node.h $(SRC_DIR)/stt/stt_doc_subnode.h $(SRC_DIR)/cmn/char_array.h $(SRC_DIR)/cmn/char_arrays_simple_list.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_DEBUG)/stt_operation.o: $(SRC_DIR)/stt/stt_operation.c $(SRC_DIR)/stt/stt_operation.h $(SRC_DIR)/stt/stt_operation_args_simple_list.h
@@ -643,10 +792,22 @@ $(BUILD_DIR_DEBUG)/stt_operation_args_simple_list.o: $(SRC_DIR)/stt/stt_operatio
 $(BUILD_DIR_RELEASE)/stt_operation_args_simple_list.o: $(SRC_DIR)/stt/stt_operation_args_simple_list.c $(SRC_DIR)/stt/stt_operation_args_simple_list.h $(SRC_DIR)/stt/stt_operation_arg.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
+$(BUILD_DIR_DEBUG)/stt_operation_args_simple_list_tests.o: $(SRC_DIR)/stt/stt_operation_args_simple_list_tests.c $(SRC_DIR)/stt/stt_operation_args_simple_list_tests.h $(SRC_DIR)/stt/stt_operation_args_simple_list.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_operation_args_simple_list_tests.o: $(SRC_DIR)/stt/stt_operation_args_simple_list_tests.c $(SRC_DIR)/stt/stt_operation_args_simple_list_tests.h $(SRC_DIR)/stt/stt_operation_args_simple_list.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
 $(BUILD_DIR_DEBUG)/stt_operation_subnode.o: $(SRC_DIR)/stt/stt_operation_subnode.c $(SRC_DIR)/stt/stt_operation_subnode.h $(SRC_DIR)/stt/stt_operation.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
 $(BUILD_DIR_RELEASE)/stt_operation_subnode.o: $(SRC_DIR)/stt/stt_operation_subnode.c $(SRC_DIR)/stt/stt_operation_subnode.h $(SRC_DIR)/stt/stt_operation.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/stt_operation_subnode_tests.o: $(SRC_DIR)/stt/stt_operation_subnode_tests.c $(SRC_DIR)/stt/stt_operation_subnode_tests.h $(SRC_DIR)/stt/stt_operation_subnode.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_operation_subnode_tests.o: $(SRC_DIR)/stt/stt_operation_subnode_tests.c $(SRC_DIR)/stt/stt_operation_subnode_tests.h $(SRC_DIR)/stt/stt_operation_subnode.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_DEBUG)/stt_operations_list_subnode.o: $(SRC_DIR)/stt/stt_operations_list_subnode.c $(SRC_DIR)/stt/stt_operations_list_subnode.h $(SRC_DIR)/stt/stt_operations_simple_list.h
@@ -655,16 +816,34 @@ $(BUILD_DIR_DEBUG)/stt_operations_list_subnode.o: $(SRC_DIR)/stt/stt_operations_
 $(BUILD_DIR_RELEASE)/stt_operations_list_subnode.o: $(SRC_DIR)/stt/stt_operations_list_subnode.c $(SRC_DIR)/stt/stt_operations_list_subnode.h $(SRC_DIR)/stt/stt_operations_simple_list.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
+$(BUILD_DIR_DEBUG)/stt_operations_list_subnode_tests.o: $(SRC_DIR)/stt/stt_operations_list_subnode_tests.c $(SRC_DIR)/stt/stt_operations_list_subnode_tests.h $(SRC_DIR)/stt/stt_operations_list_subnode.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_operations_list_subnode_tests.o: $(SRC_DIR)/stt/stt_operations_list_subnode_tests.c $(SRC_DIR)/stt/stt_operations_list_subnode_tests.h $(SRC_DIR)/stt/stt_operations_list_subnode.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
 $(BUILD_DIR_DEBUG)/stt_operations_simple_list.o: $(SRC_DIR)/stt/stt_operations_simple_list.c $(SRC_DIR)/stt/stt_operations_simple_list.h $(SRC_DIR)/stt/stt_operation.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
 $(BUILD_DIR_RELEASE)/stt_operations_simple_list.o: $(SRC_DIR)/stt/stt_operations_simple_list.c $(SRC_DIR)/stt/stt_operations_simple_list.h $(SRC_DIR)/stt/stt_operation.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
+$(BUILD_DIR_DEBUG)/stt_operations_simple_list_tests.o: $(SRC_DIR)/stt/stt_operations_simple_list_tests.c $(SRC_DIR)/stt/stt_operations_simple_list_tests.h $(SRC_DIR)/stt/stt_operations_simple_list.h $(SRC_DIR)/stt/stt_operation.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_operations_simple_list_tests.o: $(SRC_DIR)/stt/stt_operations_simple_list_tests.c $(SRC_DIR)/stt/stt_operations_simple_list_tests.h $(SRC_DIR)/stt/stt_operations_simple_list.h $(SRC_DIR)/stt/stt_operation.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
 $(BUILD_DIR_DEBUG)/stt_rational_subnode.o: $(SRC_DIR)/stt/stt_rational_subnode.c $(SRC_DIR)/stt/stt_rational_subnode.h $(SRC_DIR)/cmn/amara_string.h $(SRC_DIR)/asr/assertion.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
 $(BUILD_DIR_RELEASE)/stt_rational_subnode.o: $(SRC_DIR)/stt/stt_rational_subnode.c $(SRC_DIR)/stt/stt_rational_subnode.h $(SRC_DIR)/cmn/amara_string.h $(SRC_DIR)/asr/assertion.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/stt_rational_subnode_tests.o: $(SRC_DIR)/stt/stt_rational_subnode_tests.c $(SRC_DIR)/stt/stt_rational_subnode_tests.h $(SRC_DIR)/stt/stt_rational_subnode.h $(SRC_DIR)/cmn/amara_string.h $(SRC_DIR)/asr/assertion.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_rational_subnode_tests.o: $(SRC_DIR)/stt/stt_rational_subnode_tests.c $(SRC_DIR)/stt/stt_rational_subnode_tests.h $(SRC_DIR)/stt/stt_rational_subnode.h $(SRC_DIR)/cmn/amara_string.h $(SRC_DIR)/asr/assertion.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_DEBUG)/stt_string_literal_subnode.o: $(SRC_DIR)/stt/stt_string_literal_subnode.c $(SRC_DIR)/stt/stt_string_literal_subnode.h $(SRC_DIR)/cmn/amara_boolean.h $(SRC_DIR)/cmn/amara_string.h

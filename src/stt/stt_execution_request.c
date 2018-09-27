@@ -24,6 +24,16 @@
 #include "stt_execution_request.h"
 
 stt_execution_request *
+stt_execution_request_default_constructor()
+{
+	stt_execution_request * ret_;
+	ret_ = malloc(sizeof(stt_execution_request));
+	ret_->application_name_ = NULL;
+	ret_->type_ = STT_EXECUTION_REQUEST_TYPE_INVALID;
+	return ret_;
+}
+
+stt_execution_request *
 stt_execution_request_copy_constructor(
 		const stt_execution_request * execution_request)
 {
@@ -43,6 +53,39 @@ stt_execution_request_copy_constructor(
 void
 stt_execution_request_destructor(stt_execution_request * execution_request_)
 {
-	amara_string_destructor(execution_request_->application_name_);
+	assertion(execution_request_ != NULL);
+	if (execution_request_->type_ == STT_EXECUTION_REQUEST_TYPE_INVALID) {
+		assertion(execution_request_->application_name_ == NULL);
+	} else {
+		assertion(execution_request_->type_ ==
+				STT_EXECUTION_REQUEST_TYPE_CLI_APPLICATION);
+		assertion(execution_request_->application_name_ != NULL);
+		amara_string_destructor(execution_request_->application_name_);
+	}
 	free(execution_request_);
+}
+
+void
+stt_execution_request_set_type(
+		stt_execution_request * execution_request,
+		uint_fast8_t type)
+{
+	assertion(execution_request->type_ ==
+			STT_EXECUTION_REQUEST_TYPE_INVALID);
+	assertion(type == STT_EXECUTION_REQUEST_TYPE_CLI_APPLICATION);
+	assertion(execution_request->application_name_ != NULL);
+	assertion(execution_request->application_name_->value_ != NULL);
+	execution_request->type_ = type;
+}
+
+void
+stt_execution_request_set_application_name(
+		stt_execution_request * execution_request,
+		const amara_string * application_name)
+{
+	assertion(execution_request->type_ ==
+			STT_EXECUTION_REQUEST_TYPE_INVALID);
+	assertion(execution_request->application_name_ == NULL);
+	execution_request->application_name_ =
+			(amara_string *) application_name;
 }

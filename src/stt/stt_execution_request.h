@@ -35,6 +35,11 @@ typedef struct stt_execution_request {
 } stt_execution_request;
 
 stt_execution_request *
+stt_execution_request_default_constructor()
+__attribute__((warn_unused_result))
+;
+
+stt_execution_request *
 stt_execution_request_copy_constructor(
 		const stt_execution_request * execution_request)
 __attribute__((warn_unused_result))
@@ -42,6 +47,18 @@ __attribute__((warn_unused_result))
 
 void
 stt_execution_request_destructor(stt_execution_request * execution_request_)
+;
+
+void
+stt_execution_request_set_type(
+		stt_execution_request * execution_request,
+		uint_fast8_t type)
+;
+
+void
+stt_execution_request_set_application_name(
+		stt_execution_request * execution_request,
+		const amara_string * application_name)
 ;
 
 #endif

@@ -31,6 +31,16 @@
 #include "rtg_applications_simple_list.h"
 
 rtg_applications_simple_list *
+rtg_applications_simple_list_default_constructor()
+{
+	rtg_applications_simple_list * ret_;
+	ret_ = malloc(sizeof(rtg_applications_simple_list));
+	ret_->first = NULL;
+	ret_->next = NULL;
+	return ret_;
+}
+
+rtg_applications_simple_list *
 rtg_applications_simple_list_copy_constructor(
 		const rtg_applications_simple_list * list)
 {

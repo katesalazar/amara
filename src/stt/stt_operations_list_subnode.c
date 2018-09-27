@@ -51,7 +51,9 @@ stt_operations_list_subnode_copy_constructor(
 void
 stt_operations_list_subnode_destructor(stt_operations_list_subnode * subnode)
 {
-	assertion(subnode->operations_ != NULL);
-	stt_operations_simple_list_destructor(subnode->operations_);
+	assertion(subnode != NULL);
+	if (subnode->operations_ != NULL) {
+		stt_operations_simple_list_destructor(subnode->operations_);
+	}
 	free(subnode);
 }

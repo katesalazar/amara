@@ -31,7 +31,7 @@ stt_operation_arg_default_constructor()
 {
 	stt_operation_arg * ret_;
 	ret_ = malloc(sizeof(stt_operation_arg));
-	ret_->type_ = OPERATION_ARG_TYPE_INVALID;
+	ret_->type_ = STT_OPERATION_ARG_TYPE_INVALID;
 	/*
 	ret_->raw_ = NULL;
 	*/
@@ -56,7 +56,7 @@ stt_operation_arg *
 stt_operation_arg_copy_constructor(const stt_operation_arg * operation_arg)
 {
 	stt_operation_arg * ret_;
-	assertion(operation_arg->type_ != OPERATION_ARG_TYPE_INVALID);
+	assertion(operation_arg->type_ != STT_OPERATION_ARG_TYPE_INVALID);
 	ret_ = malloc(sizeof(stt_operation_arg));
 	/*
 	assertion(operation_arg->raw_ != NULL);

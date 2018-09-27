@@ -28,6 +28,16 @@
 #include "stt_execution_requests_simple_list.h"
 
 stt_execution_requests_simple_list *
+stt_execution_requests_simple_list_default_constructor()
+{
+	stt_execution_requests_simple_list * ret_;
+	ret_ = malloc(sizeof(stt_execution_requests_simple_list));
+	ret_->first = NULL;
+	ret_->next = NULL;
+	return ret_;
+}
+
+stt_execution_requests_simple_list *
 stt_execution_requests_simple_list_copy_constructor_inner(
 		stt_execution_requests_simple_list * execution_requests)
 {
@@ -66,13 +76,28 @@ stt_execution_requests_simple_list_copy_constructor(
 }
 
 void
+stt_execution_requests_simple_list_destructor_inner(
+		stt_execution_requests_simple_list * list)
+{
+	if (list != NULL) {
+		assertion(list->first != NULL);
+		stt_execution_requests_simple_list_destructor_inner(
+				list->next);
+		stt_execution_request_destructor(list->first);
+		free(list);
+	}
+}
+
+void
 stt_execution_requests_simple_list_destructor(
 		stt_execution_requests_simple_list * list)
 {
+	assertion(list != NULL);
 	if (list->first == NULL) {
 		assertion(list->next == NULL);
 	} else {
-		stt_execution_requests_simple_list_destructor(list->next);
+		stt_execution_requests_simple_list_destructor_inner(
+				list->next);
 		stt_execution_request_destructor(list->first);
 	}
 	free(list);
@@ -95,3 +120,24 @@ stt_execution_requests_simple_list_length(
 	return returning_;
 }
 
+stt_execution_requests_simple_list *
+stt_execution_requests_simple_list_push_front(
+		stt_execution_requests_simple_list * execution_requests,
+		const stt_execution_request * execution_request)
+{
+	stt_execution_requests_simple_list * new_list_head_;
+	assertion(execution_requests != NULL);
+	assertion(execution_request != NULL);
+	if (execution_requests->first) {
+		new_list_head_ = malloc(sizeof(
+				stt_execution_requests_simple_list));
+		new_list_head_->first =
+				(stt_execution_request *) execution_request;
+		new_list_head_->next = execution_requests;
+		return new_list_head_;
+	}
+	assertion(!execution_requests->next);
+	execution_requests->first =
+			(stt_execution_request *) execution_request;
+	return execution_requests;
+}

@@ -27,8 +27,8 @@
 #include "stt_operations_simple_list.h"
 
 /*   Enumeration. */
-#define FUNCTION_SUBNODE_TYPE_INVALID      0x00
-#define FUNCTION_SUBNODE_TYPE_CLI_FUNCTION 0xFF
+#define STT_FUNCTION_SUBNODE_TYPE_INVALID      0x00
+#define STT_FUNCTION_SUBNODE_TYPE_CLI_FUNCTION 0xFF
 
 typedef struct stt_function_subnode {
 	uint_fast8_t type_;

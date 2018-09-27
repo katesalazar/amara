@@ -22,6 +22,12 @@
 /*   For `int printf(const char *, ...)`. */
 #include <stdio.h>
 
+/*   For `void * malloc(size_t size)`. */
+#include <stdlib.h>
+
+/*   For `char * strcpy(char * dest, const char * src)`. */
+#include <string.h>
+
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
@@ -33,6 +39,8 @@
 
 /*   For `void persistence_tests()`. */
 #include "../prs/persistence_tests.h"
+
+#include "../rtg/rtg_tests.h"
 
 /*   For `void syntax_tree_tests()`. */
 #include "../stt/stt_tests.h"
@@ -73,9 +81,37 @@ running_tests_ctl(uint_fast8_t input)
 }
 
 void
+disarm_interim_test_0()
+{
+	char * message;
+	message = malloc(1);
+	strcpy(message, "");
+	disarm_interim(message);
+	assertion(!strcmp(message, ""));
+}
+
+void
+disarm_interim_test_1()
+{
+	char * message;
+	message = malloc(strlen(" %n ") + 1);
+	strcpy(message, " %n ");
+	disarm_interim(message);
+	assertion(!strcmp(message, " %% "));
+}
+
+void
+disarm_interim_tests()
+{
+	disarm_interim_test_0();
+	disarm_interim_test_1();
+}
+
+void
 assertion_tests()
 {
 	interpret_and_assert("1");
+	disarm_interim_tests();
 }
 
 void
@@ -93,6 +129,7 @@ run_tests(uint_fast8_t double_end_of_line_char)
 	common_tests();
 	persistence_tests();
 	syntax_tree_tests();
+	run_time_graph_tests();
 
 	printf("... done\n");
 	if (double_end_of_line_char) {

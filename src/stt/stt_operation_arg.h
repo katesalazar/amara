@@ -26,7 +26,8 @@
 /*   For `amara_string`. */
 #include "../cmn/amara_string.h"
 
-#define OPERATION_ARG_TYPE_INVALID  0x00
+#define STT_OPERATION_ARG_TYPE_INVALID 0x00
+#define STT_OPERATION_ARG_TYPE_VALID   0xFF
 
 typedef struct stt_operation_arg {
 	uint_fast8_t type_;

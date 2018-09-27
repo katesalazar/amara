@@ -1,0 +1,8 @@
+#ifndef __AMARA__SYNTAX_TREE__EXECUTION_REQUEST_TESTS__H__
+#define __AMARA__SYNTAX_TREE__EXECUTION_REQUEST_TESTS__H__
+
+void
+stt_execution_request_tests()
+;
+
+#endif

@@ -64,8 +64,9 @@ void
 stt_natural_subnode_destructor(stt_natural_subnode * subnode)
 {
 	assertion(subnode != NULL);
-	assertion(subnode->raw_ != NULL);
-	amara_string_destructor(subnode->raw_);
+	if (subnode->raw_ != NULL) {
+		amara_string_destructor(subnode->raw_);
+	}
 	free(subnode);
 }
 

@@ -47,4 +47,20 @@ void
 stt_application_subnode_destructor(stt_application_subnode * const)
 ;
 
+void
+stt_application_subnode_set_type(
+		stt_application_subnode * subnode, uint_fast8_t type)
+;
+
+void
+stt_application_subnode_set_name(
+		stt_application_subnode * subnode, const amara_string * name)
+;
+
+void
+stt_application_subnode_set_entry_point_function_name(
+		stt_application_subnode * subnode,
+		const amara_string * entry_point_function_name)
+;
+
 #endif

@@ -43,4 +43,10 @@ void
 stt_operations_simple_list_destructor(stt_operations_simple_list * list)
 ;
 
+stt_operations_simple_list *
+stt_operations_simple_list_push_front(
+		stt_operations_simple_list * operations,
+		const stt_operation * operation)
+;
+
 #endif

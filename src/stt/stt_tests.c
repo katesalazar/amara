@@ -26,8 +26,53 @@
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
+/*   For `stt_application_tests`. */
+#include "stt_application_tests.h"
+
+/*   For `stt_applications_simple_list_tests`. */
+#include "stt_applications_simple_list_tests.h"
+
+/*   For `stt_application_subnode_tests`. */
+#include "stt_application_subnode_tests.h"
+
+/*   For `stt_execution_request_tests`. */
+#include "stt_execution_request_tests.h"
+
+/*   For `stt_execution_requests_simple_list_tests`. */
+#include "stt_execution_requests_simple_list_tests.h"
+
+/*   For `stt_execution_request_subnode_tests`. */
+#include "stt_execution_request_subnode_tests.h"
+
+/*   For `stt_function_tests`. */
+#include "stt_function_tests.h"
+
+/*   For `stt_functions_simple_list_tests`. */
+#include "stt_functions_simple_list_tests.h"
+
+/*   For `stt_function_subnode_tests`. */
+#include "stt_function_subnode_tests.h"
+
+#include "stt_identifier_subnode_tests.h"
+#include "stt_integer_subnode_tests.h"
+#include "stt_natural_subnode_tests.h"
+
 /*   For `stt_node`. */
 #include "stt_node.h"
+
+/*   For `stt_operation_args_simple_list_tests`. */
+#include "stt_operation_args_simple_list_tests.h"
+
+/*   For `stt_operation_subnode_tests`. */
+#include "stt_operation_subnode_tests.h"
+
+/*   For `stt_operations_list_subnode_tests`. */
+#include "stt_operations_list_subnode_tests.h"
+
+/*   For `stt_operations_simple_list_tests`. */
+#include "stt_operations_simple_list_tests.h"
+
+#include "stt_rational_subnode_tests.h"
 
 void
 node_name_from_type_test_0()
@@ -215,6 +260,23 @@ node_name_from_type_tests()
 void
 stt_node_tests()
 {
+	stt_natural_subnode_tests();
+	stt_integer_subnode_tests();
+	stt_rational_subnode_tests();
+	stt_identifier_subnode_tests();
+	stt_operation_args_simple_list_tests();
+	stt_operations_simple_list_tests();
+	stt_operation_subnode_tests();
+	stt_operations_list_subnode_tests();
+	stt_function_tests();
+	stt_functions_simple_list_tests();
+	stt_function_subnode_tests();
+	stt_application_tests();
+	stt_applications_simple_list_tests();
+	stt_application_subnode_tests();
+	stt_execution_request_tests();
+	stt_execution_requests_simple_list_tests();
+	stt_execution_request_subnode_tests();
 	node_name_from_type_tests();
 }
 

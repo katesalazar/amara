@@ -379,7 +379,7 @@ cli_fn_def :
   $$->function_subnode_->name_ = $2->identifier_subnode_->value_;
   $$->function_subnode_->operations_ =
       $28->operations_list_subnode_->operations_;
-  $$->function_subnode_->type_ = FUNCTION_SUBNODE_TYPE_CLI_FUNCTION;
+  $$->function_subnode_->type_ = STT_FUNCTION_SUBNODE_TYPE_CLI_FUNCTION;
 
   $$->type_ = SYNTAX_TREE_NODE_TYPE_FUNCTION;
 
@@ -446,7 +446,7 @@ exectn_req :
   $$->execution_request_subnode_ =
       stt_execution_request_subnode_default_constructor();
   $$->execution_request_subnode_->type_ =
-      EXECUTION_REQUEST_SUBNODE_TYPE_RUN_CLI_APPLICATION;
+      STT_EXECUTION_REQUEST_SUBNODE_TYPE_RUN_CLI_APPLICATION;
   $$->execution_request_subnode_->application_name_ =
       $6->identifier_subnode_->value_;
 

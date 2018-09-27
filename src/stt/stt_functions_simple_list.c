@@ -28,6 +28,16 @@
 #include "stt_functions_simple_list.h"
 
 stt_functions_simple_list *
+stt_functions_simple_list_default_constructor(void)
+{
+	stt_functions_simple_list * ret_;
+	ret_ = malloc(sizeof(stt_functions_simple_list));
+	ret_->first = NULL;
+	ret_->next = NULL;
+	return ret_;
+}
+
+stt_functions_simple_list *
 stt_functions_simple_list_copy_constructor_inner(
 		const stt_functions_simple_list * functions)
 {
@@ -69,17 +79,25 @@ stt_functions_simple_list_copy_constructor(
 }
 
 void
-stt_functions_simple_list_destructor(
-		stt_functions_simple_list * list)
+stt_functions_simple_list_destructor_inner(stt_functions_simple_list * list)
 {
-	stt_functions_simple_list * ptr_;
-	assertion(list != NULL);
-	while (list != NULL) {
+	if (list != NULL) {
+		stt_functions_simple_list_destructor_inner(list->next);
 		stt_function_destructor(list->first);
-		ptr_ = list;
-		list = list->next;
-		free(ptr_);
+		free(list);
 	}
+}
+
+void
+stt_functions_simple_list_destructor(stt_functions_simple_list * list)
+{
+	assertion(list != NULL);
+	if (list->first == NULL) {
+		assertion(list->next == NULL);
+	} else {
+		stt_functions_simple_list_destructor_inner(list->next);
+	}
+	free(list);
 }
 
 uint_fast8_t
@@ -96,4 +114,24 @@ stt_functions_simple_list_length(stt_functions_simple_list * list)
 		returning_++;
 	}
 	return returning_;
+}
+
+stt_functions_simple_list *
+stt_functions_simple_list_push_front(
+		stt_functions_simple_list * functions,
+		const stt_function * function)
+{
+	stt_functions_simple_list * new_functions_simple_list_node_;
+	assertion(functions != NULL);
+	assertion(function != NULL);
+	if (functions->first == NULL) {
+		assertion(functions->next == NULL);
+		functions->first = (stt_function *) function;
+		return functions;
+	}
+	new_functions_simple_list_node_ =
+			malloc(sizeof(stt_functions_simple_list));
+	new_functions_simple_list_node_->first = (stt_function *) function;
+	new_functions_simple_list_node_->next = functions;
+	return new_functions_simple_list_node_;
 }

@@ -62,6 +62,9 @@ void disarm_interim(char * message)
 	if (traces_printing) {
 		printf("%lu\n", strlen(message));  /* FIXME NOT PORTABLE!!! */
 	}
+	if (strlen(message) == 0) {
+		return;
+	}
 	for (i = 0; i < strlen(message) - 1; i++) {
 		if (traces_printing) {
 			printf("iterating... ");  /* FIXME */
@@ -69,7 +72,7 @@ void disarm_interim(char * message)
 			printf("%d\n", message[i]);
 			printf("%c\n", message[i]);
 		}
-		if (message[i] == '%' && (message[i + 1] == 's' || message[i + 1] == 'd')) {
+		if (message[i] == '%' && (message[i + 1] == 's' || message[i + 1] == 'd' || message[i + 1] == 'n')) {
 			if (traces_printing) {
 				printf("%lu\n", i);
 				printf("matches!\n");  /* FIXME */

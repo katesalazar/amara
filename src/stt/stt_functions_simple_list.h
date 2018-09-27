@@ -40,12 +40,18 @@ __attribute__((warn_unused_result))
 ;
 
 void
-stt_functions_simple_list_destructor(
-		stt_functions_simple_list * list)
+stt_functions_simple_list_destructor(stt_functions_simple_list * list)
 ;
 
 uint_fast8_t
 stt_functions_simple_list_length(stt_functions_simple_list * list)
+__attribute__((warn_unused_result))
+;
+
+stt_functions_simple_list *
+stt_functions_simple_list_push_front(
+		stt_functions_simple_list * functions,
+		const stt_function * function)
 __attribute__((warn_unused_result))
 ;
 

@@ -24,6 +24,16 @@
 #include "rtg_operation_args_simple_list.h"
 
 rtg_operation_args_simple_list *
+rtg_operation_args_simple_list_default_constructor()
+{
+	rtg_operation_args_simple_list * ret_;
+	ret_ = malloc(sizeof(rtg_operation_args_simple_list));
+	ret_->first = NULL;
+	ret_->next = NULL;
+	return ret_;
+}
+
+rtg_operation_args_simple_list *
 rtg_operation_args_simple_list_copy_constructor(
 		const rtg_operation_args_simple_list * operation_args)
 {

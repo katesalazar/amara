@@ -71,3 +71,33 @@ stt_application_subnode_destructor(stt_application_subnode * subnode)
 	free(subnode);
 }
 
+void
+stt_application_subnode_set_type(
+		stt_application_subnode * subnode, uint_fast8_t type)
+{
+	assertion(subnode->type_ == STT_APPLICATION_SUBNODE_TYPE_INVALID);
+	assertion(type == STT_APPLICATION_SUBNODE_TYPE_CLI_APPLICATION);
+	assertion(subnode->name_ != NULL);
+	assertion(subnode->entry_point_function_name_ != NULL);
+	subnode->type_ = type;
+}
+
+void
+stt_application_subnode_set_name(
+		stt_application_subnode * subnode, const amara_string * name)
+{
+	assertion(subnode->type_ == STT_APPLICATION_SUBNODE_TYPE_INVALID);
+	assertion(subnode->name_ == NULL);
+	subnode->name_ = amara_string_copy_constructor((amara_string *) name);
+}
+
+void
+stt_application_subnode_set_entry_point_function_name(
+		stt_application_subnode * subnode,
+		const amara_string * entry_point_function_name)
+{
+	assertion(subnode->type_ == STT_APPLICATION_SUBNODE_TYPE_INVALID);
+	assertion(subnode->entry_point_function_name_ == NULL);
+	subnode->entry_point_function_name_ = amara_string_copy_constructor(
+			(amara_string *) entry_point_function_name);
+}

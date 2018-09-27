@@ -64,3 +64,11 @@ lcov.info
 
 #   `lcov`'s `genhtml` output docs.
 gcov_results/
+
+#   Miscellaneous coverage stuff. This is a symbolic link as a
+# workaround for a presentation issue in `lcov`.
+build/debug/minia.l
+
+#   Miscellaneous coverage stuff. This is a symbolic link as a
+# workaround for a presentation issue in `lcov`.
+build/debug/minia.y

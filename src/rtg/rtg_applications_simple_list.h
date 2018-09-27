@@ -32,6 +32,11 @@ typedef struct rtg_applications_simple_list {
 } rtg_applications_simple_list;
 
 rtg_applications_simple_list *
+rtg_applications_simple_list_default_constructor()
+__attribute__((warn_unused_result))
+;
+
+rtg_applications_simple_list *
 rtg_applications_simple_list_copy_constructor(
 		const rtg_applications_simple_list * list)
 __attribute__((warn_unused_result))

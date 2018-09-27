@@ -28,7 +28,7 @@ stt_execution_request_subnode_default_constructor()
 {
 	stt_execution_request_subnode * returning_ =
 			malloc(sizeof(stt_execution_request_subnode));
-	returning_->type_ = EXECUTION_REQUEST_SUBNODE_TYPE_INVALID;
+	returning_->type_ = STT_EXECUTION_REQUEST_SUBNODE_TYPE_INVALID;
 	returning_->application_name_ = NULL;
 	return returning_;
 }
@@ -39,7 +39,7 @@ stt_execution_request_subnode_copy_constructor(
 {
 	stt_execution_request_subnode * ret_;
 	assertion(subnode != NULL);
-	assertion(subnode->type_ != EXECUTION_REQUEST_SUBNODE_TYPE_INVALID);
+	assertion(subnode->type_ != STT_EXECUTION_REQUEST_SUBNODE_TYPE_INVALID);
 	assertion(subnode->application_name_ != NULL);
 	assertion(subnode->application_name_->value_ != NULL);
 	ret_ = malloc(sizeof(stt_execution_request_subnode));
@@ -54,7 +54,7 @@ stt_execution_request_subnode_destructor(
 		stt_execution_request_subnode * subnode)
 {
 	assertion(subnode != NULL);
-	if (subnode->type_ == EXECUTION_REQUEST_SUBNODE_TYPE_INVALID) {
+	if (subnode->type_ == STT_EXECUTION_REQUEST_SUBNODE_TYPE_INVALID) {
 		assertion(subnode->application_name_ == NULL);
 	} else {
 		assertion(subnode->application_name_ != NULL);

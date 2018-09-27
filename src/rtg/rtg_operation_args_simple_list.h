@@ -32,6 +32,11 @@ typedef struct rtg_operation_args_simple_list {
 } rtg_operation_args_simple_list;
 
 rtg_operation_args_simple_list *
+rtg_operation_args_simple_list_default_constructor()
+__attribute__((warn_unused_result))
+;
+
+rtg_operation_args_simple_list *
 rtg_operation_args_simple_list_copy_constructor(
 		const rtg_operation_args_simple_list * operation_args)
 __attribute__((warn_unused_result))

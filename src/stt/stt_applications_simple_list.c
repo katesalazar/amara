@@ -28,13 +28,25 @@
 #include "stt_applications_simple_list.h"
 
 stt_applications_simple_list *
+stt_applications_simple_list_default_constructor()
+{
+	stt_applications_simple_list * ret_;
+	ret_ = malloc(sizeof(stt_applications_simple_list));
+	ret_->first = NULL;
+	ret_->next = NULL;
+	return ret_;
+}
+
+stt_applications_simple_list *
 stt_applications_simple_list_copy_constructor_inner(
 		stt_applications_simple_list * applications)
 {
 	stt_applications_simple_list * ret_;
-	assertion(applications != NULL);
-	ret_ = malloc(sizeof(stt_applications_simple_list));
+	if (applications == NULL) {
+		return NULL;
+	}
 	assertion(applications->first != NULL);
+	ret_ = malloc(sizeof(stt_applications_simple_list));
 	ret_->first = stt_application_copy_constructor(applications->first);
 	if (applications->next == NULL) {
 		ret_->next = NULL;
@@ -52,7 +64,7 @@ stt_applications_simple_list_copy_constructor(
 	stt_applications_simple_list * ret_;
 	assertion(applications != NULL);
 	ret_ = malloc(sizeof(stt_applications_simple_list));
-	if (applications->first != NULL) {
+	if (applications->first == NULL) {
 		ret_->first = NULL;
 		assertion(applications->next == NULL);
 		ret_->next = NULL;

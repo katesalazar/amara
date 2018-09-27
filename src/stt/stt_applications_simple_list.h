@@ -29,6 +29,11 @@ typedef struct stt_applications_simple_list {
 } stt_applications_simple_list;
 
 stt_applications_simple_list *
+stt_applications_simple_list_default_constructor()
+__attribute__((warn_unused_result))
+;
+
+stt_applications_simple_list *
 stt_applications_simple_list_copy_constructor(
 		stt_applications_simple_list * applications)
 __attribute__((warn_unused_result))

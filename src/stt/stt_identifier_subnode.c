@@ -49,9 +49,10 @@ void
 stt_identifier_subnode_destructor(stt_identifier_subnode * subnode)
 {
 	assertion(subnode != NULL);
-	assertion(subnode->value_ != NULL);
-	assertion(subnode->value_->value_ != NULL);
-	amara_string_destructor(subnode->value_);
+	if (subnode->value_ != NULL) {
+		assertion(subnode->value_->value_ != NULL);
+		amara_string_destructor(subnode->value_);
+	}
 	free(subnode);
 }
 

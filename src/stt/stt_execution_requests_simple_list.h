@@ -29,6 +29,11 @@ typedef struct stt_execution_requests_simple_list {
 } stt_execution_requests_simple_list;
 
 stt_execution_requests_simple_list *
+stt_execution_requests_simple_list_default_constructor()
+__attribute__((warn_unused_result))
+;
+
+stt_execution_requests_simple_list *
 stt_execution_requests_simple_list_copy_constructor(
 		stt_execution_requests_simple_list * execution_requests)
 __attribute__((warn_unused_result))
@@ -42,6 +47,13 @@ stt_execution_requests_simple_list_destructor(
 uint_fast8_t
 stt_execution_requests_simple_list_length(
 		stt_execution_requests_simple_list * list)
+__attribute__((warn_unused_result))
+;
+
+stt_execution_requests_simple_list *
+stt_execution_requests_simple_list_push_front(
+		stt_execution_requests_simple_list * execution_requests,
+		const stt_execution_request * execution_request)
 __attribute__((warn_unused_result))
 ;
 

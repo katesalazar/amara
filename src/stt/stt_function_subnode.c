@@ -28,7 +28,7 @@ stt_function_subnode_default_constructor()
 {
 	stt_function_subnode * returning_ =
 			malloc(sizeof(stt_function_subnode));
-	returning_->type_ = FUNCTION_SUBNODE_TYPE_INVALID;
+	returning_->type_ = STT_FUNCTION_SUBNODE_TYPE_INVALID;
 	returning_->name_ = NULL;
 	returning_->operations_ = NULL;
 	return returning_;
@@ -39,7 +39,7 @@ stt_function_subnode_copy_constructor(const stt_function_subnode * subnode)
 {
 	stt_function_subnode * ret_;
 	assertion(subnode != NULL);
-	assertion(subnode->type_ != FUNCTION_SUBNODE_TYPE_INVALID);
+	assertion(subnode->type_ != STT_FUNCTION_SUBNODE_TYPE_INVALID);
 	assertion(subnode->name_ != NULL);
 	assertion(subnode->operations_ != NULL);
 	ret_ = malloc(sizeof(stt_function_subnode));
@@ -54,7 +54,7 @@ void
 stt_function_subnode_destructor(stt_function_subnode * subnode)
 {
 	assertion(subnode != NULL);
-	if (subnode->type_ == FUNCTION_SUBNODE_TYPE_INVALID) {
+	if (subnode->type_ == STT_FUNCTION_SUBNODE_TYPE_INVALID) {
 		assertion(subnode->name_ == NULL);
 		assertion(subnode->operations_ == NULL);
 	} else {

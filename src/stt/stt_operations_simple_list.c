@@ -96,3 +96,23 @@ stt_operations_simple_list_destructor(stt_operations_simple_list * list)
 	}
 	free(list);
 }
+
+stt_operations_simple_list *
+stt_operations_simple_list_push_front(
+		stt_operations_simple_list * operations,
+		const stt_operation * operation)
+{
+	stt_operations_simple_list * new_operations_list_node_;
+	assertion(operations != NULL);
+	assertion(operation != NULL);
+	if (operations->first == NULL) {
+		assertion(operations->next == NULL);
+		operations->first = stt_operation_copy_constructor(operation);
+		return operations;
+	}
+	new_operations_list_node_ = malloc(sizeof(stt_operations_simple_list));
+	new_operations_list_node_->first =
+			stt_operation_copy_constructor(operation);
+	new_operations_list_node_->next = operations;
+	return new_operations_list_node_;
+}
