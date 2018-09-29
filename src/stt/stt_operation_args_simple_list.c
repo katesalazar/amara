@@ -93,3 +93,24 @@ stt_operation_args_simple_list_destructor(
 	}
 	free(list);
 }
+
+stt_operation_args_simple_list *
+stt_operation_args_simple_list_push_front(
+		stt_operation_args_simple_list * operation_args,
+		const stt_operation_arg * operation_arg)
+{
+	stt_operation_args_simple_list * new_list_node_;
+	assertion(operation_args != NULL);
+	assertion(operation_arg != NULL);
+	if (operation_args->first == NULL) {
+		assertion(operation_args->next == NULL);
+		operation_args->first = stt_operation_arg_copy_constructor(
+				operation_arg);
+		return operation_args;
+	}
+	new_list_node_ = malloc(sizeof(stt_operation_args_simple_list));
+	new_list_node_->first = stt_operation_arg_copy_constructor(
+			operation_arg);
+	new_list_node_->next = operation_args;
+	return new_list_node_;
+}

@@ -39,7 +39,7 @@ stt_execution_requests_simple_list_default_constructor()
 
 stt_execution_requests_simple_list *
 stt_execution_requests_simple_list_copy_constructor_inner(
-		stt_execution_requests_simple_list * execution_requests)
+		const stt_execution_requests_simple_list * execution_requests)
 {
 	stt_execution_requests_simple_list * ret_;
 	assertion(execution_requests != NULL);
@@ -59,7 +59,7 @@ stt_execution_requests_simple_list_copy_constructor_inner(
 
 stt_execution_requests_simple_list *
 stt_execution_requests_simple_list_copy_constructor(
-		stt_execution_requests_simple_list * execution_requests)
+		const stt_execution_requests_simple_list * execution_requests)
 {
 	stt_execution_requests_simple_list * ret_;
 	assertion(execution_requests != NULL);

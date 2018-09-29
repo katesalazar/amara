@@ -87,8 +87,29 @@ rtg_operation_args_simple_list_destructor(
 	}
 }
 
+rtg_operation_args_simple_list *
+rtg_operation_args_simple_list_push_front(
+		rtg_operation_args_simple_list * operation_args,
+		const rtg_operation_arg * operation_arg)
+{
+	rtg_operation_args_simple_list * new_list_node_;
+	assertion(operation_args != NULL);
+	assertion(operation_arg != NULL);
+	if (operation_args->first == NULL) {
+		assertion(operation_args->next == NULL);
+		operation_args->first = rtg_operation_arg_copy_constructor(
+				operation_arg);
+		return operation_args;
+	}
+	new_list_node_ = malloc(sizeof(rtg_operation_arg));
+	new_list_node_->first = rtg_operation_arg_copy_constructor(
+			operation_arg);
+	new_list_node_->next = operation_args;
+	return new_list_node_;
+}
+
 uint_fast8_t
-rtg_operation_args_simple_list_size_inner(
+rtg_operation_args_simple_list_length_inner(
 		const rtg_operation_args_simple_list * operation_args)
 {
 	uint_fast8_t ret_;
@@ -99,7 +120,7 @@ rtg_operation_args_simple_list_size_inner(
 		ret_ = 1;
 		return ret_;
 	}
-	sub_ret_ = rtg_operation_args_simple_list_size_inner(
+	sub_ret_ = rtg_operation_args_simple_list_length_inner(
 			operation_args->next);
 	assertion_two(sub_ret_ < 0xFF, "arithmetic overflow");
 	ret_ = sub_ret_ + 1;
@@ -107,7 +128,7 @@ rtg_operation_args_simple_list_size_inner(
 }
 
 uint_fast8_t
-rtg_operation_args_simple_list_size(
+rtg_operation_args_simple_list_length(
 		const rtg_operation_args_simple_list * operation_args)
 {
 	assertion(operation_args != NULL);
@@ -115,7 +136,7 @@ rtg_operation_args_simple_list_size(
 		assertion(operation_args->next == NULL);
 		return 0;
 	}
-	return rtg_operation_args_simple_list_size_inner(operation_args);
+	return rtg_operation_args_simple_list_length_inner(operation_args);
 }
 
 void

@@ -17,6 +17,9 @@
  * function operation argument.
  */
 
+/*   For `int fprintf(FILE * stream, const char * format, ...)`. */
+#include <stdio.h>
+
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
@@ -25,6 +28,16 @@
 
 /*   For own definitions. */
 #include "rtg_operation_arg.h"
+
+rtg_operation_arg *
+rtg_operation_arg_default_constructor()
+{
+	rtg_operation_arg * ret_;
+	ret_ = malloc(sizeof(rtg_operation_arg));
+	ret_->string_literal_ = NULL;
+	ret_->type_ = RTG_OPERATION_ARG_TYPE_INVALID;
+	return ret_;
+}
 
 rtg_operation_arg *
 rtg_operation_arg_copy_constructor(const rtg_operation_arg * operation_arg)
@@ -36,6 +49,12 @@ rtg_operation_arg_copy_constructor(const rtg_operation_arg * operation_arg)
 	if (operation_arg->type_ == RTG_OPERATION_ARG_TYPE_STRING_LITERAL) {
 		ret_->string_literal_ = amara_string_copy_constructor(
 				operation_arg->string_literal_);
+		ret_->natural_literal_ = NULL;
+	} else {
+		assertion(operation_arg->type_ == RTG_OPERATION_ARG_TYPE_NATURAL_LITERAL);
+		ret_->string_literal_ = NULL;
+		ret_->natural_literal_ = amara_string_copy_constructor(
+				operation_arg->natural_literal_);
 	}
 	ret_->type_ = operation_arg->type_;
 	return ret_;
@@ -48,9 +67,60 @@ rtg_operation_arg_destructor(rtg_operation_arg * operation_arg)
 	if (operation_arg->type_ == RTG_OPERATION_ARG_TYPE_INVALID) {
 		assertion(operation_arg->string_literal_ == NULL);
 	} else {
-		amara_string_destructor(operation_arg->string_literal_);
+		if (operation_arg->type_ ==
+				RTG_OPERATION_ARG_TYPE_STRING_LITERAL) {
+			assertion(operation_arg->string_literal_ != NULL);
+			amara_string_destructor(
+					operation_arg->string_literal_);
+		} else {
+			assertion(operation_arg->type_ ==
+					RTG_OPERATION_ARG_TYPE_NATURAL_LITERAL);
+			assertion(operation_arg->natural_literal_ != NULL);
+			amara_string_destructor(
+					operation_arg->natural_literal_);
+		}
 	}
 	free(operation_arg);
+}
+
+void
+rtg_operation_arg_set_type(
+		rtg_operation_arg * operation_arg, uint_fast8_t type)
+{
+	if (type == RTG_OPERATION_ARG_TYPE_STRING_LITERAL) {
+		assertion(operation_arg->string_literal_ != NULL);
+		assertion(operation_arg->string_literal_->value_ != NULL);
+		operation_arg->type_ = RTG_OPERATION_ARG_TYPE_STRING_LITERAL;
+	} else {
+		assertion(type == RTG_OPERATION_ARG_TYPE_INVALID);
+		if (operation_arg->type_ ==
+				RTG_OPERATION_ARG_TYPE_STRING_LITERAL) {
+			assertion(operation_arg->string_literal_ != NULL);
+			assertion(operation_arg->string_literal_->value_ !=
+					NULL);
+			amara_string_destructor(
+					operation_arg->string_literal_);
+			operation_arg->string_literal_ = NULL;
+		} else {
+			assertion(operation_arg->type_ ==
+					RTG_OPERATION_ARG_TYPE_INVALID);
+		}
+	}
+}
+
+void
+rtg_operation_arg_set_string_literal(
+		rtg_operation_arg * operation_arg,
+		const amara_string * string_literal)
+{
+	if (operation_arg->string_literal_ != NULL) {
+		assertion(operation_arg->string_literal_->value_ != NULL);
+		amara_string_destructor(operation_arg->string_literal_);
+	}
+	if (string_literal != NULL) {
+		operation_arg->string_literal_ =
+				amara_string_copy_constructor(string_literal);
+	}
 }
 
 void
@@ -69,9 +139,9 @@ rtg_operation_arg_out_of_stt_operation_arg_ret_destructor(
 		}
 	} else {
 		assertion(rtg_operation_arg_out_of_stt_operation_arg_ret_->status ==
-					RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_INVALID ||
+					RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_INVALID /* ||
 				rtg_operation_arg_out_of_stt_operation_arg_ret_->status ==
-					RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_ERROR_UNSPECIFIC);
+					RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_ERROR_UNSPECIFIC */);
 		assertion(rtg_operation_arg_out_of_stt_operation_arg_ret_->operation_arg ==
 				NULL);
 	}
@@ -91,15 +161,41 @@ rtg_operation_arg_out_of_stt_operation_arg(
 	assertion(operation_arg != NULL);
 	assertion(operation_arg->node_ != NULL);
 	/* assert_stt_node_is_valid(operation_arg->node_); */
-	/* TASK needs to be a string literal... */
-	assertion(operation_arg->node_->type_ == STT_NODE_TYPE_STRING_LITERAL);
-	assertion(operation_arg->node_->string_literal_subnode_ != NULL);
-	assertion(operation_arg->node_->string_literal_subnode_->string_literal_ != NULL);
-	assertion(operation_arg->node_->string_literal_subnode_->string_literal_->value_ != NULL);
-	sub_ret_ = malloc(sizeof(rtg_operation_arg));
-	sub_ret_->string_literal_ = amara_string_copy_constructor(
-			operation_arg->node_->string_literal_subnode_->string_literal_);
-	sub_ret_->type_ = RTG_OPERATION_ARG_TYPE_STRING_LITERAL;
+	if (operation_arg->node_->type_ == STT_NODE_TYPE_STRING_LITERAL) {
+		assertion(operation_arg->node_->string_literal_subnode_ !=
+				NULL);
+		assertion(operation_arg->node_->string_literal_subnode_->string_literal_ !=
+				NULL);
+		assertion(operation_arg->node_->string_literal_subnode_->string_literal_->value_ !=
+				NULL);
+		sub_ret_ = malloc(sizeof(rtg_operation_arg));
+		sub_ret_->string_literal_ = amara_string_copy_constructor(
+				operation_arg->node_->string_literal_subnode_->string_literal_);
+		sub_ret_->natural_literal_ = NULL;
+		sub_ret_->type_ = RTG_OPERATION_ARG_TYPE_STRING_LITERAL;
+	} else if (operation_arg->node_->type_ == STT_NODE_TYPE_NATURAL_LITERAL) {
+		fprintf(stderr, "%s:%u: %u\n", __FILE__, __LINE__, operation_arg->node_->type_);
+		assertion(operation_arg->node_->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
+		assertion(operation_arg->node_->natural_subnode_ != NULL);
+		assertion(operation_arg->node_->natural_subnode_->raw_ != NULL);
+		sub_ret_ = malloc(sizeof(rtg_operation_arg));
+		sub_ret_->string_literal_ = NULL;
+		sub_ret_->natural_literal_ = amara_string_copy_constructor(
+				operation_arg->node_->natural_subnode_->raw_);
+		sub_ret_->type_ = RTG_OPERATION_ARG_TYPE_NATURAL_LITERAL;
+	} else {
+		assertion(operation_arg->node_->type_ == STT_NODE_TYPE_INTEGER_LITERAL);
+		assertion(operation_arg->node_->integer_literal_subnode_ !=
+				NULL);
+		assertion(operation_arg->node_->integer_literal_subnode_->raw_ !=
+				NULL);
+		assertion(operation_arg->node_->integer_literal_subnode_->raw_->value_ !=
+				NULL);
+		sub_ret_ = malloc(sizeof(rtg_operation_arg));
+		sub_ret_->integer_literal_ = amara_string_copy_constructor(
+				operation_arg->node_->integer_literal_subnode_->raw_);
+		sub_ret_->type_ = RTG_OPERATION_ARG_TYPE_INTEGER_LITERAL;
+	}
 	ret_->operation_arg = sub_ret_;
 	ret_->status = RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS;
 	return ret_;

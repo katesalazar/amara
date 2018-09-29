@@ -29,9 +29,26 @@ void stt_rational_subnode_construct_and_destruct_test_0()
 	stt_rational_subnode_destructor(rational_subnode_);
 }
 
+void stt_rational_subnode_construct_and_destruct_test_1()
+{
+	stt_rational_subnode * rational_subnode_zero_;
+	stt_rational_subnode * rational_subnode_one_;
+	amara_string * raw_rational_;
+	rational_subnode_zero_ = stt_rational_subnode_default_constructor();
+	assertion(rational_subnode_zero_ != NULL);
+	assertion(rational_subnode_zero_->raw_ == NULL);
+	raw_rational_ = amara_string_exhaustive_constructor("0.1");
+	stt_rational_subnode_set_raw(
+			rational_subnode_zero_, raw_rational_);
+	rational_subnode_one_ = stt_rational_subnode_copy_constructor(rational_subnode_zero_);
+	stt_rational_subnode_destructor(rational_subnode_one_);
+	stt_rational_subnode_destructor(rational_subnode_zero_);
+}
+
 void stt_rational_subnode_construct_and_destruct_tests()
 {
 	stt_rational_subnode_construct_and_destruct_test_0();
+	stt_rational_subnode_construct_and_destruct_test_1();
 }
 
 void

@@ -40,8 +40,7 @@
 /*   For `stt_identifier_subnode`. */
 #include "stt_identifier_subnode.h"
 
-/*   For `stt_integer_subnode`. */
-#include "stt_integer_subnode.h"
+#include "stt_integer_literal_subnode.h"
 
 /*   For `stt_natural_subnode`. */
 #include "stt_natural_subnode.h"
@@ -60,13 +59,15 @@
 
 /*   This is an enumeration. */
 #define SYNTAX_TREE_NODE_TYPE_INVALID            0x00
+#define STT_NODE_TYPE_INVALID SYNTAX_TREE_NODE_TYPE_INVALID
 #define SYNTAX_TREE_NODE_TYPE_STRING_LITERAL      0x01
 #define STT_NODE_TYPE_STRING_LITERAL SYNTAX_TREE_NODE_TYPE_STRING_LITERAL
-#define SYNTAX_TREE_NODE_TYPE_NATURAL            0x02
+#define SYNTAX_TREE_NODE_TYPE_NATURAL            0x02 /* XXX CONFLICTING WHEN THERE ARE NON LITERAL NATURALS */
 #define STT_NODE_TYPE_NATURAL_LITERAL SYNTAX_TREE_NODE_TYPE_NATURAL
-#define SYNTAX_TREE_NODE_TYPE_INTEGER            0x03
-#define SYNTAX_TREE_NODE_TYPE_RATIONAL           0x04
+#define STT_NODE_TYPE_INTEGER_LITERAL             0x03
+#define SYNTAX_TREE_NODE_TYPE_RATIONAL           0x04 /* XXX CONFLICTING WHEN THERE ARE NON LITERAL RATIONALS */
 #define SYNTAX_TREE_NODE_TYPE_OPERATION          0x05
+#define STT_NODE_TYPE_OPERATION SYNTAX_TREE_NODE_TYPE_OPERATION
 #define SYNTAX_TREE_NODE_TYPE_OPERATIONS_LIST     0x09
 #define SYNTAX_TREE_NODE_TYPE_FUNCTION           0x06
 #define SYNTAX_TREE_NODE_TYPE_APPLICATION        0x07
@@ -77,12 +78,16 @@
 #define SYNTAX_TREE_NODE_TYPE_CLI_OPERATIONS_LIST 0x13
 #define SYNTAX_TREE_NODE_TYPE_ERRORED            0xFF
 
+/*   This is simply synctactic sugar for the previous enumeration. */
+#define STT_NODE_TYPE_STRING_LITERAL SYNTAX_TREE_NODE_TYPE_STRING_LITERAL
+#define STT_NODE_TYPE_NATURAL_LITERAL SYNTAX_TREE_NODE_TYPE_NATURAL
+
 /*   `stt_node` for '**S**yn**t**ax **t**ree node'. */
 typedef struct stt_node {
 	uint_fast8_t type_;
 	stt_string_literal_subnode * string_literal_subnode_;
 	stt_natural_subnode * natural_subnode_;
-	stt_integer_subnode * integer_subnode_;
+	stt_integer_literal_subnode * integer_literal_subnode_;
 	stt_rational_subnode * rational_subnode_;
 	stt_operation_subnode * operation_subnode_;
 	stt_operations_list_subnode * operations_list_subnode_;
@@ -124,18 +129,28 @@ stt_node_set_string_literal(
 ;
 
 void
-stt_node_set_natural(
-		stt_node * node, const amara_string * raw_natural)
+stt_node_set_natural_literal(
+		stt_node * node, const amara_string * raw_natural_literal)
 ;
 
 void
-stt_node_set_integer(
-		stt_node * node, const amara_string * raw_integer)
+stt_node_set_integer_literal(
+		stt_node * node, const amara_string * raw_integer_literal)
 ;
 
 void
 stt_node_set_rational(
 		stt_node * node, const amara_string * raw_rational)
+;
+
+void
+stt_node_set_identifier(
+		stt_node * node, const amara_string * identifier)
+;
+
+void
+stt_node_set_operation(
+		stt_node * node, const stt_operation * operation)
 ;
 
 amara_string *

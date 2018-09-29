@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * src/stt/stt_natural_subnode.c: Amara syntax tree natural subnode.
+ * src/stt/stt_natural_subnode.c: Amara syntax tree natural literal
+ * subnode.
  */
 
 /*   For `void assertion(int expression)`. */

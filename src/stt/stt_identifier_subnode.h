@@ -38,6 +38,12 @@ stt_identifier_subnode_copy_constructor(const stt_identifier_subnode * subnode)
 __attribute__((warn_unused_result))
 ;
 
+stt_identifier_subnode *
+stt_identifier_subnode_exhaustive_constructor(
+		const amara_string * identifier)
+__attribute__((warn_unused_result))
+;
+
 void
 stt_identifier_subnode_destructor(stt_identifier_subnode * subnode)
 ;

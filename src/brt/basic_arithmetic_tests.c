@@ -37,6 +37,8 @@
  * fit_raw_natural_in_uint_fast8_t_ret`, and for several others. */
 #include "natural.h"
 
+#include "natural_tests.h"
+
 void
 safe_arguments_natural_raw_comparison_test_0(void)
 ;
@@ -593,4 +595,5 @@ basic_arithmetic_tests()
 	fprintf(stderr, "----> %s:%u: void basic_arithmetic_tests()\n", __FILE__, __LINE__);
 #endif
 	natural_tests();
+	natural_tests_();
 }

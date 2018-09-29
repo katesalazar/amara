@@ -56,10 +56,36 @@ def hello_world():
     child_.expect('hello, world')
     dev_null_.close()
 
+def structure():
+    command_and_args_ = [
+            './build/release/amara', 'run', 'app', 'examples/1_functions_structure/',
+            '--no-banner']
+    dev_null_ = open(os_devnull, 'w')
+    command_ = subprocess.Popen(
+            command_and_args_, stdout=subprocess.PIPE, stdin=subprocess.PIPE,
+            stderr=dev_null_)
+    child_ = pexpect_fdpexpect_fdspawn(command_.stdout)
+    child_.expect('hello, world')
+    dev_null_.close()
+
+def naturals_substraction():
+    command_and_args_ = [
+            './build/release/amara', 'run', 'app', 'examples/2.0_naturals_substraction/',
+            '--no-banner']
+    dev_null_ = open(os_devnull, 'w')
+    command_ = subprocess.Popen(
+            command_and_args_, stdout=subprocess.PIPE, stdin=subprocess.PIPE,
+            stderr=dev_null_)
+    child_ = pexpect_fdpexpect_fdspawn(command_.stdout)
+    child_.expect('9 minus 2 equals to 7, which is of type natural')
+    dev_null_.close()
+
 def do():
     greet_no_banner()
     run_tests()
     hello_world()
+    structure()
+    naturals_substraction()
 
 def run():
     do()

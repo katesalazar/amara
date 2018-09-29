@@ -13,15 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * src/stt/stt_integer_subnode.h: Test the Amara syntax tree integer
- * subnode.
+ * src/rtg/rtg_doc_tests.h: Test the Amara run time graph document.
  */
 
-#ifndef __AMARA__SYNTAX_TREE__INTEGER_SUBNODE_TESTS__H__
-#define __AMARA__SYNTAX_TREE__INTEGER_SUBNODE_TESTS__H__
+#ifndef __AMARA__RUN_TIME_GRAPH__DOC_TESTS__H__
+#define __AMARA__RUN_TIME_GRAPH__DOC_TESTS__H__
 
 void
-stt_integer_subnode_tests()
+rtg_doc_tests(void)
 ;
 
 #endif

@@ -37,7 +37,15 @@ typedef struct stt_function {
 } stt_function;
 
 stt_function *
-stt_function_default_constructor()
+stt_function_default_constructor(void)
+__attribute__((warn_unused_result))
+;
+
+stt_function *
+stt_function_exhaustive_constructor(
+		uint_fast8_t type,
+		const amara_string * name,
+		const stt_operations_simple_list * operations)
 __attribute__((warn_unused_result))
 ;
 

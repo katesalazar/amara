@@ -32,7 +32,7 @@ typedef struct rtg_applications_simple_list {
 } rtg_applications_simple_list;
 
 rtg_applications_simple_list *
-rtg_applications_simple_list_default_constructor()
+rtg_applications_simple_list_default_constructor(void)
 __attribute__((warn_unused_result))
 ;
 
@@ -45,6 +45,13 @@ __attribute__((warn_unused_result))
 void
 rtg_applications_simple_list_destructor(
 		rtg_applications_simple_list * list)
+;
+
+rtg_applications_simple_list *
+rtg_applications_simple_list_push_front(
+		rtg_applications_simple_list * applications,
+		const rtg_application * application)
+__attribute__((warn_unused_result))
 ;
 
 #define FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_INVALID   0x00

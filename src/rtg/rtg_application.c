@@ -41,6 +41,10 @@ rtg_application *
 rtg_application_copy_constructor(const rtg_application * application)
 {
 	rtg_application * ret_;
+	assertion(application != NULL);
+	assertion(application->name_ != NULL);
+	assertion(application->name_->value_ != NULL);
+	assertion(application->entry_point_function_ != NULL);
 	ret_ = malloc(sizeof(rtg_application));
 	ret_->entry_point_function_ = rtg_function_copy_constructor(
 			application->entry_point_function_);
@@ -81,9 +85,9 @@ rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret_destruc
 		}
 	} else {
 		assertion(rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret_->status ==
-					RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID ||
+					RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID /* ||
 				rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret_->status ==
-					RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC);
+					RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC */);
 		assertion(rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret_->application ==
 				NULL);
 	}

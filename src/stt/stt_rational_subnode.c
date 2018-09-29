@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * src/stt/stt_rational_subnode.c: Amara syntax tree rational subnode.
+ * src/stt/stt_rational_subnode.c: Amara syntax tree rational literal
+ * subnode.
  */
 
 /*   For `amara_string`. */

@@ -32,6 +32,7 @@
 #include "rtg_functions_simple_list.h"
 
 #define RTG_APPLICATION_TYPE_INVALID 0x00
+#define RTG_APPLICATION_TYPE_CLI_APPLICATION 0xFF
 
 typedef struct rtg_application {
 	uint_fast8_t type_;

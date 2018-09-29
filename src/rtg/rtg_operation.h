@@ -36,6 +36,12 @@ typedef struct rtg_operation {
 } rtg_operation;
 
 rtg_operation *
+rtg_operation_exhaustive_constructor(
+		uint_fast8_t type, const rtg_operation_args_simple_list * args)
+__attribute__((warn_unused_result))
+;
+
+rtg_operation *
 rtg_operation_copy_constructor(const rtg_operation * operation)
 __attribute__((warn_unused_result))
 ;

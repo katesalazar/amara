@@ -39,7 +39,7 @@ stt_applications_simple_list_default_constructor()
 
 stt_applications_simple_list *
 stt_applications_simple_list_copy_constructor_inner(
-		stt_applications_simple_list * applications)
+		const stt_applications_simple_list * applications)
 {
 	stt_applications_simple_list * ret_;
 	if (applications == NULL) {
@@ -59,7 +59,7 @@ stt_applications_simple_list_copy_constructor_inner(
 
 stt_applications_simple_list *
 stt_applications_simple_list_copy_constructor(
-		stt_applications_simple_list * applications)
+		const stt_applications_simple_list * applications)
 {
 	stt_applications_simple_list * ret_;
 	assertion(applications != NULL);
@@ -81,16 +81,49 @@ stt_applications_simple_list_copy_constructor(
 }
 
 void
+stt_applications_simple_list_destructor_inner(
+		stt_applications_simple_list * list)
+{
+	if (list != NULL) {
+		assertion(list->first != NULL);
+		stt_application_destructor(list->first);
+		stt_applications_simple_list_destructor_inner(list->next);
+		free(list);
+	}
+}
+
+void
 stt_applications_simple_list_destructor(
 		stt_applications_simple_list * list)
 {
+	assertion(list != NULL);
 	if (list->first == NULL) {
 		assertion(list->next == NULL);
 	} else {
 		stt_application_destructor(list->first);
-		stt_applications_simple_list_destructor(list->next);
+		stt_applications_simple_list_destructor_inner(list->next);
 	}
 	free(list);
+}
+
+stt_applications_simple_list *
+stt_applications_simple_list_push_front(
+		stt_applications_simple_list * applications,
+		const stt_application * application)
+{
+	stt_applications_simple_list * new_list_node_;
+	assertion(applications != NULL);
+	assertion(application != NULL);
+	if (applications->first == NULL) {
+		assertion(applications->next == NULL);
+		applications->first =
+				stt_application_copy_constructor(application);
+		return applications;
+	}
+	new_list_node_ = malloc(sizeof(stt_applications_simple_list));
+	new_list_node_->first = stt_application_copy_constructor(application);
+	new_list_node_->next = applications;
+	return new_list_node_;
 }
 
 uint_fast8_t

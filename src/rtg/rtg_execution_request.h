@@ -20,6 +20,8 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__EXECUTION_REQUEST__H__
 #define __AMARA__RUN_TIME_GRAPH__EXECUTION_REQUEST__H__
 
+#include "../stt/stt_execution_request.h"
+
 /*   For `rtg_application`. */
 #include "rtg_application.h"
 

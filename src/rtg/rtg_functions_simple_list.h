@@ -32,6 +32,11 @@ typedef struct rtg_functions_simple_list {
 } rtg_functions_simple_list;
 
 rtg_functions_simple_list *
+rtg_functions_simple_list_default_constructor(void)
+__attribute__((warn_unused_result))
+;
+
+rtg_functions_simple_list *
 rtg_functions_simple_list_copy_constructor(rtg_functions_simple_list * list)
 __attribute__((warn_unused_result))
 ;

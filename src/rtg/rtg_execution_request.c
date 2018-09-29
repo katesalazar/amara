@@ -81,9 +81,9 @@ rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_l
 		}
 	} else {
 		assertion(rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret_->status ==
-					RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_INVALID ||
+					RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_INVALID /* ||
 				rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret_->status ==
-					RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC);
+					RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC */);
 		assertion(rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret_->execution_request ==
 				NULL);
 	}

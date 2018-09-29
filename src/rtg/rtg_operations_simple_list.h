@@ -32,6 +32,11 @@ typedef struct rtg_operations_simple_list {
 } rtg_operations_simple_list;
 
 rtg_operations_simple_list *
+rtg_operations_simple_list_default_constructor(void)
+__attribute__((warn_unused_result))
+;
+
+rtg_operations_simple_list *
 rtg_operations_simple_list_copy_constructor(
 		const rtg_operations_simple_list * list)
 __attribute__((warn_unused_result))
@@ -39,6 +44,13 @@ __attribute__((warn_unused_result))
 
 void
 rtg_operations_simple_list_destructor(rtg_operations_simple_list * list)
+;
+
+rtg_operations_simple_list *
+rtg_operations_simple_list_push_front(
+		rtg_operations_simple_list * operations,
+		rtg_operation * operation)
+__attribute__((warn_unused_result))
 ;
 
 #define RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_INVALID 0x00

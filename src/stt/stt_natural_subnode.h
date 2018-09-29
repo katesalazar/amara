@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * src/stt/stt_natural_subnode.h: Amara syntax tree natural subnode.
+ * src/stt/stt_natural_subnode.h: Amara syntax tree natural literal
+ * subnode.
  */
 
 #ifndef __AMARA__SYNTAX_TREE__NATURAL_SUBNODE__H__

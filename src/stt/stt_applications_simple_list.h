@@ -29,19 +29,26 @@ typedef struct stt_applications_simple_list {
 } stt_applications_simple_list;
 
 stt_applications_simple_list *
-stt_applications_simple_list_default_constructor()
+stt_applications_simple_list_default_constructor(void)
 __attribute__((warn_unused_result))
 ;
 
 stt_applications_simple_list *
 stt_applications_simple_list_copy_constructor(
-		stt_applications_simple_list * applications)
+		const stt_applications_simple_list * applications)
 __attribute__((warn_unused_result))
 ;
 
 void
 stt_applications_simple_list_destructor(
 		stt_applications_simple_list * list)
+;
+
+stt_applications_simple_list *
+stt_applications_simple_list_push_front(
+		stt_applications_simple_list * applications,
+		const stt_application * application)
+__attribute__((warn_unused_result))
 ;
 
 uint_fast8_t

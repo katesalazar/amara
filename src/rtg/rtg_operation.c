@@ -27,6 +27,27 @@
 #include "rtg_operation.h"
 
 rtg_operation *
+rtg_operation_exhaustive_constructor(
+		uint_fast8_t type, const rtg_operation_args_simple_list * args)
+{
+	rtg_operation * ret_;
+	if (type == RTG_OPERATION_TYPE_INVALID) {
+		/* assertion(args == NULL || args->first == NULL); */
+		assertion(args != NULL && args->first == NULL);
+		ret_ = malloc(sizeof(rtg_operation));
+		ret_->type_ = RTG_OPERATION_TYPE_INVALID;
+		ret_->args_ = rtg_operation_args_simple_list_copy_constructor(
+				args);
+		return ret_;
+	}
+	assertion(args != NULL);
+	ret_ = malloc(sizeof(rtg_operation));
+	ret_->args_ = rtg_operation_args_simple_list_copy_constructor(args);
+	ret_->type_ = type; /* XXX checks missing */
+	return ret_;
+}
+
+rtg_operation *
 rtg_operation_copy_constructor(const rtg_operation * operation)
 {
 	rtg_operation * ret_;
@@ -42,7 +63,10 @@ rtg_operation_destructor(rtg_operation * operation)
 {
 	assertion(operation != NULL);
 	if (operation->type_ == RTG_OPERATION_TYPE_INVALID) {
-		assertion(operation->args_ == NULL);
+		if (operation->args_ != NULL) {
+			rtg_operation_args_simple_list_destructor(
+					operation->args_);
+		}
 	} else {
 		assertion(operation->args_ != NULL);
 		rtg_operation_args_simple_list_destructor(operation->args_);

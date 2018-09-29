@@ -29,13 +29,13 @@ typedef struct stt_execution_requests_simple_list {
 } stt_execution_requests_simple_list;
 
 stt_execution_requests_simple_list *
-stt_execution_requests_simple_list_default_constructor()
+stt_execution_requests_simple_list_default_constructor(void)
 __attribute__((warn_unused_result))
 ;
 
 stt_execution_requests_simple_list *
 stt_execution_requests_simple_list_copy_constructor(
-		stt_execution_requests_simple_list * execution_requests)
+		const stt_execution_requests_simple_list * execution_requests)
 __attribute__((warn_unused_result))
 ;
 

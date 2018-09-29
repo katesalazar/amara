@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * src/stt/stt_integer_subnode.h: Amara syntax tree integer subnode.
+ * src/stt/stt_integer_literal_subnode.h: Amara syntax tree integer
+ * literal subnode.
  */
 
-#ifndef __AMARA__SYNTAX_TREE__INTEGER_SUBNODE__H__
-#define __AMARA__SYNTAX_TREE__INTEGER_SUBNODE__H__
+#ifndef __AMARA__SYNTAX_TREE__INTEGER_LITERAL_SUBNODE__H__
+#define __AMARA__SYNTAX_TREE__INTEGER_LITERAL_SUBNODE__H__
 
 /*   For `amara_bool` and its values. */
 #include "../cmn/amara_boolean.h"
@@ -25,43 +26,46 @@
 /*   For `amara_string`. */
 #include "../cmn/amara_string.h"
 
-typedef struct stt_integer_subnode {
+typedef struct stt_integer_literal_subnode {
 	amara_string * raw_;
-} stt_integer_subnode;
+} stt_integer_literal_subnode;
 
-stt_integer_subnode *
-stt_integer_subnode_default_constructor(void)
+stt_integer_literal_subnode *
+stt_integer_literal_subnode_default_constructor(void)
 __attribute__((warn_unused_result))
 ;
 
-stt_integer_subnode *
-stt_integer_subnode_copy_constructor(const stt_integer_subnode * subnode)
+stt_integer_literal_subnode *
+stt_integer_literal_subnode_copy_constructor(
+		const stt_integer_literal_subnode * subnode)
 __attribute__((warn_unused_result))
 ;
 
-stt_integer_subnode *
-stt_integer_subnode_exhaustive_constructor(const amara_string * raw)
+stt_integer_literal_subnode *
+stt_integer_literal_subnode_exhaustive_constructor(const amara_string * raw)
 __attribute__((warn_unused_result))
 ;
 
 void
-stt_integer_subnode_destructor(stt_integer_subnode * subnode)
+stt_integer_literal_subnode_destructor(stt_integer_literal_subnode * subnode)
 ;
 
 amara_string *
-stt_integer_subnode_get_raw(const stt_integer_subnode * subnode)
+stt_integer_literal_subnode_get_raw(
+		const stt_integer_literal_subnode * subnode)
 __attribute__((warn_unused_result))
 ;
 
 void
-stt_integer_subnode_set_raw(
-		stt_integer_subnode * subnode, const amara_string * raw)
+stt_integer_literal_subnode_set_raw(
+		stt_integer_literal_subnode * subnode,
+		const amara_string * raw)
 ;
 
 amara_boolean
-stt_integer_subnode_equality(
-		stt_integer_subnode * subnode0,
-		stt_integer_subnode * subnode1)
+stt_integer_literal_subnode_equality(
+		stt_integer_literal_subnode * subnode0,
+		stt_integer_literal_subnode * subnode1)
 __attribute__((warn_unused_result))
 ;
 

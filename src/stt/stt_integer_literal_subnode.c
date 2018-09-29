@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * src/stt/stt_integer_subnode.c: Amara syntax tree integer subnode.
+ * src/stt/stt_integer_literal_subnode.c: Amara syntax tree integer
+ * literal subnode.
  */
 
 /*   For `amara_string`. */
@@ -27,20 +28,23 @@
 #include "../brt/integer.h"
 
 /*   For own definitions. */
-#include "stt_integer_subnode.h"
+#include "stt_integer_literal_subnode.h"
 
-stt_integer_subnode *
-stt_integer_subnode_default_constructor()
+stt_integer_literal_subnode *
+stt_integer_literal_subnode_default_constructor()
 {
-	stt_integer_subnode * ret_ = malloc(sizeof(stt_integer_subnode));
+	stt_integer_literal_subnode * ret_ =
+			malloc(sizeof(stt_integer_literal_subnode));
 	ret_->raw_ = NULL;
 	return ret_;
 }
 
-stt_integer_subnode *
-stt_integer_subnode_copy_constructor(const stt_integer_subnode * subnode)
+stt_integer_literal_subnode *
+stt_integer_literal_subnode_copy_constructor(
+		const stt_integer_literal_subnode * subnode)
 {
-	stt_integer_subnode * ret_ = malloc(sizeof(stt_integer_subnode));
+	stt_integer_literal_subnode * ret_ =
+			malloc(sizeof(stt_integer_literal_subnode));
 	assertion(subnode != NULL);
 	assertion(subnode->raw_ != NULL);
 	ret_->raw_ = amara_string_copy_constructor(subnode->raw_);
@@ -48,23 +52,23 @@ stt_integer_subnode_copy_constructor(const stt_integer_subnode * subnode)
 }
 
 void
-validate_amara_string_as_integer(const amara_string * raw)
+validate_amara_string_as_integer_literal(const amara_string * raw)
 {
 	assert_valid_raw_integer(raw);
 }
 
-stt_integer_subnode *
-stt_integer_subnode_exhaustive_constructor(const amara_string * raw)
+stt_integer_literal_subnode *
+stt_integer_literal_subnode_exhaustive_constructor(const amara_string * raw)
 {
-	stt_integer_subnode * ret_;
-	validate_amara_string_as_integer(raw);
-	ret_ = malloc(sizeof(stt_integer_subnode));
+	stt_integer_literal_subnode * ret_;
+	validate_amara_string_as_integer_literal(raw);
+	ret_ = malloc(sizeof(stt_integer_literal_subnode));
 	ret_->raw_ = amara_string_copy_constructor(raw);
 	return ret_;
 }
 
 void
-stt_integer_subnode_destructor(stt_integer_subnode * subnode)
+stt_integer_literal_subnode_destructor(stt_integer_literal_subnode * subnode)
 {
 	assertion(subnode != NULL);
 	if (subnode->raw_ != NULL) {
@@ -74,7 +78,8 @@ stt_integer_subnode_destructor(stt_integer_subnode * subnode)
 }
 
 amara_string *
-stt_integer_subnode_get_raw(const stt_integer_subnode * subnode)
+stt_integer_literal_subnode_get_raw(
+		const stt_integer_literal_subnode * subnode)
 {
 	assertion(subnode != NULL);
 	assertion(subnode->raw_ != NULL);
@@ -82,10 +87,11 @@ stt_integer_subnode_get_raw(const stt_integer_subnode * subnode)
 }
 
 void
-stt_integer_subnode_set_raw(
-		stt_integer_subnode * subnode, const amara_string * raw)
+stt_integer_literal_subnode_set_raw(
+		stt_integer_literal_subnode * subnode,
+		const amara_string * raw)
 {
-	validate_amara_string_as_integer(raw);
+	validate_amara_string_as_integer_literal(raw);
 	assertion(subnode != NULL);
 	if (subnode->raw_ == NULL) {
 		if (raw != NULL) {

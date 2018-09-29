@@ -38,9 +38,49 @@ rtg_function_default_constructor()
 }
 
 rtg_function *
+rtg_function_exhaustive_constructor(
+		uint_fast8_t type, const amara_string * name,
+		const rtg_operations_simple_list * operations)
+{
+	rtg_function * ret_;
+	if (name == NULL || operations == NULL) {
+		assertion(type == RTG_FUNCTION_TYPE_INVALID);
+	} else {
+		assertion(type != RTG_FUNCTION_TYPE_INVALID);
+	}
+	ret_ = malloc(sizeof(rtg_function));
+	if (name == NULL || operations == NULL) {
+		if (name == NULL) {
+			ret_->name_ = NULL;
+		} else {
+			ret_->name_ = amara_string_copy_constructor(name);
+		}
+		if (operations == NULL) {
+			ret_->operations_ = NULL;
+		} else {
+			ret_->operations_ =
+					rtg_operations_simple_list_copy_constructor(
+							operations);
+		}
+		ret_->type_ = RTG_FUNCTION_TYPE_INVALID;
+		return ret_;
+	}
+	ret_->name_ = amara_string_copy_constructor(name);
+	ret_->operations_ = rtg_operations_simple_list_copy_constructor(
+			operations);
+	ret_->type_ = type;
+	return ret_;
+}
+
+rtg_function *
 rtg_function_copy_constructor(const rtg_function * original)
 {
 	rtg_function * ret_;
+	assertion(original != NULL);
+	assertion(original->type_ != RTG_FUNCTION_TYPE_INVALID);
+	assertion(original->name_ != NULL);
+	assertion(original->name_->value_ != NULL);
+	assertion(original->operations_ != NULL);
 	ret_ = malloc(sizeof(rtg_function));
 	ret_->operations_ = rtg_operations_simple_list_copy_constructor(original->operations_);
 	ret_->name_ = amara_string_copy_constructor(original->name_);

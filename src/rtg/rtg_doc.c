@@ -35,6 +35,18 @@
 #include "rtg_doc.h"
 
 rtg_doc *
+rtg_doc_default_constructor()
+{
+	rtg_doc * ret_ = malloc(sizeof(rtg_doc));
+	ret_->functions_ = rtg_functions_simple_list_default_constructor();
+	ret_->applications_ =
+			rtg_applications_simple_list_default_constructor();
+	ret_->execution_requests_ =
+			rtg_execution_requests_simple_list_default_constructor();
+	return ret_;
+}
+
+rtg_doc *
 rtg_doc_exhaustive_constructor(
 		rtg_functions_simple_list * functions,
 		rtg_applications_simple_list * applications,
@@ -66,13 +78,19 @@ rtg_doc_out_of_stt_doc_ret_destructor(
 		rtg_doc_out_of_stt_doc_ret * rtg_doc_out_of_stt_doc_ret_)
 {
 	assertion(rtg_doc_out_of_stt_doc_ret_ != NULL);
-	if (rtg_doc_out_of_stt_doc_ret_->status == RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_SUCCESS) {
+
+	assertion(rtg_doc_out_of_stt_doc_ret_->status == RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_SUCCESS);
+
+	/* if (rtg_doc_out_of_stt_doc_ret_->status == RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_SUCCESS) { */
+
 		assertion(rtg_doc_out_of_stt_doc_ret_->doc != NULL);
 		rtg_doc_destructor(rtg_doc_out_of_stt_doc_ret_->doc);
-	} else {
+
+	/* } else {
 		assertion(rtg_doc_out_of_stt_doc_ret_->status == RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_INVALID);
 		assertion(rtg_doc_out_of_stt_doc_ret_->doc == NULL);
-	}
+	} */
+
 	free(rtg_doc_out_of_stt_doc_ret_);
 }
 

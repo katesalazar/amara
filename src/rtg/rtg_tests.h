@@ -20,7 +20,7 @@
 #define __AMARA__RUN_TIME_GRAPH__TESTS__H__
 
 void
-run_time_graph_tests()
+run_time_graph_tests(void)
 ;
 
 #endif

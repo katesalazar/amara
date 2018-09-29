@@ -37,6 +37,41 @@ stt_doc_subnode_default_constructor()
 }
 
 stt_doc_subnode *
+stt_doc_subnode_exhaustive_constructor(
+		const stt_functions_simple_list * functions,
+		const stt_applications_simple_list * applications,
+		const stt_execution_requests_simple_list * execution_requests)
+{
+	stt_doc_subnode * ret_;
+	if (functions == NULL) {
+		if (applications == NULL) {
+			assertion(execution_requests != NULL);
+			assertion(execution_requests->first != NULL);
+		/* } else {
+			assertion(applications->first != NULL); */
+		}
+	/* } else {
+		assertion(functions->first != NULL); */
+	}
+	ret_ = malloc(sizeof(stt_doc_subnode));
+	if (functions != NULL /* && functions->first != NULL */) {
+		ret_->functions_ = stt_functions_simple_list_copy_constructor(
+				functions);
+	}
+	if (applications != NULL /* && applications->first != NULL */) {
+		ret_->applications_ =
+				stt_applications_simple_list_copy_constructor(
+						applications);
+	}
+	if (execution_requests != NULL /* && execution_requests->first != NULL */) {
+		ret_->execution_requests_ =
+				stt_execution_requests_simple_list_copy_constructor(
+						execution_requests);
+	}
+	return ret_;
+}
+
+stt_doc_subnode *
 stt_doc_subnode_copy_constructor(const stt_doc_subnode * subnode)
 {
 	stt_doc_subnode * ret_;
@@ -50,11 +85,13 @@ stt_doc_subnode_copy_constructor(const stt_doc_subnode * subnode)
 	if (subnode->functions_ != NULL) {
 		ret_->functions_ = stt_functions_simple_list_copy_constructor(
 				subnode->functions_);
-	} else if (subnode->applications_ != NULL) {
+	}
+	if (subnode->applications_ != NULL) {
 		ret_->applications_ =
 				stt_applications_simple_list_copy_constructor(
 						subnode->applications_);
-	} else if (subnode->execution_requests_ != NULL) {
+	}
+	if (subnode->execution_requests_ != NULL) {
 		ret_->execution_requests_ =
 				stt_execution_requests_simple_list_copy_constructor(
 						subnode->execution_requests_);
@@ -65,18 +102,25 @@ stt_doc_subnode_copy_constructor(const stt_doc_subnode * subnode)
 void
 stt_doc_subnode_destructor(stt_doc_subnode * subnode)
 {
-	assertion(subnode != NULL);
-	if (subnode->functions_ == NULL) {
-		assertion(subnode->applications_ == NULL);
-		assertion(subnode->execution_requests_ == NULL);
-	} else {
-		stt_functions_simple_list_destructor(subnode->functions_);
-		stt_applications_simple_list_destructor(
-				subnode->applications_);
-		stt_execution_requests_simple_list_destructor(
-				subnode->execution_requests_);
-	}
-	free(subnode);
+	assertion(subnode != NULL); /* XXX */
+	if (subnode->functions_ == NULL) { /* XXX */
+		assertion(subnode->applications_ == NULL); /* XXX */
+		assertion(subnode->execution_requests_ == NULL); /* XXX */
+	} else { /* XXX */
+		if (subnode->functions_ != NULL) { /* XXX */
+			stt_functions_simple_list_destructor( /* XXX */
+					subnode->functions_); /* XXX */
+		} /* XXX */
+		if (subnode->applications_ != NULL) { /* XXX */
+			stt_applications_simple_list_destructor( /* XXX */
+					subnode->applications_); /* XXX */
+		} /* XXX */
+		if (subnode->execution_requests_ != NULL) { /* XXX */
+			stt_execution_requests_simple_list_destructor( /* XXX */
+					subnode->execution_requests_); /* XXX */
+		} /* XXX */
+	} /* XXX */
+	free(subnode); /* XXX */
 }
 
 void
@@ -95,9 +139,9 @@ rtg_functions_out_of_stt_doc_ret_destructor(
 		}
 	} else {
 		assertion(rtg_functions_out_of_stt_doc_ret_->status ==
-					RTG_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_INVALID ||
+					RTG_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_INVALID /* ||
 				rtg_functions_out_of_stt_doc_ret_->status ==
-						RTG_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_ERROR_UNSPECIFIC);
+						RTG_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_ERROR_UNSPECIFIC */);
 		assertion(rtg_functions_out_of_stt_doc_ret_->functions ==
 				NULL);
 	}
@@ -148,9 +192,9 @@ rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list_ret_destructor(
 		}
 	} else {
 		assertion(rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list_ret_->status ==
-					RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID ||
+					RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID /* ||
 				rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list_ret_->status ==
-						RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC);
+						RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC */);
 		assertion(rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list_ret_->applications ==
 				NULL);
 	}
@@ -204,9 +248,9 @@ rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_destr
 		}
 	} else {
 		assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->status ==
-					RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_INVALID ||
+					RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_INVALID /* ||
 				rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->status ==
-						RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC);
+						RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC */);
 		assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests ==
 				NULL);
 	}

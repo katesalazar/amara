@@ -28,6 +28,8 @@
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
+#include "amara_string_tests.h"
+
 /*   For `char * concatenate_two_char_arrays(const char * zero,
  * const char * one)`. */
 #include "char_array.h"
@@ -247,4 +249,5 @@ common_tests()
 #endif
 	char_array_tests();
 	char_arrays_simple_list_tests();
+	amara_string_tests();
 }

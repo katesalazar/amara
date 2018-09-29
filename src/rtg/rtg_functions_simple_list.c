@@ -28,6 +28,16 @@
 #include "rtg_functions_simple_list.h"
 
 rtg_functions_simple_list *
+rtg_functions_simple_list_default_constructor()
+{
+	rtg_functions_simple_list * ret_;
+	ret_ = malloc(sizeof(rtg_functions_simple_list));
+	ret_->first = NULL;
+	ret_->next = NULL;
+	return ret_;
+}
+
+rtg_functions_simple_list *
 rtg_functions_simple_list_copy_constructor(rtg_functions_simple_list * list)
 {
 	rtg_functions_simple_list * ret_;

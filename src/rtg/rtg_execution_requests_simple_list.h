@@ -35,6 +35,11 @@ typedef struct rtg_execution_requests_simple_list {
 } rtg_execution_requests_simple_list;
 
 rtg_execution_requests_simple_list *
+rtg_execution_requests_simple_list_default_constructor(void)
+__attribute__((warn_unused_result))
+;
+
+rtg_execution_requests_simple_list *
 rtg_execution_requests_simple_list_copy_constructor(
 		const rtg_execution_requests_simple_list * list)
 __attribute__((warn_unused_result))

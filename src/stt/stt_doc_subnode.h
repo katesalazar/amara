@@ -49,6 +49,14 @@ __attribute__((warn_unused_result))
 ;
 
 stt_doc_subnode *
+stt_doc_subnode_exhaustive_constructor(
+		const stt_functions_simple_list * functions,
+		const stt_applications_simple_list * applications,
+		const stt_execution_requests_simple_list * execution_requests)
+__attribute__((warn_unused_result))
+;
+
+stt_doc_subnode *
 stt_doc_subnode_copy_constructor(const stt_doc_subnode * subnode)
 __attribute__((warn_unused_result))
 ;

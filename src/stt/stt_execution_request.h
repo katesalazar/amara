@@ -35,7 +35,7 @@ typedef struct stt_execution_request {
 } stt_execution_request;
 
 stt_execution_request *
-stt_execution_request_default_constructor()
+stt_execution_request_default_constructor(void)
 __attribute__((warn_unused_result))
 ;
 

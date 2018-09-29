@@ -46,6 +46,18 @@ stt_operation_subnode_copy_constructor(const stt_operation_subnode * subnode)
 	return ret_;
 }
 
+stt_operation_subnode *
+stt_operation_subnode_exhaustive_constructor(
+		const stt_operation * operation)
+{
+	stt_operation_subnode * ret_;
+	assertion(operation != NULL);
+	assertion(operation->type_ != STT_OPERATION_TYPE_INVALID);
+	ret_ = malloc(sizeof(stt_operation_subnode));
+	ret_->operation_ = stt_operation_copy_constructor(operation);
+	return ret_;
+}
+
 void
 stt_operation_subnode_destructor(stt_operation_subnode * subnode)
 {

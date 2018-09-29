@@ -27,13 +27,14 @@
 /*   For own public definitions. */
 #include "rational.h"
 
+/*   FIXME This is missing correct validation for strings in the form of `0.0+`. */
 void
 assert_valid_raw_rational(const amara_string * raw_rational)
 {
 	const char * raw_rational_chars_array_;
 	size_t raw_rational_chars_array_len_;
 	uint_fast8_t indexer_;
-	/* amara_boolean negative_; */
+	int_fast8_t dot_index_;
 	raw_rational_chars_array_ = amara_string_get_value(raw_rational);
 	raw_rational_chars_array_len_ = strlen(raw_rational_chars_array_);
 	assertion_two(raw_rational_chars_array_len_ > 0,
@@ -42,30 +43,57 @@ assert_valid_raw_rational(const amara_string * raw_rational)
 			"found an unimplemented rational number length (number of digits)");
 	assertion_two(raw_rational_chars_array_len_ < 4,
 			"found an unimplemented rational number length (number of digits)");
-	indexer_ = 0;
-	/* negative_ = AMARA_BOOLEAN_FALSE; */
-	if (raw_rational_chars_array_[indexer_] == '-') {
-		/* negative_ = AMARA_BOOLEAN_TRUE; */
-		indexer_ += 1;
-	}
-	if (raw_rational_chars_array_len_ == 2) {
-		/*   ASCII `47` is `/`, `48` is `0`, `49` is `1`, `50`
-		 * is `2`, `57` is `9`, `58` is `:`. */
-		assertion(raw_rational_chars_array_[1] > 47);
-		assertion(raw_rational_chars_array_[1] < 58);
+	dot_index_ = -1;
+	if (raw_rational_chars_array_[0] == '-') {
+		assertion_two(raw_rational_chars_array_len_ > 2,
+				"found an unimplemented rational number length (number of digits)");
+		if (raw_rational_chars_array_[1] == '.') {
+			indexer_ = 2;
+			dot_index_ = 1;
+		} else {
+			indexer_ = 1;
+		}
+	} else if (raw_rational_chars_array_[0] == '.') {
+		indexer_ = 1;
+		dot_index_ = 0;
 	} else {
+		indexer_ = 0;
+	}
+	if (dot_index_ == -1) {
+		if (raw_rational_chars_array_[indexer_ + 1] == '.') {
+			/*   ASCII `47` is `/`, `48` is `0`, `49` is `1`, `50`
+			 * is `2`, `57` is `9`, `58` is `:`. */
+			assertion(raw_rational_chars_array_[indexer_] > 47);
+			assertion(raw_rational_chars_array_[indexer_] < 58);
+		} else {
+			/*   ASCII `47` is `/`, `48` is `0`, `49` is `1`, `50`
+			 * is `2`, `57` is `9`, `58` is `:`. */
+			assertion(raw_rational_chars_array_[indexer_] > 48);
+			assertion(raw_rational_chars_array_[indexer_] < 58);
+		}
+	} else {
+		assertion(dot_index_ == 0);
 		/*   ASCII `47` is `/`, `48` is `0`, `49` is `1`, `50`
 		 * is `2`, `57` is `9`, `58` is `:`. */
-		assertion(raw_rational_chars_array_[1] > 48);
-		assertion(raw_rational_chars_array_[1] < 58);
-		for (
-				indexer_ = 2;
-				indexer_ < raw_rational_chars_array_len_;
-				indexer_++) {
+		assertion(raw_rational_chars_array_[indexer_] > 47);
+		assertion(raw_rational_chars_array_[indexer_] < 58);
+	}
+	while (indexer_ < raw_rational_chars_array_len_) {
+		if (dot_index_ == -1) {
+			if (raw_rational_chars_array_[indexer_] == '.') {
+				dot_index_ = indexer_;
+			} else {
+				/*   ASCII `47` is `/`, `48` is `0`, `49` is `1`, `50`
+				 * is `2`, `57` is `9`, `58` is `:`. */
+				assertion(raw_rational_chars_array_[indexer_] > 47);
+				assertion(raw_rational_chars_array_[indexer_] < 58);
+			}
+		} else {
 			/*   ASCII `47` is `/`, `48` is `0`, `49` is `1`, `50`
 			 * is `2`, `57` is `9`, `58` is `:`. */
 			assertion(raw_rational_chars_array_[indexer_] > 47);
 			assertion(raw_rational_chars_array_[indexer_] < 58);
 		}
+		indexer_ += 1;
 	}
 }

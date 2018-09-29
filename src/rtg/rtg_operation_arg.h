@@ -32,20 +32,40 @@
 /*   This is an enumeration. */
 
 #define RTG_OPERATION_ARG_TYPE_INVALID        0x00
-#define RTG_OPERATION_ARG_TYPE_STRING_LITERAL 0xFF
+#define RTG_OPERATION_ARG_TYPE_STRING_LITERAL  0x03
+#define RTG_OPERATION_ARG_TYPE_NATURAL_LITERAL 0x0C
+#define RTG_OPERATION_ARG_TYPE_INTEGER_LITERAL 0x30
 
 typedef struct rtg_operation_arg {
 	uint_fast8_t type_;
 	amara_string * string_literal_;
+	amara_string * natural_literal_;
+	amara_string * integer_literal_;
 } rtg_operation_arg;
 
 rtg_operation_arg *
-rtg_operation_arg_copy_constructor(const rtg_operation_arg * operation)
+rtg_operation_arg_default_constructor(void)
+__attribute__((warn_unused_result))
+;
+
+rtg_operation_arg *
+rtg_operation_arg_copy_constructor(const rtg_operation_arg * operation_arg)
 __attribute__((warn_unused_result))
 ;
 
 void
-rtg_operation_arg_destructor(rtg_operation_arg * operation)
+rtg_operation_arg_destructor(rtg_operation_arg * operation_arg)
+;
+
+void
+rtg_operation_arg_set_type(
+		rtg_operation_arg * operation_arg, uint_fast8_t type)
+;
+
+void
+rtg_operation_arg_set_string_literal(
+		rtg_operation_arg * operation_arg,
+		const amara_string * string_literal)
 ;
 
 #define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_INVALID 0x00

@@ -214,17 +214,27 @@ run_operation(const rtg_operation * operation)
 	if (operation->type_ == RTG_OPERATION_TYPE_PRINT ||
 			operation->type_ == RTG_OPERATION_TYPE_PRINT_NO_CRLF) {
 		assertion(operation->args_ != NULL);
-		assertion(rtg_operation_args_simple_list_size(
+		assertion(rtg_operation_args_simple_list_length(
 				operation->args_) == 1);
 		assertion(operation->args_->first != NULL);
 		assertion(operation->args_->first->type_ !=
 				RTG_OPERATION_ARG_TYPE_INVALID);
-		assertion(operation->args_->first->type_ ==
-				RTG_OPERATION_ARG_TYPE_STRING_LITERAL);
-		assertion(operation->args_->first->string_literal_ != NULL);
-		assertion(operation->args_->first->string_literal_->value_ !=
-				NULL);
-		printf("%s", operation->args_->first->string_literal_->value_);
+		if (operation->args_->first->type_ ==
+				RTG_OPERATION_ARG_TYPE_STRING_LITERAL) {
+			assertion(operation->args_->first->string_literal_ !=
+					NULL);
+			assertion(operation->args_->first->string_literal_->value_ !=
+					NULL);
+			printf("%s", operation->args_->first->string_literal_->value_);
+		} else {
+			assertion(operation->args_->first->type_ ==
+					RTG_OPERATION_ARG_TYPE_NATURAL_LITERAL);
+			assertion(operation->args_->first->natural_literal_ !=
+					NULL);
+			assertion(operation->args_->first->natural_literal_->value_ !=
+					NULL);
+			printf("%s", operation->args_->first->natural_literal_->value_);
+		}
 		if (operation->type_ == RTG_OPERATION_TYPE_PRINT) {
 			printf("\n");
 		} else {

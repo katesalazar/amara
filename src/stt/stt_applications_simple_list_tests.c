@@ -20,6 +20,8 @@
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
+#include "stt_application_tests.h"
+
 /*   For `stt_applications_simple_list`. */
 #include "stt_applications_simple_list.h"
 
@@ -52,10 +54,34 @@ stt_applications_simple_list_construct_and_destruct_test_1()
 }
 
 void
+stt_applications_simple_list_construct_and_destruct_test_2()
+{
+	stt_applications_simple_list * list_zero_;
+	stt_application * application_;
+	stt_applications_simple_list * list_one_;
+	list_zero_ = stt_applications_simple_list_default_constructor();
+	assertion(list_zero_ != NULL);
+	assertion(list_zero_->first == NULL);
+	assertion(list_zero_->next == NULL);
+	application_ = stt_application_example_print_foo();
+	list_zero_ = stt_applications_simple_list_push_front(
+			list_zero_, application_);
+	assertion(list_zero_->first != NULL);
+	assertion(list_zero_->next == NULL);
+	list_one_ = stt_applications_simple_list_copy_constructor(list_zero_);
+	assertion(list_one_ != NULL);
+	assertion(list_one_->first != NULL);
+	assertion(list_one_->next == NULL);
+	stt_applications_simple_list_destructor(list_zero_);
+	stt_applications_simple_list_destructor(list_one_);
+}
+
+void
 stt_applications_simple_list_construct_and_destruct_tests()
 {
 	stt_applications_simple_list_construct_and_destruct_test_0();
 	stt_applications_simple_list_construct_and_destruct_test_1();
+	stt_applications_simple_list_construct_and_destruct_test_2();
 }
 
 void

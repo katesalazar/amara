@@ -38,6 +38,11 @@ typedef struct rtg_doc {
 } rtg_doc;
 
 rtg_doc *
+rtg_doc_default_constructor(void)
+__attribute__((warn_unused_result))
+;
+
+rtg_doc *
 rtg_doc_exhaustive_constructor(
 		rtg_functions_simple_list * functions,
 		rtg_applications_simple_list * applications,

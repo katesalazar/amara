@@ -37,6 +37,41 @@ stt_function_default_constructor()
 }
 
 stt_function *
+stt_function_exhaustive_constructor(
+		uint_fast8_t type,
+		const amara_string * name,
+		const stt_operations_simple_list * operations)
+{
+	stt_function * ret_;
+	if (type == STT_FUNCTION_TYPE_INVALID) {
+		assertion(name == NULL);
+		assertion(operations == NULL);
+		ret_ = malloc(sizeof(stt_function));
+		ret_->type_ = STT_FUNCTION_TYPE_INVALID;
+		ret_->name_ = NULL;
+		ret_->operations_ = NULL;
+		return ret_;
+	}
+	assertion(type == STT_FUNCTION_TYPE_CLI_FUNCTION);
+	assertion(name != NULL);
+	assertion(name->value_ != NULL);
+	assertion(operations != NULL);
+	assertion(operations->first != NULL);
+	assertion(operations->first->type_ == STT_OPERATION_TYPE_PRINT);
+	assertion(operations->first->args_ != NULL);
+	assertion(operations->first->args_->first != NULL);
+	/* .... but many of this has to be removed anyway */
+	assertion(operations->first->args_->next == NULL);
+	assertion(operations->next == NULL);
+	ret_ = malloc(sizeof(stt_function));
+	ret_->type_ = STT_FUNCTION_TYPE_CLI_FUNCTION;
+	ret_->name_ = amara_string_copy_constructor(name);
+	ret_->operations_ = stt_operations_simple_list_copy_constructor(
+			operations);
+	return ret_;
+}
+
+stt_function *
 stt_function_copy_constructor(const stt_function * function)
 {
 	stt_function * ret_;

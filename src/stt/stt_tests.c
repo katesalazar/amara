@@ -35,6 +35,8 @@
 /*   For `stt_application_subnode_tests`. */
 #include "stt_application_subnode_tests.h"
 
+#include "stt_doc_subnode_tests.h"
+
 /*   For `stt_execution_request_tests`. */
 #include "stt_execution_request_tests.h"
 
@@ -54,11 +56,15 @@
 #include "stt_function_subnode_tests.h"
 
 #include "stt_identifier_subnode_tests.h"
-#include "stt_integer_subnode_tests.h"
+
+#include "stt_integer_literal_subnode_tests.h"
+
 #include "stt_natural_subnode_tests.h"
 
 /*   For `stt_node`. */
 #include "stt_node.h"
+
+#include "stt_node_tests.h"
 
 /*   For `stt_operation_args_simple_list_tests`. */
 #include "stt_operation_args_simple_list_tests.h"
@@ -73,6 +79,8 @@
 #include "stt_operations_simple_list_tests.h"
 
 #include "stt_rational_subnode_tests.h"
+
+#include "stt_string_literal_subnode_tests.h"
 
 void
 node_name_from_type_test_0()
@@ -129,7 +137,7 @@ node_name_from_type_test_2()
 	const amara_string * raw_natural_;
 	amara_boolean equality_;
 	raw_natural_ = amara_string_exhaustive_constructor("15");
-	stt_node_set_natural(node_, raw_natural_);
+	stt_node_set_natural_literal(node_, raw_natural_);
 	type_name_ = stt_node_type_name(node_);
 	expectation_ = amara_string_exhaustive_constructor("natural");
 	equality_ = amara_string_equality(type_name_, expectation_);
@@ -151,7 +159,7 @@ node_name_from_type_test_3()
 	const amara_string * raw_integer_;
 	amara_boolean equality_;
 	raw_integer_ = amara_string_exhaustive_constructor("-1");
-	stt_node_set_integer(node_, raw_integer_);
+	stt_node_set_integer_literal(node_, raw_integer_);
 	type_name_ = stt_node_type_name(node_);
 	expectation_ = amara_string_exhaustive_constructor("integer");
 	equality_ = amara_string_equality(type_name_, expectation_);
@@ -240,6 +248,30 @@ node_name_from_type_test_7()
 */
 
 void
+node_name_from_type_test_for_identifier_node()
+{
+#ifdef TRACE_STEPS_IN
+	fprintf(stderr, "----> %s:%u: void node_name_from_type_test_for_identifier_node()\n", __FILE__, __LINE__);
+#endif
+	stt_node * node_ = stt_node_default_constructor();
+	const amara_string * type_name_;
+	const amara_string * expectation_;
+	const amara_string * identifier_;
+	amara_boolean equality_;
+	identifier_ = amara_string_exhaustive_constructor("foo");
+	stt_node_set_identifier(node_, identifier_);
+	node_->type_ = SYNTAX_TREE_NODE_TYPE_IDENTIFIER;
+	type_name_ = stt_node_type_name(node_);
+	expectation_ = amara_string_exhaustive_constructor("identifier");
+	equality_ = amara_string_equality(type_name_, expectation_);
+	assertion(equality_);
+	amara_string_destructor((amara_string *) identifier_);
+	amara_string_destructor((amara_string *) expectation_);
+	amara_string_destructor((amara_string *) type_name_);
+	stt_node_destructor(node_);
+}
+
+void
 node_name_from_type_tests()
 {
 #ifdef TRACE_STEPS_IN
@@ -255,13 +287,15 @@ node_name_from_type_tests()
 	node_name_from_type_test_6();
 	node_name_from_type_test_7();
 	*/
+	node_name_from_type_test_for_identifier_node();
 }
 
 void
-stt_node_tests()
+syntax_tree_tests_()
 {
+	stt_string_literal_subnode_tests();
 	stt_natural_subnode_tests();
-	stt_integer_subnode_tests();
+	stt_integer_literal_subnode_tests();
 	stt_rational_subnode_tests();
 	stt_identifier_subnode_tests();
 	stt_operation_args_simple_list_tests();
@@ -277,6 +311,8 @@ stt_node_tests()
 	stt_execution_request_tests();
 	stt_execution_requests_simple_list_tests();
 	stt_execution_request_subnode_tests();
+	stt_doc_subnode_tests();
+	stt_node_tests();
 	node_name_from_type_tests();
 }
 
@@ -286,5 +322,5 @@ syntax_tree_tests()
 #ifdef TRACE_STEPS_IN
 	fprintf(stderr, "----> %s:%u: void syntax_tree_tests()\n", __FILE__, __LINE__);
 #endif
-	stt_node_tests();
+	syntax_tree_tests_();
 }

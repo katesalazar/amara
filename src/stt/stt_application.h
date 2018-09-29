@@ -35,7 +35,7 @@ typedef struct stt_application {
 } stt_application;
 
 stt_application *
-stt_application_default_constructor()
+stt_application_default_constructor(void)
 __attribute__((warn_unused_result))
 ;
 

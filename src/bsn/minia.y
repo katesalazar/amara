@@ -476,7 +476,6 @@ cli_fn_ops :
   new_node_->next = $3->operations_list_subnode_->operations_;
   $3->operations_list_subnode_->operations_ = new_node_;
   $$ = $3;
-  free($3);
   free($1->operation_subnode_);
   free($1);
 }
@@ -622,8 +621,8 @@ string_lvalue :
   amara_string_set_value(
       $$->string_literal_subnode_->string_literal_, value_char_array_);
   $$->type_ = SYNTAX_TREE_NODE_TYPE_STRING_LITERAL;
-  amara_string_destructor($3->natural_subnode_->raw_);
-  stt_natural_subnode_destructor($3->natural_subnode_);
+  /* amara_string_destructor($3->natural_subnode_->raw_); */
+  /* stt_natural_subnode_destructor($3->natural_subnode_); */
   stt_node_destructor($3);
 }
 ;
@@ -665,11 +664,11 @@ numeric_lvalue :
   assertion_two_located_interim($3->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL,
       "unexpected node type at %s:%d\n", __FILE__, __LINE__);
   $$ = numeric_natural_nodes_substraction($1, $3);
-  amara_string_destructor($1->natural_subnode_->raw_);
-  stt_natural_subnode_destructor($1->natural_subnode_);
+  /* amara_string_destructor($1->natural_subnode_->raw_);
+  stt_natural_subnode_destructor($1->natural_subnode_); */
   stt_node_destructor($1);
-  amara_string_destructor($3->natural_subnode_->raw_);
-  stt_natural_subnode_destructor($3->natural_subnode_);
+  /* amara_string_destructor($3->natural_subnode_->raw_);
+  stt_natural_subnode_destructor($3->natural_subnode_); */
   stt_node_destructor($3);
 }
 ;

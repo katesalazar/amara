@@ -1,10 +1,11 @@
 application naturals_substraction
 	is an awesome command line interface application
-	with entry point at function main
+	and the entry point is function main
 and that is application naturals_substraction
 
 function main
-	receives nothing at all
+	is an awesome command line interface application function
+	and receives nothing at all
 	and returns nothing at all
 	so it causes side effects
 	and does
@@ -17,3 +18,5 @@ function main
 	and print type of 9 minus 2
 	with a substraction operator
 and that is function main
+
+run command line interface application naturals_substraction

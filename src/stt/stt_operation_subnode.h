@@ -37,6 +37,12 @@ stt_operation_subnode_copy_constructor(const stt_operation_subnode * subnode)
 __attribute__((warn_unused_result))
 ;
 
+stt_operation_subnode *
+stt_operation_subnode_exhaustive_constructor(
+		const stt_operation * operation)
+__attribute__((warn_unused_result))
+;
+
 void
 stt_operation_subnode_destructor(stt_operation_subnode * subnode)
 ;

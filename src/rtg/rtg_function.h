@@ -46,6 +46,13 @@ __attribute__((warn_unused_result))
 ;
 
 rtg_function *
+rtg_function_exhaustive_constructor(
+		uint_fast8_t type, const amara_string * name,
+		const rtg_operations_simple_list * operations)
+__attribute__((warn_unused_result))
+;
+
+rtg_function *
 rtg_function_copy_constructor(const rtg_function * original)
 __attribute__((warn_unused_result))
 ;

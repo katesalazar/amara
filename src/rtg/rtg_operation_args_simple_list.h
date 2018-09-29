@@ -32,7 +32,7 @@ typedef struct rtg_operation_args_simple_list {
 } rtg_operation_args_simple_list;
 
 rtg_operation_args_simple_list *
-rtg_operation_args_simple_list_default_constructor()
+rtg_operation_args_simple_list_default_constructor(void)
 __attribute__((warn_unused_result))
 ;
 
@@ -47,8 +47,15 @@ rtg_operation_args_simple_list_destructor(
 		rtg_operation_args_simple_list * operation_args)
 ;
 
+rtg_operation_args_simple_list *
+rtg_operation_args_simple_list_push_front(
+		rtg_operation_args_simple_list * operation_args,
+		const rtg_operation_arg * operation_arg)
+__attribute__((warn_unused_result))
+;
+
 uint_fast8_t
-rtg_operation_args_simple_list_size(
+rtg_operation_args_simple_list_length(
 		const rtg_operation_args_simple_list * operation_args)
 __attribute__((warn_unused_result))
 ;

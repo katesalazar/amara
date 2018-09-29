@@ -4,6 +4,18 @@
 /*   For `stt_application`. */
 #include "stt_application.h"
 
+stt_application *
+stt_application_example_print_foo()
+{
+	stt_application * application_;
+	application_ = stt_application_default_constructor();
+	application_->name_ = amara_string_exhaustive_constructor("foo");
+	application_->entry_point_function_name_ =
+			amara_string_exhaustive_constructor("print_foo");
+	application_->type_ = STT_APPLICATION_TYPE_CLI_APPLICATION;
+	return application_;
+}
+
 void
 stt_application_construct_and_destruct_test_0()
 {

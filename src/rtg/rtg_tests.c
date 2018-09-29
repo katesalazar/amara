@@ -16,12 +16,28 @@
  * src/rtg/rtg_tests.h: Test the Amara run time graph.
  */
 
+#include "rtg_application_tests.h"
 #include "rtg_applications_simple_list_tests.h"
+#include "rtg_doc_tests.h"
+#include "rtg_execution_request_tests.h"
+#include "rtg_function_tests.h"
+#include "rtg_functions_simple_list_tests.h"
+#include "rtg_operation_arg_tests.h"
 #include "rtg_operation_args_simple_list_tests.h"
+#include "rtg_operation_tests.h"
+#include "rtg_operations_simple_list_tests.h"
 
 void
 run_time_graph_tests()
 {
-	rtg_applications_simple_list_tests();
+	rtg_operation_arg_tests();
 	rtg_operation_args_simple_list_tests();
+	rtg_operation_tests();
+	rtg_operations_simple_list_tests();
+	rtg_function_tests();
+	rtg_functions_simple_list_tests();
+	rtg_application_tests();
+	rtg_applications_simple_list_tests();
+	rtg_execution_request_tests();
+	rtg_doc_tests();
 }

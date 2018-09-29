@@ -44,4 +44,17 @@ stt_operation_args_simple_list_destructor(
 		stt_operation_args_simple_list * list)
 ;
 
+stt_operation_args_simple_list *
+stt_operation_args_simple_list_push_front(
+		stt_operation_args_simple_list * operation_args,
+		const stt_operation_arg * operation_arg)
+__attribute__((warn_unused_result))
+;
+
+uint_fast8_t
+stt_operation_args_simple_list_length(
+		const stt_operation_args_simple_list * operation_args)
+__attribute__((warn_unused_result))
+;
+
 #endif

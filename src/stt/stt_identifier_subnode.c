@@ -45,6 +45,18 @@ stt_identifier_subnode_copy_constructor(const stt_identifier_subnode * subnode)
 	return ret_;
 }
 
+stt_identifier_subnode *
+stt_identifier_subnode_exhaustive_constructor(
+		const amara_string * identifier)
+{
+	stt_identifier_subnode * ret_;
+	assertion(identifier != NULL);
+	assertion(identifier->value_ != NULL);
+	ret_ = malloc(sizeof(stt_identifier_subnode));
+	ret_->value_ = amara_string_copy_constructor(identifier);
+	return ret_;
+}
+
 void
 stt_identifier_subnode_destructor(stt_identifier_subnode * subnode)
 {

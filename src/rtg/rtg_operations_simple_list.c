@@ -27,6 +27,16 @@
 #include "rtg_operations_simple_list.h"
 
 rtg_operations_simple_list *
+rtg_operations_simple_list_default_constructor()
+{
+	rtg_operations_simple_list * ret_;
+	ret_ = malloc(sizeof(rtg_operations_simple_list));
+	ret_->first = NULL;
+	ret_->next = NULL;
+	return ret_;
+}
+
+rtg_operations_simple_list *
 rtg_operations_simple_list_copy_constructor(
 		const rtg_operations_simple_list * list)
 {
@@ -74,6 +84,26 @@ rtg_operations_simple_list_destructor(rtg_operations_simple_list * list)
 	free(list);
 }
 
+rtg_operations_simple_list *
+rtg_operations_simple_list_push_front(
+		rtg_operations_simple_list * operations,
+		rtg_operation * operation)
+{
+	rtg_operations_simple_list * new_operations_list_node_;
+	assertion(operations != NULL);
+	assertion(operation != NULL);
+	if (operations->first == NULL) {
+		assertion(operations->next == NULL);
+		operations->first = rtg_operation_copy_constructor(operation);
+		return operations;
+	}
+	new_operations_list_node_ = malloc(sizeof(rtg_operations_simple_list));
+	new_operations_list_node_->first =
+			rtg_operation_copy_constructor(operation);
+	new_operations_list_node_->next = operations;
+	return new_operations_list_node_;
+}
+
 void
 rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_destructor(
 		rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_)
@@ -91,9 +121,9 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_destructor(
 		}
 	} else {
 		assertion(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->status ==
-					RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_INVALID ||
+					RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_INVALID /* ||
 				rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->status ==
-						RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC);
+						RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC */);
 		assertion(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->operations ==
 				NULL);
 	}
@@ -143,7 +173,7 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list(
 				malloc(sizeof(rtg_operations_simple_list));
 		single_operation_transformation_ =
 				rtg_operation_out_of_stt_operation(
-						list->next->first);
+						list_ptr_->next->first);
 		assertion(single_operation_transformation_->status ==
 				RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS);
 		new_rtg_op_ = single_operation_transformation_->operation;
