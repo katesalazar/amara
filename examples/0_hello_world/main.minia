@@ -5,6 +5,7 @@ function main
 	so it causes side effects
 	and does
 	print 'hello, world'
+	and new line
 	with ease
 	and that is function main
 

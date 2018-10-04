@@ -16,7 +16,11 @@ amara.xcodeproj/xcuserdata/
 minia.tab.h
 minia.tab.c
 
-#   Bison reporting stuff.
+#   Bison 2.3 reporting stuff (macOS High Sierra - no Homebrew use).
+src/bsn/minia.vcg
+src/bsn/minia.output
+
+#   Bison 3.1 reporting stuff.
 src/bsn/minia.report
 src/bsn/minia.dot
 

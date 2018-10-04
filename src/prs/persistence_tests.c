@@ -32,7 +32,7 @@
 #include "persistence_tests.h"
 
 void
-acquire_dir_tests()
+acquire_dir_tests(void)
 ;
 
 void

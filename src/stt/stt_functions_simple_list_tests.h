@@ -21,7 +21,7 @@
 #define __AMARA__SYNTAX_TREE__FUNCTIONS_SIMPLE_LIST_TESTS__H__
 
 void
-stt_functions_simple_list_tests()
+stt_functions_simple_list_tests(void)
 ;
 
 #endif

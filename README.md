@@ -95,6 +95,8 @@ $ _
 
 ### macOS High Sierra (the Xcode way)
 
+This was written for Xcode `9.0`.
+
 1. Open `amara.xcodeproj/` from Xcode.
 
 2. Edit the _Scheme_ -&gt; Run<sub>Debug</sub> -&gt; Arguments Passed On Launch -&gt; `+` -&gt; `greet --no-banner`.

@@ -446,7 +446,6 @@ $(SRC_DIR)/bsn/minia.tab.c $(SRC_DIR)/bsn/minia.tab.h: $(SRC_DIR)/bsn/minia.y $(
 					--defines \
 					--graph \
 					--report=all \
-					--report-file=minia.report \
 					--verbose \
 					minia.y && \
 			cd ../../ && \

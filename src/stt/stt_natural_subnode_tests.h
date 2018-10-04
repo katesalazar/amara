@@ -21,7 +21,7 @@
 #define __AMARA__SYNTAX_TREE__NATURAL_SUBNODE_TESTS__H__
 
 void
-stt_natural_subnode_tests()
+stt_natural_subnode_tests(void)
 ;
 
 #endif

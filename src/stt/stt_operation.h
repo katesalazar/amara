@@ -26,7 +26,8 @@
 /*   This is an enumeration. */
 
 #define STT_OPERATION_TYPE_INVALID       0x00
-#define STT_OPERATION_TYPE_PRINT         0x0F
+#define STT_OPERATION_TYPE_PRINT      0x03
+#define STT_OPERATION_TYPE_PRINT_CRLF 0x0C
 #define STT_OPERATION_TYPE_PRINT_NO_CRLF 0xF0
 
 typedef struct stt_operation {

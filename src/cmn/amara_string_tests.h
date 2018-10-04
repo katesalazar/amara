@@ -20,7 +20,7 @@
 #define __AMARA__COMMON__AMARA_STRING_TESTS__H__
 
 void
-amara_string_tests()
+amara_string_tests(void)
 ;
 
 #endif

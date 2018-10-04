@@ -202,6 +202,10 @@ no              {
     trace_flex_three("returning T_NO (", yytext, ")\n");
                   return T_NO;
                 }
+new {
+    trace_flex_three("returning T_NEW (", yytext, ")\n");
+    return T_NEW;
+  }
 minus {
     trace_flex_three("returning T_MINUS (", yytext, ")\n");
     return T_MINUS;

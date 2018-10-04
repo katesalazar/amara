@@ -122,7 +122,7 @@ b_trace_uintfast8t(uint_fast8_t value)
 %token T_A T_ALL T_AN T_AND T_APPLICATION T_ARGS T_AT T_AWESOME T_CARRIAGE
 %token T_CAUSES T_CHAIN T_COMMAND T_COMMANDS T_DIVISION
 %token T_DOES T_EASE T_EFFECTS
-%token T_ENTRY T_FEED T_FUNCTION T_INTERFACE T_IS T_IT T_LINE T_NO
+%token T_ENTRY T_FEED T_FUNCTION T_INTERFACE T_IS T_IT T_LINE T_NEW T_NO
 %token T_NOR
 %token T_NOTHING T_OF T_OPERATOR T_POINT T_PRINT T_RECEIVES
 %token T_RETURN T_RETURNS T_RUN T_SIDE T_SMALL T_SO T_SUBSTRACTION T_THAT T_THE
@@ -552,6 +552,18 @@ cli_fn_op :
   $$->operation_subnode_->operation_->args_->next = NULL;
   $$->type_ = SYNTAX_TREE_NODE_TYPE_OPERATION;
 }
+| T_NEW T_LINE
+{
+  b_trace_chars_array(
+      "cli_fn_op : T_NEW T_LINE\n");
+  $$ = stt_node_default_constructor();
+  $$->operation_subnode_ = stt_operation_subnode_default_constructor();
+  $$->operation_subnode_->operation_ = stt_operation_default_constructor();
+  $$->operation_subnode_->operation_->type_ = STT_OPERATION_TYPE_PRINT_CRLF;
+  $$->operation_subnode_->operation_->args_ =
+      stt_operation_args_simple_list_default_constructor();
+  $$->type_ = SYNTAX_TREE_NODE_TYPE_OPERATION;
+}
 ;
 
 printable :
@@ -647,11 +659,11 @@ numeric_lvalue :
   assertion_two_located_interim($3->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL,
       "unexpected node type at %s:%d\n", __FILE__, __LINE__);
   $$ = numeric_natural_nodes_division($1, $3);
-  amara_string_destructor($1->natural_subnode_->raw_);
-  stt_natural_subnode_destructor($1->natural_subnode_);
+  /* amara_string_destructor($1->natural_subnode_->raw_);
+  stt_natural_subnode_destructor($1->natural_subnode_); */
   stt_node_destructor($1);
-  amara_string_destructor($3->natural_subnode_->raw_);
-  stt_natural_subnode_destructor($3->natural_subnode_);
+  /* amara_string_destructor($3->natural_subnode_->raw_);
+  stt_natural_subnode_destructor($3->natural_subnode_); */
   stt_node_destructor($3);
 }
 | numeric_lvalue T_MINUS numeric_lvalue

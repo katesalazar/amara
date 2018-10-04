@@ -236,11 +236,20 @@ run_operation(const rtg_operation * operation)
 			printf("%s", operation->args_->first->natural_literal_->value_);
 		}
 		if (operation->type_ == RTG_OPERATION_TYPE_PRINT) {
+			/*
 			printf("\n");
+			*/
 		} else {
 			assertion(operation->type_ ==
 					RTG_OPERATION_TYPE_PRINT_NO_CRLF);
 		}
+	} else if (operation->type_ == RTG_OPERATION_TYPE_PRINT_CRLF) {
+		assertion(operation->args_ != NULL);
+		assertion(rtg_operation_args_simple_list_length(
+				operation->args_) == 0);
+		assertion(operation->args_->first == NULL);
+		assertion(operation->args_->next == NULL);
+		printf("\n");
 	} else {
 		assertion(operation->type_ == RTG_OPERATION_TYPE_INVALID);
 		printf("!!!\n");

@@ -27,7 +27,8 @@
 #include "rtg_operation_args_simple_list.h"
 
 #define RTG_OPERATION_TYPE_INVALID       0x00
-#define RTG_OPERATION_TYPE_PRINT         0x0F
+#define RTG_OPERATION_TYPE_PRINT      0x03
+#define RTG_OPERATION_TYPE_PRINT_CRLF 0x0C
 #define RTG_OPERATION_TYPE_PRINT_NO_CRLF 0xF0
 
 typedef struct rtg_operation {

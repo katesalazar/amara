@@ -9,13 +9,13 @@ function main
 	and returns nothing at all
 	so it causes side effects
 	and does
-	print 9 without line feed nor carriage return
-	and print ' minus ' without line feed nor carriage return
-	and print 2 without line feed nor carriage return
-	and print ' equals to ' without line feed nor carriage return
-	and print 9 minus 2 without line feed nor carriage return
-	and print ', which is of type ' without line feed nor carriage return
-	and print type of 9 minus 2
+	print 9
+	and print ' minus '
+	and print 2
+	and print ' equals to '
+	and print 9 minus 2
+	and print ', which is of type '
+	and print type of 9 minus 2 and new line
 	with a substraction operator
 and that is function main
 
