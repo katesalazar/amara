@@ -52,9 +52,37 @@ fit_raw_natural_in_uint_fast8_t_ret_destructor(
 		fit_raw_natural_in_uint_fast8_t_ret * ret)
 ;
 
+#define FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_INVALID          0x00
+#define FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_ERR_NOT_FITTING  0x01
+#define FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_OK               0xFF
+/* #define FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_ERR_DOES_NOT_FIT \
+		FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_ERR_NOT_FITTING */
+
+typedef struct fit_raw_natural_in_uint_fast16_t_ret {
+	uint_fast8_t status;
+	uint_fast16_t value;
+} fit_raw_natural_in_uint_fast16_t_ret;
+
+/*   Input `valid_raw_natural` is expected to be valid and canonical,
+ * i.e. only digits and no unnecessary leading zeroes. */
+fit_raw_natural_in_uint_fast16_t_ret *
+fit_raw_natural_in_uint_fast16_t(const amara_string * valid_raw_natural)
+__attribute__((warn_unused_result))
+;
+
+void
+fit_raw_natural_in_uint_fast16_t_ret_destructor(
+		fit_raw_natural_in_uint_fast16_t_ret * ret)
+;
+
 amara_string *
 uint_fast8_t_to_raw_natural(uint_fast8_t input)
 __attribute__((warn_unused_result));
+
+amara_string *
+uint_fast16_t_to_raw_natural(uint_fast16_t input)
+__attribute__((warn_unused_result))
+;
 
 /*   Shoud return negative integer, zero, or positive integer, as the
  * first argument is less than, equal, or greater than the second. Both
@@ -79,6 +107,14 @@ raw_naturals_division_as_raw_natural(
 		const amara_string * raw_natural_zero,
 		const amara_string * raw_natural_one)
 __attribute__((warn_unused_result));
+
+/*   Non destructive in its arguments.
+ *   `node_zero` divided by `node_one`. */
+stt_node *
+numeric_natural_nodes_multiplication(
+		const stt_node * node_zero, const stt_node * node_one)
+__attribute__((warn_unused_result))
+;
 
 /*   Non destructive in its arguments.
  *   `node_zero` divided by `node_one`. */

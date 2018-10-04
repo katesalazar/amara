@@ -1,0 +1,25 @@
+run command line interface application naturals_division
+
+application naturals_division
+	is an awesome command line interface application
+	and the entry point is function main
+and that is application naturals_division
+
+function main
+	is an awesome command line interface application function
+	and receives nothing at all
+	and returns nothing at all
+	so it causes side effects
+	and does
+	print 38
+	and print ' minus '
+	and print 20
+	and print ' divided_by '
+	and print 4
+	and print ' equals to '
+	and print 38 minus 20 divided_by 4
+	and print ', with type '
+	and print type of 38 minus 20 divided_by 4
+	and new line
+	with a division operator
+and that is function main

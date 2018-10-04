@@ -39,7 +39,7 @@ def wipe_out_eol(line):
 def modify(line):
     """ modify a line. """
 
-    return line.replace('T_', '')
+    return line.replace('T_', '', 1).replace(' T_', ' ')
 
 
 def do():

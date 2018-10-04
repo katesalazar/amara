@@ -98,4 +98,8 @@ void
 natural_tests_()
 {
 	natural_substraction_tests();
+/*	natural_multiplication_tests();
+	67 * 5 == 79 EN MACOS, PERO ES UN ERROR, DBERA SER 335
+	natural_division_tests();
+	DESPUES 335 ENTRE 9 DEBE DAR 37*/
 }

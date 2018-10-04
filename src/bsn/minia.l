@@ -84,6 +84,14 @@ trace_flex_three(const char * s0, const char * s1, const char * s2)
                     }
     /*   Ignore all white space. */
                 }
+[(] {
+    trace_flex_three("returning T_LEFT_PARENS ('", yytext, "')\n");
+    return T_LEFT_PARENS;
+  }
+[)] {
+    trace_flex_three("returning T_RIGHT_PARENS ('", yytext, "')\n");
+    return T_RIGHT_PARENS;
+  }
 [0-9]*\.[0-9]+  {
     trace_flex_three("returning T_RATIONAL (", yytext, ")\n");
     assertion_two_located_interim(0, "unimplemented code at %s:%d\n", __FILE__, __LINE__);
@@ -142,6 +150,10 @@ that {
     trace_flex_three("returning T_THAT (", yytext, ")\n");
     return T_THAT;
   }
+times {
+    trace_flex_three("returning T_TIMES (", yytext, ")\n");
+    return T_TIMES;
+  }
 substraction {
     trace_flex_three("returning T_SUBSTRACTION (", yytext, ")\n");
     return T_SUBSTRACTION;
@@ -153,6 +165,10 @@ so {
 small {
     trace_flex_three("returning T_SMALL (", yytext, ")\n");
     return T_SMALL;
+  }
+simple {
+    trace_flex_three("returning T_SIMPLE (", yytext, ")\n");
+    return T_SIMPLE;
   }
 side {
     trace_flex_three("returning T_SIDE (", yytext, ")\n");
@@ -230,6 +246,10 @@ function        {
     trace_flex_three("returning T_FUNCTION (", yytext, ")\n");
                   return T_FUNCTION;
                 }
+formula {
+    trace_flex_three("returning T_FORMULA (", yytext, ")\n");
+    return T_FORMULA;
+  }
 feed {
     trace_flex_three("returning T_FEED (", yytext, ")\n");
     return T_FEED;

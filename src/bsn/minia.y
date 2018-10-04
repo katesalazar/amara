@@ -122,10 +122,11 @@ b_trace_uintfast8t(uint_fast8_t value)
 %token T_A T_ALL T_AN T_AND T_APPLICATION T_ARGS T_AT T_AWESOME T_CARRIAGE
 %token T_CAUSES T_CHAIN T_COMMAND T_COMMANDS T_DIVISION
 %token T_DOES T_EASE T_EFFECTS
-%token T_ENTRY T_FEED T_FUNCTION T_INTERFACE T_IS T_IT T_LINE T_NEW T_NO
-%token T_NOR
+%token T_ENTRY T_FEED T_FORMULA T_FUNCTION T_INTERFACE T_IS T_IT T_LINE T_NEW
+%token T_NO T_NOR
 %token T_NOTHING T_OF T_OPERATOR T_POINT T_PRINT T_RECEIVES
-%token T_RETURN T_RETURNS T_RUN T_SIDE T_SMALL T_SO T_SUBSTRACTION T_THAT T_THE
+%token T_RETURN T_RETURNS T_RUN T_SIDE T_SIMPLE T_SMALL T_SO T_SUBSTRACTION
+%token T_THAT T_THE
 %token T_TYPE
 %token T_WITH T_WITHOUT
 
@@ -133,8 +134,11 @@ b_trace_uintfast8t(uint_fast8_t value)
 
 %token<node> T_IDENTIFIER
 
-%right T_MINUS
-%right T_DIVIDED_BY
+%left T_MINUS
+%left T_TIMES T_DIVIDED_BY
+
+%token T_LEFT_PARENS
+%token T_RIGHT_PARENS
 
 %type<node> string_lvalue
 %type<node> numeric_lvalue
@@ -416,8 +420,8 @@ cli_fn_def_with_clause :
 }
 | T_WITH T_A T_SMALL T_CHAIN T_OF T_COMMANDS
 {
-  b_trace_chars_array("cli_fn_def_with_clause : T_WITH T_A T_SMALL T_CHAIN T_OF ");
-  b_trace_chars_array("T_COMMANDS\n");  /* XXX */
+  b_trace_chars_array("cli_fn_def_with_clause : T_WITH T_A T_SMALL T_CHAIN ");
+  b_trace_chars_array("T_OF T_COMMANDS\n");  /* XXX */
 }
 | T_WITH T_A T_SUBSTRACTION T_OPERATOR
 {
@@ -428,6 +432,11 @@ cli_fn_def_with_clause :
 {
   b_trace_chars_array("cli_fn_def_with_clause : T_WITH T_A T_DIVISION ");
   b_trace_chars_array("T_OPERATOR"); /* XXX */
+}
+| T_WITH T_A T_SIMPLE T_FORMULA
+{
+  b_trace_chars_array("cli_fn_def_with_clause : T_WITH T_A T_SIMPLE ");
+  b_trace_chars_array("T_FORMULA"); /* XXX */
 }
 ;
 
@@ -648,6 +657,25 @@ numeric_lvalue :
       "unexpected node type at %s:%d\n", __FILE__, __LINE__);
   assert_pure_natural_node($1);
   $$ = $1;
+}
+| T_LEFT_PARENS numeric_lvalue T_RIGHT_PARENS
+{
+  /* TODO   Likely `lvalue` is bad wording choice here. */
+  b_trace_chars_array(
+      "numeric_lvalue : T_LEFT_PARENS numeric_lvalue T_RIGHT_PARENS\n");
+  assertion($2->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL);
+  $$ = $2;
+}
+| numeric_lvalue T_TIMES numeric_lvalue
+{
+  /* TODO   Likely `lvalue` is bad wording choice here. */
+  b_trace_chars_array(
+      "numeric_lvalue : numeric_lvalue T_TIMES numeric_lvalue\n");
+  assertion($1->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL);
+  assertion($3->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL);
+  $$ = numeric_natural_nodes_multiplication($1, $3);
+  stt_node_destructor($1);
+  stt_node_destructor($3);
 }
 | numeric_lvalue T_DIVIDED_BY numeric_lvalue
 {

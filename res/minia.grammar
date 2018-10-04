@@ -41,6 +41,7 @@ cli_fn_def_with_clause :
 | WITH A SMALL CHAIN OF COMMANDS
 | WITH A SUBSTRACTION OPERATOR
 | WITH A DIVISION OPERATOR
+| WITH A SIMPLE FORMULA
 ;
 exectn_req :
   RUN COMMAND LINE INTERFACE APPLICATION IDENTIFIER
@@ -67,6 +68,8 @@ string_lvalue :
 ;
 numeric_lvalue :
   number_literal
+| LEFT_PARENS numeric_lvalue RIGHT_PARENS
+| numeric_lvalue TIMES numeric_lvalue
 | numeric_lvalue DIVIDED_BY numeric_lvalue
 | numeric_lvalue MINUS numeric_lvalue
 ;
