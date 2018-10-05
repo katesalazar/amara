@@ -14,12 +14,12 @@ function main
 	print 38
 	and print ' minus '
 	and print 20
-	and print ' divided_by '
+	and print ' divided by '
 	and print 4
 	and print ' equals to '
-	and print 38 minus 20 divided_by 4
+	and print 38 minus 20 divided by 4
 	and print ', with type '
-	and print type of 38 minus 20 divided_by 4
+	and print type of 38 minus 20 divided by 4
 	and new line
 	with a division operator
 and that is function main

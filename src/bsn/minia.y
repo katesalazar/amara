@@ -135,7 +135,7 @@ b_trace_uintfast8t(uint_fast8_t value)
 %token<node> T_IDENTIFIER
 
 %left T_MINUS
-%left T_TIMES T_DIVIDED_BY
+%left T_TIMES T_DIVIDED T_BY
 
 %token T_LEFT_PARENS
 %token T_RIGHT_PARENS
@@ -677,22 +677,22 @@ numeric_lvalue :
   stt_node_destructor($1);
   stt_node_destructor($3);
 }
-| numeric_lvalue T_DIVIDED_BY numeric_lvalue
+| numeric_lvalue T_DIVIDED T_BY numeric_lvalue
 {
   /* TODO   Likely `lvalue` is bad wording choice here. */
   b_trace_chars_array(
       "numeric_lvalue : numeric_lvalue T_DIVIDED_BY numeric_lvalue\n");
   assertion_two_located_interim($1->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL,
       "unexpected node type at %s:%d\n", __FILE__, __LINE__);
-  assertion_two_located_interim($3->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL,
+  assertion_two_located_interim($4->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL,
       "unexpected node type at %s:%d\n", __FILE__, __LINE__);
-  $$ = numeric_natural_nodes_division($1, $3);
+  $$ = numeric_natural_nodes_division($1, $4);
   /* amara_string_destructor($1->natural_subnode_->raw_);
   stt_natural_subnode_destructor($1->natural_subnode_); */
   stt_node_destructor($1);
-  /* amara_string_destructor($3->natural_subnode_->raw_);
-  stt_natural_subnode_destructor($3->natural_subnode_); */
-  stt_node_destructor($3);
+  /* amara_string_destructor($4->natural_subnode_->raw_);
+  stt_natural_subnode_destructor($4->natural_subnode_); */
+  stt_node_destructor($4);
 }
 | numeric_lvalue T_MINUS numeric_lvalue
 {

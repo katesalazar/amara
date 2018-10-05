@@ -70,7 +70,7 @@ numeric_lvalue :
   number_literal
 | LEFT_PARENS numeric_lvalue RIGHT_PARENS
 | numeric_lvalue TIMES numeric_lvalue
-| numeric_lvalue DIVIDED_BY numeric_lvalue
+| numeric_lvalue DIVIDED BY numeric_lvalue
 | numeric_lvalue MINUS numeric_lvalue
 ;
 number_literal :

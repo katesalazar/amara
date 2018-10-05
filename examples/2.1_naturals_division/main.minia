@@ -10,12 +10,12 @@ function main
 	so it causes side effects
 	and does
 	print 18
-	and print ' divided_by '
+	and print ' divided by '
 	and print 3
 	and print ' equals to '
-	and print 18 divided_by 3
+	and print 18 divided by 3
 	and print ', with type '
-	and print type of 18 divided_by 3 and new line
+	and print type of 18 divided by 3 and new line
 	with a division operator
 and that is function main
 

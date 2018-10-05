@@ -6,9 +6,9 @@ function main
 	and does
 	print 99
 	and print ' degrees Fahrenheit equals to '
-	and print (99 minus 32) times 5 divided_by 9
+	and print (99 minus 32) times 5 divided by 9
 	and print ' (with type "'
-	and print type of (99 minus 32) times 5 divided_by 9
+	and print type of (99 minus 32) times 5 divided by 9
 	and print '") degrees Celsius using the formula: '
 	and print '('
 	and print 99
@@ -16,9 +16,9 @@ function main
 	and print 32
 	and print ') times '
 	and print 5
-	and print ' divided_by ' and print 9
+	and print ' divided by ' and print 9
 	and print ' = '
-	and print (99 minus 32) times 5 divided_by 9
+	and print (99 minus 32) times 5 divided by 9
 	and new line
 	with a simple formula
 and that is function main

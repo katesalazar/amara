@@ -89,7 +89,7 @@ def naturals_division():
             command_and_args_, stdout=subprocess.PIPE, stdin=subprocess.PIPE,
             stderr=dev_null_)
     child_ = pexpect_fdpexpect_fdspawn(command_.stdout)
-    child_.expect('18 divided_by 3 equals to 6, with type natural')
+    child_.expect('18 divided by 3 equals to 6, with type natural')
     dev_null_.close()
 
 def combine_math_operators_division_and_substraction():
@@ -101,7 +101,7 @@ def combine_math_operators_division_and_substraction():
             command_and_args_, stdout=subprocess.PIPE, stdin=subprocess.PIPE,
             stderr=dev_null_)
     child_ = pexpect_fdpexpect_fdspawn(command_.stdout)
-    child_.expect('18 divided_by 3 minus 2 equals to 4, with type natural')
+    child_.expect('18 divided by 3 minus 2 equals to 4, with type natural')
     dev_null_.close()
 
 def combine_math_operators_substraction_and_division():
@@ -113,7 +113,7 @@ def combine_math_operators_substraction_and_division():
             command_and_args_, stdout=subprocess.PIPE, stdin=subprocess.PIPE,
             stderr=dev_null_)
     child_ = pexpect_fdpexpect_fdspawn(command_.stdout)
-    child_.expect('38 minus 20 divided_by 4 equals to 33, with type natural')
+    child_.expect('38 minus 20 divided by 4 equals to 33, with type natural')
     dev_null_.close()
 
 def fahrenheit_to_celsius():
@@ -129,7 +129,7 @@ def fahrenheit_to_celsius():
     child_.expect('(with type "natural")')
     child_.expect('degrees Celsius using the formula:')
     child_.expect('(99 minus 32)')
-    child_.expect('times 5 divided_by 9')
+    child_.expect('times 5 divided by 9')
     child_.expect('=')
     child_.expect('37')
     dev_null_.close()

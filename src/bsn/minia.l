@@ -274,9 +274,13 @@ division {
     trace_flex_three("returning T_DIVISION (", yytext, ")\n");
     return T_DIVISION;
   }
-divided_by {
-    trace_flex_three("returning T_DIVIDED_BY (", yytext, ")\n");
-    return T_DIVIDED_BY;
+divided {
+    trace_flex_three("returning T_DIVIDED (", yytext, ")\n");
+    return T_DIVIDED;
+  }
+by {
+    trace_flex_three("returning T_BY (", yytext, ")\n");
+    return T_BY;
   }
 commands {
     trace_flex_three("returning T_COMMANDS (", yytext, ")\n");
