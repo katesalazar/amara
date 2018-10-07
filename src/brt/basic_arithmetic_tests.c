@@ -120,11 +120,11 @@ raw_naturals_division_as_raw_natural_tests(void)
 ;
 
 void
-numeric_natural_nodes_substraction_test_0(void)
+simplify_natural_literal_nodes_substraction_test_0(void)
 ;
 
 void
-numeric_natural_nodes_substraction_tests(void)
+simplify_natural_literal_nodes_substraction_tests(void)
 ;
 
 void
@@ -470,8 +470,7 @@ raw_naturals_division_as_raw_natural_test_0()
 					raw_natural_one_chars_array_);
 	const amara_string * ret_ = raw_naturals_division_as_raw_natural(
 			raw_natural_zero_, raw_natural_one_);
-	const char * expected_raw_natural_chars_array_ =
-			"MACHINE_NUMERIC_OVERFLOW";
+	const char * expected_raw_natural_chars_array_ = "256";
 	const amara_string * expected_raw_natural_ =
 			amara_string_exhaustive_constructor(
 					expected_raw_natural_chars_array_);
@@ -486,6 +485,7 @@ raw_naturals_division_as_raw_natural_test_0()
 	*/
 }
 
+/*
 void
 raw_naturals_division_as_raw_natural_test_1()
 {
@@ -508,48 +508,53 @@ raw_naturals_division_as_raw_natural_test_1()
 	amara_string_destructor((amara_string *) ret_);
 	amara_string_destructor((amara_string *) raw_natural_one_);
 	amara_string_destructor((amara_string *) raw_natural_zero_);
+*/
 	/* FIXME attempt to free a non heap object */
 	/*
 	free((char *) raw_natural_one_chars_array_);
 	free((char *) raw_natural_zero_chars_array_);
 	*/
+/*
 }
+*/
 
 void
 raw_naturals_division_as_raw_natural_tests()
 {
 	raw_naturals_division_as_raw_natural_test_0();
+	/*
 	raw_naturals_division_as_raw_natural_test_1();
+	*/
 }
 
 void
-numeric_natural_nodes_substraction_test_0()
+simplify_natural_literal_nodes_substraction_test_0()
 {
 	const char * raw_natural_zero_chars_array_ = "23";
 	const amara_string * raw_natural_zero_ =
 			amara_string_exhaustive_constructor(
 					raw_natural_zero_chars_array_);
-	const stt_node * numeric_natural_stt_node_zero_ =
+	const stt_node * natural_literal_stt_node_zero_ =
 			stt_node_wrapping_raw_natural(raw_natural_zero_);
 	const char * raw_natural_one_chars_array_ = "23";
 	const amara_string * raw_natural_one_ =
 			amara_string_exhaustive_constructor(
 					raw_natural_one_chars_array_);
-	const stt_node * numeric_natural_stt_node_one_ =
+	const stt_node * natural_literal_stt_node_one_ =
 			stt_node_wrapping_raw_natural(raw_natural_one_);
-	const stt_node * result_ = numeric_natural_nodes_substraction(
-			numeric_natural_stt_node_zero_,
-			numeric_natural_stt_node_one_);
+	const stt_node * result_ = simplify_natural_literal_nodes_substraction(
+			natural_literal_stt_node_zero_,
+			natural_literal_stt_node_one_);
 	const char * expectation_raw_chars_array_ = "0";
 	const amara_string * expectation_raw_ =
 			amara_string_default_constructor();
 	amara_string_set_value(
 			(amara_string *) expectation_raw_,
 			expectation_raw_chars_array_);
-	assert_pure_natural_node(result_);
+	assert_pure_natural_literal_node(result_);
 	assertion(
 			amara_string_equality(
-				result_->natural_subnode_->raw_,
+				result_->natural_literal_subnode_->raw_,
 				expectation_raw_) ==
 			AMARA_BOOLEAN_TRUE);
 	/* FIXME attempt to free a non heap object */
@@ -557,13 +562,13 @@ numeric_natural_nodes_substraction_test_0()
 	free((char *) expectation_raw_chars_array_);
 	*/
 	stt_node_destructor((stt_node *) result_);
-	stt_node_destructor((stt_node *) numeric_natural_stt_node_one_);
+	stt_node_destructor((stt_node *) natural_literal_stt_node_one_);
 	amara_string_destructor((amara_string *) raw_natural_one_);
 	/* FIXME attempt to free a non heap object */
 	/*
 	free((char *) raw_natural_one_chars_array_);
 	*/
-	stt_node_destructor((stt_node *) numeric_natural_stt_node_zero_);
+	stt_node_destructor((stt_node *) natural_literal_stt_node_zero_);
 	amara_string_destructor((amara_string *) raw_natural_zero_);
 	/* FIXME attempt to free a non heap object */
 	/*
@@ -572,9 +577,9 @@ numeric_natural_nodes_substraction_test_0()
 }
 
 void
-numeric_natural_nodes_substraction_tests()
+simplify_natural_literal_nodes_substraction_tests()
 {
-	numeric_natural_nodes_substraction_test_0();
+	simplify_natural_literal_nodes_substraction_test_0();
 }
 
 void
@@ -585,7 +590,7 @@ natural_tests()
 	fit_raw_natural_in_uint_fast8_t_tests();
 	raw_naturals_substraction_as_raw_natural_zero_is_larger_than_one_tests();
 	raw_naturals_division_as_raw_natural_tests();
-	numeric_natural_nodes_substraction_tests();
+	simplify_natural_literal_nodes_substraction_tests();
 }
 
 void

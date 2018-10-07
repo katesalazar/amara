@@ -1,0 +1,33 @@
+function main
+	is an awesome command line interface application function
+	and receives nothing at all
+	and returns nothing at all
+	so it causes side effects
+	and does
+	print 'input Fahrenheit degrees? '
+	and read natural i_fahrenheit
+	and print i_fahrenheit
+	and print ' degrees Fahrenheit equals to '
+	and print (i_fahrenheit minus 32) times 5 divided by 9
+	and print ' (with type "'
+	and print type of (i_fahrenheit minus 32) times 5 divided by 9
+	and print '") degrees Celsius using the formula: '
+	and print '('
+	and print i_fahrenheit
+	and print ' minus '
+	and print 32
+	and print ') times '
+	and print 5
+	and print ' divided by ' and print 9
+	and print ' = '
+	and print (i_fahrenheit minus 32) times 5 divided by 9
+	and new line
+	with a simple formula
+and that is function main
+
+application fahrenheit_to_celsius
+	is an awesome command line interface application
+	and the entry point is function main
+and that is application fahrenheit_to_celsius
+
+run command line interface application fahrenheit_to_celsius

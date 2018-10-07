@@ -54,27 +54,30 @@ cli_fn_op :
   PRINT printable
 | PRINT printable WITHOUT LINE FEED NOR CARRIAGE RETURN
 | NEW LINE
+| READ NATURAL IDENTIFIER
 ;
 printable :
-  lvalue
+  /* IDENTIFIER
+| */ value
 ;
-lvalue :
-  string_lvalue
-| numeric_lvalue
+value :
+  string_value
+| numeric_value
 ;
-string_lvalue :
+string_value :
   STRING_LITERAL
-| TYPE OF numeric_lvalue
+| TYPE OF numeric_value
 ;
-numeric_lvalue :
+numeric_value :
   number_literal
-| LEFT_PARENS numeric_lvalue RIGHT_PARENS
-| numeric_lvalue TIMES numeric_lvalue
-| numeric_lvalue DIVIDED BY numeric_lvalue
-| numeric_lvalue MINUS numeric_lvalue
+| IDENTIFIER
+| LEFT_PARENS numeric_value RIGHT_PARENS
+| numeric_value TIMES numeric_value
+| numeric_value DIVIDED BY numeric_value
+| numeric_value MINUS numeric_value
 ;
 number_literal :
-  NATURAL
-| INTEGER
-| RATIONAL
+  NATURAL_LITERAL
+| INTEGER_LITERAL
+| RATIONAL_LITERAL
 ;

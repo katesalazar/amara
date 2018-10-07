@@ -50,7 +50,7 @@ void natural_substraction_test_0()
 
 	amara_string_destructor(raw_natural_one_);
 
-	stt_node_substraction_ = numeric_natural_nodes_substraction(
+	stt_node_substraction_ = simplify_natural_literal_nodes_substraction(
 			stt_node_zero_, stt_node_one_);
 
 	stt_node_destructor(stt_node_one_);
@@ -60,7 +60,7 @@ void natural_substraction_test_0()
 	assertion(stt_node_substraction_ != NULL);
 	assertion(stt_node_substraction_->type_ ==
 			STT_NODE_TYPE_NATURAL_LITERAL);
-	assertion(stt_node_substraction_->natural_subnode_ != NULL);
+	assertion(stt_node_substraction_->natural_literal_subnode_ != NULL);
 	/*
 	assertion(stt_node_substraction_->operation_subnode_->args_ != NULL);
 	*/
@@ -73,7 +73,7 @@ void natural_substraction_test_0()
 	*/
 	assertion(
 			amara_string_equality(
-					stt_node_substraction_->natural_subnode_->raw_,
+					stt_node_substraction_->natural_literal_subnode_->raw_,
 					amara_string_exhaustive_constructor(
 							"2"
 					)

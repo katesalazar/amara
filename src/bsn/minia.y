@@ -65,9 +65,9 @@
 /*   For the syntax tree nodes and node types. */
 #include "../stt/stt_node.h"
 
-extern int yylex();
+extern int yylex(void);
 
-extern int yyparse();
+extern int yyparse(stt_node * syntax_tree);
 
 extern FILE * miniain;
 
@@ -115,16 +115,17 @@ b_trace_uintfast8t(uint_fast8_t value)
   stt_node * node;
 }
 
-%token<node> T_NATURAL
-%token<node> T_INTEGER
-%token<node> T_RATIONAL
+%token<node> T_NATURAL_LITERAL
+%token<node> T_INTEGER_LITERAL
+%token<node> T_RATIONAL_LITERAL
 
 %token T_A T_ALL T_AN T_AND T_APPLICATION T_ARGS T_AT T_AWESOME T_CARRIAGE
 %token T_CAUSES T_CHAIN T_COMMAND T_COMMANDS T_DIVISION
 %token T_DOES T_EASE T_EFFECTS
-%token T_ENTRY T_FEED T_FORMULA T_FUNCTION T_INTERFACE T_IS T_IT T_LINE T_NEW
+%token T_ENTRY T_FEED T_FORMULA T_FUNCTION T_INTEGER T_INTERFACE T_IS T_IT
+%token T_LINE T_NATURAL T_NEW
 %token T_NO T_NOR
-%token T_NOTHING T_OF T_OPERATOR T_POINT T_PRINT T_RECEIVES
+%token T_NOTHING T_OF T_OPERATOR T_POINT T_PRINT T_RATIONAL T_READ T_RECEIVES
 %token T_RETURN T_RETURNS T_RUN T_SIDE T_SIMPLE T_SMALL T_SO T_SUBSTRACTION
 %token T_THAT T_THE
 %token T_TYPE
@@ -140,11 +141,11 @@ b_trace_uintfast8t(uint_fast8_t value)
 %token T_LEFT_PARENS
 %token T_RIGHT_PARENS
 
-%type<node> string_lvalue
-%type<node> numeric_lvalue
+%type<node> string_value
+%type<node> numeric_value
 %type<node> number_literal
 %type<node> printable
-%type<node> lvalue
+%type<node> value
 %type<node> cli_fn_op
 %type<node> cli_fn_ops
 %type<node> cli_fn_def
@@ -185,17 +186,17 @@ fns_and_apps_defs_and_exectn_reqs :
     $$ = stt_node_default_constructor();
     $$->type_ = SYNTAX_TREE_NODE_TYPE_DOC_FRAGMENT;
     $$->doc_subnode_ = stt_doc_subnode_default_constructor();
-    $$ = register_function($$, $1);
+    $$ = register_named_function($$, $1);
     assertion($$->doc_subnode_ != NULL);
-    free($1->function_subnode_);
+    free($1->named_function_subnode_);
     free($1);
   } else {
     assertion_two($2->type_ = SYNTAX_TREE_NODE_TYPE_DOC_FRAGMENT,
         "unexpected type of `fns_and_apps_defs_and_exectn_reqs`");
     assertion($2->doc_subnode_ != NULL);
-    $$ = register_function($2, $1);
+    $$ = register_named_function($2, $1);
     assertion($$->doc_subnode_ != NULL);
-    free($1->function_subnode_);
+    free($1->named_function_subnode_);
     free($1);
   }
 }
@@ -379,13 +380,15 @@ cli_fn_def :
 
   /*
   TODO CHARACTERIZE THE FUNCTION AS A CLI FUNCTION */
-  $$->function_subnode_ = stt_function_subnode_default_constructor();
-  $$->function_subnode_->name_ = $2->identifier_subnode_->value_;
-  $$->function_subnode_->operations_ =
+  $$->named_function_subnode_ =
+      stt_named_function_subnode_default_constructor();
+  $$->named_function_subnode_->name_ = $2->identifier_subnode_->value_;
+  $$->named_function_subnode_->operations_ =
       $28->operations_list_subnode_->operations_;
-  $$->function_subnode_->type_ = STT_FUNCTION_SUBNODE_TYPE_CLI_FUNCTION;
+  $$->named_function_subnode_->type_ =
+      STT_NAMED_FUNCTION_SUBNODE_TYPE_CLI_APP_NAMED_FUNCTION;
 
-  $$->type_ = SYNTAX_TREE_NODE_TYPE_FUNCTION;
+  $$->type_ = STT_NODE_TYPE_NAMED_FUNCTION;
 
   free($2->identifier_subnode_);
   free($2);
@@ -516,12 +519,20 @@ cli_fn_op :
   b_trace_chars_array("type of printable: ");
   b_trace_uintfast8t($2->type_);
   b_trace_chars_array("\n");
-  if ($2->type_ == SYNTAX_TREE_NODE_TYPE_STRING_LITERAL) {
+  if ($2->type_ == STT_NODE_TYPE_STRING_LITERAL) {
     assert_pure_string_literal_node($2);
+  } else if ($2->type_ == STT_NODE_TYPE_NATURAL_LITERAL) {
+    assert_pure_natural_literal_node($2);
+  } else if ($2->type_ == STT_NODE_TYPE_OPERATION) {
+    assert_pure_operation_node($2);
+    assertion($2->operation_subnode_ != NULL);
+    assertion($2->operation_subnode_->operation_ != NULL);
+    assertion($2->operation_subnode_->operation_->type_ !=
+        STT_OPERATION_TYPE_INVALID);
   } else {
-    assertion_two_located_interim($2->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL,
+    assertion_two_located_interim($2->type_ == STT_NODE_TYPE_IDENTIFIER,
         "unexpected node type at %s:%d\n", __FILE__, __LINE__);
-    assert_pure_natural_node($2);
+    assert_pure_identifier_node($2);
   }
   $$ = stt_node_default_constructor();
   $$->operation_subnode_ = stt_operation_subnode_default_constructor();
@@ -546,7 +557,7 @@ cli_fn_op :
   } else {
     assertion_two_located_interim($2->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL,
         "unexpected node type at %s:%d\n", __FILE__, __LINE__);
-    assert_pure_natural_node($2);
+    assert_pure_natural_literal_node($2);
   }
   $$ = stt_node_default_constructor();
   $$->operation_subnode_ = stt_operation_subnode_default_constructor();
@@ -563,8 +574,7 @@ cli_fn_op :
 }
 | T_NEW T_LINE
 {
-  b_trace_chars_array(
-      "cli_fn_op : T_NEW T_LINE\n");
+  b_trace_chars_array("cli_fn_op : T_NEW T_LINE\n");
   $$ = stt_node_default_constructor();
   $$->operation_subnode_ = stt_operation_subnode_default_constructor();
   $$->operation_subnode_->operation_ = stt_operation_default_constructor();
@@ -573,65 +583,161 @@ cli_fn_op :
       stt_operation_args_simple_list_default_constructor();
   $$->type_ = SYNTAX_TREE_NODE_TYPE_OPERATION;
 }
+| T_READ T_NATURAL T_IDENTIFIER
+{
+  b_trace_chars_array("cli_fn_op : T_READ T_NATURAL T_IDENTIFIER\n");
+  assertion($3 != NULL);
+  assertion($3->type_ == STT_NODE_TYPE_IDENTIFIER);
+  $$ = stt_node_default_constructor();
+  $$->operation_subnode_ = stt_operation_subnode_default_constructor();
+  $$->operation_subnode_->operation_ = stt_operation_default_constructor();
+  $$->operation_subnode_->operation_->args_ =
+      stt_operation_args_simple_list_default_constructor();
+  $$->operation_subnode_->operation_->args_->first =
+      stt_operation_arg_default_constructor();
+  $$->operation_subnode_->operation_->args_->first->node_ = $3;
+  $$->operation_subnode_->operation_->args_->first->type_ = $3->type_;
+  $$->operation_subnode_->operation_->type_ =
+      STT_OPERATION_TYPE_READ_NATURAL_TO_VALUE;
+  $$->type_ = STT_NODE_TYPE_OPERATION;
+}
 ;
 
 printable :
-  lvalue
+  /* T_IDENTIFIER
 {
-  /* TODO   Likely `lvalue` is bad wording choice here. */
-  b_trace_chars_array("printable : lvalue\n");
+  *//*   An identifier is not necessarily printable. It could be a
+   * function or application name, then not printable. It could be a
+   * value identifier, then printable. The decision if the program is
+   * correct or not is hereby passed to the semantic analysis. *//*
+  b_trace_chars_array("printable : T_IDENTIFIER\n");
+  $$ = $1;
+}
+| */ value
+{
+  b_trace_chars_array("printable : value\n");
   if ($1->type_ == SYNTAX_TREE_NODE_TYPE_STRING_LITERAL) {
     assert_pure_string_literal_node($1);
+  } else if ($1->type_ == STT_NODE_TYPE_OPERATION) {
+    assert_pure_operation_node($1);
+    assertion($1->operation_subnode_ != NULL);
+    assertion($1->operation_subnode_->operation_ != NULL);
+    assertion($1->operation_subnode_->operation_->type_ !=
+        STT_OPERATION_TYPE_INVALID);
+    assertion($1->operation_subnode_->operation_->type_ == STT_OPERATION_TYPE_MULTIPLICATION ||
+        $1->operation_subnode_->operation_->type_ == STT_OPERATION_TYPE_DIVISION ||
+        $1->operation_subnode_->operation_->type_ == STT_OPERATION_TYPE_SUBSTRACTION ||
+        $1->operation_subnode_->operation_->type_ == STT_OPERATION_TYPE_RESOLVE_TYPE_OF_EXPRESSION);
+  } else if ($1->type_ == STT_NODE_TYPE_IDENTIFIER) {
+    assert_pure_identifier_node($1);
+    assertion($1->identifier_subnode_ != NULL);
+    assertion($1->identifier_subnode_->value_ != NULL);
   } else {
+    if ($1->type_ != STT_NODE_TYPE_NATURAL_LITERAL) {
+      fprintf(stderr, "%u\n", $1->type_);
+    }
     assertion_two_located_interim($1->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL,
         "unexpected node type at %s:%d\n", __FILE__, __LINE__);
-    assert_pure_natural_node($1);
+    assert_pure_natural_literal_node($1);
+    assertion($1->natural_literal_subnode_ != NULL);
+    assertion($1->natural_literal_subnode_->raw_ != NULL);
   }
   $$ = $1;
 }
 ;
 
-lvalue :
-  string_lvalue
+value :
+  string_value
 {
-  /* TODO   Likely `lvalue` is bad wording choice here. */
-  b_trace_chars_array("lvalue : string_lvalue\n");
+  b_trace_chars_array("value : string_value\n");
+  if ($1->type_ == STT_NODE_TYPE_OPERATION) {
+    assert_pure_operation_node($1);
+    assertion($1->operation_subnode_ != NULL);
+    assertion($1->operation_subnode_->operation_ != NULL);
+    assertion($1->operation_subnode_->operation_->type_ !=
+        STT_OPERATION_TYPE_INVALID);
+
+    /*   This is a super pragmatic approach to stating, asserting, that
+     * the operation's return type is _string_. */
+    assertion($1->operation_subnode_->operation_->type_ ==
+        STT_OPERATION_TYPE_RESOLVE_TYPE_OF_EXPRESSION);
+  } else {
   assertion_two_located_interim(
       $1->type_ == SYNTAX_TREE_NODE_TYPE_STRING_LITERAL,
       "unexpected node type at %s:%d\n", __FILE__, __LINE__);
   assert_pure_string_literal_node($1);
+  }
   $$ = $1;
 }
-| numeric_lvalue
+| numeric_value
 {
-  /* TODO   Likely `lvalue` is bad wording choice here. */
-  b_trace_chars_array("lvalue : numeric_lvalue\n");
-  assertion_two_located_interim($1->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL,
+  b_trace_chars_array("value : numeric_value\n");
+  if ($1->type_ == STT_NODE_TYPE_OPERATION) {
+    assert_pure_operation_node($1);
+    assertion($1->operation_subnode_ != NULL);
+    assertion($1->operation_subnode_->operation_ != NULL);
+    assertion($1->operation_subnode_->operation_->type_ != STT_OPERATION_TYPE_INVALID);
+    assertion($1->operation_subnode_->operation_->type_ == STT_OPERATION_TYPE_MULTIPLICATION ||
+        $1->operation_subnode_->operation_->type_ == STT_OPERATION_TYPE_DIVISION ||
+        $1->operation_subnode_->operation_->type_ == STT_OPERATION_TYPE_SUBSTRACTION);
+  } else if ($1->type_ == STT_NODE_TYPE_IDENTIFIER) {
+    assert_pure_identifier_node($1);
+    assertion($1->identifier_subnode_ != NULL);
+    assertion($1->identifier_subnode_->value_ != NULL);
+    assertion($1->identifier_subnode_->value_->value_ != NULL);
+  } else {
+    fprintf(stderr, "%u\n", $1->type_);
+  assertion_two_located_interim($1->type_ == STT_NODE_TYPE_NATURAL_LITERAL,
       "unexpected node type at %s:%d\n", __FILE__, __LINE__);
-  assert_pure_natural_node($1);
+  assert_pure_natural_literal_node($1);
+    assertion($1->natural_literal_subnode_ != NULL);
+    assertion($1->natural_literal_subnode_->raw_ != NULL);
+    assertion($1->natural_literal_subnode_->raw_->value_ != NULL);
+  }
   $$ = $1;
 }
 ;
 
-string_lvalue :
+string_value :
   T_STRING_LITERAL
 {
-  /* TODO   Likely `lvalue` is bad wording choice here. */
-  b_trace_chars_array("string_lvalue : T_STRING_LITERAL\n");
+  b_trace_chars_array("string_value : T_STRING_LITERAL\n");
   assertion_two_located_interim(
       $1->type_ == SYNTAX_TREE_NODE_TYPE_STRING_LITERAL,
       "unexpected node type at %s:%d\n", __FILE__, __LINE__);
   assert_pure_string_literal_node($1);
   $$ = $1;
 }
-| T_TYPE T_OF numeric_lvalue
+| T_TYPE T_OF numeric_value
 {
-  /* TODO   Likely `lvalue` is bad wording choice here. */
   char * value_char_array_;
-  b_trace_chars_array("string_lvalue : T_TYPE T_OF numeric_lvalue\n");
+  stt_operation_arg * operation_arg_for_node_;
+  b_trace_chars_array("string_value : T_TYPE T_OF numeric_value\n");
+  if ($3->type_ == STT_NODE_TYPE_OPERATION) {
+    assert_pure_operation_node($3);
+    assertion($3->operation_subnode_ != NULL);
+    assertion($3->operation_subnode_->operation_ != NULL);
+    assertion($3->operation_subnode_->operation_->type_ !=
+        STT_OPERATION_TYPE_INVALID);
+    $$ = stt_node_default_constructor();
+    $$->operation_subnode_ = stt_operation_subnode_default_constructor();
+    $$->operation_subnode_->operation_ = stt_operation_default_constructor();
+    $$->operation_subnode_->operation_->args_ =
+        stt_operation_args_simple_list_default_constructor();
+    operation_arg_for_node_ = stt_operation_arg_default_constructor();
+    operation_arg_for_node_->node_ = $3;
+    operation_arg_for_node_->type_ = STT_OPERATION_ARG_TYPE_VALID;
+    $$->operation_subnode_->operation_->args_ =
+        stt_operation_args_simple_list_push_front(
+            $$->operation_subnode_->operation_->args_,
+            operation_arg_for_node_);
+    $$->operation_subnode_->operation_->type_ =
+        STT_OPERATION_TYPE_RESOLVE_TYPE_OF_EXPRESSION;
+    $$->type_ = STT_NODE_TYPE_OPERATION;
+  } else {
   assertion_two_located_interim($3->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL,
       "unexpected node type at %s:%d\n", __FILE__, __LINE__);
-  assert_pure_natural_node($3);
+  assert_pure_natural_literal_node($3);
   value_char_array_ = malloc(strlen("natural") + 1);
   strcpy(value_char_array_, "natural");
   $$ = stt_node_default_constructor();
@@ -645,99 +751,232 @@ string_lvalue :
   /* amara_string_destructor($3->natural_subnode_->raw_); */
   /* stt_natural_subnode_destructor($3->natural_subnode_); */
   stt_node_destructor($3);
+  }
 }
 ;
 
-numeric_lvalue :
+numeric_value :
   number_literal
 {
-  /* TODO   Likely `lvalue` is bad wording choice here. */
-  b_trace_chars_array("numeric_lvalue : number_literal\n");
-  assertion_two_located_interim($1->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL,
+  b_trace_chars_array("numeric_value : number_literal\n");
+  /* if ($1->type_ != STT_NODE_TYPE_IDENTIFIER) { */
+  assertion_two_located_interim($1->type_ == STT_NODE_TYPE_NATURAL_LITERAL,
       "unexpected node type at %s:%d\n", __FILE__, __LINE__);
-  assert_pure_natural_node($1);
+  assert_pure_natural_literal_node($1);
+  /* } else {
+    assert_pure_identifier_node($1);
+  } */
   $$ = $1;
 }
-| T_LEFT_PARENS numeric_lvalue T_RIGHT_PARENS
+| T_IDENTIFIER
 {
-  /* TODO   Likely `lvalue` is bad wording choice here. */
+  b_trace_chars_array("numeric_value : T_IDENTIFIER\n");
+  assertion($1->type_ == STT_NODE_TYPE_IDENTIFIER);
+  assert_pure_identifier_node($1);
+  $$ = $1;
+}
+| T_LEFT_PARENS numeric_value T_RIGHT_PARENS
+{
   b_trace_chars_array(
-      "numeric_lvalue : T_LEFT_PARENS numeric_lvalue T_RIGHT_PARENS\n");
-  assertion($2->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL);
+      "numeric_value : T_LEFT_PARENS numeric_value T_RIGHT_PARENS\n");
+  if ($2->type_ == STT_NODE_TYPE_IDENTIFIER) {
+    assert_pure_identifier_node($2);
+  } else if ($2->type_ != STT_NODE_TYPE_OPERATION) {
+  assertion($2->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
+    assert_pure_natural_literal_node($2);
+  } else {
+    /* node is operation. what now? FIXME FIXME FIXME FIXME FIXME FIXME  FIXME  FIXME  FIXME  FIXME  FIXME  FIXME  FIXME  FIXME  FIXME  FIXME  FIXME FIXME  FIXME  FIXME  FIXME  FIXME  FIXME  FIXME
+    --
+    --
+    --
+    --
+    -------
+    FIXME
+    FIXME
+    FIXME
+    FIXME
+    FIXME
+    FIXME
+    FIXME
+    FIXME
+    FIXM
+    */
+    assertion($2->type_ == STT_NODE_TYPE_OPERATION);
+    assert_pure_operation_node($2);
+    /*E
+    FIXME
+    FIXME
+    FIXME
+    FIXME
+    */
+  }
   $$ = $2;
 }
-| numeric_lvalue T_TIMES numeric_lvalue
+| numeric_value T_TIMES numeric_value
 {
-  /* TODO   Likely `lvalue` is bad wording choice here. */
+  stt_operation_arg * first_operation_arg_;
+  stt_operation_arg * second_operation_arg_;
   b_trace_chars_array(
-      "numeric_lvalue : numeric_lvalue T_TIMES numeric_lvalue\n");
+      "numeric_value : numeric_value T_TIMES numeric_value\n");
+  fprintf(stderr, "%u\n", $1->type_);
+  fprintf(stderr, "%u\n", $3->type_);
+  if ($1->type_ == STT_NODE_TYPE_OPERATION) {
+    /* assertion($1->type_ == STT_NODE_TYPE_IDENTIFIER); */ /* FIXME */
+    $$ = stt_node_default_constructor();
+    $$->operation_subnode_ = stt_operation_subnode_default_constructor();
+    $$->operation_subnode_->operation_ = stt_operation_default_constructor();
+    $$->operation_subnode_->operation_->args_ =
+        stt_operation_args_simple_list_default_constructor();
+    first_operation_arg_ = stt_operation_arg_default_constructor();
+    first_operation_arg_->node_ = $1;
+    first_operation_arg_->type_ = STT_OPERATION_ARG_TYPE_VALID; /* XXX */
+    second_operation_arg_ = stt_operation_arg_default_constructor();
+    second_operation_arg_->node_ = $3;
+    second_operation_arg_->type_ = STT_OPERATION_ARG_TYPE_VALID;
+    $$->operation_subnode_->operation_->args_ =
+        stt_operation_args_simple_list_push_front(
+            $$->operation_subnode_->operation_->args_, second_operation_arg_);
+    $$->operation_subnode_->operation_->args_ =
+        stt_operation_args_simple_list_push_front(
+            $$->operation_subnode_->operation_->args_, first_operation_arg_);
+    $$->operation_subnode_->operation_->type_ =
+        STT_OPERATION_TYPE_MULTIPLICATION;
+    $$->type_ = STT_NODE_TYPE_OPERATION;
+  } else {
+  /* XXX here is asserted a natural literal, but it can be either:
+         - natural literal
+         - variable
+         - operation (including variables and natural literals) */
   assertion($1->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL);
   assertion($3->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL);
-  $$ = numeric_natural_nodes_multiplication($1, $3);
+  $$ = simplify_natural_literal_nodes_multiplication($1, $3);
   stt_node_destructor($1);
   stt_node_destructor($3);
+  }
 }
-| numeric_lvalue T_DIVIDED T_BY numeric_lvalue
+| numeric_value T_DIVIDED T_BY numeric_value
 {
-  /* TODO   Likely `lvalue` is bad wording choice here. */
+  stt_operation_arg * first_operation_arg_;
+  stt_operation_arg * second_operation_arg_;
+  fprintf(stderr, "%u\n", $1->type_);
+  fprintf(stderr, "%u\n", $4->type_);
   b_trace_chars_array(
-      "numeric_lvalue : numeric_lvalue T_DIVIDED_BY numeric_lvalue\n");
-  assertion_two_located_interim($1->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL,
+      "numeric_value : numeric_value T_DIVIDED_BY numeric_value\n");
+  if ($1->type_ == STT_NODE_TYPE_NATURAL_LITERAL) {
+  assertion_two_located_interim($1->type_ == STT_NODE_TYPE_NATURAL_LITERAL,
       "unexpected node type at %s:%d\n", __FILE__, __LINE__);
-  assertion_two_located_interim($4->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL,
+  assertion_two_located_interim($4->type_ == STT_NODE_TYPE_NATURAL_LITERAL,
       "unexpected node type at %s:%d\n", __FILE__, __LINE__);
-  $$ = numeric_natural_nodes_division($1, $4);
-  /* amara_string_destructor($1->natural_subnode_->raw_);
-  stt_natural_subnode_destructor($1->natural_subnode_); */
+  $$ = simplify_natural_literal_nodes_division($1, $4);
   stt_node_destructor($1);
-  /* amara_string_destructor($4->natural_subnode_->raw_);
-  stt_natural_subnode_destructor($4->natural_subnode_); */
   stt_node_destructor($4);
+  } else {
+    assertion($1->type_ == STT_NODE_TYPE_OPERATION); /* XXX but it can actually be an identifier legally */
+    assertion($1->operation_subnode_ != NULL);
+    assertion($1->operation_subnode_->operation_ != NULL);
+    assertion($1->operation_subnode_->operation_->type_ !=
+        STT_OPERATION_TYPE_INVALID);
+    if ($1->operation_subnode_->operation_->type_ ==
+        STT_OPERATION_TYPE_MULTIPLICATION) {
+      assertion($1->operation_subnode_->operation_->args_ != NULL);
+      assertion($1->operation_subnode_->operation_->args_->first != NULL);
+      assertion($1->operation_subnode_->operation_->args_->next != NULL);
+      assertion($1->operation_subnode_->operation_->args_->next->first !=
+          NULL);
+    } else {
+      fprintf(stderr, "%u\n", $1->operation_subnode_->operation_->type_);
+      assertion(0); /* XXX */
+    }
+    assertion($4->type_ == STT_NODE_TYPE_NATURAL_LITERAL); /* XXX but this is not quite true, just adding this temporarily. */
+    $$ = stt_node_default_constructor();
+    $$->operation_subnode_ = stt_operation_subnode_default_constructor();
+    $$->operation_subnode_->operation_ = stt_operation_default_constructor();
+    $$->operation_subnode_->operation_->args_ =
+        stt_operation_args_simple_list_default_constructor();
+    first_operation_arg_ = stt_operation_arg_default_constructor();
+    first_operation_arg_->node_ = $1;
+    first_operation_arg_->type_ = STT_OPERATION_ARG_TYPE_VALID; /* XXX */
+    second_operation_arg_ = stt_operation_arg_default_constructor();
+    second_operation_arg_->node_ = $4;
+    second_operation_arg_->type_ = STT_OPERATION_ARG_TYPE_VALID;
+    $$->operation_subnode_->operation_->args_ =
+        stt_operation_args_simple_list_push_front(
+            $$->operation_subnode_->operation_->args_, second_operation_arg_);
+    $$->operation_subnode_->operation_->args_ =
+        stt_operation_args_simple_list_push_front(
+            $$->operation_subnode_->operation_->args_, first_operation_arg_);
+    $$->operation_subnode_->operation_->type_ =
+        STT_OPERATION_TYPE_DIVISION;
+    $$->type_ = STT_NODE_TYPE_OPERATION;
+  }
 }
-| numeric_lvalue T_MINUS numeric_lvalue
+| numeric_value T_MINUS numeric_value
 {
-  /* TODO   Likely `lvalue` is bad wording choice here. */
+  stt_operation_arg * first_operation_arg_;
+  stt_operation_arg * second_operation_arg_;
   b_trace_chars_array(
-      "numeric_lvalue : numeric_lvalue T_MINUS numeric_lvalue\n");
-  assertion_two_located_interim($1->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL,
+      "numeric_value : numeric_value T_MINUS numeric_value\n");
+  if ($1->type_ == STT_NODE_TYPE_NATURAL_LITERAL) {
+  assertion_two_located_interim($3->type_ == STT_NODE_TYPE_NATURAL_LITERAL,
       "unexpected node type at %s:%d\n", __FILE__, __LINE__);
-  assertion_two_located_interim($3->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL,
-      "unexpected node type at %s:%d\n", __FILE__, __LINE__);
-  $$ = numeric_natural_nodes_substraction($1, $3);
+  $$ = simplify_natural_literal_nodes_substraction($1, $3); /* TODO must reword this `numeric` to `numeric literal` or something. */
   /* amara_string_destructor($1->natural_subnode_->raw_);
   stt_natural_subnode_destructor($1->natural_subnode_); */
   stt_node_destructor($1);
   /* amara_string_destructor($3->natural_subnode_->raw_);
   stt_natural_subnode_destructor($3->natural_subnode_); */
   stt_node_destructor($3);
+  } else {
+    assertion($1->type_ == STT_NODE_TYPE_IDENTIFIER);
+    $$ = stt_node_default_constructor();
+    $$->operation_subnode_ = stt_operation_subnode_default_constructor();
+    $$->operation_subnode_->operation_ = stt_operation_default_constructor();
+    $$->operation_subnode_->operation_->args_ =
+        stt_operation_args_simple_list_default_constructor();
+    first_operation_arg_ = stt_operation_arg_default_constructor();
+    first_operation_arg_->node_ = $1;
+    first_operation_arg_->type_ = STT_OPERATION_ARG_TYPE_VALID; /* XXX */
+    second_operation_arg_ = stt_operation_arg_default_constructor();
+    second_operation_arg_->node_ = $3;
+    second_operation_arg_->type_ = STT_OPERATION_ARG_TYPE_VALID;
+    $$->operation_subnode_->operation_->args_ =
+        stt_operation_args_simple_list_push_front(
+            $$->operation_subnode_->operation_->args_, second_operation_arg_);
+    $$->operation_subnode_->operation_->args_ =
+        stt_operation_args_simple_list_push_front(
+            $$->operation_subnode_->operation_->args_, first_operation_arg_);
+    $$->operation_subnode_->operation_->type_ =
+        STT_OPERATION_TYPE_SUBSTRACTION;
+    $$->type_ = STT_NODE_TYPE_OPERATION;
+  }
 }
 ;
 
 number_literal :
-  T_NATURAL
+  T_NATURAL_LITERAL
 {
-  b_trace_chars_array("number_literal : T_NATURAL\n");
-  assertion_two_located_interim($1->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL,
+  b_trace_chars_array("number_literal : T_NATURAL_LITERAL\n");
+  assertion_two_located_interim($1->type_ == STT_NODE_TYPE_NATURAL_LITERAL,
       "unexpected node type at %s:%d\n", __FILE__, __LINE__);
-  assert_pure_natural_node($1);
+  assert_pure_natural_literal_node($1);
   $$ = $1;
   b_trace_chars_array("number_literal (");
-  b_trace_chars_array($$->natural_subnode_->raw_->value_);
-  b_trace_chars_array(") : T_NATURAL (");
-  b_trace_chars_array($1->natural_subnode_->raw_->value_);
+  b_trace_chars_array($$->natural_literal_subnode_->raw_->value_);
+  b_trace_chars_array(") : T_NATURAL_LITERAL (");
+  b_trace_chars_array($1->natural_literal_subnode_->raw_->value_);
   b_trace_chars_array(")\n");
 }
-| T_INTEGER
+| T_INTEGER_LITERAL
 {
-  b_trace_chars_array("number_literal : T_INTEGER\n");
-  assertion_two_located_interim($1->type_ == SYNTAX_TREE_NODE_TYPE_STRING_LITERAL /* XXX */,
+  b_trace_chars_array("number_literal : T_INTEGER_LITERAL\n");
+  assertion_two_located_interim($1->type_ == STT_NODE_TYPE_INTEGER_LITERAL /* XXX */,
       "unexpected node type at %s:%d\n", __FILE__, __LINE__);
   $$ = $1;
 }
-| T_RATIONAL
+| T_RATIONAL_LITERAL
 {
-  b_trace_chars_array("number_literal : T_RATIONAL\n");
-  assertion_two_located_interim($1->type_ == SYNTAX_TREE_NODE_TYPE_STRING_LITERAL /* XXX */,
+  b_trace_chars_array("number_literal : T_RATIONAL_LITERAL\n");
+  assertion_two_located_interim($1->type_ == STT_NODE_TYPE_RATIONAL_LITERAL /* XXX */,
       "unexpected node type at %s:%d\n", __FILE__, __LINE__);
   $$ = $1;
 }

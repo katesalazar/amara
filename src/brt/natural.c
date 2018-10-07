@@ -44,6 +44,57 @@
 /*   For own public definitions. */
 #include "natural.h"
 
+natural *
+natural_default_constructor(void)
+{
+	natural * returning_;
+	returning_ = malloc(sizeof(natural));
+	returning_->raw_ = NULL;
+	return returning_;
+}
+
+natural *
+natural_copy_constructor(const natural * natural)
+{
+	struct natural * returning_;
+	assertion(natural != NULL);
+	assertion(natural->raw_ != NULL);
+	natural_assert_validity(natural);
+	returning_ = malloc(sizeof(natural));
+	returning_->raw_ = amara_string_copy_constructor(natural->raw_);
+	return returning_;
+}
+
+void
+natural_copy_unsigned_int_into_natural(
+		natural * destination,
+		const unsigned int source_unsigned_int)
+{
+	amara_string * raw_natural;
+	if (destination->raw_ != NULL) {
+		amara_string_destructor(destination->raw_);
+	}
+	raw_natural = copy_unsigned_int_into_raw_natural(source_unsigned_int);
+	destination->raw_ = raw_natural;
+}
+
+void
+natural_copy_from_unsigned_int(
+		natural * destination,
+		const unsigned int source_unsigned_int)
+{
+	natural_copy_unsigned_int_into_natural(
+			destination, source_unsigned_int);
+}
+
+void
+natural_assert_validity(const natural * natural)
+{
+	assertion(natural != NULL);
+	assertion(natural->raw_ != NULL);
+	assert_valid_raw_natural(natural->raw_);
+}
+
 void
 assert_valid_raw_natural(const amara_string * raw_natural)
 {
@@ -475,7 +526,39 @@ fit_raw_natural_in_uint_fast16_t_ret_destructor(
 }
 
 amara_string *
-uint_fast8_t_to_raw_natural(uint_fast8_t input)
+copy_unsigned_int_into_raw_natural(const unsigned int input)
+{
+	char * buffer_;
+	amara_string * returning_;
+	int snprintf_ret_;
+	assertion(input <= 0xFF);
+	buffer_ = (char *) malloc(3 + 1);
+	snprintf_ret_ = snprintf(
+			buffer_, (size_t) (/* 3 + 1 */ 4), "%u", input);
+	assertion(snprintf_ret_ >= 0);
+	returning_ = amara_string_exhaustive_constructor(buffer_);
+	free(buffer_);
+	return returning_;
+}
+
+amara_string *
+copy_pointer_to_unsigned_int_into_raw_natural(const unsigned int * input)
+{
+	char * buffer_;
+	amara_string * returning_;
+	int snprintf_ret_;
+	assertion(* input <= 0xFF);
+	buffer_ = (char *) malloc(3 + 1);
+	snprintf_ret_ = snprintf(
+			buffer_, (size_t) (/* 3 + 1 */ 4), "%u", * input);
+	assertion(snprintf_ret_ >= 0);
+	returning_ = amara_string_exhaustive_constructor(buffer_);
+	free(buffer_);
+	return returning_;
+}
+
+amara_string *
+copy_uint_fast8_t_into_raw_natural(uint_fast8_t input)
 {
 	char * buffer_;
 	amara_string * returning_;
@@ -490,7 +573,7 @@ uint_fast8_t_to_raw_natural(uint_fast8_t input)
 }
 
 amara_string *
-uint_fast16_t_to_raw_natural(uint_fast16_t input)
+copy_uint_fast16_t_into_raw_natural(uint_fast16_t input)
 {
 	char * buffer_;
 	amara_string * returning_;
@@ -561,7 +644,7 @@ raw_naturals_substraction_as_raw_natural_zero_is_larger_than_one(
 	/* printf("substraction_result_: %u\n", substraction_result_); */ /* FIXME */
 	free(zero_fit_ret_);
 	free(one_fit_ret_);
-	return uint_fast8_t_to_raw_natural(substraction_result_);
+	return copy_uint_fast8_t_into_raw_natural(substraction_result_);
 }
 
 amara_string *
@@ -618,7 +701,8 @@ raw_naturals_multiplication_as_raw_natural(
 		/* printf("multiplication_result_: %u\n", multiplication_result_); */ /* FIXME */
 		fit_raw_natural_in_uint_fast8_t_ret_destructor(zero_fit_ret_);
 		fit_raw_natural_in_uint_fast8_t_ret_destructor(one_fit_ret_);
-		return uint_fast16_t_to_raw_natural(multiplication_result_16_);
+		return copy_uint_fast16_t_into_raw_natural(
+				multiplication_result_16_);
 	}
 	/* printf("multiplication_result_: %u\n", multiplication_result_); */ /* FIXME */
 	fit_raw_natural_in_uint_fast8_t_ret_destructor(zero_fit_ret_);
@@ -631,54 +715,66 @@ raw_naturals_division_as_raw_natural(
 		const amara_string * raw_natural_zero,
 		const amara_string * raw_natural_one)
 {
-	fit_raw_natural_in_uint_fast8_t_ret * zero_fit_8_ret_;
-	fit_raw_natural_in_uint_fast16_t_ret * zero_fit_16_ret_;
-	fit_raw_natural_in_uint_fast8_t_ret * one_fit_ret_;
+	fit_raw_natural_in_uint_fast8_t_ret * r_n_zero_fits_8_bits_ret_;
+	fit_raw_natural_in_uint_fast16_t_ret * r_n_zero_fits_16_bits_ret_;
+	fit_raw_natural_in_uint_fast8_t_ret * r_n_one_fits_8_bits_ret_;
 	amara_boolean use_8_bits_for_numerator_;
 	amara_boolean use_16_bits_for_numerator_;
-	uint_fast8_t division_result_;
+	amara_boolean use_8_bits_for_denominator_;
+	uint_fast8_t raw_natural_zero_as_uint_fast8_t_;
+	uint_fast16_t raw_natural_zero_as_uint_fast16_t_;
+	uint_fast8_t raw_natural_one_as_uint_fast8_t_;
+	uint_fast8_t eight_bits_division_result_;
+	uint_fast16_t sixteen_bits_division_result_;
 	char * returning_chars_array_;
 	amara_string * returning_;
 	use_8_bits_for_numerator_ = AMARA_BOOLEAN_FALSE;
 	use_16_bits_for_numerator_ = AMARA_BOOLEAN_FALSE;
-	zero_fit_8_ret_ = NULL;
-	zero_fit_16_ret_ = NULL;
-	one_fit_ret_ = NULL;
-	zero_fit_8_ret_ = fit_raw_natural_in_uint_fast8_t(
+	r_n_zero_fits_8_bits_ret_ = NULL;
+	r_n_zero_fits_16_bits_ret_ = NULL;
+	r_n_one_fits_8_bits_ret_ = NULL;
+	r_n_zero_fits_8_bits_ret_ = fit_raw_natural_in_uint_fast8_t(
 			raw_natural_zero);
-	if (zero_fit_8_ret_->status ==
+	if (r_n_zero_fits_8_bits_ret_->status ==
 			FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_ERR_NOT_FITTING) {
-		zero_fit_16_ret_ = fit_raw_natural_in_uint_fast16_t(
+		r_n_zero_fits_16_bits_ret_ = fit_raw_natural_in_uint_fast16_t(
 				raw_natural_zero);
-		if (zero_fit_16_ret_->status ==
+		if (r_n_zero_fits_16_bits_ret_->status ==
 				FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_ERR_NOT_FITTING) {
-			returning_chars_array_ =
-					malloc(strlen(machine_numeric_overflow) +
-							1);
+			returning_chars_array_ = malloc(
+					strlen(machine_numeric_overflow) + 1);
 			strcpy(
 					returning_chars_array_,
 					machine_numeric_overflow);
 			returning_ = amara_string_exhaustive_constructor(
 					returning_chars_array_);
 			fit_raw_natural_in_uint_fast8_t_ret_destructor(
-					zero_fit_8_ret_);
+					r_n_zero_fits_8_bits_ret_);
 			fit_raw_natural_in_uint_fast16_t_ret_destructor(
-					zero_fit_16_ret_);
+					r_n_zero_fits_16_bits_ret_);
 			free(returning_chars_array_);
 			return returning_;
 		} else {
-			assertion(zero_fit_16_ret_->status ==
+			assertion(r_n_zero_fits_16_bits_ret_->status ==
 					FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_OK);
 			use_16_bits_for_numerator_ = AMARA_BOOLEAN_TRUE;
+			raw_natural_zero_as_uint_fast16_t_ =
+					r_n_zero_fits_16_bits_ret_->value;
 		}
 	} else {
-		assertion(zero_fit_8_ret_->status ==
+		assertion(r_n_zero_fits_8_bits_ret_->status ==
 				FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_OK);
 		use_8_bits_for_numerator_ = AMARA_BOOLEAN_TRUE;
+		raw_natural_zero_as_uint_fast8_t_ =
+				r_n_zero_fits_8_bits_ret_->value;
 	}
-	one_fit_ret_ = fit_raw_natural_in_uint_fast8_t(
+	r_n_one_fits_8_bits_ret_ = fit_raw_natural_in_uint_fast8_t(
 			raw_natural_one);
-	if (one_fit_ret_->status ==
+	assertion(r_n_one_fits_8_bits_ret_->status ==
+			FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_OK);
+	use_8_bits_for_denominator_ = AMARA_BOOLEAN_TRUE;
+	raw_natural_one_as_uint_fast8_t_ = r_n_one_fits_8_bits_ret_->value;
+	if (r_n_one_fits_8_bits_ret_->status ==
 			FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_ERR_NOT_FITTING) {
 		returning_chars_array_ =
 				malloc(strlen(machine_numeric_overflow) + 1);
@@ -686,36 +782,50 @@ raw_naturals_division_as_raw_natural(
 		returning_ = amara_string_exhaustive_constructor(
 				returning_chars_array_);
 		fit_raw_natural_in_uint_fast8_t_ret_destructor(
-				zero_fit_8_ret_);
-		if (zero_fit_16_ret_ != NULL) {
+				r_n_zero_fits_8_bits_ret_);
+		if (r_n_zero_fits_16_bits_ret_ != NULL) {
 			fit_raw_natural_in_uint_fast16_t_ret_destructor(
-					zero_fit_16_ret_);
+					r_n_zero_fits_16_bits_ret_);
 		}
-		fit_raw_natural_in_uint_fast8_t_ret_destructor(one_fit_ret_);
+		fit_raw_natural_in_uint_fast8_t_ret_destructor(
+				r_n_one_fits_8_bits_ret_);
 		free(returning_chars_array_);
 		return returning_;
 	} else {
-		assertion(one_fit_ret_->status ==
+		assertion(r_n_one_fits_8_bits_ret_->status ==
 				FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_OK);
 	}
 	/* printf("zero_fit_ret_->value: %u\n", zero_fit_ret_->value); */ /* FIXME */
 	/* printf("one_fit_ret_->value: %u\n", one_fit_ret_->value); */ /* FIXME */
 	if (use_8_bits_for_numerator_ == AMARA_BOOLEAN_TRUE) {
-		division_result_ = zero_fit_8_ret_->value /
-				one_fit_ret_->value;
+		assertion(use_8_bits_for_denominator_ == AMARA_BOOLEAN_TRUE);
+		eight_bits_division_result_ = raw_natural_zero_as_uint_fast8_t_ / /* XXX extract completely before using. */
+				raw_natural_one_as_uint_fast8_t_; /* XXX extract completely before using. */
 	} else {
 		assertion(use_16_bits_for_numerator_ == AMARA_BOOLEAN_TRUE);
-		division_result_ = zero_fit_16_ret_->value /
-				one_fit_ret_->value;
+		assertion(use_8_bits_for_denominator_ == AMARA_BOOLEAN_TRUE);
+		sixteen_bits_division_result_ = raw_natural_zero_as_uint_fast16_t_ / /* XXX extract completely before using. */
+				raw_natural_one_as_uint_fast8_t_; /* XXX extract completely before using. */
 	}
 	/* printf("division_result_: %u\n", division_result_); */ /* FIXME */
-	fit_raw_natural_in_uint_fast8_t_ret_destructor(zero_fit_8_ret_);
-	if (zero_fit_16_ret_ != NULL) {
+	fit_raw_natural_in_uint_fast8_t_ret_destructor(
+			r_n_zero_fits_8_bits_ret_);
+	if (r_n_zero_fits_16_bits_ret_ != NULL) {
 		fit_raw_natural_in_uint_fast16_t_ret_destructor(
-				zero_fit_16_ret_);
+				r_n_zero_fits_16_bits_ret_);
 	}
-	fit_raw_natural_in_uint_fast8_t_ret_destructor(one_fit_ret_);
-	return uint_fast8_t_to_raw_natural(division_result_);
+	fit_raw_natural_in_uint_fast8_t_ret_destructor(
+			r_n_one_fits_8_bits_ret_);
+	if (use_8_bits_for_numerator_ == AMARA_BOOLEAN_TRUE) {
+		assertion(use_8_bits_for_denominator_ == AMARA_BOOLEAN_TRUE);
+		return copy_uint_fast8_t_into_raw_natural(
+				eight_bits_division_result_);
+	} else {
+		assertion(use_16_bits_for_numerator_ == AMARA_BOOLEAN_TRUE);
+		assertion(use_8_bits_for_denominator_ == AMARA_BOOLEAN_TRUE);
+		return copy_uint_fast16_t_into_raw_natural(
+				sixteen_bits_division_result_);
+	}
 }
 
 /*   This is non destructive towards its arguments. */
@@ -799,56 +909,61 @@ numeric_natural_nodes_substraction_types_checked_both_are_valid_raw_naturals(
 
 /*   This is non destructive towards its arguments. */
 stt_node *
-numeric_natural_nodes_multiplication(
+simplify_natural_literal_nodes_multiplication(
 		const stt_node * node_zero, const stt_node * node_one)
 {
 	stt_node * returning_;
-	assertion(node_zero->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL);
-	assert_pure_natural_node(node_zero);
-	assert_valid_raw_natural(node_zero->natural_subnode_->raw_);
-	assertion(node_one->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL);
-	assert_pure_natural_node(node_one);
-	assert_valid_raw_natural(node_one->natural_subnode_->raw_);
+	/* can include:
+	 * - natural node (trivially multipliable)
+	 * - identifier node (multipliable because the semantic analysis confirms)
+	 * - operation node (multipliabe because the semantic analysis confirms)
+	 */
+	assertion(node_zero->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
+	assert_pure_natural_literal_node(node_zero);
+	assert_valid_raw_natural(node_zero->natural_literal_subnode_->raw_);
+	assertion(node_one->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
+	assert_pure_natural_literal_node(node_one);
+	assert_valid_raw_natural(node_one->natural_literal_subnode_->raw_);
 	returning_ = numeric_natural_nodes_multiplication_types_checked_both_are_valid_raw_naturals(
-			node_zero->natural_subnode_->raw_,
-			node_one->natural_subnode_->raw_);
+			node_zero->natural_literal_subnode_->raw_,
+			node_one->natural_literal_subnode_->raw_);
 	return returning_;
 }
 
 /*   This is non destructive towards its arguments. */
 stt_node *
-numeric_natural_nodes_division(
+simplify_natural_literal_nodes_division(
 		const stt_node * node_zero, const stt_node * node_one)
 {
 	stt_node * returning_;
-	assertion(node_zero->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL);
-	assert_pure_natural_node(node_zero);
-	assert_valid_raw_natural(node_zero->natural_subnode_->raw_);
-	assertion(node_one->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL);
-	assert_pure_natural_node(node_one);
-	assert_valid_raw_natural(node_one->natural_subnode_->raw_);
+	assertion(node_zero->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
+	assert_pure_natural_literal_node(node_zero);
+	assert_valid_raw_natural(node_zero->natural_literal_subnode_->raw_);
+	assertion(node_one->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
+	assert_pure_natural_literal_node(node_one);
+	assert_valid_raw_natural(node_one->natural_literal_subnode_->raw_);
 	returning_ = numeric_natural_nodes_division_types_checked_both_are_valid_raw_naturals(
-			node_zero->natural_subnode_->raw_,
-			node_one->natural_subnode_->raw_);
+			node_zero->natural_literal_subnode_->raw_,
+			node_one->natural_literal_subnode_->raw_);
 	return returning_;
 }
 
 /*   This is non destructive towards its arguments. */
 stt_node *
-numeric_natural_nodes_substraction(
+simplify_natural_literal_nodes_substraction(
 		const stt_node * node_zero, const stt_node * node_one)
 {
 	stt_node * returning_;
-	assertion(node_zero->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL);
-	assertion(node_zero->natural_subnode_ != NULL);
-	assertion(node_zero->natural_subnode_->raw_ != NULL);
-	assert_valid_raw_natural(node_zero->natural_subnode_->raw_);
-	assertion(node_one->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL);
-	assertion(node_one->natural_subnode_ != NULL);
-	assertion(node_one->natural_subnode_->raw_ != NULL);
-	assert_valid_raw_natural(node_one->natural_subnode_->raw_);
+	assertion(node_zero->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
+	assertion(node_zero->natural_literal_subnode_ != NULL);
+	assertion(node_zero->natural_literal_subnode_->raw_ != NULL);
+	assert_valid_raw_natural(node_zero->natural_literal_subnode_->raw_);
+	assertion(node_one->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
+	assertion(node_one->natural_literal_subnode_ != NULL);
+	assertion(node_one->natural_literal_subnode_->raw_ != NULL);
+	assert_valid_raw_natural(node_one->natural_literal_subnode_->raw_);
 	returning_ = numeric_natural_nodes_substraction_types_checked_both_are_valid_raw_naturals(
-			node_zero->natural_subnode_->raw_,
-			node_one->natural_subnode_->raw_);
+			node_zero->natural_literal_subnode_->raw_,
+			node_one->natural_literal_subnode_->raw_);
 	return returning_;
 }

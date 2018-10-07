@@ -22,6 +22,37 @@
 /* For `typedef struct stt_node { ... } stt_node`. */
 #include "../stt/stt_node.h"
 
+typedef struct natural {
+	amara_string * raw_;
+} natural
+;
+
+natural *
+natural_default_constructor(void)
+__attribute__((warn_unused_result))
+;
+
+natural *
+natural_copy_constructor(const natural * natural)
+__attribute__((warn_unused_result))
+;
+
+void
+natural_copy_unsigned_int_into_natural(
+		natural * destination,
+		const unsigned int source_unsigned_int)
+;
+
+void
+natural_copy_from_unsigned_int(
+		natural * destination,
+		const unsigned int source_unsigned_int)
+;
+
+void
+natural_assert_validity(const natural * natural)
+;
+
 /*   Asserts that the string represents a valid and canonical raw
  * natural.
  *   Valid: only digits.
@@ -76,11 +107,22 @@ fit_raw_natural_in_uint_fast16_t_ret_destructor(
 ;
 
 amara_string *
-uint_fast8_t_to_raw_natural(uint_fast8_t input)
-__attribute__((warn_unused_result));
+copy_unsigned_int_into_raw_natural(const unsigned int input)
+__attribute__((warn_unused_result))
+;
 
 amara_string *
-uint_fast16_t_to_raw_natural(uint_fast16_t input)
+copy_pointer_to_unsigned_int_into_raw_natural(const unsigned int * input)
+__attribute__((warn_unused_result))
+;
+
+amara_string *
+copy_uint_fast8_t_into_raw_natural(uint_fast8_t input)
+__attribute__((warn_unused_result))
+;
+
+amara_string *
+copy_uint_fast16_t_into_raw_natural(uint_fast16_t input)
 __attribute__((warn_unused_result))
 ;
 
@@ -91,14 +133,16 @@ int_fast8_t
 safe_arguments_natural_raw_comparison(
 		const amara_string * raw_natural_zero,
 		const amara_string * raw_natural_one)
-__attribute__((warn_unused_result));
+__attribute__((warn_unused_result))
+;
 
 /*   Non destructive in its arguments.
  *   `node_zero` minus `node_one`. */
 stt_node *
-numeric_natural_nodes_substraction(
+simplify_natural_literal_nodes_substraction(
 		const stt_node * node_zero, const stt_node * node_one)
-__attribute__((warn_unused_result));
+__attribute__((warn_unused_result))
+;
 
 /*   Non destructive in its arguments.
  *   `raw_natural_zero` divided by `raw_natural_one`. */
@@ -111,7 +155,7 @@ __attribute__((warn_unused_result));
 /*   Non destructive in its arguments.
  *   `node_zero` divided by `node_one`. */
 stt_node *
-numeric_natural_nodes_multiplication(
+simplify_natural_literal_nodes_multiplication(
 		const stt_node * node_zero, const stt_node * node_one)
 __attribute__((warn_unused_result))
 ;
@@ -119,8 +163,9 @@ __attribute__((warn_unused_result))
 /*   Non destructive in its arguments.
  *   `node_zero` divided by `node_one`. */
 stt_node *
-numeric_natural_nodes_division(
+simplify_natural_literal_nodes_division(
 		const stt_node * node_zero, const stt_node * node_one)
-__attribute__((warn_unused_result));
+__attribute__((warn_unused_result))
+;
 
 #endif

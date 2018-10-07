@@ -44,11 +44,11 @@ stt_node_default_constructor()
 	stt_node * returning_ = malloc(sizeof(stt_node));
 	returning_->type_ = SYNTAX_TREE_NODE_TYPE_INVALID;
 	returning_->string_literal_subnode_ = NULL;
-	returning_->natural_subnode_ = NULL;
+	returning_->natural_literal_subnode_ = NULL;
 	returning_->integer_literal_subnode_ = NULL;
-	returning_->rational_subnode_ = NULL;
+	returning_->rational_literal_subnode_ = NULL;
 	returning_->operation_subnode_ = NULL;
-	returning_->function_subnode_ = NULL;
+	returning_->named_function_subnode_ = NULL;
 	returning_->application_subnode_ = NULL;
 	returning_->identifier_subnode_ = NULL;
 	returning_->operations_list_subnode_ = NULL;
@@ -63,11 +63,11 @@ assert_stt_node_is_valid(const stt_node * node)
 	assertion(node->type_ != SYNTAX_TREE_NODE_TYPE_INVALID);
 	if (node->type_ == SYNTAX_TREE_NODE_TYPE_STRING_LITERAL) {
 		assertion(node->string_literal_subnode_ != NULL);
-		assertion(node->natural_subnode_ == NULL);
+		assertion(node->natural_literal_subnode_ == NULL);
 		assertion(node->integer_literal_subnode_ == NULL);
-		assertion(node->rational_subnode_ == NULL);
+		assertion(node->rational_literal_subnode_ == NULL);
 		assertion(node->operation_subnode_ == NULL);
-		assertion(node->function_subnode_ == NULL);
+		assertion(node->named_function_subnode_ == NULL);
 		assertion(node->application_subnode_ == NULL);
 		assertion(node->identifier_subnode_ == NULL);
 		assertion(node->operations_list_subnode_ == NULL);
@@ -75,11 +75,11 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->execution_request_subnode_ == NULL);
 	} else if (node->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL) {
 		assertion(node->string_literal_subnode_ == NULL);
-		assertion(node->natural_subnode_ != NULL);
+		assertion(node->natural_literal_subnode_ != NULL);
 		assertion(node->integer_literal_subnode_ == NULL);
-		assertion(node->rational_subnode_ == NULL);
+		assertion(node->rational_literal_subnode_ == NULL);
 		assertion(node->operation_subnode_ == NULL);
-		assertion(node->function_subnode_ == NULL);
+		assertion(node->named_function_subnode_ == NULL);
 		assertion(node->application_subnode_ == NULL);
 		assertion(node->identifier_subnode_ == NULL);
 		assertion(node->operations_list_subnode_ == NULL);
@@ -87,11 +87,11 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->execution_request_subnode_ == NULL);
 	} else if (node->type_ == STT_NODE_TYPE_INTEGER_LITERAL) {
 		assertion(node->string_literal_subnode_ == NULL);
-		assertion(node->natural_subnode_ == NULL);
+		assertion(node->natural_literal_subnode_ == NULL);
 		assertion(node->integer_literal_subnode_ != NULL);
-		assertion(node->rational_subnode_ == NULL);
+		assertion(node->rational_literal_subnode_ == NULL);
 		assertion(node->operation_subnode_ == NULL);
-		assertion(node->function_subnode_ == NULL);
+		assertion(node->named_function_subnode_ == NULL);
 		assertion(node->application_subnode_ == NULL);
 		assertion(node->identifier_subnode_ == NULL);
 		assertion(node->operations_list_subnode_ == NULL);
@@ -99,11 +99,11 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->execution_request_subnode_ == NULL);
 	} else if (node->type_ == SYNTAX_TREE_NODE_TYPE_RATIONAL) {
 		assertion(node->string_literal_subnode_ == NULL);
-		assertion(node->natural_subnode_ == NULL);
+		assertion(node->natural_literal_subnode_ == NULL);
 		assertion(node->integer_literal_subnode_ == NULL);
-		assertion(node->rational_subnode_ != NULL);
+		assertion(node->rational_literal_subnode_ != NULL);
 		assertion(node->operation_subnode_ == NULL);
-		assertion(node->function_subnode_ == NULL);
+		assertion(node->named_function_subnode_ == NULL);
 		assertion(node->application_subnode_ == NULL);
 		assertion(node->identifier_subnode_ == NULL);
 		assertion(node->operations_list_subnode_ == NULL);
@@ -111,23 +111,23 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->execution_request_subnode_ == NULL);
 	} else if (node->type_ == SYNTAX_TREE_NODE_TYPE_OPERATION) {
 		assertion(node->string_literal_subnode_ == NULL);
-		assertion(node->natural_subnode_ == NULL);
+		assertion(node->natural_literal_subnode_ == NULL);
 		assertion(node->integer_literal_subnode_ == NULL);
-		assertion(node->rational_subnode_ == NULL);
+		assertion(node->rational_literal_subnode_ == NULL);
 		assertion(node->operation_subnode_ != NULL);
-		assertion(node->function_subnode_ == NULL);
+		assertion(node->named_function_subnode_ == NULL);
 		assertion(node->application_subnode_ == NULL);
 		assertion(node->identifier_subnode_ == NULL);
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
-	} else if (node->type_ == SYNTAX_TREE_NODE_TYPE_FUNCTION) {
+	} else if (node->type_ == STT_NODE_TYPE_NAMED_FUNCTION) {
 		assertion(node->string_literal_subnode_ == NULL);
-		assertion(node->natural_subnode_ == NULL);
+		assertion(node->natural_literal_subnode_ == NULL);
 		assertion(node->integer_literal_subnode_ == NULL);
-		assertion(node->rational_subnode_ == NULL);
+		assertion(node->rational_literal_subnode_ == NULL);
 		assertion(node->operation_subnode_ == NULL);
-		assertion(node->function_subnode_ != NULL);
+		assertion(node->named_function_subnode_ != NULL);
 		assertion(node->application_subnode_ == NULL);
 		assertion(node->identifier_subnode_ == NULL);
 		assertion(node->operations_list_subnode_ == NULL);
@@ -135,11 +135,11 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->execution_request_subnode_ == NULL);
 	} else if (node->type_ == SYNTAX_TREE_NODE_TYPE_APPLICATION) {
 		assertion(node->string_literal_subnode_ == NULL);
-		assertion(node->natural_subnode_ == NULL);
+		assertion(node->natural_literal_subnode_ == NULL);
 		assertion(node->integer_literal_subnode_ == NULL);
-		assertion(node->rational_subnode_ == NULL);
+		assertion(node->rational_literal_subnode_ == NULL);
 		assertion(node->operation_subnode_ == NULL);
-		assertion(node->function_subnode_ == NULL);
+		assertion(node->named_function_subnode_ == NULL);
 		assertion(node->application_subnode_ != NULL);
 		assertion(node->identifier_subnode_ == NULL);
 		assertion(node->operations_list_subnode_ == NULL);
@@ -147,11 +147,11 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->execution_request_subnode_ == NULL);
 	} else if (node->type_ == SYNTAX_TREE_NODE_TYPE_IDENTIFIER) {
 		assertion(node->string_literal_subnode_ == NULL);
-		assertion(node->natural_subnode_ == NULL);
+		assertion(node->natural_literal_subnode_ == NULL);
 		assertion(node->integer_literal_subnode_ == NULL);
-		assertion(node->rational_subnode_ == NULL);
+		assertion(node->rational_literal_subnode_ == NULL);
 		assertion(node->operation_subnode_ == NULL);
-		assertion(node->function_subnode_ == NULL);
+		assertion(node->named_function_subnode_ == NULL);
 		assertion(node->application_subnode_ == NULL);
 		assertion(node->identifier_subnode_ != NULL);
 		assertion(node->operations_list_subnode_ == NULL);
@@ -159,11 +159,11 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->execution_request_subnode_ == NULL);
 	} else if (node->type_ == SYNTAX_TREE_NODE_TYPE_OPERATIONS_LIST) {
 		assertion(node->string_literal_subnode_ == NULL);
-		assertion(node->natural_subnode_ == NULL);
+		assertion(node->natural_literal_subnode_ == NULL);
 		assertion(node->integer_literal_subnode_ == NULL);
-		assertion(node->rational_subnode_ == NULL);
+		assertion(node->rational_literal_subnode_ == NULL);
 		assertion(node->operation_subnode_ == NULL);
-		assertion(node->function_subnode_ == NULL);
+		assertion(node->named_function_subnode_ == NULL);
 		assertion(node->application_subnode_ == NULL);
 		assertion(node->identifier_subnode_ == NULL);
 		assertion(node->operations_list_subnode_ != NULL);
@@ -171,11 +171,11 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->execution_request_subnode_ == NULL);
 	} else if (node->type_ == SYNTAX_TREE_NODE_TYPE_DOC) {
 		assertion(node->string_literal_subnode_ == NULL);
-		assertion(node->natural_subnode_ == NULL);
+		assertion(node->natural_literal_subnode_ == NULL);
 		assertion(node->integer_literal_subnode_ == NULL);
-		assertion(node->rational_subnode_ == NULL);
+		assertion(node->rational_literal_subnode_ == NULL);
 		assertion(node->operation_subnode_ == NULL);
-		assertion(node->function_subnode_ == NULL);
+		assertion(node->named_function_subnode_ == NULL);
 		assertion(node->application_subnode_ == NULL);
 		assertion(node->identifier_subnode_ == NULL);
 		assertion(node->operations_list_subnode_ == NULL);
@@ -185,11 +185,11 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->type_ ==
 				SYNTAX_TREE_NODE_TYPE_EXECUTION_REQUEST);
 		assertion(node->string_literal_subnode_ == NULL);
-		assertion(node->natural_subnode_ == NULL);
+		assertion(node->natural_literal_subnode_ == NULL);
 		assertion(node->integer_literal_subnode_ == NULL);
-		assertion(node->rational_subnode_ == NULL);
+		assertion(node->rational_literal_subnode_ == NULL);
 		assertion(node->operation_subnode_ == NULL);
-		assertion(node->function_subnode_ == NULL);
+		assertion(node->named_function_subnode_ == NULL);
 		assertion(node->application_subnode_ == NULL);
 		assertion(node->identifier_subnode_ == NULL);
 		assertion(node->operations_list_subnode_ == NULL);
@@ -205,19 +205,23 @@ stt_node_copy_constructor(const stt_node * node)
 	assertion(node->type_ != SYNTAX_TREE_NODE_TYPE_INVALID);
 	ret_ = stt_node_default_constructor();
 	if (node->type_ == SYNTAX_TREE_NODE_TYPE_STRING_LITERAL) {
+		assert_pure_string_literal_node(node);
 		ret_->string_literal_subnode_ =
 				stt_string_literal_subnode_copy_constructor(
 						node->string_literal_subnode_);
 		ret_->type_ = SYNTAX_TREE_NODE_TYPE_STRING_LITERAL;
 		return ret_;
 	}
-	if (node->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL) {
-		ret_->natural_subnode_ = stt_natural_subnode_copy_constructor(
-				node->natural_subnode_);
-		ret_->type_ = SYNTAX_TREE_NODE_TYPE_NATURAL;
+	if (node->type_ == STT_NODE_TYPE_NATURAL_LITERAL) {
+		assert_pure_natural_literal_node(node);
+		ret_->natural_literal_subnode_ =
+				stt_natural_literal_subnode_copy_constructor(
+						node->natural_literal_subnode_);
+		ret_->type_ = STT_NODE_TYPE_NATURAL_LITERAL;
 		return ret_;
 	}
 	if (node->type_ == STT_NODE_TYPE_INTEGER_LITERAL) {
+		assert_pure_integer_literal_node(node);
 		ret_->integer_literal_subnode_ =
 				stt_integer_literal_subnode_copy_constructor(
 						node->integer_literal_subnode_);
@@ -225,27 +229,31 @@ stt_node_copy_constructor(const stt_node * node)
 		return ret_;
 	}
 	if (node->type_ == SYNTAX_TREE_NODE_TYPE_RATIONAL) {
-		ret_->rational_subnode_ =
-				stt_rational_subnode_copy_constructor(
-						node->rational_subnode_);
+		assert_pure_rational_literal_node(node);
+		ret_->rational_literal_subnode_ =
+				stt_rational_literal_subnode_copy_constructor(
+						node->rational_literal_subnode_);
 		ret_->type_ = SYNTAX_TREE_NODE_TYPE_RATIONAL;
 		return ret_;
 	}
 	if (node->type_ == SYNTAX_TREE_NODE_TYPE_OPERATION) {
+		assert_pure_operation_node(node);
 		ret_->operation_subnode_ =
 				stt_operation_subnode_copy_constructor(
 						node->operation_subnode_);
 		ret_->type_ = SYNTAX_TREE_NODE_TYPE_OPERATION;
 		return ret_;
 	}
-	if (node->type_ == SYNTAX_TREE_NODE_TYPE_FUNCTION) {
-		ret_->function_subnode_ =
-				stt_function_subnode_copy_constructor(
-						node->function_subnode_);
-		ret_->type_ = SYNTAX_TREE_NODE_TYPE_FUNCTION;
+	if (node->type_ == STT_NODE_TYPE_NAMED_FUNCTION) {
+		assert_pure_named_function_node(node);
+		ret_->named_function_subnode_ =
+				stt_named_function_subnode_copy_constructor(
+						node->named_function_subnode_);
+		ret_->type_ = STT_NODE_TYPE_NAMED_FUNCTION;
 		return ret_;
 	}
 	if (node->type_ == SYNTAX_TREE_NODE_TYPE_APPLICATION) {
+		assert_pure_application_node(node);
 		ret_->application_subnode_ =
 				stt_application_subnode_copy_constructor(
 						node->application_subnode_);
@@ -253,6 +261,7 @@ stt_node_copy_constructor(const stt_node * node)
 		return ret_;
 	}
 	if (node->type_ == SYNTAX_TREE_NODE_TYPE_IDENTIFIER) {
+		assert_pure_identifier_node(node);
 		ret_->identifier_subnode_ =
 				stt_identifier_subnode_copy_constructor(
 						node->identifier_subnode_);
@@ -260,6 +269,7 @@ stt_node_copy_constructor(const stt_node * node)
 		return ret_;
 	}
 	if (node->type_ == SYNTAX_TREE_NODE_TYPE_OPERATIONS_LIST) {
+		assert_pure_operations_list_node(node);
 		ret_->operations_list_subnode_ =
 				stt_operations_list_subnode_copy_constructor(
 						node->operations_list_subnode_);
@@ -267,12 +277,14 @@ stt_node_copy_constructor(const stt_node * node)
 		return ret_;
 	}
 	if (node->type_ == SYNTAX_TREE_NODE_TYPE_DOC) {
+		assert_pure_doc_node(node);
 		ret_->doc_subnode_ = stt_doc_subnode_copy_constructor(
 				node->doc_subnode_);
 		ret_->type_ = SYNTAX_TREE_NODE_TYPE_DOC;
 		return ret_;
 	}
 	if (node->type_ == SYNTAX_TREE_NODE_TYPE_EXECUTION_REQUEST) {
+		assert_pure_execution_request_node(node);
 		ret_->execution_request_subnode_ =
 				stt_execution_request_subnode_copy_constructor(
 						node->execution_request_subnode_);
@@ -291,8 +303,9 @@ stt_node_wrapping_raw_natural(const amara_string * raw_natural)
 	amara_string * copy_;
 	returning_ = stt_node_default_constructor();
 	copy_ = amara_string_copy_constructor(raw_natural);
-	returning_->natural_subnode_ =
-			stt_natural_subnode_exhaustive_constructor(copy_);
+	returning_->natural_literal_subnode_ =
+			stt_natural_literal_subnode_exhaustive_constructor(
+					copy_);
 	amara_string_destructor(copy_);
 	returning_->type_ = SYNTAX_TREE_NODE_TYPE_NATURAL;
 	return returning_;
@@ -302,11 +315,11 @@ void
 assert_all_subnodes_are_null(const stt_node * node)
 {
 	assertion(node->string_literal_subnode_ == NULL);
-	assertion(node->natural_subnode_ == NULL);
+	assertion(node->natural_literal_subnode_ == NULL);
 	assertion(node->integer_literal_subnode_ == NULL);
-	assertion(node->rational_subnode_ == NULL);
+	assertion(node->rational_literal_subnode_ == NULL);
 	assertion(node->operation_subnode_ == NULL);
-	assertion(node->function_subnode_ == NULL);
+	assertion(node->named_function_subnode_ == NULL);
 	assertion(node->application_subnode_ == NULL);
 	assertion(node->identifier_subnode_ == NULL);
 	assertion(node->operations_list_subnode_ == NULL);
@@ -323,11 +336,11 @@ stt_node_destructor(stt_node const * node)
 		assertion(node->string_literal_subnode_ != NULL);
 		stt_string_literal_subnode_destructor(
 				node->string_literal_subnode_);
-		assertion(node->natural_subnode_ == NULL);
+		assertion(node->natural_literal_subnode_ == NULL);
 		assertion(node->integer_literal_subnode_ == NULL);
-		assertion(node->rational_subnode_ == NULL);
+		assertion(node->rational_literal_subnode_ == NULL);
 		assertion(node->operation_subnode_ == NULL);
-		assertion(node->function_subnode_ == NULL);
+		assertion(node->named_function_subnode_ == NULL);
 		assertion(node->application_subnode_ == NULL);
 		assertion(node->identifier_subnode_ == NULL);
 		assertion(node->operations_list_subnode_ == NULL);
@@ -336,12 +349,13 @@ stt_node_destructor(stt_node const * node)
 		break;
 	case SYNTAX_TREE_NODE_TYPE_NATURAL:
 		assertion(node->string_literal_subnode_ == NULL);
-		assertion(node->natural_subnode_ != NULL);
-		stt_natural_subnode_destructor(node->natural_subnode_);
+		assertion(node->natural_literal_subnode_ != NULL);
+		stt_natural_literal_subnode_destructor(
+				node->natural_literal_subnode_);
 		assertion(node->integer_literal_subnode_ == NULL);
-		assertion(node->rational_subnode_ == NULL);
+		assertion(node->rational_literal_subnode_ == NULL);
 		assertion(node->operation_subnode_ == NULL);
-		assertion(node->function_subnode_ == NULL);
+		assertion(node->named_function_subnode_ == NULL);
 		assertion(node->application_subnode_ == NULL);
 		assertion(node->identifier_subnode_ == NULL);
 		assertion(node->operations_list_subnode_ == NULL);
@@ -350,13 +364,13 @@ stt_node_destructor(stt_node const * node)
 		break;
 	case STT_NODE_TYPE_INTEGER_LITERAL:
 		assertion(node->string_literal_subnode_ == NULL);
-		assertion(node->natural_subnode_ == NULL);
+		assertion(node->natural_literal_subnode_ == NULL);
 		assertion(node->integer_literal_subnode_ != NULL);
 		stt_integer_literal_subnode_destructor(
 				node->integer_literal_subnode_);
-		assertion(node->rational_subnode_ == NULL);
+		assertion(node->rational_literal_subnode_ == NULL);
 		assertion(node->operation_subnode_ == NULL);
-		assertion(node->function_subnode_ == NULL);
+		assertion(node->named_function_subnode_ == NULL);
 		assertion(node->application_subnode_ == NULL);
 		assertion(node->identifier_subnode_ == NULL);
 		assertion(node->operations_list_subnode_ == NULL);
@@ -365,12 +379,13 @@ stt_node_destructor(stt_node const * node)
 		break;
 	case SYNTAX_TREE_NODE_TYPE_RATIONAL:
 		assertion(node->string_literal_subnode_ == NULL);
-		assertion(node->natural_subnode_ == NULL);
+		assertion(node->natural_literal_subnode_ == NULL);
 		assertion(node->integer_literal_subnode_ == NULL);
-		assertion(node->rational_subnode_ != NULL);
-		stt_rational_subnode_destructor(node->rational_subnode_);
+		assertion(node->rational_literal_subnode_ != NULL);
+		stt_rational_literal_subnode_destructor(
+				node->rational_literal_subnode_);
 		assertion(node->operation_subnode_ == NULL);
-		assertion(node->function_subnode_ == NULL);
+		assertion(node->named_function_subnode_ == NULL);
 		assertion(node->application_subnode_ == NULL);
 		assertion(node->identifier_subnode_ == NULL);
 		assertion(node->operations_list_subnode_ == NULL);
@@ -379,26 +394,27 @@ stt_node_destructor(stt_node const * node)
 		break;
 	case SYNTAX_TREE_NODE_TYPE_OPERATION:
 		assertion(node->string_literal_subnode_ == NULL);
-		assertion(node->natural_subnode_ == NULL);
+		assertion(node->natural_literal_subnode_ == NULL);
 		assertion(node->integer_literal_subnode_ == NULL);
-		assertion(node->rational_subnode_ == NULL);
+		assertion(node->rational_literal_subnode_ == NULL);
 		assertion(node->operation_subnode_ != NULL);
 		stt_operation_subnode_destructor(node->operation_subnode_);
-		assertion(node->function_subnode_ == NULL);
+		assertion(node->named_function_subnode_ == NULL);
 		assertion(node->application_subnode_ == NULL);
 		assertion(node->identifier_subnode_ == NULL);
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
 		break;
-	case SYNTAX_TREE_NODE_TYPE_FUNCTION:
+	case STT_NODE_TYPE_NAMED_FUNCTION:
 		assertion(node->string_literal_subnode_ == NULL);
-		assertion(node->natural_subnode_ == NULL);
+		assertion(node->natural_literal_subnode_ == NULL);
 		assertion(node->integer_literal_subnode_ == NULL);
-		assertion(node->rational_subnode_ == NULL);
+		assertion(node->rational_literal_subnode_ == NULL);
 		assertion(node->operation_subnode_ == NULL);
-		assertion(node->function_subnode_ != NULL);
-		stt_function_subnode_destructor(node->function_subnode_);
+		assertion(node->named_function_subnode_ != NULL);
+		stt_named_function_subnode_destructor(
+				node->named_function_subnode_);
 		assertion(node->application_subnode_ == NULL);
 		assertion(node->identifier_subnode_ == NULL);
 		assertion(node->operations_list_subnode_ == NULL);
@@ -407,11 +423,11 @@ stt_node_destructor(stt_node const * node)
 		break;
 	case SYNTAX_TREE_NODE_TYPE_APPLICATION:
 		assertion(node->string_literal_subnode_ == NULL);
-		assertion(node->natural_subnode_ == NULL);
+		assertion(node->natural_literal_subnode_ == NULL);
 		assertion(node->integer_literal_subnode_ == NULL);
-		assertion(node->rational_subnode_ == NULL);
+		assertion(node->rational_literal_subnode_ == NULL);
 		assertion(node->operation_subnode_ == NULL);
-		assertion(node->function_subnode_ == NULL);
+		assertion(node->named_function_subnode_ == NULL);
 		assertion(node->application_subnode_ != NULL);
 		stt_application_subnode_destructor(node->application_subnode_);
 		assertion(node->identifier_subnode_ == NULL);
@@ -421,11 +437,11 @@ stt_node_destructor(stt_node const * node)
 		break;
 	case SYNTAX_TREE_NODE_TYPE_IDENTIFIER:
 		assertion(node->string_literal_subnode_ == NULL);
-		assertion(node->natural_subnode_ == NULL);
+		assertion(node->natural_literal_subnode_ == NULL);
 		assertion(node->integer_literal_subnode_ == NULL);
-		assertion(node->rational_subnode_ == NULL);
+		assertion(node->rational_literal_subnode_ == NULL);
 		assertion(node->operation_subnode_ == NULL);
-		assertion(node->function_subnode_ == NULL);
+		assertion(node->named_function_subnode_ == NULL);
 		assertion(node->application_subnode_ == NULL);
 		assertion(node->identifier_subnode_ != NULL);
 		stt_identifier_subnode_destructor(node->identifier_subnode_);
@@ -435,11 +451,11 @@ stt_node_destructor(stt_node const * node)
 		break;
 	case SYNTAX_TREE_NODE_TYPE_OPERATIONS_LIST:
 		assertion(node->string_literal_subnode_ == NULL);
-		assertion(node->natural_subnode_ == NULL);
+		assertion(node->natural_literal_subnode_ == NULL);
 		assertion(node->integer_literal_subnode_ == NULL);
-		assertion(node->rational_subnode_ == NULL);
+		assertion(node->rational_literal_subnode_ == NULL);
 		assertion(node->operation_subnode_ == NULL);
-		assertion(node->function_subnode_ == NULL);
+		assertion(node->named_function_subnode_ == NULL);
 		assertion(node->application_subnode_ == NULL);
 		assertion(node->identifier_subnode_ == NULL);
 		assertion(node->operations_list_subnode_ != NULL);
@@ -450,11 +466,11 @@ stt_node_destructor(stt_node const * node)
 		break;
 	case SYNTAX_TREE_NODE_TYPE_DOC:
 		assertion(node->string_literal_subnode_ == NULL);
-		assertion(node->natural_subnode_ == NULL);
+		assertion(node->natural_literal_subnode_ == NULL);
 		assertion(node->integer_literal_subnode_ == NULL);
-		assertion(node->rational_subnode_ == NULL);
+		assertion(node->rational_literal_subnode_ == NULL);
 		assertion(node->operation_subnode_ == NULL);
-		assertion(node->function_subnode_ == NULL);
+		assertion(node->named_function_subnode_ == NULL);
 		assertion(node->application_subnode_ == NULL);
 		assertion(node->identifier_subnode_ == NULL);
 		assertion(node->operations_list_subnode_ == NULL);
@@ -464,11 +480,11 @@ stt_node_destructor(stt_node const * node)
 		break;
 	case SYNTAX_TREE_NODE_TYPE_EXECUTION_REQUEST:
 		assertion(node->string_literal_subnode_ == NULL);
-		assertion(node->natural_subnode_ == NULL);
+		assertion(node->natural_literal_subnode_ == NULL);
 		assertion(node->integer_literal_subnode_ == NULL);
-		assertion(node->rational_subnode_ == NULL);
+		assertion(node->rational_literal_subnode_ == NULL);
 		assertion(node->operation_subnode_ == NULL);
-		assertion(node->function_subnode_ == NULL);
+		assertion(node->named_function_subnode_ == NULL);
 		assertion(node->application_subnode_ == NULL);
 		assertion(node->identifier_subnode_ == NULL);
 		assertion(node->operations_list_subnode_ == NULL);
@@ -503,8 +519,9 @@ stt_node_set_natural_literal(
 {
 	assertion(node->type_ == SYNTAX_TREE_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
-	node->natural_subnode_ = stt_natural_subnode_exhaustive_constructor(
-			raw_natural_literal);
+	node->natural_literal_subnode_ =
+			stt_natural_literal_subnode_exhaustive_constructor(
+					raw_natural_literal);
 	node->type_ = SYNTAX_TREE_NODE_TYPE_NATURAL;
 }
 
@@ -521,13 +538,14 @@ stt_node_set_integer_literal(
 }
 
 void
-stt_node_set_rational(
-		stt_node * node, const amara_string * raw_rational)
+stt_node_set_rational_literal(
+		stt_node * node, const amara_string * raw_rational_literal)
 {
 	assertion(node->type_ == SYNTAX_TREE_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
-	node->rational_subnode_ = stt_rational_subnode_exhaustive_constructor(
-			raw_rational);
+	node->rational_literal_subnode_ =
+			stt_rational_literal_subnode_exhaustive_constructor(
+					raw_rational_literal);
 	node->type_ = SYNTAX_TREE_NODE_TYPE_RATIONAL;
 }
 
@@ -569,8 +587,8 @@ stt_node_type_name(const stt_node * node)
 		return amara_string_exhaustive_constructor("rational");
 	case SYNTAX_TREE_NODE_TYPE_OPERATION:
 		return amara_string_exhaustive_constructor("operation");
-	case SYNTAX_TREE_NODE_TYPE_FUNCTION:
-		return amara_string_exhaustive_constructor("function");
+	case STT_NODE_TYPE_NAMED_FUNCTION:
+		return amara_string_exhaustive_constructor("named function");
 	case SYNTAX_TREE_NODE_TYPE_APPLICATION:
 		return amara_string_exhaustive_constructor("application");
 	case SYNTAX_TREE_NODE_TYPE_IDENTIFIER:
@@ -589,10 +607,10 @@ stt_node_type_name(const stt_node * node)
 }
 
 stt_node *
-register_function(stt_node * node, const stt_node * function_node)
+register_named_function(stt_node * node, const stt_node * named_function_node)
 {
-	stt_function * new_function_;
-	stt_functions_simple_list * new_functions_list_node_;
+	stt_named_function * new_named_function_;
+	stt_named_functions_simple_list * new_named_functions_list_node_;
 	assertion_two(node != NULL, "unexpected value NULL for `node`");
 	if (node->type_ != SYNTAX_TREE_NODE_TYPE_DOC_FRAGMENT) {
 		fprintf(stderr, "%s:%u:%u\n", __FILE__, __LINE__, node->type_);
@@ -603,21 +621,26 @@ register_function(stt_node * node, const stt_node * function_node)
 			__LINE__);
 	assertion_two(node->doc_subnode_ != NULL,
 			"unexpected value for `node->doc`");
-	assertion_two(function_node != NULL,
-			"`function_node` unexepectedly NULL");
-	assertion_two(function_node->type_ == SYNTAX_TREE_NODE_TYPE_FUNCTION,
-			"unexpected value at `function_node->type`");
-	new_function_ = malloc(sizeof(stt_function));
-	new_function_->name_ = amara_string_copy_constructor(
-			function_node->function_subnode_->name_);
-	new_function_->operations_ =
+	assertion_two(named_function_node != NULL,
+			"`named_function_node` unexepectedly NULL");
+	assertion_two(
+			named_function_node->type_ ==
+					STT_NODE_TYPE_NAMED_FUNCTION,
+			"unexpected value at `named_function_node->type`");
+	new_named_function_ = malloc(sizeof(stt_named_function));
+	new_named_function_->name_ = amara_string_copy_constructor(
+			named_function_node->named_function_subnode_->name_);
+	new_named_function_->operations_ =
 			stt_operations_simple_list_copy_constructor(
-					function_node->function_subnode_->operations_);
-	new_function_->type_ = function_node->function_subnode_->type_;
-	new_functions_list_node_ = malloc(sizeof(stt_functions_simple_list));
-	new_functions_list_node_->first = new_function_;
-	new_functions_list_node_->next = node->doc_subnode_->functions_;
-	node->doc_subnode_->functions_ = new_functions_list_node_;
+					named_function_node->named_function_subnode_->operations_);
+	new_named_function_->type_ =
+			named_function_node->named_function_subnode_->type_;
+	new_named_functions_list_node_ =
+			malloc(sizeof(stt_named_functions_simple_list));
+	new_named_functions_list_node_->first = new_named_function_;
+	new_named_functions_list_node_->next =
+			node->doc_subnode_->named_functions_;
+	node->doc_subnode_->named_functions_ = new_named_functions_list_node_;
 	return node;
 }
 
@@ -696,7 +719,7 @@ register_execution_request(
 void
 dump_syntax_tree(const stt_node * node)
 {
-	uint_fast8_t functions_len_;
+	uint_fast8_t named_functions_len_;
 	stt_applications_simple_list * applications_ptr_;
 	uint_fast8_t applications_len_;
 	stt_application * application_;
@@ -704,12 +727,12 @@ dump_syntax_tree(const stt_node * node)
 	fprintf(stderr, "%s:%u ----> void dump_syntax_tree(const stt_node *)\n",
 			__FILE__, __LINE__);
 	assertion(node->type_ == SYNTAX_TREE_NODE_TYPE_DOC);
-	assertion(node->doc_subnode_->functions_ != NULL);
+	assertion(node->doc_subnode_->named_functions_ != NULL);
 	assertion(node->doc_subnode_->applications_ != NULL);
 	assertion(node->doc_subnode_->execution_requests_ != NULL); /* In the future, this won't be true (for libraries). */
-	functions_len_ = stt_functions_simple_list_length(
-			node->doc_subnode_->functions_);
-	fprintf(stderr, "%s:%u - %u functions\n", __FILE__, __LINE__, functions_len_);
+	named_functions_len_ = stt_named_functions_simple_list_length(
+			node->doc_subnode_->named_functions_);
+	fprintf(stderr, "%s:%u - %u named_functions\n", __FILE__, __LINE__, named_functions_len_);
 	applications_len_ = stt_applications_simple_list_length(
 			node->doc_subnode_->applications_);
 	fprintf(stderr, "%s:%u - %u applications\n", __FILE__, __LINE__,
@@ -750,15 +773,15 @@ look_for_undefined_labels_ret_destructor(
 }
 
 look_for_undefined_labels_ret *
-look_for_undefined_labels_in_functions_(const stt_node * node)
+look_for_undefined_labels_in_named_functions_(const stt_node * node)
 __attribute__((warn_unused_result))
 ;
 
 look_for_undefined_labels_ret *
-look_for_undefined_labels_in_functions_(const stt_node * node)
+look_for_undefined_labels_in_named_functions_(const stt_node * node)
 {
 	look_for_undefined_labels_ret * ret_;
-	fprintf(stderr, "%s:%u ----> look_for_undefined_labels_ret * look_for_undefined_labels_in_functions(const stt_node *)\n",
+	fprintf(stderr, "%s:%u ----> look_for_undefined_labels_ret * look_for_undefined_labels_in_named_functions(const stt_node *)\n",
 			__FILE__, __LINE__);
 	ret_ = malloc(sizeof(look_for_undefined_labels_ret));
 	ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID;
@@ -767,7 +790,7 @@ look_for_undefined_labels_in_functions_(const stt_node * node)
 	assertion(node->type_ == SYNTAX_TREE_NODE_TYPE_DOC);
 	assertion(node->doc_subnode_ != NULL);
 	ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_OK;
-	fprintf(stderr, "%s:%u <---- look_for_undefined_labels_ret * look_for_undefined_labels_in_functions(const stt_node *)\n",
+	fprintf(stderr, "%s:%u <---- look_for_undefined_labels_ret * look_for_undefined_labels_in_named_functions(const stt_node *)\n",
 			__FILE__, __LINE__);
 	return ret_;
 }
@@ -781,7 +804,7 @@ look_for_undefined_labels_ret *
 look_for_undefined_labels_in_applications_(const stt_node * node)
 {
 	look_for_undefined_labels_ret * ret_;
-	stt_functions_simple_list * functions_ptr_;
+	stt_named_functions_simple_list * named_functions_ptr_;
 	stt_applications_simple_list * applications_ptr_;
 	amara_boolean function_name_found_;
 	amara_string * target_entry_point_function_name_;
@@ -798,18 +821,18 @@ look_for_undefined_labels_in_applications_(const stt_node * node)
 	while (applications_ptr_ != NULL) {
 		target_entry_point_function_name_ =
 				applications_ptr_->first->entry_point_function_name_;
-		functions_ptr_ = node->doc_subnode_->functions_;
+		named_functions_ptr_ = node->doc_subnode_->named_functions_;
 		function_name_found_ = AMARA_BOOLEAN_FALSE;
-		while (functions_ptr_ != NULL) {
+		while (named_functions_ptr_ != NULL) {
 			function_name_found_ = amara_string_equality(
-					functions_ptr_->first->name_,
+					named_functions_ptr_->first->name_,
 					target_entry_point_function_name_);
 			if (function_name_found_) {
 				break;
 			}
-			functions_ptr_ = functions_ptr_->next;
+			named_functions_ptr_ = named_functions_ptr_->next;
 		}
-		if (functions_ptr_ == NULL) {
+		if (named_functions_ptr_ == NULL) {
 			/*   No function with a matching name with the
 			 * requested function as entry point for this
 			 * application was found in the functions list. */
@@ -906,7 +929,7 @@ look_for_undefined_labels_ret *
 look_for_undefined_labels(const stt_node * node)
 {
 	char_arrays_simple_list * temp_;
-	look_for_undefined_labels_ret * functions_sub_ret_;
+	look_for_undefined_labels_ret * named_functions_sub_ret_;
 	look_for_undefined_labels_ret * applications_sub_ret_;
 	look_for_undefined_labels_ret * execution_requests_sub_ret_;
 	look_for_undefined_labels_ret * ret_ =
@@ -919,15 +942,15 @@ look_for_undefined_labels(const stt_node * node)
 			__LINE__);
 	assertion_two_located_interim(node->doc_subnode_ != NULL,
 			"`node->doc` unexpectedly NULL", __FILE__, __LINE__);
-	functions_sub_ret_ =
-			look_for_undefined_labels_in_functions_(node);
-	if (functions_sub_ret_->status ==
+	named_functions_sub_ret_ =
+			look_for_undefined_labels_in_named_functions_(node);
+	if (named_functions_sub_ret_->status ==
 			LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR) {
 		ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR;
 		temp_ = ret_->messages;
 		ret_->messages = char_arrays_simple_list_concat_destructive(
 				temp_,
-				functions_sub_ret_->messages);
+				named_functions_sub_ret_->messages);
 	}
 	applications_sub_ret_ =
 			look_for_undefined_labels_in_applications_(node);
@@ -959,26 +982,167 @@ look_for_undefined_labels(const stt_node * node)
 			applications_sub_ret_);
 	applications_sub_ret_ = NULL;
 	look_for_undefined_labels_ret_destructor(
-			functions_sub_ret_);
-	functions_sub_ret_ = NULL;
+			named_functions_sub_ret_);
+	named_functions_sub_ret_ = NULL;
 	return ret_;
 }
 
 void
-assert_pure_natural_node(const stt_node * node)
+assert_pure_integer_literal_node(const stt_node * node)
 {
 	assertion(node != NULL);
-	assertion(node->type_ == SYNTAX_TREE_NODE_TYPE_NATURAL);
-	assertion(node->application_subnode_ == NULL);
-	assertion(node->doc_subnode_ == NULL);
-	assertion(node->function_subnode_ == NULL);
-	assertion(node->identifier_subnode_ == NULL);
-	assertion(node->integer_literal_subnode_ == NULL);
-	assertion(node->natural_subnode_ != NULL);
-	assertion(node->natural_subnode_->raw_ != NULL);
+	assertion(node->type_ == STT_NODE_TYPE_INTEGER_LITERAL);
+	assertion(node->string_literal_subnode_ == NULL);
+	assertion(node->natural_literal_subnode_ == NULL);
+	assertion(node->integer_literal_subnode_ != NULL);
+	assertion(node->integer_literal_subnode_->raw_ != NULL);
+	assertion(node->rational_literal_subnode_ == NULL);
 	assertion(node->operation_subnode_ == NULL);
 	assertion(node->operations_list_subnode_ == NULL);
-	assertion(node->rational_subnode_ == NULL);
+	assertion(node->named_function_subnode_ == NULL);
+	assertion(node->application_subnode_ == NULL);
+	assertion(node->identifier_subnode_ == NULL);
+	assertion(node->execution_request_subnode_ == NULL);
+	assertion(node->doc_subnode_ == NULL);
+}
+
+void
+assert_pure_rational_literal_node(const stt_node * node)
+{
+	assertion(node != NULL);
+	assertion(node->type_ == STT_NODE_TYPE_RATIONAL_LITERAL);
+	assertion(node->string_literal_subnode_ == NULL);
+	assertion(node->natural_literal_subnode_ == NULL);
+	assertion(node->integer_literal_subnode_ == NULL);
+	assertion(node->rational_literal_subnode_ != NULL);
+	assertion(node->rational_literal_subnode_->raw_ != NULL);
+	assertion(node->operation_subnode_ == NULL);
+	assertion(node->operations_list_subnode_ == NULL);
+	assertion(node->named_function_subnode_ == NULL);
+	assertion(node->application_subnode_ == NULL);
+	assertion(node->identifier_subnode_ == NULL);
+	assertion(node->execution_request_subnode_ == NULL);
+	assertion(node->doc_subnode_ == NULL);
+}
+
+void
+assert_pure_operation_node(const stt_node * node)
+{
+	assertion(node != NULL);
+	assertion(node->type_ == STT_NODE_TYPE_OPERATION);
+	assertion(node->string_literal_subnode_ == NULL);
+	assertion(node->natural_literal_subnode_ == NULL);
+	assertion(node->integer_literal_subnode_ == NULL);
+	assertion(node->rational_literal_subnode_ == NULL);
+	assertion(node->operation_subnode_ != NULL);
+	assertion(node->operation_subnode_->operation_ != NULL);
+	assertion(node->operation_subnode_->operation_->type_ !=
+			STT_OPERATION_TYPE_INVALID);
+	assertion(node->operations_list_subnode_ == NULL);
+	assertion(node->named_function_subnode_ == NULL);
+	assertion(node->application_subnode_ == NULL);
+	assertion(node->identifier_subnode_ == NULL);
+	assertion(node->execution_request_subnode_ == NULL);
+	assertion(node->doc_subnode_ == NULL);
+}
+
+void
+assert_pure_operations_list_node(const stt_node * node)
+{
+	assertion(node != NULL);
+	assertion(node->type_ == STT_NODE_TYPE_OPERATIONS_LIST);
+	assertion(node->string_literal_subnode_ == NULL);
+	assertion(node->natural_literal_subnode_ == NULL);
+	assertion(node->integer_literal_subnode_ == NULL);
+	assertion(node->rational_literal_subnode_ == NULL);
+	assertion(node->operation_subnode_ == NULL);
+	assertion(node->operations_list_subnode_ != NULL);
+	assertion(node->operations_list_subnode_->operations_ != NULL);
+	assertion(node->named_function_subnode_ == NULL);
+	assertion(node->application_subnode_ == NULL);
+	assertion(node->identifier_subnode_ == NULL);
+	assertion(node->execution_request_subnode_ == NULL);
+	assertion(node->doc_subnode_ == NULL);
+}
+
+void
+assert_pure_named_function_node(const stt_node * node)
+{
+	assertion(node != NULL);
+	assertion(node->type_ == STT_NODE_TYPE_NAMED_FUNCTION);
+	assertion(node->string_literal_subnode_ == NULL);
+	assertion(node->natural_literal_subnode_ == NULL);
+	assertion(node->integer_literal_subnode_ == NULL);
+	assertion(node->rational_literal_subnode_ == NULL);
+	assertion(node->operation_subnode_ == NULL);
+	assertion(node->operations_list_subnode_ == NULL);
+	assertion(node->named_function_subnode_ != NULL);
+	assertion(node->named_function_subnode_->type_ !=
+			STT_NAMED_FUNCTION_SUBNODE_TYPE_INVALID);
+	assertion(node->named_function_subnode_->name_ != NULL);
+	assertion(node->named_function_subnode_->operations_ != NULL);
+	assertion(node->application_subnode_ == NULL);
+	assertion(node->identifier_subnode_ == NULL);
+	assertion(node->execution_request_subnode_ == NULL);
+	assertion(node->doc_subnode_ == NULL);
+}
+
+void
+assert_pure_application_node(const stt_node * node)
+{
+	assertion(node != NULL);
+	assertion(node->type_ == STT_NODE_TYPE_APPLICATION);
+	assertion(node->string_literal_subnode_ == NULL);
+	assertion(node->natural_literal_subnode_ == NULL);
+	assertion(node->integer_literal_subnode_ == NULL);
+	assertion(node->rational_literal_subnode_ == NULL);
+	assertion(node->operation_subnode_ == NULL);
+	assertion(node->operations_list_subnode_ == NULL);
+	assertion(node->named_function_subnode_ == NULL);
+	assertion(node->application_subnode_ != NULL);
+	assertion(node->application_subnode_->type_ !=
+			STT_APPLICATION_SUBNODE_TYPE_INVALID);
+	assertion(node->application_subnode_->name_ != NULL);
+	assertion(node->application_subnode_->entry_point_function_name_ !=
+			NULL);
+	assertion(node->identifier_subnode_ == NULL);
+	assertion(node->execution_request_subnode_ == NULL);
+	assertion(node->doc_subnode_ == NULL);
+}
+
+void
+assert_pure_identifier_node(const stt_node * node)
+{
+	assertion(node != NULL);
+	assertion(node->type_ == STT_NODE_TYPE_IDENTIFIER);
+	assertion(node->application_subnode_ == NULL);
+	assertion(node->doc_subnode_ == NULL);
+	assertion(node->named_function_subnode_ == NULL);
+	assertion(node->identifier_subnode_ != NULL);
+	assertion(node->identifier_subnode_->value_ != NULL);
+	assertion(node->integer_literal_subnode_ == NULL);
+	assertion(node->natural_literal_subnode_ == NULL);
+	assertion(node->operation_subnode_ == NULL);
+	assertion(node->operations_list_subnode_ == NULL);
+	assertion(node->rational_literal_subnode_ == NULL);
+	assertion(node->string_literal_subnode_ == NULL);
+}
+
+void
+assert_pure_natural_literal_node(const stt_node * node)
+{
+	assertion(node != NULL);
+	assertion(node->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
+	assertion(node->application_subnode_ == NULL);
+	assertion(node->doc_subnode_ == NULL);
+	assertion(node->named_function_subnode_ == NULL);
+	assertion(node->identifier_subnode_ == NULL);
+	assertion(node->integer_literal_subnode_ == NULL);
+	assertion(node->natural_literal_subnode_ != NULL);
+	assertion(node->natural_literal_subnode_->raw_ != NULL);
+	assertion(node->operation_subnode_ == NULL);
+	assertion(node->operations_list_subnode_ == NULL);
+	assertion(node->rational_literal_subnode_ == NULL);
 	assertion(node->string_literal_subnode_ == NULL);
 }
 
@@ -986,16 +1150,58 @@ void
 assert_pure_string_literal_node(const stt_node * node)
 {
 	assertion(node != NULL);
-	assertion(node->type_ == SYNTAX_TREE_NODE_TYPE_STRING_LITERAL);
+	assertion(node->type_ == STT_NODE_TYPE_STRING_LITERAL);
 	assertion(node->application_subnode_ == NULL);
 	assertion(node->doc_subnode_ == NULL);
-	assertion(node->function_subnode_ == NULL);
+	assertion(node->named_function_subnode_ == NULL);
 	assertion(node->identifier_subnode_ == NULL);
 	assertion(node->integer_literal_subnode_ == NULL);
-	assertion(node->natural_subnode_ == NULL);
+	assertion(node->natural_literal_subnode_ == NULL);
 	assertion(node->operation_subnode_ == NULL);
 	assertion(node->operations_list_subnode_ == NULL);
-	assertion(node->rational_subnode_ == NULL);
+	assertion(node->rational_literal_subnode_ == NULL);
 	assertion(node->string_literal_subnode_ != NULL);
 	assertion(node->string_literal_subnode_->string_literal_ != NULL);
+}
+
+void
+assert_pure_execution_request_node(const stt_node * node)
+{
+	assertion(node != NULL);
+	assertion(node->type_ == STT_NODE_TYPE_EXECUTION_REQUEST);
+	assertion(node->string_literal_subnode_ == NULL);
+	assertion(node->natural_literal_subnode_ == NULL);
+	assertion(node->integer_literal_subnode_ == NULL);
+	assertion(node->rational_literal_subnode_ == NULL);
+	assertion(node->operation_subnode_ == NULL);
+	assertion(node->operations_list_subnode_ == NULL);
+	assertion(node->named_function_subnode_ == NULL);
+	assertion(node->application_subnode_ == NULL);
+	assertion(node->identifier_subnode_ == NULL);
+	assertion(node->execution_request_subnode_ != NULL);
+	assertion(node->execution_request_subnode_->type_ !=
+			STT_EXECUTION_REQUEST_SUBNODE_TYPE_INVALID);
+	assertion(node->execution_request_subnode_->application_name_ != NULL);
+	assertion(node->doc_subnode_ == NULL);
+}
+
+void
+assert_pure_doc_node(const stt_node * node)
+{
+	assertion(node != NULL);
+	assertion(node->type_ == STT_NODE_TYPE_DOC);
+	assertion(node->string_literal_subnode_ == NULL);
+	assertion(node->natural_literal_subnode_ == NULL);
+	assertion(node->integer_literal_subnode_ == NULL);
+	assertion(node->rational_literal_subnode_ == NULL);
+	assertion(node->operation_subnode_ == NULL);
+	assertion(node->operations_list_subnode_ == NULL);
+	assertion(node->named_function_subnode_ == NULL);
+	assertion(node->application_subnode_ == NULL);
+	assertion(node->identifier_subnode_ == NULL);
+	assertion(node->execution_request_subnode_ == NULL);
+	assertion(node->doc_subnode_ != NULL);
+	assertion(node->doc_subnode_->named_functions_ != NULL);
+	assertion(node->doc_subnode_->applications_ != NULL);
+	assertion(node->doc_subnode_->execution_requests_ != NULL);
 }

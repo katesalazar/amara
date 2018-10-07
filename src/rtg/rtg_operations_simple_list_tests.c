@@ -148,7 +148,9 @@ rtg_operations_simple_list_construct_and_destruct_test_0()
 void
 rtg_operations_simple_list_construct_and_destruct_tests()
 {
+	/* XXX
 	rtg_operations_simple_list_construct_and_destruct_test_0();
+	*/
 }
 
 void

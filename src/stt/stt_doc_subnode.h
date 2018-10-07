@@ -19,8 +19,8 @@
 #ifndef __AMARA__SYNTAX_TREE__DOC_SUBNODE__H__
 #define __AMARA__SYNTAX_TREE__DOC_SUBNODE__H__
 
-/*   For `rtg_functions_simple_list`. */
-#include "../rtg/rtg_functions_simple_list.h"
+/*   For `rtg_named_functions_simple_list`. */
+#include "../rtg/rtg_named_functions_simple_list.h"
 
 /*   For `rtg_applications_simple_list`. */
 #include "../rtg/rtg_applications_simple_list.h"
@@ -28,8 +28,8 @@
 /*   For `rtg_execution_requests_simple_list`. */
 #include "../rtg/rtg_execution_requests_simple_list.h"
 
-/*   For `stt_functions_simple_list`. */
-#include "stt_functions_simple_list.h"
+/*   For `stt_named_functions_simple_list`. */
+#include "stt_named_functions_simple_list.h"
 
 /*   For `stt_applications_simple_list`. */
 #include "stt_applications_simple_list.h"
@@ -38,7 +38,7 @@
 #include "stt_execution_requests_simple_list.h"
 
 typedef struct stt_doc_subnode {
-	stt_functions_simple_list * functions_;
+	stt_named_functions_simple_list * named_functions_;
 	stt_applications_simple_list * applications_;
 	stt_execution_requests_simple_list * execution_requests_;
 } stt_doc_subnode;
@@ -50,7 +50,7 @@ __attribute__((warn_unused_result))
 
 stt_doc_subnode *
 stt_doc_subnode_exhaustive_constructor(
-		const stt_functions_simple_list * functions,
+		const stt_named_functions_simple_list * named_functions,
 		const stt_applications_simple_list * applications,
 		const stt_execution_requests_simple_list * execution_requests)
 __attribute__((warn_unused_result))
@@ -65,45 +65,45 @@ void
 stt_doc_subnode_destructor(stt_doc_subnode * subnode)
 ;
 
-#define RTG_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_INVALID 0x00
-#define RTG_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_ERROR_UNSPECIFIC 0x0F
-#define RTG_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_SUCCESS 0xFF
+#define RTG_NAMED_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_INVALID 0x00
+#define RTG_NAMED_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_ERROR_UNSPECIFIC 0x0F
+#define RTG_NAMED_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_SUCCESS 0xFF
 
-typedef struct rtg_functions_out_of_stt_doc_ret {
+typedef struct rtg_named_functions_out_of_stt_doc_ret {
 	uint_fast8_t status;
-	rtg_functions_simple_list * functions;
-	amara_boolean functions_were_moved;
-} rtg_functions_out_of_stt_doc_ret;
+	rtg_named_functions_simple_list * named_functions;
+	amara_boolean named_functions_were_moved;
+} rtg_named_functions_out_of_stt_doc_ret;
 
 void
-rtg_functions_out_of_stt_doc_ret_destructor(
-		rtg_functions_out_of_stt_doc_ret * rtg_functions_out_of_stt_doc_ret_)
+rtg_named_functions_out_of_stt_doc_ret_destructor(
+		rtg_named_functions_out_of_stt_doc_ret * rtg_named_functions_out_of_stt_doc_ret_)
 ;
 
-rtg_functions_out_of_stt_doc_ret *
-rtg_functions_out_of_stt_doc(const stt_doc_subnode * subnode)
+rtg_named_functions_out_of_stt_doc_ret *
+rtg_named_functions_out_of_stt_doc(const stt_doc_subnode * subnode)
 __attribute__((warn_unused_result))
 ;
 
-#define RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID 0x00
-#define RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC 0x0F
-#define RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
+#define RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID 0x00
+#define RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC 0x0F
+#define RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
 
-typedef struct rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list_ret {
+typedef struct rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret {
 	uint_fast8_t status;
 	rtg_applications_simple_list * applications;
 	amara_boolean applications_were_moved;
-} rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list_ret;
+} rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret;
 
 void
-rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list_ret_destructor(
-		rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list_ret * rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list_ret_)
+rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret_destructor(
+		rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret * rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret_)
 ;
 
-rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list_ret *
-rtg_applications_out_of_stt_doc_and_rtg_functions_simple_list(
+rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret *
+rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list(
 		const stt_doc_subnode * subnode,
-		const rtg_functions_simple_list * functions)
+		const rtg_named_functions_simple_list * named_functions)
 __attribute__((warn_unused_result))
 ;
 

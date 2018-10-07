@@ -41,13 +41,14 @@ void
 stt_node_validation_test_1_rational()
 {
 	stt_node * node_;
-	stt_rational_subnode * subnode_;
+	stt_rational_literal_subnode * subnode_;
 	amara_string * raw_rational_;
 	node_ = stt_node_default_constructor();
 	raw_rational_ = amara_string_exhaustive_constructor(".1");
-	subnode_ = stt_rational_subnode_exhaustive_constructor(raw_rational_);
+	subnode_ = stt_rational_literal_subnode_exhaustive_constructor(
+			raw_rational_);
 	amara_string_destructor(raw_rational_);
-	node_->rational_subnode_ = subnode_;
+	node_->rational_literal_subnode_ = subnode_;
 	node_->type_ = SYNTAX_TREE_NODE_TYPE_RATIONAL;
 	assert_stt_node_is_valid(node_);
 	stt_node_destructor(node_);

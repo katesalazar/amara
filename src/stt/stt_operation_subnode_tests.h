@@ -21,7 +21,7 @@
 #define __AMARA__SYNTAX_TREE__OPERATION_SUBNODE_TESTS__H__
 
 void
-stt_operation_subnode_tests()
+stt_operation_subnode_tests(void)
 ;
 
 #endif

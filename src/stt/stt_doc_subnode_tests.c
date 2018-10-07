@@ -20,7 +20,7 @@
 #include "../asr/assertion.h"
 #include "stt_doc_subnode.h"
 #include "stt_doc_subnode_tests.h"
-#include "stt_function_tests.h"
+#include "stt_named_function_tests.h"
 
 void
 stt_doc_subnode_construct_and_destruct_test_0()
@@ -28,7 +28,7 @@ stt_doc_subnode_construct_and_destruct_test_0()
 	stt_doc_subnode * doc_subnode_;
 	doc_subnode_ = stt_doc_subnode_default_constructor();
 	assertion(doc_subnode_ != NULL);
-	assertion(doc_subnode_->functions_ == NULL);
+	assertion(doc_subnode_->named_functions_ == NULL);
 	assertion(doc_subnode_->applications_ == NULL);
 	assertion(doc_subnode_->execution_requests_ == NULL);
 	stt_doc_subnode_destructor(doc_subnode_);
@@ -39,25 +39,26 @@ stt_doc_subnode_construct_and_destruct_test_1()
 {
 	stt_doc_subnode * doc_subnode_zero_;
 	stt_doc_subnode * doc_subnode_one_;
-	stt_function * function_;
-	stt_functions_simple_list * functions_;
+	stt_named_function * named_function_;
+	stt_named_functions_simple_list * named_functions_;
 	stt_applications_simple_list * applications_;
 	stt_execution_requests_simple_list * execution_requests_;
-	function_ = stt_function_example_print_foo();
-	functions_ = stt_functions_simple_list_default_constructor();
-	functions_ = stt_functions_simple_list_push_front(
-			functions_, function_);
+	named_function_ = stt_named_function_example_print_foo();
+	named_functions_ =
+			stt_named_functions_simple_list_default_constructor();
+	named_functions_ = stt_named_functions_simple_list_push_front(
+			named_functions_, named_function_);
 	applications_ = stt_applications_simple_list_default_constructor();
 	assertion(applications_ != NULL);
 	execution_requests_ = stt_execution_requests_simple_list_default_constructor();
 	doc_subnode_zero_ = stt_doc_subnode_exhaustive_constructor(
-			functions_, applications_, execution_requests_);
+			named_functions_, applications_, execution_requests_);
 	assertion(doc_subnode_zero_ != NULL);
-	assertion(doc_subnode_zero_->functions_ != NULL);
-	assertion(doc_subnode_zero_->functions_->first != NULL);
-	assertion(doc_subnode_zero_->functions_->first->type_ !=
-			STT_FUNCTION_TYPE_INVALID);
-	assertion(doc_subnode_zero_->functions_->next == NULL);
+	assertion(doc_subnode_zero_->named_functions_ != NULL);
+	assertion(doc_subnode_zero_->named_functions_->first != NULL);
+	assertion(doc_subnode_zero_->named_functions_->first->type_ !=
+			STT_NAMED_FUNCTION_TYPE_INVALID);
+	assertion(doc_subnode_zero_->named_functions_->next == NULL);
 	assertion(doc_subnode_zero_->applications_ != NULL);
 	assertion(doc_subnode_zero_->applications_->first == NULL);
 	assertion(doc_subnode_zero_->applications_->next == NULL);
@@ -66,11 +67,11 @@ stt_doc_subnode_construct_and_destruct_test_1()
 	assertion(doc_subnode_zero_->execution_requests_->next == NULL);
 	doc_subnode_one_ = stt_doc_subnode_copy_constructor(doc_subnode_zero_);
 	assertion(doc_subnode_one_ != NULL);
-	assertion(doc_subnode_one_->functions_ != NULL);
-	assertion(doc_subnode_one_->functions_->first != NULL);
-	assertion(doc_subnode_one_->functions_->first->type_ !=
-			STT_FUNCTION_TYPE_INVALID);
-	assertion(doc_subnode_one_->functions_->next == NULL);
+	assertion(doc_subnode_one_->named_functions_ != NULL);
+	assertion(doc_subnode_one_->named_functions_->first != NULL);
+	assertion(doc_subnode_one_->named_functions_->first->type_ !=
+			STT_NAMED_FUNCTION_TYPE_INVALID);
+	assertion(doc_subnode_one_->named_functions_->next == NULL);
 	assertion(doc_subnode_one_->applications_ != NULL);
 	assertion(doc_subnode_one_->applications_->first == NULL);
 	assertion(doc_subnode_one_->applications_->next == NULL);
@@ -78,8 +79,8 @@ stt_doc_subnode_construct_and_destruct_test_1()
 	assertion(doc_subnode_one_->execution_requests_->first == NULL);
 	assertion(doc_subnode_one_->execution_requests_->next == NULL);
 	stt_doc_subnode_destructor(doc_subnode_one_);
-	stt_functions_simple_list_destructor(functions_);
-	stt_function_destructor(function_);
+	stt_named_functions_simple_list_destructor(named_functions_);
+	stt_named_function_destructor(named_function_);
 	stt_doc_subnode_destructor(doc_subnode_zero_);
 }
 

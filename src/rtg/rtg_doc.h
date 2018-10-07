@@ -22,8 +22,8 @@
 /*   For `stt_node`. */
 #include "../stt/stt_node.h"
 
-/*   For `rtg_functions_simple_list`. */
-#include "rtg_functions_simple_list.h"
+/*   For `rtg_named_functions_simple_list`. */
+#include "rtg_named_functions_simple_list.h"
 
 /*   For `rtg_applications_simple_list`. */
 #include "rtg_applications_simple_list.h"
@@ -32,7 +32,7 @@
 #include "rtg_execution_requests_simple_list.h"
 
 typedef struct rtg_doc {
-	rtg_functions_simple_list * functions_;
+	rtg_named_functions_simple_list * functions_;
 	rtg_applications_simple_list * applications_;
 	rtg_execution_requests_simple_list * execution_requests_;
 } rtg_doc;
@@ -44,7 +44,7 @@ __attribute__((warn_unused_result))
 
 rtg_doc *
 rtg_doc_exhaustive_constructor(
-		rtg_functions_simple_list * functions,
+		rtg_named_functions_simple_list * named_functions,
 		rtg_applications_simple_list * applications,
 		rtg_execution_requests_simple_list * execution_requests)
 __attribute__((warn_unused_result))

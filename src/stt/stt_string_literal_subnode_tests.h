@@ -21,7 +21,7 @@
 #define __AMARA__SYNTAX_TREE__STRING_LITERAL_SUBNODE_TESTS__H__
 
 void
-stt_string_literal_subnode_tests()
+stt_string_literal_subnode_tests(void)
 ;
 
 #endif

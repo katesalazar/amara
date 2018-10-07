@@ -199,6 +199,13 @@ do
 # 		echo 'nice -n 19 valgrind --quiet ./build/release/amara says hello' &&
 # 		nice -n 19 valgrind --quiet \
 # 				./build/release/amara says hello
+
+		echo 'running examples...'
+		./utils/qa/run_examples.py
+		echo 'runned examples...'
+
+		echo 99 | ./build/debug/amara_g run app ./examples/7_fahrenheit_to_celsius_stdin/ --no-banner
+
 		true &&
 				#   Removed the `gcov` call because it seemed
 				# to break the `lcov` branch coverage report.

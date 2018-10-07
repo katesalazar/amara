@@ -32,15 +32,42 @@
 /*   This is an enumeration. */
 
 #define RTG_OPERATION_ARG_TYPE_INVALID        0x00
-#define RTG_OPERATION_ARG_TYPE_STRING_LITERAL  0x03
-#define RTG_OPERATION_ARG_TYPE_NATURAL_LITERAL 0x0C
-#define RTG_OPERATION_ARG_TYPE_INTEGER_LITERAL 0x30
+#define RTG_OPERATION_ARG_TYPE_STRING_LITERAL            0x01
+#define RTG_OPERATION_ARG_TYPE_NATURAL_LITERAL           0x02
+#define RTG_OPERATION_ARG_TYPE_INTEGER_LITERAL           0x04
+#define RTG_OPERATION_ARG_TYPE_RATIONAL_LITERAL          0x08
+#define RTG_OPERATION_ARG_TYPE_IDENTIFIER_TO_BE_RESOLVED 0x10
+#define RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE     0x20
+#define RTG_OPERATION_ARG_TYPE_STRING_VARIABLE           RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE
+#define RTG_OPERATION_ARG_TYPE_NATURAL_VARIABLE          RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE
+#define RTG_OPERATION_ARG_TYPE_INTEGER_VARIABLE          RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE
+#define RTG_OPERATION_ARG_TYPE_RATIONAL_VARIABLE         RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE
+#define RTG_OPERATION_ARG_TYPE_OPERATION                 0x40
 
 typedef struct rtg_operation_arg {
 	uint_fast8_t type_;
+
 	amara_string * string_literal_;
+
 	amara_string * natural_literal_;
+
 	amara_string * integer_literal_;
+
+	amara_string * rational_literal_;
+
+	/**  Later must be resolved as variable name (or any other type
+	 * of identifier appliable at the whatever scope), if so, later
+	 * as a reference to the actual variable storing its actual
+	 * current value. */
+	amara_string * identifier_;
+
+	/**  Later would have to be resolved as a reference to the
+	 * actual variable storing its actual current value. */
+	amara_string * variable_name_;
+
+	/* rtg_variable * variable_; */
+
+	struct rtg_operation * operation_;
 } rtg_operation_arg;
 
 rtg_operation_arg *

@@ -21,7 +21,7 @@
 #define __AMARA__RUN_TIME_GRAPH__OPERATIONS_SIMPLE_LIST_TESTS__H__
 
 void
-rtg_operations_simple_list_tests()
+rtg_operations_simple_list_tests(void)
 ;
 
 #endif

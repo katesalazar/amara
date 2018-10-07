@@ -29,7 +29,14 @@
 #define RTG_OPERATION_TYPE_INVALID       0x00
 #define RTG_OPERATION_TYPE_PRINT      0x03
 #define RTG_OPERATION_TYPE_PRINT_CRLF 0x0C
-#define RTG_OPERATION_TYPE_PRINT_NO_CRLF 0xF0
+#define RTG_OPERATION_TYPE_MULTIPLICATION           0x30
+#define RTG_OPERATION_TYPE_DIVISION                 0x31
+#define RTG_OPERATION_TYPE_ADDITION                 0x32
+#define RTG_OPERATION_TYPE_SUBSTRACTION             0x33
+#define RTG_OPERATION_TYPE_READ_NATURAL_TO_VALUE    0xBF
+#define RTG_OPERATION_TYPE_READ_NATURAL_TO_VARIABLE 0xC0
+#define RTG_FAKE_OPERATION_TYPE_RESOLVE_TYPE_OF_EXPRESSION 0xC1 /*   Must remain resolved by semantic analysis by the time run time comes. */
+#define RTG_OPERATION_TYPE_PRINT_NO_CRLF            0xFF
 
 typedef struct rtg_operation {
 	uint_fast8_t type_;
@@ -49,6 +56,11 @@ __attribute__((warn_unused_result))
 
 void
 rtg_operation_destructor(rtg_operation * operation)
+;
+
+amara_string *
+rtg_operation_type_as_string(uint_fast8_t operation_type)
+__attribute__((warn_unused_result))
 ;
 
 /*   This is an enumeration. */

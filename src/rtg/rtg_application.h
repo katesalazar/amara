@@ -25,11 +25,11 @@
 /*   For `stt_application`. */
 #include "../stt/stt_application.h"
 
-/*   For `rtg_function`. */
-#include "rtg_function.h"
+/*   For `rtg_named_function`. */
+#include "rtg_named_function.h"
 
-/*   For `rtg_functions_simple_list`. */
-#include "rtg_functions_simple_list.h"
+/*   For `rtg_named_functions_simple_list`. */
+#include "rtg_named_functions_simple_list.h"
 
 #define RTG_APPLICATION_TYPE_INVALID 0x00
 #define RTG_APPLICATION_TYPE_CLI_APPLICATION 0xFF
@@ -37,7 +37,7 @@
 typedef struct rtg_application {
 	uint_fast8_t type_;
 	amara_string * name_;
-	rtg_function * entry_point_function_;
+	rtg_named_function * entry_point_function_;
 } rtg_application;
 
 rtg_application *
@@ -54,25 +54,25 @@ void
 rtg_application_destructor(rtg_application * application)
 ;
 
-#define RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID 0x00
-#define RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC 0x00
-#define RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
+#define RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID 0x00
+#define RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC 0x00
+#define RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
 
-typedef struct rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret {
+typedef struct rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret {
 	uint_fast8_t status;
 	rtg_application * application;
 	amara_boolean application_was_moved;
-} rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret;
+} rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret;
 
 void
-rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret_destructor(
-		rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret * rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret_)
+rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret_destructor(
+		rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret * rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret_)
 ;
 
-rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret *
-rtg_application_out_of_stt_application_and_rtg_functions_simple_list(
+rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret *
+rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list(
 		const stt_application * application,
-		const rtg_functions_simple_list * functions)
+		const rtg_named_functions_simple_list * named_functions)
 __attribute__((warn_unused_result))
 ;
 

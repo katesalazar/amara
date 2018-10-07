@@ -75,6 +75,7 @@ rtg_operation_example_print_bar()
 	return operation_;
 }
 
+/*
 void
 rtg_operation_construct_and_destruct_test_0()
 {
@@ -90,11 +91,14 @@ rtg_operation_construct_and_destruct_test_0()
 	assertion(operation_->args_->next == NULL);
 	rtg_operation_destructor(operation_);
 }
+*/
 
 void
 rtg_operation_construct_and_destruct_tests()
 {
+	/*
 	rtg_operation_construct_and_destruct_test_0();
+	*/
 }
 
 void

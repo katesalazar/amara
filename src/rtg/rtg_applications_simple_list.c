@@ -24,8 +24,8 @@
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
-/*   For `rtg_functions_simple_list`. */
-#include "../rtg/rtg_functions_simple_list.h"
+/*   For `rtg_named_functions_simple_list`. */
+#include "../rtg/rtg_named_functions_simple_list.h"
 
 /*   For own definitions. */
 #include "rtg_applications_simple_list.h"
@@ -220,39 +220,39 @@ find_rtg_application_by_name(
 	return ret_;
 }
 
-rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_functions_simple_list_ret *
-rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_functions_simple_list(
+rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret *
+rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list(
 		const stt_applications_simple_list * stt_applications,
-		const rtg_functions_simple_list * rtg_functions)
+		const rtg_named_functions_simple_list * rtg_named_functions)
 {
-	rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_functions_simple_list_ret * ret_;
+	rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret * ret_;
 	rtg_applications_simple_list * sub_ret_;
 	rtg_applications_simple_list * sub_ret_ptr_;
 	const stt_applications_simple_list * stt_applications_ptr_;
-	rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret * sub_ret_app_ret_;
-	fprintf(stderr, "----> rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_functions_simple_list_ret * rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_functions_simple_list(const stt_applications_simple_list *, const rtg_functions_simple_list *) (%s:%u)\n",
+	rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret * sub_ret_app_ret_;
+	fprintf(stderr, "----> rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret * rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list(const stt_applications_simple_list *, const rtg_named_functions_simple_list *) (%s:%u)\n",
 			__FILE__, __LINE__);
 	ret_ = malloc(sizeof(
-			rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_functions_simple_list_ret));
-	ret_->status = RTG_APPLICATIONS_SIMPLE_LIST_OUT_OF_STT_APPLICATIONS_SIMPLE_LIST_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID;
+			rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret));
+	ret_->status = RTG_APPLICATIONS_SIMPLE_LIST_OUT_OF_STT_APPLICATIONS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID;
 	if (stt_applications == NULL) {
 		ret_->applications = NULL;
-		fprintf(stderr, "<---- rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_functions_simple_list_ret * rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_functions_simple_list(const stt_applications_simple_list *, const rtg_functions_simple_list *) (%s:%u)\n",
+		fprintf(stderr, "<---- rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret * rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list(const stt_applications_simple_list *, const rtg_named_functions_simple_list *) (%s:%u)\n",
 				__FILE__, __LINE__);
 		return ret_;
 	}
 	assertion(stt_applications->first != NULL);
 	sub_ret_ = malloc(sizeof(rtg_applications_simple_list));
 	sub_ret_app_ret_ =
-			rtg_application_out_of_stt_application_and_rtg_functions_simple_list(
+			rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list(
 					stt_applications->first,
-					rtg_functions);
+					rtg_named_functions);
 	assertion(sub_ret_app_ret_ != NULL);
 	assertion(sub_ret_app_ret_->status ==
-			RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
+			RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
 	sub_ret_->first = sub_ret_app_ret_->application;
 	sub_ret_app_ret_->application_was_moved = AMARA_BOOLEAN_TRUE;
-	rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret_destructor(
+	rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret_destructor(
 			sub_ret_app_ret_);
 	stt_applications_ptr_ = stt_applications;
 	sub_ret_ptr_ = sub_ret_;
@@ -260,23 +260,23 @@ rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_functio
 		assertion(stt_applications_ptr_->next->first != NULL);
 		sub_ret_ptr_->next = malloc(sizeof(rtg_applications_simple_list));
 		sub_ret_app_ret_ =
-				rtg_application_out_of_stt_application_and_rtg_functions_simple_list(
+				rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list(
 						stt_applications_ptr_->next->first,
-						rtg_functions);
+						rtg_named_functions);
 		assertion(sub_ret_app_ret_ != NULL);
 		assertion(sub_ret_app_ret_->status ==
-				RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
+				RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
 		sub_ret_ptr_->next->first = sub_ret_app_ret_->application;
 		sub_ret_app_ret_->application_was_moved = AMARA_BOOLEAN_TRUE;
-		rtg_application_out_of_stt_application_and_rtg_functions_simple_list_ret_destructor(
+		rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret_destructor(
 				sub_ret_app_ret_);
 		stt_applications_ptr_ = stt_applications_ptr_->next;
 		sub_ret_ptr_ = sub_ret_ptr_->next;
 	}
 	sub_ret_ptr_->next = NULL;
 	ret_->applications = sub_ret_;
-	ret_->status = RTG_APPLICATIONS_SIMPLE_LIST_OUT_OF_STT_APPLICATIONS_SIMPLE_LIST_AND_RTG_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
-	fprintf(stderr, "<---- rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_functions_simple_list_ret * rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_functions_simple_list(const stt_applications_simple_list *, const rtg_functions_simple_list *) (%s:%u)\n",
+	ret_->status = RTG_APPLICATIONS_SIMPLE_LIST_OUT_OF_STT_APPLICATIONS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
+	fprintf(stderr, "<---- rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret * rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list(const stt_applications_simple_list *, const rtg_named_functions_simple_list *) (%s:%u)\n",
 			__FILE__, __LINE__);
 	return ret_;
 }

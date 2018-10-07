@@ -34,16 +34,16 @@
 /*   For `stt_execution_request_subnode`. */
 #include "stt_execution_request_subnode.h"
 
-/*   For `stt_function_subnode`. */
-#include "stt_function_subnode.h"
+/*   For `stt_named_function_subnode`. */
+#include "stt_named_function_subnode.h"
 
 /*   For `stt_identifier_subnode`. */
 #include "stt_identifier_subnode.h"
 
 #include "stt_integer_literal_subnode.h"
 
-/*   For `stt_natural_subnode`. */
-#include "stt_natural_subnode.h"
+/*   For `stt_natural_literal_subnode`. */
+#include "stt_natural_literal_subnode.h"
 
 /*   For `stt_operation_subnode`. */
 #include "stt_operation_subnode.h"
@@ -51,8 +51,8 @@
 /*   For `stt_operations_list_subnode`. */
 #include "stt_operations_list_subnode.h"
 
-/*   For `stt_rational_subnode`. */
-#include "stt_rational_subnode.h"
+/*   For `stt_rational_literal_subnode`. */
+#include "stt_rational_literal_subnode.h"
 
 /*   For `stt_string_literal_subnode`. */
 #include "stt_string_literal_subnode.h"
@@ -66,32 +66,39 @@
 #define STT_NODE_TYPE_NATURAL_LITERAL SYNTAX_TREE_NODE_TYPE_NATURAL
 #define STT_NODE_TYPE_INTEGER_LITERAL             0x03
 #define SYNTAX_TREE_NODE_TYPE_RATIONAL           0x04 /* XXX CONFLICTING WHEN THERE ARE NON LITERAL RATIONALS */
+#define STT_NODE_TYPE_RATIONAL_LITERAL SYNTAX_TREE_NODE_TYPE_RATIONAL
 #define SYNTAX_TREE_NODE_TYPE_OPERATION          0x05
 #define STT_NODE_TYPE_OPERATION SYNTAX_TREE_NODE_TYPE_OPERATION
 #define SYNTAX_TREE_NODE_TYPE_OPERATIONS_LIST     0x09
-#define SYNTAX_TREE_NODE_TYPE_FUNCTION           0x06
+#define STT_NODE_TYPE_OPERATIONS_LIST SYNTAX_TREE_NODE_TYPE_OPERATIONS_LIST
+#define SYNTAX_TREE_NODE_TYPE_NAMED_FUNCTION           0x06
+#define STT_NODE_TYPE_NAMED_FUNCTION SYNTAX_TREE_NODE_TYPE_NAMED_FUNCTION
 #define SYNTAX_TREE_NODE_TYPE_APPLICATION        0x07
+#define STT_NODE_TYPE_APPLICATION SYNTAX_TREE_NODE_TYPE_APPLICATION
 #define SYNTAX_TREE_NODE_TYPE_IDENTIFIER         0x08
+#define STT_NODE_TYPE_IDENTIFIER SYNTAX_TREE_NODE_TYPE_IDENTIFIER
 #define SYNTAX_TREE_NODE_TYPE_DOC_FRAGMENT       0x10
 #define SYNTAX_TREE_NODE_TYPE_DOC                0x11
+#define STT_NODE_TYPE_DOC SYNTAX_TREE_NODE_TYPE_DOC
 #define SYNTAX_TREE_NODE_TYPE_EXECUTION_REQUEST  0x12
+#define STT_NODE_TYPE_EXECUTION_REQUEST SYNTAX_TREE_NODE_TYPE_EXECUTION_REQUEST
 #define SYNTAX_TREE_NODE_TYPE_CLI_OPERATIONS_LIST 0x13
 #define SYNTAX_TREE_NODE_TYPE_ERRORED            0xFF
 
 /*   This is simply synctactic sugar for the previous enumeration. */
-#define STT_NODE_TYPE_STRING_LITERAL SYNTAX_TREE_NODE_TYPE_STRING_LITERAL
-#define STT_NODE_TYPE_NATURAL_LITERAL SYNTAX_TREE_NODE_TYPE_NATURAL
+/* #define STT_NODE_TYPE_STRING_LITERAL SYNTAX_TREE_NODE_TYPE_STRING_LITERAL */ /* XXX */
+/* #define STT_NODE_TYPE_NATURAL_LITERAL SYNTAX_TREE_NODE_TYPE_NATURAL */ /* XXX */
 
 /*   `stt_node` for '**S**yn**t**ax **t**ree node'. */
 typedef struct stt_node {
 	uint_fast8_t type_;
 	stt_string_literal_subnode * string_literal_subnode_;
-	stt_natural_subnode * natural_subnode_;
+	stt_natural_literal_subnode * natural_literal_subnode_;
 	stt_integer_literal_subnode * integer_literal_subnode_;
-	stt_rational_subnode * rational_subnode_;
+	stt_rational_literal_subnode * rational_literal_subnode_;
 	stt_operation_subnode * operation_subnode_;
 	stt_operations_list_subnode * operations_list_subnode_;
-	stt_function_subnode * function_subnode_;
+	stt_named_function_subnode * named_function_subnode_;
 	stt_application_subnode * application_subnode_;
 	stt_identifier_subnode * identifier_subnode_;
 	stt_execution_request_subnode * execution_request_subnode_;
@@ -139,8 +146,8 @@ stt_node_set_integer_literal(
 ;
 
 void
-stt_node_set_rational(
-		stt_node * node, const amara_string * raw_rational)
+stt_node_set_rational_literal(
+		stt_node * node, const amara_string * raw_rational_literal)
 ;
 
 void
@@ -160,7 +167,7 @@ __attribute__((warn_unused_result))
 
 /*   Decorates `node` registering function `function`. */
 stt_node *
-register_function(stt_node * node, const stt_node * function_node)
+register_named_function(stt_node * node, const stt_node * named_function_node)
 __attribute__((warn_unused_result));
 
 /*   Decorates `node` registering application `application`. */
@@ -200,11 +207,47 @@ __attribute__((warn_unused_result))
 ;
 
 void
-assert_pure_natural_node(const stt_node * node)
+assert_pure_string_literal_node(const stt_node * node)
 ;
 
 void
-assert_pure_string_literal_node(const stt_node * node)
+assert_pure_natural_literal_node(const stt_node * node)
+;
+
+void
+assert_pure_integer_literal_node(const stt_node * node)
+;
+
+void
+assert_pure_rational_literal_node(const stt_node * node)
+;
+
+void
+assert_pure_operation_node(const stt_node * node)
+;
+
+void
+assert_pure_operations_list_node(const stt_node * node)
+;
+
+void
+assert_pure_named_function_node(const stt_node * node)
+;
+
+void
+assert_pure_application_node(const stt_node * node)
+;
+
+void
+assert_pure_identifier_node(const stt_node * node)
+;
+
+void
+assert_pure_execution_request_node(const stt_node * node)
+;
+
+void
+assert_pure_doc_node(const stt_node * node)
 ;
 
 #endif

@@ -92,10 +92,15 @@ trace_flex_three(const char * s0, const char * s1, const char * s2)
     trace_flex_three("returning T_RIGHT_PARENS ('", yytext, "')\n");
     return T_RIGHT_PARENS;
   }
-[0-9]*\.[0-9]+  {
-    trace_flex_three("returning T_RATIONAL (", yytext, ")\n");
+-[1-9][0-9]* {
+    trace_flex_three("returning T_INTEGER_LITERAL (", yytext, ")\n");
     assertion_two_located_interim(0, "unimplemented code at %s:%d\n", __FILE__, __LINE__);
-                  return T_RATIONAL;
+    return T_INTEGER_LITERAL;
+  }
+[0-9]*\.[0-9]+  {
+    trace_flex_three("returning T_RATIONAL_LITERAL (", yytext, ")\n");
+    assertion_two_located_interim(0, "unimplemented code at %s:%d\n", __FILE__, __LINE__);
+    return T_RATIONAL_LITERAL;
                 }
 [0-9]+          {
     uint_fast8_t single_byte_indexer_;
@@ -103,12 +108,11 @@ trace_flex_three(const char * s0, const char * s1, const char * s2)
     amara_string * raw_;
     char * raw_char_array_;
 
-    trace_flex_three("returning T_NATURAL (", yytext, ")\n");
+    trace_flex_three("returning T_NATURAL_LITERAL (", yytext, ")\n");
 
     minialval.node = stt_node_default_constructor();
-    minialval.node->type_ = SYNTAX_TREE_NODE_TYPE_NATURAL;
-    minialval.node->natural_subnode_ =
-        stt_natural_subnode_default_constructor();
+    minialval.node->natural_literal_subnode_ =
+        stt_natural_literal_subnode_default_constructor();
 
                   /*   This is a little bit weirder than it should,
                    * because of removing the single quotes from the
@@ -126,9 +130,11 @@ trace_flex_three(const char * s0, const char * s1, const char * s2)
     raw_ = amara_string_default_constructor();
     amara_string_set_value(raw_, raw_char_array_);
     free(raw_char_array_);
-    stt_natural_subnode_set_raw(minialval.node->natural_subnode_, raw_);
+    stt_natural_literal_subnode_set_raw(
+        minialval.node->natural_literal_subnode_, raw_);
+    minialval.node->type_ = STT_NODE_TYPE_NATURAL_LITERAL;
     amara_string_destructor(raw_);
-                  return T_NATURAL;
+    return T_NATURAL_LITERAL;
                 }
 without {
     trace_flex_three("returning T_WITHOUT (", yytext, ")\n");
@@ -190,6 +196,14 @@ receives        {
     trace_flex_three("returning T_RECEIVES (", yytext, ")\n");
                   return T_RECEIVES;
                 }
+read {
+    trace_flex_three("returning T_READ (", yytext, ")\n");
+    return T_READ;
+  }
+rational {
+    trace_flex_three("returning T_RATIONAL (", yytext, ")\n");
+    return T_RATIONAL;
+  }
 print           {
     trace_flex_three("returning T_PRINT (", yytext, ")\n");
                   return T_PRINT;
@@ -222,6 +236,10 @@ new {
     trace_flex_three("returning T_NEW (", yytext, ")\n");
     return T_NEW;
   }
+natural {
+    trace_flex_three("returning T_NATURAL (", yytext, ")\n");
+    return T_NATURAL;
+  }
 minus {
     trace_flex_three("returning T_MINUS (", yytext, ")\n");
     return T_MINUS;
@@ -241,6 +259,10 @@ is              {
 interface {
     trace_flex_three("returning T_INTERFACE (", yytext, ")\n");
     return T_INTERFACE;
+  }
+integer {
+    trace_flex_three("returning T_INTEGER (", yytext, ")\n");
+    return T_INTEGER;
   }
 function        {
     trace_flex_three("returning T_FUNCTION (", yytext, ")\n");

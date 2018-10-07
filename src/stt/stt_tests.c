@@ -46,20 +46,15 @@
 /*   For `stt_execution_request_subnode_tests`. */
 #include "stt_execution_request_subnode_tests.h"
 
-/*   For `stt_function_tests`. */
-#include "stt_function_tests.h"
-
-/*   For `stt_functions_simple_list_tests`. */
-#include "stt_functions_simple_list_tests.h"
-
-/*   For `stt_function_subnode_tests`. */
-#include "stt_function_subnode_tests.h"
-
 #include "stt_identifier_subnode_tests.h"
 
 #include "stt_integer_literal_subnode_tests.h"
 
-#include "stt_natural_subnode_tests.h"
+#include "stt_named_function_tests.h"
+#include "stt_named_functions_simple_list_tests.h"
+#include "stt_named_function_subnode_tests.h"
+
+#include "stt_natural_literal_subnode_tests.h"
 
 /*   For `stt_node`. */
 #include "stt_node.h"
@@ -78,7 +73,7 @@
 /*   For `stt_operations_simple_list_tests`. */
 #include "stt_operations_simple_list_tests.h"
 
-#include "stt_rational_subnode_tests.h"
+#include "stt_rational_literal_subnode_tests.h"
 
 #include "stt_string_literal_subnode_tests.h"
 
@@ -178,10 +173,10 @@ node_name_from_type_test_4()
 	stt_node * node_ = stt_node_default_constructor();
 	const amara_string * type_name_;
 	const amara_string * expectation_;
-	const amara_string * raw_rational_;
+	const amara_string * raw_rational_literal_;
 	amara_boolean equality_;
-	raw_rational_ = amara_string_exhaustive_constructor(".6");
-	stt_node_set_rational(node_, raw_rational_);
+	raw_rational_literal_ = amara_string_exhaustive_constructor(".6");
+	stt_node_set_rational_literal(node_, raw_rational_literal_);
 	type_name_ = stt_node_type_name(node_);
 	expectation_ = amara_string_exhaustive_constructor("rational");
 	equality_ = amara_string_equality(type_name_, expectation_);
@@ -294,17 +289,17 @@ void
 syntax_tree_tests_()
 {
 	stt_string_literal_subnode_tests();
-	stt_natural_subnode_tests();
+	stt_natural_literal_subnode_tests();
 	stt_integer_literal_subnode_tests();
-	stt_rational_subnode_tests();
+	stt_rational_literal_subnode_tests();
 	stt_identifier_subnode_tests();
 	stt_operation_args_simple_list_tests();
 	stt_operations_simple_list_tests();
 	stt_operation_subnode_tests();
 	stt_operations_list_subnode_tests();
-	stt_function_tests();
-	stt_functions_simple_list_tests();
-	stt_function_subnode_tests();
+	stt_named_function_tests();
+	stt_named_functions_simple_list_tests();
+	stt_named_function_subnode_tests();
 	stt_application_tests();
 	stt_applications_simple_list_tests();
 	stt_application_subnode_tests();
