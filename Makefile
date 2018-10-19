@@ -234,6 +234,7 @@ UTILS_DIR = utils
 	$(SRC_DIR)/stt/stt_execution_request_tests.c \
 	$(SRC_DIR)/stt/stt_execution_requests_simple_list.c \
 	$(SRC_DIR)/stt/stt_execution_requests_simple_list_tests.c \
+	$(SRC_DIR)/stt/stt_expression.c \
 	$(SRC_DIR)/stt/stt_named_function.c \
 	$(SRC_DIR)/stt/stt_named_function_subnode.c \
 	$(SRC_DIR)/stt/stt_named_function_subnode_tests.c \
@@ -263,7 +264,11 @@ UTILS_DIR = utils
 	$(SRC_DIR)/stt/stt_rational_literal_subnode_tests.c \
 	$(SRC_DIR)/stt/stt_string_literal_subnode.c \
 	$(SRC_DIR)/stt/stt_string_literal_subnode_tests.c \
-	$(SRC_DIR)/stt/stt_tests.c
+	$(SRC_DIR)/stt/stt_tests.c \
+	$(SRC_DIR)/stt/stt_where_value_binding.c \
+	$(SRC_DIR)/stt/stt_where_value_bindings_simple_list.c \
+	$(SRC_DIR)/stt/stt_where_value_bindings_subnode.c \
+	$(SRC_DIR)/stt/stt_where_value_binding_subnode.c
 OBJ_DEBUG = \
 		$(BUILD_DIR_DEBUG)/amara_string.o \
 		$(BUILD_DIR_DEBUG)/amara_string_tests.o \
@@ -337,6 +342,7 @@ OBJ_DEBUG = \
 		$(BUILD_DIR_DEBUG)/stt_execution_request_tests.o \
 		$(BUILD_DIR_DEBUG)/stt_execution_requests_simple_list.o \
 		$(BUILD_DIR_DEBUG)/stt_execution_requests_simple_list_tests.o \
+		$(BUILD_DIR_DEBUG)/stt_expression.o \
 		$(BUILD_DIR_DEBUG)/stt_named_function.o \
 		$(BUILD_DIR_DEBUG)/stt_named_function_subnode.o \
 		$(BUILD_DIR_DEBUG)/stt_named_function_subnode_tests.o \
@@ -366,7 +372,11 @@ OBJ_DEBUG = \
 		$(BUILD_DIR_DEBUG)/stt_rational_literal_subnode_tests.o \
 		$(BUILD_DIR_DEBUG)/stt_string_literal_subnode.o \
 		$(BUILD_DIR_DEBUG)/stt_string_literal_subnode_tests.o \
-		$(BUILD_DIR_DEBUG)/stt_tests.o
+		$(BUILD_DIR_DEBUG)/stt_tests.o \
+		$(BUILD_DIR_DEBUG)/stt_where_value_binding.o \
+		$(BUILD_DIR_DEBUG)/stt_where_value_bindings_simple_list.o \
+		$(BUILD_DIR_DEBUG)/stt_where_value_bindings_subnode.o \
+		$(BUILD_DIR_DEBUG)/stt_where_value_binding_subnode.o
 OBJ_RELEASE = \
 		$(BUILD_DIR_RELEASE)/amara_string.o \
 		$(BUILD_DIR_RELEASE)/amara_string_tests.o \
@@ -440,6 +450,7 @@ OBJ_RELEASE = \
 		$(BUILD_DIR_RELEASE)/stt_execution_request_tests.o \
 		$(BUILD_DIR_RELEASE)/stt_execution_requests_simple_list.o \
 		$(BUILD_DIR_RELEASE)/stt_execution_requests_simple_list_tests.o \
+		$(BUILD_DIR_RELEASE)/stt_expression.o \
 		$(BUILD_DIR_RELEASE)/stt_named_function.o \
 		$(BUILD_DIR_RELEASE)/stt_named_function_subnode.o \
 		$(BUILD_DIR_RELEASE)/stt_named_function_subnode_tests.o \
@@ -469,7 +480,11 @@ OBJ_RELEASE = \
 		$(BUILD_DIR_RELEASE)/stt_rational_literal_subnode_tests.o \
 		$(BUILD_DIR_RELEASE)/stt_string_literal_subnode.o \
 		$(BUILD_DIR_RELEASE)/stt_string_literal_subnode_tests.o \
-		$(BUILD_DIR_RELEASE)/stt_tests.o
+		$(BUILD_DIR_RELEASE)/stt_tests.o \
+		$(BUILD_DIR_RELEASE)/stt_where_value_binding.o \
+		$(BUILD_DIR_RELEASE)/stt_where_value_bindings_simple_list.o \
+		$(BUILD_DIR_RELEASE)/stt_where_value_bindings_subnode.o \
+		$(BUILD_DIR_RELEASE)/stt_where_value_binding_subnode.o
 DEBUG_RESOURCES = \
 		$(RESOURCES_DIR)/minia.grammar
 
@@ -1146,6 +1161,16 @@ $(BUILD_DIR_DEBUG)/stt_execution_requests_simple_list_tests.o: $(SRC_DIR)/stt/st
 $(BUILD_DIR_RELEASE)/stt_execution_requests_simple_list_tests.o: $(SRC_DIR)/stt/stt_execution_requests_simple_list_tests.c $(SRC_DIR)/stt/stt_execution_requests_simple_list_tests.h $(SRC_DIR)/stt/stt_execution_requests_simple_list.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
+$(BUILD_DIR_DEBUG)/stt_expression.o: \
+		$(SRC_DIR)/stt/stt_expression.c \
+		$(SRC_DIR)/stt/stt_expression.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_expression.o: \
+		$(SRC_DIR)/stt/stt_expression.c \
+		$(SRC_DIR)/stt/stt_expression.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
 $(BUILD_DIR_DEBUG)/stt_named_function.o: \
 		$(SRC_DIR)/stt/stt_named_function.c \
 		$(SRC_DIR)/stt/stt_named_function.h \
@@ -1376,6 +1401,56 @@ $(BUILD_DIR_DEBUG)/stt_tests.o: $(SRC_DIR)/stt/stt_tests.c $(SRC_DIR)/stt/stt_te
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
 $(BUILD_DIR_RELEASE)/stt_tests.o: $(SRC_DIR)/stt/stt_tests.c $(SRC_DIR)/stt/stt_tests.h $(SRC_DIR)/stt/stt_node.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/stt_where_value_binding.o: \
+		$(SRC_DIR)/stt/stt_where_value_binding.c \
+		$(SRC_DIR)/stt/stt_where_value_binding.h \
+		$(SRC_DIR)/cmn/amara_string.h \
+		$(SRC_DIR)/stt/stt_expression.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_where_value_binding.o: \
+		$(SRC_DIR)/stt/stt_where_value_binding.c \
+		$(SRC_DIR)/stt/stt_where_value_binding.h \
+		$(SRC_DIR)/cmn/amara_string.h \
+		$(SRC_DIR)/stt/stt_expression.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/stt_where_value_bindings_simple_list.o: \
+		$(SRC_DIR)/stt/stt_where_value_bindings_simple_list.c \
+		$(SRC_DIR)/stt/stt_where_value_bindings_simple_list.h \
+		$(SRC_DIR)/stt/stt_where_value_binding.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_where_value_bindings_simple_list.o: \
+		$(SRC_DIR)/stt/stt_where_value_bindings_simple_list.c \
+		$(SRC_DIR)/stt/stt_where_value_bindings_simple_list.h \
+		$(SRC_DIR)/stt/stt_where_value_binding.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/stt_where_value_bindings_subnode.o: \
+		$(SRC_DIR)/stt/stt_where_value_bindings_subnode.c \
+		$(SRC_DIR)/stt/stt_where_value_bindings_subnode.h \
+		$(SRC_DIR)/stt/stt_where_value_bindings_simple_list.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_where_value_bindings_subnode.o: \
+		$(SRC_DIR)/stt/stt_where_value_bindings_subnode.c \
+		$(SRC_DIR)/stt/stt_where_value_bindings_subnode.h \
+		$(SRC_DIR)/stt/stt_where_value_bindings_simple_list.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/stt_where_value_binding_subnode.o: \
+		$(SRC_DIR)/stt/stt_where_value_binding_subnode.c \
+		$(SRC_DIR)/stt/stt_where_value_binding_subnode.h \
+		$(SRC_DIR)/stt/stt_where_value_binding.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_where_value_binding_subnode.o: \
+		$(SRC_DIR)/stt/stt_where_value_binding_subnode.c \
+		$(SRC_DIR)/stt/stt_where_value_binding_subnode.h \
+		$(SRC_DIR)/stt/stt_where_value_binding.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 # TODO   Fix `utils/grammar/bison_extractor.py` into accepting (requiring, actually) `-i` and `-o` parameters, then simplify this sh.

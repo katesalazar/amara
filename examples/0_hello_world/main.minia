@@ -1,17 +1,29 @@
+/*   Comments are very important. This is a single line comment. */
+
+/*   Comments can span across multiple lines. This is an example of a
+ * multiple lines comment. */
+
+/**  Functions are a core component in any programming language. */
 function main
-	is an awesome command line interface application function
+	/*   Tagging a function as `command line interface application
+	 * function` unlocks some features, like access to printing
+	 * lines to the console, or reading user input from it. */
+	is a command line interface application function
 	and receives nothing at all
 	and returns nothing at all
 	so it causes side effects
 	and does
 	print 'hello, world'
-	and new line
-	with ease
-	and that is function main
+	and then new line
+end function main
 
+/**  Applications describe functions that can be called from outside the
+ * language. */
 application hello_world
-	is an awesome command line interface application
+	is a command line interface application
 	and the entry point is function main
-	and that is application hello_world
+end application hello_world
 
+/**  An execution request must be processed by the language processor
+ * as triggering a run of the chosen application. */
 run command line interface application hello_world

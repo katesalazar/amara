@@ -196,7 +196,7 @@ node_name_from_type_test_5()
 	const amara_string * type_name_;
 	const amara_string * expectation_;
 	amara_boolean equality_;
-	node_->type_ = SYNTAX_TREE_NODE_TYPE_OPERATION;
+	node_->type_ = STT_NODE_TYPE_OPERATION;
 	type_name_ = stt_node_type_name(node_);
 	expectation_ = amara_string_exhaustive_constructor("operation");
 	equality_ = amara_string_equality(type_name_, expectation_);
@@ -213,7 +213,7 @@ node_name_from_type_test_6()
 	const amara_string * type_name_;
 	const amara_string * expectation_;
 	amara_boolean equality_;
-	node_->type_ = SYNTAX_TREE_NODE_TYPE_FUNCTION;
+	node_->type_ = STT_NODE_TYPE_FUNCTION;
 	type_name_ = stt_node_type_name(node_);
 	expectation_ = amara_string_exhaustive_constructor("function");
 	equality_ = amara_string_equality(type_name_, expectation_);
@@ -233,7 +233,7 @@ node_name_from_type_test_7()
 	const amara_string * type_name_;
 	const amara_string * expectation_;
 	amara_boolean equality_;
-	node_->type_ = SYNTAX_TREE_NODE_TYPE_APPLICATION;
+	node_->type_ = STT_NODE_TYPE_APPLICATION;
 	type_name_ = stt_node_type_name(node_);
 	expectation_ = amara_string_exhaustive_constructor("application");
 	equality_ = amara_string_equality(type_name_, expectation_);
@@ -257,7 +257,7 @@ node_name_from_type_test_for_identifier_node()
 	amara_boolean equality_;
 	identifier_ = amara_string_exhaustive_constructor("foo");
 	stt_node_set_identifier(node_, identifier_);
-	node_->type_ = SYNTAX_TREE_NODE_TYPE_IDENTIFIER;
+	node_->type_ = STT_NODE_TYPE_IDENTIFIER;
 	type_name_ = stt_node_type_name(node_);
 	expectation_ = amara_string_exhaustive_constructor("identifier");
 	equality_ = amara_string_equality(type_name_, expectation_);

@@ -1,0 +1,35 @@
+function main
+	is a command line interface application function
+	and receives nothing at all
+	and returns nothing at all
+	so it causes side effects
+	and does
+	print 'you roll 3d6 and get '
+	and then print value_rolls_results_
+	and then print ', '
+	and then print
+		/*   The `if` statement, and expression, can be also a
+		 * value. */
+		if value_rolls_results_ is greater than 12
+		then
+			"that's awesome"
+		else
+			if value_rolls_results_ is less than 6
+			then
+				"that's bad luck"
+			else
+				"that's fine"
+			end if
+		end if
+	and then new line
+	/*   The `value_rolls_results_` is a value bound to a dice
+	 * operator returned value, by virtue of this `where` clause. */
+	where value_rolls_results_ is set to 3d6
+end function main
+
+application functions_structure
+	is a command line interface application
+	and the entry point is function main
+end application functions_structure
+
+run command line interface application functions_structure

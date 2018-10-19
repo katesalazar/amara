@@ -25,11 +25,15 @@
 /*   For `stt_application_subnode`. */
 #include "stt_application_subnode.h"
 
+#include "stt_condition_subnode.h"
+
 /*   For `stt_doc_subnode`. */
 #include "stt_doc_subnode.h"
 
 /*   For `stt_execution_request_subnode`. */
 #include "stt_execution_request_subnode.h"
+
+#include "stt_expression_subnode.h"
 
 /*   For `stt_named_function_subnode`. */
 #include "stt_named_function_subnode.h"
@@ -54,37 +58,29 @@
 /*   For `stt_string_literal_subnode`. */
 #include "stt_string_literal_subnode.h"
 
-/*   This is an enumeration. */
-#define SYNTAX_TREE_NODE_TYPE_INVALID            0x00
-#define STT_NODE_TYPE_INVALID SYNTAX_TREE_NODE_TYPE_INVALID
-#define SYNTAX_TREE_NODE_TYPE_STRING_LITERAL      0x01
-#define STT_NODE_TYPE_STRING_LITERAL SYNTAX_TREE_NODE_TYPE_STRING_LITERAL
-#define SYNTAX_TREE_NODE_TYPE_NATURAL            0x02 /* XXX CONFLICTING WHEN THERE ARE NON LITERAL NATURALS */
-#define STT_NODE_TYPE_NATURAL_LITERAL SYNTAX_TREE_NODE_TYPE_NATURAL
-#define STT_NODE_TYPE_INTEGER_LITERAL             0x03
-#define SYNTAX_TREE_NODE_TYPE_RATIONAL           0x04 /* XXX CONFLICTING WHEN THERE ARE NON LITERAL RATIONALS */
-#define STT_NODE_TYPE_RATIONAL_LITERAL SYNTAX_TREE_NODE_TYPE_RATIONAL
-#define SYNTAX_TREE_NODE_TYPE_OPERATION          0x05
-#define STT_NODE_TYPE_OPERATION SYNTAX_TREE_NODE_TYPE_OPERATION
-#define SYNTAX_TREE_NODE_TYPE_OPERATIONS_LIST     0x09
-#define STT_NODE_TYPE_OPERATIONS_LIST SYNTAX_TREE_NODE_TYPE_OPERATIONS_LIST
-#define SYNTAX_TREE_NODE_TYPE_NAMED_FUNCTION           0x06
-#define STT_NODE_TYPE_NAMED_FUNCTION SYNTAX_TREE_NODE_TYPE_NAMED_FUNCTION
-#define SYNTAX_TREE_NODE_TYPE_APPLICATION        0x07
-#define STT_NODE_TYPE_APPLICATION SYNTAX_TREE_NODE_TYPE_APPLICATION
-#define SYNTAX_TREE_NODE_TYPE_IDENTIFIER         0x08
-#define STT_NODE_TYPE_IDENTIFIER SYNTAX_TREE_NODE_TYPE_IDENTIFIER
-#define SYNTAX_TREE_NODE_TYPE_DOC_FRAGMENT       0x10
-#define SYNTAX_TREE_NODE_TYPE_DOC                0x11
-#define STT_NODE_TYPE_DOC SYNTAX_TREE_NODE_TYPE_DOC
-#define SYNTAX_TREE_NODE_TYPE_EXECUTION_REQUEST  0x12
-#define STT_NODE_TYPE_EXECUTION_REQUEST SYNTAX_TREE_NODE_TYPE_EXECUTION_REQUEST
-#define SYNTAX_TREE_NODE_TYPE_CLI_OPERATIONS_LIST 0x13
-#define SYNTAX_TREE_NODE_TYPE_ERRORED            0xFF
+#include "stt_where_value_binding_subnode.h"
+#include "stt_where_value_bindings_subnode.h"
 
-/*   This is simply synctactic sugar for the previous enumeration. */
-/* #define STT_NODE_TYPE_STRING_LITERAL SYNTAX_TREE_NODE_TYPE_STRING_LITERAL */ /* XXX */
-/* #define STT_NODE_TYPE_NATURAL_LITERAL SYNTAX_TREE_NODE_TYPE_NATURAL */ /* XXX */
+/*   This is an enumeration. */
+#define STT_NODE_TYPE_INVALID             0x00
+#define STT_NODE_TYPE_STRING_LITERAL      0x01
+#define STT_NODE_TYPE_NATURAL_LITERAL     0x02
+#define STT_NODE_TYPE_INTEGER_LITERAL     0x03
+#define STT_NODE_TYPE_RATIONAL_LITERAL    0x04
+#define STT_NODE_TYPE_CONDITION           0x05
+#define STT_NODE_TYPE_EXPRESSION          0x06
+#define STT_NODE_TYPE_WHERE_BINDING       0x07
+#define STT_NODE_TYPE_WHERE_BINDINGS      0x08
+#define STT_NODE_TYPE_OPERATION           0x09
+#define STT_NODE_TYPE_OPERATIONS_LIST     0x10
+#define STT_NODE_TYPE_NAMED_FUNCTION      0x11
+#define STT_NODE_TYPE_APPLICATION         0x12
+#define STT_NODE_TYPE_IDENTIFIER          0x13
+#define STT_NODE_TYPE_DOC_FRAGMENT        0x14
+#define STT_NODE_TYPE_DOC                 0x15
+#define STT_NODE_TYPE_EXECUTION_REQUEST   0x16
+#define STT_NODE_TYPE_CLI_OPERATIONS_LIST 0x17
+#define STT_NODE_TYPE_ERRORED             0xFF
 
 /*   `stt_node` for '**S**yn**t**ax **t**ree node'. */
 typedef struct stt_node {
@@ -93,6 +89,10 @@ typedef struct stt_node {
 	stt_natural_literal_subnode * natural_literal_subnode_;
 	stt_integer_literal_subnode * integer_literal_subnode_;
 	stt_rational_literal_subnode * rational_literal_subnode_;
+	stt_condition_subnode * condition_subnode_;
+	stt_expression_subnode * expression_subnode_;
+	stt_where_value_binding_subnode * where_value_binding_subnode_;
+	stt_where_value_bindings_subnode * where_value_bindings_subnode_;
 	stt_operation_subnode * operation_subnode_;
 	stt_operations_list_subnode * operations_list_subnode_;
 	stt_named_function_subnode * named_function_subnode_;
@@ -149,6 +149,18 @@ stt_node_set_rational_literal(
 
 void
 stt_node_set_identifier(stt_node * node, const amara_string * identifier)
+;
+
+void
+stt_node_set_where_value_binding(
+		stt_node * node,
+		const stt_where_value_binding * where_value_binding)
+;
+
+void
+stt_node_set_where_value_bindings(
+		stt_node * node,
+		const stt_where_value_bindings_simple_list * where_value_bindings)
 ;
 
 void

@@ -70,6 +70,9 @@ trace_flex_three(const char * s0, const char * s1, const char * s2)
 
 %%
 
+[/][*]([*][^/]|[^*])*[*][/] {
+    trace_flex_three("ignoring comment ('", yytext, "')\n");
+  }
 [ \n\t]         {
                     if (yytext[0] == ' ') {
       trace_flex_one("discarding whitespace (space)\n");
@@ -94,12 +97,17 @@ trace_flex_three(const char * s0, const char * s1, const char * s2)
     assertion_two(0, "unimplemented code at %s:%d\n");
     return T_INTEGER_LITERAL;
   }
-[0-9]*\.[0-9]+  {
+-?(0|[1-9][0-9]*)\.[0-9]*[1-9] {
     trace_flex_three("returning T_RATIONAL_LITERAL (", yytext, ")\n");
     assertion_two(0, "unimplemented code at %s:%d\n");
     return T_RATIONAL_LITERAL;
                 }
-(0|[1-9][0-9]*)                {
+[1-9]d([468]|12|20) {
+    trace_flex_three("returning T_DICE_EXPRESSION (", yytext, ")\n");
+    assertion_two(1, "unimplemented code at %s:%d\n"); /* XXX */
+    return T_DICE_EXPRESSION;
+  }
+(0|[1-9][0-9]*) {
     unsigned char single_byte_indexer_;
     /* unsigned short double_byte_indexer_; */
     amara_string * raw_;
@@ -141,9 +149,21 @@ with            {
     trace_flex_three("returning T_WITH (", yytext, ")\n");
                   return T_WITH;
                 }
+where {
+    trace_flex_three("returning T_WHERE (", yytext, ")\n");
+    return T_WHERE;
+  }
 type {
     trace_flex_three("returning T_TYPE (", yytext, ")\n");
     return T_TYPE;
+  }
+to {
+    trace_flex_three("returning T_TO (", yytext, ")\n");
+    return T_TO;
+  }
+then {
+    trace_flex_three("returning T_THEN (", yytext, ")\n");
+    return T_THEN;
   }
 the {
     trace_flex_three("returning T_THE (", yytext, ")\n");
@@ -152,6 +172,10 @@ the {
 that {
     trace_flex_three("returning T_THAT (", yytext, ")\n");
     return T_THAT;
+  }
+than {
+    trace_flex_three("returning T_THAN (", yytext, ")\n");
+    return T_THAN;
   }
 times {
     trace_flex_three("returning T_TIMES (", yytext, ")\n");
@@ -176,6 +200,10 @@ simple {
 side {
     trace_flex_three("returning T_SIDE (", yytext, ")\n");
     return T_SIDE;
+  }
+set {
+    trace_flex_three("returning T_SET (", yytext, ")\n");
+    return T_SET;
   }
 run {
     trace_flex_three("returning T_RUN (", yytext, ")\n");
@@ -245,6 +273,10 @@ line {
     trace_flex_three("returning T_LINE (", yytext, ")\n");
     return T_LINE;
   }
+less {
+    trace_flex_three("returning T_LESS (", yytext, ")\n");
+    return T_LESS;
+  }
 it {
     trace_flex_three("returning T_IT (", yytext, ")\n");
     return T_IT;
@@ -253,6 +285,10 @@ is              {
     trace_flex_three("returning T_IS (", yytext, ")\n");
                   return T_IS;
                 }
+if {
+    trace_flex_three("returning T_IF (", yytext, ")\n");
+    return T_IF;
+  }
 interface {
     trace_flex_three("returning T_INTERFACE (", yytext, ")\n");
     return T_INTERFACE;
@@ -260,6 +296,10 @@ interface {
 integer {
     trace_flex_three("returning T_INTEGER (", yytext, ")\n");
     return T_INTEGER;
+  }
+greater {
+    trace_flex_three("returning T_GREATER (", yytext, ")\n");
+    return T_GREATER;
   }
 function        {
     trace_flex_three("returning T_FUNCTION (", yytext, ")\n");
@@ -277,6 +317,14 @@ entry           {
     trace_flex_three("returning T_ENTRY (", yytext, ")\n");
                   return T_ENTRY;
                 }
+end {
+    trace_flex_three("returning T_END (", yytext, ")\n");
+    return T_END;
+  }
+else {
+    trace_flex_three("returning T_ELSE (", yytext, ")\n");
+    return T_ELSE;
+  }
 effects {
     trace_flex_three("returning T_EFFECTS (", yytext, ")\n");
     return T_EFFECTS;
@@ -353,7 +401,7 @@ a               {
     trace_flex_three("returning T_A (", yytext, ")\n");
                   return T_A;
                 }
-'.*'            {
+('[^']*'|\"[^"]*\") {
     unsigned char single_byte_indexer_;
     /* unsigned short double_byte_indexer_; */
     amara_string * value_;
@@ -362,12 +410,12 @@ a               {
     trace_flex_three("returning T_STRING_LITERAL (", yytext, ")\n");
 
     minialval.node = stt_node_default_constructor();
-    minialval.node->type_ = SYNTAX_TREE_NODE_TYPE_STRING_LITERAL;
+    minialval.node->type_ = STT_NODE_TYPE_STRING_LITERAL;
     minialval.node->string_literal_subnode_ =
         stt_string_literal_subnode_default_constructor();
 
                   /*   This is a little bit weirder than it should,
-                   * because of removing the single quotes from the
+     * because of removing the single or double quotes from the
                    * string. */
     value_char_array_ = (char *) malloc(minialeng - 2 + 1);
     assertion_two(minialeng < 0x7F,
@@ -396,7 +444,7 @@ a               {
     trace_flex_three("returning T_IDENTIFIER (", yytext, ")\n");
 
     minialval.node = stt_node_default_constructor();
-    minialval.node->type_ = SYNTAX_TREE_NODE_TYPE_IDENTIFIER;
+    minialval.node->type_ = STT_NODE_TYPE_IDENTIFIER;
     minialval.node->identifier_subnode_ =
         stt_identifier_subnode_default_constructor();
 

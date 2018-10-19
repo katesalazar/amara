@@ -28,6 +28,8 @@
 /*   For `stt_operations_simple_list.h`. */
 #include "stt_operations_simple_list.h"
 
+#include "stt_where_value_bindings_simple_list.h"
+
 /*   Enumeration. */
 #define STT_NAMED_FUNCTION_SUBNODE_TYPE_INVALID      0x00
 #define STT_NAMED_FUNCTION_SUBNODE_TYPE_CLI_APP_NAMED_FUNCTION 0xFF
@@ -36,6 +38,7 @@ typedef struct stt_named_function_subnode {
 	unsigned char type_;
 	amara_string * name_;
 	stt_operations_simple_list * operations_;
+	stt_where_value_bindings_simple_list * where_value_bindings_;
 } stt_named_function_subnode;
 
 stt_named_function_subnode *

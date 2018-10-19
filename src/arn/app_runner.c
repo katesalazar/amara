@@ -273,6 +273,10 @@ run_operation(
 			value_ = arn_values_fixed_list_find_value_by_name(
 					values,
 					operation->args_->first->identifier_);
+			if (value_ == NULL) {
+				fprintf(stderr, "%s\n",
+				        operation->args_->first->identifier_->value_);
+			}
 			assertion(value_ != NULL); /* XXX it might not be, and then must raise semantic error */
 			fprintf(stderr, "%u\n", value_->type_);
 			/******* FIXME this assertion below is failing...... */
