@@ -28,6 +28,21 @@ __attribute__((warn_unused_result))
 ;
 
 void
+assert_expectations_on_stt_named_function_example_print_foo(
+		const stt_named_function * named_function)
+;
+
+stt_named_function *
+stt_named_function_example_print_bar(void)
+__attribute__((warn_unused_result))
+;
+
+void
+assert_expectations_on_stt_named_function_example_print_bar(
+		const stt_named_function * named_function)
+;
+
+void
 stt_named_function_tests(void)
 ;
 

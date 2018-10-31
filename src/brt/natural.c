@@ -54,6 +54,17 @@ natural_default_constructor(void)
 }
 
 natural *
+natural_exhaustive_constructor(const amara_string * raw)
+{
+	natural * returning_;
+	assertion(raw != NULL);
+	assert_valid_raw_natural(raw);
+	returning_ = malloc(sizeof(natural));
+	returning_->raw_ = amara_string_copy_constructor(raw);
+	return returning_;
+}
+
+natural *
 natural_copy_constructor(const natural * natural)
 {
 	struct natural * returning_;
@@ -63,6 +74,15 @@ natural_copy_constructor(const natural * natural)
 	returning_ = malloc(sizeof(natural));
 	returning_->raw_ = amara_string_copy_constructor(natural->raw_);
 	return returning_;
+}
+
+void
+natural_destructor(natural * natural)
+{
+	assertion(natural != NULL);
+	assertion(natural->raw_ != NULL);
+	amara_string_destructor(natural->raw_);
+	free(natural);
 }
 
 void
@@ -250,9 +270,11 @@ fit_raw_natural_in_uint_fast8_t_inner_trivially_fits(
 			/* printf("ret_->value: %u\n", ret_->value); */
 		}
 		assertion_two(current_digit_index_ <= max_digits_ct_, "unexpected raw natural width (in digits)\n");
+		/*
 		if (current_digit_index_ > max_digits_ct_) {
 			fprintf(stderr, "unimplemented condition at %s:%u\n", __FILE__, __LINE__);
 		}
+		*/
 	}
 	ret_->status = FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_OK;
 	return ret_;
@@ -301,9 +323,11 @@ fit_raw_natural_in_uint_fast16_t_inner_trivially_fits(
 			/* printf("ret_->value: %u\n", ret_->value); */
 		}
 		assertion_two(current_digit_index_ <= max_digits_ct_, "unexpected raw natural width (in digits)\n");
+		/*
 		if (current_digit_index_ > max_digits_ct_) {
 			fprintf(stderr, "unimplemented condition at %s:%u\n", __FILE__, __LINE__);
 		}
+		*/
 	}
 	ret_->status = FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_OK;
 	return ret_;
@@ -696,8 +720,18 @@ raw_naturals_multiplication_as_raw_natural(
 			multiplication_result_8_ < one_fit_ret_->value */) {
 		multiplication_result_16_ = zero_fit_ret_->value *
 				one_fit_ret_->value;
-		assertion(multiplication_result_16_ > zero_fit_ret_->value);
-		assertion(multiplication_result_16_ > one_fit_ret_->value);
+		if (multiplication_result_16_ == zero_fit_ret_->value) {
+			assertion(multiplication_result_16_ >=
+					one_fit_ret_->value);
+		} else if (multiplication_result_16_ == one_fit_ret_->value) {
+			assertion(multiplication_result_16_ >=
+					zero_fit_ret_->value);
+		} else {
+			assertion(multiplication_result_16_ >
+					zero_fit_ret_->value);
+			assertion(multiplication_result_16_ >
+					one_fit_ret_->value);
+		}
 		/* printf("multiplication_result_: %u\n", multiplication_result_); */ /* FIXME */
 		fit_raw_natural_in_uint_fast8_t_ret_destructor(zero_fit_ret_);
 		fit_raw_natural_in_uint_fast8_t_ret_destructor(one_fit_ret_);

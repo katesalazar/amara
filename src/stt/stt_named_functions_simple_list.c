@@ -130,13 +130,14 @@ stt_named_functions_simple_list_push_front(
 	assertion(named_function != NULL);
 	if (named_functions->first == NULL) {
 		assertion(named_functions->next == NULL);
-		named_functions->first = (stt_named_function *) named_function;
+		named_functions->first = stt_named_function_copy_constructor(
+				named_function);
 		return named_functions;
 	}
 	new_named_functions_simple_list_node_ =
 			malloc(sizeof(stt_named_functions_simple_list));
 	new_named_functions_simple_list_node_->first =
-			(stt_named_function *) named_function;
+			stt_named_function_copy_constructor(named_function);
 	new_named_functions_simple_list_node_->next = named_functions;
 	return new_named_functions_simple_list_node_;
 }

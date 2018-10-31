@@ -29,6 +29,34 @@ arn_values_simple_list_default_constructor(void)
 	return values;
 }
 
+void
+arn_values_simple_list_destructor_inner(arn_values_simple_list * values)
+;
+
+void
+arn_values_simple_list_destructor_inner(arn_values_simple_list * values)
+{
+	assertion(values != NULL);
+	assertion(values->first != NULL);
+	arn_value_destructor(values->first);
+	if (values->next != NULL) {
+		arn_values_simple_list_destructor_inner(values->next);
+	}
+	free(values);
+}
+
+void
+arn_values_simple_list_destructor(arn_values_simple_list * values)
+{
+	assertion(values != NULL);
+	if (values->first == NULL) {
+		assertion(values->next == NULL);
+		free(values);
+	} else{
+		arn_values_simple_list_destructor_inner(values);
+	}
+}
+
 arn_values_simple_list *
 arn_values_simple_list_push_front(
 		arn_values_simple_list * values, const arn_value * value)
@@ -48,14 +76,14 @@ arn_values_simple_list_push_front(
 }
 
 arn_value *
-arn_values_simple_list_find_value_by_name_inner(
+arn_values_simple_list_find_value_by_name_return_reference_inner(
 		const arn_values_simple_list * values,
 		const amara_string * value_name)
 __attribute__((warn_unused_result))
 ;
 
 arn_value *
-arn_values_simple_list_find_value_by_name_inner(
+arn_values_simple_list_find_value_by_name_return_reference_inner(
 		const arn_values_simple_list * values,
 		const amara_string * value_name)
 {
@@ -68,12 +96,12 @@ arn_values_simple_list_find_value_by_name_inner(
 			AMARA_BOOLEAN_TRUE) {
 		return values->first;
 	}
-	return arn_values_simple_list_find_value_by_name_inner(
+	return arn_values_simple_list_find_value_by_name_return_reference_inner(
 			values->next, value_name);
 }
 
 arn_value *
-arn_values_simple_list_find_value_by_name(
+arn_values_simple_list_find_value_by_name_return_reference(
 		const arn_values_simple_list * values,
 		const amara_string * value_name)
 {
@@ -84,7 +112,7 @@ arn_values_simple_list_find_value_by_name(
 		assertion(values->next == NULL);
 		return NULL;
 	}
-	return arn_values_simple_list_find_value_by_name_inner(
+	return arn_values_simple_list_find_value_by_name_return_reference_inner(
 			values, value_name);
 }
 
@@ -95,30 +123,36 @@ arn_values_simple_list_assign_natural_out_of_unsigned_int(
 		const unsigned int unsigned_int)
 {
 	arn_values_simple_list * returning_;
-	arn_value * value_;
+	arn_value * value_reference_;
 	natural * natural_;
 	/*
 	assert_value_is_known(values, value_name); *//* XXX maybe double checking... *//*
 	*/
-	value_ = arn_values_simple_list_find_value_by_name(
-			values, value_name);
+	value_reference_ =
+			arn_values_simple_list_find_value_by_name_return_reference(
+					values, value_name);
 	natural_ = natural_default_constructor();
 	natural_copy_from_unsigned_int(natural_, unsigned_int);
-	if (value_ == NULL) {
-		value_ = arn_value_default_constructor();
-		assertion(value_ != NULL);
-		assertion(value_->type_ == ARN_VALUE_TYPE_INVALID);
-		arn_value_set_name(value_, value_name);
-		arn_value_set_natural(value_, natural_);
+	if (value_reference_ == NULL) {
+		value_reference_ = arn_value_default_constructor();
+		assertion(value_reference_ != NULL);
+		assertion(value_reference_->type_ == ARN_VALUE_TYPE_INVALID);
+		arn_value_set_name(value_reference_, value_name);
+		arn_value_set_natural(value_reference_, natural_);
 		returning_ = arn_values_simple_list_push_front(
-				values, value_);
+				values, value_reference_);
 		/*
 		value_ = arn_values_simple_list_find_value_by_name(
 				returning_, value_name);
 		assertion(value_ != NULL);
 		*/
+		natural_destructor(natural_);
 		return returning_;
 	}
+	assertion(value_reference_->type_ ==
+			ARN_VALUE_TYPE_NAMED_UNASSIGNED_NATURAL);
+	arn_value_set_natural(value_reference_, natural_);
+	returning_ = values;
 	/*
 	arn_value
 	else {
@@ -127,5 +161,6 @@ arn_values_simple_list_assign_natural_out_of_unsigned_int(
 	}
 	return la nueva si ha cambiado, o la vieja si no ha cambiado? push frontal?
 	*/
-	return NULL;
+	natural_destructor(natural_);
+	return returning_;
 }

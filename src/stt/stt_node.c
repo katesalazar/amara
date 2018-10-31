@@ -257,7 +257,7 @@ stt_node_copy_constructor(const stt_node * node)
 		ret_->application_subnode_ =
 				stt_application_subnode_copy_constructor(
 						node->application_subnode_);
-		ret_->type_ = SYNTAX_TREE_NODE_TYPE_NATURAL;
+		ret_->type_ = SYNTAX_TREE_NODE_TYPE_APPLICATION;
 		return ret_;
 	}
 	if (node->type_ == SYNTAX_TREE_NODE_TYPE_IDENTIFIER) {
@@ -310,6 +310,10 @@ stt_node_wrapping_raw_natural(const amara_string * raw_natural)
 	returning_->type_ = SYNTAX_TREE_NODE_TYPE_NATURAL;
 	return returning_;
 }
+
+void
+assert_all_subnodes_are_null(const stt_node * node)
+;
 
 void
 assert_all_subnodes_are_null(const stt_node * node)
@@ -550,8 +554,7 @@ stt_node_set_rational_literal(
 }
 
 void
-stt_node_set_identifier(
-		stt_node * node, const amara_string * identifier)
+stt_node_set_identifier(stt_node * node, const amara_string * identifier)
 {
 	assertion(node->type_ == SYNTAX_TREE_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
@@ -562,8 +565,7 @@ stt_node_set_identifier(
 }
 
 void
-stt_node_set_operation(
-		stt_node * node, const stt_operation * operation)
+stt_node_set_operation(stt_node * node, const stt_operation * operation)
 {
 	assertion(node->type_ == SYNTAX_TREE_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
@@ -571,6 +573,67 @@ stt_node_set_operation(
 			stt_operation_subnode_exhaustive_constructor(
 					operation);
 	node->type_ = SYNTAX_TREE_NODE_TYPE_OPERATION;
+}
+
+void
+stt_node_set_operations_list(
+		stt_node * node, const stt_operations_simple_list * operations)
+{
+	assertion(node->type_ == SYNTAX_TREE_NODE_TYPE_INVALID);
+	assert_all_subnodes_are_null(node);
+	node->operations_list_subnode_ =
+			stt_operations_list_subnode_exhaustive_constructor(
+					operations);
+	node->type_ = STT_NODE_TYPE_OPERATIONS_LIST;
+}
+
+void
+stt_node_set_named_function(
+		stt_node * node, const stt_named_function * named_function)
+{
+	assertion(node->type_ == SYNTAX_TREE_NODE_TYPE_INVALID);
+	assert_all_subnodes_are_null(node);
+	node->named_function_subnode_ =
+			stt_named_function_subnode_exhaustive_constructor(
+					named_function);
+	node->type_ = STT_NODE_TYPE_NAMED_FUNCTION;
+}
+
+void
+stt_node_set_application(stt_node * node, const stt_application * application)
+{
+	assertion(node->type_ == STT_NODE_TYPE_INVALID);
+	assert_all_subnodes_are_null(node);
+	node->application_subnode_ =
+			stt_application_subnode_exhaustive_constructor(
+					application);
+	node->type_ = STT_NODE_TYPE_APPLICATION;
+}
+
+void
+stt_node_set_execution_request(stt_node * node,
+                               const stt_execution_request * execution_request)
+{
+	assertion(node->type_ == STT_NODE_TYPE_INVALID);
+	assert_all_subnodes_are_null(node);
+	node->execution_request_subnode_ =
+			stt_execution_request_subnode_exhaustive_constructor(
+					execution_request);
+	node->type_ = STT_NODE_TYPE_EXECUTION_REQUEST;
+}
+
+void
+stt_node_set_doc(
+		stt_node * node,
+		const stt_named_functions_simple_list * named_functions,
+		const stt_applications_simple_list * applications,
+		const stt_execution_requests_simple_list * execution_requests)
+{
+	assertion(node->type_ == STT_NODE_TYPE_INVALID);
+	assert_all_subnodes_are_null(node);
+	node->doc_subnode_ = stt_doc_subnode_exhaustive_constructor(
+			named_functions, applications, execution_requests);
+	node->type_ = STT_NODE_TYPE_DOC;
 }
 
 amara_string *
@@ -588,7 +651,7 @@ stt_node_type_name(const stt_node * node)
 	case SYNTAX_TREE_NODE_TYPE_OPERATION:
 		return amara_string_exhaustive_constructor("operation");
 	case STT_NODE_TYPE_NAMED_FUNCTION:
-		return amara_string_exhaustive_constructor("named function");
+		return amara_string_exhaustive_constructor("named_function");
 	case SYNTAX_TREE_NODE_TYPE_APPLICATION:
 		return amara_string_exhaustive_constructor("application");
 	case SYNTAX_TREE_NODE_TYPE_IDENTIFIER:
@@ -615,10 +678,8 @@ register_named_function(stt_node * node, const stt_node * named_function_node)
 	if (node->type_ != SYNTAX_TREE_NODE_TYPE_DOC_FRAGMENT) {
 		fprintf(stderr, "%s:%u:%u\n", __FILE__, __LINE__, node->type_);
 	}
-	assertion_two_located_interim(
-			node->type_ == SYNTAX_TREE_NODE_TYPE_DOC_FRAGMENT,
-			"unexpected value for `node->type`", __FILE__,
-			__LINE__);
+	assertion_two(node->type_ == SYNTAX_TREE_NODE_TYPE_DOC_FRAGMENT,
+	              "unexpected value for `node->type`");
 	assertion_two(node->doc_subnode_ != NULL,
 			"unexpected value for `node->doc`");
 	assertion_two(named_function_node != NULL,
@@ -653,10 +714,8 @@ register_application(stt_node * node, const stt_node * application_node)
 	if (node->type_ != SYNTAX_TREE_NODE_TYPE_DOC_FRAGMENT) {
 		fprintf(stderr, "%s:%u:%u\n", __FILE__, __LINE__, node->type_);
 	}
-	assertion_two_located_interim(
-			node->type_ == SYNTAX_TREE_NODE_TYPE_DOC_FRAGMENT,
-			"unexpected value %u for `node->type`", __FILE__,
-			__LINE__);
+	assertion_two(node->type_ == SYNTAX_TREE_NODE_TYPE_DOC_FRAGMENT,
+	              "unexpected value %u for `node->type`");
 	assertion_two(node->doc_subnode_ != NULL,
 			"unexpected value for `node->doc`");
 	assertion_two(application_node != NULL,
@@ -690,10 +749,8 @@ register_execution_request(
 	if (node->type_ != SYNTAX_TREE_NODE_TYPE_DOC_FRAGMENT) {
 		fprintf(stderr, "%s:%u:%u\n", __FILE__, __LINE__, node->type_);
 	}
-	assertion_two_located_interim(
-			node->type_ == SYNTAX_TREE_NODE_TYPE_DOC_FRAGMENT,
-			"unexpected value %u for `node->type`", __FILE__,
-			__LINE__);
+	assertion_two(node->type_ == SYNTAX_TREE_NODE_TYPE_DOC_FRAGMENT,
+	              "unexpected value %u for `node->type`");
 	assertion_two(node->doc_subnode_ != NULL,
 			"unexpected value for `node->doc_subnode_`");
 	assertion_two(execution_request_node != NULL,
@@ -937,11 +994,10 @@ look_for_undefined_labels(const stt_node * node)
 	ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID;
 	ret_->messages = NULL;
 	assertion_two(node != NULL, "unexpected value NULL for `node`");
-	assertion_two_located_interim(node->type_ == SYNTAX_TREE_NODE_TYPE_DOC,
-			"unexpected value %u for `node->type`", __FILE__,
-			__LINE__);
-	assertion_two_located_interim(node->doc_subnode_ != NULL,
-			"`node->doc` unexpectedly NULL", __FILE__, __LINE__);
+	assertion_two(node->type_ == SYNTAX_TREE_NODE_TYPE_DOC,
+	              "unexpected value %u for `node->type`");
+	assertion_two(node->doc_subnode_ != NULL,
+	              "`node->doc` unexpectedly NULL");
 	named_functions_sub_ret_ =
 			look_for_undefined_labels_in_named_functions_(node);
 	if (named_functions_sub_ret_->status ==

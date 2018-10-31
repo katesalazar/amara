@@ -29,6 +29,8 @@
 /*   For `stt_operation_arg`. */
 #include "../stt/stt_operation_arg.h"
 
+#include "rtg_operation.h"
+
 /*   This is an enumeration. */
 
 #define RTG_OPERATION_ARG_TYPE_INVALID        0x00
@@ -93,6 +95,18 @@ void
 rtg_operation_arg_set_string_literal(
 		rtg_operation_arg * operation_arg,
 		const amara_string * string_literal)
+;
+
+void
+rtg_operation_arg_set_natural_literal(
+		rtg_operation_arg * operation_arg,
+		const amara_string * natural_literal)
+;
+
+void
+rtg_operation_arg_set_identifier(
+		rtg_operation_arg * operation_arg,
+		const amara_string * identifier)
 ;
 
 #define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_INVALID 0x00

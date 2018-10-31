@@ -33,7 +33,8 @@
  * somewhat soon. */
 
 #define RTG_NAMED_FUNCTION_TYPE_INVALID      0x00
-#define RTG_NAMED_FUNCTION_TYPE_CLI_FUNCTION 0xFF
+#define RTG_NAMED_FUNCTION_TYPE_PURE_FUNCTION 0x0F
+#define RTG_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION 0xF0
 
 typedef struct rtg_named_function {
 	uint_fast8_t type_;
@@ -74,7 +75,7 @@ typedef struct rtg_named_function_out_of_stt_named_function_ret {
 
 void
 rtg_named_function_out_of_stt_named_function_ret_destructor(
-	rtg_named_function_out_of_stt_named_function_ret * rtg_named_function_out_of_stt_named_function_ret_)
+	rtg_named_function_out_of_stt_named_function_ret * input_ret)
 ;
 
 rtg_named_function_out_of_stt_named_function_ret *

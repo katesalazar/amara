@@ -31,13 +31,22 @@ arn_variables_simple_list_default_constructor(void)
 	return variables;
 }
 
-arn_variables_simple_list *
+void
+arn_variables_simple_list_destructor(arn_variables_simple_list * variables)
+{
+	assertion(variables != NULL);
+	assertion(variables->first == NULL);
+	assertion(variables->next == NULL);
+	free(variables);
+}
+
+/*arn_variables_simple_list *
 arn_variables_simple_list_push_front(
 		arn_variables_simple_list * variables,
 		const arn_variable * variable)
 {
-	assertion(variables == NULL); /* FIXME */
-	assertion(variable == NULL); /* FIXME */
+	assertion(variables == NULL); *//* FIXME *//*
+	assertion(variable == NULL); *//* FIXME *//*
 	return variables;
 }
 
@@ -80,26 +89,31 @@ arn_variables_simple_list_find_variable_by_name(
 	}
 	return arn_variables_simple_list_find_variable_by_name_inner(
 			variables, variable_name);
-}
+}*/
 
-/* amara_boolean */ void
+/* amara_boolean */ /*void
 assert_variable_is_known_inner(
 		const arn_variables_simple_list * variables,
 		const amara_string * variable_name)
 ;
 
-/* amara_boolean */ void
+*//* amara_boolean */ /*void
 assert_variable_is_known_inner(
 		const arn_variables_simple_list * variables,
 		const amara_string * variable_name)
 {
-	const arn_variables_simple_list * variables_ptr_;
+	const arn_variables_simple_list * variables_ptr_; */
 	/* amara_boolean found_; */
+/*
 	variables_ptr_ = variables;
+*/
 	/* found_ = AMARA_BOOLEAN_FALSE; */
+/*
 	if (variables_ptr_ != NULL) {
 		assertion(0);
+*/
 		/* return found_; */
+/*
 	}
 	assertion(variables_ptr_->first != NULL);
 	assertion(variables_ptr_->next != NULL);
@@ -109,11 +123,12 @@ assert_variable_is_known_inner(
 	assertion(variable_name != NULL);
 	if (amara_string_equality(variables_ptr_->first->name_, variable_name) ==
 			AMARA_BOOLEAN_TRUE) {
-		/* found_ = AMARA_BOOLEAN_TRUE */;
-		return /* found_ */;
+*/
+		/* found_ = AMARA_BOOLEAN_TRUE *//*;
+		return *//* found_ *//*;
 	}
-	return /* assert_variable_is_known_inner(
-			variables_ptr_->next, variable_name) */;
+	return *//* assert_variable_is_known_inner(
+			variables_ptr_->next, variable_name) *//*;
 }
 
 void
@@ -121,13 +136,13 @@ assert_variable_is_known(
 		const arn_variables_simple_list * variables,
 		const amara_string * variable_name)
 {
-	/* const arn_variables_simple_list * variables_ptr_; */
+	*//* const arn_variables_simple_list * variables_ptr_; */
 	/* amara_boolean found_;
 	found_ = AMARA_BOOLEAN_FALSE; */
-	if (variables->first == NULL) {
+	/*if (variables->first == NULL) {
 		assertion(variables->next == NULL);
 		assertion(0);
-		return /* AMARA_BOOLEAN_FALSE */;
+		return *//* AMARA_BOOLEAN_FALSE *//*;
 	}
 	assert_variable_is_known_inner(variables->next, variable_name);
 }
@@ -141,10 +156,10 @@ arn_variables_simple_list_assign_natural_out_of_unsigned_int(
 	arn_variables_simple_list * returning_;
 	arn_variable * variable_;
 	natural * natural_;
-	/*
+	*//*
 	assert_variable_is_known(variables, variable_name); *//* XXX maybe double checking... *//*
 	*/
-	variable_ = arn_variables_simple_list_find_variable_by_name(
+	/*variable_ = arn_variables_simple_list_find_variable_by_name(
 			variables, variable_name);
 	natural_ = natural_default_constructor();
 	natural_copy_from_unsigned_int(natural_, unsigned_int);
@@ -155,14 +170,14 @@ arn_variables_simple_list_assign_natural_out_of_unsigned_int(
 		arn_variable_set_name(variable_, variable_name);
 		arn_variable_set_natural(variable_, natural_);
 		returning_ = arn_variables_simple_list_push_front(
-				variables, variable_);
+				variables, variable_);*/
 		/*
 		variable_ = arn_variables_simple_list_find_variable_by_name(
 				returning_, variable_name);
 		assertion(variable_ != NULL);
 		*/
-		return returning_;
-	}
+		/*return returning_;
+	}*/
 	/*
 	arn_value
 	else {
@@ -170,6 +185,6 @@ arn_variables_simple_list_assign_natural_out_of_unsigned_int(
 			variable_, unsigned_int_natural);
 	}
 	return la nueva si ha cambiado, o la vieja si no ha cambiado? push frontal?
-	*/
+	*//*
 	return NULL;
-}
+}*/

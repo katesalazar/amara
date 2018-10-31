@@ -20,6 +20,28 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__APPLICATION_TESTS__H__
 #define __AMARA__RUN_TIME_GRAPH__APPLICATION_TESTS__H__
 
+#include "rtg_application.h"
+
+rtg_application *
+rtg_application_example_cli_app_print_foo(void)
+__attribute__((warn_unused_result))
+;
+
+void
+assert_expectations_on_rtg_application_example_cli_app_print_foo(
+		const rtg_application * application)
+;
+
+rtg_application *
+rtg_application_example_cli_app_print_bar(void)
+__attribute__((warn_unused_result))
+;
+
+void
+assert_expectations_on_rtg_application_example_cli_app_print_bar(
+		const rtg_application * application)
+;
+
 void
 rtg_application_tests(void)
 ;

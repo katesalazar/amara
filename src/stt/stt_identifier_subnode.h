@@ -25,7 +25,7 @@
 #include "../cmn/amara_string.h"
 
 typedef struct stt_identifier_subnode {
-	amara_string * value_;
+	amara_string * value_; /* TODO consider changing this to `identifier_` seriously. */
 } stt_identifier_subnode;
 
 stt_identifier_subnode *

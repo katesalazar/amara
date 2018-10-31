@@ -75,6 +75,7 @@ stt_identifier_subnode_set_value(
 	assertion(subnode != NULL);
 	if (subnode->value_ != NULL) {
 		amara_string_destructor(subnode->value_);
+		subnode->value_ = NULL;
 	}
 	if (value != NULL) {
 		subnode->value_ = amara_string_copy_constructor(value);

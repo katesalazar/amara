@@ -30,25 +30,78 @@
 
 rtg_operation *
 rtg_operation_exhaustive_constructor(
-		uint_fast8_t type, const rtg_operation_args_simple_list * args)
+		uint_fast8_t type,
+		const struct rtg_operation_args_simple_list * args)
 {
 	rtg_operation * ret_;
 	if (type == RTG_OPERATION_TYPE_INVALID) {
-		assertion(0);
-		/* assertion(args == NULL || args->first == NULL); */
-		assertion(args != NULL && args->first == NULL);
+		if (args != NULL) {
+			assertion(args->first == NULL);
+		}
 		ret_ = malloc(sizeof(rtg_operation));
 		ret_->type_ = RTG_OPERATION_TYPE_INVALID;
-		ret_->args_ = rtg_operation_args_simple_list_copy_constructor(
-				args);
+		if (args != NULL) {
+			ret_->args_ = rtg_operation_args_simple_list_copy_constructor(
+					args);
+		} else {
+			ret_->args_ = rtg_operation_args_simple_list_default_constructor();
+		}
 		return ret_;
 	}
 	assertion(args != NULL);
 	ret_ = malloc(sizeof(rtg_operation));
 	ret_->args_ = rtg_operation_args_simple_list_copy_constructor(args);
 	assertion(type != RTG_OPERATION_TYPE_INVALID);
-	/* assertion(type == RTG_OPERATION_TYPE_INVALID); XXX ??? */
-	/* ret_->type_ = type; */
+	if (type == RTG_OPERATION_TYPE_PRINT) {
+		assertion(args->first != NULL);
+		/* XXX Missing assertions here. */
+		assertion(args->next == NULL);
+		assertion(ret_->args_ != NULL);
+		assertion(ret_->args_->first != NULL);
+		/* XXX Missing assertions here. */
+		assertion(ret_->args_->next == NULL);
+	} else if (type == RTG_OPERATION_TYPE_READ_NATURAL_TO_VALUE) {
+		assertion(args->first != NULL);
+		/* XXX Missing assertions here. */
+		assertion(args->next == NULL);
+		assertion(ret_->args_ != NULL);
+		assertion(ret_->args_->first != NULL);
+		/* XXX Missing assertions here. */
+		assertion(ret_->args_->next == NULL);
+	} else if (type == RTG_OPERATION_TYPE_ADDITION) {
+		assertion(args->first != NULL);
+		/* XXX Missing assertions here. */
+		assertion(args->next != NULL);
+		assertion(args->next->first != NULL);
+		/* XXX Missing assertions here. */
+		assertion(args->next->next == NULL);
+		assertion(ret_->args_ != NULL);
+		assertion(ret_->args_->first != NULL);
+		/* XXX Missing assertions here. */
+		assertion(ret_->args_->next != NULL);
+		assertion(ret_->args_->next->first != NULL);
+		/* XXX Missing assertions here. */
+		assertion(ret_->args_->next->next == NULL);
+	} else if (type == RTG_OPERATION_TYPE_PRINT_NO_CRLF) {
+		assertion(args->first != NULL);
+		/* XXX Missing assertions here. */
+		assertion(args->next == NULL);
+		assertion(ret_->args_ != NULL);
+		assertion(ret_->args_->first != NULL);
+		/* XXX Missing assertions here. */
+		assertion(ret_->args_->next == NULL);
+	} else {
+		assertion(type ==
+				RTG_OPERATION_TYPE_READ_NATURAL_INTO_VARIABLE);
+		assertion(args->first != NULL);
+		/* XXX Missing assertions here. */
+		assertion(args->next == NULL);
+		assertion(ret_->args_ != NULL);
+		assertion(ret_->args_->first != NULL);
+		/* XXX Missing assertions here. */
+		assertion(ret_->args_->next == NULL);
+	}
+	ret_->type_ = type;
 	return ret_;
 }
 
@@ -191,27 +244,27 @@ rtg_operation_type_as_string(uint_fast8_t operation_type)
 
 void
 rtg_operation_out_of_stt_operation_ret_destructor(
-		rtg_operation_out_of_stt_operation_ret * rtg_operation_out_of_stt_operation_ret_)
+		rtg_operation_out_of_stt_operation_ret * input_ret)
 {
-	assertion(rtg_operation_out_of_stt_operation_ret_ != NULL);
-	if (rtg_operation_out_of_stt_operation_ret_->status ==
+	assertion(input_ret != NULL);
+	assertion(input_ret->status ==
+			RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS);
+	/*
+	if (input_ret->status ==
 			RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS) {
-		assertion(rtg_operation_out_of_stt_operation_ret_->operation !=
-				NULL);
-		if (rtg_operation_out_of_stt_operation_ret_->operation_was_moved ==
-				AMARA_BOOLEAN_FALSE) {
-			rtg_operation_destructor(
-					rtg_operation_out_of_stt_operation_ret_->operation);
+	*/
+		assertion(input_ret->operation != NULL);
+		if (input_ret->operation_was_moved == AMARA_BOOLEAN_FALSE) {
+			rtg_operation_destructor(input_ret->operation);
 		}
+	/*
 	} else {
-		assertion(rtg_operation_out_of_stt_operation_ret_->status ==
-					RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_INVALID ||
-				rtg_operation_out_of_stt_operation_ret_->status ==
-					RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_ERROR_UNSPECIFIC);
-		assertion(rtg_operation_out_of_stt_operation_ret_->operation ==
-				NULL);
+		assertion(input_ret->status ==
+				RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_ERROR_UNSPECIFIC);
+		assertion(input_ret->operation == NULL);
 	}
-	free(rtg_operation_out_of_stt_operation_ret_);
+	*/
+	free(input_ret);
 }
 
 rtg_operation_out_of_stt_operation_ret *

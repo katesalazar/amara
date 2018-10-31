@@ -86,6 +86,19 @@
 		CF95183E2157D3B9004D3F16 /* integer.c in Sources */ = {isa = PBXBuildFile; fileRef = CF95183A2157D3B8004D3F16 /* integer.c */; };
 		CF9518402157D3C2004D3F16 /* assertion.c in Sources */ = {isa = PBXBuildFile; fileRef = CF95183F2157D3C1004D3F16 /* assertion.c */; };
 		CF9518422157D3CC004D3F16 /* app_runner.c in Sources */ = {isa = PBXBuildFile; fileRef = CF9518412157D3CC004D3F16 /* app_runner.c */; };
+		CFA5DC2D2188E84B00D16B4B /* arn_variable.c in Sources */ = {isa = PBXBuildFile; fileRef = CFA5DC252188E84A00D16B4B /* arn_variable.c */; };
+		CFA5DC2E2188E84B00D16B4B /* arn_values_fixed_list_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CFA5DC262188E84A00D16B4B /* arn_values_fixed_list_tests.c */; };
+		CFA5DC2F2188E84B00D16B4B /* arn_variables_simple_list.c in Sources */ = {isa = PBXBuildFile; fileRef = CFA5DC272188E84A00D16B4B /* arn_variables_simple_list.c */; };
+		CFA5DC302188E84B00D16B4B /* arn_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CFA5DC282188E84A00D16B4B /* arn_tests.c */; };
+		CFA5DC312188E84B00D16B4B /* arn_value_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CFA5DC292188E84B00D16B4B /* arn_value_tests.c */; };
+		CFA5DC322188E84B00D16B4B /* arn_variable_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CFA5DC2A2188E84B00D16B4B /* arn_variable_tests.c */; };
+		CFA5DC332188E84B00D16B4B /* arn_variables_simple_list_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CFA5DC2B2188E84B00D16B4B /* arn_variables_simple_list_tests.c */; };
+		CFA5DC342188E84B00D16B4B /* arn_values_simple_list_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CFA5DC2C2188E84B00D16B4B /* arn_values_simple_list_tests.c */; };
+		CFA5DC362188E86900D16B4B /* rtg_execution_requests_simple_list_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CFA5DC352188E86900D16B4B /* rtg_execution_requests_simple_list_tests.c */; };
+		CFA5DC392188E88200D16B4B /* rational_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CFA5DC372188E88100D16B4B /* rational_tests.c */; };
+		CFA5DC3A2188E88200D16B4B /* integer_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CFA5DC382188E88100D16B4B /* integer_tests.c */; };
+		CFA5DC3D2188E88D00D16B4B /* char_arrays_simple_list_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CFA5DC3B2188E88C00D16B4B /* char_arrays_simple_list_tests.c */; };
+		CFA5DC3E2188E88D00D16B4B /* char_array_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CFA5DC3C2188E88C00D16B4B /* char_array_tests.c */; };
 		CFAFC9C6217CBA85000842FC /* stt_named_function.c in Sources */ = {isa = PBXBuildFile; fileRef = CFAFC9C0217CBA84000842FC /* stt_named_function.c */; };
 		CFAFC9C7217CBA85000842FC /* stt_named_functions_simple_list.c in Sources */ = {isa = PBXBuildFile; fileRef = CFAFC9C1217CBA84000842FC /* stt_named_functions_simple_list.c */; };
 		CFAFC9C8217CBA85000842FC /* stt_named_function_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CFAFC9C2217CBA85000842FC /* stt_named_function_tests.c */; };
@@ -191,6 +204,19 @@
 		CF95183A2157D3B8004D3F16 /* integer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = integer.c; path = src/brt/integer.c; sourceTree = "<group>"; };
 		CF95183F2157D3C1004D3F16 /* assertion.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = assertion.c; path = src/asr/assertion.c; sourceTree = "<group>"; };
 		CF9518412157D3CC004D3F16 /* app_runner.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = app_runner.c; path = src/arn/app_runner.c; sourceTree = "<group>"; };
+		CFA5DC252188E84A00D16B4B /* arn_variable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = arn_variable.c; path = src/arn/arn_variable.c; sourceTree = "<group>"; };
+		CFA5DC262188E84A00D16B4B /* arn_values_fixed_list_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = arn_values_fixed_list_tests.c; path = src/arn/arn_values_fixed_list_tests.c; sourceTree = "<group>"; };
+		CFA5DC272188E84A00D16B4B /* arn_variables_simple_list.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = arn_variables_simple_list.c; path = src/arn/arn_variables_simple_list.c; sourceTree = "<group>"; };
+		CFA5DC282188E84A00D16B4B /* arn_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = arn_tests.c; path = src/arn/arn_tests.c; sourceTree = "<group>"; };
+		CFA5DC292188E84B00D16B4B /* arn_value_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = arn_value_tests.c; path = src/arn/arn_value_tests.c; sourceTree = "<group>"; };
+		CFA5DC2A2188E84B00D16B4B /* arn_variable_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = arn_variable_tests.c; path = src/arn/arn_variable_tests.c; sourceTree = "<group>"; };
+		CFA5DC2B2188E84B00D16B4B /* arn_variables_simple_list_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = arn_variables_simple_list_tests.c; path = src/arn/arn_variables_simple_list_tests.c; sourceTree = "<group>"; };
+		CFA5DC2C2188E84B00D16B4B /* arn_values_simple_list_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = arn_values_simple_list_tests.c; path = src/arn/arn_values_simple_list_tests.c; sourceTree = "<group>"; };
+		CFA5DC352188E86900D16B4B /* rtg_execution_requests_simple_list_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = rtg_execution_requests_simple_list_tests.c; path = src/rtg/rtg_execution_requests_simple_list_tests.c; sourceTree = "<group>"; };
+		CFA5DC372188E88100D16B4B /* rational_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = rational_tests.c; path = src/brt/rational_tests.c; sourceTree = "<group>"; };
+		CFA5DC382188E88100D16B4B /* integer_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = integer_tests.c; path = src/brt/integer_tests.c; sourceTree = "<group>"; };
+		CFA5DC3B2188E88C00D16B4B /* char_arrays_simple_list_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = char_arrays_simple_list_tests.c; path = src/cmn/char_arrays_simple_list_tests.c; sourceTree = "<group>"; };
+		CFA5DC3C2188E88C00D16B4B /* char_array_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = char_array_tests.c; path = src/cmn/char_array_tests.c; sourceTree = "<group>"; };
 		CFAFC9C0217CBA84000842FC /* stt_named_function.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = stt_named_function.c; path = src/stt/stt_named_function.c; sourceTree = "<group>"; };
 		CFAFC9C1217CBA84000842FC /* stt_named_functions_simple_list.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = stt_named_functions_simple_list.c; path = src/stt/stt_named_functions_simple_list.c; sourceTree = "<group>"; };
 		CFAFC9C2217CBA85000842FC /* stt_named_function_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = stt_named_function_tests.c; path = src/stt/stt_named_function_tests.c; sourceTree = "<group>"; };
@@ -219,6 +245,19 @@
 		CFFEB3232157CD2F00527450 = {
 			isa = PBXGroup;
 			children = (
+				CFA5DC3C2188E88C00D16B4B /* char_array_tests.c */,
+				CFA5DC3B2188E88C00D16B4B /* char_arrays_simple_list_tests.c */,
+				CFA5DC382188E88100D16B4B /* integer_tests.c */,
+				CFA5DC372188E88100D16B4B /* rational_tests.c */,
+				CFA5DC352188E86900D16B4B /* rtg_execution_requests_simple_list_tests.c */,
+				CFA5DC282188E84A00D16B4B /* arn_tests.c */,
+				CFA5DC292188E84B00D16B4B /* arn_value_tests.c */,
+				CFA5DC262188E84A00D16B4B /* arn_values_fixed_list_tests.c */,
+				CFA5DC2C2188E84B00D16B4B /* arn_values_simple_list_tests.c */,
+				CFA5DC2A2188E84B00D16B4B /* arn_variable_tests.c */,
+				CFA5DC252188E84A00D16B4B /* arn_variable.c */,
+				CFA5DC2B2188E84B00D16B4B /* arn_variables_simple_list_tests.c */,
+				CFA5DC272188E84A00D16B4B /* arn_variables_simple_list.c */,
 				CFAFC9D3217CBAE0000842FC /* rtg_named_function_tests.c */,
 				CFAFC9D2217CBAE0000842FC /* rtg_named_functions_simple_list_tests.c */,
 				CFAFC9CE217CBACA000842FC /* rtg_named_function.c */,
@@ -381,6 +420,7 @@
 				CF9518402157D3C2004D3F16 /* assertion.c in Sources */,
 				CF376D4721653F7B000736E5 /* stt_integer_literal_subnode.c in Sources */,
 				CF9518052157D33A004D3F16 /* stt_operation_args_simple_list.c in Sources */,
+				CFA5DC3D2188E88D00D16B4B /* char_arrays_simple_list_tests.c in Sources */,
 				CF9517D62157D30D004D3F16 /* tests_runner.c in Sources */,
 				CFAFC9CB217CBA85000842FC /* stt_named_function_subnode.c in Sources */,
 				CFAFC9C9217CBA85000842FC /* stt_named_function_subnode_tests.c in Sources */,
@@ -399,6 +439,7 @@
 				CF376D5921653F7B000736E5 /* stt_string_literal_subnode_tests.c in Sources */,
 				CF9518042157D33A004D3F16 /* stt_applications_simple_list.c in Sources */,
 				CF9517F42157D33A004D3F16 /* stt_tests.c in Sources */,
+				CFA5DC362188E86900D16B4B /* rtg_execution_requests_simple_list_tests.c in Sources */,
 				CF376D5321653F7B000736E5 /* stt_application_subnode_tests.c in Sources */,
 				CF95183D2157D3B9004D3F16 /* rational.c in Sources */,
 				CF9517FD2157D33A004D3F16 /* stt_operation_subnode.c in Sources */,
@@ -407,8 +448,10 @@
 				CF9517F62157D33A004D3F16 /* stt_operation_arg.c in Sources */,
 				CF376D4A21653F7B000736E5 /* stt_doc_subnode_tests.c in Sources */,
 				CF95182F2157D39D004D3F16 /* char_array.c in Sources */,
+				CFA5DC322188E84B00D16B4B /* arn_variable_tests.c in Sources */,
 				CF9517F52157D33A004D3F16 /* stt_execution_requests_simple_list.c in Sources */,
 				CF5D0E0E2167E1FB00C73CA2 /* stt_natural_literal_subnode_tests.c in Sources */,
+				CFA5DC302188E84B00D16B4B /* arn_tests.c in Sources */,
 				CF9518062157D33A004D3F16 /* stt_operations_list_subnode.c in Sources */,
 				CFAFC9CD217CBA9F000842FC /* arn_values_fixed_list.c in Sources */,
 				CF9518352157D3AD004D3F16 /* lex.minia.c in Sources */,
@@ -420,7 +463,9 @@
 				CF376D6D21653F96000736E5 /* rtg_operation_args_simple_list_tests.c in Sources */,
 				CF9517D82157D317004D3F16 /* dirent_wrapper.c in Sources */,
 				CF9518322157D39D004D3F16 /* amara_string.c in Sources */,
+				CFA5DC2D2188E84B00D16B4B /* arn_variable.c in Sources */,
 				CF9518172157D357004D3F16 /* rtg_operation_arg.c in Sources */,
+				CFA5DC2F2188E84B00D16B4B /* arn_variables_simple_list.c in Sources */,
 				CFAFC9D0217CBACA000842FC /* rtg_named_function.c in Sources */,
 				CF95183C2157D3B9004D3F16 /* basic_arithmetic_tests.c in Sources */,
 				CFAFC9D1217CBACA000842FC /* rtg_named_functions_simple_list.c in Sources */,
@@ -433,8 +478,10 @@
 				CF9517F32157D33A004D3F16 /* stt_node.c in Sources */,
 				CF9518152157D357004D3F16 /* rtg_operations_simple_list.c in Sources */,
 				CF9518192157D357004D3F16 /* rtg_execution_requests_simple_list.c in Sources */,
+				CFA5DC312188E84B00D16B4B /* arn_value_tests.c in Sources */,
 				CF376D4621653F7B000736E5 /* stt_execution_requests_simple_list_tests.c in Sources */,
 				CF95183E2157D3B9004D3F16 /* integer.c in Sources */,
+				CFA5DC2E2188E84B00D16B4B /* arn_values_fixed_list_tests.c in Sources */,
 				CF376D6C21653F96000736E5 /* rtg_applications_simple_list_tests.c in Sources */,
 				CF376D4921653F7B000736E5 /* stt_applications_simple_list_tests.c in Sources */,
 				CF376D6E21653F96000736E5 /* rtg_operation_tests.c in Sources */,
@@ -444,14 +491,19 @@
 				CFAFC9C6217CBA85000842FC /* stt_named_function.c in Sources */,
 				CF376D5621653F7B000736E5 /* stt_operations_list_subnode_tests.c in Sources */,
 				CF9518212157D375004D3F16 /* persistence.c in Sources */,
+				CFA5DC332188E84B00D16B4B /* arn_variables_simple_list_tests.c in Sources */,
 				CF95181E2157D357004D3F16 /* rtg_operation_args_simple_list.c in Sources */,
 				CF9518282157D38E004D3F16 /* stdio_ninety_nine_modernizer.c in Sources */,
 				CF9518032157D33A004D3F16 /* stt_identifier_subnode.c in Sources */,
+				CFA5DC392188E88200D16B4B /* rational_tests.c in Sources */,
 				CF66A059217A558F004D0B09 /* arn_values_simple_list.c in Sources */,
 				CF5D0E0D2167E1FB00C73CA2 /* stt_rational_literal_subnode.c in Sources */,
 				CF95181D2157D357004D3F16 /* rtg_application.c in Sources */,
 				CF376D6921653F96000736E5 /* rtg_operations_simple_list_tests.c in Sources */,
+				CFA5DC3E2188E88D00D16B4B /* char_array_tests.c in Sources */,
 				CF376D4521653F7B000736E5 /* stt_execution_request_subnode_tests.c in Sources */,
+				CFA5DC342188E84B00D16B4B /* arn_values_simple_list_tests.c in Sources */,
+				CFA5DC3A2188E88200D16B4B /* integer_tests.c in Sources */,
 				CF376D4E21653F7B000736E5 /* stt_application_tests.c in Sources */,
 				CF9517F12157D33A004D3F16 /* stt_operations_simple_list.c in Sources */,
 				CF9518222157D375004D3F16 /* persistence_tests.c in Sources */,

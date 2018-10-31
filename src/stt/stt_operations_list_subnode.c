@@ -29,9 +29,12 @@
 stt_operations_list_subnode *
 stt_operations_list_subnode_default_constructor()
 {
-	stt_operations_list_subnode * returning_ =
-			malloc(sizeof(stt_operations_list_subnode));
+	stt_operations_list_subnode * returning_;
+
+	returning_ = malloc(sizeof(stt_operations_list_subnode));
+
 	returning_->operations_ = NULL;
+
 	return returning_;
 }
 
@@ -40,11 +43,31 @@ stt_operations_list_subnode_copy_constructor(
 		const stt_operations_list_subnode * subnode)
 {
 	stt_operations_list_subnode * ret_;
+
 	assertion(subnode != NULL);
 	assertion(subnode->operations_ != NULL);
+
 	ret_ = malloc(sizeof(stt_operations_list_subnode));
+
 	ret_->operations_ = stt_operations_simple_list_copy_constructor(
 			subnode->operations_);
+
+	return ret_;
+}
+
+stt_operations_list_subnode *
+stt_operations_list_subnode_exhaustive_constructor(
+		const stt_operations_simple_list * operations)
+{
+	stt_operations_list_subnode * ret_;
+
+	assertion(operations != NULL);
+
+	ret_ = malloc(sizeof(stt_operations_list_subnode));
+
+	ret_->operations_ = stt_operations_simple_list_copy_constructor(
+			operations);
+
 	return ret_;
 }
 

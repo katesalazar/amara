@@ -83,8 +83,11 @@ stt_rational_literal_subnode_get_raw(
 		const stt_rational_literal_subnode * subnode)
 {
 	assertion(subnode != NULL);
-	assertion(subnode->raw_ != NULL);
-	return subnode->raw_;
+	if (subnode->raw_ == NULL) {
+		return NULL;
+	}
+	assertion(subnode->raw_->value_ != NULL);
+	return amara_string_copy_constructor(subnode->raw_);
 }
 
 void
@@ -95,6 +98,7 @@ stt_rational_literal_subnode_set_raw(
 	assertion(subnode != NULL);
 	if (subnode->raw_ != NULL) {
 		amara_string_destructor(subnode->raw_);
+		subnode->raw_ = NULL;
 	}
 	if (raw != NULL) {
 		subnode->raw_ = amara_string_copy_constructor(raw);

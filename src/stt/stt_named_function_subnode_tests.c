@@ -23,6 +23,39 @@
 /*   For `stt_named_function_subnode`. */
 #include "stt_named_function_subnode.h"
 
+#include "stt_operation_tests.h"
+
+#include "stt_named_function_subnode_tests.h"
+
+void
+assert_expectations_on_stt_named_function_subnode_example_print_foo(
+		const stt_named_function_subnode * subnode)
+{
+	amara_string * expected_named_function_name_;
+	amara_boolean equality_;
+
+	expected_named_function_name_ =
+			amara_string_exhaustive_constructor("print_foo");
+	assertion(expected_named_function_name_ != NULL);
+	assertion(expected_named_function_name_->value_ != NULL);
+
+	assertion(subnode != NULL);
+	assertion(subnode->type_ ==
+			STT_NAMED_FUNCTION_SUBNODE_TYPE_CLI_APP_NAMED_FUNCTION);
+	assertion(subnode->name_ != NULL);
+	assertion(subnode->name_->value_ != NULL);
+	equality_ = amara_string_equality(
+			expected_named_function_name_, subnode->name_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+	assertion(subnode->operations_ != NULL);
+	assertion(subnode->operations_->first != NULL);
+	assert_expectations_on_stt_operation_example_print_foo(
+			subnode->operations_->first);
+	assertion(subnode->operations_->next == NULL);
+
+	amara_string_destructor(expected_named_function_name_);
+}
+
 void
 stt_named_function_subnode_construct_and_destruct_test_0()
 {

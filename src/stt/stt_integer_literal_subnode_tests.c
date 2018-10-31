@@ -23,10 +23,12 @@
 void stt_integer_literal_subnode_construct_and_destruct_test_0()
 {
 	stt_integer_literal_subnode * integer_literal_subnode_;
+
 	integer_literal_subnode_ =
 			stt_integer_literal_subnode_default_constructor();
 	assertion(integer_literal_subnode_ != NULL);
 	assertion(integer_literal_subnode_->raw_ == NULL);
+
 	stt_integer_literal_subnode_destructor(integer_literal_subnode_);
 }
 
@@ -35,18 +37,32 @@ void stt_integer_literal_subnode_construct_and_destruct_test_1()
 	stt_integer_literal_subnode * integer_literal_subnode_zero_;
 	stt_integer_literal_subnode * integer_literal_subnode_one_;
 	amara_string * raw_integer_;
+	amara_boolean equality_;
+
 	integer_literal_subnode_zero_ =
 			stt_integer_literal_subnode_default_constructor();
 	assertion(integer_literal_subnode_zero_ != NULL);
 	assertion(integer_literal_subnode_zero_->raw_ == NULL);
+
 	raw_integer_ = amara_string_exhaustive_constructor("-1");
+	assertion(raw_integer_ != NULL);
+
 	stt_integer_literal_subnode_set_raw(
 			integer_literal_subnode_zero_, raw_integer_);
+	assertion(integer_literal_subnode_zero_->raw_ != NULL);
+	equality_ = amara_string_equality(
+			integer_literal_subnode_zero_->raw_, raw_integer_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
 	integer_literal_subnode_one_ =
 			stt_integer_literal_subnode_copy_constructor(
 					integer_literal_subnode_zero_);
 	assertion(integer_literal_subnode_one_ != NULL);
 	assertion(integer_literal_subnode_one_->raw_ != NULL);
+	equality_ = amara_string_equality(
+			integer_literal_subnode_one_->raw_, raw_integer_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
 	amara_string_destructor(raw_integer_);
 	stt_integer_literal_subnode_destructor(integer_literal_subnode_one_);
 	stt_integer_literal_subnode_destructor(integer_literal_subnode_zero_);
@@ -58,8 +74,158 @@ void stt_integer_literal_subnode_construct_and_destruct_tests()
 	stt_integer_literal_subnode_construct_and_destruct_test_1();
 }
 
+void stt_integer_literal_subnode_get_raw_test_0()
+{
+	stt_integer_literal_subnode * integer_literal_subnode_;
+	amara_string * raw_integer_;
+	amara_string * extracted_raw_integer_;
+	amara_boolean equality_;
+
+	raw_integer_ = amara_string_exhaustive_constructor("-1");
+	assertion(raw_integer_ != NULL);
+	assertion(raw_integer_->value_ != NULL);
+
+	integer_literal_subnode_ =
+			stt_integer_literal_subnode_exhaustive_constructor(
+					raw_integer_);
+	assertion(integer_literal_subnode_ != NULL);
+	assertion(integer_literal_subnode_->raw_ != NULL);
+	equality_ = amara_string_equality(
+			integer_literal_subnode_->raw_, raw_integer_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
+	extracted_raw_integer_ = stt_integer_literal_subnode_get_raw(
+			integer_literal_subnode_);
+	assertion(integer_literal_subnode_->raw_ != NULL);
+	equality_ = amara_string_equality(
+			integer_literal_subnode_->raw_, raw_integer_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+	equality_ = amara_string_equality(
+			raw_integer_, extracted_raw_integer_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
+	stt_integer_literal_subnode_destructor(integer_literal_subnode_);
+	amara_string_destructor(raw_integer_);
+}
+
+void stt_integer_literal_subnode_get_raw_tests()
+{
+	stt_integer_literal_subnode_get_raw_test_0();
+}
+
+void stt_integer_literal_subnode_set_raw_test_0()
+{
+	stt_integer_literal_subnode * subnode_;
+	amara_string * raw_integer_;
+	amara_boolean equality_;
+
+	subnode_ = stt_integer_literal_subnode_default_constructor();
+	assertion(subnode_ != NULL);
+	assertion(subnode_->raw_ == NULL);
+
+	raw_integer_ = amara_string_exhaustive_constructor("-1");
+	assertion(raw_integer_ != NULL);
+	assertion(raw_integer_->value_ != NULL);
+
+	stt_integer_literal_subnode_set_raw(subnode_, raw_integer_);
+	assertion(subnode_->raw_ != NULL);
+	equality_ = amara_string_equality(subnode_->raw_, raw_integer_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
+	amara_string_destructor(raw_integer_);
+	stt_integer_literal_subnode_destructor(subnode_);
+}
+
+void stt_integer_literal_subnode_set_raw_test_1()
+{
+	stt_integer_literal_subnode * subnode_;
+	amara_string * raw_integer_;
+
+	subnode_ = stt_integer_literal_subnode_default_constructor();
+	assertion(subnode_ != NULL);
+	assertion(subnode_->raw_ == NULL);
+
+	raw_integer_ = NULL;
+
+	stt_integer_literal_subnode_set_raw(subnode_, raw_integer_);
+	assertion(subnode_->raw_ == NULL);
+
+	stt_integer_literal_subnode_destructor(subnode_);
+}
+
+void stt_integer_literal_subnode_set_raw_test_2()
+{
+	stt_integer_literal_subnode * subnode_;
+	amara_string * raw_integer_zero_;
+	amara_string * raw_integer_one_;
+	amara_boolean equality_;
+
+	raw_integer_zero_ = amara_string_exhaustive_constructor("-1");
+	assertion(raw_integer_zero_ != NULL);
+	assertion(raw_integer_zero_->value_ != NULL);
+
+	subnode_ = stt_integer_literal_subnode_exhaustive_constructor(
+			raw_integer_zero_);
+	assertion(subnode_ != NULL);
+	assertion(subnode_->raw_ != NULL);
+	equality_ = amara_string_equality(subnode_->raw_, raw_integer_zero_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
+	raw_integer_one_ = amara_string_exhaustive_constructor("-2");
+	assertion(raw_integer_one_ != NULL);
+	assertion(raw_integer_one_->value_ != NULL);
+	equality_ = amara_string_equality(raw_integer_zero_, raw_integer_one_);
+	assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_integer_literal_subnode_set_raw(subnode_, raw_integer_one_);
+	assertion(subnode_->raw_ != NULL);
+	equality_ = amara_string_equality(subnode_->raw_, raw_integer_one_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
+	amara_string_destructor(raw_integer_one_);
+	amara_string_destructor(raw_integer_zero_);
+	stt_integer_literal_subnode_destructor(subnode_);
+}
+
+void stt_integer_literal_subnode_set_raw_test_3()
+{
+	stt_integer_literal_subnode * subnode_;
+	amara_string * raw_integer_zero_;
+	amara_string * raw_integer_one_;
+	amara_boolean equality_;
+
+	raw_integer_zero_ = amara_string_exhaustive_constructor("-1");
+	assertion(raw_integer_zero_ != NULL);
+	assertion(raw_integer_zero_->value_ != NULL);
+
+	subnode_ = stt_integer_literal_subnode_exhaustive_constructor(
+			raw_integer_zero_);
+	assertion(subnode_ != NULL);
+	assertion(subnode_->raw_ != NULL);
+	equality_ = amara_string_equality(subnode_->raw_, raw_integer_zero_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
+	raw_integer_one_ = NULL;
+
+	stt_integer_literal_subnode_set_raw(subnode_, raw_integer_one_);
+	assertion(subnode_->raw_ == NULL);
+
+	amara_string_destructor(raw_integer_zero_);
+	stt_integer_literal_subnode_destructor(subnode_);
+}
+
+void stt_integer_literal_subnode_set_raw_tests()
+{
+	stt_integer_literal_subnode_set_raw_test_0();
+	stt_integer_literal_subnode_set_raw_test_1();
+	stt_integer_literal_subnode_set_raw_test_2();
+	stt_integer_literal_subnode_set_raw_test_3();
+}
+
 void
 stt_integer_literal_subnode_tests()
 {
 	stt_integer_literal_subnode_construct_and_destruct_tests();
+	stt_integer_literal_subnode_get_raw_tests();
+	stt_integer_literal_subnode_set_raw_tests();
 }

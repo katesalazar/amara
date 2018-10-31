@@ -98,12 +98,12 @@ do
 			echo "nice -n 19 ./build/debug/amara_g run app 'examples/'"
 			nice -n 19 ./build/debug/amara_g \
 					run app 'examples/'
-			echo "nice -n 19 ./build/debug/amara_g run app 'examples/2.0_naturals_substraction'"
+			echo "nice -n 19 ./build/debug/amara_g run app 'examples/2_naturals_substraction'"
 			nice -n 19 ./build/debug/amara_g \
-					run app 'examples/2.0_naturals_substraction'
-			echo "nice -n 19 ./build/debug/amara_g run app 'examples/2.1_naturals_division/'"
+					run app 'examples/2_naturals_substraction'
+			echo "nice -n 19 ./build/debug/amara_g run app 'examples/3_naturals_division/'"
 			nice -n 19 ./build/debug/amara_g \
-					run app 'examples/2.1_naturals_division/'
+					run app 'examples/3_naturals_division/'
 # 		fi
 # 		if test "${branch}" = 'integration' -o "${branch}" = 'master'
 # 		then
@@ -127,8 +127,8 @@ do
 			nice -n 19 ./build/debug/amara_g run app examples/1_functions_structure
 # 		if test "${branch}" = 'integration' -o "${branch}" = 'master'
 # 		then
-			echo "nice -n 19 ./build/debug/amara_g run app 'examples/2.0_naturals_substraction/'"
-			nice -n 19 ./build/debug/amara_g run app 'examples/2.0_naturals_substraction/'
+			echo "nice -n 19 ./build/debug/amara_g run app 'examples/2_naturals_substraction/'"
+			nice -n 19 ./build/debug/amara_g run app 'examples/2_naturals_substraction/'
 # 		fi
 			echo 'nice -n 19 ./build/debug/amara_g greet --no-banner'
 			nice -n 19 ./build/debug/amara_g greet --no-banner
@@ -199,6 +199,17 @@ do
 # 		echo 'nice -n 19 valgrind --quiet ./build/release/amara says hello' &&
 # 		nice -n 19 valgrind --quiet \
 # 				./build/release/amara says hello
+
+		echo 99 | ./build/debug/amara_g run app ./examples/7_fahrenheit_to_celsius_stdin/ --THIS_WILL_FAIL_USING_FOR_COVERAGE
+		echo 99 | ./build/debug/amara_g run --THIS_WILL_FAIL_USING_FOR_COVERAGE ./examples/7_fahrenheit_to_celsius_stdin/ --no-banner
+		echo 99 | ./build/debug/amara_g --THIS_WILL_FAIL_USING_FOR_COVERAGE app ./examples/7_fahrenheit_to_celsius_stdin/ --no-banner
+
+		echo 'running examples...'
+		./utils/qa/run_examples.py
+		echo 'runned examples...'
+
+		echo 99 | ./build/debug/amara_g run app ./examples/7_fahrenheit_to_celsius_stdin/ --no-banner
+
 		true &&
 				#   Removed the `gcov` call because it seemed
 				# to break the `lcov` branch coverage report.
@@ -228,6 +239,30 @@ do
 						--output-directory \
 								./gcov_results/ \
 						lcov.info &&
+
+				#   Dark orange in details changed to
+				# light red.
+				sed 's/FF6230/F99F99/g' ./gcov_results/gcov.css | \
+						#   Blue in details
+						# changed to light green.
+						sed 's/CAD7FE/B4E8A7/g' | \
+						#   Change the green
+						# in summaries.
+						sed 's/A7FC9D/66EE44/g' | \
+						#   Changed the yellow
+						# in summaries.
+						sed 's/FFEA20/FFD942/g' | \
+						#   Change the red in
+						# summaries.
+						sed 's/FF0000/FF4242/g' | \
+						sponge ./gcov_results/gcov.css &&
+
+				cp ./misc/emerald.png ./gcov_results/emerald.png &&
+				cp ./misc/ruby.png ./gcov_results/ruby.png &&
+				cp ./misc/amber.png ./gcov_results/amber.png &&
+
+				true &&
+
 				sudo rm -rfv ${BASE}/amara/${branch}/ &&
 				sudo cp -rfv ./gcov_results/ \
 						${BASE}/amara/${branch}/ &&
@@ -241,6 +276,7 @@ do
 							sudo mv ./index.html ${BASE}/amara/${branch}/index.html
 							figlet -w `tput cols` failed ${branch} &&
 							sleep 1)
+
 		rm -fv build/debug/minia.l &&
 				rm -fv build/debug/lex.minia.c &&
 				rm -fv build/debug/minia.tab.c &&

@@ -73,15 +73,122 @@ stt_execution_requests_simple_list_construct_and_destruct_test_2()
 }
 
 void
+stt_execution_requests_simple_list_construct_and_destruct_test_3()
+{
+	stt_execution_requests_simple_list * list_zero_;
+	stt_execution_requests_simple_list * list_one_;
+	stt_execution_request * execution_request_zero_;
+	stt_execution_request * execution_request_one_;
+	amara_string * execution_request_zero_application_name_;
+	amara_string * execution_request_one_application_name_;
+
+	list_zero_ = stt_execution_requests_simple_list_default_constructor();
+	assertion(list_zero_ != NULL);
+	assertion(list_zero_->first ==  NULL);
+	assertion(list_zero_->next ==  NULL);
+
+	execution_request_zero_ =
+			stt_execution_request_default_constructor();
+	assertion(execution_request_zero_ != NULL);
+	assertion(execution_request_zero_->type_ ==
+			STT_EXECUTION_REQUEST_TYPE_INVALID);
+	assertion(execution_request_zero_->application_name_ == NULL);
+
+	execution_request_zero_application_name_ =
+			amara_string_exhaustive_constructor("foo");
+	assertion(execution_request_zero_application_name_ != NULL);
+	assertion(execution_request_zero_application_name_->value_ != NULL);
+
+	stt_execution_request_set_application_name(
+			execution_request_zero_,
+			execution_request_zero_application_name_);
+	assertion(execution_request_zero_->application_name_ != NULL);
+	assertion(execution_request_zero_->application_name_->value_ != NULL);
+
+	stt_execution_request_set_type(
+			execution_request_zero_,
+			STT_EXECUTION_REQUEST_TYPE_CLI_APPLICATION);
+	assertion(execution_request_zero_->type_ ==
+			STT_EXECUTION_REQUEST_TYPE_CLI_APPLICATION);
+
+	execution_request_one_ =
+			stt_execution_request_default_constructor();
+	assertion(execution_request_one_ != NULL);
+	assertion(execution_request_one_->type_ ==
+			STT_EXECUTION_REQUEST_TYPE_INVALID);
+	assertion(execution_request_one_->application_name_ == NULL);
+
+	execution_request_one_application_name_ =
+			amara_string_exhaustive_constructor("bar");
+	assertion(execution_request_one_application_name_ != NULL);
+	assertion(execution_request_one_application_name_->value_ != NULL);
+
+	stt_execution_request_set_application_name(
+			execution_request_one_,
+			execution_request_one_application_name_);
+	assertion(execution_request_one_->application_name_ != NULL);
+	assertion(execution_request_one_->application_name_->value_ != NULL);
+
+	stt_execution_request_set_type(
+			execution_request_one_,
+			STT_EXECUTION_REQUEST_TYPE_CLI_APPLICATION);
+	assertion(execution_request_one_->type_ ==
+			STT_EXECUTION_REQUEST_TYPE_CLI_APPLICATION);
+
+	list_one_ = stt_execution_requests_simple_list_default_constructor();
+	assertion(list_one_ != NULL);
+	assertion(list_one_->first ==  NULL);
+	assertion(list_one_->next ==  NULL);
+
+	list_zero_ = stt_execution_requests_simple_list_push_front(
+			list_zero_, execution_request_zero_);
+	/* XXX add missing assertions. */
+
+	list_zero_ = stt_execution_requests_simple_list_push_front(
+			list_zero_, execution_request_one_);
+	/* XXX add missing assertions. */
+
+	list_one_ = stt_execution_requests_simple_list_copy_constructor(
+			list_zero_);
+	/* XXX add missing assertions. */
+
+	stt_execution_requests_simple_list_destructor(list_one_);
+	stt_execution_request_destructor(execution_request_one_);
+	stt_execution_request_destructor(execution_request_zero_);
+	stt_execution_requests_simple_list_destructor(list_zero_);
+}
+
+void
 stt_execution_requests_simple_list_construct_and_destruct_tests()
 {
 	stt_execution_requests_simple_list_construct_and_destruct_test_0();
 	stt_execution_requests_simple_list_construct_and_destruct_test_1();
 	stt_execution_requests_simple_list_construct_and_destruct_test_2();
+	stt_execution_requests_simple_list_construct_and_destruct_test_3();
+}
+
+void
+stt_execution_requests_simple_list_length_test_0()
+{
+	stt_execution_requests_simple_list * null_list_;
+	uint_fast8_t null_list_len_;
+
+	null_list_ = NULL;
+
+	null_list_len_ = stt_execution_requests_simple_list_length(null_list_);
+
+	assertion(null_list_len_ == 0);
+}
+
+void
+stt_execution_requests_simple_list_length_tests()
+{
+	stt_execution_requests_simple_list_length_test_0();
 }
 
 void
 stt_execution_requests_simple_list_tests()
 {
 	stt_execution_requests_simple_list_construct_and_destruct_tests();
+	stt_execution_requests_simple_list_length_tests();
 }

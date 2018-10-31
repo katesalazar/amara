@@ -24,10 +24,12 @@ void
 stt_natural_literal_subnode_construct_and_destruct_test_0()
 {
 	stt_natural_literal_subnode * natural_literal_subnode_;
+
 	natural_literal_subnode_ =
 			stt_natural_literal_subnode_default_constructor();
 	assertion(natural_literal_subnode_ != NULL);
 	assertion(natural_literal_subnode_->raw_ == NULL);
+
 	stt_natural_literal_subnode_destructor(natural_literal_subnode_);
 }
 
@@ -42,14 +44,59 @@ stt_natural_literal_subnode_setter_test_0()
 {
 	stt_natural_literal_subnode * natural_literal_subnode_;
 	amara_string * raw_natural_;
+	amara_boolean equality_;
+
 	natural_literal_subnode_ =
 			stt_natural_literal_subnode_default_constructor();
 	assertion(natural_literal_subnode_ != NULL);
 	assertion(natural_literal_subnode_->raw_ == NULL);
+
 	raw_natural_ = amara_string_exhaustive_constructor("0");
+
 	stt_natural_literal_subnode_set_raw(
 			natural_literal_subnode_, raw_natural_);
+
+	equality_ = amara_string_equality(
+			natural_literal_subnode_->raw_, raw_natural_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
 	amara_string_destructor(raw_natural_);
+	stt_natural_literal_subnode_destructor(natural_literal_subnode_);
+}
+
+void
+stt_natural_literal_subnode_setter_test_1()
+{
+	stt_natural_literal_subnode * natural_literal_subnode_;
+	amara_string * raw_natural_zero_;
+	amara_string * raw_natural_one_;
+	amara_boolean equality_;
+
+	natural_literal_subnode_ =
+			stt_natural_literal_subnode_default_constructor();
+	assertion(natural_literal_subnode_ != NULL);
+	assertion(natural_literal_subnode_->raw_ == NULL);
+
+	raw_natural_zero_ = amara_string_exhaustive_constructor("0");
+
+	stt_natural_literal_subnode_set_raw(
+			natural_literal_subnode_, raw_natural_zero_);
+
+	equality_ = amara_string_equality(
+			natural_literal_subnode_->raw_, raw_natural_zero_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
+	raw_natural_one_ = amara_string_exhaustive_constructor("1");
+
+	stt_natural_literal_subnode_set_raw(
+			natural_literal_subnode_, raw_natural_one_);
+
+	equality_ = amara_string_equality(
+			natural_literal_subnode_->raw_, raw_natural_one_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
+	amara_string_destructor(raw_natural_one_);
+	amara_string_destructor(raw_natural_zero_);
 	stt_natural_literal_subnode_destructor(natural_literal_subnode_);
 }
 
@@ -57,6 +104,7 @@ void
 stt_natural_literal_subnode_setter_tests()
 {
 	stt_natural_literal_subnode_setter_test_0();
+	stt_natural_literal_subnode_setter_test_1();
 }
 
 void

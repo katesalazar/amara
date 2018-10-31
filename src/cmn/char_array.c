@@ -38,6 +38,7 @@
 #include "../ftr/stdio_ninety_nine_modernizer.h"
 
 const uint_fast8_t max_concatenation_length_in_bytes = UINT8_MAX;
+
 const uint_fast8_t max_concatenation_length_in_chars = UINT8_MAX - 1;
 
 char *
@@ -56,9 +57,14 @@ concatenate_two_char_arrays(const char * zero, const char * one)
 				ret_, max_concatenation_length_in_chars + 1,
 				"%s", zero);
 		if (snprintf_ret_ >= max_concatenation_length_in_bytes) {
+			/* sprintf_ret_ = */ sprintf(
+					ret_, "%s",
+					"ERROR the `zero` string is larger than the implemented maximum");
+			/*
 			fprintf(stderr, "%s:%u - aborting operation", __FILE__,
 					__LINE__);
 			exit(EXIT_FAILURE);
+			*/
 		}
 		return ret_;
 	}
@@ -70,9 +76,14 @@ concatenate_two_char_arrays(const char * zero, const char * one)
 				ret_, max_concatenation_length_in_chars + 1,
 				"%s%s", zero, one);
 		if (snprintf_ret_ >= max_concatenation_length_in_bytes) {
+			/* sprintf_ret_ = */ sprintf(
+					ret_, "%s",
+					"ERROR the concatenation is clearly larger than the implemented maximum");
+			/*
 			fprintf(stderr, "%s:%u - aborting operation", __FILE__,
 					__LINE__);
 			exit(EXIT_FAILURE);
+			*/
 		}
 		return ret_;
 	}
@@ -82,9 +93,14 @@ concatenate_two_char_arrays(const char * zero, const char * one)
 	snprintf_ret_ = snprintf(
 			ret_, combined_length_ + 1, "%s%s", zero, one);
 	if (snprintf_ret_ >= max_concatenation_length_in_bytes) {
+		/* sprintf_ret_ = */ sprintf(
+				ret_, "%s",
+				"ERROR the concatenation is for some reason larger than the implemented maximum");
+		/*
 		fprintf(stderr, "%s:%u - aborting operation", __FILE__,
 				__LINE__);
 		exit(EXIT_FAILURE);
+		*/
 	}
 	return ret_;
 }

@@ -53,7 +53,7 @@ stt_named_function_exhaustive_constructor(
 		ret_->operations_ = NULL;
 		return ret_;
 	}
-	assertion(type == STT_NAMED_FUNCTION_TYPE_CLI_FUNCTION);
+	assertion(type == STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION);
 	assertion(name != NULL);
 	assertion(name->value_ != NULL);
 	assertion(operations != NULL);
@@ -65,7 +65,7 @@ stt_named_function_exhaustive_constructor(
 	assertion(operations->first->args_->next == NULL);
 	assertion(operations->next == NULL);
 	ret_ = malloc(sizeof(stt_named_function));
-	ret_->type_ = STT_NAMED_FUNCTION_TYPE_CLI_FUNCTION;
+	ret_->type_ = STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION;
 	ret_->name_ = amara_string_copy_constructor(name);
 	ret_->operations_ = stt_operations_simple_list_copy_constructor(
 			operations);
@@ -98,7 +98,7 @@ stt_named_function_destructor(stt_named_function * named_function)
 		assertion(named_function->operations_ == NULL);
 	} else {
 		assertion(named_function->type_ ==
-				STT_NAMED_FUNCTION_TYPE_CLI_FUNCTION);
+				STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION);
 		assertion(named_function->name_ != NULL);
 		amara_string_destructor(named_function->name_);
 		assertion(named_function->operations_ != NULL);
@@ -113,7 +113,7 @@ stt_named_function_set_type(
 		stt_named_function * named_function, uint_fast8_t type)
 {
 	assertion(named_function != NULL);
-	assertion(type == STT_NAMED_FUNCTION_TYPE_CLI_FUNCTION);
+	assertion(type == STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION);
 	assertion(named_function->type_ == STT_NAMED_FUNCTION_TYPE_INVALID);
 	assertion(named_function->name_ != NULL);
 	assertion(named_function->operations_ != NULL);

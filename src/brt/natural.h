@@ -33,8 +33,17 @@ __attribute__((warn_unused_result))
 ;
 
 natural *
+natural_exhaustive_constructor(const amara_string * raw)
+__attribute__((warn_unused_result))
+;
+
+natural *
 natural_copy_constructor(const natural * natural)
 __attribute__((warn_unused_result))
+;
+
+void
+natural_destructor(natural * natural)
 ;
 
 void

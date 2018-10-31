@@ -94,12 +94,12 @@ trace_flex_three(const char * s0, const char * s1, const char * s2)
   }
 -[1-9][0-9]* {
     trace_flex_three("returning T_INTEGER_LITERAL (", yytext, ")\n");
-    assertion_two_located_interim(0, "unimplemented code at %s:%d\n", __FILE__, __LINE__);
+    assertion_two(0, "unimplemented code at %s:%d\n");
     return T_INTEGER_LITERAL;
   }
 [0-9]*\.[0-9]+  {
     trace_flex_three("returning T_RATIONAL_LITERAL (", yytext, ")\n");
-    assertion_two_located_interim(0, "unimplemented code at %s:%d\n", __FILE__, __LINE__);
+    assertion_two(0, "unimplemented code at %s:%d\n");
     return T_RATIONAL_LITERAL;
                 }
 [0-9]+          {
@@ -385,7 +385,8 @@ a               {
     value_ = amara_string_default_constructor();
     amara_string_set_value(value_, value_char_array_);
     stt_string_literal_subnode_set_string_literal(
-        minialval.node->string_literal_subnode_, value_char_array_);
+        minialval.node->string_literal_subnode_, value_);
+    amara_string_destructor(value_);
     free(value_char_array_);
                   return T_STRING_LITERAL;
                 }

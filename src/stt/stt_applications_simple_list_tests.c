@@ -29,10 +29,12 @@ void
 stt_applications_simple_list_construct_and_destruct_test_0()
 {
 	stt_applications_simple_list * list_;
+
 	list_ = stt_applications_simple_list_default_constructor();
 	assertion(list_ != NULL);
 	assertion(list_->first == NULL);
 	assertion(list_->next == NULL);
+
 	stt_applications_simple_list_destructor(list_);
 }
 
@@ -41,14 +43,17 @@ stt_applications_simple_list_construct_and_destruct_test_1()
 {
 	stt_applications_simple_list * list_zero_;
 	stt_applications_simple_list * list_one_;
+
 	list_zero_ = stt_applications_simple_list_default_constructor();
 	assertion(list_zero_ != NULL);
 	assertion(list_zero_->first == NULL);
 	assertion(list_zero_->next == NULL);
+
 	list_one_ = stt_applications_simple_list_copy_constructor(list_zero_);
 	assertion(list_one_ != NULL);
 	assertion(list_one_->first == NULL);
 	assertion(list_one_->next == NULL);
+
 	stt_applications_simple_list_destructor(list_zero_);
 	stt_applications_simple_list_destructor(list_one_);
 }
@@ -59,21 +64,106 @@ stt_applications_simple_list_construct_and_destruct_test_2()
 	stt_applications_simple_list * list_zero_;
 	stt_application * application_;
 	stt_applications_simple_list * list_one_;
+
 	list_zero_ = stt_applications_simple_list_default_constructor();
 	assertion(list_zero_ != NULL);
 	assertion(list_zero_->first == NULL);
 	assertion(list_zero_->next == NULL);
+
 	application_ = stt_application_example_print_foo();
+	assertion(application_ != NULL);
+	assert_expectations_on_stt_application_example_print_foo(application_);
+
 	list_zero_ = stt_applications_simple_list_push_front(
 			list_zero_, application_);
+	assertion(list_zero_ != NULL);
 	assertion(list_zero_->first != NULL);
+	assert_expectations_on_stt_application_example_print_foo(
+			list_zero_->first);
 	assertion(list_zero_->next == NULL);
+
 	list_one_ = stt_applications_simple_list_copy_constructor(list_zero_);
+	assertion(list_zero_->first != NULL);
+	assert_expectations_on_stt_application_example_print_foo(
+			list_zero_->first);
+	assertion(list_zero_->next == NULL);
 	assertion(list_one_ != NULL);
 	assertion(list_one_->first != NULL);
+	assert_expectations_on_stt_application_example_print_foo(
+			list_one_->first);
 	assertion(list_one_->next == NULL);
-	stt_applications_simple_list_destructor(list_zero_);
+
 	stt_applications_simple_list_destructor(list_one_);
+	stt_application_destructor(application_);
+	stt_applications_simple_list_destructor(list_zero_);
+}
+
+void
+stt_applications_simple_list_construct_and_destruct_test_3()
+{
+	stt_applications_simple_list * list_zero_;
+	stt_application * application_zero_;
+	stt_application * application_one_;
+	stt_applications_simple_list * list_one_;
+
+	list_zero_ = stt_applications_simple_list_default_constructor();
+	assertion(list_zero_ != NULL);
+	assertion(list_zero_->first == NULL);
+	assertion(list_zero_->next == NULL);
+
+	application_zero_ = stt_application_example_print_foo();
+	assertion(application_zero_ != NULL);
+	assert_expectations_on_stt_application_example_print_foo(
+			application_zero_);
+
+	application_one_ = stt_application_example_print_bar();
+	assertion(application_one_ != NULL);
+	assert_expectations_on_stt_application_example_print_bar(
+			application_one_);
+
+	list_zero_ = stt_applications_simple_list_push_front(
+			list_zero_, application_zero_);
+	assertion(list_zero_ != NULL);
+	assertion(list_zero_->first != NULL);
+	assert_expectations_on_stt_application_example_print_foo(
+			list_zero_->first);
+	assertion(list_zero_->next == NULL);
+
+	list_zero_ = stt_applications_simple_list_push_front(
+			list_zero_, application_one_);
+	assertion(list_zero_ != NULL);
+	assertion(list_zero_->first != NULL);
+	assert_expectations_on_stt_application_example_print_bar(
+			list_zero_->first);
+	assertion(list_zero_->next != NULL);
+	assertion(list_zero_->next->first != NULL);
+	assert_expectations_on_stt_application_example_print_foo(
+			list_zero_->next->first);
+	assertion(list_zero_->next->next == NULL);
+
+	list_one_ = stt_applications_simple_list_copy_constructor(list_zero_);
+	assertion(list_zero_->first != NULL);
+	assert_expectations_on_stt_application_example_print_bar(
+			list_zero_->first);
+	assertion(list_zero_->next != NULL);
+	assertion(list_zero_->next->first != NULL);
+	assert_expectations_on_stt_application_example_print_foo(
+			list_zero_->next->first);
+	assertion(list_zero_->next->next == NULL);
+	assertion(list_one_ != NULL);
+	assertion(list_one_->first != NULL);
+	assert_expectations_on_stt_application_example_print_bar(
+			list_one_->first);
+	assertion(list_one_->next != NULL);
+	assertion(list_one_->next->first != NULL);
+	assert_expectations_on_stt_application_example_print_foo(
+			list_one_->next->first);
+	assertion(list_one_->next->next == NULL);
+
+	stt_applications_simple_list_destructor(list_one_);
+	stt_application_destructor(application_one_);
+	stt_application_destructor(application_zero_);
+	stt_applications_simple_list_destructor(list_zero_);
 }
 
 void
@@ -82,6 +172,7 @@ stt_applications_simple_list_construct_and_destruct_tests()
 	stt_applications_simple_list_construct_and_destruct_test_0();
 	stt_applications_simple_list_construct_and_destruct_test_1();
 	stt_applications_simple_list_construct_and_destruct_test_2();
+	stt_applications_simple_list_construct_and_destruct_test_3();
 }
 
 void

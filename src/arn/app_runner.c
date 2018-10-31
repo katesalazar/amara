@@ -275,8 +275,11 @@ run_operation(
 					values,
 					operation->args_->first->identifier_);
 			assertion(value_ != NULL); /* XXX it might not be, and then must raise semantic error */
+			fprintf(stderr, "%u\n", value_->type_);
+			/******* FIXME this assertion below is failing...... */
 			assertion(value_->type_ ==
-					ARN_VALUE_TYPE_ASSIGNED_NATURAL); /* XXX might be string literal, other number class, etc. */
+					ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL); /* XXX might be string literal, other number class, etc. */
+			/******* FIXME this assertion above is failing...... */
 			natural_assert_validity(value_->natural_);
 			printf("%s", value_->natural_->raw_->value_);
 		} else {
@@ -360,7 +363,8 @@ run_operation(
 		assertion(values->first->name_ != NULL);
 		assertion(values->first->name_->value_ != NULL);
 		assertion(!strcmp(values->first->name_->value_, "i_fahrenheit"));
-		assertion(values->first->type_ == ARN_VALUE_TYPE_ASSIGNED_NATURAL);
+		assertion(values->first->type_ ==
+				ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL);
 		assertion(values->first->natural_ != NULL);
 		assertion(values->first->natural_->raw_ != NULL);
 		assertion(values->first->natural_->raw_->value_ != NULL);

@@ -30,15 +30,21 @@
 #define ARN_VALUE_TYPE_INVALID            0x00
 /**  Likely just created and then just named but not typed as of any
  * particular type (!). */
-#define ARN_VALUE_TYPE_UNDEFINED          0x01
+#define ARN_VALUE_TYPE_NAMED_VALUE_OF_UNDEFINED_TYPE 0x01
+/**  Likely named unassigned string value. */
+#define ARN_VALUE_TYPE_NAMED_UNASSIGNED_STRING       0x0F
 /**  Likely named unassigned natural value. */
-#define ARN_VALUE_TYPE_UNASSIGNED_NATURAL 0x10
+#define ARN_VALUE_TYPE_NAMED_UNASSIGNED_NATURAL      0x10
+/**  Named assigned string value. */
+#define ARN_VALUE_TYPE_NAMED_ASSIGNED_STRING         0x11
 /**  Named assigned natural value. */
-#define ARN_VALUE_TYPE_ASSIGNED_NATURAL   0x11
+#define ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL        0x12
 /**  Likely the result of running some [intermediate] operation, or some
  * named function, or... */
-#define ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING   0x12 /* XXX remove the _assigned_ part? */
-#define ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL  0x13 /* XXX remove the _assigned_ part? */
+#define ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING     0x13 /* XXX remove the _assigned_ part? */
+#define ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL    0x14 /* XXX remove the _assigned_ part? */
+#define ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_STRING   0x15 /* XXX */
+#define ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_NATURAL  0x16 /* XXX */
 
 typedef struct arn_value {
 	uint_fast8_t type_;
@@ -61,7 +67,25 @@ __attribute__((warn_unused_result))
 ;
 
 void
+arn_value_destructor(arn_value * value)
+;
+
+/**  XXX Must change into a returned struct, able to mark an error in the operation. */
+void
+arn_value_characterize_as_string(arn_value * value)
+;
+
+/**  XXX Must change into a returned struct, able to mark an error in the operation. */
+void
+arn_value_characterize_as_natural(arn_value * value)
+;
+
+void
 arn_value_set_name(arn_value * value, const amara_string * name)
+;
+
+void
+arn_value_set_string(arn_value * value, const amara_string * string)
 ;
 
 void

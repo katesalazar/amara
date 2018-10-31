@@ -30,10 +30,13 @@ rtg_application *
 rtg_application_default_constructor()
 {
 	rtg_application * ret_;
+
 	ret_ = malloc(sizeof(rtg_application));
+
 	ret_->entry_point_function_ = NULL;
 	ret_->name_ = NULL;
 	ret_->type_ = RTG_APPLICATION_TYPE_INVALID;
+
 	return ret_;
 }
 
@@ -41,15 +44,21 @@ rtg_application *
 rtg_application_copy_constructor(const rtg_application * application)
 {
 	rtg_application * ret_;
+
 	assertion(application != NULL);
 	assertion(application->name_ != NULL);
 	assertion(application->name_->value_ != NULL);
 	assertion(application->entry_point_function_ != NULL);
+
 	ret_ = malloc(sizeof(rtg_application));
+
 	ret_->entry_point_function_ = rtg_named_function_copy_constructor(
 			application->entry_point_function_);
+
 	ret_->name_ = amara_string_copy_constructor(application->name_);
+
 	ret_->type_ = application->type_;
+
 	return ret_;
 }
 
@@ -72,27 +81,29 @@ rtg_application_destructor(rtg_application * application)
 
 void
 rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret_destructor(
-		rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret * rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret_)
+		rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret * input_ret)
 {
-	assertion(rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret_ != NULL);
-	if (rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret_->status ==
+	assertion(input_ret != NULL);
+	assertion(input_ret->status ==
+			RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
+	/*
+	if (input_ret->status ==
 			RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
-		assertion(rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret_->application !=
-				NULL);
-		if (rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret_->application_was_moved ==
-				AMARA_BOOLEAN_FALSE) {
-			rtg_application_destructor(
-					rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret_->application);
+	*/
+		assertion(input_ret->application != NULL);
+		if (input_ret->application_was_moved == AMARA_BOOLEAN_FALSE) {
+			rtg_application_destructor(input_ret->application);
 		}
+	/*
 	} else {
-		assertion(rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret_->status ==
-					RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID /* ||
-				rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret_->status ==
-					RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC */);
-		assertion(rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret_->application ==
-				NULL);
+		assertion(input_ret->status ==
+					RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID ||
+				input_ret->status ==
+					RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC);
+		assertion(input_ret->application == NULL);
 	}
-	free(rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret_);
+	*/
+	free(input_ret);
 }
 
 rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret *
@@ -102,20 +113,22 @@ rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list(
 {
 	rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret * ret_;
 	rtg_named_function * application_entry_point_function_;
-	find_rtg_named_function_by_name_ret * find_entry_point_rtg_named_function_ret_;
+	rtg_named_functions_simple_list_find_by_name_ret * find_entry_point_rtg_named_function_ret_;
 	fprintf(stderr, "----> rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret * rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list(const stt_application *, const rtg_named_functions_simple_list *) (%s:%u)\n",
 			__FILE__, __LINE__);
 	ret_ = malloc(sizeof(
 			rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret));
 	ret_->status = RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID;
 	ret_->application = rtg_application_default_constructor();
-	find_entry_point_rtg_named_function_ret_ = find_rtg_named_function_by_name(
-			application->entry_point_function_name_, named_functions);
+	find_entry_point_rtg_named_function_ret_ =
+			rtg_named_functions_simple_list_find_by_name(
+					named_functions,
+					application->entry_point_function_name_);
 	assertion_two(find_entry_point_rtg_named_function_ret_ != NULL,
 			"unable to find function with particular name in list of functions (returned NULL)");
 	assertion_two(
 			find_entry_point_rtg_named_function_ret_->status ==
-					FIND_RTG_NAMED_FUNCTION_BY_NAME_RET_STATUS_SUCCESS,
+					RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS,
 			"unable to find function with particular name in list of functions (returned a non success return status code)");
 	assertion_two(
 			find_entry_point_rtg_named_function_ret_->named_function !=
@@ -125,7 +138,7 @@ rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list(
 			find_entry_point_rtg_named_function_ret_->named_function;
 	find_entry_point_rtg_named_function_ret_->named_function_was_moved =
 			AMARA_BOOLEAN_TRUE;
-	find_rtg_named_function_by_name_ret_destructor(
+	rtg_named_functions_simple_list_find_by_name_ret_destructor(
 			find_entry_point_rtg_named_function_ret_);
 	assertion(application_entry_point_function_ != NULL);
 	ret_->application->entry_point_function_ =

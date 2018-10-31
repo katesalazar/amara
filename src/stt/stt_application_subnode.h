@@ -23,6 +23,8 @@
 /*   For `amara_string`. */
 #include "../cmn/amara_string.h"
 
+#include "stt_application.h"
+
 #define STT_APPLICATION_SUBNODE_TYPE_INVALID         0x00
 #define STT_APPLICATION_SUBNODE_TYPE_CLI_APPLICATION 0xFF
 
@@ -40,6 +42,12 @@ __attribute__((warn_unused_result))
 stt_application_subnode *
 stt_application_subnode_copy_constructor(
 		const stt_application_subnode * subnode)
+__attribute__((warn_unused_result))
+;
+
+stt_application_subnode *
+stt_application_subnode_exhaustive_constructor(
+		const stt_application * application)
 __attribute__((warn_unused_result))
 ;
 

@@ -27,8 +27,23 @@ rtg_operation_example_print_foo(void)
 __attribute__((warn_unused_result))
 ;
 
+void
+assert_expectations_on_rtg_operation_example_print_foo(
+		const rtg_operation * operation)
+;
+
 rtg_operation *
 rtg_operation_example_print_bar(void)
+__attribute__((warn_unused_result))
+;
+
+void
+assert_expectations_on_rtg_operation_example_print_bar(
+		const rtg_operation * operation)
+;
+
+rtg_operation *
+rtg_operation_example_read_natural_into_i_foo(void)
 __attribute__((warn_unused_result))
 ;
 

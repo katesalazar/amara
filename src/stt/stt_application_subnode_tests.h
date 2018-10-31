@@ -20,6 +20,18 @@
 #ifndef __AMARA__SYNTAX_TREE__APPLICATION_SUBNODE_TESTS__H__
 #define __AMARA__SYNTAX_TREE__APPLICATION_SUBNODE_TESTS__H__
 
+#include "stt_application_subnode.h"
+
+stt_application_subnode *
+stt_application_subnode_example_print_foo(void)
+__attribute__((warn_unused_result))
+;
+
+void
+assert_expectations_on_stt_application_subnode_example_print_foo(
+		const stt_application_subnode * subnode)
+;
+
 void
 stt_application_subnode_tests(void)
 ;

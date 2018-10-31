@@ -26,11 +26,14 @@
 stt_application_subnode *
 stt_application_subnode_default_constructor()
 {
-	stt_application_subnode * returning_ =
-			malloc(sizeof(stt_application_subnode));
+	stt_application_subnode * returning_;
+
+	returning_ = malloc(sizeof(stt_application_subnode));
+
 	returning_->type_ = STT_APPLICATION_SUBNODE_TYPE_INVALID;
 	returning_->name_ = NULL;
 	returning_->entry_point_function_name_ = NULL;
+
 	return returning_;
 }
 
@@ -39,17 +42,49 @@ stt_application_subnode_copy_constructor(
 		const stt_application_subnode * subnode)
 {
 	stt_application_subnode * ret_;
+
 	assertion(subnode != NULL);
 	assertion(subnode->type_ != STT_APPLICATION_SUBNODE_TYPE_INVALID);
 	assertion(subnode->name_ != NULL);
 	assertion(subnode->name_->value_ != NULL);
 	assertion(subnode->entry_point_function_name_ != NULL);
 	assertion(subnode->entry_point_function_name_->value_ != NULL);
+
 	ret_ = malloc(sizeof(stt_application_subnode));
+
 	ret_->entry_point_function_name_ = amara_string_copy_constructor(
 			subnode->entry_point_function_name_);
+
 	ret_->name_ = amara_string_copy_constructor(subnode->name_);
+
 	ret_->type_ = subnode->type_;
+
+	return ret_;
+}
+
+stt_application_subnode *
+stt_application_subnode_exhaustive_constructor(
+		const stt_application * application)
+{
+	stt_application_subnode * ret_;
+
+	assertion(application != NULL);
+	assertion(application->type_ != STT_APPLICATION_TYPE_INVALID);
+	assertion(application->name_ != NULL);
+	assertion(application->name_->value_ != NULL);
+	assertion(application->entry_point_function_name_ != NULL);
+	assertion(application->entry_point_function_name_->value_ != NULL);
+
+	ret_ = malloc(sizeof(stt_application_subnode));
+
+	ret_->entry_point_function_name_ = amara_string_copy_constructor(
+			application->entry_point_function_name_);
+
+	ret_->name_ = amara_string_copy_constructor(application->name_);
+
+	assertion(application->type_ == STT_APPLICATION_TYPE_CLI_APPLICATION);
+	ret_->type_ = STT_APPLICATION_SUBNODE_TYPE_CLI_APPLICATION;
+
 	return ret_;
 }
 

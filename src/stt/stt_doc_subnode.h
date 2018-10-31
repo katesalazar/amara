@@ -20,13 +20,13 @@
 #define __AMARA__SYNTAX_TREE__DOC_SUBNODE__H__
 
 /*   For `rtg_named_functions_simple_list`. */
-#include "../rtg/rtg_named_functions_simple_list.h"
+/* #include "../rtg/rtg_named_functions_simple_list.h" */
 
 /*   For `rtg_applications_simple_list`. */
-#include "../rtg/rtg_applications_simple_list.h"
+/* #include "../rtg/rtg_applications_simple_list.h" */
 
 /*   For `rtg_execution_requests_simple_list`. */
-#include "../rtg/rtg_execution_requests_simple_list.h"
+/* #include "../rtg/rtg_execution_requests_simple_list.h" */
 
 /*   For `stt_named_functions_simple_list`. */
 #include "stt_named_functions_simple_list.h"
@@ -63,70 +63,6 @@ __attribute__((warn_unused_result))
 
 void
 stt_doc_subnode_destructor(stt_doc_subnode * subnode)
-;
-
-#define RTG_NAMED_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_INVALID 0x00
-#define RTG_NAMED_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_ERROR_UNSPECIFIC 0x0F
-#define RTG_NAMED_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_SUCCESS 0xFF
-
-typedef struct rtg_named_functions_out_of_stt_doc_ret {
-	uint_fast8_t status;
-	rtg_named_functions_simple_list * named_functions;
-	amara_boolean named_functions_were_moved;
-} rtg_named_functions_out_of_stt_doc_ret;
-
-void
-rtg_named_functions_out_of_stt_doc_ret_destructor(
-		rtg_named_functions_out_of_stt_doc_ret * rtg_named_functions_out_of_stt_doc_ret_)
-;
-
-rtg_named_functions_out_of_stt_doc_ret *
-rtg_named_functions_out_of_stt_doc(const stt_doc_subnode * subnode)
-__attribute__((warn_unused_result))
-;
-
-#define RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID 0x00
-#define RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC 0x0F
-#define RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
-
-typedef struct rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret {
-	uint_fast8_t status;
-	rtg_applications_simple_list * applications;
-	amara_boolean applications_were_moved;
-} rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret;
-
-void
-rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret_destructor(
-		rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret * rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret_)
-;
-
-rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret *
-rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list(
-		const stt_doc_subnode * subnode,
-		const rtg_named_functions_simple_list * named_functions)
-__attribute__((warn_unused_result))
-;
-
-#define RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_INVALID 0x00
-#define RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC 0x0F
-#define RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
-
-typedef struct rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret {
-	uint_fast8_t status;
-	rtg_execution_requests_simple_list * execution_requests;
-	amara_boolean execution_requests_were_moved;
-} rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret;
-
-void
-rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_destructor(
-		rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret * rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_)
-;
-
-rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret *
-rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list(
-		const stt_doc_subnode * subnode,
-		const rtg_applications_simple_list * applications)
-__attribute__((warn_unused_result))
 ;
 
 #endif

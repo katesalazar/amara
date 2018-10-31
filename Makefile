@@ -165,19 +165,28 @@ UTILS_DIR = utils
 	$(SRC_DIR)/cmn/amara_string.c \
 	$(SRC_DIR)/cmn/amara_string_tests.c \
 	$(SRC_DIR)/arn/app_runner.c \
-	$(SRC_DIR)/arn/arn_vale.c \
+	$(SRC_DIR)/arn/arn_tests.c \
+	$(SRC_DIR)/arn/arn_value.c \
+	$(SRC_DIR)/arn/arn_value_tests.c \
 	$(SRC_DIR)/arn/arn_values_fixed_list.c \
+	$(SRC_DIR)/arn/arn_values_fixed_list_tests.c \
 	$(SRC_DIR)/arn/arn_values_simple_list.c \
+	$(SRC_DIR)/arn/arn_values_simple_list_tests.c \
 	$(SRC_DIR)/arn/arn_variable.c \
+	$(SRC_DIR)/arn/arn_variable_tests.c \
 	$(SRC_DIR)/arn/arn_variables_simple_list.c \
+	$(SRC_DIR)/arn/arn_variables_simple_list_tests.c \
 	$(SRC_DIR)/arg.c \
 	$(SRC_DIR)/asr/assertion.c \
 	$(SRC_DIR)/brt/basic_arithmetic_tests.o \
 	$(SRC_DIR)/cmn/char_array.h \
+	$(SRC_DIR)/cmn/char_array_tests.h \
 	$(SRC_DIR)/cmn/char_arrays_simple_list.h \
+	$(SRC_DIR)/cmn/char_arrays_simple_list_tests.h \
 	$(SRC_DIR)/cmn/common_tests.c \
 	$(SRC_DIR)/wrp/dirent_wrapper.c \
 	$(SRC_DIR)/brt/integer.c \
+	$(SRC_DIR)/brt/integer_tests.c \
 	$(SRC_DIR)/main.c \
 	$(SRC_DIR)/bsn/lex.minia.c \
 	$(SRC_DIR)/bsn/minia.tab.c \
@@ -186,6 +195,7 @@ UTILS_DIR = utils
 	$(SRC_DIR)/prs/persistence.c \
 	$(SRC_DIR)/prs/persistence_tests.c \
 	$(SRC_DIR)/brt/rational.c \
+	$(SRC_DIR)/brt/rationa_tests.c \
 	$(SRC_DIR)/rtg/rtg_application.c \
 	$(SRC_DIR)/rtg/rtg_application_tests.c \
 	$(SRC_DIR)/rtg/rtg_applications_simple_list.c \
@@ -195,6 +205,7 @@ UTILS_DIR = utils
 	$(SRC_DIR)/rtg/rtg_execution_request.c \
 	$(SRC_DIR)/rtg/rtg_execution_request_tests.c \
 	$(SRC_DIR)/rtg/rtg_execution_requests_simple_list.c \
+	$(SRC_DIR)/rtg/rtg_execution_requests_simple_list_tests.c \
 	$(SRC_DIR)/rtg/rtg_named_function.c \
 	$(SRC_DIR)/rtg/rtg_named_function_tests.c \
 	$(SRC_DIR)/rtg/rtg_named_functions_simple_list.c \
@@ -257,19 +268,28 @@ OBJ_DEBUG = \
 		$(BUILD_DIR_DEBUG)/amara_string.o \
 		$(BUILD_DIR_DEBUG)/amara_string_tests.o \
 		$(BUILD_DIR_DEBUG)/app_runner.o \
+		$(BUILD_DIR_DEBUG)/arn_tests.o \
 		$(BUILD_DIR_DEBUG)/arn_value.o \
+		$(BUILD_DIR_DEBUG)/arn_value_tests.o \
 		$(BUILD_DIR_DEBUG)/arn_values_fixed_list.o \
+		$(BUILD_DIR_DEBUG)/arn_values_fixed_list_tests.o \
 		$(BUILD_DIR_DEBUG)/arn_values_simple_list.o \
+		$(BUILD_DIR_DEBUG)/arn_values_simple_list_tests.o \
 		$(BUILD_DIR_DEBUG)/arn_variable.o \
+		$(BUILD_DIR_DEBUG)/arn_variable_tests.o \
 		$(BUILD_DIR_DEBUG)/arn_variables_simple_list.o \
+		$(BUILD_DIR_DEBUG)/arn_variables_simple_list_tests.o \
 		$(BUILD_DIR_DEBUG)/arg.o \
 		$(BUILD_DIR_DEBUG)/assertion.o \
 		$(BUILD_DIR_DEBUG)/basic_arithmetic_tests.o \
 		$(BUILD_DIR_DEBUG)/char_array.o \
+		$(BUILD_DIR_DEBUG)/char_array_tests.o \
 		$(BUILD_DIR_DEBUG)/char_arrays_simple_list.o \
+		$(BUILD_DIR_DEBUG)/char_arrays_simple_list_tests.o \
 		$(BUILD_DIR_DEBUG)/common_tests.o \
 		$(BUILD_DIR_DEBUG)/dirent_wrapper.o \
 		$(BUILD_DIR_DEBUG)/integer.o \
+		$(BUILD_DIR_DEBUG)/integer_tests.o \
 		$(BUILD_DIR_DEBUG)/main.o \
 		$(BUILD_DIR_DEBUG)/minia_lex.o \
 		$(BUILD_DIR_DEBUG)/minia_tab.o \
@@ -278,6 +298,7 @@ OBJ_DEBUG = \
 		$(BUILD_DIR_DEBUG)/persistence.o \
 		$(BUILD_DIR_DEBUG)/persistence_tests.o \
 		$(BUILD_DIR_DEBUG)/rational.o \
+		$(BUILD_DIR_DEBUG)/rational_tests.o \
 		$(BUILD_DIR_DEBUG)/rtg_application.o \
 		$(BUILD_DIR_DEBUG)/rtg_application_tests.o \
 		$(BUILD_DIR_DEBUG)/rtg_applications_simple_list.o \
@@ -287,6 +308,7 @@ OBJ_DEBUG = \
 		$(BUILD_DIR_DEBUG)/rtg_execution_request.o \
 		$(BUILD_DIR_DEBUG)/rtg_execution_request_tests.o \
 		$(BUILD_DIR_DEBUG)/rtg_execution_requests_simple_list.o \
+		$(BUILD_DIR_DEBUG)/rtg_execution_requests_simple_list_tests.o \
 		$(BUILD_DIR_DEBUG)/rtg_named_function.o \
 		$(BUILD_DIR_DEBUG)/rtg_named_function_tests.o \
 		$(BUILD_DIR_DEBUG)/rtg_named_functions_simple_list.o \
@@ -349,19 +371,28 @@ OBJ_RELEASE = \
 		$(BUILD_DIR_RELEASE)/amara_string.o \
 		$(BUILD_DIR_RELEASE)/amara_string_tests.o \
 		$(BUILD_DIR_RELEASE)/app_runner.o \
+		$(BUILD_DIR_RELEASE)/arn_tests.o \
 		$(BUILD_DIR_RELEASE)/arn_value.o \
+		$(BUILD_DIR_RELEASE)/arn_value_tests.o \
 		$(BUILD_DIR_RELEASE)/arn_values_fixed_list.o \
+		$(BUILD_DIR_RELEASE)/arn_values_fixed_list_tests.o \
 		$(BUILD_DIR_RELEASE)/arn_values_simple_list.o \
+		$(BUILD_DIR_RELEASE)/arn_values_simple_list_tests.o \
 		$(BUILD_DIR_RELEASE)/arn_variable.o \
+		$(BUILD_DIR_RELEASE)/arn_variable_tests.o \
 		$(BUILD_DIR_RELEASE)/arn_variables_simple_list.o \
+		$(BUILD_DIR_RELEASE)/arn_variables_simple_list_tests.o \
 		$(BUILD_DIR_RELEASE)/arg.o \
 		$(BUILD_DIR_RELEASE)/assertion.o \
 		$(BUILD_DIR_RELEASE)/basic_arithmetic_tests.o \
 		$(BUILD_DIR_RELEASE)/char_array.o \
+		$(BUILD_DIR_RELEASE)/char_array_tests.o \
 		$(BUILD_DIR_RELEASE)/char_arrays_simple_list.o \
+		$(BUILD_DIR_RELEASE)/char_arrays_simple_list_tests.o \
 		$(BUILD_DIR_RELEASE)/common_tests.o \
 		$(BUILD_DIR_RELEASE)/dirent_wrapper.o \
 		$(BUILD_DIR_RELEASE)/integer.o \
+		$(BUILD_DIR_RELEASE)/integer_tests.o \
 		$(BUILD_DIR_RELEASE)/main.o \
 		$(BUILD_DIR_RELEASE)/minia_lex.o \
 		$(BUILD_DIR_RELEASE)/minia_tab.o \
@@ -370,6 +401,7 @@ OBJ_RELEASE = \
 		$(BUILD_DIR_RELEASE)/persistence.o \
 		$(BUILD_DIR_RELEASE)/persistence_tests.o \
 		$(BUILD_DIR_RELEASE)/rational.o \
+		$(BUILD_DIR_RELEASE)/rational_tests.o \
 		$(BUILD_DIR_RELEASE)/rtg_application.o \
 		$(BUILD_DIR_RELEASE)/rtg_application_tests.o \
 		$(BUILD_DIR_RELEASE)/rtg_applications_simple_list.o \
@@ -379,6 +411,7 @@ OBJ_RELEASE = \
 		$(BUILD_DIR_RELEASE)/rtg_execution_request.o \
 		$(BUILD_DIR_RELEASE)/rtg_execution_request_tests.o \
 		$(BUILD_DIR_RELEASE)/rtg_execution_requests_simple_list.o \
+		$(BUILD_DIR_RELEASE)/rtg_execution_requests_simple_list_tests.o \
 		$(BUILD_DIR_RELEASE)/rtg_named_function.o \
 		$(BUILD_DIR_RELEASE)/rtg_named_function_tests.o \
 		$(BUILD_DIR_RELEASE)/rtg_named_functions_simple_list.o \
@@ -458,7 +491,11 @@ amara: $(BUILD_DIR_RELEASE)/amara
 
 #   It's most probably not required to go back to the source but... well
 # maybe it's tidier like this.
-$(SRC_DIR)/bsn/minia.tab.c $(SRC_DIR)/bsn/minia.tab.h: $(SRC_DIR)/bsn/minia.y $(SRC_DIR)/asr/assertion.h $(SRC_DIR)/brt/natural.h $(SRC_DIR)/stt/stt_node.h
+$(SRC_DIR)/bsn/minia.tab.c $(SRC_DIR)/bsn/minia.tab.h: \
+		$(SRC_DIR)/bsn/minia.y \
+		$(SRC_DIR)/asr/assertion.h \
+		$(SRC_DIR)/brt/natural.h \
+		$(SRC_DIR)/stt/stt_node.h
 	sh -c "pwd && \
 			cd $(SRC_DIR)/bsn/ && \
 			pwd && \
@@ -475,7 +512,11 @@ $(SRC_DIR)/bsn/minia.tab.c $(SRC_DIR)/bsn/minia.tab.h: $(SRC_DIR)/bsn/minia.y $(
 
 #   It's most probably not required to go back to the source but... well
 # maybe it's tidier like this.
-$(SRC_DIR)/bsn/lex.minia.c: $(SRC_DIR)/bsn/minia.l $(SRC_DIR)/bsn/minia.tab.h
+$(SRC_DIR)/bsn/lex.minia.c: \
+		$(SRC_DIR)/bsn/minia.l \
+		$(SRC_DIR)/bsn/minia.tab.h \
+		$(SRC_DIR)/asr/assertion.h \
+		$(SRC_DIR)/stt/stt_node.h
 	pwd && \
 			cd $(SRC_DIR)/bsn/ && \
 			pwd && \
@@ -531,6 +572,30 @@ $(BUILD_DIR_DEBUG)/char_arrays_simple_list.o: $(SRC_DIR)/cmn/char_arrays_simple_
 $(BUILD_DIR_RELEASE)/char_arrays_simple_list.o: $(SRC_DIR)/cmn/char_arrays_simple_list.c $(SRC_DIR)/cmn/char_arrays_simple_list.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $(SRC_DIR)/cmn/char_arrays_simple_list.c
 
+$(BUILD_DIR_DEBUG)/char_arrays_simple_list_tests.o: \
+		$(SRC_DIR)/cmn/char_arrays_simple_list_tests.c \
+		$(SRC_DIR)/cmn/char_arrays_simple_list_tests.h \
+		$(SRC_DIR)/cmn/char_arrays_simple_list.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/char_arrays_simple_list_tests.o: \
+		$(SRC_DIR)/cmn/char_arrays_simple_list_tests.c \
+		$(SRC_DIR)/cmn/char_arrays_simple_list_tests.h \
+		$(SRC_DIR)/cmn/char_arrays_simple_list.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/char_array_tests.o: \
+		$(SRC_DIR)/cmn/char_array_tests.c \
+		$(SRC_DIR)/cmn/char_array_tests.h \
+		$(SRC_DIR)/cmn/char_array.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/char_array_tests.o: \
+		$(SRC_DIR)/cmn/char_array_tests.c \
+		$(SRC_DIR)/cmn/char_array_tests.h \
+		$(SRC_DIR)/cmn/char_array.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
 $(BUILD_DIR_DEBUG)/common_tests.o: $(SRC_DIR)/cmn/common_tests.c $(SRC_DIR)/cmn/common_tests.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $(SRC_DIR)/cmn/common_tests.c
 
@@ -573,11 +638,35 @@ $(BUILD_DIR_DEBUG)/integer.o: $(SRC_DIR)/brt/integer.c $(SRC_DIR)/brt/integer.h
 $(BUILD_DIR_RELEASE)/integer.o: $(SRC_DIR)/brt/integer.c $(SRC_DIR)/brt/integer.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $(SRC_DIR)/brt/integer.c
 
+$(BUILD_DIR_DEBUG)/integer_tests.o: \
+		$(SRC_DIR)/brt/integer_tests.c \
+		$(SRC_DIR)/brt/integer_tests.h \
+		$(SRC_DIR)/brt/integer.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/integer_tests.o: \
+		$(SRC_DIR)/brt/integer_tests.c \
+		$(SRC_DIR)/brt/integer_tests.h \
+		$(SRC_DIR)/brt/integer.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
 $(BUILD_DIR_DEBUG)/rational.o: $(SRC_DIR)/brt/rational.c $(SRC_DIR)/brt/rational.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $(SRC_DIR)/brt/rational.c
 
 $(BUILD_DIR_RELEASE)/rational.o: $(SRC_DIR)/brt/rational.c $(SRC_DIR)/brt/rational.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $(SRC_DIR)/brt/rational.c
+
+$(BUILD_DIR_DEBUG)/rational_tests.o: \
+		$(SRC_DIR)/brt/rational_tests.c \
+		$(SRC_DIR)/brt/rational_tests.h \
+		$(SRC_DIR)/brt/rational.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/rational_tests.o: \
+		$(SRC_DIR)/brt/rational_tests.c \
+		$(SRC_DIR)/brt/rational_tests.h \
+		$(SRC_DIR)/brt/rational.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_DEBUG)/app_runner.o: $(SRC_DIR)/arn/app_runner.c $(SRC_DIR)/arn/app_runner.h $(SRC_DIR)/stt/stt_node.h $(SRC_DIR)/rtg/rtg_operation_args_simple_list.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $(BUILD_DIR_DEBUG)/app_runner.o $(SRC_DIR)/arn/app_runner.c
@@ -585,10 +674,38 @@ $(BUILD_DIR_DEBUG)/app_runner.o: $(SRC_DIR)/arn/app_runner.c $(SRC_DIR)/arn/app_
 $(BUILD_DIR_RELEASE)/app_runner.o: $(SRC_DIR)/arn/app_runner.c $(SRC_DIR)/arn/app_runner.h $(SRC_DIR)/stt/stt_node.h $(SRC_DIR)/rtg/rtg_operation_args_simple_list.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $(BUILD_DIR_RELEASE)/app_runner.o $(SRC_DIR)/arn/app_runner.c
 
+$(BUILD_DIR_DEBUG)/arn_tests.o: \
+		$(SRC_DIR)/arn/arn_tests.c \
+		$(SRC_DIR)/arn/arn_tests.h \
+		$(SRC_DIR)/arn/arn_variable.h \
+		$(SRC_DIR)/arn/arn_variables_simple_list.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/arn_tests.o: \
+		$(SRC_DIR)/arn/arn_tests.c \
+		$(SRC_DIR)/arn/arn_tests.h \
+		$(SRC_DIR)/arn/arn_variable.h \
+		$(SRC_DIR)/arn/arn_variables_simple_list.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
 $(BUILD_DIR_DEBUG)/arn_value.o: $(SRC_DIR)/arn/arn_value.c $(SRC_DIR)/arn/arn_value.h $(SRC_DIR)/brt/natural.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
 $(BUILD_DIR_RELEASE)/arn_value.o: $(SRC_DIR)/arn/arn_value.c $(SRC_DIR)/arn/arn_value.h $(SRC_DIR)/brt/natural.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/arn_value_tests.o: \
+		$(SRC_DIR)/arn/arn_value_tests.c \
+		$(SRC_DIR)/arn/arn_value_tests.h \
+		$(SRC_DIR)/arn/arn_value.h \
+		$(SRC_DIR)/brt/natural.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/arn_value_tests.o: \
+		$(SRC_DIR)/arn/arn_value_tests.c \
+		$(SRC_DIR)/arn/arn_value_tests.h \
+		$(SRC_DIR)/arn/arn_value.h \
+		$(SRC_DIR)/brt/natural.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_DEBUG)/arn_values_fixed_list.o: $(SRC_DIR)/arn/arn_values_fixed_list.c $(SRC_DIR)/arn/arn_values_fixed_list.h $(SRC_DIR)/arn/arn_value.h $(SRC_DIR)/brt/natural.h
@@ -597,10 +714,42 @@ $(BUILD_DIR_DEBUG)/arn_values_fixed_list.o: $(SRC_DIR)/arn/arn_values_fixed_list
 $(BUILD_DIR_RELEASE)/arn_values_fixed_list.o: $(SRC_DIR)/arn/arn_values_fixed_list.c $(SRC_DIR)/arn/arn_values_fixed_list.h $(SRC_DIR)/arn/arn_value.h $(SRC_DIR)/brt/natural.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
+$(BUILD_DIR_DEBUG)/arn_values_fixed_list_tests.o: \
+		$(SRC_DIR)/arn/arn_values_fixed_list_tests.c \
+		$(SRC_DIR)/arn/arn_values_fixed_list_tests.h \
+		$(SRC_DIR)/arn/arn_values_fixed_list.h \
+		$(SRC_DIR)/arn/arn_value.h \
+		$(SRC_DIR)/brt/natural.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/arn_values_fixed_list_tests.o: \
+		$(SRC_DIR)/arn/arn_values_fixed_list_tests.c \
+		$(SRC_DIR)/arn/arn_values_fixed_list_tests.h \
+		$(SRC_DIR)/arn/arn_values_fixed_list.h \
+		$(SRC_DIR)/arn/arn_value.h \
+		$(SRC_DIR)/brt/natural.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
 $(BUILD_DIR_DEBUG)/arn_values_simple_list.o: $(SRC_DIR)/arn/arn_values_simple_list.c $(SRC_DIR)/arn/arn_values_simple_list.h $(SRC_DIR)/arn/arn_value.h $(SRC_DIR)/brt/natural.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
 $(BUILD_DIR_RELEASE)/arn_values_simple_list.o: $(SRC_DIR)/arn/arn_values_simple_list.c $(SRC_DIR)/arn/arn_values_simple_list.h $(SRC_DIR)/arn/arn_value.h $(SRC_DIR)/brt/natural.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/arn_values_simple_list_tests.o: \
+		$(SRC_DIR)/arn/arn_values_simple_list_tests.c \
+		$(SRC_DIR)/arn/arn_values_simple_list_tests.h \
+		$(SRC_DIR)/arn/arn_values_simple_list.h \
+		$(SRC_DIR)/arn/arn_value.h \
+		$(SRC_DIR)/brt/natural.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/arn_values_simple_list_tests.o: \
+		$(SRC_DIR)/arn/arn_values_simple_list_tests.c \
+		$(SRC_DIR)/arn/arn_values_simple_list_tests.h \
+		$(SRC_DIR)/arn/arn_values_simple_list.h \
+		$(SRC_DIR)/arn/arn_value.h \
+		$(SRC_DIR)/brt/natural.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_DEBUG)/arn_variable.o: $(SRC_DIR)/arn/arn_variable.c $(SRC_DIR)/arn/arn_variable.h $(SRC_DIR)/brt/natural.h
@@ -609,10 +758,40 @@ $(BUILD_DIR_DEBUG)/arn_variable.o: $(SRC_DIR)/arn/arn_variable.c $(SRC_DIR)/arn/
 $(BUILD_DIR_RELEASE)/arn_variable.o: $(SRC_DIR)/arn/arn_variable.c $(SRC_DIR)/arn/arn_variable.h $(SRC_DIR)/brt/natural.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
+$(BUILD_DIR_DEBUG)/arn_variable_tests.o: \
+		$(SRC_DIR)/arn/arn_variable_tests.c \
+		$(SRC_DIR)/arn/arn_variable_tests.h \
+		$(SRC_DIR)/arn/arn_variable.h \
+		$(SRC_DIR)/brt/natural.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/arn_variable_tests.o: \
+		$(SRC_DIR)/arn/arn_variable_tests.c \
+		$(SRC_DIR)/arn/arn_variable_tests.h \
+		$(SRC_DIR)/arn/arn_variable.h \
+		$(SRC_DIR)/brt/natural.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
 $(BUILD_DIR_DEBUG)/arn_variables_simple_list.o: $(SRC_DIR)/arn/arn_variables_simple_list.c $(SRC_DIR)/arn/arn_variables_simple_list.h $(SRC_DIR)/arn/arn_variable.h $(SRC_DIR)/brt/natural.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
 $(BUILD_DIR_RELEASE)/arn_variables_simple_list.o: $(SRC_DIR)/arn/arn_variables_simple_list.c $(SRC_DIR)/arn/arn_variables_simple_list.h $(SRC_DIR)/arn/arn_variable.h $(SRC_DIR)/brt/natural.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/arn_variables_simple_list_tests.o: \
+		$(SRC_DIR)/arn/arn_variables_simple_list_tests.c \
+		$(SRC_DIR)/arn/arn_variables_simple_list_tests.h \
+		$(SRC_DIR)/arn/arn_variables_simple_list.h \
+		$(SRC_DIR)/arn/arn_variable.h \
+		$(SRC_DIR)/brt/natural.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/arn_variables_simple_list_tests.o: \
+		$(SRC_DIR)/arn/arn_variables_simple_list_tests.c \
+		$(SRC_DIR)/arn/arn_variables_simple_list_tests.h \
+		$(SRC_DIR)/arn/arn_variables_simple_list.h \
+		$(SRC_DIR)/arn/arn_variable.h \
+		$(SRC_DIR)/brt/natural.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_DEBUG)/persistence.o: $(SRC_DIR)/prs/persistence.c $(SRC_DIR)/prs/persistence.h $(SRC_DIR)/wrp/dirent_wrapper.h
@@ -697,10 +876,18 @@ $(BUILD_DIR_DEBUG)/rtg_doc_tests.o: $(SRC_DIR)/rtg/rtg_doc_tests.c $(SRC_DIR)/rt
 $(BUILD_DIR_RELEASE)/rtg_doc_tests.o: $(SRC_DIR)/rtg/rtg_doc_tests.c $(SRC_DIR)/rtg/rtg_doc_tests.h $(SRC_DIR)/rtg/rtg_doc.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
-$(BUILD_DIR_DEBUG)/rtg_execution_request.o: $(SRC_DIR)/rtg/rtg_execution_request.c $(SRC_DIR)/rtg/rtg_execution_request.h $(SRC_DIR)/rtg/rtg_application.h
+$(BUILD_DIR_DEBUG)/rtg_execution_request.o: \
+		$(SRC_DIR)/rtg/rtg_execution_request.c \
+		$(SRC_DIR)/rtg/rtg_execution_request.h \
+		$(SRC_DIR)/rtg/rtg_application.h \
+		$(SRC_DIR)/rtg/rtg_applications_simple_list.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
-$(BUILD_DIR_RELEASE)/rtg_execution_request.o: $(SRC_DIR)/rtg/rtg_execution_request.c $(SRC_DIR)/rtg/rtg_execution_request.h $(SRC_DIR)/rtg/rtg_application.h
+$(BUILD_DIR_RELEASE)/rtg_execution_request.o: \
+		$(SRC_DIR)/rtg/rtg_execution_request.c \
+		$(SRC_DIR)/rtg/rtg_execution_request.h \
+		$(SRC_DIR)/rtg/rtg_application.h \
+		$(SRC_DIR)/rtg/rtg_applications_simple_list.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_DEBUG)/rtg_execution_request_tests.o: $(SRC_DIR)/rtg/rtg_execution_request_tests.c $(SRC_DIR)/rtg/rtg_execution_request_tests.h $(SRC_DIR)/rtg/rtg_execution_request.h $(SRC_DIR)/rtg/rtg_application.h
@@ -713,6 +900,20 @@ $(BUILD_DIR_DEBUG)/rtg_execution_requests_simple_list.o: $(SRC_DIR)/rtg/rtg_exec
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
 $(BUILD_DIR_RELEASE)/rtg_execution_requests_simple_list.o: $(SRC_DIR)/rtg/rtg_execution_requests_simple_list.c $(SRC_DIR)/rtg/rtg_execution_requests_simple_list.h $(SRC_DIR)/rtg/rtg_execution_request.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/rtg_execution_requests_simple_list_tests.o: \
+		$(SRC_DIR)/rtg/rtg_execution_requests_simple_list_tests.c \
+		$(SRC_DIR)/rtg/rtg_execution_requests_simple_list_tests.h \
+		$(SRC_DIR)/rtg/rtg_execution_requests_simple_list.h \
+		$(SRC_DIR)/rtg/rtg_execution_request.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/rtg_execution_requests_simple_list_tests.o: \
+		$(SRC_DIR)/rtg/rtg_execution_requests_simple_list_tests.c \
+		$(SRC_DIR)/rtg/rtg_execution_requests_simple_list_tests.h \
+		$(SRC_DIR)/rtg/rtg_execution_requests_simple_list.h \
+		$(SRC_DIR)/rtg/rtg_execution_request.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_DEBUG)/rtg_named_function.o: \
@@ -1057,10 +1258,22 @@ $(BUILD_DIR_DEBUG)/stt_natural_literal_subnode_tests.o: $(SRC_DIR)/stt/stt_natur
 $(BUILD_DIR_RELEASE)/stt_natural_literal_subnode_tests.o: $(SRC_DIR)/stt/stt_natural_literal_subnode_tests.c $(SRC_DIR)/stt/stt_natural_literal_subnode_tests.h $(SRC_DIR)/stt/stt_natural_literal_subnode.h $(SRC_DIR)/cmn/amara_string.h $(SRC_DIR)/brt/natural.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
-$(BUILD_DIR_DEBUG)/stt_node.o: $(SRC_DIR)/stt/stt_node.c $(SRC_DIR)/stt/stt_node.h $(SRC_DIR)/stt/stt_doc_subnode.h $(SRC_DIR)/cmn/char_array.h $(SRC_DIR)/cmn/char_arrays_simple_list.h
+$(BUILD_DIR_DEBUG)/stt_node.o: \
+		$(SRC_DIR)/stt/stt_node.c \
+		$(SRC_DIR)/stt/stt_node.h \
+		$(SRC_DIR)/stt/stt_doc_subnode.h \
+		$(SRC_DIR)/cmn/char_array.h \
+		$(SRC_DIR)/cmn/char_arrays_simple_list.h \
+		$(SRC_DIR)/asr/assertion.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
-$(BUILD_DIR_RELEASE)/stt_node.o: $(SRC_DIR)/stt/stt_node.c $(SRC_DIR)/stt/stt_node.h $(SRC_DIR)/stt/stt_doc_subnode.h $(SRC_DIR)/cmn/char_array.h $(SRC_DIR)/cmn/char_arrays_simple_list.h
+$(BUILD_DIR_RELEASE)/stt_node.o: \
+		$(SRC_DIR)/stt/stt_node.c \
+		$(SRC_DIR)/stt/stt_node.h \
+		$(SRC_DIR)/stt/stt_doc_subnode.h \
+		$(SRC_DIR)/cmn/char_array.h \
+		$(SRC_DIR)/cmn/char_arrays_simple_list.h \
+		$(SRC_DIR)/asr/assertion.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_DEBUG)/stt_node_tests.o: $(SRC_DIR)/stt/stt_node_tests.c $(SRC_DIR)/stt/stt_node_tests.h $(SRC_DIR)/stt/stt_node.h $(SRC_DIR)/stt/stt_doc_subnode.h $(SRC_DIR)/cmn/char_array.h $(SRC_DIR)/cmn/char_arrays_simple_list.h

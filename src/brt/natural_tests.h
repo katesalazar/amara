@@ -20,7 +20,7 @@
 #define __AMARA__BASIC_ARITHMETIC__NATURAL_TESTS__H__
 
 void
-natural_tests_(void)
+natural_tests(void)
 ;
 
 #endif

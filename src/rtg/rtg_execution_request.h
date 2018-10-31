@@ -47,6 +47,13 @@ __attribute__((warn_unused_result))
 ;
 
 rtg_execution_request *
+rtg_execution_request_exhaustive_constructor(
+		uint_fast8_t requested_type,
+		const rtg_application * application)
+__attribute__((warn_unused_result))
+;
+
+rtg_execution_request *
 rtg_execution_request_copy_constructor(
 		const rtg_execution_request * execution_request)
 __attribute__((warn_unused_result))

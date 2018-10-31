@@ -25,13 +25,17 @@ assertion(int expression);
 void
 assertion_two(int expression, const char * message);
 
+/*
 void disarm_interim(char * message)
 ;
+*/
 
+/*
 void
 assertion_two_located_interim(
 		int expression, const char * message, const char * source_doc,
 		unsigned int source_line);
+*/
 
 void
 interpret_and_assert(const char * expression);

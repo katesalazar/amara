@@ -23,6 +23,8 @@
 /*   For `amara_string`. */
 #include "../cmn/amara_string.h"
 
+#include "stt_named_function.h"
+
 /*   For `stt_operations_simple_list.h`. */
 #include "stt_operations_simple_list.h"
 
@@ -44,6 +46,12 @@ __attribute__((warn_unused_result))
 stt_named_function_subnode *
 stt_named_function_subnode_copy_constructor(
 		const stt_named_function_subnode * subnode)
+__attribute__((warn_unused_result))
+;
+
+stt_named_function_subnode *
+stt_named_function_subnode_exhaustive_constructor(
+		const stt_named_function * named_function)
 __attribute__((warn_unused_result))
 ;
 

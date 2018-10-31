@@ -67,6 +67,8 @@
 /*   For `stt_operation_subnode_tests`. */
 #include "stt_operation_subnode_tests.h"
 
+#include "stt_operation_tests.h"
+
 /*   For `stt_operations_list_subnode_tests`. */
 #include "stt_operations_list_subnode_tests.h"
 
@@ -294,6 +296,7 @@ syntax_tree_tests_()
 	stt_rational_literal_subnode_tests();
 	stt_identifier_subnode_tests();
 	stt_operation_args_simple_list_tests();
+	stt_operation_tests();
 	stt_operations_simple_list_tests();
 	stt_operation_subnode_tests();
 	stt_operations_list_subnode_tests();

@@ -20,6 +20,18 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__EXECUTION_REQUEST_TESTS__H__
 #define __AMARA__RUN_TIME_GRAPH__EXECUTION_REQUEST_TESTS__H__
 
+#include "rtg_execution_request.h"
+
+rtg_execution_request *
+rtg_execution_request_example_execute_foo(void)
+__attribute__((warn_unused_result))
+;
+
+rtg_execution_request *
+rtg_execution_request_example_execute_bar(void)
+__attribute__((warn_unused_result))
+;
+
 void
 rtg_execution_request_tests(void)
 ;

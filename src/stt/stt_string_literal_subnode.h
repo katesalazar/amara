@@ -61,7 +61,7 @@ __attribute__((warn_unused_result))
 void
 stt_string_literal_subnode_set_string_literal(
 		stt_string_literal_subnode * subnode,
-		const char * string_literal)
+		amara_string * string_literal)
 ;
 
 amara_boolean

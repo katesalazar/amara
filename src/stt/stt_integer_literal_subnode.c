@@ -91,8 +91,10 @@ stt_integer_literal_subnode_set_raw(
 		stt_integer_literal_subnode * subnode,
 		const amara_string * raw)
 {
-	validate_amara_string_as_integer_literal(raw);
 	assertion(subnode != NULL);
+	if (raw != NULL) {
+		validate_amara_string_as_integer_literal(raw);
+	}
 	if (subnode->raw_ == NULL) {
 		if (raw != NULL) {
 			subnode->raw_ = amara_string_copy_constructor(raw);
@@ -101,6 +103,8 @@ stt_integer_literal_subnode_set_raw(
 		amara_string_destructor(subnode->raw_);
 		if (raw != NULL) {
 			subnode->raw_ = amara_string_copy_constructor(raw);
+		} else {
+			subnode->raw_ = NULL;
 		}
 	}
 }

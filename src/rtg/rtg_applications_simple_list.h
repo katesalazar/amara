@@ -54,25 +54,25 @@ rtg_applications_simple_list_push_front(
 __attribute__((warn_unused_result))
 ;
 
-#define FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_INVALID   0x00
-#define FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_SUCCESS   0x0F
-#define FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_NOT_FOUND 0xF0
+#define RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_INVALID   0x00
+#define RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS   0x0F
+#define RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND 0xF0
 
-typedef struct find_rtg_application_by_name_ret {
+typedef struct rtg_applications_simple_list_find_by_name_ret {
 	uint_fast8_t status;
 	rtg_application * application;
 	amara_boolean application_was_moved;
-} find_rtg_application_by_name_ret;
+} rtg_applications_simple_list_find_by_name_ret;
 
 void
-find_rtg_application_by_name_ret_destructor(
-		find_rtg_application_by_name_ret * find_rtg_application_by_name_ret_)
+rtg_applications_simple_list_find_by_name_ret_destructor(
+		rtg_applications_simple_list_find_by_name_ret * input_ret)
 ;
 
-find_rtg_application_by_name_ret *
-find_rtg_application_by_name(
-		const amara_string * needle,
-		const rtg_applications_simple_list * haystack)
+rtg_applications_simple_list_find_by_name_ret *
+rtg_applications_simple_list_find_by_name(
+		const rtg_applications_simple_list * haystack,
+		const amara_string * needle)
 __attribute__((warn_unused_result))
 ;
 
@@ -89,6 +89,28 @@ rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_f
 rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list(
 		const stt_applications_simple_list * stt_applications,
 		const rtg_named_functions_simple_list * rtg_named_functions)
+__attribute__((warn_unused_result))
+;
+
+#define RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID 0x00
+#define RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC 0x0F
+#define RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
+
+typedef struct rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret {
+	uint_fast8_t status;
+	rtg_applications_simple_list * applications;
+	amara_boolean applications_were_moved;
+} rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret;
+
+void
+rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret_destructor(
+		rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret * input_ret)
+;
+
+rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret *
+rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list(
+		const stt_doc_subnode * subnode,
+		const rtg_named_functions_simple_list * named_functions)
 __attribute__((warn_unused_result))
 ;
 

@@ -29,7 +29,10 @@
 /*   This is an enumeration, but it should probably become a mask. */
 
 #define STT_NAMED_FUNCTION_TYPE_INVALID      0x00
-#define STT_NAMED_FUNCTION_TYPE_CLI_FUNCTION 0xFF
+#define STT_NAMED_FUNCTION_TYPE_PURE_FUNCTION 0x0F
+#define STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION 0xF0
+#define STT_NAMED_FUNCTION_TYPE_CLI_APP_NAMED_FUNCTION \
+		STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION
 
 typedef struct stt_named_function {
 	uint_fast8_t type_;

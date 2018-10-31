@@ -48,6 +48,12 @@ __attribute__((warn_unused_result))
 ;
 
 void
+arn_variable_destructor(arn_variable * variable)
+;
+
+/*
+
+void
 arn_variable_set_name(arn_variable * variable, const amara_string * name)
 ;
 
@@ -55,12 +61,16 @@ void
 arn_variable_set_natural(arn_variable * variable, const natural * natural)
 ;
 
+*/
+
 /**  Pre: the variable is not assigned (type not
  * `ARN_VARIABLE_TYPE_ASSIGNED_NATURAL`). */
+/*
 void
 arn_variable_assign_natural_out_of_unsigned_int(
 		arn_variable * variable,
 		const unsigned int unsigned_int)
 ;
+*/
 
 #endif

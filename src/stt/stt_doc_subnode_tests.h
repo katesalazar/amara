@@ -20,6 +20,13 @@
 #ifndef __AMARA__SYNTAX_TREE__DOC_SUBNODE_TESTS__H__
 #define __AMARA__SYNTAX_TREE__DOC_SUBNODE_TESTS__H__
 
+#include "stt_doc_subnode.h"
+
+void
+assert_expectations_on_stt_doc_subnode_example_print_foo(
+		const stt_doc_subnode * subnode)
+;
+
 void
 stt_doc_subnode_tests(void)
 ;

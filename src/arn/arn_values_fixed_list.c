@@ -31,6 +31,28 @@ arn_values_fixed_list_default_constructor(void)
 }
 
 void
+arn_values_fixed_list_destructor(arn_values_fixed_list * values)
+{
+	arn_values_fixed_list * ptr_;
+	arn_values_fixed_list * ptr_delete_;
+
+	assertion(values != NULL);
+	if (values->first == NULL) {
+		assertion(values->next == NULL);
+		free(values);
+	} else {
+		ptr_ = values;
+		while (ptr_ != NULL) {
+			assertion(ptr_->first != NULL);
+			arn_value_destructor(ptr_->first);
+			ptr_delete_ = ptr_;
+			ptr_ = ptr_->next;
+			free(ptr_delete_);
+		}
+	}
+}
+
+void
 arn_values_fixed_list_push_front(
 		arn_values_fixed_list * values, const arn_value * value)
 {
@@ -40,6 +62,7 @@ arn_values_fixed_list_push_front(
 	if (values->first == NULL) {
 		assertion(values->next == NULL);
 		values->first = arn_value_copy_constructor(value);
+		return;
 	}
 	new_list_node_ = malloc(sizeof(arn_values_fixed_list));
 	new_list_node_->first = values->first;

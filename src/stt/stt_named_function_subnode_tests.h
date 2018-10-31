@@ -20,6 +20,13 @@
 #ifndef __AMARA__SYNTAX_TREE__NAMED_FUNCTION_SUBNODE_TESTS__H__
 #define __AMARA__SYNTAX_TREE__NAMED_FUNCTION_SUBNODE_TESTS__H__
 
+#include "stt_named_function_subnode.h"
+
+void
+assert_expectations_on_stt_named_function_subnode_example_print_foo(
+		const stt_named_function_subnode * subnode)
+;
+
 void
 stt_named_function_subnode_tests(void)
 ;

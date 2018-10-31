@@ -18,8 +18,38 @@
  */
 
 #include "../asr/assertion.h"
+
+#include "rtg_application_tests.h"
 #include "rtg_execution_request.h"
 #include "rtg_named_function_tests.h"
+
+#include "rtg_execution_request_tests.h"
+
+rtg_execution_request *
+rtg_execution_request_example_execute_foo()
+{
+	rtg_execution_request * returning_;
+	rtg_application * application_;
+	uint_fast8_t requested_type_;
+	requested_type_ = RTG_EXECUTION_REQUEST_TYPE_CLI_APPLICATION;
+	application_ = rtg_application_example_cli_app_print_foo();
+	returning_ = rtg_execution_request_exhaustive_constructor(
+			requested_type_, application_);
+	return returning_;
+}
+
+rtg_execution_request *
+rtg_execution_request_example_execute_bar()
+{
+	rtg_execution_request * returning_;
+	rtg_application * application_;
+	uint_fast8_t requested_type_;
+	requested_type_ = RTG_EXECUTION_REQUEST_TYPE_CLI_APPLICATION;
+	application_ = rtg_application_example_cli_app_print_bar();
+	returning_ = rtg_execution_request_exhaustive_constructor(
+			requested_type_, application_);
+	return returning_;
+}
 
 void
 rtg_execution_request_construct_and_destruct_test_0()
@@ -79,9 +109,7 @@ void
 rtg_execution_request_construct_and_destruct_tests()
 {
 	rtg_execution_request_construct_and_destruct_test_0();
-	/* XXX
 	rtg_execution_request_construct_and_destruct_test_1();
-	*/
 }
 
 void

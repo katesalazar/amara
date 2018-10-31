@@ -20,6 +20,13 @@
 #ifndef __AMARA__SYNTAX_TREE__EXECUTION_REQUEST_SUBNODE_TESTS__H__
 #define __AMARA__SYNTAX_TREE__EXECUTION_REQUEST_SUBNODE_TESTS__H__
 
+#include "stt_execution_request_subnode.h"
+
+void
+assert_expectations_on_stt_execution_request_subnode_example_print_foo(
+		const stt_execution_request_subnode * subnode)
+;
+
 void
 stt_execution_request_subnode_tests(void)
 ;

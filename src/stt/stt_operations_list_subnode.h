@@ -38,6 +38,12 @@ stt_operations_list_subnode_copy_constructor(
 __attribute__((warn_unused_result))
 ;
 
+stt_operations_list_subnode *
+stt_operations_list_subnode_exhaustive_constructor(
+		const stt_operations_simple_list * operations)
+__attribute__((warn_unused_result))
+;
+
 void
 stt_operations_list_subnode_destructor(stt_operations_list_subnode * subnode)
 ;

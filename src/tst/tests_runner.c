@@ -28,6 +28,8 @@
 /*   For `char * strcpy(char * dest, const char * src)`. */
 #include <string.h>
 
+#include "../arn/arn_tests.h"
+
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
@@ -80,6 +82,7 @@ running_tests_ctl(uint_fast8_t input)
 	return running_tests_;
 }
 
+/*
 void
 disarm_interim_test_0()
 {
@@ -106,12 +109,15 @@ disarm_interim_tests()
 	disarm_interim_test_0();
 	disarm_interim_test_1();
 }
+*/
 
 void
 assertion_tests()
 {
 	interpret_and_assert("1");
+	/*
 	disarm_interim_tests();
+	*/
 }
 
 void
@@ -124,6 +130,7 @@ run_tests(uint_fast8_t double_end_of_line_char)
 	printf("Running tests...\n");
 	/* printf("%d\n", running_tests_ctl(RUNNING_TESTS_HOLD)); */ /* XXX */
 
+	applications_runner_tests();
 	assertion_tests();
 	basic_arithmetic_tests();
 	common_tests();

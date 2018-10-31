@@ -37,6 +37,23 @@ rtg_execution_request_default_constructor()
 }
 
 rtg_execution_request *
+rtg_execution_request_exhaustive_constructor(
+		uint_fast8_t requested_type,
+		const rtg_application * application)
+{
+	rtg_execution_request * ret_;
+	rtg_application * application_;
+	ret_ = malloc(sizeof(rtg_execution_request));
+	assertion(requested_type != RTG_APPLICATION_TYPE_INVALID);
+	assertion(application != NULL);
+	ret_->type_ = requested_type;
+	application_ = rtg_application_copy_constructor(application);
+	assertion(application_ != NULL);
+	ret_->application_ = application_;
+	return ret_;
+}
+
+rtg_execution_request *
 rtg_execution_request_copy_constructor(
 		const rtg_execution_request * execution_request)
 {
@@ -97,21 +114,26 @@ rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_l
 {
 	rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret * ret_;
 	rtg_application * application_requested_to_be_executed_;
-	find_rtg_application_by_name_ret * find_rtg_application_requested_to_be_executed_ret_;
+	rtg_applications_simple_list_find_by_name_ret * find_rtg_application_requested_to_be_executed_ret_;
 	ret_ = malloc(sizeof(
 			rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret));
 	ret_->status = RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_INVALID;
 	ret_->execution_request = rtg_execution_request_default_constructor();
 	ret_->execution_request->type_ = RTG_EXECUTION_REQUEST_TYPE_INVALID;
-	find_rtg_application_requested_to_be_executed_ret_ = find_rtg_application_by_name(
-			execution_request->application_name_, applications);
+	find_rtg_application_requested_to_be_executed_ret_ =
+			rtg_applications_simple_list_find_by_name(
+					applications,
+					execution_request->application_name_);
 	assertion(find_rtg_application_requested_to_be_executed_ret_ != NULL);
 	assertion(find_rtg_application_requested_to_be_executed_ret_->status ==
-			FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_SUCCESS);
+			RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS);
 	assertion(find_rtg_application_requested_to_be_executed_ret_->application != NULL);
 	application_requested_to_be_executed_ =
 			find_rtg_application_requested_to_be_executed_ret_->application;
-	assertion(application_requested_to_be_executed_ != NULL);
+	find_rtg_application_requested_to_be_executed_ret_->application_was_moved =
+			AMARA_BOOLEAN_TRUE;
+	rtg_applications_simple_list_find_by_name_ret_destructor(
+			find_rtg_application_requested_to_be_executed_ret_);
 	ret_->execution_request->application_ = application_requested_to_be_executed_;
 	ret_->execution_request->type_ = RTG_EXECUTION_REQUEST_TYPE_CLI_APPLICATION;
 	ret_->execution_request_was_moved = AMARA_BOOLEAN_FALSE;

@@ -23,6 +23,8 @@
 /*   For `uint_fast8_t`. */
 #include <stdint.h>
 
+#include "stt_execution_request.h"
+
 /*   For `amara_string`. */
 #include "../cmn/amara_string.h"
 
@@ -42,6 +44,12 @@ __attribute__((warn_unused_result))
 stt_execution_request_subnode *
 stt_execution_request_subnode_copy_constructor(
 		const stt_execution_request_subnode * subnode)
+__attribute__((warn_unused_result))
+;
+
+stt_execution_request_subnode *
+stt_execution_request_subnode_exhaustive_constructor(
+		const stt_execution_request * execution_request)
 __attribute__((warn_unused_result))
 ;
 

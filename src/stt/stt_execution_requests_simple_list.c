@@ -128,16 +128,18 @@ stt_execution_requests_simple_list_push_front(
 	stt_execution_requests_simple_list * new_list_head_;
 	assertion(execution_requests != NULL);
 	assertion(execution_request != NULL);
-	if (execution_requests->first) {
+	if (execution_requests->first != NULL) {
 		new_list_head_ = malloc(sizeof(
 				stt_execution_requests_simple_list));
 		new_list_head_->first =
-				(stt_execution_request *) execution_request;
+				stt_execution_request_copy_constructor(
+						execution_request);
 		new_list_head_->next = execution_requests;
 		return new_list_head_;
 	}
-	assertion(!execution_requests->next);
+	assertion(execution_requests->next == NULL);
 	execution_requests->first =
-			(stt_execution_request *) execution_request;
+			stt_execution_request_copy_constructor(
+					execution_request);
 	return execution_requests;
 }

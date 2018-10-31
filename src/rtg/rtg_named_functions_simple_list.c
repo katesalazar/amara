@@ -89,71 +89,107 @@ rtg_named_functions_simple_list_destructor(
 	free(list);
 }
 
-void
-find_rtg_named_function_by_name_ret_destructor(
-		find_rtg_named_function_by_name_ret * find_rtg_named_function_by_name_ret_)
+rtg_named_functions_simple_list *
+rtg_named_functions_simple_list_push_front(
+		rtg_named_functions_simple_list * named_functions,
+		const rtg_named_function * named_function)
 {
-	assertion(find_rtg_named_function_by_name_ret_ != NULL);
-	if (find_rtg_named_function_by_name_ret_->status ==
-			FIND_RTG_NAMED_FUNCTION_BY_NAME_RET_STATUS_SUCCESS) {
-		assertion(find_rtg_named_function_by_name_ret_->named_function !=
-				NULL);
-		if (find_rtg_named_function_by_name_ret_->named_function_was_moved ==
-				AMARA_BOOLEAN_FALSE) {
-			rtg_named_function_destructor(
-					find_rtg_named_function_by_name_ret_->named_function);
-		}
-	} else {
-		assertion(find_rtg_named_function_by_name_ret_->status ==
-					FIND_RTG_NAMED_FUNCTION_BY_NAME_RET_STATUS_NOT_FOUND ||
-				find_rtg_named_function_by_name_ret_->status ==
-						FIND_RTG_NAMED_FUNCTION_BY_NAME_RET_STATUS_INVALID);
-		assertion(find_rtg_named_function_by_name_ret_->named_function == NULL);
+	rtg_named_functions_simple_list * new_list_node_;
+	assertion(named_functions != NULL);
+	assertion(named_function != NULL);
+	if (named_functions->first == NULL) {
+		assertion(named_functions->next == NULL);
+		named_functions->first = rtg_named_function_copy_constructor(
+				named_function);
+		return named_functions;
 	}
-	free(find_rtg_named_function_by_name_ret_);
+	new_list_node_ = malloc(sizeof(rtg_named_functions_simple_list));
+	new_list_node_->first =
+			rtg_named_function_copy_constructor(named_function);
+	new_list_node_->next = named_functions;
+	return new_list_node_;
 }
 
-find_rtg_named_function_by_name_ret *
-find_rtg_named_function_by_name(
-		const amara_string * needle,
-		const rtg_named_functions_simple_list * haystack)
+void
+rtg_named_functions_simple_list_find_by_name_ret_destructor(
+		rtg_named_functions_simple_list_find_by_name_ret * ret_)
 {
-	find_rtg_named_function_by_name_ret * ret_;
-	find_rtg_named_function_by_name_ret * rec_ret_;
+	assertion(ret_ != NULL);
+	if (ret_->status ==
+			RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS) {
+		assertion(ret_->named_function != NULL);
+		if (ret_->named_function_was_moved == AMARA_BOOLEAN_FALSE) {
+			rtg_named_function_destructor(ret_->named_function);
+			ret_->named_function = NULL; /* XXX Not actually necessary. */
+		}
+	} else {
+		assertion(ret_->status ==
+					RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND);
+		assertion(ret_->named_function == NULL);
+		assertion(ret_->named_function_was_moved ==
+				AMARA_BOOLEAN_FALSE);
+	}
+	free(ret_);
+}
+
+rtg_named_functions_simple_list_find_by_name_ret *
+rtg_named_functions_simple_list_find_by_name(
+		const rtg_named_functions_simple_list * haystack,
+		const amara_string * needle)
+{
+	rtg_named_functions_simple_list_find_by_name_ret * ret_;
+	rtg_named_functions_simple_list_find_by_name_ret * rec_ret_;
 	rtg_named_function * named_function_;
-	ret_ = malloc(sizeof(find_rtg_named_function_by_name_ret));
-	fprintf(stderr, "----> %s:%u:find_rtg_named_function_by_name_ret * find_rtg_named_function_by_name(const amara_string *, const rtg_named_functions_simple_list *)\n",
+	ret_ = malloc(sizeof(
+			rtg_named_functions_simple_list_find_by_name_ret));
+	fprintf(stderr, "----> %s:%u:rtg_named_functions_find_by_name_ret * rtg_named_functions_find_by_name(const rtg_named_functions_simple_list *, const amara_string *)\n",
 			__FILE__, __LINE__);
-	ret_->status = FIND_RTG_NAMED_FUNCTION_BY_NAME_RET_STATUS_INVALID;
+	ret_->status = RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_INVALID;
 	ret_->named_function = NULL;
 	ret_->named_function_was_moved = AMARA_BOOLEAN_FALSE;
-	if (haystack == NULL) {
-		ret_->status = FIND_RTG_NAMED_FUNCTION_BY_NAME_RET_STATUS_NOT_FOUND;
+	if (haystack == NULL || haystack->first == NULL) {
+		ret_->status = RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND;
 		ret_->named_function = NULL;
 		ret_->named_function_was_moved = AMARA_BOOLEAN_FALSE;
-		fprintf(stderr, "<---- %s:%u:find_rtg_named_function_by_name_ret * find_rtg_named_function_by_name(const amara_string *, const rtg_named_functions_simple_list *) - not found\n",
-				__FILE__, __LINE__);
+		/* fprintf(stderr, "<---- %s:%u:find_rtg_named_function_by_name_ret * find_rtg_named_function_by_name(const amara_string *, const rtg_named_functions_simple_list *) - not found\n",
+				__FILE__, __LINE__); */
 		return ret_;
 	}
 	assertion(needle != NULL);
 	if (amara_string_equality(haystack->first->name_, needle)) {
-		ret_->status = FIND_RTG_NAMED_FUNCTION_BY_NAME_RET_STATUS_SUCCESS;
+		ret_->status = RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS;
 		named_function_ = rtg_named_function_copy_constructor(haystack->first);
 		ret_->named_function = named_function_;
 		ret_->named_function_was_moved = AMARA_BOOLEAN_FALSE;
-		fprintf(stderr, "<---- %s:%u:find_rtg_named_function_by_name_ret * find_rtg_named_function_by_name(const amara_string *, const rtg_named_functions_simple_list *) - found\n",
-				__FILE__, __LINE__);
+		/* fprintf(stderr, "<---- %s:%u:find_rtg_named_function_by_name_ret * find_rtg_named_function_by_name(const amara_string *, const rtg_named_functions_simple_list *) - found\n",
+				__FILE__, __LINE__); */
 		return ret_;
 	}
-	fprintf(stderr, "--85- %s:%u:find_rtg_named_function_by_name_ret * find_rtg_named_function_by_name(const amara_string *, const rtg_named_functions_simple_list *) - looking in next\n",
-			__FILE__, __LINE__);
-	rec_ret_ = find_rtg_named_function_by_name(needle, haystack->next);
+	/* fprintf(stderr, "--85- %s:%u:find_rtg_named_function_by_name_ret * find_rtg_named_function_by_name(const amara_string *, const rtg_named_functions_simple_list *) - looking in next\n",
+			__FILE__, __LINE__); */
+	rec_ret_ = rtg_named_functions_simple_list_find_by_name(
+			haystack->next, needle);
 	ret_->status = rec_ret_->status;
-	ret_->named_function = rec_ret_->named_function;
-	rec_ret_->named_function_was_moved = AMARA_BOOLEAN_TRUE;
-	find_rtg_named_function_by_name_ret_destructor(rec_ret_);
-	fprintf(stderr, "<---- %s:%u:find_rtg_named_function_by_name_ret * find_rtg_named_function_by_name(const amara_string *, const rtg_named_functions_simple_list *) - returning recursive case result inconditionally\n",
-			__FILE__, __LINE__);
+	if (rec_ret_->status ==
+			RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS) {
+		assertion(rec_ret_->named_function != NULL);
+		assertion(rec_ret_->named_function_was_moved ==
+				AMARA_BOOLEAN_FALSE);
+		rec_ret_->named_function_was_moved = AMARA_BOOLEAN_TRUE;
+		ret_->named_function = rec_ret_->named_function;
+		ret_->named_function_was_moved = AMARA_BOOLEAN_FALSE;
+	} else {
+		assertion(rec_ret_->status ==
+				RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND);
+		assertion(rec_ret_->named_function == NULL);
+		assertion(rec_ret_->named_function_was_moved ==
+				AMARA_BOOLEAN_FALSE);
+		ret_->named_function = NULL;
+		ret_->named_function_was_moved = AMARA_BOOLEAN_FALSE;
+	}
+	rtg_named_functions_simple_list_find_by_name_ret_destructor(rec_ret_);
+	/* fprintf(stderr, "<---- %s:%u:find_rtg_named_function_by_name_ret * find_rtg_named_function_by_name(const amara_string *, const rtg_named_functions_simple_list *) - returning recursive case result inconditionally\n",
+			__FILE__, __LINE__); */
 	return ret_;
 }
 
@@ -211,6 +247,58 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 	ret_->named_functions = sub_ret_;
 	ret_->status = RTG_NAMED_FUNCTIONS_SIMPLE_LIST_OUT_OF_STT_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
 	fprintf(stderr, "%s:%u <---- rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list_ret * rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(const stt_named_functions_simple_list *)\n",
+			__FILE__, __LINE__);
+	return ret_;
+}
+
+void
+rtg_named_functions_out_of_stt_doc_ret_destructor(
+		rtg_named_functions_out_of_stt_doc_ret * rtg_named_functions_out_of_stt_doc_ret_)
+{
+	assertion(rtg_named_functions_out_of_stt_doc_ret_ != NULL);
+	if (rtg_named_functions_out_of_stt_doc_ret_->status ==
+			RTG_NAMED_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_SUCCESS) {
+		assertion(rtg_named_functions_out_of_stt_doc_ret_->named_functions !=
+				NULL);
+		if (rtg_named_functions_out_of_stt_doc_ret_->named_functions_were_moved ==
+				AMARA_BOOLEAN_FALSE) {
+			rtg_named_functions_simple_list_destructor(
+					rtg_named_functions_out_of_stt_doc_ret_->named_functions);
+		}
+	} else {
+		assertion(rtg_named_functions_out_of_stt_doc_ret_->status ==
+					RTG_NAMED_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_INVALID /* ||
+				rtg_named_functions_out_of_stt_doc_ret_->status ==
+						RTG_NAMED_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_ERROR_UNSPECIFIC */);
+		assertion(rtg_named_functions_out_of_stt_doc_ret_->named_functions ==
+				NULL);
+	}
+	free(rtg_named_functions_out_of_stt_doc_ret_);
+}
+
+rtg_named_functions_out_of_stt_doc_ret *
+rtg_named_functions_out_of_stt_doc(const stt_doc_subnode * subnode)
+{
+	rtg_named_functions_out_of_stt_doc_ret * ret_;
+	rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list_ret * sub_ret_;
+	fprintf(stderr, "%s:%u ----> rtg_named_functions_out_of_stt_doc_ret * rtg_named_functions_out_of_stt_doc(const stt_node *)\n",
+			__FILE__, __LINE__);
+	ret_ = malloc(sizeof(rtg_named_functions_out_of_stt_doc_ret));
+	ret_->status = RTG_NAMED_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_INVALID;
+	ret_->named_functions = NULL;
+	sub_ret_ = rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
+			subnode->named_functions_);
+	if (sub_ret_->status ==
+			RTG_NAMED_FUNCTIONS_SIMPLE_LIST_OUT_OF_STT_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
+		ret_->status = RTG_NAMED_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_SUCCESS;
+		ret_->named_functions = sub_ret_->named_functions;
+	} else {
+		assertion(sub_ret_->status ==
+				RTG_NAMED_FUNCTIONS_SIMPLE_LIST_OUT_OF_STT_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC);
+		assertion(sub_ret_->named_functions == NULL);
+	}
+	free(sub_ret_);
+	fprintf(stderr, "%s:%u <---- rtg_named_functions_out_of_stt_doc_ret * rtg_named_functions_out_of_stt_doc(const stt_node *)\n",
 			__FILE__, __LINE__);
 	return ret_;
 }

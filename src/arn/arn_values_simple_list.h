@@ -33,6 +33,10 @@ arn_values_simple_list_default_constructor(void)
 __attribute__((warn_unused_result))
 ;
 
+void
+arn_values_simple_list_destructor(arn_values_simple_list * values)
+;
+
 arn_values_simple_list *
 arn_values_simple_list_push_front(
 		arn_values_simple_list * values, const arn_value * value)
@@ -40,7 +44,7 @@ __attribute__((warn_unused_result))
 ;
 
 arn_value *
-arn_values_simple_list_find_value_by_name(
+arn_values_simple_list_find_value_by_name_return_reference(
 		const arn_values_simple_list * values,
 		const amara_string * value_name)
 __attribute__((warn_unused_result))

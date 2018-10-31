@@ -31,6 +31,8 @@
 /*   For `void assertion_two(int expression, const char * message)`. */
 #include "../asr/assertion.h"
 
+#include "integer_tests.h"
+
 /*   For `int_fast8_t safe_arguments_natural_raw_comparison(
  * const char * raw_natural_zero, const char * raw_natural_one)`, and
  * for `typedef struct fit_raw_natural_in_uint_fast8_t_ret { ... }
@@ -38,6 +40,8 @@
 #include "natural.h"
 
 #include "natural_tests.h"
+
+#include "rational_tests.h"
 
 void
 safe_arguments_natural_raw_comparison_test_0(void)
@@ -128,7 +132,7 @@ simplify_natural_literal_nodes_substraction_tests(void)
 ;
 
 void
-natural_tests(void)
+natural_tests_(void)
 ;
 
 void
@@ -583,7 +587,7 @@ simplify_natural_literal_nodes_substraction_tests()
 }
 
 void
-natural_tests()
+natural_tests_()
 {
 	safe_arguments_natural_raw_comparison_tests();
 	fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not_tests();
@@ -599,6 +603,8 @@ basic_arithmetic_tests()
 #ifdef TRACE_STEPS_IN
 	fprintf(stderr, "----> %s:%u: void basic_arithmetic_tests()\n", __FILE__, __LINE__);
 #endif
-	natural_tests();
 	natural_tests_();
+	natural_tests();
+	integer_tests();
+	rational_tests();
 }

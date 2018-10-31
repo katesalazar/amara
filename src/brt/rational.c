@@ -72,7 +72,9 @@ assert_valid_raw_rational(const amara_string * raw_rational)
 			assertion(raw_rational_chars_array_[indexer_] < 58);
 		}
 	} else {
-		assertion(dot_index_ == 0);
+		if (dot_index_ != 0) {
+			assertion(dot_index_ == 1);
+		}
 		/*   ASCII `47` is `/`, `48` is `0`, `49` is `1`, `50`
 		 * is `2`, `57` is `9`, `58` is `:`. */
 		assertion(raw_rational_chars_array_[indexer_] > 47);

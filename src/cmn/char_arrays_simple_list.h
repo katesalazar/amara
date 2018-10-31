@@ -19,8 +19,7 @@
 #ifndef __AMARA__COMMON__CHAR_ARRAYS_SIMPLE_LIST__H__
 #define __AMARA__COMMON__CHAR_ARRAYS_SIMPLE_LIST__H__
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
+#include "amara_boolean.h"
 
 typedef struct char_arrays_simple_list {
 	char * first;
@@ -32,8 +31,19 @@ char_arrays_simple_list_default_constructor(void)
 __attribute__((warn_unused_result))
 ;
 
+char_arrays_simple_list *
+char_arrays_simple_list_copy_constructor(const char_arrays_simple_list * list)
+__attribute__((warn_unused_result))
+;
+
 void
 char_arrays_simple_list_destructor(char_arrays_simple_list * list)
+;
+
+char_arrays_simple_list *
+char_arrays_simple_list_push_front(
+		char_arrays_simple_list * list, char * char_array)
+__attribute__((warn_unused_result))
 ;
 
 /*   This operation is non destructive towards both `list_zero` and
@@ -54,7 +64,7 @@ char_arrays_simple_list_concat_destructive(
 __attribute__((warn_unused_result))
 ;
 
-uint_fast8_t
+amara_boolean
 char_arrays_simple_list_equality(
 		const char_arrays_simple_list * list_zero,
 		const char_arrays_simple_list * list_one)

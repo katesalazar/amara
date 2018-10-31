@@ -28,9 +28,11 @@ stt_named_function_subnode_default_constructor()
 {
 	stt_named_function_subnode * returning_ =
 			malloc(sizeof(stt_named_function_subnode));
+
 	returning_->type_ = STT_NAMED_FUNCTION_SUBNODE_TYPE_INVALID;
 	returning_->name_ = NULL;
 	returning_->operations_ = NULL;
+
 	return returning_;
 }
 
@@ -39,15 +41,48 @@ stt_named_function_subnode_copy_constructor(
 		const stt_named_function_subnode * subnode)
 {
 	stt_named_function_subnode * ret_;
+
 	assertion(subnode != NULL);
 	assertion(subnode->type_ != STT_NAMED_FUNCTION_SUBNODE_TYPE_INVALID);
 	assertion(subnode->name_ != NULL);
 	assertion(subnode->operations_ != NULL);
+
 	ret_ = malloc(sizeof(stt_named_function_subnode));
+
 	ret_->operations_ = stt_operations_simple_list_copy_constructor(
 			subnode->operations_);
+
 	ret_->name_ = amara_string_copy_constructor(subnode->name_);
+
+	assertion(subnode->type_ ==
+			STT_NAMED_FUNCTION_SUBNODE_TYPE_CLI_APP_NAMED_FUNCTION);
 	ret_->type_ = subnode->type_;
+
+	return ret_;
+}
+
+stt_named_function_subnode *
+stt_named_function_subnode_exhaustive_constructor(
+		const stt_named_function * named_function)
+{
+	stt_named_function_subnode * ret_;
+
+	assertion(named_function != NULL);
+	assertion(named_function->type_ != STT_NAMED_FUNCTION_TYPE_INVALID);
+	assertion(named_function->name_ != NULL);
+	assertion(named_function->operations_ != NULL);
+
+	ret_ = malloc(sizeof(stt_named_function_subnode));
+
+	ret_->operations_ = stt_operations_simple_list_copy_constructor(
+			named_function->operations_);
+
+	ret_->name_ = amara_string_copy_constructor(named_function->name_);
+
+	assertion(named_function->type_ ==
+			STT_NAMED_FUNCTION_TYPE_CLI_APP_NAMED_FUNCTION);
+	ret_->type_ = STT_NAMED_FUNCTION_SUBNODE_TYPE_CLI_APP_NAMED_FUNCTION;
+
 	return ret_;
 }
 

@@ -106,7 +106,17 @@ amara_string_strcmp(const amara_string * s1, const amara_string * s2)
 amara_boolean
 amara_string_equality(const amara_string * a1, const amara_string * a2)
 {
-	int amara_string_strcmp_ret_ = amara_string_strcmp(a1, a2);
+	int amara_string_strcmp_ret_;
+	if (a1 == NULL && a2 == NULL) { /* XXX */
+		return AMARA_BOOLEAN_TRUE; /* XXX */
+	} /* XXX */
+	if (a1 == NULL) {
+		return AMARA_BOOLEAN_FALSE;
+	}
+	if (a2 == NULL) {
+		return AMARA_BOOLEAN_FALSE;
+	}
+	amara_string_strcmp_ret_ = amara_string_strcmp(a1, a2);
 	if (amara_string_strcmp_ret_) {
 		return AMARA_BOOLEAN_FALSE;
 	} else {

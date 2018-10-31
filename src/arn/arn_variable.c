@@ -33,18 +33,30 @@ arn_variable_default_constructor(void)
 }
 
 void
+arn_variable_destructor(arn_variable * variable)
+{
+	assertion(variable != NULL);
+	assertion(variable->type_ == ARN_VARIABLE_TYPE_INVALID); /* XXX */
+	assertion(variable->name_ == NULL);
+	assertion(variable->natural_ == NULL);
+	free(variable);
+}
+
+/*
+
+void
 arn_variable_set_name(arn_variable * variable, const amara_string * name)
 {
-	assertion(variable == NULL); /* FIXME */
-	assertion(name == NULL); /* FIXME */
-}
+	assertion(variable == NULL); *//* FIXME */
+/*	assertion(name == NULL); *//* FIXME */
+/*}
 
 void
 arn_variable_set_natural(arn_variable * variable, const natural * natural)
 {
-	assertion(variable == NULL); /* FIXME */
-	assertion(natural == NULL); /* FIXME */
-}
+	assertion(variable == NULL); *//* FIXME */
+/*	assertion(natural == NULL); *//* FIXME */
+/*}
 
 void
 arn_variable_assign_natural_out_of_unsigned_int(
@@ -55,15 +67,20 @@ arn_variable_assign_natural_out_of_unsigned_int(
 	assertion(variable->type_ != ARN_VARIABLE_TYPE_UNDEFINED);
 	assertion(variable->type_ == ARN_VARIABLE_TYPE_UNASSIGNED_NATURAL);
 	assertion(variable->name_ != NULL);
+*/
 	/*
 	assertion(variable->raw_natural_ == NULL);
 	*/
+/*
 	assertion(variable->natural_ == NULL);
+*/
 	/*
 	variable->raw_natural_ =
 			copy_unsigned_int_into_raw_natural(unsigned_int);
 	*/
+/*
 	variable->natural_ = natural_default_constructor();
 	natural_copy_unsigned_int_into_natural(
 			variable->natural_, unsigned_int);
 }
+*/

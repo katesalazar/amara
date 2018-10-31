@@ -18,9 +18,34 @@
  */
 
 #include "../asr/assertion.h"
+
+#include "stt_application_tests.h"
 #include "stt_doc_subnode.h"
 #include "stt_doc_subnode_tests.h"
+#include "stt_execution_request_tests.h"
 #include "stt_named_function_tests.h"
+
+void
+assert_expectations_on_stt_doc_subnode_example_print_foo(
+		const stt_doc_subnode * subnode)
+{
+	assertion(subnode != NULL);
+	assertion(subnode->named_functions_ != NULL);
+	assertion(subnode->named_functions_->first != NULL);
+	assert_expectations_on_stt_named_function_example_print_foo(
+			subnode->named_functions_->first);
+	assertion(subnode->named_functions_->next == NULL);
+	assertion(subnode->applications_ != NULL);
+	assertion(subnode->applications_->first != NULL);
+	assert_expectations_on_stt_application_example_print_foo(
+			subnode->applications_->first);
+	assertion(subnode->applications_->next == NULL);
+	assertion(subnode->execution_requests_ != NULL);
+	assertion(subnode->execution_requests_->first != NULL);
+	assert_expectations_on_stt_execution_request_example_print_foo(
+			subnode->execution_requests_->first);
+	assertion(subnode->execution_requests_->next == NULL);
+}
 
 void
 stt_doc_subnode_construct_and_destruct_test_0()
@@ -84,11 +109,88 @@ stt_doc_subnode_construct_and_destruct_test_1()
 	stt_doc_subnode_destructor(doc_subnode_zero_);
 }
 
+/*
+void
+stt_doc_subnode_construct_and_destruct_test_2()
+{
+	stt_doc_subnode * doc_subnode_;
+	stt_named_functions_simple_list * named_functions_;
+	stt_applications_simple_list * applications_;
+	stt_execution_requests_simple_list * execution_requests_;
+	named_functions_ = NULL;
+	applications_ = stt_applications_simple_list_default_constructor();
+	execution_requests_ = stt_execution_requests_simple_list_default_constructor();
+	doc_subnode_ = stt_doc_subnode_exhaustive_constructor(
+			named_functions_, applications_, execution_requests_);
+	assertion(doc_subnode_ != NULL);
+	assertion(doc_subnode_->named_functions_ == NULL);
+	assertion(doc_subnode_->applications_ != NULL);
+	assertion(doc_subnode_->applications_->first == NULL);
+	assertion(doc_subnode_->applications_->next == NULL);
+	assertion(doc_subnode_->execution_requests_ != NULL);
+	assertion(doc_subnode_->execution_requests_->first == NULL);
+	assertion(doc_subnode_->execution_requests_->next == NULL);
+	stt_execution_requests_simple_list_destructor(execution_requests_);
+	stt_applications_simple_list_destructor(applications_);
+	stt_doc_subnode_destructor(doc_subnode_);
+}
+*/
+
+void
+stt_doc_subnode_construct_and_destruct_test_3()
+{
+	stt_doc_subnode * doc_subnode_;
+	stt_named_functions_simple_list * named_functions_;
+	stt_applications_simple_list * applications_;
+	stt_execution_requests_simple_list * execution_requests_;
+	named_functions_ = NULL;
+	applications_ = NULL;
+	execution_requests_ = NULL;
+	doc_subnode_ = stt_doc_subnode_exhaustive_constructor(
+			named_functions_, applications_, execution_requests_);
+	assertion(doc_subnode_ != NULL);
+	assertion(doc_subnode_->named_functions_ == NULL);
+	assertion(doc_subnode_->applications_ == NULL);
+	assertion(doc_subnode_->execution_requests_ == NULL);
+	stt_doc_subnode_destructor(doc_subnode_);
+}
+
+void
+stt_doc_subnode_construct_and_destruct_test_4()
+{
+	stt_doc_subnode * doc_subnode_zero_;
+	stt_doc_subnode * doc_subnode_one_;
+	stt_named_functions_simple_list * named_functions_;
+	stt_applications_simple_list * applications_;
+	stt_execution_requests_simple_list * execution_requests_;
+	named_functions_ = NULL;
+	applications_ = NULL;
+	execution_requests_ = NULL;
+	doc_subnode_zero_ = stt_doc_subnode_exhaustive_constructor(
+			named_functions_, applications_, execution_requests_);
+	assertion(doc_subnode_zero_ != NULL);
+	assertion(doc_subnode_zero_->named_functions_ == NULL);
+	assertion(doc_subnode_zero_->applications_ == NULL);
+	assertion(doc_subnode_zero_->execution_requests_ == NULL);
+	doc_subnode_one_ = stt_doc_subnode_copy_constructor(doc_subnode_zero_);
+	assertion(doc_subnode_one_ != NULL);
+	assertion(doc_subnode_one_->named_functions_ == NULL);
+	assertion(doc_subnode_one_->applications_ == NULL);
+	assertion(doc_subnode_one_->execution_requests_ == NULL);
+	stt_doc_subnode_destructor(doc_subnode_one_);
+	stt_doc_subnode_destructor(doc_subnode_zero_);
+}
+
 void
 stt_doc_subnode_construct_and_destruct_tests()
 {
 	stt_doc_subnode_construct_and_destruct_test_0();
 	stt_doc_subnode_construct_and_destruct_test_1();
+	/*
+	stt_doc_subnode_construct_and_destruct_test_2();
+	*/
+	stt_doc_subnode_construct_and_destruct_test_3();
+	stt_doc_subnode_construct_and_destruct_test_4();
 }
 
 void

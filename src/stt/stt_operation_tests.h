@@ -27,4 +27,28 @@ stt_operation_example_print_foo(void)
 __attribute__((warn_unused_result))
 ;
 
+void
+assert_expectations_on_stt_operation_example_print_foo(
+		const stt_operation * operation)
+;
+
+stt_operation *
+stt_operation_example_print_bar(void)
+__attribute__((warn_unused_result))
+;
+
+void
+assert_expectations_on_stt_operation_example_print_bar(
+		const stt_operation * operation)
+;
+
+stt_operation *
+stt_operation_example_print_foo_no_crlf(void)
+__attribute__((warn_unused_result))
+;
+
+void
+stt_operation_tests(void)
+;
+
 #endif

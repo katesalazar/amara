@@ -34,18 +34,23 @@
 #define RTG_OPERATION_TYPE_ADDITION                 0x32
 #define RTG_OPERATION_TYPE_SUBSTRACTION             0x33
 #define RTG_OPERATION_TYPE_READ_NATURAL_TO_VALUE    0xBF
+#define RTG_OPERATION_TYPE_READ_NATURAL_INTO_VALUE \
+		RTG_OPERATION_TYPE_READ_NATURAL_TO_VALUE
 #define RTG_OPERATION_TYPE_READ_NATURAL_TO_VARIABLE 0xC0
+#define RTG_OPERATION_TYPE_READ_NATURAL_INTO_VARIABLE \
+		RTG_OPERATION_TYPE_READ_NATURAL_TO_VARIABLE
 #define RTG_FAKE_OPERATION_TYPE_RESOLVE_TYPE_OF_EXPRESSION 0xC1 /*   Must remain resolved by semantic analysis by the time run time comes. */
 #define RTG_OPERATION_TYPE_PRINT_NO_CRLF            0xFF
 
 typedef struct rtg_operation {
 	uint_fast8_t type_;
-	rtg_operation_args_simple_list * args_;
+	struct rtg_operation_args_simple_list * args_;
 } rtg_operation;
 
 rtg_operation *
 rtg_operation_exhaustive_constructor(
-		uint_fast8_t type, const rtg_operation_args_simple_list * args)
+		uint_fast8_t type,
+		const struct rtg_operation_args_simple_list * args)
 __attribute__((warn_unused_result))
 ;
 

@@ -33,6 +33,11 @@ arn_variables_simple_list_default_constructor(void)
 __attribute__((warn_unused_result))
 ;
 
+void
+arn_variables_simple_list_destructor(arn_variables_simple_list * variables)
+;
+
+/*
 arn_variables_simple_list *
 arn_variables_simple_list_push_front(
 		arn_variables_simple_list * variables,
@@ -52,16 +57,16 @@ assert_variable_is_known(
 		const arn_variables_simple_list * variables,
 		const amara_string * variable_name)
 ;
-
+*/
 /**  Pre: the variable is not assigned (type not
  * `ARN_VARIABLE_TYPE_ASSIGNED_NATURAL`).
  *   Pre: TODO Is the variable known to be added to the list, or not? */
-arn_variables_simple_list *
+/*arn_variables_simple_list *
 arn_variables_simple_list_assign_natural_out_of_unsigned_int(
 		arn_variables_simple_list * variables,
 		const amara_string * variable_name,
 		const unsigned int unsigned_int)
 __attribute__((warn_unused_result))
-;
+;*/
 
 #endif

@@ -100,53 +100,57 @@ rtg_applications_simple_list_push_front(
 	assertion(application != NULL);
 	if (applications->first == NULL) {
 		assertion(applications->next == NULL);
-		applications->first = (rtg_application *) application;
+		applications->first =
+				rtg_application_copy_constructor(application);
 		return applications;
 	}
 	applications_new_simple_list_node_ =
 			malloc(sizeof(rtg_applications_simple_list));
 	applications_new_simple_list_node_->first =
-			(rtg_application *) application;
+			rtg_application_copy_constructor(application);
 	applications_new_simple_list_node_->next = applications;
 	return applications_new_simple_list_node_;
 }
 
 void
-find_rtg_application_by_name_ret_destructor(
-		find_rtg_application_by_name_ret * find_rtg_application_by_name_ret_)
+rtg_applications_simple_list_find_by_name_ret_destructor(
+		rtg_applications_simple_list_find_by_name_ret * input_ret)
 {
-	assertion(find_rtg_application_by_name_ret_ != NULL);
-	if (find_rtg_application_by_name_ret_->status ==
-			FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_SUCCESS) {
-		assertion(find_rtg_application_by_name_ret_->application != NULL);
-		if (find_rtg_application_by_name_ret_->application_was_moved ==
-				AMARA_BOOLEAN_FALSE) {
-			rtg_application_destructor(
-					find_rtg_application_by_name_ret_->application);
+	assertion(input_ret != NULL);
+	if (input_ret->status ==
+			RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS) {
+		assertion(input_ret->application != NULL);
+		if (input_ret->application_was_moved == AMARA_BOOLEAN_FALSE) {
+			rtg_application_destructor(input_ret->application);
 		}
 	} else {
-		assertion(find_rtg_application_by_name_ret_->status ==
-					FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_NOT_FOUND /* ||
-				find_rtg_application_by_name_ret_->status ==
-						FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_INVALID */);
-		assertion(find_rtg_application_by_name_ret_->application == NULL);
+		assertion(input_ret->status ==
+				RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND);
+		assertion(input_ret->application == NULL);
 	}
-	free(find_rtg_application_by_name_ret_);
+	free(input_ret);
 }
 
-find_rtg_application_by_name_ret *
-find_rtg_application_by_name_inner(
-		const amara_string * needle,
-		const rtg_applications_simple_list * haystack)
+rtg_applications_simple_list_find_by_name_ret *
+rtg_applications_simple_list_find_by_name_inner(
+		const rtg_applications_simple_list * haystack,
+		const amara_string * needle)
+__attribute__((warn_unused_result))
+;
+
+rtg_applications_simple_list_find_by_name_ret *
+rtg_applications_simple_list_find_by_name_inner(
+		const rtg_applications_simple_list * haystack,
+		const amara_string * needle)
 {
-	find_rtg_application_by_name_ret * ret_;
-	find_rtg_application_by_name_ret * rec_ret_;
-	ret_ = malloc(sizeof(find_rtg_application_by_name_ret));
-	ret_->status = FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_INVALID;
+	rtg_applications_simple_list_find_by_name_ret * ret_;
+	rtg_applications_simple_list_find_by_name_ret * rec_ret_;
+	ret_ = malloc(sizeof(rtg_applications_simple_list_find_by_name_ret));
+	ret_->status = RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_INVALID;
 	ret_->application = NULL;
 	ret_->application_was_moved = AMARA_BOOLEAN_FALSE;
 	if (haystack == NULL) {
-		ret_->status = FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_NOT_FOUND;
+		ret_->status = RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND;
 		ret_->application = NULL;
 		ret_->application_was_moved = AMARA_BOOLEAN_FALSE;
 		return ret_;
@@ -155,68 +159,73 @@ find_rtg_application_by_name_inner(
 	assertion(haystack->first->name_ != NULL);
 	assertion(haystack->first->name_->value_ != NULL);
 	if (amara_string_equality(haystack->first->name_, needle)) {
-		ret_->status = FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_SUCCESS;
+		ret_->status = RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS;
 		ret_->application = rtg_application_copy_constructor(
 				haystack->first);
 		ret_->application_was_moved = AMARA_BOOLEAN_FALSE;
 		return ret_;
 	}
-	rec_ret_ = find_rtg_application_by_name_inner(needle, haystack->next);
+	rec_ret_ = rtg_applications_simple_list_find_by_name_inner(
+			haystack->next, needle);
 	if (rec_ret_->status ==
-			FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_SUCCESS) {
+			RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS) {
 		assertion(rec_ret_->application_was_moved ==
 				AMARA_BOOLEAN_FALSE);
 		ret_->application = rec_ret_->application;
-		ret_->status = FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_SUCCESS;
-		find_rtg_application_by_name_ret_destructor(rec_ret_);
+		rec_ret_->application_was_moved = AMARA_BOOLEAN_TRUE;
+		ret_->status = RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS;
+		rtg_applications_simple_list_find_by_name_ret_destructor(
+				rec_ret_);
 		return ret_;
 	}
 	assertion(rec_ret_->status ==
-			FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_NOT_FOUND);
+			RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND);
 	assertion(rec_ret_->application == NULL);
 	assertion(rec_ret_->application_was_moved == AMARA_BOOLEAN_FALSE);
-	ret_->status = FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_NOT_FOUND;
+	ret_->status = RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND;
 	assertion(ret_->application == NULL);
 	assertion(ret_->application_was_moved == AMARA_BOOLEAN_FALSE);
-	find_rtg_application_by_name_ret_destructor(rec_ret_);
+	rtg_applications_simple_list_find_by_name_ret_destructor(rec_ret_);
 	return ret_;
 }
 
-find_rtg_application_by_name_ret *
-find_rtg_application_by_name(
-		const amara_string * needle,
-		const rtg_applications_simple_list * haystack)
+rtg_applications_simple_list_find_by_name_ret *
+rtg_applications_simple_list_find_by_name(
+		const rtg_applications_simple_list * haystack,
+		const amara_string * needle)
 {
-	find_rtg_application_by_name_ret * ret_;
-	find_rtg_application_by_name_ret * rec_ret_;
-	ret_ = malloc(sizeof(find_rtg_application_by_name_ret));
-	ret_->status = FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_INVALID;
+	rtg_applications_simple_list_find_by_name_ret * ret_;
+	rtg_applications_simple_list_find_by_name_ret * rec_ret_;
+	ret_ = malloc(sizeof(rtg_applications_simple_list_find_by_name_ret));
+	ret_->status = RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_INVALID;
 	ret_->application = NULL;
 	ret_->application_was_moved = AMARA_BOOLEAN_FALSE;
 	assertion(haystack != NULL);
 	if (haystack->first == NULL) {
 		assertion(haystack->next == NULL);
-		ret_->status = FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_NOT_FOUND;
+		ret_->status = RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND;
 		return ret_;
 	}
-	rec_ret_ = find_rtg_application_by_name_inner(needle, haystack);
+	rec_ret_ = rtg_applications_simple_list_find_by_name_inner(
+			haystack, needle);
 	if (rec_ret_->status ==
-			FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_SUCCESS) {
+			RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS) {
 		assertion(rec_ret_->application != NULL);
 		assertion(rec_ret_->application_was_moved ==
 				AMARA_BOOLEAN_FALSE);
 		ret_->application = rec_ret_->application;
 		rec_ret_->application_was_moved = AMARA_BOOLEAN_TRUE;
-		find_rtg_application_by_name_ret_destructor(rec_ret_);
-		ret_->status = FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_SUCCESS;
+		rtg_applications_simple_list_find_by_name_ret_destructor(
+				rec_ret_);
+		ret_->status = RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS;
 		return ret_;
 	}
 	assertion(rec_ret_->status ==
-			FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_NOT_FOUND);
+			RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND);
 	assertion(rec_ret_->application == NULL);
 	assertion(rec_ret_->application_was_moved == AMARA_BOOLEAN_FALSE);
-	ret_->status = FIND_RTG_APPLICATION_BY_NAME_RET_STATUS_NOT_FOUND;
-	find_rtg_application_by_name_ret_destructor(rec_ret_);
+	ret_->status = RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND;
+	rtg_applications_simple_list_find_by_name_ret_destructor(rec_ret_);
 	return ret_;
 }
 
@@ -235,7 +244,10 @@ rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_f
 	ret_ = malloc(sizeof(
 			rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret));
 	ret_->status = RTG_APPLICATIONS_SIMPLE_LIST_OUT_OF_STT_APPLICATIONS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID;
-	if (stt_applications == NULL) {
+	if (stt_applications == NULL || stt_applications->first == NULL) {
+		if (stt_applications->first == NULL) {
+			assertion(stt_applications->next == NULL);
+		}
 		ret_->applications = NULL;
 		fprintf(stderr, "<---- rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret * rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list(const stt_applications_simple_list *, const rtg_named_functions_simple_list *) (%s:%u)\n",
 				__FILE__, __LINE__);
@@ -277,6 +289,57 @@ rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_f
 	ret_->applications = sub_ret_;
 	ret_->status = RTG_APPLICATIONS_SIMPLE_LIST_OUT_OF_STT_APPLICATIONS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
 	fprintf(stderr, "<---- rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret * rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list(const stt_applications_simple_list *, const rtg_named_functions_simple_list *) (%s:%u)\n",
+			__FILE__, __LINE__);
+	return ret_;
+}
+
+void
+rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret_destructor(
+		rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret * input_ret)
+{
+	assertion(input_ret != NULL);
+	if (input_ret->status ==
+			RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
+		assertion(input_ret->applications != NULL);
+		if (input_ret->applications_were_moved ==
+				AMARA_BOOLEAN_FALSE) {
+			rtg_applications_simple_list_destructor(
+					input_ret->applications);
+		}
+	} else {
+		assertion(input_ret->status ==
+				RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID);
+		assertion(input_ret->applications == NULL);
+	}
+	free(input_ret);
+}
+
+rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret *
+rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list(
+		const stt_doc_subnode * subnode,
+		const rtg_named_functions_simple_list * functions)
+{
+	rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret * ret_;
+	rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret * sub_ret_;
+	fprintf(stderr, "----> %s:%u rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret * rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list(const stt_functions_simple_list *)\n",
+			__FILE__, __LINE__);
+	ret_ = malloc(sizeof(
+			rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret));
+	ret_->status = RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID;
+	ret_->applications = NULL;
+	sub_ret_ = rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list(
+			subnode->applications_, functions);
+	if (sub_ret_->status ==
+			RTG_APPLICATIONS_SIMPLE_LIST_OUT_OF_STT_APPLICATIONS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
+		ret_->status = RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
+		ret_->applications = sub_ret_->applications;
+	} else {
+		assertion(sub_ret_->status ==
+				RTG_APPLICATIONS_SIMPLE_LIST_OUT_OF_STT_APPLICATIONS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC);
+		assertion(sub_ret_->applications == NULL);
+	}
+	free(sub_ret_);
+	fprintf(stderr, "<---- %s:%u rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret * rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list(const stt_functions_simple_list *)\n",
 			__FILE__, __LINE__);
 	return ret_;
 }

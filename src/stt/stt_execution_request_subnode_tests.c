@@ -24,6 +24,28 @@
 #include "stt_execution_request_subnode.h"
 
 void
+assert_expectations_on_stt_execution_request_subnode_example_print_foo(
+		const stt_execution_request_subnode * subnode)
+{
+	amara_string * expected_application_name_;
+	amara_boolean equality_;
+
+	expected_application_name_ = amara_string_exhaustive_constructor(
+			"cli_app_print_foo");
+
+	assertion(subnode != NULL);
+	assertion(subnode->type_ ==
+			STT_EXECUTION_REQUEST_SUBNODE_TYPE_RUN_CLI_APPLICATION);
+	assertion(subnode->application_name_ != NULL);
+	assertion(subnode->application_name_->value_ != NULL);
+	equality_ = amara_string_equality(expected_application_name_,
+	                                  subnode->application_name_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
+	amara_string_destructor(expected_application_name_);
+}
+
+void
 stt_execution_request_subnode_construct_and_destruct_test_0()
 {
 	stt_execution_request_subnode * stt_execution_request_subnode_;

@@ -23,6 +23,58 @@
 /*   For `stt_application_subnode`. */
 #include "stt_application_subnode.h"
 
+#include "stt_application_tests.h"
+
+stt_application_subnode *
+stt_application_subnode_example_print_foo()
+{
+	stt_application_subnode * ret_;
+	stt_application * application_;
+
+	application_ = stt_application_example_print_foo();
+	assertion(application_ != NULL);
+	assert_expectations_on_stt_application_example_print_foo(application_);
+
+	ret_ = stt_application_subnode_exhaustive_constructor(application_);
+
+	return ret_;
+}
+
+void
+assert_expectations_on_stt_application_subnode_example_print_foo(
+		const stt_application_subnode * subnode)
+{
+	amara_string * expected_application_name_;
+	amara_string * expected_application_entry_point_function_name_;
+	amara_boolean equality_;
+
+	expected_application_name_ = amara_string_exhaustive_constructor(
+			"cli_app_print_foo");
+	assertion(expected_application_name_ != NULL);
+	assertion(expected_application_name_->value_ != NULL);
+
+	expected_application_entry_point_function_name_ =
+			amara_string_exhaustive_constructor("print_foo");
+	assertion(expected_application_entry_point_function_name_ != NULL);
+	assertion(expected_application_entry_point_function_name_->value_ !=
+			NULL);
+
+	assertion(subnode != NULL);
+	assertion(subnode->type_ ==
+			STT_APPLICATION_SUBNODE_TYPE_CLI_APPLICATION);
+	assertion(subnode->name_ != NULL);
+	assertion(subnode->name_->value_ != NULL);
+	equality_ = amara_string_equality(
+			expected_application_name_, subnode->name_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+	assertion(subnode->entry_point_function_name_ != NULL);
+	assertion(subnode->entry_point_function_name_->value_ != NULL);
+	equality_ = amara_string_equality(
+			expected_application_entry_point_function_name_,
+			subnode->entry_point_function_name_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+}
+
 void
 stt_application_subnode_construct_and_destruct_test_0()
 {

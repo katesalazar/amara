@@ -20,6 +20,7 @@
 #include "rtg_applications_simple_list_tests.h"
 #include "rtg_doc_tests.h"
 #include "rtg_execution_request_tests.h"
+#include "rtg_execution_requests_simple_list_tests.h"
 #include "rtg_named_function_tests.h"
 #include "rtg_named_functions_simple_list_tests.h"
 #include "rtg_operation_arg_tests.h"
@@ -39,5 +40,6 @@ run_time_graph_tests()
 	rtg_application_tests();
 	rtg_applications_simple_list_tests();
 	rtg_execution_request_tests();
+	rtg_execution_requests_simple_list_tests();
 	rtg_doc_tests();
 }

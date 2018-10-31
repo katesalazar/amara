@@ -35,6 +35,10 @@ __attribute__((warn_unused_result))
 ;
 
 void
+arn_values_fixed_list_destructor(arn_values_fixed_list * values)
+;
+
+void
 arn_values_fixed_list_push_front(
 		arn_values_fixed_list * values, const arn_value * value)
 ;

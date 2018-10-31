@@ -72,15 +72,17 @@ stt_string_literal_subnode_destructor(stt_string_literal_subnode * subnode)
 void
 stt_string_literal_subnode_set_string_literal(
 		stt_string_literal_subnode * subnode,
-		const char * string_literal)
+		amara_string * string_literal)
 {
 	assertion(subnode != NULL);
 	if (subnode->string_literal_ != NULL) {
 		amara_string_destructor(subnode->string_literal_);
 	}
 	if (string_literal != NULL) {
-		subnode->string_literal_ = amara_string_exhaustive_constructor(
-				string_literal);
+		subnode->string_literal_ =
+				amara_string_copy_constructor(string_literal);
+	} else {
+		subnode->string_literal_ = NULL;
 	}
 }
 

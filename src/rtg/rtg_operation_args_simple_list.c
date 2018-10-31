@@ -90,7 +90,7 @@ rtg_operation_args_simple_list_destructor(
 rtg_operation_args_simple_list *
 rtg_operation_args_simple_list_push_front(
 		rtg_operation_args_simple_list * operation_args,
-		const rtg_operation_arg * operation_arg)
+		const struct rtg_operation_arg * operation_arg)
 {
 	rtg_operation_args_simple_list * new_list_node_;
 	assertion(operation_args != NULL);
@@ -141,28 +141,23 @@ rtg_operation_args_simple_list_length(
 
 void
 rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_destructor(
-		rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret * rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_)
+		rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret * input_ret)\
 {
-	assertion(rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_ !=
-			NULL);
-	if (rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_->status ==
+	assertion(input_ret != NULL);
+	if (input_ret->status ==
 			RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
-		assertion(rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_->operation_args !=
-				NULL);
-		if (rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_->operation_args_were_moved ==
+		assertion(input_ret->operation_args != NULL);
+		if (input_ret->operation_args_were_moved ==
 				AMARA_BOOLEAN_FALSE) {
 			rtg_operation_args_simple_list_destructor(
-					rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_->operation_args);
+					input_ret->operation_args);
 		}
 	} else {
-		assertion(rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_->status ==
-					RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_INVALID ||
-				rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_->status ==
-						RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC);
-		assertion(rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_->operation_args ==
-				NULL);
+		assertion(input_ret->status ==
+				RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC);
+		assertion(input_ret->operation_args == NULL);
 	}
-	free(rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_);
+	free(input_ret);
 }
 
 rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret *

@@ -49,6 +49,30 @@ stt_execution_request_subnode_copy_constructor(
 	return ret_;
 }
 
+stt_execution_request_subnode *
+stt_execution_request_subnode_exhaustive_constructor(
+		const stt_execution_request * execution_request)
+{
+	stt_execution_request_subnode * ret_;
+
+	assertion(execution_request != NULL);
+	assertion(execution_request->type_ !=
+			STT_EXECUTION_REQUEST_TYPE_INVALID);
+	assertion(execution_request->application_name_ != NULL);
+	assertion(execution_request->application_name_->value_ != NULL);
+
+	ret_ = malloc(sizeof(stt_execution_request_subnode));
+
+	ret_->application_name_ = amara_string_copy_constructor(
+			execution_request->application_name_);
+
+	assertion(execution_request->type_ ==
+			STT_EXECUTION_REQUEST_TYPE_CLI_APPLICATION);
+	ret_->type_ = STT_EXECUTION_REQUEST_SUBNODE_TYPE_RUN_CLI_APPLICATION;
+
+	return ret_;
+}
+
 void
 stt_execution_request_subnode_destructor(
 		stt_execution_request_subnode * subnode)

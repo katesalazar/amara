@@ -151,13 +151,38 @@ stt_node_set_rational_literal(
 ;
 
 void
-stt_node_set_identifier(
-		stt_node * node, const amara_string * identifier)
+stt_node_set_identifier(stt_node * node, const amara_string * identifier)
 ;
 
 void
-stt_node_set_operation(
-		stt_node * node, const stt_operation * operation)
+stt_node_set_operation(stt_node * node, const stt_operation * operation)
+;
+
+void
+stt_node_set_operations_list(
+		stt_node * node, const stt_operations_simple_list * operations)
+;
+
+void
+stt_node_set_named_function(
+		stt_node * node, const stt_named_function * named_function)
+;
+
+void
+stt_node_set_application(stt_node * node, const stt_application * application)
+;
+
+void
+stt_node_set_execution_request(stt_node * node,
+                               const stt_execution_request * execution_request)
+;
+
+void
+stt_node_set_doc(
+		stt_node * node,
+		const stt_named_functions_simple_list * named_functions,
+		const stt_applications_simple_list * applications,
+		const stt_execution_requests_simple_list * execution_requests)
 ;
 
 amara_string *

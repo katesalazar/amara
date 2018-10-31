@@ -20,6 +20,36 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__OPERATION_ARG_TESTS__H__
 #define __AMARA__RUN_TIME_GRAPH__OPERATION_ARG_TESTS__H__
 
+rtg_operation_arg *
+rtg_operation_arg_example_string_literal_foo(void)
+__attribute__((warn_unused_result))
+;
+
+void
+assert_expectations_on_rtg_operation_arg_example_string_literal_foo(
+		const rtg_operation_arg * operation_arg)
+;
+
+rtg_operation_arg *
+rtg_operation_arg_example_identifier_foo(void)
+__attribute__((warn_unused_result))
+;
+
+void
+assert_expectations_on_rtg_operation_arg_example_identifier_foo(
+		const rtg_operation_arg * operation_arg)
+;
+
+rtg_operation_arg *
+rtg_operation_arg_example_identifier_bar(void)
+__attribute__((warn_unused_result))
+;
+
+void
+assert_expectations_on_rtg_operation_arg_example_identifier_bar(
+		const rtg_operation_arg * operation_arg)
+;
+
 void
 rtg_operation_arg_tests(void)
 ;

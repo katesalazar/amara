@@ -17,14 +17,23 @@
  * time graph operation args simple list.
  */
 
+#include "../asr/assertion.h"
+
 #include "rtg_operation_args_simple_list.h"
+
+#include "rtg_operation_args_simple_list_tests.h"
 
 void
 rtg_operation_args_simple_list_construct_and_destruct_test_0()
 {
 	rtg_operation_args_simple_list * operation_args_list_;
+
 	operation_args_list_ =
 			rtg_operation_args_simple_list_default_constructor();
+	assertion(operation_args_list_ != NULL);
+	assertion(operation_args_list_->first == NULL);
+	assertion(operation_args_list_->next == NULL);
+
 	rtg_operation_args_simple_list_destructor(operation_args_list_);
 }
 
@@ -33,11 +42,22 @@ rtg_operation_args_simple_list_construct_and_destruct_test_1()
 {
 	rtg_operation_args_simple_list * operation_args_list_zero_;
 	rtg_operation_args_simple_list * operation_args_list_one_;
+
 	operation_args_list_zero_ =
 			rtg_operation_args_simple_list_default_constructor();
+	assertion(operation_args_list_zero_ != NULL);
+	assertion(operation_args_list_zero_->first == NULL);
+	assertion(operation_args_list_zero_->next == NULL);
+
 	operation_args_list_one_ =
 			rtg_operation_args_simple_list_copy_constructor(
 					operation_args_list_zero_);
+	assertion(operation_args_list_zero_->first == NULL);
+	assertion(operation_args_list_zero_->next == NULL);
+	assertion(operation_args_list_one_ != NULL);
+	assertion(operation_args_list_one_->first == NULL);
+	assertion(operation_args_list_one_->next == NULL);
+
 	rtg_operation_args_simple_list_destructor(operation_args_list_one_);
 	rtg_operation_args_simple_list_destructor(operation_args_list_zero_);
 }

@@ -51,6 +51,7 @@ rtg_named_function_exhaustive_constructor(
 	}
 	ret_ = malloc(sizeof(rtg_named_function));
 	if (name == NULL || operations == NULL) {
+		/*
 		if (name == NULL) {
 			ret_->name_ = NULL;
 		} else {
@@ -63,6 +64,9 @@ rtg_named_function_exhaustive_constructor(
 					rtg_operations_simple_list_copy_constructor(
 							operations);
 		}
+		*/
+		ret_->name_ = NULL;
+		ret_->operations_ = NULL;
 		ret_->type_ = RTG_NAMED_FUNCTION_TYPE_INVALID;
 		return ret_;
 	}
@@ -108,24 +112,21 @@ rtg_named_function_destructor(rtg_named_function * named_function)
 
 void
 rtg_named_function_out_of_stt_named_function_ret_destructor(
-	rtg_named_function_out_of_stt_named_function_ret * rtg_named_function_out_of_stt_named_function_ret_)
+	rtg_named_function_out_of_stt_named_function_ret * input_ret)
 {
-	if (rtg_named_function_out_of_stt_named_function_ret_->status ==
+	if (input_ret->status ==
 			RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_SUCCESS) {
-		if (rtg_named_function_out_of_stt_named_function_ret_->named_function_was_moved ==
+		if (input_ret->named_function_was_moved ==
 				AMARA_BOOLEAN_FALSE) {
 			rtg_named_function_destructor(
-					rtg_named_function_out_of_stt_named_function_ret_->named_function);
+					input_ret->named_function);
 		}
 	} else {
-		assertion(rtg_named_function_out_of_stt_named_function_ret_->status ==
-					RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_INVALID ||
-				rtg_named_function_out_of_stt_named_function_ret_->status ==
-						RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_ERROR_UNSPECIFIC);
-		assertion(rtg_named_function_out_of_stt_named_function_ret_->named_function ==
-				NULL);
+		assertion(input_ret->status ==
+				RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_INVALID);
+		assertion(input_ret->named_function == NULL);
 	}
-	free(rtg_named_function_out_of_stt_named_function_ret_);
+	free(input_ret);
 }
 
 rtg_named_function_out_of_stt_named_function_ret *
