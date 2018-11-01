@@ -58,7 +58,7 @@ __attribute__((warn_unused_result))
 #define RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_operations_simple_list_out_of_stt_operations_simple_list_ret {
-	uint_fast8_t status;
+	unsigned char status;
 	rtg_operations_simple_list * operations;
 	amara_boolean operations_were_moved;
 } rtg_operations_simple_list_out_of_stt_operations_simple_list_ret;

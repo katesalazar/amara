@@ -221,7 +221,7 @@ rtg_operation_construct_and_destruct_test_0()
 void
 rtg_operation_construct_and_destruct_test_1()
 {
-	uint_fast8_t requested_type_;
+	unsigned char requested_type_;
 	rtg_operation_args_simple_list * operation_args_;
 	/*
 	rtg_operation_arg * operation_arg_;
@@ -264,7 +264,7 @@ rtg_operation_construct_and_destruct_test_1()
 void
 rtg_operation_construct_and_destruct_test_2()
 {
-	uint_fast8_t requested_type_;
+	unsigned char requested_type_;
 	rtg_operation_args_simple_list * operation_args_;
 	/*
 	rtg_operation_arg * operation_arg_;
@@ -301,7 +301,7 @@ rtg_operation_construct_and_destruct_test_2()
 void
 rtg_operation_construct_and_destruct_test_3()
 {
-	uint_fast8_t requested_type_;
+	unsigned char requested_type_;
 	rtg_operation_args_simple_list * operation_args_;
 	rtg_operation_arg * operation_arg_;
 	rtg_operation * operation_;
@@ -355,7 +355,7 @@ rtg_operation_construct_and_destruct_test_3()
 void
 rtg_operation_construct_and_destruct_test_4()
 {
-	uint_fast8_t requested_type_;
+	unsigned char requested_type_;
 	rtg_operation_args_simple_list * operation_args_;
 	rtg_operation_arg * operation_arg_zero_;
 	rtg_operation_arg * operation_arg_one_;
@@ -459,7 +459,7 @@ rtg_operation_construct_and_destruct_test_4()
 void
 rtg_operation_construct_and_destruct_test_5()
 {
-	uint_fast8_t requested_type_;
+	unsigned char requested_type_;
 	rtg_operation_args_simple_list * operation_args_;
 	rtg_operation_arg * operation_arg_;
 	rtg_operation * operation_zero_;
@@ -531,7 +531,7 @@ rtg_operation_construct_and_destruct_test_5()
 void
 rtg_operation_construct_and_destruct_test_6()
 {
-	uint_fast8_t requested_type_;
+	unsigned char requested_type_;
 	rtg_operation_args_simple_list * operation_args_;
 	rtg_operation_arg * operation_arg_;
 	rtg_operation * operation_zero_;

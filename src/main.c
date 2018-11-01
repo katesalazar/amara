@@ -35,18 +35,16 @@
  * `ARG_RET_RUN_APP`... */
 #include "arg.h"
 
-/*   For `uint_fast8_t acquire_dir(const char *)`. */
+/*   For `unsigned char acquire_dir(const char *)`. */
 #include "prs/persistence.h"
 
 #define AMARA_MAIN_RET_SUCCESS 0x00
 #define AMARA_MAIN_RET_ERR     0x01
 
-uint_fast8_t
+unsigned char
 amara_main(const int argc, const char * * argv)
-__attribute__((warn_unused_result));
-
-#define PRINT_BANNER_FALSE 0x00
-#define PRINT_BANNER_TRUE  0xFF
+__attribute__((warn_unused_result))
+;
 
 void
 banner()
@@ -59,7 +57,7 @@ banner()
 }
 
 void
-greet(uint_fast8_t double_end_of_line_char)
+greet(amara_boolean double_end_of_line_char)
 {
 	printf("Wish you have a wonderful day!\n");
 	if (double_end_of_line_char) {
@@ -89,13 +87,13 @@ print_help()
 	printf("banner.\n\n");
 }
 
-uint_fast8_t
+unsigned char
 amara_main(const int argc, const char * * argv)
 {
 	const arg_ret * arg_;
-	uint_fast8_t print_banner_;
-	uint_fast8_t app_runner_ret_;
-	uint_fast8_t returning_;
+	amara_boolean print_banner_;
+	unsigned char app_runner_ret_;
+	unsigned char returning_;
 	returning_ = AMARA_MAIN_RET_ERR;
 	arg_ = arg(argc, argv);
 	if (arg_->value & ARG_RET_ERR) {
@@ -103,11 +101,11 @@ amara_main(const int argc, const char * * argv)
 		printf("arguments.\n\n");
 	}
 	if (arg_->value & ARG_RET_NO_BANNER) {
-		print_banner_ = PRINT_BANNER_FALSE;
+		print_banner_ = AMARA_BOOLEAN_FALSE;
 	} else {
-		print_banner_ = PRINT_BANNER_TRUE;
+		print_banner_ = AMARA_BOOLEAN_TRUE;
 	}
-	if (print_banner_ == PRINT_BANNER_TRUE) {
+	if (print_banner_ == AMARA_BOOLEAN_TRUE) {
 		banner();
 	}
 	if (arg_->value & ARG_RET_PRINT_HELP) {
@@ -146,9 +144,10 @@ amara_main(const int argc, const char * * argv)
 	return returning_;
 }
 
-int main(const int argc, const char * * argv)
+int
+main(int argc, const char * * argv)
 {
-	uint_fast8_t amara_main_ret_;
+	unsigned char amara_main_ret_;
 	amara_main_ret_ = amara_main(argc, argv);
 	assertion(amara_main_ret_ <= 0x7F);
 	return amara_main_ret_;

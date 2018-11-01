@@ -36,16 +36,16 @@ endif
 
 # XXX    Why did I remove `-ansi` from Darwin? Maybe related to the fact
 # XXX  I was surely using llvm 9.0.0, but... why did I remove it?
-ifneq ($(UNAME_S), Darwin)
+#ifneq ($(UNAME_S), Darwin)
 CFLAGS_GENERAL += -ansi
 # $(info $(CFLAGS_GENERAL))
 CFLAGS_PARTICULAR_FLEX += -ansi
 # $(info $(CFLAGS_PARTICULAR_FLEX))
-endif
+#endif
 
-CFLAGS_GENERAL += -pedantic -Wall -Wextra
+CFLAGS_GENERAL += -pedantic -Wall -Wextra -std=c89
 # $(info $(CFLAGS_GENERAL))
-CFLAGS_PARTICULAR_FLEX += -pedantic -Wall -Wextra
+CFLAGS_PARTICULAR_FLEX += -pedantic -Wall -Wextra -std=c89
 # $(info $(CFLAGS_PARTICULAR_FLEX))
 
 #   `-Werror`: Maybe this is causing issues to the `flex` output doc..?

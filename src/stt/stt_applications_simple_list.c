@@ -126,13 +126,13 @@ stt_applications_simple_list_push_front(
 	return new_list_node_;
 }
 
-uint_fast8_t
+unsigned char
 stt_applications_simple_list_length(stt_applications_simple_list * list)
 {
-	uint_fast8_t returning_ = 0;
+	unsigned char returning_ = 0;
 	while (list != NULL) {
-		if (returning_ >= UINT8_MAX) {
-			fprintf(stderr, "%s:%u (uint_fast8_t functions_list_length(functions_list *)): fatal\n",
+		if (returning_ >= 255) {
+			fprintf(stderr, "%s:%u (unsigned char functions_list_length(functions_list *)): fatal\n",
 					__FILE__, __LINE__);
 			exit(EXIT_FAILURE);
 		}

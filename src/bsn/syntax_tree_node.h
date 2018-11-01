@@ -26,7 +26,7 @@ typedef struct rational_subnode {
 
 /*   `b_node` for 'Bison node'. */
 typedef struct b_node {
-	uint_fast8_t type;
+	unsigned char type;
 	text_subnode * text;
 	natural_subnode * natural;
 	integer_subnode * integer;

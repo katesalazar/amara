@@ -108,12 +108,12 @@ rtg_operation_args_simple_list_push_front(
 	return new_list_node_;
 }
 
-uint_fast8_t
+unsigned char
 rtg_operation_args_simple_list_length_inner(
 		const rtg_operation_args_simple_list * operation_args)
 {
-	uint_fast8_t ret_;
-	uint_fast8_t sub_ret_;
+	unsigned char ret_;
+	unsigned char sub_ret_;
 	assertion(operation_args != NULL);
 	assertion(operation_args->first != NULL);
 	if (operation_args->next == NULL) {
@@ -127,7 +127,7 @@ rtg_operation_args_simple_list_length_inner(
 	return ret_;
 }
 
-uint_fast8_t
+unsigned char
 rtg_operation_args_simple_list_length(
 		const rtg_operation_args_simple_list * operation_args)
 {

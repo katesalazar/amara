@@ -19,12 +19,9 @@
 #ifndef __AMARA__COMMON__AMARA_BOOLEAN__H__
 #define __AMARA__COMMON__AMARA_BOOLEAN__H__
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
+typedef unsigned char amara_boolean;
 
-typedef uint_fast8_t amara_boolean;
-
-#define AMARA_BOOLEAN_FALSE 0x00
-#define AMARA_BOOLEAN_TRUE (uint_fast8_t) ~AMARA_BOOLEAN_FALSE
+#define AMARA_BOOLEAN_FALSE (unsigned char) 0x00
+#define AMARA_BOOLEAN_TRUE (unsigned char) ~AMARA_BOOLEAN_FALSE
 
 #endif

@@ -16,9 +16,6 @@
  * src/brt/natural.c: Algebraic natural number class.
  */
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 /*   For `int fprintf(FILE * restrict stream,
  * const char * restrict format, ...)`. */
 #include <stdio.h>
@@ -120,7 +117,7 @@ assert_valid_raw_natural(const amara_string * raw_natural)
 {
 	const char * raw_natural_char_array_;
 	size_t raw_natural_char_array_len_;
-	uint_fast8_t indexer_;
+	unsigned char indexer_;
 	raw_natural_char_array_ = amara_string_get_value(raw_natural);
 	raw_natural_char_array_len_ = strlen(raw_natural_char_array_);
 	assertion_two(raw_natural_char_array_len_ > 0,
@@ -150,24 +147,24 @@ assert_valid_raw_natural(const amara_string * raw_natural)
 }
 
 /*   Both `raw_natural_zero` and `raw_natural_one` are raw natural
- * numbers with exactly the same length (in digits). See `int_fast8_t
+ * numbers with exactly the same length (in digits). See `signed char
  * safe_arguments_natural_raw_comparison(
  * const amara_string * raw_natural_zero,
  * const amara_string * raw_natural_one)`. */
-int_fast8_t
+signed char
 safe_arguments_natural_raw_comparison_inner(
 		const amara_string * raw_natural_zero,
 		const amara_string * raw_natural_one,
 		const size_t raw_naturals_len)
 __attribute__((warn_unused_result));
 
-int_fast8_t
+signed char
 safe_arguments_natural_raw_comparison_inner(
 		const amara_string * raw_natural_zero,
 		const amara_string * raw_natural_one,
 		const size_t raw_naturals_len)
 {
-	uint_fast8_t indexer_;
+	unsigned char indexer_;
 	const char * raw_natural_zero_chars_array_;
 	const char * raw_natural_one_chars_array_;
 	raw_natural_zero_chars_array_ =
@@ -190,7 +187,7 @@ safe_arguments_natural_raw_comparison_inner(
 	return 0;
 }
 
-int_fast8_t
+signed char
 safe_arguments_natural_raw_comparison(
 		const amara_string * raw_natural_zero,
 		const amara_string * raw_natural_one)
@@ -229,27 +226,27 @@ safe_arguments_natural_raw_comparison(
 /*   Input `valid_raw_natural` is expected to be valid and canonical,
  * i.e. only digits and no unnecessary leading zeroes. Also it is known
  * that it trivially fits, because its length is less than three. */
-fit_raw_natural_in_uint_fast8_t_ret *
-fit_raw_natural_in_uint_fast8_t_inner_trivially_fits(
+fit_raw_natural_in_unsigned_char_ret *
+fit_raw_natural_in_unsigned_char_inner_trivially_fits(
 		const amara_string * valid_raw_natural)
 __attribute__((warn_unused_result));
 
-fit_raw_natural_in_uint_fast8_t_ret *
-fit_raw_natural_in_uint_fast8_t_inner_trivially_fits(
+fit_raw_natural_in_unsigned_char_ret *
+fit_raw_natural_in_unsigned_char_inner_trivially_fits(
 		const amara_string * valid_raw_natural)
 {
-	fit_raw_natural_in_uint_fast8_t_ret * ret_;
-	/* uint_fast8_t min_digits_ct_; */
-	uint_fast8_t max_digits_ct_;
+	fit_raw_natural_in_unsigned_char_ret * ret_;
+	/* unsigned char min_digits_ct_; */
+	unsigned char max_digits_ct_;
 	size_t valid_raw_natural_len_;
 	const char * valid_raw_natural_chars_array_;
-	uint_fast8_t current_digit_index_;
-	uint_fast8_t current_digit_;
+	unsigned char current_digit_index_;
+	unsigned char current_digit_;
 	/* min_digits_ct_ = 1; */
 	max_digits_ct_ = 3;
-	ret_ = (fit_raw_natural_in_uint_fast8_t_ret *) malloc(
-			sizeof(fit_raw_natural_in_uint_fast8_t_ret));
-	ret_->status = FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_INVALID;
+	ret_ = (fit_raw_natural_in_unsigned_char_ret *) malloc(
+			sizeof(fit_raw_natural_in_unsigned_char_ret));
+	ret_->status = FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_INVALID;
 	valid_raw_natural_len_ = amara_string_length(valid_raw_natural);
 	valid_raw_natural_chars_array_ =
 			amara_string_get_value(valid_raw_natural);
@@ -276,33 +273,33 @@ fit_raw_natural_in_uint_fast8_t_inner_trivially_fits(
 		}
 		*/
 	}
-	ret_->status = FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_OK;
+	ret_->status = FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_OK;
 	return ret_;
 }
 
 /*   Input `valid_raw_natural` is expected to be valid and canonical,
  * i.e. only digits and no unnecessary leading zeroes. Also it is known
  * that it trivially fits, because its length is less than three. */
-fit_raw_natural_in_uint_fast16_t_ret *
-fit_raw_natural_in_uint_fast16_t_inner_trivially_fits(
+fit_raw_natural_in_unsigned_short_ret *
+fit_raw_natural_in_unsigned_short_inner_trivially_fits(
 		const amara_string * valid_raw_natural)
 __attribute__((warn_unused_result));
 
-fit_raw_natural_in_uint_fast16_t_ret *
-fit_raw_natural_in_uint_fast16_t_inner_trivially_fits(
+fit_raw_natural_in_unsigned_short_ret *
+fit_raw_natural_in_unsigned_short_inner_trivially_fits(
 		const amara_string * valid_raw_natural)
 {
-	fit_raw_natural_in_uint_fast16_t_ret * ret_;
-	/* uint_fast8_t min_digits_ct_; */
-	uint_fast8_t max_digits_ct_;
+	fit_raw_natural_in_unsigned_short_ret * ret_;
+	/* unsigned char min_digits_ct_; */
+	unsigned char max_digits_ct_;
 	size_t valid_raw_natural_len_;
 	const char * valid_raw_natural_chars_array_;
-	uint_fast8_t current_digit_index_;
-	uint_fast8_t current_digit_;
+	unsigned char current_digit_index_;
+	unsigned char current_digit_;
 	/* min_digits_ct_ = 1; */
 	max_digits_ct_ = 5;
-	ret_ = malloc(sizeof(fit_raw_natural_in_uint_fast16_t_ret));
-	ret_->status = FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_INVALID;
+	ret_ = malloc(sizeof(fit_raw_natural_in_unsigned_short_ret));
+	ret_->status = FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_INVALID;
 	valid_raw_natural_len_ = amara_string_length(valid_raw_natural);
 	valid_raw_natural_chars_array_ =
 			amara_string_get_value(valid_raw_natural);
@@ -329,34 +326,34 @@ fit_raw_natural_in_uint_fast16_t_inner_trivially_fits(
 		}
 		*/
 	}
-	ret_->status = FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_OK;
+	ret_->status = FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_OK;
 	return ret_;
 }
 
-fit_raw_natural_in_uint_fast8_t_ret *
-fit_raw_natural_in_uint_fast8_t_inner_should_fit(
+fit_raw_natural_in_unsigned_char_ret *
+fit_raw_natural_in_unsigned_char_inner_should_fit(
 		const amara_string * valid_raw_natural)
 __attribute__((warn_unused_result));
 
-fit_raw_natural_in_uint_fast8_t_ret *
-fit_raw_natural_in_uint_fast8_t_inner_should_fit(
+fit_raw_natural_in_unsigned_char_ret *
+fit_raw_natural_in_unsigned_char_inner_should_fit(
 		const amara_string * valid_raw_natural)
 {
-	return fit_raw_natural_in_uint_fast8_t_inner_trivially_fits(
+	return fit_raw_natural_in_unsigned_char_inner_trivially_fits(
 			valid_raw_natural);
 }
 
-fit_raw_natural_in_uint_fast16_t_ret *
-fit_raw_natural_in_uint_fast16_t_inner_should_fit(
+fit_raw_natural_in_unsigned_short_ret *
+fit_raw_natural_in_unsigned_short_inner_should_fit(
 		const amara_string * valid_raw_natural)
 __attribute__((warn_unused_result))
 ;
 
-fit_raw_natural_in_uint_fast16_t_ret *
-fit_raw_natural_in_uint_fast16_t_inner_should_fit(
+fit_raw_natural_in_unsigned_short_ret *
+fit_raw_natural_in_unsigned_short_inner_should_fit(
 		const amara_string * valid_raw_natural)
 {
-	return fit_raw_natural_in_uint_fast16_t_inner_trivially_fits(
+	return fit_raw_natural_in_unsigned_short_inner_trivially_fits(
 			valid_raw_natural);
 }
 
@@ -364,57 +361,57 @@ fit_raw_natural_in_uint_fast16_t_inner_should_fit(
  * i.e. only digits and no unnecessary leading zeroes. Also it is known
  * that it might fit or not, because its length is exactly of three and
  * the safe limit is set at `255`. */
-fit_raw_natural_in_uint_fast8_t_ret *
-fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not(
+fit_raw_natural_in_unsigned_char_ret *
+fit_raw_natural_in_unsigned_char_inner_might_fit_or_not(
 		const amara_string * valid_raw_natural)
 __attribute__((warn_unused_result));
 
 /* XXX    Should rework this, and then reuse the code for the subsequent
  * XXX  widths. */
-fit_raw_natural_in_uint_fast8_t_ret *
-fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not(
+fit_raw_natural_in_unsigned_char_ret *
+fit_raw_natural_in_unsigned_char_inner_might_fit_or_not(
 		const amara_string * valid_raw_natural)
 {
-	fit_raw_natural_in_uint_fast8_t_ret * ret_;
+	fit_raw_natural_in_unsigned_char_ret * ret_;
 	const char * valid_raw_natural_chars_array_;
 	valid_raw_natural_chars_array_ =
 			amara_string_get_value(valid_raw_natural);
 	if (valid_raw_natural_chars_array_[0] < '2') {
 		free((char *) valid_raw_natural_chars_array_);
-		return fit_raw_natural_in_uint_fast8_t_inner_should_fit(
+		return fit_raw_natural_in_unsigned_char_inner_should_fit(
 				valid_raw_natural);
 	} else if (valid_raw_natural_chars_array_[0] == '2') {
 		if (valid_raw_natural_chars_array_[1] < '5') {
 			free((char *) valid_raw_natural_chars_array_);
-			return fit_raw_natural_in_uint_fast8_t_inner_should_fit(
+			return fit_raw_natural_in_unsigned_char_inner_should_fit(
 					valid_raw_natural);
 		} else if (valid_raw_natural_chars_array_[1] == '5') {
 			if (valid_raw_natural_chars_array_[2] < '6') {
 				free((char *) valid_raw_natural_chars_array_);
-				return fit_raw_natural_in_uint_fast8_t_inner_should_fit(
+				return fit_raw_natural_in_unsigned_char_inner_should_fit(
 						valid_raw_natural);
 			} else {
 				free((char *) valid_raw_natural_chars_array_);
-				ret_ = (fit_raw_natural_in_uint_fast8_t_ret *)
-						malloc(sizeof(fit_raw_natural_in_uint_fast8_t_ret));
-				ret_->status = FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_ERR_DOES_NOT_FIT;
+				ret_ = (fit_raw_natural_in_unsigned_char_ret *)
+						malloc(sizeof(fit_raw_natural_in_unsigned_char_ret));
+				ret_->status = FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_DOES_NOT_FIT;
 				return ret_;
 			}
 		} else {
 			assertion(valid_raw_natural_chars_array_[1] > '5');
 			free((char *) valid_raw_natural_chars_array_);
-			ret_ = (fit_raw_natural_in_uint_fast8_t_ret *)
-					malloc(sizeof(fit_raw_natural_in_uint_fast8_t_ret));
-			ret_->status = FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_ERR_DOES_NOT_FIT;
+			ret_ = (fit_raw_natural_in_unsigned_char_ret *)
+					malloc(sizeof(fit_raw_natural_in_unsigned_char_ret));
+			ret_->status = FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_DOES_NOT_FIT;
 			return ret_;
 		}
 	} else {
 		assertion_two(valid_raw_natural_chars_array_[0] > '2',
 				"programming error");
 		free((char *) valid_raw_natural_chars_array_);
-		ret_ = (fit_raw_natural_in_uint_fast8_t_ret *)
-				malloc(sizeof(fit_raw_natural_in_uint_fast8_t_ret));
-		ret_->status = FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_ERR_DOES_NOT_FIT;
+		ret_ = (fit_raw_natural_in_unsigned_char_ret *)
+				malloc(sizeof(fit_raw_natural_in_unsigned_char_ret));
+		ret_->status = FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_DOES_NOT_FIT;
 		return ret_;
 	}
 	/*   This should be unreachable code. */
@@ -426,66 +423,66 @@ fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not(
  * i.e. only digits and no unnecessary leading zeroes. Also it is known
  * that it might fit or not, because its length is exactly of five and
  * the safe limit is set at `65535`. */
-fit_raw_natural_in_uint_fast16_t_ret *
-fit_raw_natural_in_uint_fast16_t_inner_might_fit_or_not(
+fit_raw_natural_in_unsigned_short_ret *
+fit_raw_natural_in_unsigned_short_inner_might_fit_or_not(
 		const amara_string * valid_raw_natural)
 __attribute__((warn_unused_result))
 ;
 
 /* XXX    Should rework this, and then reuse the code for the subsequent
  * XXX  widths. */
-fit_raw_natural_in_uint_fast16_t_ret *
-fit_raw_natural_in_uint_fast16_t_inner_might_fit_or_not(
+fit_raw_natural_in_unsigned_short_ret *
+fit_raw_natural_in_unsigned_short_inner_might_fit_or_not(
 		const amara_string * valid_raw_natural)
 {
-	fit_raw_natural_in_uint_fast16_t_ret * ret_;
+	fit_raw_natural_in_unsigned_short_ret * ret_;
 	const char * valid_raw_natural_chars_array_;
 	valid_raw_natural_chars_array_ =
 			amara_string_get_value(valid_raw_natural);
 	if (valid_raw_natural_chars_array_[0] < '6') {
 		free((char *) valid_raw_natural_chars_array_);
-		return fit_raw_natural_in_uint_fast16_t_inner_should_fit(
+		return fit_raw_natural_in_unsigned_short_inner_should_fit(
 				valid_raw_natural);
 	} else if (valid_raw_natural_chars_array_[0] == '6') {
 		if (valid_raw_natural_chars_array_[1] < '5') {
 			free((char *) valid_raw_natural_chars_array_);
-			return fit_raw_natural_in_uint_fast16_t_inner_should_fit(
+			return fit_raw_natural_in_unsigned_short_inner_should_fit(
 					valid_raw_natural);
 		} else if (valid_raw_natural_chars_array_[1] == '5') {
 			/* FIXME!!!!!!!!!! */
 
 			ret_ = malloc(sizeof(
-					fit_raw_natural_in_uint_fast16_t_ret));
-			ret_->status = FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_ERR_NOT_FITTING; /* even if it did */
+					fit_raw_natural_in_unsigned_short_ret));
+			ret_->status = FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_ERR_NOT_FITTING; /* even if it did */
 			return ret_;
 
 			/*
 			if (valid_raw_natural_chars_array_[2] < '6') {
 				free((char *) valid_raw_natural_chars_array_);
-				return fit_raw_natural_in_uint_fast16_t_inner_should_fit(
+				return fit_raw_natural_in_unsigned_short_inner_should_fit(
 						valid_raw_natural);
 			} else {
 				free((char *) valid_raw_natural_chars_array_);
-				ret_ = (fit_raw_natural_in_uint_fast16_t_ret *)
-						malloc(sizeof(fit_raw_natural_in_uint_fast8_t_ret));
-				ret_->status = FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_ERR_DOES_NOT_FIT;
+				ret_ = (fit_raw_natural_in_unsigned_short_ret *)
+						malloc(sizeof(fit_raw_natural_in_unsigned_char_ret));
+				ret_->status = FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_ERR_DOES_NOT_FIT;
 				return ret_;
 			}
 			*/
 		} else {
 			assertion(valid_raw_natural_chars_array_[1] > '5');
 			free((char *) valid_raw_natural_chars_array_);
-			ret_ = (fit_raw_natural_in_uint_fast16_t_ret *)
-					malloc(sizeof(fit_raw_natural_in_uint_fast8_t_ret));
-			ret_->status = FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_ERR_NOT_FITTING;
+			ret_ = (fit_raw_natural_in_unsigned_short_ret *)
+					malloc(sizeof(fit_raw_natural_in_unsigned_char_ret));
+			ret_->status = FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_ERR_NOT_FITTING;
 			return ret_;
 		}
 	} else {
 		assertion_two(valid_raw_natural_chars_array_[0] > '6',
 				"programming error");
 		free((char *) valid_raw_natural_chars_array_);
-		ret_ = malloc(sizeof(fit_raw_natural_in_uint_fast16_t_ret));
-		ret_->status = FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_ERR_NOT_FITTING;
+		ret_ = malloc(sizeof(fit_raw_natural_in_unsigned_short_ret));
+		ret_->status = FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_ERR_NOT_FITTING;
 		return ret_;
 	}
 	/*   This should be unreachable code. */
@@ -493,58 +490,58 @@ fit_raw_natural_in_uint_fast16_t_inner_might_fit_or_not(
 	exit(EXIT_FAILURE); */
 }
 
-fit_raw_natural_in_uint_fast8_t_ret *
-fit_raw_natural_in_uint_fast8_t(const amara_string * valid_raw_natural)
+fit_raw_natural_in_unsigned_char_ret *
+fit_raw_natural_in_unsigned_char(const amara_string * valid_raw_natural)
 {
-	fit_raw_natural_in_uint_fast8_t_ret * ret_;
+	fit_raw_natural_in_unsigned_char_ret * ret_;
 	size_t valid_raw_natural_len_;
 	valid_raw_natural_len_ = amara_string_length(valid_raw_natural);
 	if (valid_raw_natural_len_ < 3) {
-		ret_ = fit_raw_natural_in_uint_fast8_t_inner_trivially_fits(
+		ret_ = fit_raw_natural_in_unsigned_char_inner_trivially_fits(
 				valid_raw_natural);
 	} else if (valid_raw_natural_len_ == 3) {
-		ret_ = fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not(
+		ret_ = fit_raw_natural_in_unsigned_char_inner_might_fit_or_not(
 				valid_raw_natural);
 	} else {
 		assertion(valid_raw_natural_len_ > 3);
-		ret_ = (fit_raw_natural_in_uint_fast8_t_ret *) malloc(
-				sizeof(fit_raw_natural_in_uint_fast8_t_ret));
-		ret_->status = FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_ERR_NOT_FITTING;
+		ret_ = (fit_raw_natural_in_unsigned_char_ret *) malloc(
+				sizeof(fit_raw_natural_in_unsigned_char_ret));
+		ret_->status = FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_NOT_FITTING;
 	}
 	return ret_;
 }
 
-fit_raw_natural_in_uint_fast16_t_ret *
-fit_raw_natural_in_uint_fast16_t(const amara_string * valid_raw_natural)
+fit_raw_natural_in_unsigned_short_ret *
+fit_raw_natural_in_unsigned_short(const amara_string * valid_raw_natural)
 {
-	fit_raw_natural_in_uint_fast16_t_ret * ret_;
+	fit_raw_natural_in_unsigned_short_ret * ret_;
 	size_t valid_raw_natural_len_;
 	valid_raw_natural_len_ = amara_string_length(valid_raw_natural);
 	if (valid_raw_natural_len_ < 5) {
-		ret_ = fit_raw_natural_in_uint_fast16_t_inner_trivially_fits(
+		ret_ = fit_raw_natural_in_unsigned_short_inner_trivially_fits(
 				valid_raw_natural);
 	} else if (valid_raw_natural_len_ == 5) {
-		ret_ = fit_raw_natural_in_uint_fast16_t_inner_might_fit_or_not(
+		ret_ = fit_raw_natural_in_unsigned_short_inner_might_fit_or_not(
 				valid_raw_natural);
 	} else {
 		assertion(valid_raw_natural_len_ > 5);
-		ret_ = (fit_raw_natural_in_uint_fast16_t_ret *) malloc(
-				sizeof(fit_raw_natural_in_uint_fast16_t_ret));
-		ret_->status = FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_ERR_NOT_FITTING;
+		ret_ = (fit_raw_natural_in_unsigned_short_ret *) malloc(
+				sizeof(fit_raw_natural_in_unsigned_short_ret));
+		ret_->status = FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_ERR_NOT_FITTING;
 	}
 	return ret_;
 }
 
 void
-fit_raw_natural_in_uint_fast8_t_ret_destructor(
-		fit_raw_natural_in_uint_fast8_t_ret * ret)
+fit_raw_natural_in_unsigned_char_ret_destructor(
+		fit_raw_natural_in_unsigned_char_ret * ret)
 {
 	free(ret);
 }
 
 void
-fit_raw_natural_in_uint_fast16_t_ret_destructor(
-		fit_raw_natural_in_uint_fast16_t_ret * ret)
+fit_raw_natural_in_unsigned_short_ret_destructor(
+		fit_raw_natural_in_unsigned_short_ret * ret)
 {
 	free(ret);
 }
@@ -582,7 +579,7 @@ copy_pointer_to_unsigned_int_into_raw_natural(const unsigned int * input)
 }
 
 amara_string *
-copy_uint_fast8_t_into_raw_natural(uint_fast8_t input)
+copy_unsigned_char_into_raw_natural(unsigned char input)
 {
 	char * buffer_;
 	amara_string * returning_;
@@ -597,7 +594,7 @@ copy_uint_fast8_t_into_raw_natural(uint_fast8_t input)
 }
 
 amara_string *
-copy_uint_fast16_t_into_raw_natural(uint_fast16_t input)
+copy_unsigned_short_into_raw_natural(unsigned short input)
 {
 	char * buffer_;
 	amara_string * returning_;
@@ -626,15 +623,15 @@ raw_naturals_substraction_as_raw_natural_zero_is_larger_than_one(
 		const amara_string * raw_natural_zero,
 		const amara_string * raw_natural_one)
 {
-	fit_raw_natural_in_uint_fast8_t_ret * zero_fit_ret_;
-	fit_raw_natural_in_uint_fast8_t_ret * one_fit_ret_;
-	uint_fast8_t substraction_result_;
+	fit_raw_natural_in_unsigned_char_ret * zero_fit_ret_;
+	fit_raw_natural_in_unsigned_char_ret * one_fit_ret_;
+	unsigned char substraction_result_;
 	char * returning_chars_array_;
 	amara_string * returning_;
-	zero_fit_ret_ = fit_raw_natural_in_uint_fast8_t(
+	zero_fit_ret_ = fit_raw_natural_in_unsigned_char(
 			raw_natural_zero);
 	if (zero_fit_ret_->status ==
-			FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_ERR_NOT_FITTING) {
+			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_NOT_FITTING) {
 		returning_chars_array_ =
 				malloc(strlen(machine_numeric_overflow) + 1);
 		strcpy(returning_chars_array_, machine_numeric_overflow);
@@ -644,10 +641,10 @@ raw_naturals_substraction_as_raw_natural_zero_is_larger_than_one(
 		free(returning_chars_array_);
 		return returning_;
 	}
-	one_fit_ret_ = fit_raw_natural_in_uint_fast8_t(
+	one_fit_ret_ = fit_raw_natural_in_unsigned_char(
 			raw_natural_one);
 	if (one_fit_ret_->status ==
-			FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_ERR_NOT_FITTING) {
+			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_NOT_FITTING) {
 		returning_chars_array_ =
 				malloc(strlen(machine_numeric_overflow) + 1);
 		strcpy(returning_chars_array_, machine_numeric_overflow);
@@ -659,16 +656,16 @@ raw_naturals_substraction_as_raw_natural_zero_is_larger_than_one(
 		return returning_;
 	}
 	assertion(zero_fit_ret_->status ==
-			FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_OK);
+			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_OK);
 	assertion(one_fit_ret_->status ==
-			FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_OK);
+			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_OK);
 	/* printf("zero_fit_ret_->value: %u\n", zero_fit_ret_->value); */ /* FIXME */
 	/* printf("one_fit_ret_->value: %u\n", one_fit_ret_->value); */ /* FIXME */
 	substraction_result_ = zero_fit_ret_->value - one_fit_ret_->value;
 	/* printf("substraction_result_: %u\n", substraction_result_); */ /* FIXME */
 	free(zero_fit_ret_);
 	free(one_fit_ret_);
-	return copy_uint_fast8_t_into_raw_natural(substraction_result_);
+	return copy_unsigned_char_into_raw_natural(substraction_result_);
 }
 
 amara_string *
@@ -676,43 +673,43 @@ raw_naturals_multiplication_as_raw_natural(
 		const amara_string * raw_natural_zero,
 		const amara_string * raw_natural_one)
 {
-	fit_raw_natural_in_uint_fast8_t_ret * zero_fit_ret_;
-	fit_raw_natural_in_uint_fast8_t_ret * one_fit_ret_;
-	/* uint_fast8_t multiplication_result_8_; */
-	uint_fast16_t multiplication_result_16_;
+	fit_raw_natural_in_unsigned_char_ret * zero_fit_ret_;
+	fit_raw_natural_in_unsigned_char_ret * one_fit_ret_;
+	/* unsigned char multiplication_result_8_; */
+	unsigned short multiplication_result_16_;
 	char * returning_chars_array_;
 	amara_string * returning_;
-	zero_fit_ret_ = fit_raw_natural_in_uint_fast8_t(
+	zero_fit_ret_ = fit_raw_natural_in_unsigned_char(
 			raw_natural_zero);
 	if (zero_fit_ret_->status ==
-			FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_ERR_NOT_FITTING) {
+			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_NOT_FITTING) {
 		returning_chars_array_ =
 				malloc(strlen(machine_numeric_overflow) + 1);
 		strcpy(returning_chars_array_, machine_numeric_overflow);
 		returning_ = amara_string_exhaustive_constructor(
 				returning_chars_array_);
-		fit_raw_natural_in_uint_fast8_t_ret_destructor(zero_fit_ret_);
+		fit_raw_natural_in_unsigned_char_ret_destructor(zero_fit_ret_);
 		free(returning_chars_array_);
 		return returning_;
 	}
-	one_fit_ret_ = fit_raw_natural_in_uint_fast8_t(
+	one_fit_ret_ = fit_raw_natural_in_unsigned_char(
 			raw_natural_one);
 	if (one_fit_ret_->status ==
-			FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_ERR_NOT_FITTING) {
+			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_NOT_FITTING) {
 		returning_chars_array_ =
 				malloc(strlen(machine_numeric_overflow) + 1);
 		strcpy(returning_chars_array_, machine_numeric_overflow);
 		returning_ = amara_string_exhaustive_constructor(
 				returning_chars_array_);
-		fit_raw_natural_in_uint_fast8_t_ret_destructor(zero_fit_ret_);
-		fit_raw_natural_in_uint_fast8_t_ret_destructor(one_fit_ret_);
+		fit_raw_natural_in_unsigned_char_ret_destructor(zero_fit_ret_);
+		fit_raw_natural_in_unsigned_char_ret_destructor(one_fit_ret_);
 		free(returning_chars_array_);
 		return returning_;
 	}
 	assertion(zero_fit_ret_->status ==
-			FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_OK);
+			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_OK);
 	assertion(one_fit_ret_->status ==
-			FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_OK);
+			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_OK);
 	/* printf("zero_fit_ret_->value: %u\n", zero_fit_ret_->value); */ /* FIXME */
 	/* printf("one_fit_ret_->value: %u\n", one_fit_ret_->value); */ /* FIXME */
 	/* multiplication_result_8_ = zero_fit_ret_->value * one_fit_ret_->value; */
@@ -733,15 +730,15 @@ raw_naturals_multiplication_as_raw_natural(
 					one_fit_ret_->value);
 		}
 		/* printf("multiplication_result_: %u\n", multiplication_result_); */ /* FIXME */
-		fit_raw_natural_in_uint_fast8_t_ret_destructor(zero_fit_ret_);
-		fit_raw_natural_in_uint_fast8_t_ret_destructor(one_fit_ret_);
-		return copy_uint_fast16_t_into_raw_natural(
+		fit_raw_natural_in_unsigned_char_ret_destructor(zero_fit_ret_);
+		fit_raw_natural_in_unsigned_char_ret_destructor(one_fit_ret_);
+		return copy_unsigned_short_into_raw_natural(
 				multiplication_result_16_);
 	}
 	/* printf("multiplication_result_: %u\n", multiplication_result_); */ /* FIXME */
-	fit_raw_natural_in_uint_fast8_t_ret_destructor(zero_fit_ret_);
-	fit_raw_natural_in_uint_fast8_t_ret_destructor(one_fit_ret_);
-	return NULL /* uint_fast8_t_to_raw_natural(multiplication_result_8_) */;
+	fit_raw_natural_in_unsigned_char_ret_destructor(zero_fit_ret_);
+	fit_raw_natural_in_unsigned_char_ret_destructor(one_fit_ret_);
+	return NULL /* unsigned_char_to_raw_natural(multiplication_result_8_) */;
 }
 
 amara_string *
@@ -749,17 +746,17 @@ raw_naturals_division_as_raw_natural(
 		const amara_string * raw_natural_zero,
 		const amara_string * raw_natural_one)
 {
-	fit_raw_natural_in_uint_fast8_t_ret * r_n_zero_fits_8_bits_ret_;
-	fit_raw_natural_in_uint_fast16_t_ret * r_n_zero_fits_16_bits_ret_;
-	fit_raw_natural_in_uint_fast8_t_ret * r_n_one_fits_8_bits_ret_;
+	fit_raw_natural_in_unsigned_char_ret * r_n_zero_fits_8_bits_ret_;
+	fit_raw_natural_in_unsigned_short_ret * r_n_zero_fits_16_bits_ret_;
+	fit_raw_natural_in_unsigned_char_ret * r_n_one_fits_8_bits_ret_;
 	amara_boolean use_8_bits_for_numerator_;
 	amara_boolean use_16_bits_for_numerator_;
 	amara_boolean use_8_bits_for_denominator_;
-	uint_fast8_t raw_natural_zero_as_uint_fast8_t_;
-	uint_fast16_t raw_natural_zero_as_uint_fast16_t_;
-	uint_fast8_t raw_natural_one_as_uint_fast8_t_;
-	uint_fast8_t eight_bits_division_result_;
-	uint_fast16_t sixteen_bits_division_result_;
+	unsigned char raw_natural_zero_as_unsigned_char_;
+	unsigned short raw_natural_zero_as_unsigned_short_;
+	unsigned char raw_natural_one_as_unsigned_char_;
+	unsigned char eight_bits_division_result_;
+	unsigned short sixteen_bits_division_result_;
 	char * returning_chars_array_;
 	amara_string * returning_;
 	use_8_bits_for_numerator_ = AMARA_BOOLEAN_FALSE;
@@ -767,14 +764,14 @@ raw_naturals_division_as_raw_natural(
 	r_n_zero_fits_8_bits_ret_ = NULL;
 	r_n_zero_fits_16_bits_ret_ = NULL;
 	r_n_one_fits_8_bits_ret_ = NULL;
-	r_n_zero_fits_8_bits_ret_ = fit_raw_natural_in_uint_fast8_t(
+	r_n_zero_fits_8_bits_ret_ = fit_raw_natural_in_unsigned_char(
 			raw_natural_zero);
 	if (r_n_zero_fits_8_bits_ret_->status ==
-			FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_ERR_NOT_FITTING) {
-		r_n_zero_fits_16_bits_ret_ = fit_raw_natural_in_uint_fast16_t(
+			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_NOT_FITTING) {
+		r_n_zero_fits_16_bits_ret_ = fit_raw_natural_in_unsigned_short(
 				raw_natural_zero);
 		if (r_n_zero_fits_16_bits_ret_->status ==
-				FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_ERR_NOT_FITTING) {
+				FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_ERR_NOT_FITTING) {
 			returning_chars_array_ = malloc(
 					strlen(machine_numeric_overflow) + 1);
 			strcpy(
@@ -782,82 +779,82 @@ raw_naturals_division_as_raw_natural(
 					machine_numeric_overflow);
 			returning_ = amara_string_exhaustive_constructor(
 					returning_chars_array_);
-			fit_raw_natural_in_uint_fast8_t_ret_destructor(
+			fit_raw_natural_in_unsigned_char_ret_destructor(
 					r_n_zero_fits_8_bits_ret_);
-			fit_raw_natural_in_uint_fast16_t_ret_destructor(
+			fit_raw_natural_in_unsigned_short_ret_destructor(
 					r_n_zero_fits_16_bits_ret_);
 			free(returning_chars_array_);
 			return returning_;
 		} else {
 			assertion(r_n_zero_fits_16_bits_ret_->status ==
-					FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_OK);
+					FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_OK);
 			use_16_bits_for_numerator_ = AMARA_BOOLEAN_TRUE;
-			raw_natural_zero_as_uint_fast16_t_ =
+			raw_natural_zero_as_unsigned_short_ =
 					r_n_zero_fits_16_bits_ret_->value;
 		}
 	} else {
 		assertion(r_n_zero_fits_8_bits_ret_->status ==
-				FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_OK);
+				FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_OK);
 		use_8_bits_for_numerator_ = AMARA_BOOLEAN_TRUE;
-		raw_natural_zero_as_uint_fast8_t_ =
+		raw_natural_zero_as_unsigned_char_ =
 				r_n_zero_fits_8_bits_ret_->value;
 	}
-	r_n_one_fits_8_bits_ret_ = fit_raw_natural_in_uint_fast8_t(
+	r_n_one_fits_8_bits_ret_ = fit_raw_natural_in_unsigned_char(
 			raw_natural_one);
 	assertion(r_n_one_fits_8_bits_ret_->status ==
-			FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_OK);
+			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_OK);
 	use_8_bits_for_denominator_ = AMARA_BOOLEAN_TRUE;
-	raw_natural_one_as_uint_fast8_t_ = r_n_one_fits_8_bits_ret_->value;
+	raw_natural_one_as_unsigned_char_ = r_n_one_fits_8_bits_ret_->value;
 	if (r_n_one_fits_8_bits_ret_->status ==
-			FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_ERR_NOT_FITTING) {
+			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_NOT_FITTING) {
 		returning_chars_array_ =
 				malloc(strlen(machine_numeric_overflow) + 1);
 		strcpy(returning_chars_array_, machine_numeric_overflow);
 		returning_ = amara_string_exhaustive_constructor(
 				returning_chars_array_);
-		fit_raw_natural_in_uint_fast8_t_ret_destructor(
+		fit_raw_natural_in_unsigned_char_ret_destructor(
 				r_n_zero_fits_8_bits_ret_);
 		if (r_n_zero_fits_16_bits_ret_ != NULL) {
-			fit_raw_natural_in_uint_fast16_t_ret_destructor(
+			fit_raw_natural_in_unsigned_short_ret_destructor(
 					r_n_zero_fits_16_bits_ret_);
 		}
-		fit_raw_natural_in_uint_fast8_t_ret_destructor(
+		fit_raw_natural_in_unsigned_char_ret_destructor(
 				r_n_one_fits_8_bits_ret_);
 		free(returning_chars_array_);
 		return returning_;
 	} else {
 		assertion(r_n_one_fits_8_bits_ret_->status ==
-				FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_OK);
+				FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_OK);
 	}
 	/* printf("zero_fit_ret_->value: %u\n", zero_fit_ret_->value); */ /* FIXME */
 	/* printf("one_fit_ret_->value: %u\n", one_fit_ret_->value); */ /* FIXME */
 	if (use_8_bits_for_numerator_ == AMARA_BOOLEAN_TRUE) {
 		assertion(use_8_bits_for_denominator_ == AMARA_BOOLEAN_TRUE);
-		eight_bits_division_result_ = raw_natural_zero_as_uint_fast8_t_ / /* XXX extract completely before using. */
-				raw_natural_one_as_uint_fast8_t_; /* XXX extract completely before using. */
+		eight_bits_division_result_ = raw_natural_zero_as_unsigned_char_ / /* XXX extract completely before using. */
+				raw_natural_one_as_unsigned_char_; /* XXX extract completely before using. */
 	} else {
 		assertion(use_16_bits_for_numerator_ == AMARA_BOOLEAN_TRUE);
 		assertion(use_8_bits_for_denominator_ == AMARA_BOOLEAN_TRUE);
-		sixteen_bits_division_result_ = raw_natural_zero_as_uint_fast16_t_ / /* XXX extract completely before using. */
-				raw_natural_one_as_uint_fast8_t_; /* XXX extract completely before using. */
+		sixteen_bits_division_result_ = raw_natural_zero_as_unsigned_short_ / /* XXX extract completely before using. */
+				raw_natural_one_as_unsigned_char_; /* XXX extract completely before using. */
 	}
 	/* printf("division_result_: %u\n", division_result_); */ /* FIXME */
-	fit_raw_natural_in_uint_fast8_t_ret_destructor(
+	fit_raw_natural_in_unsigned_char_ret_destructor(
 			r_n_zero_fits_8_bits_ret_);
 	if (r_n_zero_fits_16_bits_ret_ != NULL) {
-		fit_raw_natural_in_uint_fast16_t_ret_destructor(
+		fit_raw_natural_in_unsigned_short_ret_destructor(
 				r_n_zero_fits_16_bits_ret_);
 	}
-	fit_raw_natural_in_uint_fast8_t_ret_destructor(
+	fit_raw_natural_in_unsigned_char_ret_destructor(
 			r_n_one_fits_8_bits_ret_);
 	if (use_8_bits_for_numerator_ == AMARA_BOOLEAN_TRUE) {
 		assertion(use_8_bits_for_denominator_ == AMARA_BOOLEAN_TRUE);
-		return copy_uint_fast8_t_into_raw_natural(
+		return copy_unsigned_char_into_raw_natural(
 				eight_bits_division_result_);
 	} else {
 		assertion(use_16_bits_for_numerator_ == AMARA_BOOLEAN_TRUE);
 		assertion(use_8_bits_for_denominator_ == AMARA_BOOLEAN_TRUE);
-		return copy_uint_fast16_t_into_raw_natural(
+		return copy_unsigned_short_into_raw_natural(
 				sixteen_bits_division_result_);
 	}
 }
@@ -915,7 +912,7 @@ numeric_natural_nodes_substraction_types_checked_both_are_valid_raw_naturals(
 		const amara_string * raw_natural_zero,
 		const amara_string * raw_natural_one)
 {
-	int_fast8_t comparison_result_;
+	signed char comparison_result_;
 	/*   Substraction results as a raw natural (characters array). */
 	amara_string * raw_natural_;
 	stt_node * returning_;

@@ -29,7 +29,7 @@
 #define STT_APPLICATION_SUBNODE_TYPE_CLI_APPLICATION 0xFF
 
 typedef struct stt_application_subnode {
-	uint_fast8_t type_;
+	unsigned char type_;
 	amara_string * name_;
 	amara_string * entry_point_function_name_;
 } stt_application_subnode;
@@ -57,7 +57,7 @@ stt_application_subnode_destructor(stt_application_subnode * const)
 
 void
 stt_application_subnode_set_type(
-		stt_application_subnode * subnode, uint_fast8_t type)
+		stt_application_subnode * subnode, unsigned char type)
 ;
 
 void

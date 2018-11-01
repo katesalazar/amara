@@ -42,9 +42,6 @@
 
 %{
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 /*   For the `FILE` struct. */
 #include <stdio.h>
 
@@ -77,7 +74,7 @@ void yyerror(stt_node * syntax_tree, const char * s);
 #define TRACE_BISON_CONSTANT_VALUE 0x00
 #endif
 
-const uint_fast8_t bison_trace_constant = TRACE_BISON_CONSTANT_VALUE;
+const unsigned char bison_trace_constant = TRACE_BISON_CONSTANT_VALUE;
 
 void
 bison_trace_chars_array(const char * message)
@@ -94,7 +91,7 @@ b_trace_chars_array(const char * message)
 }
 
 void
-bison_trace_uint_fast8_t(uint_fast8_t value)
+bison_trace_unsigned_char(unsigned char value)
 {
   if (bison_trace_constant) {
     fprintf(stderr, "%u", value);
@@ -102,9 +99,9 @@ bison_trace_uint_fast8_t(uint_fast8_t value)
 }
 
 void
-b_trace_uintfast8t(uint_fast8_t value)
+b_trace_unsigned_char(unsigned char value)
 {
-  bison_trace_uint_fast8_t(value);
+  bison_trace_unsigned_char(value);
 }
 
 %}
@@ -512,7 +509,7 @@ cli_fn_op :
 {
   b_trace_chars_array("cli_fn_op : T_PRINT printable\n");
   b_trace_chars_array("type of printable: ");
-  b_trace_uintfast8t($2->type_);
+  b_trace_unsigned_char($2->type_);
   b_trace_chars_array("\n");
   if ($2->type_ == STT_NODE_TYPE_STRING_LITERAL) {
     assert_pure_string_literal_node($2);

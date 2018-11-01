@@ -20,8 +20,6 @@
 #ifndef __AMARA__APPLICATIONS_RUNNER__VALUE__H__
 #define __AMARA__APPLICATIONS_RUNNER__VALUE__H__
 
-#include <stdint.h>
-
 #include "../asr/assertion.h"
 #include "../brt/natural.h"
 #include "../cmn/amara_string.h"
@@ -47,7 +45,7 @@
 #define ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_NATURAL  0x16 /* XXX */
 
 typedef struct arn_value {
-	uint_fast8_t type_;
+	unsigned char type_;
 	amara_string * name_;
 	amara_string * string_;
 	amara_boolean string_was_moved_;
@@ -101,7 +99,7 @@ arn_value_set_natural(arn_value * value, const natural * natural)
 #define ARN_VALUE_ASSIGN_NATURAL_OUT_OF_UNSIGNED_INT_RET_STATUS_SUCCESS                 0xFF
 
 typedef struct arn_value_assign_natural_out_of_unsigned_int_ret {
-	uint_fast8_t status;
+	unsigned char status;
 } arn_value_assign_natural_out_of_unsigned_int_ret
 ;
 

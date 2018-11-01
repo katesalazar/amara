@@ -43,13 +43,13 @@
 #define RTG_OPERATION_TYPE_PRINT_NO_CRLF            0xFF
 
 typedef struct rtg_operation {
-	uint_fast8_t type_;
+	unsigned char type_;
 	struct rtg_operation_args_simple_list * args_;
 } rtg_operation;
 
 rtg_operation *
 rtg_operation_exhaustive_constructor(
-		uint_fast8_t type,
+		unsigned char type,
 		const struct rtg_operation_args_simple_list * args)
 __attribute__((warn_unused_result))
 ;
@@ -64,7 +64,7 @@ rtg_operation_destructor(rtg_operation * operation)
 ;
 
 amara_string *
-rtg_operation_type_as_string(uint_fast8_t operation_type)
+rtg_operation_type_as_string(unsigned char operation_type)
 __attribute__((warn_unused_result))
 ;
 
@@ -75,7 +75,7 @@ __attribute__((warn_unused_result))
 #define RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_operation_out_of_stt_operation_ret {
-	uint_fast8_t status;
+	unsigned char status;
 	rtg_operation * operation;
 	amara_boolean operation_was_moved;
 } rtg_operation_out_of_stt_operation_ret;

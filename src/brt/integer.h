@@ -30,39 +30,42 @@ void
 assert_valid_raw_integer(const amara_string * raw_integer)
 ;
 
-#define FIT_RAW_INTEGER_IN_INT_FAST8_T_RET_STATUS_INVALID          0x00
-#define FIT_RAW_INTEGER_IN_INT_FAST8_T_RET_STATUS_ERR_DOES_NOT_FIT 0x01
-#define FIT_RAW_INTEGER_IN_INT_FAST8_T_RET_STATUS_OK               0xFF
+#define FIT_RAW_INTEGER_IN_SIGNED_CHAR_RET_STATUS_INVALID          0x00
+#define FIT_RAW_INTEGER_IN_SIGNED_CHAR_RET_STATUS_ERR_DOES_NOT_FIT 0x01
+#define FIT_RAW_INTEGER_IN_SIGNED_CHAR_RET_STATUS_OK               0xFF
 
-typedef struct fit_raw_integer_in_int_fast8_t_ret {
-	uint_fast8_t status;
-	uint_fast8_t value;
-} fit_raw_integer_in_int_fast8_t_ret;
+typedef struct fit_raw_integer_in_signed_char_ret {
+	unsigned char status;
+	signed char value;
+} fit_raw_integer_in_signed_char_ret;
 
 /*   Input `valid_raw_integer` is expected to be valid and canonical,
  * i.e. a `-` character, and then only digits and no unnecessary
  * _leading_ zeroes after the `-` character. */
-fit_raw_integer_in_int_fast8_t_ret *
-fit_raw_integer_in_int_fast8_t(const amara_string * valid_raw_integer)
-__attribute__((warn_unused_result));
+fit_raw_integer_in_signed_char_ret *
+fit_raw_integer_in_signed_char(const amara_string * valid_raw_integer)
+__attribute__((warn_unused_result))
+;
 
 void
-fit_raw_integer_in_int_fast8_t_ret_destructor(
-		fit_raw_integer_in_int_fast8_t_ret * ret)
+fit_raw_integer_in_signed_char_ret_destructor(
+		fit_raw_integer_in_signed_char_ret * ret)
 ;
 
 amara_string *
-int_fast8_t_to_raw_integer(int_fast8_t input)
-__attribute__((warn_unused_result));
+signed_char_to_raw_integer(signed char input)
+__attribute__((warn_unused_result))
+;
 
 /*   Shoud return negative integer, zero, or positive integer, as the
  * first argument is less than, equal, or greater than the second. Both
  * arguments are valid canonical raw integer numbers. */
-int_fast8_t
+signed char
 safe_arguments_integer_raw_comparison(
 		const amara_string * raw_integer_zero,
 		const amara_string * raw_integer_one)
-__attribute__((warn_unused_result));
+__attribute__((warn_unused_result))
+;
 
 /*   Non destructive in its arguments.
  *   `node_zero` minus `node_one`. */

@@ -104,13 +104,13 @@ stt_named_functions_simple_list_destructor(
 	free(list);
 }
 
-uint_fast8_t
+unsigned char
 stt_named_functions_simple_list_length(stt_named_functions_simple_list * list)
 {
-	uint_fast8_t returning_ = 0;
+	unsigned char returning_ = 0;
 	while (list != NULL) {
-		if (returning_ >= UINT8_MAX) {
-			fprintf(stderr, "%s:%u (uint_fast8_t stt_named_functions_simple_list_length(stt_named_functions_simple_list *)): fatal\n",
+		if (returning_ >= 255) {
+			fprintf(stderr, "%s:%u (unsigned char stt_named_functions_simple_list_length(stt_named_functions_simple_list *)): fatal\n",
 					__FILE__, __LINE__);
 			exit(EXIT_FAILURE);
 		}

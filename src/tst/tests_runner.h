@@ -19,8 +19,7 @@
 #ifndef __AMARA__TESTS__TESTS_RUNNER_H__
 #define __AMARA__TESTS__TESTS_RUNNER_H__
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
+#include "../cmn/amara_boolean.h"
 
 /*   These are the valid values of `void run_tests()#uint_fast8_t
  * running_tests_`. */
@@ -31,27 +30,28 @@
 /*   Call this to mark execution-wide that `amara` is running in tests
  * mode.
  *   Note: do **not** qualify this with `warn_unused_result`. */
-uint_fast8_t
+unsigned char
 running_tests(void)
 ;
 
 /*   Call this to mark execution-wide that `amara` is not running in tests
  * mode.
  *   Note: do **not** qualify this with `warn_unused_result`. */
-uint_fast8_t
+unsigned char
 not_running_tests(void)
 ;
 
 /*   Do not call this, ever. Unless from `void running_tests()`, or from
  * `void not_running_tests()`.
  *   @returns Whether `amara` is running in tests mode, or not. */
-uint_fast8_t
-running_tests_ctl(uint_fast8_t input)
-__attribute__((warn_unused_result));
+unsigned char
+running_tests_ctl(unsigned char input)
+__attribute__((warn_unused_result))
+;
 
 /*   Call this to start running the tests. */
 void
-run_tests(uint_fast8_t double_end_of_line_char)
+run_tests(amara_boolean double_end_of_line_char)
 ;
 
 #endif

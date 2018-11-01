@@ -137,7 +137,7 @@ rtg_operation_arg_destructor(rtg_operation_arg * operation_arg)
 
 void
 rtg_operation_arg_set_type(
-		rtg_operation_arg * operation_arg, uint_fast8_t type)
+		rtg_operation_arg * operation_arg, unsigned char type)
 {
 	if (type == RTG_OPERATION_ARG_TYPE_STRING_LITERAL) {
 		assertion(operation_arg->string_literal_ != NULL);

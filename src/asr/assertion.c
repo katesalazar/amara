@@ -19,9 +19,6 @@
 /*   For `void assert(scalar expression)`. */
 #include <assert.h>
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 /*   For `int fprintf(FILE * stream, const char * format, ...)`. */
 #include <stdio.h>
 
@@ -62,7 +59,7 @@ assertion_two(int expression, const char * message)
 /*
 void disarm_interim(char * message)
 {
-	const uint_fast8_t traces_printing = 0x00;
+	const unsigned char traces_printing = 0x00;
 	size_t i;
 	assertion_two(message != NULL, "expectation was not met");
 	if (traces_printing) {
@@ -132,7 +129,7 @@ assertion_two_located_interim(
 void
 interpret_and_assert(const char * expression)
 {
-	uint_fast8_t expression_numeric_value_;
+	unsigned char expression_numeric_value_;
 
 	assertion(strlen(expression) == 1);
 	if (!strcmp(expression, "0")) {
@@ -147,7 +144,7 @@ interpret_and_assert(const char * expression)
 void
 interpret_and_assert_two(const char * expression, const char * message)
 {
-	uint_fast8_t expression_numeric_value_;
+	unsigned char expression_numeric_value_;
 
 	assertion_two(strlen(expression) == 1, "expression uses an unexpected length");
 	if (!strcmp(expression, "0")) {

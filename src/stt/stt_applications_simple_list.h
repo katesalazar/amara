@@ -51,7 +51,7 @@ stt_applications_simple_list_push_front(
 __attribute__((warn_unused_result))
 ;
 
-uint_fast8_t
+unsigned char
 stt_applications_simple_list_length(stt_applications_simple_list * list)
 __attribute__((warn_unused_result))
 ;

@@ -59,7 +59,7 @@ __attribute__((warn_unused_result))
 #define RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND 0xF0
 
 typedef struct rtg_applications_simple_list_find_by_name_ret {
-	uint_fast8_t status;
+	unsigned char status;
 	rtg_application * application;
 	amara_boolean application_was_moved;
 } rtg_applications_simple_list_find_by_name_ret;
@@ -81,7 +81,7 @@ __attribute__((warn_unused_result))
 #define RTG_APPLICATIONS_SIMPLE_LIST_OUT_OF_STT_APPLICATIONS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS          0xFF
 
 typedef struct rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret {
-	uint_fast8_t status;
+	unsigned char status;
 	rtg_applications_simple_list * applications;
 } rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret;
 
@@ -97,7 +97,7 @@ __attribute__((warn_unused_result))
 #define RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret {
-	uint_fast8_t status;
+	unsigned char status;
 	rtg_applications_simple_list * applications;
 	amara_boolean applications_were_moved;
 } rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret;

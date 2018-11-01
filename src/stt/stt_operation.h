@@ -38,7 +38,7 @@
 #define STT_OPERATION_TYPE_PRINT_NO_CRLF            0xFF /* TODO obsolete, must remove */
 
 typedef struct stt_operation {
-	uint_fast8_t type_;
+	unsigned char type_;
 	stt_operation_args_simple_list * args_;
 } stt_operation;
 

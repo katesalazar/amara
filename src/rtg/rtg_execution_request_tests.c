@@ -30,7 +30,7 @@ rtg_execution_request_example_execute_foo()
 {
 	rtg_execution_request * returning_;
 	rtg_application * application_;
-	uint_fast8_t requested_type_;
+	unsigned char requested_type_;
 	requested_type_ = RTG_EXECUTION_REQUEST_TYPE_CLI_APPLICATION;
 	application_ = rtg_application_example_cli_app_print_foo();
 	returning_ = rtg_execution_request_exhaustive_constructor(
@@ -43,7 +43,7 @@ rtg_execution_request_example_execute_bar()
 {
 	rtg_execution_request * returning_;
 	rtg_application * application_;
-	uint_fast8_t requested_type_;
+	unsigned char requested_type_;
 	requested_type_ = RTG_EXECUTION_REQUEST_TYPE_CLI_APPLICATION;
 	application_ = rtg_application_example_cli_app_print_bar();
 	returning_ = rtg_execution_request_exhaustive_constructor(

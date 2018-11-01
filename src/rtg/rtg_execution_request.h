@@ -32,7 +32,7 @@
 #define RTG_EXECUTION_REQUEST_TYPE_CLI_APPLICATION 0xFF
 
 typedef struct rtg_execution_request {
-	uint_fast8_t type_;
+	unsigned char type_;
 	/*   Postponed execution requests of functions and operations. */
 	/*
 	rtg_operation * operation_;
@@ -48,7 +48,7 @@ __attribute__((warn_unused_result))
 
 rtg_execution_request *
 rtg_execution_request_exhaustive_constructor(
-		uint_fast8_t requested_type,
+		unsigned char requested_type,
 		const rtg_application * application)
 __attribute__((warn_unused_result))
 ;
@@ -69,7 +69,7 @@ rtg_execution_request_destructor(
 #define RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret {
-	uint_fast8_t status;
+	unsigned char status;
 	rtg_execution_request * execution_request;
 	amara_boolean execution_request_was_moved;
 } rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret;

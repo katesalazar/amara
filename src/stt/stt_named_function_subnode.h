@@ -33,7 +33,7 @@
 #define STT_NAMED_FUNCTION_SUBNODE_TYPE_CLI_APP_NAMED_FUNCTION 0xFF
 
 typedef struct stt_named_function_subnode {
-	uint_fast8_t type_;
+	unsigned char type_;
 	amara_string * name_;
 	stt_operations_simple_list * operations_;
 } stt_named_function_subnode;

@@ -30,7 +30,7 @@
 
 rtg_operation *
 rtg_operation_exhaustive_constructor(
-		uint_fast8_t type,
+		unsigned char type,
 		const struct rtg_operation_args_simple_list * args)
 {
 	rtg_operation * ret_;
@@ -200,7 +200,7 @@ rtg_operation_destructor(rtg_operation * operation)
 }
 
 amara_string *
-rtg_operation_type_as_string(uint_fast8_t operation_type)
+rtg_operation_type_as_string(unsigned char operation_type)
 {
 	amara_string * returning_;
 	if (operation_type == RTG_OPERATION_TYPE_PRINT) {

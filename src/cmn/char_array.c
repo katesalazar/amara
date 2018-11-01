@@ -16,9 +16,6 @@
  * src/cmn/char_array.c: Utilities for character arrays.
  */
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 /*   For `int snprintf(char * str, size_t size,
  * const char * format, ...)`, and for `int fprintf(FILE * stream,
  * const char * format, ...)`. */
@@ -37,18 +34,18 @@
  * const char * format, ...)` in case building with C89. */
 #include "../ftr/stdio_ninety_nine_modernizer.h"
 
-const uint_fast8_t max_concatenation_length_in_bytes = UINT8_MAX;
+const unsigned char max_concatenation_length_in_bytes = 255;
 
-const uint_fast8_t max_concatenation_length_in_chars = UINT8_MAX - 1;
+const unsigned char max_concatenation_length_in_chars = 255 - 1;
 
 char *
 concatenate_two_char_arrays(const char * zero, const char * one)
 {
-	/* uint_fast8_t length_; */
-	uint_fast8_t zero_length_;
+	/* unsigned char length_; */
+	unsigned char zero_length_;
 	char * ret_;
-	uint_fast8_t one_length_;
-	uint_fast8_t combined_length_;
+	unsigned char one_length_;
+	unsigned char combined_length_;
 	int snprintf_ret_;
 	zero_length_ = strlen(zero);
 	if (zero_length_ >= max_concatenation_length_in_chars) {

@@ -328,83 +328,83 @@ stt_node_natural_multiplication_tests()
 }
 
 void
-natural_fit_raw_natural_in_uint_fast16_t_test_0()
+natural_fit_raw_natural_in_unsigned_short_test_0()
 {
 	amara_string * raw_natural_;
-	fit_raw_natural_in_uint_fast16_t_ret * target_;
+	fit_raw_natural_in_unsigned_short_ret * target_;
 
 	raw_natural_ = amara_string_exhaustive_constructor("9999");
 
-	target_ = fit_raw_natural_in_uint_fast16_t(raw_natural_);
+	target_ = fit_raw_natural_in_unsigned_short(raw_natural_);
 	assertion(target_ != NULL);
 	assertion(target_->status ==
-			FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_OK);
+			FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_OK);
 	assertion(target_->value == 9999);
 
-	fit_raw_natural_in_uint_fast16_t_ret_destructor(target_);
+	fit_raw_natural_in_unsigned_short_ret_destructor(target_);
 	amara_string_destructor(raw_natural_);
 }
 
 void
-natural_fit_raw_natural_in_uint_fast16_t_test_1()
+natural_fit_raw_natural_in_unsigned_short_test_1()
 {
 	amara_string * raw_natural_;
-	fit_raw_natural_in_uint_fast16_t_ret * target_;
+	fit_raw_natural_in_unsigned_short_ret * target_;
 
 	raw_natural_ = amara_string_exhaustive_constructor("10000");
 
-	target_ = fit_raw_natural_in_uint_fast16_t(raw_natural_);
+	target_ = fit_raw_natural_in_unsigned_short(raw_natural_);
 	assertion(target_ != NULL);
 	assertion(target_->status ==
-			FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_OK);
+			FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_OK);
 	assertion(target_->value == 10000);
 
-	fit_raw_natural_in_uint_fast16_t_ret_destructor(target_);
+	fit_raw_natural_in_unsigned_short_ret_destructor(target_);
 	amara_string_destructor(raw_natural_);
 }
 
 void
-natural_fit_raw_natural_in_uint_fast16_t_test_2()
+natural_fit_raw_natural_in_unsigned_short_test_2()
 {
 	amara_string * raw_natural_;
-	fit_raw_natural_in_uint_fast16_t_ret * target_;
+	fit_raw_natural_in_unsigned_short_ret * target_;
 
 	raw_natural_ = amara_string_exhaustive_constructor("60000");
 
-	target_ = fit_raw_natural_in_uint_fast16_t(raw_natural_);
+	target_ = fit_raw_natural_in_unsigned_short(raw_natural_);
 	assertion(target_ != NULL);
 	assertion(target_->status ==
-			FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_OK);
+			FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_OK);
 	assertion(target_->value == 60000);
 
-	fit_raw_natural_in_uint_fast16_t_ret_destructor(target_);
+	fit_raw_natural_in_unsigned_short_ret_destructor(target_);
 	amara_string_destructor(raw_natural_);
 }
 
 void
-natural_fit_raw_natural_in_uint_fast16_t_test_3()
+natural_fit_raw_natural_in_unsigned_short_test_3()
 {
 	amara_string * raw_natural_;
-	fit_raw_natural_in_uint_fast16_t_ret * target_;
+	fit_raw_natural_in_unsigned_short_ret * target_;
 
 	raw_natural_ = amara_string_exhaustive_constructor("100000");
 
-	target_ = fit_raw_natural_in_uint_fast16_t(raw_natural_);
+	target_ = fit_raw_natural_in_unsigned_short(raw_natural_);
 	assertion(target_ != NULL);
 	assertion(target_->status ==
-			FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_ERR_NOT_FITTING);
+			FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_ERR_NOT_FITTING);
 
-	fit_raw_natural_in_uint_fast16_t_ret_destructor(target_);
+	fit_raw_natural_in_unsigned_short_ret_destructor(target_);
 	amara_string_destructor(raw_natural_);
 }
 
 void
-natural_fit_raw_natural_in_uint_fast16_t_tests()
+natural_fit_raw_natural_in_unsigned_short_tests()
 {
-	natural_fit_raw_natural_in_uint_fast16_t_test_0();
-	natural_fit_raw_natural_in_uint_fast16_t_test_1();
-	natural_fit_raw_natural_in_uint_fast16_t_test_2();
-	natural_fit_raw_natural_in_uint_fast16_t_test_3();
+	natural_fit_raw_natural_in_unsigned_short_test_0();
+	natural_fit_raw_natural_in_unsigned_short_test_1();
+	natural_fit_raw_natural_in_unsigned_short_test_2();
+	natural_fit_raw_natural_in_unsigned_short_test_3();
 }
 
 void
@@ -418,5 +418,5 @@ natural_tests()
 	natural_division_tests();
 	DESPUES 335 ENTRE 9 DEBE DAR 37
 	*/
-	natural_fit_raw_natural_in_uint_fast16_t_tests();
+	natural_fit_raw_natural_in_unsigned_short_tests();
 }

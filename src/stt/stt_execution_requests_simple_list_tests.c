@@ -171,7 +171,7 @@ void
 stt_execution_requests_simple_list_length_test_0()
 {
 	stt_execution_requests_simple_list * null_list_;
-	uint_fast8_t null_list_len_;
+	unsigned char null_list_len_;
 
 	null_list_ = NULL;
 

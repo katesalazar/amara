@@ -20,9 +20,6 @@
 #ifndef __AMARA__PERSISTENCE__PERSISTENCE_H__
 #define __AMARA__PERSISTENCE__PERSISTENCE_H__
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 /*   For `dirent_wrapper`. */
 #include "../wrp/dirent_wrapper.h"
 
@@ -31,14 +28,14 @@
 #define PERSISTENCE_ACQUIRE_DIR_ERR_UNSPECIFIC         0x02
 
 /**   Acquires the directory `path_to`. */
-uint_fast8_t
+unsigned char
 acquire_dir(const char * path_to)
 __attribute__((warn_unused_result));
 
 /**   Acquires the directory `path_to`.
- *    You would normally want to use `uint_fast8_t acquire_dir(const char *
+ *    You would normally want to use `unsigned char acquire_dir(const char *
  * path_to)` instead. */
-uint_fast8_t
+unsigned char
 acquire_dir_reflective(
 		const dirent_wrapper * dirent_wrapper, const char * path_to)
 __attribute__((warn_unused_result));

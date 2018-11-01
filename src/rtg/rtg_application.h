@@ -35,7 +35,7 @@
 #define RTG_APPLICATION_TYPE_CLI_APPLICATION 0xFF
 
 typedef struct rtg_application {
-	uint_fast8_t type_;
+	unsigned char type_;
 	amara_string * name_;
 	rtg_named_function * entry_point_function_;
 } rtg_application;
@@ -59,7 +59,7 @@ rtg_application_destructor(rtg_application * application)
 #define RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret {
-	uint_fast8_t status;
+	unsigned char status;
 	rtg_application * application;
 	amara_boolean application_was_moved;
 } rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret;

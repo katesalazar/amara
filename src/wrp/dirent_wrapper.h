@@ -22,9 +22,6 @@
 /*   For `DIR`. */
 #include <dirent.h>
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 /*   Enumeration. Manipulation status of the `dirent_wrapper_opendir_ret *
  * dirent_wrapper_opendir(const dirent_wrapper * dirent_wrapper,
  * const char * name)` operation. */
@@ -58,11 +55,11 @@
 #define DIRENT_WRAPPER_MANIPULATION_VALUES_OPENDIR_FORCE_EMIT_ENOENT  0x08
 
 typedef struct {
-	uint_fast8_t manipulation_values;
+	unsigned char manipulation_values;
 } manipulation_details;
 
 typedef struct {
-	uint_fast8_t manipulation;
+	unsigned char manipulation;
 	manipulation_details * manipulation_details;
 } dirent_wrapper;
 
@@ -72,10 +69,10 @@ typedef struct {
 	DIR * dir;
 	/*   This is used to signal potential errors (`<error.h>` `errno`) like
 	 * e.g. the directory does not exist. */
-	uint_fast8_t error_status_code;
+	unsigned char error_status_code;
 	/*   This is used to mark that the result is affected of
 	 * manipulation. */
-	uint_fast8_t dyed;
+	unsigned char dyed;
 } dirent_wrapper_opendir_ret;
 
 typedef struct {
@@ -84,10 +81,10 @@ typedef struct {
 	int value;
 	/*   This is used to signal potential errors (`<error.h>` `errno`) like
 	 * e.g. the input directory stream descriptor is invalid. */
-	uint_fast8_t error_status_code;
+	unsigned char error_status_code;
 	/*   This is used to mark that the result is affected of
 	 * manipulation. */
-	uint_fast8_t dyed;
+	unsigned char dyed;
 } dirent_wrapper_closedir_ret;
 
 dirent_wrapper *
@@ -109,12 +106,12 @@ __attribute__((warn_unused_result));
 
 void
 dirent_wrapper_reflect_add_flags(
-		dirent_wrapper * dirent_wrapper, uint_fast8_t flags)
+		dirent_wrapper * dirent_wrapper, unsigned char flags)
 ;
 
 void
 dirent_wrapper_reflect_remove_flags(
-		dirent_wrapper * dirent_wrapper, uint_fast8_t flags)
+		dirent_wrapper * dirent_wrapper, unsigned char flags)
 ;
 
 #endif

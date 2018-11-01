@@ -16,9 +16,6 @@
  * src/arn/app_runner.c: Amara applications runtime applications runner.
  */
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 /*   For `int printf(const char *, ...)`, and for
  * `FILE * fopen(const char * pathname, const char * mode)`. */
 #include <stdio.h>
@@ -32,7 +29,7 @@
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
-/*   For `uint_fast8_t acquire_dir(const char *)`. */
+/*   For `unsigned char acquire_dir(const char *)`. */
 #include "../prs/persistence.h"
 
 /*   For `rtg_application`. */
@@ -58,28 +55,29 @@
 
 #include "arn_values_fixed_list.h"
 /* #include "arn_values_simple_list.h" */
-#include "arn_variables_simple_list.h"
+/* #include "arn_variables_simple_list.h" */
 
 /*   For definitions. */
 #include "app_runner.h"
 
 #define MAIN_NAME "main.minia"
 
-uint_fast8_t
+unsigned char
 run_app_dir_exists(const char * app_name)
 __attribute__((warn_unused_result))
 ;
 
-uint_fast8_t
+unsigned char
 run_app_main_doc_exists(
 		const char * app_name, const FILE * main_doc_descriptor)
 __attribute__((warn_unused_result))
 ;
 
-uint_fast8_t run_app(const char * app_name)
+unsigned char
+run_app(const char * app_name)
 {
-	uint_fast8_t acquire_dir_return_status_;
-	uint_fast8_t inner_status_;
+	unsigned char acquire_dir_return_status_;
+	unsigned char inner_status_;
 	acquire_dir_return_status_ = 0x00;
 	printf("Running app '%s'...\n", app_name);
 	acquire_dir_return_status_ = acquire_dir(app_name);
@@ -94,15 +92,16 @@ uint_fast8_t run_app(const char * app_name)
 	return inner_status_;
 }
 
-uint_fast8_t run_app_dir_exists(const char * app_name)
+unsigned char
+run_app_dir_exists(const char * app_name)
 {
-	uint_fast8_t app_name_len_;
+	unsigned char app_name_len_;
 	const char * path_to_main_;
 	const char * appended_;
-	uint_fast8_t must_append_slash_;
-	uint_fast8_t path_to_main_len_;
+	unsigned char must_append_slash_;
+	unsigned char path_to_main_len_;
 	FILE * main_doc_descriptor_;
-	uint_fast8_t inner_status_;
+	unsigned char inner_status_;
 	app_name_len_ = strlen(app_name);
 	assertion(app_name_len_ < 0x7F);
 	if (app_name[app_name_len_ - 1] == '/') {
@@ -138,7 +137,7 @@ minia_bison_main(FILE * file)
 __attribute__((warn_unused_result))
 ;
 
-uint_fast8_t
+unsigned char
 run_app_main_doc_exists(
 		const char * app_name, const FILE * main_doc_descriptor)
 {

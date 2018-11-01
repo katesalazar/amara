@@ -19,9 +19,6 @@
 #ifndef __AMARA__SYNTAX_TREE__NODE__H__
 #define __AMARA__SYNTAX_TREE__NODE__H__
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 /*   For `char_arrays_simple_list`. */
 #include "../cmn/char_arrays_simple_list.h"
 
@@ -91,7 +88,7 @@
 
 /*   `stt_node` for '**S**yn**t**ax **t**ree node'. */
 typedef struct stt_node {
-	uint_fast8_t type_;
+	unsigned char type_;
 	stt_string_literal_subnode * string_literal_subnode_;
 	stt_natural_literal_subnode * natural_literal_subnode_;
 	stt_integer_literal_subnode * integer_literal_subnode_;
@@ -217,7 +214,7 @@ dump_syntax_tree(const stt_node * node)
 #define LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR   0xF0
 
 typedef struct look_for_undefined_labels_ret {
-	uint_fast8_t status;
+	unsigned char status;
 	char_arrays_simple_list * messages;
 } look_for_undefined_labels_ret;
 

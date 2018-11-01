@@ -59,7 +59,7 @@ rtg_doc_destructor(rtg_doc * doc)
 #define RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_ERROR_UNSPECIFIC 0xF0
 
 typedef struct rtg_doc_out_of_stt_doc_ret {
-	uint_fast8_t status;
+	unsigned char status;
 	rtg_doc * doc;
 } rtg_doc_out_of_stt_doc_ret;
 

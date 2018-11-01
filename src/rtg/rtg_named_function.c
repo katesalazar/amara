@@ -40,7 +40,7 @@ rtg_named_function_default_constructor()
 
 rtg_named_function *
 rtg_named_function_exhaustive_constructor(
-		uint_fast8_t type, const amara_string * name,
+		unsigned char type, const amara_string * name,
 		const rtg_operations_simple_list * operations)
 {
 	rtg_named_function * ret_;

@@ -33,8 +33,8 @@ assert_valid_raw_rational(const amara_string * raw_rational)
 {
 	const char * raw_rational_chars_array_;
 	size_t raw_rational_chars_array_len_;
-	uint_fast8_t indexer_;
-	int_fast8_t dot_index_;
+	unsigned char indexer_;
+	signed char dot_index_;
 	raw_rational_chars_array_ = amara_string_get_value(raw_rational);
 	raw_rational_chars_array_len_ = strlen(raw_rational_chars_array_);
 	assertion_two(raw_rational_chars_array_len_ > 0,

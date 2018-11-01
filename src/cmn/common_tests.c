@@ -16,9 +16,6 @@
  * src/cmn/common_tests.c: Self explanatory...
  */
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 /*   For `int fprintf(FILE * stream, const char * format, ...)`. */
 #include <stdio.h>
 
@@ -189,7 +186,8 @@ char_arrays_simple_list_equality_test_0()
 {
 	char_arrays_simple_list * zero_ = NULL;
 	char_arrays_simple_list * one_ = NULL;
-	uint_fast8_t equality_ = char_arrays_simple_list_equality(zero_, one_);
+	unsigned char equality_ =
+			char_arrays_simple_list_equality(zero_, one_);
 	assertion(equality_);
 }
 
@@ -200,7 +198,8 @@ char_arrays_simple_list_equality_test_1()
 			char_arrays_simple_list_default_constructor();
 	char_arrays_simple_list * one_ =
 			char_arrays_simple_list_default_constructor();
-	uint_fast8_t equality_ = char_arrays_simple_list_equality(zero_, one_);
+	unsigned char equality_ =
+			char_arrays_simple_list_equality(zero_, one_);
 	assertion(equality_);
 }
 
@@ -217,8 +216,8 @@ char_arrays_simple_list_concatenation_test_0()
 	char_arrays_simple_list * zero_;
 	char_arrays_simple_list * one_;
 	char_arrays_simple_list * concat_;
-	uint_fast8_t zero_one_equality_;
-	uint_fast8_t zero_concat_equality_;
+	unsigned char zero_one_equality_;
+	unsigned char zero_concat_equality_;
 	zero_ = char_arrays_simple_list_default_constructor();
 	one_ = char_arrays_simple_list_default_constructor();
 	zero_one_equality_ = char_arrays_simple_list_equality(zero_, one_);

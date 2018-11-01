@@ -103,13 +103,13 @@ stt_execution_requests_simple_list_destructor(
 	free(list);
 }
 
-uint_fast8_t
+unsigned char
 stt_execution_requests_simple_list_length(
 		stt_execution_requests_simple_list * list)
 {
-	uint_fast8_t returning_ = 0;
+	unsigned char returning_ = 0;
 	while (list != NULL) {
-		if (returning_ >= UINT8_MAX) {
+		if (returning_ >= 255) {
 			fprintf(stderr, "%s:%u (uint_fast8_t functions_list_length(functions_list *)): fatal\n",
 					__FILE__, __LINE__);
 			exit(EXIT_FAILURE);

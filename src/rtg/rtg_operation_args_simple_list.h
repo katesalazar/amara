@@ -54,7 +54,7 @@ rtg_operation_args_simple_list_push_front(
 __attribute__((warn_unused_result))
 ;
 
-uint_fast8_t
+unsigned char
 rtg_operation_args_simple_list_length(
 		const rtg_operation_args_simple_list * operation_args)
 __attribute__((warn_unused_result))
@@ -65,7 +65,7 @@ __attribute__((warn_unused_result))
 #define RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret {
-	uint_fast8_t status;
+	unsigned char status;
 	rtg_operation_args_simple_list * operation_args;
 	amara_boolean operation_args_were_moved;
 } rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret;

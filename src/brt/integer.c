@@ -32,7 +32,7 @@ assert_valid_raw_integer(const amara_string * raw_integer)
 {
 	const char * raw_integer_chars_array_;
 	size_t raw_integer_chars_array_len_;
-	uint_fast8_t indexer_;
+	unsigned char indexer_;
 	raw_integer_chars_array_ = amara_string_get_value(raw_integer);
 	raw_integer_chars_array_len_ = strlen(raw_integer_chars_array_);
 	assertion_two(raw_integer_chars_array_len_ > 0,

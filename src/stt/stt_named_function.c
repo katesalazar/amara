@@ -39,8 +39,7 @@ stt_named_function_default_constructor()
 
 stt_named_function *
 stt_named_function_exhaustive_constructor(
-		uint_fast8_t type,
-		const amara_string * name,
+		unsigned char type, const amara_string * name,
 		const stt_operations_simple_list * operations)
 {
 	stt_named_function * ret_;
@@ -110,7 +109,7 @@ stt_named_function_destructor(stt_named_function * named_function)
 
 void
 stt_named_function_set_type(
-		stt_named_function * named_function, uint_fast8_t type)
+		stt_named_function * named_function, unsigned char type)
 {
 	assertion(named_function != NULL);
 	assertion(type == STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION);

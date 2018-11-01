@@ -26,9 +26,6 @@
 
 %{
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 /*   For `int fileno(FILE * stream)`, which is necessary not by
  * `minia.l` but for `lex.minia.c`. */
 #include <stdio.h>
@@ -49,7 +46,7 @@
 #define TRACE_FLEX_CONSTANT_VALUE 0x00
 #endif
 
-const uint_fast8_t trace_flex_constant = TRACE_FLEX_CONSTANT_VALUE;
+const unsigned char trace_flex_constant = TRACE_FLEX_CONSTANT_VALUE;
 
 void
 trace_flex_one(const char * s0)
@@ -102,9 +99,9 @@ trace_flex_three(const char * s0, const char * s1, const char * s2)
     assertion_two(0, "unimplemented code at %s:%d\n");
     return T_RATIONAL_LITERAL;
                 }
-[0-9]+          {
-    uint_fast8_t single_byte_indexer_;
-    /* uint_fast16_t double_byte_indexer_; */
+(0|[1-9][0-9]*)                {
+    unsigned char single_byte_indexer_;
+    /* unsigned short double_byte_indexer_; */
     amara_string * raw_;
     char * raw_char_array_;
 
@@ -357,8 +354,8 @@ a               {
                   return T_A;
                 }
 '.*'            {
-    uint_fast8_t single_byte_indexer_;
-    /* uint_fast16_t double_byte_indexer_; */
+    unsigned char single_byte_indexer_;
+    /* unsigned short double_byte_indexer_; */
     amara_string * value_;
     char * value_char_array_;
 
@@ -391,8 +388,8 @@ a               {
                   return T_STRING_LITERAL;
                 }
 [a-z][0-9_a-z]* {
-    uint_fast8_t single_byte_indexer_;
-    /* uint_fast16_t double_bytes_indexer_; */
+    unsigned char single_byte_indexer_;
+    /* unsigned short double_bytes_indexer_; */
     amara_string * value_;
     char * value_char_array_;
 

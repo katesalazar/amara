@@ -51,7 +51,7 @@ stt_operation_args_simple_list_push_front(
 __attribute__((warn_unused_result))
 ;
 
-uint_fast8_t
+unsigned char
 stt_operation_args_simple_list_length(
 		const stt_operation_args_simple_list * operation_args)
 __attribute__((warn_unused_result))

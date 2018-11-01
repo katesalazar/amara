@@ -19,9 +19,6 @@
 #ifndef __AMARA__SYNTAX_TREE__APPLICATION__H__
 #define __AMARA__SYNTAX_TREE__APPLICATION__H__
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 /*   For `amara_string`. */
 #include "../cmn/amara_string.h"
 
@@ -29,7 +26,7 @@
 #define STT_APPLICATION_TYPE_CLI_APPLICATION 0xFF
 
 typedef struct stt_application {
-	uint_fast8_t type_;
+	unsigned char type_;
 	amara_string * name_;
 	amara_string * entry_point_function_name_;
 } stt_application;
@@ -50,7 +47,7 @@ stt_application *
 stt_application_exhaustive_constructor(
 		const amara_string * name,
 		const amara_string * entry_point_function_name,
-		uint_fast8_t flags)
+		unsigned char flags)
 __attribute__((warn_unused_result))
 ;
 

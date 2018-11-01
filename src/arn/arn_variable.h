@@ -19,8 +19,6 @@
 #ifndef __AMARA__APPLICATIONS_RUNNER__VARIABLE__H__
 #define __AMARA__APPLICATIONS_RUNNER__VARIABLE__H__
 
-#include <stdint.h>
-
 #include "../asr/assertion.h"
 #include "../brt/natural.h"
 #include "../cmn/amara_string.h"
@@ -31,7 +29,7 @@
 #define ARN_VARIABLE_TYPE_ASSIGNED_NATURAL   0x11
 
 typedef struct arn_variable {
-	uint_fast8_t type_;
+	unsigned char type_;
 	amara_string * name_;
 	/*
 	amara_string * raw_natural_;

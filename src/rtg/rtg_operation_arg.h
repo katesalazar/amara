@@ -20,9 +20,6 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__OPERATION_ARG__H__
 #define __AMARA__RUN_TIME_GRAPH__OPERATION_ARG__H__
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 /*   For `amara_string`. */
 #include "../cmn/amara_string.h"
 
@@ -47,7 +44,7 @@
 #define RTG_OPERATION_ARG_TYPE_OPERATION                 0x40
 
 typedef struct rtg_operation_arg {
-	uint_fast8_t type_;
+	unsigned char type_;
 
 	amara_string * string_literal_;
 
@@ -88,7 +85,7 @@ rtg_operation_arg_destructor(rtg_operation_arg * operation_arg)
 
 void
 rtg_operation_arg_set_type(
-		rtg_operation_arg * operation_arg, uint_fast8_t type)
+		rtg_operation_arg * operation_arg, unsigned char type)
 ;
 
 void
@@ -114,7 +111,7 @@ rtg_operation_arg_set_identifier(
 #define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_operation_arg_out_of_stt_operation_arg_ret {
-	uint_fast8_t status;
+	unsigned char status;
 	rtg_operation_arg * operation_arg;
 	amara_boolean operation_arg_was_moved;
 } rtg_operation_arg_out_of_stt_operation_arg_ret;

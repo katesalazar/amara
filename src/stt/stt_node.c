@@ -776,9 +776,9 @@ register_execution_request(
 void
 dump_syntax_tree(const stt_node * node)
 {
-	uint_fast8_t named_functions_len_;
+	unsigned char named_functions_len_;
 	stt_applications_simple_list * applications_ptr_;
-	uint_fast8_t applications_len_;
+	unsigned char applications_len_;
 	stt_application * application_;
 	char * entry_point_function_name_chars_array_;
 	fprintf(stderr, "%s:%u ----> void dump_syntax_tree(const stt_node *)\n",

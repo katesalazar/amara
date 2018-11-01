@@ -62,7 +62,7 @@ __attribute__((warn_unused_result))
 #define RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND 0xF0
 
 typedef struct rtg_named_functions_simple_list_find_by_name_ret {
-	uint_fast8_t status;
+	unsigned char status;
 	rtg_named_function * named_function;
 	amara_boolean named_function_was_moved;
 } rtg_named_functions_simple_list_find_by_name_ret;
@@ -84,7 +84,7 @@ __attribute__((warn_unused_result))
 #define RTG_NAMED_FUNCTIONS_SIMPLE_LIST_OUT_OF_STT_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_named_functions_simple_list_out_of_stt_named_functions_simpe_list_ret {
-	uint_fast8_t status;
+	unsigned char status;
 	rtg_named_functions_simple_list * named_functions;
 	amara_boolean named_functions_were_moved;
 } rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list_ret;
@@ -100,7 +100,7 @@ __attribute__((warn_unused_result))
 #define RTG_NAMED_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_named_functions_out_of_stt_doc_ret {
-	uint_fast8_t status;
+	unsigned char status;
 	rtg_named_functions_simple_list * named_functions;
 	amara_boolean named_functions_were_moved;
 } rtg_named_functions_out_of_stt_doc_ret;

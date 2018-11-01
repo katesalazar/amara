@@ -20,9 +20,6 @@
 #ifndef __AMARA__SYNTAX_TREE__OPERATION_ARG__H__
 #define __AMARA__SYNTAX_TREE__OPERATION_ARG__H__
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 /*   For `amara_string`. */
 #include "../cmn/amara_string.h"
 
@@ -30,7 +27,7 @@
 #define STT_OPERATION_ARG_TYPE_VALID   0xFF
 
 typedef struct stt_operation_arg {
-	uint_fast8_t type_;
+	unsigned char type_;
 	/*
 	amara_string * raw_;
 	*/

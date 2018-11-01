@@ -17,9 +17,6 @@
  * document systems.
  */
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 /*   For `void free(void * ptr)`. */
 #include <stdlib.h>
 
@@ -33,9 +30,10 @@
  * `DIRENT_WRAPPER_OPENDIR_RET_ERROR_ENOENT`... */
 #include "../wrp/dirent_wrapper.h"
 
-uint_fast8_t acquire_dir(const char * path_to)
+unsigned char
+acquire_dir(const char * path_to)
 {
-	uint_fast8_t returning_;
+	unsigned char returning_;
 	const dirent_wrapper * dirent_wrapper;
 	dirent_wrapper = construct_dirent_wrapper();
 	returning_ = acquire_dir_reflective(dirent_wrapper, path_to);
@@ -43,7 +41,8 @@ uint_fast8_t acquire_dir(const char * path_to)
 	return returning_;
 }
 
-uint_fast8_t acquire_dir_reflective(
+unsigned char
+acquire_dir_reflective(
 		const dirent_wrapper * dirent_wrapper, const char * path_to)
 {
 	dirent_wrapper_opendir_ret * dirent_wrapper_opendir_ret_;

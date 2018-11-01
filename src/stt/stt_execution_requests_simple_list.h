@@ -44,7 +44,7 @@ stt_execution_requests_simple_list_destructor(
 		stt_execution_requests_simple_list * list)
 ;
 
-uint_fast8_t
+unsigned char
 stt_execution_requests_simple_list_length(
 		stt_execution_requests_simple_list * list)
 __attribute__((warn_unused_result))

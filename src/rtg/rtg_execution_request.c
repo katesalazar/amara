@@ -38,7 +38,7 @@ rtg_execution_request_default_constructor()
 
 rtg_execution_request *
 rtg_execution_request_exhaustive_constructor(
-		uint_fast8_t requested_type,
+		unsigned char requested_type,
 		const rtg_application * application)
 {
 	rtg_execution_request * ret_;

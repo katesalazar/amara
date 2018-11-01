@@ -70,49 +70,49 @@ void
 assert_valid_raw_natural(const amara_string * raw_natural)
 ;
 
-#define FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_INVALID          0x00
-#define FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_ERR_NOT_FITTING  0x01
-#define FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_OK               0xFF
-#define FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_ERR_DOES_NOT_FIT \
-		FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_ERR_NOT_FITTING
+#define FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_INVALID          0x00
+#define FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_NOT_FITTING  0x01
+#define FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_OK               0xFF
+#define FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_DOES_NOT_FIT \
+		FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_NOT_FITTING
 
-typedef struct fit_raw_natural_in_uint_fast8_t_ret {
-	uint_fast8_t status;
-	uint_fast8_t value;
-} fit_raw_natural_in_uint_fast8_t_ret;
+typedef struct fit_raw_natural_in_unsigned_char_ret {
+	unsigned char status;
+	unsigned char value;
+} fit_raw_natural_in_unsigned_char_ret;
 
 /*   Input `valid_raw_natural` is expected to be valid and canonical,
  * i.e. only digits and no unnecessary leading zeroes. */
-fit_raw_natural_in_uint_fast8_t_ret *
-fit_raw_natural_in_uint_fast8_t(const amara_string * valid_raw_natural)
+fit_raw_natural_in_unsigned_char_ret *
+fit_raw_natural_in_unsigned_char(const amara_string * valid_raw_natural)
 __attribute__((warn_unused_result));
 
 void
-fit_raw_natural_in_uint_fast8_t_ret_destructor(
-		fit_raw_natural_in_uint_fast8_t_ret * ret)
+fit_raw_natural_in_unsigned_char_ret_destructor(
+		fit_raw_natural_in_unsigned_char_ret * ret)
 ;
 
-#define FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_INVALID          0x00
-#define FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_ERR_NOT_FITTING  0x01
-#define FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_OK               0xFF
-/* #define FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_ERR_DOES_NOT_FIT \
-		FIT_RAW_NATURAL_IN_UINT_FAST16_T_RET_STATUS_ERR_NOT_FITTING */
+#define FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_INVALID          0x00
+#define FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_ERR_NOT_FITTING  0x01
+#define FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_OK               0xFF
+/* #define FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_ERR_DOES_NOT_FIT \
+		FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_ERR_NOT_FITTING */
 
-typedef struct fit_raw_natural_in_uint_fast16_t_ret {
-	uint_fast8_t status;
-	uint_fast16_t value;
-} fit_raw_natural_in_uint_fast16_t_ret;
+typedef struct fit_raw_natural_in_unsigned_short_ret {
+	unsigned char status;
+	unsigned short value;
+} fit_raw_natural_in_unsigned_short_ret;
 
 /*   Input `valid_raw_natural` is expected to be valid and canonical,
  * i.e. only digits and no unnecessary leading zeroes. */
-fit_raw_natural_in_uint_fast16_t_ret *
-fit_raw_natural_in_uint_fast16_t(const amara_string * valid_raw_natural)
+fit_raw_natural_in_unsigned_short_ret *
+fit_raw_natural_in_unsigned_short(const amara_string * valid_raw_natural)
 __attribute__((warn_unused_result))
 ;
 
 void
-fit_raw_natural_in_uint_fast16_t_ret_destructor(
-		fit_raw_natural_in_uint_fast16_t_ret * ret)
+fit_raw_natural_in_unsigned_short_ret_destructor(
+		fit_raw_natural_in_unsigned_short_ret * ret)
 ;
 
 amara_string *
@@ -126,19 +126,19 @@ __attribute__((warn_unused_result))
 ;
 
 amara_string *
-copy_uint_fast8_t_into_raw_natural(uint_fast8_t input)
+copy_unsigned_char_into_raw_natural(unsigned char input)
 __attribute__((warn_unused_result))
 ;
 
 amara_string *
-copy_uint_fast16_t_into_raw_natural(uint_fast16_t input)
+copy_unsigned_short_into_raw_natural(unsigned short input)
 __attribute__((warn_unused_result))
 ;
 
 /*   Shoud return negative integer, zero, or positive integer, as the
  * first argument is less than, equal, or greater than the second. Both
  * arguments are valid canonical raw natural numbers. */
-int_fast8_t
+signed char
 safe_arguments_natural_raw_comparison(
 		const amara_string * raw_natural_zero,
 		const amara_string * raw_natural_one)

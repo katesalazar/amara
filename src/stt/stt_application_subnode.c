@@ -108,7 +108,7 @@ stt_application_subnode_destructor(stt_application_subnode * subnode)
 
 void
 stt_application_subnode_set_type(
-		stt_application_subnode * subnode, uint_fast8_t type)
+		stt_application_subnode * subnode, unsigned char type)
 {
 	assertion(subnode->type_ == STT_APPLICATION_SUBNODE_TYPE_INVALID);
 	assertion(type == STT_APPLICATION_SUBNODE_TYPE_CLI_APPLICATION);

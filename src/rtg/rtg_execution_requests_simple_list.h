@@ -65,7 +65,7 @@ __attribute__((warn_unused_result))
 #define RTG_EXECUTION_REQUESTS_SIMPLE_LIST_OUT_OF_STT_EXECUTION_REQUESTS_SIMPLE_LIST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list_ret {
-	uint_fast8_t status;
+	unsigned char status;
 	rtg_execution_requests_simple_list * execution_requests;
 } rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list_ret;
 
@@ -88,7 +88,7 @@ __attribute__((warn_unused_result))
 #define RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret {
-	uint_fast8_t status;
+	unsigned char status;
 	rtg_execution_requests_simple_list * execution_requests;
 	amara_boolean execution_requests_were_moved;
 } rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret;
