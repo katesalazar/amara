@@ -21,11 +21,28 @@
 
 #include "stt_expression.h"
 
+#define STT_CONDITION_TYPE_INVALID                  0x00
+#define STT_CONDITION_TYPE_LESS_THAN                0x01
+#define STT_CONDITION_TYPE_EQUAL_TO                 0x02
+#define STT_CONDITION_TYPE_GREATER_THAN             0x03
+#define STT_CONDITION_TYPE_GREATER_THAN_OR_EQUAL_TO 0x04
+#define STT_CONDITION_TYPE_NOT_EQUAL_TO             0x05
+#define STT_CONDITION_TYPE_LESS_THAN_OR_EQUAL_TO    0x06
+
 typedef struct stt_condition {
 	unsigned char type_;
 	stt_expression * left_hand_side_expression_;
 	stt_expression * right_hand_side_expression_;
 } stt_condition
+;
+
+stt_condition *
+stt_condition_copy_constructor(const stt_condition * condition)
+__attribute__((warn_unused_result))
+;
+
+void
+stt_condition_destructor(stt_condition * condition)
 ;
 
 #endif

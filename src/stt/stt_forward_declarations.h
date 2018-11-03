@@ -13,26 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * src/stt/stt_condition_subnode.h: Amara syntax tree condition subnode.
+ * src/stt/stt_forward_declarations.h: Some Amara syntax tree type
+ * forward declarations.
  */
 
-#ifndef __AMARA__SYNTAX_TREE__CONDITION_SUBNODE__H__
-#define __AMARA__SYNTAX_TREE__CONDITION_SUBNODE__H__
+#ifndef __AMARA__SYNTAX_TREE__FORWARD_DECLARATIONS__H__
+#define __AMARA__SYNTAX_TREE__FORWARD_DECLARATIONS__H__
 
-#include "stt_condition.h"
-
-typedef struct stt_condition_subnode {
-	stt_condition * condition_;
-} stt_condition_subnode
-;
-
-stt_condition_subnode *
-stt_condition_subnode_copy_constructor(const stt_condition_subnode * subnode)
-__attribute__((warn_unused_result))
-;
-
-void
-stt_condition_subnode_destructor(stt_condition_subnode * subnode)
+/**  This belongs to `stt_dice_expression.h`. */
+typedef struct stt_dice_expression {
+	struct natural * left_hand_side_natural_;
+	struct natural * right_hand_side_natural_;
+} stt_dice_expression
 ;
 
 #endif

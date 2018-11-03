@@ -33,4 +33,15 @@ stt_where_value_binding_subnode_exhaustive_constructor(
 __attribute__((warn_unused_result))
 ;
 
+stt_where_value_binding_subnode *
+stt_where_value_binding_subnode_copy_constructor(
+		const stt_where_value_binding_subnode * where_value_binding_subnode_)
+__attribute__((warn_unused_result))
+;
+
+void
+stt_where_value_binding_subnode_destructor(
+		stt_where_value_binding_subnode * stt_where_value_binding_subnode_)
+;
+
 #endif

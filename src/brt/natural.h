@@ -19,13 +19,11 @@
 #ifndef __AMARA__BASIC_ARITHMETIC__NATURAL__H__
 #define __AMARA__BASIC_ARITHMETIC__NATURAL__H__
 
+/*   For `typedef struct natural { ... } natural;`. */
+#include "brt_forward_declarations.h"
+
 /* For `typedef struct stt_node { ... } stt_node`. */
 #include "../stt/stt_node.h"
-
-typedef struct natural {
-	amara_string * raw_;
-} natural
-;
 
 natural *
 natural_default_constructor(void)
@@ -147,9 +145,10 @@ __attribute__((warn_unused_result))
 
 /*   Non destructive in its arguments.
  *   `node_zero` minus `node_one`. */
-stt_node *
+struct stt_node *
 simplify_natural_literal_nodes_substraction(
-		const stt_node * node_zero, const stt_node * node_one)
+		const struct stt_node * node_zero,
+		const struct stt_node * node_one)
 __attribute__((warn_unused_result))
 ;
 
@@ -163,17 +162,19 @@ __attribute__((warn_unused_result));
 
 /*   Non destructive in its arguments.
  *   `node_zero` divided by `node_one`. */
-stt_node *
+struct stt_node *
 simplify_natural_literal_nodes_multiplication(
-		const stt_node * node_zero, const stt_node * node_one)
+		const struct stt_node * node_zero,
+		const struct stt_node * node_one)
 __attribute__((warn_unused_result))
 ;
 
 /*   Non destructive in its arguments.
  *   `node_zero` divided by `node_one`. */
-stt_node *
+struct stt_node *
 simplify_natural_literal_nodes_division(
-		const stt_node * node_zero, const stt_node * node_one)
+		const struct stt_node * node_zero,
+		const struct stt_node * node_one)
 __attribute__((warn_unused_result))
 ;
 

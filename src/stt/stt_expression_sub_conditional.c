@@ -13,26 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * src/stt/stt_condition_subnode.h: Amara syntax tree condition subnode.
+ * src/stt/stt_expression_sub_conditional.c: Amara syntax tree
+ * conditional type of expression.
  */
 
-#ifndef __AMARA__SYNTAX_TREE__CONDITION_SUBNODE__H__
-#define __AMARA__SYNTAX_TREE__CONDITION_SUBNODE__H__
-
-#include "stt_condition.h"
-
-typedef struct stt_condition_subnode {
-	stt_condition * condition_;
-} stt_condition_subnode
+/*
+	stt_expression_sub_conditional_if * if_;
+} stt_expression_sub_conditional
 ;
 
-stt_condition_subnode *
-stt_condition_subnode_copy_constructor(const stt_condition_subnode * subnode)
+stt_expression *
+stt_expression_copy_constructor(const stt_expression * expression)
 __attribute__((warn_unused_result))
 ;
 
-void
-stt_condition_subnode_destructor(stt_condition_subnode * subnode)
-;
-
 #endif
+*/
+
+void
+stt_expression_sub_conditional_placeholder()
+;

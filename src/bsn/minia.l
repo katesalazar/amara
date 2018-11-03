@@ -33,6 +33,8 @@
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
+#include "../stt/stt_dice_expression.h"
+
 /*   For the bison nodes and node types. */
 #include "../stt/stt_node.h"
 
@@ -103,8 +105,62 @@ trace_flex_three(const char * s0, const char * s1, const char * s2)
     return T_RATIONAL_LITERAL;
                 }
 [1-9]d([468]|12|20) {
+    char * dice_left_hand_side_char_array_;
+    amara_string * dice_left_hand_side_raw_natural_;
+    natural * dice_left_hand_side_;
+    char * dice_right_hand_side_char_array_;
+    amara_string * dice_right_hand_side_raw_natural_;
+    natural * dice_right_hand_side_;
+    stt_dice_expression * dice_expression_;
+
     trace_flex_three("returning T_DICE_EXPRESSION (", yytext, ")\n");
-    assertion_two(1, "unimplemented code at %s:%d\n"); /* XXX */
+
+    assertion(yytext[0] > 48 && yytext[0] < 58);
+    dice_left_hand_side_char_array_ = malloc(1 + 1);
+    dice_left_hand_side_char_array_[0] = yytext[0];
+    dice_left_hand_side_char_array_[1] = '\0';
+    dice_left_hand_side_raw_natural_ =
+        amara_string_exhaustive_constructor(dice_left_hand_side_char_array_);
+    dice_left_hand_side_ =
+        natural_exhaustive_constructor(dice_left_hand_side_raw_natural_);
+
+    assertion(yytext[1] == 'd');
+
+    if (yytext[2] == '4' || yytext[2] == '6' || yytext[2] == '8') {
+      dice_right_hand_side_char_array_ = malloc(1 + 1);
+      dice_right_hand_side_char_array_[0] = yytext[2];
+      dice_right_hand_side_char_array_[1] = '\0';
+    } else {
+      assertion(yytext[2] == '1' || yytext[2] == '2');
+      dice_right_hand_side_char_array_ = malloc(2 + 1);
+      dice_right_hand_side_char_array_[0] = yytext[2];
+      if (yytext[2] == '1') {
+        assertion(yytext[3] == '2');
+      } else if (yytext[2] == '2') {
+        assertion(yytext[3] == '0');
+      }
+      dice_right_hand_side_char_array_[1] = yytext[3];
+      dice_right_hand_side_char_array_[2] = '\0';
+    }
+    dice_right_hand_side_raw_natural_ =
+        amara_string_exhaustive_constructor(dice_right_hand_side_char_array_);
+    dice_right_hand_side_ =
+        natural_exhaustive_constructor(dice_right_hand_side_raw_natural_);
+
+    dice_expression_ = stt_dice_expression_exhaustive_constructor(
+        dice_left_hand_side_, dice_right_hand_side_);
+
+    minialval.node = stt_node_default_constructor();
+    stt_node_set_dice_expression(minialval.node, dice_expression_);
+
+    stt_dice_expression_destructor(dice_expression_);
+    natural_destructor(dice_right_hand_side_);
+    amara_string_destructor(dice_right_hand_side_raw_natural_);
+    free(dice_right_hand_side_char_array_);
+    natural_destructor(dice_left_hand_side_);
+    amara_string_destructor(dice_left_hand_side_raw_natural_);
+    free(dice_left_hand_side_char_array_);
+
     return T_DICE_EXPRESSION;
   }
 (0|[1-9][0-9]*) {
@@ -443,11 +499,6 @@ a               {
 
     trace_flex_three("returning T_IDENTIFIER (", yytext, ")\n");
 
-    minialval.node = stt_node_default_constructor();
-    minialval.node->type_ = STT_NODE_TYPE_IDENTIFIER;
-    minialval.node->identifier_subnode_ =
-        stt_identifier_subnode_default_constructor();
-
     /* XXX Can use just `strdup`, but I was just copying code from the string literals extractor so it's OK. */
     value_char_array_ = (char *) malloc(minialeng + 1);
     assertion_two(minialeng < 0x7F,
@@ -461,8 +512,8 @@ a               {
     value_ = amara_string_default_constructor();
     amara_string_set_value(value_, value_char_array_);
     free(value_char_array_);
-    stt_identifier_subnode_set_value(
-        minialval.node->identifier_subnode_, value_);
+    minialval.node = stt_node_default_constructor();
+    stt_node_set_identifier(minialval.node, value_);
     amara_string_destructor(value_);
                   return T_IDENTIFIER;
                 }

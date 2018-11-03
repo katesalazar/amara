@@ -110,7 +110,7 @@ rtg_doc_out_of_stt_doc(const stt_node * node)
 	ret_ = malloc(sizeof(rtg_doc_out_of_stt_doc_ret));
 	ret_->status = RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_INVALID;
 	ret_->doc = NULL;
-	assertion(node->type_ == SYNTAX_TREE_NODE_TYPE_DOC);
+	assertion(node->type_ == STT_NODE_TYPE_DOC);
 	rtg_named_functions_out_of_stt_doc_ret_ =
 			rtg_named_functions_out_of_stt_doc(node->doc_subnode_);
 	assertion(rtg_named_functions_out_of_stt_doc_ret_->status ==

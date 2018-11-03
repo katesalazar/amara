@@ -37,3 +37,34 @@ stt_where_value_bindings_subnode_exhaustive_constructor(
 
 	return returning_;
 }
+
+stt_where_value_bindings_subnode *
+stt_where_value_bindings_subnode_copy_constructor(
+		const stt_where_value_bindings_subnode * stt_where_value_bindings_subnode_)
+{
+	stt_where_value_bindings_subnode * returning_;
+
+	assertion(stt_where_value_bindings_subnode_ != NULL);
+	assertion(stt_where_value_bindings_subnode_->where_value_bindings_ !=
+			NULL);
+
+	returning_ = malloc(sizeof(stt_where_value_bindings_subnode));
+
+	returning_->where_value_bindings_ =
+			stt_where_value_bindings_simple_list_copy_constructor(
+					stt_where_value_bindings_subnode_->where_value_bindings_);
+
+	return returning_;
+}
+
+void
+stt_where_value_bindings_subnode_destructor(
+		stt_where_value_bindings_subnode * stt_where_value_bindings_subnode_)
+{
+	assertion(stt_where_value_bindings_subnode_ != NULL);
+	assertion(stt_where_value_bindings_subnode_->where_value_bindings_ !=
+			NULL);
+	stt_where_value_bindings_simple_list_destructor(
+			stt_where_value_bindings_subnode_->where_value_bindings_);
+	free(stt_where_value_bindings_subnode_);
+}

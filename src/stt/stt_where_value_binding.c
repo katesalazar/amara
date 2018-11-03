@@ -63,3 +63,18 @@ stt_where_value_binding_exhaustive_constructor(
 
 	return returning_;
 }
+
+void
+stt_where_value_binding_destructor(
+		stt_where_value_binding * stt_where_value_binding_)
+{
+	assertion(stt_where_value_binding_ != NULL);
+	assertion(stt_where_value_binding_->value_name_ != NULL);
+	assertion(stt_where_value_binding_->value_name_->value_ != NULL);
+	assertion(stt_where_value_binding_->value_expression_ != NULL);
+	assertion(stt_where_value_binding_->value_expression_->type_ !=
+			STT_EXPRESSION_TYPE_INVALID);
+	amara_string_destructor(stt_where_value_binding_->value_name_);
+	stt_expression_destructor(stt_where_value_binding_->value_expression_);
+	free(stt_where_value_binding_);
+}

@@ -51,7 +51,6 @@ stt_where_value_bindings_simple_list_copy_constructor_inner(
 	}
 
 	assertion(list->first != NULL);
-	assertion(list->next != NULL);
 
 	returning_ = stt_where_value_bindings_simple_list_default_constructor();
 	returning_->first =
@@ -78,6 +77,36 @@ stt_where_value_bindings_simple_list_copy_constructor(
 
 	return stt_where_value_bindings_simple_list_copy_constructor_inner(
 			list);
+}
+
+void
+stt_where_value_bindings_simple_list_destructor_inner(
+		stt_where_value_bindings_simple_list * list)
+;
+
+void
+stt_where_value_bindings_simple_list_destructor_inner(
+		stt_where_value_bindings_simple_list * list)
+{
+	if (list != NULL) {
+		assertion(list->first != NULL);
+		stt_where_value_binding_destructor(list->first);
+		stt_where_value_bindings_simple_list_destructor_inner(
+				list->next);
+	}
+}
+
+void
+stt_where_value_bindings_simple_list_destructor(
+		stt_where_value_bindings_simple_list * list)
+{
+	assertion(list != NULL);
+	if (list->first == NULL) {
+		assertion(list->next == NULL);
+		free(list);
+	} else {
+		stt_where_value_bindings_simple_list_destructor_inner(list);
+	}
 }
 
 void

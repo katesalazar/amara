@@ -13,26 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * src/stt/stt_condition_subnode.h: Amara syntax tree condition subnode.
+ * src/stt/stt_dice_expression.h: Amara syntax tree dice expression.
  */
 
-#ifndef __AMARA__SYNTAX_TREE__CONDITION_SUBNODE__H__
-#define __AMARA__SYNTAX_TREE__CONDITION_SUBNODE__H__
+#ifndef __AMARA__SYNTAX_TREE__DICE_EXPRESSION__H__
+#define __AMARA__SYNTAX_TREE__DICE_EXPRESSION__H__
 
-#include "stt_condition.h"
+#include "stt_forward_declarations.h"
 
-typedef struct stt_condition_subnode {
-	stt_condition * condition_;
-} stt_condition_subnode
-;
+#include "../brt/natural.h"
 
-stt_condition_subnode *
-stt_condition_subnode_copy_constructor(const stt_condition_subnode * subnode)
+stt_dice_expression *
+stt_dice_expression_exhaustive_constructor(
+		const struct natural * left_hand_side,
+		const struct natural * right_hand_side)
 __attribute__((warn_unused_result))
 ;
 
 void
-stt_condition_subnode_destructor(stt_condition_subnode * subnode)
+stt_dice_expression_destructor(stt_dice_expression * dice_expression)
 ;
 
 #endif

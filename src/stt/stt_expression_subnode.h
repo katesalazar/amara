@@ -20,9 +20,30 @@
 #ifndef __AMARA__SYNTAX_TREE__EXPRESSION_SUBNODE__H__
 #define __AMARA__SYNTAX_TREE__EXPRESSION_SUBNODE__H__
 
+#include "../asr/assertion.h"
+
+/*   For `stt_expression` AKA `struct stt_expression`. */
+#include "stt_expression.h"
+
 typedef struct stt_expression_subnode {
 	stt_expression * expression_;
 } stt_expression_subnode
+;
+
+stt_expression_subnode *
+stt_expression_subnode_exhaustive_constructor(
+		const stt_expression * expression)
+__attribute__((warn_unused_result))
+;
+
+stt_expression_subnode *
+stt_expression_subnode_copy_constructor(
+		const stt_expression_subnode * expression_subnode)
+__attribute__((warn_unused_result))
+;
+
+void
+stt_expression_subnode_destructor(stt_expression_subnode * subnode)
 ;
 
 #endif

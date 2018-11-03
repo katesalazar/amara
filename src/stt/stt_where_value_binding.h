@@ -42,4 +42,9 @@ stt_where_value_binding_exhaustive_constructor(
 __attribute__((warn_unused_result))
 ;
 
+void
+stt_where_value_binding_destructor(
+		stt_where_value_binding * stt_where_value_binding_)
+;
+
 #endif

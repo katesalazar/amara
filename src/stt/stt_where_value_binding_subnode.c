@@ -34,9 +34,56 @@ stt_where_value_binding_subnode_exhaustive_constructor(
 			STT_EXPRESSION_TYPE_INVALID);
 
 	returning_ = malloc(sizeof(stt_where_value_binding_subnode));
+
 	returning_->where_value_binding_ =
 			stt_where_value_binding_copy_constructor(
 					where_value_binding);
 
 	return returning_;
+}
+
+stt_where_value_binding_subnode *
+stt_where_value_binding_subnode_copy_constructor(
+		const stt_where_value_binding_subnode * where_value_binding_subnode_)
+{
+	stt_where_value_binding_subnode * returning_;
+
+	assertion(where_value_binding_subnode_ != NULL);
+	assertion(where_value_binding_subnode_->where_value_binding_ != NULL);
+	assertion(where_value_binding_subnode_->where_value_binding_->value_name_ !=
+			NULL);
+	assertion(where_value_binding_subnode_->where_value_binding_->value_name_->value_ !=
+			NULL);
+	assertion(where_value_binding_subnode_->where_value_binding_->value_expression_ !=
+			NULL);
+	assertion(where_value_binding_subnode_->where_value_binding_->value_expression_->type_ !=
+			STT_EXPRESSION_TYPE_INVALID);
+
+	returning_ = malloc(sizeof(stt_where_value_binding_subnode));
+
+	returning_->where_value_binding_ =
+			stt_where_value_binding_copy_constructor(
+					where_value_binding_subnode_->where_value_binding_);
+
+	return returning_;
+}
+
+void
+stt_where_value_binding_subnode_destructor(
+		stt_where_value_binding_subnode * stt_where_value_binding_subnode_)
+{
+	assertion(stt_where_value_binding_subnode_ != NULL);
+	assertion(stt_where_value_binding_subnode_->where_value_binding_ !=
+			NULL);
+	assertion(stt_where_value_binding_subnode_->where_value_binding_->value_name_ !=
+			NULL);
+	assertion(stt_where_value_binding_subnode_->where_value_binding_->value_name_->value_ !=
+			NULL);
+	assertion(stt_where_value_binding_subnode_->where_value_binding_->value_expression_ !=
+			NULL);
+	assertion(stt_where_value_binding_subnode_->where_value_binding_->value_expression_->type_ !=
+			STT_EXPRESSION_TYPE_INVALID);
+	stt_where_value_binding_destructor(
+			stt_where_value_binding_subnode_->where_value_binding_);
+	free(stt_where_value_binding_subnode_);
 }

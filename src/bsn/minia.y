@@ -371,6 +371,11 @@ cli_named_function :
           STT_OPERATION_TYPE_INVALID,
       "`$17->operations_list_subnode_->operations_->first->type_` is invalid");
 
+  assertion($18 != NULL);
+  assertion($18->type_ == STT_NODE_TYPE_WHERE_BINDINGS);
+  assertion($18->where_value_bindings_subnode_ != NULL);
+  assertion($18->where_value_bindings_subnode_->where_value_bindings_ != NULL);
+
   /*
   TODO CHARACTERIZE THE FUNCTION AS A CLI FUNCTION */
   $$->named_function_subnode_ =
@@ -473,8 +478,18 @@ function_where_clauses :
 }
 |
 {
+  stt_where_value_bindings_simple_list * where_value_bindings_;
+
   b_trace_chars_array("cli_fn_where_clauses : NOTHING\n");
-  $$ = NULL;
+
+  where_value_bindings_ =
+      stt_where_value_bindings_simple_list_default_constructor();
+  assertion(where_value_bindings_ != NULL);
+  assertion(where_value_bindings_->first == NULL);
+  assertion(where_value_bindings_->next == NULL);
+
+  $$ = stt_node_default_constructor();
+  stt_node_set_where_value_bindings($$, where_value_bindings_);
 }
 ;
 

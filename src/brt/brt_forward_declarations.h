@@ -13,26 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * src/stt/stt_condition_subnode.h: Amara syntax tree condition subnode.
+ * src/brt/brt_forward_declarations.h: Basic arithmetic forward
+ * declarations.
  */
 
-#ifndef __AMARA__SYNTAX_TREE__CONDITION_SUBNODE__H__
-#define __AMARA__SYNTAX_TREE__CONDITION_SUBNODE__H__
+#ifndef __AMARA__BASIC_ARITHMETIC__FORWARD_DECLARATIONS__H__
+#define __AMARA__BASIC_ARITHMETIC__FORWARD_DECLARATIONS__H__
 
-#include "stt_condition.h"
+/*   For `typedef struct amara_string { ... } amara_string;`. */
+#include "../cmn/amara_string.h"
 
-typedef struct stt_condition_subnode {
-	stt_condition * condition_;
-} stt_condition_subnode
-;
-
-stt_condition_subnode *
-stt_condition_subnode_copy_constructor(const stt_condition_subnode * subnode)
-__attribute__((warn_unused_result))
-;
-
-void
-stt_condition_subnode_destructor(stt_condition_subnode * subnode)
+typedef struct natural {
+	amara_string * raw_;
+} natural
 ;
 
 #endif
