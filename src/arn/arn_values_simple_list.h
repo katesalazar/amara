@@ -20,7 +20,11 @@
 #ifndef __AMARA__APPLICATIONS_RUNNER__VALUES_SIMPLE_LIST__H__
 #define __AMARA__APPLICATIONS_RUNNER__VALUES_SIMPLE_LIST__H__
 
+/*   For `arn_value`. */
 #include "arn_value.h"
+
+/*   For `arn_values_fixed_list`. */
+#include "arn_values_fixed_list.h"
 
 typedef struct arn_values_simple_list {
 	arn_value * first;
@@ -43,6 +47,22 @@ arn_values_simple_list_push_front(
 __attribute__((warn_unused_result))
 ;
 
+arn_values_simple_list *
+arn_values_simple_list_push_front_as_references_all_elements_of_arn_values_fixed_list(
+		arn_values_simple_list * destination,
+		const arn_values_fixed_list * source)
+__attribute__((warn_unused_result))
+;
+
+/**  Returns a copy of the found value, or `NULL` if not found. */
+arn_value *
+arn_values_simple_list_find_value_by_name(
+		const arn_values_simple_list * values,
+		const amara_string * value_name)
+__attribute__((warn_unused_result))
+;
+
+/**  Returns a reference to the found value, or `NULL` if not found. */
 arn_value *
 arn_values_simple_list_find_value_by_name_return_reference(
 		const arn_values_simple_list * values,
@@ -60,10 +80,10 @@ assert_value_is_known(
  * `ARN_VALUE_TYPE_ASSIGNED_NATURAL`).
  *   Pre: TODO Is the value known to be added to the list, or not? */
 arn_values_simple_list *
-arn_values_simple_list_assign_natural_out_of_unsigned_int(
+arn_values_simple_list_assign_natural_out_of_unsigned_short(
 		arn_values_simple_list * values,
 		const amara_string * value_name,
-		const unsigned int unsigned_int)
+		const unsigned short unsigned_short)
 __attribute__((warn_unused_result))
 ;
 

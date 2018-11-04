@@ -13,13 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * src/stt/stt_where_value_binding.c: Amara syntax tree where value
+ * src/stt/stt_where_value_binding.c: Amara syntax tree _where_ value
  * binding.
  */
 
 #include "../asr/assertion.h"
 
 #include "stt_where_value_binding.h"
+
+stt_where_value_binding *
+stt_where_value_binding_default_constructor()
+{
+	stt_where_value_binding * returning_;
+
+	returning_ = malloc(sizeof(stt_where_value_binding));
+#ifndef NDEBUG
+	assertion(returning_ != NULL);
+#endif
+
+	returning_->value_name_ = NULL;
+
+	returning_->value_expression_ = NULL;
+
+	return returning_;
+}
 
 stt_where_value_binding *
 stt_where_value_binding_copy_constructor(
@@ -68,13 +85,25 @@ void
 stt_where_value_binding_destructor(
 		stt_where_value_binding * stt_where_value_binding_)
 {
+#ifndef NDEBUG
 	assertion(stt_where_value_binding_ != NULL);
-	assertion(stt_where_value_binding_->value_name_ != NULL);
-	assertion(stt_where_value_binding_->value_name_->value_ != NULL);
-	assertion(stt_where_value_binding_->value_expression_ != NULL);
-	assertion(stt_where_value_binding_->value_expression_->type_ !=
-			STT_EXPRESSION_TYPE_INVALID);
-	amara_string_destructor(stt_where_value_binding_->value_name_);
-	stt_expression_destructor(stt_where_value_binding_->value_expression_);
+#endif
+
+	if (stt_where_value_binding_->value_name_ != NULL) {
+
+#ifndef NDEBUG
+		assertion(stt_where_value_binding_->value_name_->value_ !=
+				NULL);
+		assertion(stt_where_value_binding_->value_expression_ != NULL);
+		assertion(stt_where_value_binding_->value_expression_->type_ !=
+				STT_EXPRESSION_TYPE_INVALID);
+#endif
+
+		amara_string_destructor(stt_where_value_binding_->value_name_);
+
+		stt_expression_destructor(
+				stt_where_value_binding_->value_expression_);
+	}
+
 	free(stt_where_value_binding_);
 }

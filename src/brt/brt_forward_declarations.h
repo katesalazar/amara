@@ -20,9 +20,11 @@
 #ifndef __AMARA__BASIC_ARITHMETIC__FORWARD_DECLARATIONS__H__
 #define __AMARA__BASIC_ARITHMETIC__FORWARD_DECLARATIONS__H__
 
-/*   For `typedef struct amara_string { ... } amara_string;`. */
+/*   For `typedef struct amara_string { ... } amara_string`. */
 #include "../cmn/amara_string.h"
 
+/**  Belongs to the natural class (`brt/natural.h`) however it was moved
+ * here because it is needed as forward declaration. */
 typedef struct natural {
 	amara_string * raw_;
 } natural

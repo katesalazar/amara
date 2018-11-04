@@ -20,6 +20,9 @@
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
+/*   For `STT_NAMED_FUNCTION_TYPE_INVALID`. */
+#include "stt_named_function.h"
+
 /*   For own definitions. */
 #include "stt_named_function_subnode.h"
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,6 +45,13 @@ stt_operations_simple_list_destructor(stt_operations_simple_list * list)
 
 stt_operations_simple_list *
 stt_operations_simple_list_push_front(
+		stt_operations_simple_list * operations,
+		const stt_operation * operation)
+__attribute__((warn_unused_result))
+;
+
+void
+stt_operations_simple_list_push_back(
 		stt_operations_simple_list * operations,
 		const stt_operation * operation)
 ;

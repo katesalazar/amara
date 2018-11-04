@@ -21,7 +21,7 @@
 #define __AMARA__APPLICATIONS_RUNNER__VARIABLE_TESTS__H__
 
 void
-arn_variable_tests()
+arn_variable_tests(void)
 ;
 
 #endif

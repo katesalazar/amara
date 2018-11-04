@@ -111,6 +111,7 @@ trace_flex_three(const char * s0, const char * s1, const char * s2)
     char * dice_right_hand_side_char_array_;
     amara_string * dice_right_hand_side_raw_natural_;
     natural * dice_right_hand_side_;
+    /**  FIXME MUST RETURN NOT AN stt_dice_expression BUT AN stt_expression CORRECTLY SET TO the STT_EXPRESSION_TYPE_DICE TYPE AND WITH ITS DATA HANGING FROM THE stt_expression_sub_dice SUB. */
     stt_dice_expression * dice_expression_;
 
     trace_flex_three("returning T_DICE_EXPRESSION (", yytext, ")\n");

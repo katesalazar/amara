@@ -16,11 +16,25 @@
  * src/stt/stt_expression.c: Amara syntax tree expression.
  */
 
+/*   For `int fprintf(FILE * stream, const char * format, ...)`. */
+#include <stdio.h>
+
 /*   For `NULL`. */
-#include <stdlib.h>
+/* #include <stdlib.h> */
 
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
+
+void
+assertion(int expression)
+;
+
+/*   For `void assert_valid_raw_natural(const amara_string *
+ * raw_natural)`. */
+#include "../brt/natural.h"
+
+/*   For `stt_expression_sub_natural_literal_exhaustive_constructor`. */
+#include "stt_expression_sub_natural_literal.h"
 
 /*   For own definitions. */
 #include "stt_expression.h"
@@ -32,6 +46,10 @@ stt_expression_default_constructor(void)
 
 	returning_ = malloc(sizeof(stt_expression));
 
+	returning_->sub_string_literal_ = NULL;
+	returning_->sub_natural_literal_ = NULL;
+	returning_->sub_identifier_ = NULL;
+	returning_->sub_conditional_ = NULL;
 	returning_->sub_dice_ = NULL;
 	returning_->type_ = STT_EXPRESSION_TYPE_INVALID;
 
@@ -43,21 +61,280 @@ stt_expression_copy_constructor(const stt_expression * expression)
 {
 	stt_expression * returning_;
 
+#ifndef NDEBUG
 	assertion(expression != NULL);
 	assertion(expression->type_ != STT_EXPRESSION_TYPE_INVALID);
+#endif
 
-	returning_ = malloc(sizeof(stt_expression));
+	returning_ = stt_expression_default_constructor();
+#ifndef NDEBUG
+	assertion(returning_ != NULL);
+#endif
 
-	if (expression->type_ == STT_EXPRESSION_TYPE_DICE) {
+	if (expression->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL) {
+#ifndef NDEBUG
+		assertion(expression->sub_string_literal_ != NULL);
+#endif
+
+		returning_->sub_string_literal_ =
+				stt_expression_sub_string_literal_copy_constructor(
+						expression->sub_string_literal_);
+#ifndef NDEBUG
+		assertion(returning_->sub_string_literal_ != NULL);
+#endif
+
+#ifndef NDEBUG
+		assertion(expression->sub_natural_literal_ == NULL);
+		/* XXX missing assertions? */
+		assertion(expression->sub_conditional_ == NULL);
+		assertion(expression->sub_dice_ == NULL);
+#endif
+	} else if (expression->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL) {
+
+#ifndef NDEBUG
+		assertion(expression->sub_string_literal_ == NULL);
+		assertion(expression->sub_natural_literal_ != NULL);
+		assertion(expression->sub_conditional_ == NULL);
+#endif
+
+		returning_->sub_natural_literal_ =
+				stt_expression_sub_natural_literal_copy_constructor(
+						expression->sub_natural_literal_);
+#ifndef NDEBUG
+		assertion(returning_->sub_natural_literal_ != NULL);
+#endif
+
+#ifndef NDEBUG
+		/* XXX missing assertions? */
+		assertion(expression->sub_conditional_ == NULL);
+		assertion(expression->sub_dice_ == NULL);
+#endif
+	} else if (expression->type_ == STT_EXPRESSION_TYPE_IDENTIFIER) {
+
+#ifndef NDEBUG
+		assertion(expression->sub_string_literal_ == NULL);
+		assertion(expression->sub_natural_literal_ == NULL);
+		assertion(expression->sub_identifier_ != NULL);
+		assertion(expression->sub_conditional_ == NULL);
+		assertion(expression->sub_dice_ == NULL);
+#endif
+
+		returning_->sub_identifier_ =
+				stt_expression_sub_identifier_copy_constructor(
+						expression->sub_identifier_);
+#ifndef NDEBUG
+		assertion(returning_->sub_identifier_ != NULL);
+#endif
+	} else if (expression->type_ == STT_EXPRESSION_TYPE_CONDITIONAL) {
+
+#ifndef NDEBUG
+		assertion(expression->sub_string_literal_ == NULL);
+		assertion(expression->sub_natural_literal_ == NULL);
+		assertion(expression->sub_conditional_ != NULL);
+#endif
+
+		returning_->sub_conditional_ =
+				stt_expression_sub_conditional_copy_constructor(
+						expression->sub_conditional_);
+#ifndef NDEBUG
+		assertion(returning_->sub_conditional_ != NULL);
+#endif
+
+#ifndef NDEBUG
+		/* XXX missing assertions? */
+		assertion(expression->sub_dice_ == NULL);
+#endif
+	} else {
+#ifndef NDEBUG
+		fprintf(stderr, "%u\n", expression->type_);
+		assertion(expression->type_ == STT_EXPRESSION_TYPE_DICE);
+#endif
+
+#ifndef NDEBUG
+		assertion(expression->sub_string_literal_ == NULL);
+		assertion(expression->sub_natural_literal_ == NULL);
+		assertion(expression->sub_conditional_ == NULL);
 		assertion(expression->sub_dice_ != NULL);
+#endif
+
 		returning_->sub_dice_ =
 				stt_expression_sub_dice_copy_constructor(
 						expression->sub_dice_);
+#ifndef NDEBUG
+		assertion(returning_->sub_dice_ != NULL);
+#endif
+
+		/* XXX missing assertions? */
 	}
 
 	returning_->type_ = expression->type_;
 
 	return returning_;
+}
+
+void
+stt_expression_destructor(stt_expression * expression)
+{
+#ifndef NDEBUG
+	assertion(expression != NULL);
+	assertion(expression->type_ != STT_EXPRESSION_TYPE_INVALID);
+#endif
+
+	if (expression->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL) {
+
+#ifndef NDEBUG
+		assertion(expression->sub_string_literal_ != NULL);
+#endif
+		stt_expression_sub_string_literal_destructor(
+				expression->sub_string_literal_);
+	} else if (expression->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL) {
+
+#ifndef NDEBUG
+		assertion(expression->sub_natural_literal_ != NULL);
+#endif
+		stt_expression_sub_natural_literal_destructor(
+				expression->sub_natural_literal_);
+	} else if (expression->type_ == STT_EXPRESSION_TYPE_IDENTIFIER) {
+
+#ifndef NDEBUG
+		assertion(expression->sub_identifier_ != NULL);
+#endif
+		stt_expression_sub_identifier_destructor(
+				expression->sub_identifier_);
+	} else if (expression->type_ == STT_EXPRESSION_TYPE_CONDITIONAL) {
+
+#ifndef NDEBUG
+		assertion(expression->sub_conditional_ != NULL);
+#endif
+		stt_expression_sub_conditional_destructor(
+				expression->sub_conditional_);
+	} else {
+#ifndef NDEBUG
+		assertion(expression->type_ == STT_EXPRESSION_TYPE_DICE);
+#endif
+
+#ifndef NDEBUG
+		assertion(expression->sub_dice_ != NULL);
+#endif
+		stt_expression_sub_dice_destructor(expression->sub_dice_);
+	}
+	free(expression);
+}
+
+void
+stt_expression_set_string_literal(
+		stt_expression * expression,
+		const amara_string * string_literal)
+{
+#ifndef NDEBUG
+	assertion(expression != NULL);
+	assertion(expression->type_ == STT_EXPRESSION_TYPE_INVALID);
+	assertion(expression->sub_string_literal_ == NULL);
+	assertion(expression->sub_natural_literal_ == NULL);
+	assertion(expression->sub_conditional_ == NULL);
+	assertion(expression->sub_dice_ == NULL);
+#endif
+
+#ifndef NDEBUG
+	assertion(string_literal != NULL);
+	assertion(string_literal->value_ != NULL);
+#endif
+
+	expression->sub_string_literal_ =
+			stt_expression_sub_string_literal_exhaustive_constructor(
+					string_literal);
+
+	expression->type_ = STT_EXPRESSION_TYPE_STRING_LITERAL;
+}
+
+void
+stt_expression_set_natural_literal(
+		stt_expression * expression, const natural * natural_literal)
+{
+#ifndef NDEBUG
+	assertion(expression != NULL);
+	assertion(expression->type_ == STT_EXPRESSION_TYPE_INVALID);
+	assertion(expression->sub_string_literal_ == NULL);
+	assertion(expression->sub_natural_literal_ == NULL);
+	assertion(expression->sub_conditional_ == NULL);
+	assertion(expression->sub_dice_ == NULL);
+#endif
+
+#ifndef NDEBUG
+	assertion(natural_literal != NULL);
+	assertion(natural_literal->raw_ != NULL);
+	assertion(natural_literal->raw_->value_ != NULL);
+	natural_assert_validity(natural_literal);
+#endif
+
+	expression->sub_natural_literal_ =
+			stt_expression_sub_natural_literal_exhaustive_constructor(
+					natural_literal);
+
+	expression->type_ = STT_EXPRESSION_TYPE_NATURAL_LITERAL;
+}
+
+void
+stt_expression_set_identifier(
+		stt_expression * expression, const amara_string * identifier)
+{
+#ifndef NDEBUG
+	assertion(expression != NULL);
+	assertion(expression->type_ == STT_EXPRESSION_TYPE_INVALID);
+	assertion(expression->sub_string_literal_ == NULL);
+	assertion(expression->sub_natural_literal_ == NULL);
+	assertion(expression->sub_conditional_ == NULL);
+	assertion(expression->sub_dice_ == NULL);
+#endif
+
+#ifndef NDEBUG
+	assertion(identifier != NULL);
+	assertion(identifier->value_ != NULL);
+#endif
+
+	expression->sub_identifier_ =
+			stt_expression_sub_identifier_exhaustive_constructor(
+					identifier);
+
+	expression->type_ = STT_EXPRESSION_TYPE_IDENTIFIER;
+}
+
+void
+stt_expression_set_conditional(
+		stt_expression * expression,
+		const stt_expression_sub_conditional * expression_sub_conditional)
+{
+	assertion(expression != NULL);
+	assertion(expression->type_ == STT_EXPRESSION_TYPE_INVALID);
+	assertion(expression->sub_string_literal_ == NULL);
+	assertion(expression->sub_natural_literal_ == NULL);
+	assertion(expression->sub_conditional_ == NULL);
+	assertion(expression->sub_dice_ == NULL);
+
+	assertion(expression_sub_conditional != NULL);
+	assertion(expression_sub_conditional->if_ != NULL);
+	assertion(expression_sub_conditional->if_->type_ !=
+			STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_INVALID);
+	assertion(expression_sub_conditional->if_->condition_ != NULL);
+	assertion(expression_sub_conditional->if_->expression_then_ != NULL);
+	if (expression_sub_conditional->if_->type_ ==
+			STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE) {
+		assertion(expression_sub_conditional->if_->expression_else_ !=
+				NULL);
+		assertion(expression_sub_conditional->if_->next_if_ == NULL);
+	} else {
+		assertion(expression_sub_conditional->if_->type_ ==
+				STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE_IF);
+		assertion(expression_sub_conditional->if_->expression_else_ ==
+				NULL);
+		assertion(expression_sub_conditional->if_->next_if_ != NULL);
+	}
+
+	expression->sub_conditional_ =
+			stt_expression_sub_conditional_copy_constructor(
+					expression_sub_conditional);
+
+	expression->type_ = STT_EXPRESSION_TYPE_CONDITIONAL;
 }
 
 void
@@ -68,6 +345,9 @@ stt_expression_set_dice(stt_expression * expression,
 
 	assertion(expression != NULL);
 	assertion(expression->type_ == STT_EXPRESSION_TYPE_INVALID);
+	assertion(expression->sub_string_literal_ == NULL);
+	assertion(expression->sub_natural_literal_ == NULL);
+	assertion(expression->sub_conditional_ == NULL);
 	assertion(expression->sub_dice_ == NULL);
 
 	assertion(dice_expression != NULL);
@@ -82,14 +362,181 @@ stt_expression_set_dice(stt_expression * expression,
 	expression->type_ = STT_EXPRESSION_TYPE_DICE;
 }
 
-void
-stt_expression_destructor(stt_expression * expression)
+amara_boolean
+stt_expression_equality(const stt_expression * e0, const stt_expression * e1)
 {
-	assertion(expression != NULL);
-	assertion(expression->type_ != STT_EXPRESSION_TYPE_INVALID);
-	if (expression->type_ == STT_EXPRESSION_TYPE_DICE) {
-		assertion(expression->sub_dice_ != NULL);
-		stt_expression_sub_dice_destructor(expression->sub_dice_);
+	amara_boolean equality_;
+
+#ifndef NDEBUG
+	assertion(e0 != NULL);
+	assertion(e0->type_ != STT_EXPRESSION_TYPE_INVALID);
+	assertion(e1 != NULL);
+	assertion(e1->type_ != STT_EXPRESSION_TYPE_INVALID);
+#endif
+
+	if (e0->type_ != e1->type_) {
+
+		return AMARA_BOOLEAN_FALSE;
 	}
-	free(expression);
+
+	fprintf(stderr, "%u\n", e0->type_);
+	fprintf(stderr, "%u\n", e1->type_);
+
+	if (e0->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL) {
+
+#ifndef NDEBUG
+		assertion(e0->sub_string_literal_ != NULL);
+		assertion(e0->sub_string_literal_->string_literal_ != NULL);
+		assertion(e0->sub_string_literal_->string_literal_->value_ !=
+				NULL);
+		assertion(e1->sub_string_literal_ != NULL);
+		assertion(e1->sub_string_literal_->string_literal_ != NULL);
+		assertion(e1->sub_string_literal_->string_literal_->value_ !=
+				NULL);
+#endif
+
+		equality_ = amara_string_equality(
+				e0->sub_string_literal_->string_literal_,
+				e1->sub_string_literal_->string_literal_);
+	} else {
+#ifndef NDEBUG
+		assertion(e0->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL);
+#endif
+
+#ifndef NDEBUG
+		assertion(e0->sub_natural_literal_ != NULL);
+		assertion(e0->sub_natural_literal_->natural_literal_ != NULL);
+		assertion(e0->sub_natural_literal_->natural_literal_->raw_ !=
+				NULL);
+		assertion(e0->sub_natural_literal_->natural_literal_->raw_->value_ !=
+				NULL);
+		assertion(e1->sub_natural_literal_ != NULL);
+		assertion(e1->sub_natural_literal_->natural_literal_ != NULL);
+		assertion(e1->sub_natural_literal_->natural_literal_->raw_ !=
+				NULL);
+		assertion(e1->sub_natural_literal_->natural_literal_->raw_->value_ !=
+				NULL);
+#endif
+
+		/*
+
+		equality_ = natural_equality(
+				e0->sub_natural_literal_->natural_literal_,
+				e1->sub_natural_literal_->natural_literal_);
+
+		*/
+
+		equality_ = amara_string_equality(
+				e0->sub_natural_literal_->natural_literal_->raw_,
+				e1->sub_natural_literal_->natural_literal_->raw_);
+	}
+
+	return equality_;
 }
+
+#ifndef NDEBUG
+
+void
+stt_expression_assert_clean_string_literal(const stt_expression * this)
+{
+	assertion(this != NULL);
+	assertion(this->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL);
+	assertion(this->sub_string_literal_ != NULL);
+	assertion(this->sub_string_literal_->string_literal_ != NULL);
+	assertion(this->sub_string_literal_->string_literal_->value_ != NULL);
+	assertion(this->sub_natural_literal_ == NULL);
+	assertion(this->sub_identifier_ == NULL);
+	assertion(this->sub_conditional_ == NULL);
+	assertion(this->sub_dice_ == NULL);
+}
+
+void
+stt_expression_assert_clean_natural_literal(const stt_expression * this)
+{
+	assertion(this != NULL);
+	assertion(this->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL);
+	assertion(this->sub_string_literal_ == NULL);
+	assertion(this->sub_natural_literal_ != NULL);
+	assertion(this->sub_natural_literal_->natural_literal_ != NULL);
+	assertion(this->sub_natural_literal_->natural_literal_->raw_ != NULL);
+	assertion(this->sub_natural_literal_->natural_literal_->raw_->value_ !=
+			NULL);
+	assertion(this->sub_identifier_ == NULL);
+	assertion(this->sub_conditional_ == NULL);
+	assertion(this->sub_dice_ == NULL);
+}
+
+void
+stt_expression_assert_clean_identifier(const stt_expression * this)
+{
+	assertion(this != NULL);
+	assertion(this->type_ == STT_EXPRESSION_TYPE_IDENTIFIER);
+	assertion(this->sub_string_literal_ == NULL);
+	assertion(this->sub_natural_literal_ == NULL);
+	assertion(this->sub_identifier_ != NULL);
+	assertion(this->sub_identifier_->identifier_ != NULL);
+	assertion(this->sub_identifier_->identifier_->value_ != NULL);
+	assertion(this->sub_conditional_ == NULL);
+	assertion(this->sub_dice_ == NULL);
+}
+
+void
+stt_expression_assert_clean_conditional(const stt_expression * this)
+{
+	assertion(this != NULL);
+	assertion(this->type_ == STT_EXPRESSION_TYPE_CONDITIONAL);
+	assertion(this->sub_string_literal_ == NULL);
+	assertion(this->sub_natural_literal_ == NULL);
+	assertion(this->sub_identifier_ == NULL);
+	assertion(this->sub_conditional_ != NULL);
+	assertion(this->sub_conditional_->if_ != NULL);
+	assertion(this->sub_conditional_->if_->condition_ != NULL);
+	assertion(this->sub_conditional_->if_->expression_then_ != NULL);
+	if (this->sub_conditional_->if_->next_if_ == NULL) {
+		assertion(this->sub_conditional_->if_->expression_else_ !=
+				NULL);
+	} else {
+		assertion(this->sub_conditional_->if_->expression_else_ ==
+				NULL);
+	}
+	assertion(this->sub_dice_ == NULL);
+}
+
+void
+stt_expression_assert_clean_dice(const stt_expression * this)
+{
+	assertion(this != NULL);
+	assertion(this->type_ == STT_EXPRESSION_TYPE_DICE);
+	assertion(this->sub_string_literal_ == NULL);
+	assertion(this->sub_natural_literal_ == NULL);
+	assertion(this->sub_identifier_ == NULL);
+	assertion(this->sub_conditional_ == NULL);
+	assertion(this->sub_dice_ != NULL);
+	assertion(this->sub_dice_->left_hand_side_natural_ != NULL);
+	assertion(this->sub_dice_->left_hand_side_natural_->raw_ != NULL);
+	assertion(this->sub_dice_->left_hand_side_natural_->raw_->value_ !=
+			NULL);
+	assertion(this->sub_dice_->right_hand_side_natural_ != NULL);
+	assertion(this->sub_dice_->right_hand_side_natural_->raw_ != NULL);
+	assertion(this->sub_dice_->right_hand_side_natural_->raw_->value_ !=
+			NULL);
+}
+
+void
+stt_expression_assert_cleanliness(const stt_expression * this)
+{
+	assertion(this != NULL);
+	if (this->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL) {
+
+		stt_expression_assert_clean_string_literal(this);
+	} else if (this->type_ == STT_EXPRESSION_TYPE_IDENTIFIER) {
+
+		stt_expression_assert_clean_identifier(this);
+	} else {
+		assertion(this->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL);
+
+		stt_expression_assert_clean_natural_literal(this);
+	}
+}
+
+#endif

@@ -75,6 +75,6 @@ expression :
 | RATIONAL_LITERAL
 ;
 condition :
-  expression IS GREATER THAN expression
-| expression IS LESS THAN expression
+  expression IS LESS THAN expression
+| expression IS GREATER THAN expression
 ;

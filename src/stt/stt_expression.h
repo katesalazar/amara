@@ -20,23 +20,56 @@
 #define __AMARA__SYNTAX_TREE__EXPRESSION__H__
 
 /*   For `typedef struct stt_dice_expression { ... }
- * stt_dice_expression;`. */
+ * stt_dice_expression`. */
 #include "stt_forward_declarations.h"
 
+/*   For `typedef struct stt_expression_sub_conditional { ... }
+ * stt_expression_sub_conditional`. */
+#include "stt_expression_sub_conditional.h"
+
 /*   For `typedef struct stt_expression_sub_dice { ... }
- * stt_expression_sub_dice;`. */
+ * stt_expression_sub_dice`. */
 #include "stt_expression_sub_dice.h"
 
-#define STT_EXPRESSION_TYPE_INVALID        0x00
-#define STT_EXPRESSION_TYPE_IF_THEN_ELSE   0x01
-#define STT_EXPRESSION_TYPE_ADDITION       0x02
-#define STT_EXPRESSION_TYPE_SUBSTRACTION   0x03
-#define STT_EXPRESSION_TYPE_MULTIPLICATION 0x04
-#define STT_EXPRESSION_TYPE_DIVISION       0x05
-#define STT_EXPRESSION_TYPE_DICE           0x06
+/*   For `typedef struct stt_expression_sub_identifier { ... }
+ * stt_expression_sub_identifier`. */
+#include "stt_expression_sub_identifier.h"
+
+/*   For `typedef struct stt_expression_sub_natural_literal { ... }
+ * stt_expression_sub_natural_literal`. */
+#include "stt_expression_sub_natural_literal.h"
+
+/*   For `typedef struct stt_expression_sub_string_literal { ... }
+ * stt_expression_sub_string_literal`. */
+#include "stt_expression_sub_string_literal.h"
+
+#define STT_EXPRESSION_TYPE_INVALID             0x00
+#define STT_EXPRESSION_TYPE_STRING_LITERAL      0x01
+/* #define STT_EXPRESSION_TYPE_BOOLEAN_LITERAL  0x02 */
+#define STT_EXPRESSION_TYPE_NATURAL_LITERAL     0x03
+/* #define STT_EXPRESSION_TYPE_INTEGER_LITERAL  0x04 */
+/* #define STT_EXPRESSION_TYPE_RATIONAL_LITERAL 0x05 */
+#define STT_EXPRESSION_TYPE_IDENTIFIER          0x06
+#define STT_EXPRESSION_TYPE_CONDITIONAL         0x07
+/* #define STT_EXPRESSION_TYPE_ADDITION         0x08 */
+/* #define STT_EXPRESSION_TYPE_SUBSTRACTION     0x09 */
+/* #define STT_EXPRESSION_TYPE_MULTIPLICATION   0x0A */
+/* #define STT_EXPRESSION_TYPE_DIVISION         0x0B */
+/* #define STT_EXPRESSION_TYPE_EXPONENTIATION   0x0C */
+#define STT_EXPRESSION_TYPE_DICE                0x0D
 
 typedef struct stt_expression {
+
 	unsigned char type_;
+
+	stt_expression_sub_string_literal * sub_string_literal_;
+
+	stt_expression_sub_natural_literal * sub_natural_literal_;
+
+	stt_expression_sub_identifier * sub_identifier_;
+
+	struct stt_expression_sub_conditional * sub_conditional_;
+
 	stt_expression_sub_dice * sub_dice_;
 } stt_expression
 ;
@@ -52,12 +85,68 @@ __attribute__((warn_unused_result))
 ;
 
 void
+stt_expression_destructor(stt_expression * expression)
+;
+
+void
+stt_expression_set_string_literal(
+		stt_expression * expression,
+		const amara_string * string_literal)
+;
+
+void
+stt_expression_set_natural_literal(
+		stt_expression * expression, const natural * natural_literal)
+;
+
+void
+stt_expression_set_identifier(
+		stt_expression * expression, const amara_string * identifier)
+;
+
+void
+stt_expression_set_conditional(
+		stt_expression * expression,
+		const struct stt_expression_sub_conditional * expression_sub_conditional)
+;
+
+/**  FIXME MUST CHANGE IN ORDER TO RECEIVE AN stt_expression_sub_dice */
+void
 stt_expression_set_dice(stt_expression * expression,
                         const stt_dice_expression * dice_expression)
 ;
 
-void
-stt_expression_destructor(stt_expression * expression)
+amara_boolean
+stt_expression_equality(const stt_expression * e0, const stt_expression * e1)
+__attribute__((warn_unused_result))
 ;
 
-#endif
+#ifndef NDEBUG
+
+void
+stt_expression_assert_clean_string_literal(const stt_expression * this)
+;
+
+void
+stt_expression_assert_clean_natural_literal(const stt_expression * this)
+;
+
+void
+stt_expression_assert_clean_identifier(const stt_expression * this)
+;
+
+void
+stt_expression_assert_clean_conditional(const stt_expression * this)
+;
+
+void
+stt_expression_assert_clean_dice(const stt_expression * this)
+;
+
+void
+stt_expression_assert_cleanliness(const stt_expression * this)
+;
+
+#endif  /* NDEBUG */
+
+#endif  /* __AMARA__SYNTAX_TREE__EXPRESSION__H__ */

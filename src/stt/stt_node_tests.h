@@ -24,50 +24,70 @@ stt_node_example_operation_print_foo(void)
 __attribute__((warn_unused_result))
 ;
 
+#ifndef NDEBUG
+
 void
 assert_expectations_on_stt_node_example_operation_print_foo(
 		const stt_node * node)
 ;
+
+#endif
 
 stt_node *
 stt_node_example_operation_print_bar(void)
 __attribute__((warn_unused_result))
 ;
 
+#ifndef NDEBUG
+
 void
 assert_expectations_on_stt_node_example_operation_print_bar(
 		const stt_node * node)
 ;
+
+#endif
 
 stt_node *
 stt_node_example_operations_list_print_foo_and_then_print_bar(void)
 __attribute__((warn_unused_result))
 ;
 
+#ifndef NDEBUG
+
 void
 assert_expectations_on_stt_node_example_operations_list_print_foo_and_then_print_bar(
 		const stt_node * node)
 ;
+
+#endif
 
 stt_node *
 stt_node_example_named_function_print_foo(void)
 __attribute__((warn_unused_result))
 ;
 
+#ifndef NDEBUG
+
 void
 assert_expectations_on_stt_node_example_named_function_print_foo(
 		const stt_node * node)
 ;
+
+#endif
 
 stt_node *
 stt_node_example_application_print_foo(void)
 __attribute__((warn_unused_result))
 ;
 
+#ifndef NDEBUG
+
 void
 assert_expectations_on_stt_node_example_application_print_foo(
 		const stt_node * node)
 ;
+
+#endif
 
 void
 stt_node_tests(void)

@@ -17,9 +17,29 @@
  * value bindings subnode.
  */
 
+/*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
+void
+assertion(int expression)
+;
+
 #include "stt_where_value_bindings_subnode.h"
+
+stt_where_value_bindings_subnode *
+stt_where_value_bindings_subnode_default_constructor()
+{
+	stt_where_value_bindings_subnode * returning_;
+
+	returning_ = malloc(sizeof(stt_where_value_bindings_subnode));
+#ifndef NDEBUG
+	assertion(returning_ != NULL);
+#endif
+
+	returning_->where_value_bindings_ = NULL;
+
+	return returning_;
+}
 
 stt_where_value_bindings_subnode *
 stt_where_value_bindings_subnode_exhaustive_constructor(
@@ -34,6 +54,12 @@ stt_where_value_bindings_subnode_exhaustive_constructor(
 	returning_->where_value_bindings_ =
 			stt_where_value_bindings_simple_list_copy_constructor(
 					list);
+	assertion(returning_->where_value_bindings_ != NULL);
+	if (list->first == NULL) {
+		assertion(returning_->where_value_bindings_->first == NULL);
+	} else {
+		assertion(returning_->where_value_bindings_->first != NULL);
+	}
 
 	return returning_;
 }
@@ -62,9 +88,12 @@ stt_where_value_bindings_subnode_destructor(
 		stt_where_value_bindings_subnode * stt_where_value_bindings_subnode_)
 {
 	assertion(stt_where_value_bindings_subnode_ != NULL);
-	assertion(stt_where_value_bindings_subnode_->where_value_bindings_ !=
-			NULL);
-	stt_where_value_bindings_simple_list_destructor(
-			stt_where_value_bindings_subnode_->where_value_bindings_);
+
+	if (stt_where_value_bindings_subnode_->where_value_bindings_ != NULL) {
+
+		stt_where_value_bindings_simple_list_destructor(
+				stt_where_value_bindings_subnode_->where_value_bindings_);
+	}
+
 	free(stt_where_value_bindings_subnode_);
 }

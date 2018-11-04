@@ -68,6 +68,17 @@ amara_string_destructor(amara_string * string)
 	free(string);
 }
 
+#ifndef NDEBUG
+
+void
+amara_string_assert_healthy(const amara_string * string)
+{
+	assertion(string != NULL);
+	assertion(string->value_ != NULL);
+}
+
+#endif
+
 char *
 amara_string_get_value(const amara_string * string)
 {

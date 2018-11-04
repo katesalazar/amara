@@ -20,33 +20,78 @@
 #ifndef __AMARA__SYNTAX_TREE__EXPRESSION_SUB_CONDITIONAL__H__
 #define __AMARA__SYNTAX_TREE__EXPRESSION_SUB_CONDITIONAL__H__
 
+/*   For `stt_condition`. */
+#include "stt_condition.h"
+
+/*   For `stt_expression`. */
+/* #include "stt_expression.h" */
+
+#define STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_INVALID         0x00
+#define STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE    0x0F
+#define STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE_IF 0xF0
+
+/**  This `struct` is the soul of the conditional expression. It is a
+ * linked list of _if_ type of conditions, and _then_ expressions,
+ * terminated by a (required) _else_ expression. */
 typedef struct stt_expression_sub_conditional_if {
 
-	stt_condition * condition_;
+	unsigned char type_;
 
-	stt_expression * expression_then_;
+	struct stt_condition * condition_;
+
+	struct stt_expression * expression_then_;
 
 	/**  Either this or `expression_else_` must be filled and set to
 	 * non NULL. The other must be set NULL. */
-	stt_expression_sub_conditional_if * expression_next_if_;
+	struct stt_expression_sub_conditional_if * next_if_;
 
-	/**  Either this or `expression_next_if_` must be filled and set
-	 * to non NULL. The other must be set NULL. */
-	stt_expression * expression_else_;
+	/**  Either this or `next_if_` must be filled and set to non
+	 * NULL. The other must be set NULL. */
+	struct stt_expression * expression_else_;
 } stt_expression_sub_conditional_if
 ;
 
+/**  This `struct` is the body of the conditional expression. It simply
+ * stores a pointer to a linked list representing the different
+ * conditions and corresponding expressions for the conditional cases. */
 typedef struct stt_expression_sub_conditional {
 
 	stt_expression_sub_conditional_if * if_;
 } stt_expression_sub_conditional
 ;
 
-/*
 stt_expression_sub_conditional *
-stt_expression_sub_conditional_copy_constructor(const stt_expression * expression)
+stt_expression_sub_conditional_default_constructor(void)
 __attribute__((warn_unused_result))
 ;
-*/
+
+stt_expression_sub_conditional *
+stt_expression_sub_conditional_copy_constructor(
+		const stt_expression_sub_conditional * expression_sub_conditional)
+__attribute__((warn_unused_result))
+;
+
+void
+stt_expression_sub_conditional_destructor(
+		stt_expression_sub_conditional * expression_sub_conditional)
+;
+
+void
+stt_expression_sub_conditional_set_condition(
+		stt_expression_sub_conditional * sub_conditional,
+		const struct stt_condition * condition)
+;
+
+void
+stt_expression_sub_conditional_set_expression_then(
+		stt_expression_sub_conditional * sub_conditional,
+		const struct stt_expression * expression_then)
+;
+
+void
+stt_expression_sub_conditional_set_expression_else(
+		stt_expression_sub_conditional * sub_conditional,
+		const struct stt_expression * expression_else)
+;
 
 #endif

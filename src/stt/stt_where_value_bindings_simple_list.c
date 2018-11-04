@@ -46,9 +46,15 @@ stt_where_value_bindings_simple_list_copy_constructor_inner(
 {
 	stt_where_value_bindings_simple_list * returning_;
 
+	/*
+	assertion(list != NULL);
+	*/
+	/* XXX */
+	/**/
 	if (list == NULL) {
 		return NULL;
 	}
+	/**/
 
 	assertion(list->first != NULL);
 

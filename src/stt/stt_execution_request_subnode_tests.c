@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,8 @@
 /*   For `stt_execution_request_subnode`. */
 #include "stt_execution_request_subnode.h"
 
+#ifndef NDEBUG
+
 void
 assert_expectations_on_stt_execution_request_subnode_example_print_foo(
 		const stt_execution_request_subnode * subnode)
@@ -45,16 +47,22 @@ assert_expectations_on_stt_execution_request_subnode_example_print_foo(
 	amara_string_destructor(expected_application_name_);
 }
 
+#endif
+
 void
 stt_execution_request_subnode_construct_and_destruct_test_0()
 {
 	stt_execution_request_subnode * stt_execution_request_subnode_;
+
 	stt_execution_request_subnode_ =
 			stt_execution_request_subnode_default_constructor();
+#ifndef NDEBUG
 	assertion(stt_execution_request_subnode_ != NULL);
 	assertion(stt_execution_request_subnode_->type_ ==
 			STT_EXECUTION_REQUEST_SUBNODE_TYPE_INVALID);
 	assertion(stt_execution_request_subnode_->application_name_ == NULL);
+#endif
+
 	stt_execution_request_subnode_destructor(
 			stt_execution_request_subnode_);
 }
@@ -64,19 +72,26 @@ stt_execution_request_subnode_construct_and_destruct_test_1()
 {
 	stt_execution_request_subnode * execution_request_subnode_zero_;
 	stt_execution_request_subnode * execution_request_subnode_one_;
+
 	execution_request_subnode_zero_ =
 			stt_execution_request_subnode_default_constructor();
+#ifndef NDEBUG
 	assertion(execution_request_subnode_zero_ != NULL);
 	assertion(execution_request_subnode_zero_->type_ ==
 			STT_EXECUTION_REQUEST_SUBNODE_TYPE_INVALID);
 	assertion(execution_request_subnode_zero_->application_name_ == NULL);
+#endif
+
 	execution_request_subnode_zero_->application_name_ =
 			amara_string_exhaustive_constructor("foo");
+
 	execution_request_subnode_zero_->type_ =
 			STT_EXECUTION_REQUEST_SUBNODE_TYPE_RUN_CLI_APPLICATION;
+
 	execution_request_subnode_one_ =
 			stt_execution_request_subnode_copy_constructor(
 					execution_request_subnode_zero_);
+#ifndef NDEBUG
 	assertion(execution_request_subnode_one_ != NULL);
 	assertion(execution_request_subnode_one_->type_ !=
 			STT_EXECUTION_REQUEST_SUBNODE_TYPE_INVALID);
@@ -86,6 +101,8 @@ stt_execution_request_subnode_construct_and_destruct_test_1()
 	assertion(amara_string_equality(
 			execution_request_subnode_one_->application_name_,
 			amara_string_exhaustive_constructor("foo")));
+#endif
+
 	stt_execution_request_subnode_destructor(
 			execution_request_subnode_one_);
 	stt_execution_request_subnode_destructor(

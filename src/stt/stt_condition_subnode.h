@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,11 @@
 typedef struct stt_condition_subnode {
 	stt_condition * condition_;
 } stt_condition_subnode
+;
+
+stt_condition_subnode *
+stt_condition_subnode_exhaustive_constructor(const stt_condition * condition)
+__attribute__((warn_unused_result))
 ;
 
 stt_condition_subnode *

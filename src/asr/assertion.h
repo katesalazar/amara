@@ -20,10 +20,16 @@
 #define __AMARA__ASSERTIONS__ASSERTION__H__
 
 void
-assertion(int expression);
+assertion(int expression)
+;
 
 void
-assertion_two(int expression, const char * message);
+assertion_two(int expression, const char * message)
+;
+
+void
+forced_assertion(int expression)
+;
 
 /*
 void disarm_interim(char * message)
@@ -38,9 +44,11 @@ assertion_two_located_interim(
 */
 
 void
-interpret_and_assert(const char * expression);
+interpret_and_assert(const char * expression)
+;
 
 void
-interpret_and_assert_two(const char * expression, const char * message);
+interpret_and_assert_two(const char * expression, const char * message)
+;
 
 #endif

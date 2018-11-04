@@ -105,9 +105,14 @@ rtg_doc_out_of_stt_doc(const stt_node * node)
 	rtg_named_functions_simple_list * rtg_named_functions_;
 	rtg_applications_simple_list * rtg_applications_;
 	rtg_execution_requests_simple_list * rtg_execution_requests_;
+
 	fprintf(stderr, "%s:%u ----> rtg_doc_out_of_stt_doc_ret * rtg_doc_out_of_stt_doc(const stt_node *)\n",
 			__FILE__, __LINE__);
+
 	ret_ = malloc(sizeof(rtg_doc_out_of_stt_doc_ret));
+#ifndef NDEBUG
+    assertion(ret_ != NULL);
+#endif
 	ret_->status = RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_INVALID;
 	ret_->doc = NULL;
 	assertion(node->type_ == STT_NODE_TYPE_DOC);

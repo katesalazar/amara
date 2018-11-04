@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,10 +69,36 @@ amara_string_equality_test_0()
 	amara_string_destructor(a2);
 }
 
+#ifndef NDEBUG
+
+void
+amara_string_equality_test_1()
+{
+	amara_string * a1_;
+	amara_string * a2_;
+	amara_boolean equality_;
+
+	a1_ = amara_string_exhaustive_constructor("foo");
+	assertion(a1_ != NULL);
+	assertion(a1_->value_ != NULL);
+
+	a2_ = NULL;
+
+	equality_ = amara_string_equality(a1_, a2_);
+	assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	amara_string_destructor(a1_);
+}
+
+#endif
+
 void
 amara_string_equality_tests()
 {
 	amara_string_equality_test_0();
+#ifndef NDEBUG
+	amara_string_equality_test_1();
+#endif
 }
 
 void

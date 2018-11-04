@@ -35,6 +35,15 @@
 /*   For `stt_application_subnode_tests`. */
 #include "stt_application_subnode_tests.h"
 
+/*   For `void stt_condition_tests()`. */
+#include "stt_condition_tests.h"
+
+/*   For `stt_condition_subnode_tests`. */
+#include "stt_condition_subnode_tests.h"
+
+/*   For `stt_dice_expression_tests`. */
+#include "stt_dice_expression_tests.h"
+
 #include "stt_doc_subnode_tests.h"
 
 /*   For `stt_execution_request_tests`. */
@@ -45,6 +54,21 @@
 
 /*   For `stt_execution_request_subnode_tests`. */
 #include "stt_execution_request_subnode_tests.h"
+
+/*   For `void stt_expression_sub_conditional_tests()`. */
+#include "stt_expression_sub_conditional_tests.h"
+
+/*   For `void stt_expression_sub_dice_tests()`. */
+#include "stt_expression_sub_dice_tests.h"
+
+/*   For `void stt_expression_sub_identifier_tests()`. */
+#include "stt_expression_sub_identifier_tests.h"
+
+/*   For `void stt_expression_tests()`. */
+#include "stt_expression_tests.h"
+
+/*   For `void stt_expression_subnode_tests()`. */
+#include "stt_expression_subnode_tests.h"
 
 #include "stt_identifier_subnode_tests.h"
 
@@ -78,6 +102,18 @@
 #include "stt_rational_literal_subnode_tests.h"
 
 #include "stt_string_literal_subnode_tests.h"
+
+/*   For `stt_where_value_binding_tests`. */
+#include "stt_where_value_binding_tests.h"
+
+/*   For `stt_where_value_binding_subnode_tests`. */
+#include "stt_where_value_binding_subnode_tests.h"
+
+/*   For `stt_where_value_bindings_simple_list_tests`. */
+#include "stt_where_value_bindings_simple_list_tests.h"
+
+/*   For `stt_where_value_bindings_subnode_tests`. */
+#include "stt_where_value_bindings_subnode_tests.h"
 
 void
 node_name_from_type_test_0()
@@ -291,26 +327,53 @@ void
 syntax_tree_tests_()
 {
 	stt_string_literal_subnode_tests();
+
 	stt_natural_literal_subnode_tests();
+
 	stt_integer_literal_subnode_tests();
+
 	stt_rational_literal_subnode_tests();
+
 	stt_identifier_subnode_tests();
+
+	stt_dice_expression_tests();
+
+	stt_expression_sub_identifier_tests();
+	stt_expression_sub_dice_tests();
+	stt_expression_sub_conditional_tests();
+	stt_expression_tests();
+	stt_expression_subnode_tests();
+
+	stt_condition_tests();
+	stt_condition_subnode_tests();
+
+	stt_where_value_binding_tests();
+	stt_where_value_binding_subnode_tests();
+	stt_where_value_bindings_simple_list_tests();
+	stt_where_value_bindings_subnode_tests();
+
 	stt_operation_args_simple_list_tests();
 	stt_operation_tests();
-	stt_operations_simple_list_tests();
 	stt_operation_subnode_tests();
+	stt_operations_simple_list_tests();
 	stt_operations_list_subnode_tests();
+
 	stt_named_function_tests();
-	stt_named_functions_simple_list_tests();
 	stt_named_function_subnode_tests();
+	stt_named_functions_simple_list_tests();
+
 	stt_application_tests();
-	stt_applications_simple_list_tests();
 	stt_application_subnode_tests();
+	stt_applications_simple_list_tests();
+
 	stt_execution_request_tests();
-	stt_execution_requests_simple_list_tests();
 	stt_execution_request_subnode_tests();
+	stt_execution_requests_simple_list_tests();
+
 	stt_doc_subnode_tests();
+
 	stt_node_tests();
+
 	node_name_from_type_tests();
 }
 

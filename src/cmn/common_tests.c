@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -182,7 +182,7 @@ char_array_tests_()
 }
 
 void
-char_arrays_simple_list_equality_test_0()
+char_arrays_simple_list_equality_test_0_()
 {
 	char_arrays_simple_list * zero_ = NULL;
 	char_arrays_simple_list * one_ = NULL;
@@ -192,7 +192,7 @@ char_arrays_simple_list_equality_test_0()
 }
 
 void
-char_arrays_simple_list_equality_test_1()
+char_arrays_simple_list_equality_test_1_()
 {
 	char_arrays_simple_list * zero_ =
 			char_arrays_simple_list_default_constructor();
@@ -206,8 +206,8 @@ char_arrays_simple_list_equality_test_1()
 void
 char_arrays_simple_list_equality_tests_()
 {
-	char_arrays_simple_list_equality_test_0();
-	char_arrays_simple_list_equality_test_1();
+	char_arrays_simple_list_equality_test_0_();
+	char_arrays_simple_list_equality_test_1_();
 }
 
 void

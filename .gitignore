@@ -4,6 +4,7 @@
 #   KDevelop stuff.
 amara.kdev4
 .kdev4/
+*.kate-swp
 
 #   macOS stuff.
 .DS_Store
@@ -40,10 +41,6 @@ build/debug/*.o
 build/release/*.o
 build/debug/amara_g
 build/release/amara
-# FIXME REMOVE THIS LEGACY.
-amara_g
-# FIXME REMOVE THIS LEGACY.
-amara
 
 #   macOS debugging symbols.
 amara_g.dSYM/
@@ -54,14 +51,17 @@ gmon.out
 #   GCC coverage output docs.
 build/debug/*.gcno
 build/release/*.gcno
-# FIXME REMOVE THIS LEGACY.
-*.gcno
 
 #   Coverage raw data.
-*.gcda
+build/debug/*.gcda
+build/release/*.gcda
 
 #   `gcov` output docs.
 *.gcov
+
+#   `gcov` output log.
+gcov_stdout
+gcov_stderr
 
 #   `lcov` output docs.
 lcov.info
@@ -76,3 +76,6 @@ build/debug/minia.l
 #   Miscellaneous coverage stuff. This is a symbolic link as a
 # workaround for a presentation issue in `lcov`.
 build/debug/minia.y
+
+#   Doxygen stuff.
+doxygen_reports/

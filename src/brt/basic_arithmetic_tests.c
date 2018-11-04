@@ -109,15 +109,15 @@ raw_naturals_substraction_as_raw_natural_zero_is_larger_than_one_tests(void)
 ;
 
 void
-raw_naturals_division_as_raw_natural_test_0(void)
+raw_naturals_euclidean_quotient_as_raw_natural_test__0(void)
 ;
 
 void
-raw_naturals_division_as_raw_natural_test_1(void)
+raw_naturals_euclidean_quotient_as_raw_natural_test__1(void)
 ;
 
 void
-raw_naturals_division_as_raw_natural_tests(void)
+raw_naturals_euclidean_quotient_as_raw_natural_tests_(void)
 ;
 
 void
@@ -459,7 +459,7 @@ raw_naturals_substraction_as_raw_natural_zero_is_larger_than_one_tests()
 }
 
 void
-raw_naturals_division_as_raw_natural_test_0()
+raw_naturals_euclidean_quotient_as_raw_natural_test__0()
 {
 	const char * raw_natural_zero_chars_array_ = "256";
 	const char * raw_natural_one_chars_array_ = "1";
@@ -469,7 +469,7 @@ raw_naturals_division_as_raw_natural_test_0()
 	const amara_string * raw_natural_one_ =
 			amara_string_exhaustive_constructor(
 					raw_natural_one_chars_array_);
-	const amara_string * ret_ = raw_naturals_division_as_raw_natural(
+	const amara_string * ret_ = raw_naturals_euclidean_quotient_as_raw_natural(
 			raw_natural_zero_, raw_natural_one_);
 	const char * expected_raw_natural_chars_array_ = "256";
 	const amara_string * expected_raw_natural_ =
@@ -488,7 +488,7 @@ raw_naturals_division_as_raw_natural_test_0()
 
 /*
 void
-raw_naturals_division_as_raw_natural_test_1()
+raw_naturals_euclidean_quotient_as_raw_natural_test_1_()
 {
 	const char * raw_natural_zero_chars_array_ = "1";
 	const char * raw_natural_one_chars_array_ = "256";
@@ -498,7 +498,7 @@ raw_naturals_division_as_raw_natural_test_1()
 	const amara_string * raw_natural_one_ =
 			amara_string_exhaustive_constructor(
 					raw_natural_one_chars_array_);
-	const amara_string * ret_ = raw_naturals_division_as_raw_natural(
+	const amara_string * ret_ = raw_naturals_euclidean_quotient_as_raw_natural(
 			raw_natural_zero_, raw_natural_one_);
 	const char * expected_raw_natural_chars_array_ =
 			"MACHINE_NUMERIC_OVERFLOW";
@@ -520,11 +520,11 @@ raw_naturals_division_as_raw_natural_test_1()
 */
 
 void
-raw_naturals_division_as_raw_natural_tests()
+raw_naturals_euclidean_quotient_as_raw_natural_tests_()
 {
-	raw_naturals_division_as_raw_natural_test_0();
+	raw_naturals_euclidean_quotient_as_raw_natural_test__0();
 	/*
-	raw_naturals_division_as_raw_natural_test_1();
+	raw_naturals_euclidean_quotient_as_raw_natural_test__1();
 	*/
 }
 
@@ -552,7 +552,7 @@ simplify_natural_literal_nodes_substraction_test_0()
 	amara_string_set_value(
 			(amara_string *) expectation_raw_,
 			expectation_raw_chars_array_);
-	assert_pure_natural_literal_node(result_);
+	assert_clean_natural_literal_node(result_);
 	assertion(
 			amara_string_equality(
 				result_->natural_literal_subnode_->raw_,
@@ -590,7 +590,7 @@ natural_tests_()
 	fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_tests();
 	fit_raw_natural_in_unsigned_char_tests();
 	raw_naturals_substraction_as_raw_natural_zero_is_larger_than_one_tests();
-	raw_naturals_division_as_raw_natural_tests();
+	raw_naturals_euclidean_quotient_as_raw_natural_tests_();
 	simplify_natural_literal_nodes_substraction_tests();
 }
 

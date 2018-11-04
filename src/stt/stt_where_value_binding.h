@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * src/stt/stt_where_value_binding.h: Amara syntax tree where value
+ * src/stt/stt_where_value_binding.h: Amara syntax tree _where_ value
  * binding.
  */
 
@@ -21,12 +21,21 @@
 #define __AMARA__SYNTAX_TREE__WHERE_VALUE_BINDING__H__
 
 #include "../cmn/amara_string.h"
+
 #include "stt_expression.h"
 
 typedef struct stt_where_value_binding {
+
 	amara_string * value_name_;
+
 	stt_expression * value_expression_;
 } stt_where_value_binding
+;
+
+/**  Temporary. XXX Must remove once the class hits 100% coverage. */
+stt_where_value_binding *
+stt_where_value_binding_default_constructor(void)
+__attribute__((warn_unused_result))
 ;
 
 stt_where_value_binding *

@@ -110,13 +110,13 @@ Program ended with exit code: 0
 
 ### macOS High Sierra (the Homebrew way)
 
-1. Optionally [install Homebrew][8]:
+1. **Optionally** [install Homebrew][8] (for updated `bison` and `flex` packages, not required):
 
 ```
 $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-2. If you have Homebrew, optionally select the `bison` and `flex` packages:
+2. If you have Homebrew, **optionally** select the `bison` and `flex` packages (it should just work using the default `bison` and `flex` shipped in macOS:
 
 ```
 $ brew install bison flex
@@ -177,6 +177,14 @@ Check out [`INSTALL_LEGACY.md`][5].
 This is completely tentative, and most probably goals will be moved around up
 and down.
 
+### 0.0.1
+
+* Simple and mostly Turing complete ish scripting engine for all-in-one functions. Selective (conditional) expression, anonymous functions mapping, fold or reduce, etc.
+
+### 0.0.x
+
+* ~~Function calls, anonymous functions~~, `procedure` keyword (instead of `function [...] and returns nothing at all [...] and causes side effects`) (idea contributed by Mia, however this form of it is not exactly the way Mia wanted it).
+
 ### 0.1.0
 
 * CLI applications.
@@ -232,12 +240,24 @@ Copyright (c)
 2018 &lt;your name here&gt;
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-2018 Mercedes Catherine Salazar (katesalazar)
+2018 Mercedes Catherine Salazar (katesalazar):
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Lexicon, syntax, semantics, implementation, tests.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contributions by:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 2018 &lt;your name here&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2018 Mia (spreadLink):
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Sequential operations conjunction: lexicon (`OPERATION and then OPERATION`).
+Syntax consulting.
 
 Licensed to you under the terms of [the Apache License, version 2.0][29].
 

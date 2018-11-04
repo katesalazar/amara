@@ -75,6 +75,50 @@ arn_values_simple_list_push_front(
 	return new_list_node_;
 }
 
+arn_values_simple_list *
+arn_values_simple_list_push_front_as_references_all_elements_of_arn_values_fixed_list_inner(
+		arn_values_simple_list * destination,
+		const arn_values_fixed_list * source)
+__attribute__((warn_unused_result))
+;
+
+arn_values_simple_list *
+arn_values_simple_list_push_front_as_references_all_elements_of_arn_values_fixed_list_inner(
+		arn_values_simple_list * destination,
+		const arn_values_fixed_list * source)
+{
+	arn_values_simple_list * returning_;
+
+	assertion(destination != NULL);
+
+	if (source == NULL) {
+		return destination;
+	}
+
+	returning_ = malloc(sizeof(arn_values_simple_list));
+
+	returning_->first = source->first;
+	returning_->next =
+			arn_values_simple_list_push_front_as_references_all_elements_of_arn_values_fixed_list_inner(
+					destination, source->next);
+
+	return returning_;
+}
+
+arn_values_simple_list *
+arn_values_simple_list_push_front_as_references_all_elements_of_arn_values_fixed_list(
+		arn_values_simple_list * destination,
+		const arn_values_fixed_list * source)
+{
+	/* arn_values_simple_list * returning_; */
+
+	assertion(destination != NULL);
+	assertion(source != NULL);
+
+	return arn_values_simple_list_push_front_as_references_all_elements_of_arn_values_fixed_list_inner(
+			destination, source);
+}
+
 arn_value *
 arn_values_simple_list_find_value_by_name_return_reference_inner(
 		const arn_values_simple_list * values,
@@ -108,6 +152,7 @@ arn_values_simple_list_find_value_by_name_return_reference(
 	assertion(values != NULL);
 	assertion(value_name != NULL);
 	assertion(value_name->value_ != NULL);
+
 	if (values->first == NULL) {
 		assertion(values->next == NULL);
 		return NULL;
@@ -117,10 +162,10 @@ arn_values_simple_list_find_value_by_name_return_reference(
 }
 
 arn_values_simple_list *
-arn_values_simple_list_assign_natural_out_of_unsigned_int(
+arn_values_simple_list_assign_natural_out_of_unsigned_short(
 		arn_values_simple_list * values,
 		const amara_string * value_name,
-		const unsigned int unsigned_int)
+		const unsigned short unsigned_short)
 {
 	arn_values_simple_list * returning_;
 	arn_value * value_reference_;
@@ -132,7 +177,7 @@ arn_values_simple_list_assign_natural_out_of_unsigned_int(
 			arn_values_simple_list_find_value_by_name_return_reference(
 					values, value_name);
 	natural_ = natural_default_constructor();
-	natural_copy_from_unsigned_int(natural_, unsigned_int);
+	natural_copy_from_unsigned_short(natural_, unsigned_short);
 	if (value_reference_ == NULL) {
 		value_reference_ = arn_value_default_constructor();
 		assertion(value_reference_ != NULL);
@@ -156,8 +201,8 @@ arn_values_simple_list_assign_natural_out_of_unsigned_int(
 	/*
 	arn_value
 	else {
-	arn_value_assign_natural_out_of_unsigned_int(
-			value_, unsigned_int_natural);
+	arn_value_assign_natural_out_of_unsigned_short(
+			value_, unsigned_short_natural);
 	}
 	return la nueva si ha cambiado, o la vieja si no ha cambiado? push frontal?
 	*/

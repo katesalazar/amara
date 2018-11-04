@@ -17,10 +17,19 @@
  * basically a constant.
  */
 
+/*   For `void * malloc(size_t size)`. */
 #include <stdio.h>
 
+/*   For `natural`. */
 #include "../brt/natural.h"
 
+/*   For `rtg_expression`. */
+#include "../rtg/rtg_expression.h"
+
+/*   For `arn_type`. */
+#include "arn_type.h"
+
+/*   For `arn_value`. */
 #include "arn_value.h"
 
 arn_value *
@@ -33,9 +42,11 @@ arn_value_default_constructor(void)
 	ret_->type_ = ARN_VALUE_TYPE_INVALID;
 	ret_->name_ = NULL;
 	ret_->string_ = NULL;
-	ret_->string_was_moved_ = AMARA_BOOLEAN_FALSE;
+	ret_->string_was_moved = AMARA_BOOLEAN_FALSE;
+    ret_->boolean_ = NULL;
+    ret_->boolean_was_moved = AMARA_BOOLEAN_FALSE;
 	ret_->natural_ = NULL;
-	ret_->natural_was_moved_ = AMARA_BOOLEAN_FALSE;
+	ret_->natural_was_moved = AMARA_BOOLEAN_FALSE;
 
 	return ret_;
 }
@@ -98,28 +109,28 @@ arn_value_copy_constructor(const arn_value * value)
 		if (value->type_ == ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL ||
 				value->type_ == ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL) {
 			ret_->string_ = NULL;
-			ret_->string_was_moved_ = AMARA_BOOLEAN_FALSE;
+			ret_->string_was_moved = AMARA_BOOLEAN_FALSE;
 			/* XXX */
 			ret_->natural_ = natural_copy_constructor(
 					value->natural_);
 			/* XXX */
-			ret_->natural_was_moved_ = AMARA_BOOLEAN_FALSE;
+			ret_->natural_was_moved = AMARA_BOOLEAN_FALSE;
 		} else {
 			fprintf(stderr, "%u\n", value->type_);
 			assertion(value->type_ ==
 					ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING);
 			ret_->string_ = amara_string_copy_constructor(
 					value->string_);
-			ret_->string_was_moved_ = AMARA_BOOLEAN_FALSE;
+			ret_->string_was_moved = AMARA_BOOLEAN_FALSE;
 			ret_->natural_ = NULL;
-			ret_->natural_was_moved_ = AMARA_BOOLEAN_FALSE;
+			ret_->natural_was_moved = AMARA_BOOLEAN_FALSE;
 		}
 	/* } else if (value->type_ == ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_STRING) { */
 	} else {
 		ret_->string_ = NULL; /* XXX will obviously change in the future. */
-		ret_->string_was_moved_ = AMARA_BOOLEAN_FALSE; /* XXX will obviously change in the future. */
+		ret_->string_was_moved = AMARA_BOOLEAN_FALSE; /* XXX will obviously change in the future. */
 		ret_->natural_ = NULL;
-		ret_->natural_was_moved_ = AMARA_BOOLEAN_FALSE;
+		ret_->natural_was_moved = AMARA_BOOLEAN_FALSE;
 	}
 
 	/* XXX */
@@ -170,7 +181,7 @@ arn_value_destructor(arn_value * value)
 		assertion(value->natural_ != NULL);
 		assertion(value->natural_->raw_ != NULL);
 		assertion(value->natural_->raw_->value_ != NULL);
-		assertion(value->natural_was_moved_ == AMARA_BOOLEAN_FALSE);
+		assertion(value->natural_was_moved == AMARA_BOOLEAN_FALSE);
 		natural_destructor(value->natural_);
 	} else if (value->type_ == ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL) {
 		assertion(value->name_ == NULL);
@@ -178,7 +189,7 @@ arn_value_destructor(arn_value * value)
 		assertion(value->natural_ != NULL);
 		assertion(value->natural_->raw_ != NULL);
 		assertion(value->natural_->raw_->value_ != NULL);
-		assertion(value->natural_was_moved_ == AMARA_BOOLEAN_FALSE);
+		assertion(value->natural_was_moved == AMARA_BOOLEAN_FALSE);
 		natural_destructor(value->natural_);
 	} else if (value->type_ ==
 			ARN_VALUE_TYPE_NAMED_VALUE_OF_UNDEFINED_TYPE) {
@@ -195,6 +206,101 @@ arn_value_destructor(arn_value * value)
 		assertion(value->natural_ == NULL);
 	}
 	free(value);
+}
+
+/**  Transformation constructor. */
+arn_value *
+arn_value_out_of_rtg_expression(const rtg_expression * expression)
+__attribute__((warn_unused_result))
+;
+
+arn_value *
+arn_value_out_of_rtg_expression(const rtg_expression * expression)
+{
+	arn_value * returning_;
+
+	assertion(expression != NULL);
+	assertion(expression->type_ == RTG_EXPRESSION_TYPE_INVALID);
+
+	returning_ = NULL; /* XXX */
+	return returning_;
+}
+
+arn_value *
+arn_value_bind_where_value(const rtg_where_value_binding * where_value_binding)
+{
+	arn_value * returning_;
+	arn_type * expression_type_;
+	arn_value * boolean_value_;
+	amara_boolean * boolean_;
+	arn_value * string_value_;
+	amara_string * string_;
+	arn_value * natural_value_;
+	natural * natural_;
+
+#ifndef NDEBUG
+	assertion(where_value_binding != NULL);
+	assertion(where_value_binding->value_name_ != NULL);
+	assertion(where_value_binding->value_name_->value_ != NULL);
+	assertion(where_value_binding->value_expression_ != NULL);
+	assertion(where_value_binding->value_expression_->type_ !=
+			RTG_EXPRESSION_TYPE_INVALID);
+	rtg_expression_assert_validity(where_value_binding->value_expression_);
+#endif
+
+	returning_ = arn_value_default_constructor();
+#ifndef NDEBUG
+	assertion(returning_ != NULL);
+#endif
+
+	returning_->name_ = amara_string_copy_constructor(
+			where_value_binding->value_name_);
+#ifndef NDEBUG
+	assertion(returning_->name_ != NULL);
+	assertion(returning_->name_->value_ != NULL);
+#endif
+
+	expression_type_ = arn_type_out_of_rtg_expression(
+			where_value_binding->value_expression_);
+#ifndef NDEBUG
+	assertion(expression_type_ != NULL);
+	assertion(expression_type_->type_ != ARN_TYPE_TYPE_INVALID);
+#endif
+
+	if (expression_type_->type_ == ARN_TYPE_TYPE_BOOLEAN) {
+		boolean_value_ = arn_value_out_of_rtg_expression(
+				where_value_binding->value_expression_);
+#ifndef NDEBUG
+		assertion(boolean_value_->type_ = ARN_TYPE_TYPE_BOOLEAN);
+#endif
+		boolean_ = boolean_value_->boolean_;
+		returning_->boolean_ = boolean_;
+		returning_->string_ = NULL;
+		returning_->natural_ = NULL;
+	} else if (expression_type_->type_ == ARN_TYPE_TYPE_STRING) {
+		string_value_ = arn_value_out_of_rtg_expression(
+				where_value_binding->value_expression_);
+#ifndef NDEBUG
+		assertion(string_value_->type_ == ARN_TYPE_TYPE_STRING);
+#endif
+		string_ = string_value_->string_;
+		returning_->boolean_ = NULL;
+		returning_->string_ = string_;
+		returning_->natural_ = NULL;
+	} else {
+		assertion(expression_type_->type_ == ARN_TYPE_TYPE_NATURAL);
+		natural_value_ = arn_value_out_of_rtg_expression(
+				where_value_binding->value_expression_);
+#ifndef NDEBUG
+		assertion(natural_value_->type_ == ARN_TYPE_TYPE_NATURAL);
+#endif
+		natural_ = natural_value_->natural_;
+		returning_->boolean_ = NULL;
+		returning_->string_ = NULL;
+		returning_->natural_ = natural_;
+	}
+
+	return returning_;
 }
 
 void
@@ -235,6 +341,11 @@ arn_value_set_name(arn_value * value, const amara_string * name)
 void
 arn_value_set_string(arn_value * value, const amara_string * string)
 {
+#ifndef NDEBUG
+    amara_boolean equality_;
+#endif
+
+#ifndef NDEBUG
 	assertion(value != NULL);
 	assertion(value->type_ != ARN_VALUE_TYPE_INVALID);
 	assertion(value->type_ != ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING);
@@ -253,8 +364,17 @@ arn_value_set_string(arn_value * value, const amara_string * string)
 	}
 	assertion(string != NULL);
 	assertion(string->value_ != NULL);
+#endif
 	value->string_ = amara_string_copy_constructor(string);
-	value->string_was_moved_ = AMARA_BOOLEAN_FALSE;
+#ifndef NDEBUG
+    assertion(value->string_ != NULL);
+    assertion(value->string_->value_ != NULL);
+    equality_ = amara_string_equality(value->string_, string);
+    assertion(equality_ == AMARA_BOOLEAN_TRUE);
+    equality_ = amara_string_equality(value->string_, string);
+    assertion(equality_ == AMARA_BOOLEAN_TRUE);
+#endif
+	value->string_was_moved = AMARA_BOOLEAN_FALSE;
 	fprintf(stderr, "%u\n", value->type_);
 	if (value->type_ == ARN_VALUE_TYPE_NAMED_UNASSIGNED_STRING) {
 		value->type_ = ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL;
@@ -292,7 +412,7 @@ arn_value_set_natural(arn_value * value, const natural * natural)
 	assertion(natural->raw_ != NULL);
 	assertion(natural->raw_->value_ != NULL);
 	value->natural_ = natural_copy_constructor(natural);
-	value->natural_was_moved_ = AMARA_BOOLEAN_FALSE;
+	value->natural_was_moved = AMARA_BOOLEAN_FALSE;
 	fprintf(stderr, "%u\n", value->type_);
 	if (value->type_ == ARN_VALUE_TYPE_NAMED_UNASSIGNED_NATURAL) {
 		value->type_ = ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL;
@@ -307,16 +427,16 @@ arn_value_set_natural(arn_value * value, const natural * natural)
 	}
 }
 
-arn_value_assign_natural_out_of_unsigned_int_ret *
-arn_value_assign_natural_out_of_unsigned_int(
+arn_value_assign_natural_out_of_unsigned_short_ret *
+arn_value_assign_natural_out_of_unsigned_short(
 		arn_value * value,
-		const unsigned int unsigned_int)
+		const unsigned short unsigned_short)
 {
-	arn_value_assign_natural_out_of_unsigned_int_ret * ret_;
+	arn_value_assign_natural_out_of_unsigned_short_ret * ret_;
 	natural * natural_;
 
 	ret_ = malloc(sizeof(
-			arn_value_assign_natural_out_of_unsigned_int_ret));
+			arn_value_assign_natural_out_of_unsigned_short_ret));
 
 	ret_->status = ARN_VALUE_ASSIGN_NATURAL_OUT_OF_UNSIGNED_INT_RET_STATUS_INVALID;
 	assertion(value->type_ != ARN_VALUE_TYPE_INVALID);
@@ -335,7 +455,7 @@ arn_value_assign_natural_out_of_unsigned_int(
 
 	natural_ = natural_default_constructor();
 
-	natural_copy_from_unsigned_int(natural_, unsigned_int);
+	natural_copy_from_unsigned_short(natural_, unsigned_short);
 
 	arn_value_set_natural(value, natural_);
 

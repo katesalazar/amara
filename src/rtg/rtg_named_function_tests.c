@@ -25,17 +25,46 @@
 rtg_named_function *
 rtg_named_function_example_print_foo()
 {
-	rtg_named_function * named_function_;
+	rtg_where_value_bindings_simple_list * where_value_bindings_;
 	rtg_operation * operation_;
 	rtg_operations_simple_list * operations_;
+	rtg_named_function * named_function_;
+
+	where_value_bindings_ = rtg_where_value_bindings_simple_list_default_constructor();
+#ifndef NDEBUG
+    assertion(where_value_bindings_ != NULL);
+    assertion(where_value_bindings_->first == NULL);
+    assertion(where_value_bindings_->next == NULL);
+#endif
+
 	operation_ = rtg_operation_example_print_foo();
+#ifndef NDEBUG
+	assertion(operation_ != NULL);
+	assert_expectations_on_rtg_operation_example_print_foo(operation_);
+#endif
+
 	operations_ = rtg_operations_simple_list_default_constructor();
+#ifndef NDEBUG
+	assertion(operations_ != NULL);
+	assertion(operations_->first == NULL);
+	assertion(operations_->next == NULL);
+#endif
+
 	operations_ = rtg_operations_simple_list_push_front(
 			operations_, operation_);
+#ifndef NDEBUG
+	assertion(operations_ != NULL);
+	assertion(operations_->first != NULL);
+	assert_expectations_on_rtg_operation_example_print_foo(
+			operations_->first);
+	assertion(operations_->next == NULL);
+#endif
+
 	named_function_ = rtg_named_function_exhaustive_constructor(
 			RTG_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION,
 			amara_string_exhaustive_constructor("print_foo"),
-			operations_);
+			where_value_bindings_, operations_);
+#ifndef NDEBUG
 	assertion(named_function_ != NULL);
 	assertion(named_function_->name_ != NULL);
 	assertion(named_function_->name_->value_ != NULL);
@@ -56,6 +85,8 @@ rtg_named_function_example_print_foo()
 			named_function_->operations_->first->args_->first->string_literal_,
 			amara_string_exhaustive_constructor("foo")));
 	assertion(named_function_->operations_->next == NULL);
+#endif
+
 	return named_function_;
 }
 
@@ -89,16 +120,20 @@ assert_expectations_on_rtg_named_function_example_print_foo(
 rtg_named_function *
 rtg_named_function_example_print_bar()
 {
-	rtg_named_function * named_function_;
+	rtg_where_value_bindings_simple_list * where_value_bindings_;
 	rtg_operation * operation_;
 	rtg_operations_simple_list * operations_;
+    rtg_named_function * named_function_;
+    
+    where_value_bindings_ = rtg_where_value_bindings_simple_list_default_constructor();
+
 	operation_ = rtg_operation_example_print_bar();
 	operations_ = rtg_operations_simple_list_default_constructor();
 	operations_ = rtg_operations_simple_list_push_front(
 			operations_, operation_);
 	named_function_ = rtg_named_function_exhaustive_constructor(
 			RTG_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION,
-			amara_string_exhaustive_constructor("print_bar"),
+			amara_string_exhaustive_constructor("print_bar"), where_value_bindings_,
 			operations_);
 	assertion(named_function_ != NULL);
 	assertion(named_function_->name_ != NULL);
@@ -155,7 +190,7 @@ rtg_named_function_construct_and_destruct_test_0()
 {
 	rtg_named_function * named_function_;
 	named_function_ = rtg_named_function_exhaustive_constructor(
-			RTG_NAMED_FUNCTION_TYPE_INVALID, NULL, NULL);
+			RTG_NAMED_FUNCTION_TYPE_INVALID, NULL, NULL, NULL);
 	assertion(named_function_->type_ == RTG_NAMED_FUNCTION_TYPE_INVALID);
 	assertion(named_function_->name_ == NULL);
 	assertion(named_function_->operations_ == NULL);
@@ -169,7 +204,7 @@ rtg_named_function_construct_and_destruct_test_1()
 	amara_string * name_;
 	name_ = amara_string_exhaustive_constructor("foo");
 	named_function_ = rtg_named_function_exhaustive_constructor(
-			RTG_NAMED_FUNCTION_TYPE_INVALID, name_, NULL);
+			RTG_NAMED_FUNCTION_TYPE_INVALID, name_, NULL, NULL);
 	assertion(named_function_->type_ == RTG_NAMED_FUNCTION_TYPE_INVALID);
 	assertion(named_function_->name_ == NULL);
 	assertion(named_function_->operations_ == NULL);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,35 +25,48 @@
 /* For `typedef struct stt_node { ... } stt_node`. */
 #include "../stt/stt_node.h"
 
+/**  Default constructor. */
 natural *
 natural_default_constructor(void)
 __attribute__((warn_unused_result))
 ;
 
+/**  Parametrized constructor. */
 natural *
 natural_exhaustive_constructor(const amara_string * raw)
 __attribute__((warn_unused_result))
 ;
 
+/**  Copy constructor. */
 natural *
 natural_copy_constructor(const natural * natural)
 __attribute__((warn_unused_result))
 ;
 
+/**  Destructor. */
 void
 natural_destructor(natural * natural)
 ;
 
+#ifndef NDEBUG
+
+/**  Health check. */
 void
-natural_copy_unsigned_int_into_natural(
+natural_assert_healthy(const natural * natural)
+;
+
+#endif
+
+void
+natural_copy_unsigned_short_into_natural(
 		natural * destination,
-		const unsigned int source_unsigned_int)
+		const unsigned short source_unsigned_short)
 ;
 
 void
-natural_copy_from_unsigned_int(
+natural_copy_from_unsigned_short(
 		natural * destination,
-		const unsigned int source_unsigned_int)
+		const unsigned short source_unsigned_short)
 ;
 
 void
@@ -114,22 +127,29 @@ fit_raw_natural_in_unsigned_short_ret_destructor(
 ;
 
 amara_string *
-copy_unsigned_int_into_raw_natural(const unsigned int input)
+natural_copy_unsigned_char_into_raw_natural(const unsigned char input)
 __attribute__((warn_unused_result))
 ;
 
 amara_string *
-copy_pointer_to_unsigned_int_into_raw_natural(const unsigned int * input)
+natural_copy_unsigned_short_into_raw_natural(const unsigned short input)
 __attribute__((warn_unused_result))
 ;
 
 amara_string *
-copy_unsigned_char_into_raw_natural(unsigned char input)
+natural_copy_unsigned_long_into_raw_natural(const unsigned long input)
 __attribute__((warn_unused_result))
 ;
 
 amara_string *
-copy_unsigned_short_into_raw_natural(unsigned short input)
+natural_copy_pointer_to_unsigned_short_into_raw_natural(
+		const unsigned short * input)
+__attribute__((warn_unused_result))
+;
+
+amara_string *
+natural_copy_pointer_to_unsigned_long_into_raw_natural(
+		const unsigned long * input)
 __attribute__((warn_unused_result))
 ;
 
@@ -152,13 +172,24 @@ simplify_natural_literal_nodes_substraction(
 __attribute__((warn_unused_result))
 ;
 
-/*   Non destructive in its arguments.
- *   `raw_natural_zero` divided by `raw_natural_one`. */
+/**  Non destructive in its arguments.
+ *   Must return the number product of `raw_natural_zero` multiplied
+ * by `raw_natural_one`. */
 amara_string *
-raw_naturals_division_as_raw_natural(
+raw_naturals_multiplication_as_raw_natural(
 		const amara_string * raw_natural_zero,
 		const amara_string * raw_natural_one)
-__attribute__((warn_unused_result));
+__attribute__((warn_unused_result))
+;
+
+/*   Non destructive in its arguments.
+ *   `raw_natural_zero` (_euclideanly_) divided by `raw_natural_one`. */
+amara_string *
+raw_naturals_euclidean_quotient_as_raw_natural(
+		const amara_string * raw_natural_zero,
+		const amara_string * raw_natural_one)
+__attribute__((warn_unused_result))
+;
 
 /*   Non destructive in its arguments.
  *   `node_zero` divided by `node_one`. */
@@ -170,7 +201,9 @@ __attribute__((warn_unused_result))
 ;
 
 /*   Non destructive in its arguments.
- *   `node_zero` divided by `node_one`. */
+ *   `node_zero` divided by `node_one`.
+ *   Note that euclidean
+ * division is performed, if (because) arguments are naturals. */
 struct stt_node *
 simplify_natural_literal_nodes_division(
 		const struct stt_node * node_zero,

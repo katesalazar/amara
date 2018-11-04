@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,8 @@
 #include "stt_operation_tests.h"
 
 #include "stt_named_function_subnode_tests.h"
+
+#ifndef NDEBUG
 
 void
 assert_expectations_on_stt_named_function_subnode_example_print_foo(
@@ -55,6 +57,8 @@ assert_expectations_on_stt_named_function_subnode_example_print_foo(
 
 	amara_string_destructor(expected_named_function_name_);
 }
+
+#endif
 
 void
 stt_named_function_subnode_construct_and_destruct_test_0()

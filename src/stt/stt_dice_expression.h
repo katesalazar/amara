@@ -23,6 +23,7 @@
 
 #include "../brt/natural.h"
 
+/**  FIXME REMOVE THIS */
 stt_dice_expression *
 stt_dice_expression_exhaustive_constructor(
 		const struct natural * left_hand_side,
@@ -30,6 +31,7 @@ stt_dice_expression_exhaustive_constructor(
 __attribute__((warn_unused_result))
 ;
 
+/**  FIXME REMOVE THIS */
 void
 stt_dice_expression_destructor(stt_dice_expression * dice_expression)
 ;

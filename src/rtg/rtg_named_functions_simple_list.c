@@ -202,10 +202,16 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 	rtg_named_functions_simple_list * sub_ret_ptr_;
 	const stt_named_functions_simple_list * list_ptr_;
 	rtg_named_function_out_of_stt_named_function_ret * sub_ret_fun_ret_;
+
 	fprintf(stderr, "%s:%u ----> rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list_ret * rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(const stt_named_functions_simple_list *)\n",
 			__FILE__, __LINE__);
+
 	ret_ = malloc(sizeof(
 			rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list_ret));
+#ifndef NDEBUG
+    assertion(ret_ != NULL);
+#endif
+
 	ret_->status = RTG_NAMED_FUNCTIONS_SIMPLE_LIST_OUT_OF_STT_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID;
 	if (list == NULL) {
 		ret_->named_functions = NULL;
@@ -214,11 +220,19 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 		return ret_;
 	}
 	assertion(list->first != NULL);
+
 	sub_ret_ = malloc(sizeof(rtg_named_functions_simple_list));
+#ifndef NDEBUG
+    assertion(sub_ret_ != NULL);
+#endif
+
 	sub_ret_fun_ret_ = rtg_named_function_out_of_stt_named_function(list->first);
+#ifndef NDEBUG
 	assertion(sub_ret_fun_ret_ != NULL);
 	assertion(sub_ret_fun_ret_->status ==
 			RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_SUCCESS);
+#endif
+
 	sub_ret_->first = sub_ret_fun_ret_->named_function;
 	sub_ret_fun_ret_->named_function_was_moved = AMARA_BOOLEAN_TRUE;
 	rtg_named_function_out_of_stt_named_function_ret_destructor(
@@ -226,15 +240,26 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 	list_ptr_ = list;
 	sub_ret_ptr_ = sub_ret_;
 	while (list_ptr_->next != NULL) {
+
+#ifndef NDEBUG
 		assertion(list_ptr_->next->first != NULL);
+#endif
+
 		sub_ret_ptr_->next = malloc(
 				sizeof(rtg_named_functions_simple_list));
+#ifndef NDEBUG
+        assertion(sub_ret_ptr_->next != NULL);
+#endif
+
 		sub_ret_fun_ret_ =
 				rtg_named_function_out_of_stt_named_function(
 						list_ptr_->next->first);
+#ifndef NDEBUG
 		assertion(sub_ret_fun_ret_ != NULL);
 		assertion(sub_ret_fun_ret_->status ==
 				RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_SUCCESS);
+#endif
+
 		sub_ret_ptr_->next->first = sub_ret_fun_ret_->named_function;
 		sub_ret_fun_ret_->named_function_was_moved =
 				AMARA_BOOLEAN_TRUE;
@@ -246,8 +271,10 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 	sub_ret_ptr_->next = NULL;
 	ret_->named_functions = sub_ret_;
 	ret_->status = RTG_NAMED_FUNCTIONS_SIMPLE_LIST_OUT_OF_STT_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
+
 	fprintf(stderr, "%s:%u <---- rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list_ret * rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(const stt_named_functions_simple_list *)\n",
 			__FILE__, __LINE__);
+
 	return ret_;
 }
 
@@ -281,24 +308,46 @@ rtg_named_functions_out_of_stt_doc(const stt_doc_subnode * subnode)
 {
 	rtg_named_functions_out_of_stt_doc_ret * ret_;
 	rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list_ret * sub_ret_;
+
 	fprintf(stderr, "%s:%u ----> rtg_named_functions_out_of_stt_doc_ret * rtg_named_functions_out_of_stt_doc(const stt_node *)\n",
 			__FILE__, __LINE__);
+
 	ret_ = malloc(sizeof(rtg_named_functions_out_of_stt_doc_ret));
+#ifndef NDEBUG
+    assertion(ret_ != NULL);
+#endif
+
 	ret_->status = RTG_NAMED_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_INVALID;
+
 	ret_->named_functions = NULL;
+
 	sub_ret_ = rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 			subnode->named_functions_);
+#ifndef NDEBUG
+    assertion(sub_ret_ != NULL);
+#endif
+
 	if (sub_ret_->status ==
 			RTG_NAMED_FUNCTIONS_SIMPLE_LIST_OUT_OF_STT_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
+
 		ret_->status = RTG_NAMED_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_SUCCESS;
+
 		ret_->named_functions = sub_ret_->named_functions;
 	} else {
+#ifndef NDEBUG
 		assertion(sub_ret_->status ==
 				RTG_NAMED_FUNCTIONS_SIMPLE_LIST_OUT_OF_STT_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC);
+#endif
+
+#ifndef NDEBUG
 		assertion(sub_ret_->named_functions == NULL);
+#endif
 	}
+
 	free(sub_ret_);
+
 	fprintf(stderr, "%s:%u <---- rtg_named_functions_out_of_stt_doc_ret * rtg_named_functions_out_of_stt_doc(const stt_node *)\n",
 			__FILE__, __LINE__);
+
 	return ret_;
 }

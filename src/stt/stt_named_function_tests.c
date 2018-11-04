@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,10 @@
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
+void
+assertion(int expression)
+;
+
 #include "stt_named_function_tests.h"
 #include "stt_operation_tests.h"
 
@@ -29,7 +33,10 @@ stt_named_function_example_print_foo()
 	stt_named_function * ret_;
 	stt_operations_simple_list * operations_;
 	stt_operation * operation_;
+	stt_where_value_bindings_simple_list * where_value_bindings_;
+
 	operation_ = stt_operation_example_print_foo();
+#ifndef NDEBUG
 	assertion(operation_ != NULL);
 	assertion(operation_->type_ == STT_OPERATION_TYPE_PRINT);
 	assertion(operation_->args_ != NULL);
@@ -49,13 +56,32 @@ stt_named_function_example_print_foo()
 			amara_string_exhaustive_constructor("foo"));
 	*/
 	assertion(operation_->args_->next == NULL);
+#endif
+
 	operations_ = stt_operations_simple_list_default_constructor();
+#ifndef NDEBUG
+	/* TODO missing assertions here. */
+#endif
+
 	operations_ = stt_operations_simple_list_push_front(
 			operations_, operation_);
+#ifndef NDEBUG
+	/* TODO missing assertions here. */
+#endif
+
+	where_value_bindings_ =
+			stt_where_value_bindings_simple_list_default_constructor();
+#ifndef NDEBUG
+	assertion(where_value_bindings_ != NULL);
+	assertion(where_value_bindings_->first == NULL);
+	assertion(where_value_bindings_->next == NULL);
+#endif
+
 	ret_ = stt_named_function_exhaustive_constructor(
 			STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION,
 			amara_string_exhaustive_constructor("print_foo"),
-			operations_);
+			operations_, where_value_bindings_);
+#ifndef NDEBUG
 	assertion(ret_ != NULL);
 	assertion(ret_->type_ == STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION);
 	assertion(ret_->name_ != NULL);
@@ -83,8 +109,12 @@ stt_named_function_example_print_foo()
 	*/
 	assertion(ret_->operations_->first->args_->next == NULL);
 	assertion(ret_->operations_->next == NULL);
+#endif
+
 	return ret_;
 }
+
+#ifndef NDEBUG
 
 void
 assert_expectations_on_stt_named_function_example_print_foo(
@@ -115,13 +145,18 @@ assert_expectations_on_stt_named_function_example_print_foo(
 	amara_string_destructor(expected_named_function_name_);
 }
 
+#endif
+
 stt_named_function *
 stt_named_function_example_print_bar()
 {
 	stt_named_function * ret_;
 	stt_operations_simple_list * operations_;
 	stt_operation * operation_;
+	stt_where_value_bindings_simple_list * where_value_bindings_;
+
 	operation_ = stt_operation_example_print_bar();
+#ifndef NDEBUG
 	assertion(operation_ != NULL);
 	assertion(operation_->type_ == STT_OPERATION_TYPE_PRINT);
 	assertion(operation_->args_ != NULL);
@@ -141,13 +176,32 @@ stt_named_function_example_print_bar()
 			amara_string_exhaustive_constructor("bar"));
 	*/
 	assertion(operation_->args_->next == NULL);
+#endif
+
 	operations_ = stt_operations_simple_list_default_constructor();
+#ifndef NDEBUG
+	/* TODO missing assertions here. */
+#endif
+
 	operations_ = stt_operations_simple_list_push_front(
 			operations_, operation_);
+#ifndef NDEBUG
+	/* TODO missing assertions here. */
+#endif
+
+	where_value_bindings_ =
+			stt_where_value_bindings_simple_list_default_constructor();
+#ifndef NDEBUG
+	assertion(where_value_bindings_ != NULL);
+	assertion(where_value_bindings_->first == NULL);
+	assertion(where_value_bindings_->next == NULL);
+#endif
+
 	ret_ = stt_named_function_exhaustive_constructor(
 			STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION,
 			amara_string_exhaustive_constructor("print_bar"),
-			operations_);
+			operations_, where_value_bindings_);
+#ifndef NDEBUG
 	assertion(ret_ != NULL);
 	assertion(ret_->type_ == STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION);
 	assertion(ret_->name_ != NULL);
@@ -175,8 +229,12 @@ stt_named_function_example_print_bar()
 	*/
 	assertion(ret_->operations_->first->args_->next == NULL);
 	assertion(ret_->operations_->next == NULL);
+#endif
+
 	return ret_;
 }
+
+#ifndef NDEBUG
 
 void
 assert_expectations_on_stt_named_function_example_print_bar(
@@ -206,6 +264,8 @@ assert_expectations_on_stt_named_function_example_print_bar(
 
 	amara_string_destructor(expected_named_function_name_);
 }
+
+#endif
 
 void
 stt_named_function_construct_and_destruct_test_0()
@@ -259,19 +319,24 @@ stt_named_function_setters_test_0()
 	assertion(operations_->next == NULL);
 
 	operation_ = stt_operation_example_print_foo();
+#ifndef NDEBUG
 	assertion(operation_ != NULL);
 	assert_expectations_on_stt_operation_example_print_foo(operation_);
+#endif
 
 	operations_ = stt_operations_simple_list_push_front(
 			operations_, operation_);
+#ifndef NDEBUG
 	assertion(operations_ != NULL);
 	assertion(operations_->first != NULL);
 	assert_expectations_on_stt_operation_example_print_foo(
 			operations_->first);
 	assertion(operations_->next == NULL);
 	assert_expectations_on_stt_operation_example_print_foo(operation_);
+#endif
 
 	stt_named_function_set_operations(named_function_, operations_);
+#ifndef NDEBUG
 	assertion(named_function_->type_ == STT_NAMED_FUNCTION_TYPE_INVALID);
 	assertion(named_function_->name_ != NULL);
 	assertion(named_function_->name_->value_ != NULL);
@@ -286,9 +351,11 @@ stt_named_function_setters_test_0()
 	assert_expectations_on_stt_operation_example_print_foo(
 			operations_->first);
 	assertion(operations_->next == NULL);
+#endif
 
 	stt_named_function_set_type(named_function_,
 			STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION);
+#ifndef NDEBUG
 	assertion(named_function_->type_ ==
 			STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION);
 	assertion(named_function_->name_ != NULL);
@@ -300,6 +367,7 @@ stt_named_function_setters_test_0()
 	assert_expectations_on_stt_operation_example_print_foo(
 			named_function_->operations_->first);
 	assertion(named_function_->operations_->next == NULL);
+#endif
 
 	stt_operation_destructor(operation_);
 	stt_operations_simple_list_destructor(operations_);

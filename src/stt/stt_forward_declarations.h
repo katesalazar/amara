@@ -20,11 +20,20 @@
 #ifndef __AMARA__SYNTAX_TREE__FORWARD_DECLARATIONS__H__
 #define __AMARA__SYNTAX_TREE__FORWARD_DECLARATIONS__H__
 
-/**  This belongs to `stt_dice_expression.h`. */
+/**  This mostly belonged to `stt_dice_expression.h`, but it was needed
+ * as forward declaration, so it was moved here. */
 typedef struct stt_dice_expression {
 	struct natural * left_hand_side_natural_;
 	struct natural * right_hand_side_natural_;
 } stt_dice_expression
+;
+
+typedef struct stt_named_function {
+	unsigned char type_;
+	struct amara_string * name_;
+	struct stt_operations_simple_list * operations_;
+	struct stt_where_value_bindings_simple_list * where_value_bindings_;
+} stt_named_function
 ;
 
 #endif

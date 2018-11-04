@@ -21,7 +21,7 @@
 #define __AMARA__APPLICATIONS_RUNNER__VARIABLES_SIMPLE_LIST_TESTS__H__
 
 void
-arn_variables_simple_list_tests()
+arn_variables_simple_list_tests(void)
 ;
 
 #endif

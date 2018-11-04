@@ -31,9 +31,14 @@
 /*   For `rtg_execution_requests_simple_list`. */
 #include "rtg_execution_requests_simple_list.h"
 
+/**  @see stt_doc_subnode. */
 typedef struct rtg_doc {
+
+	/**  @see stt_named_functions_simple_list. */
 	rtg_named_functions_simple_list * functions_;
+
 	rtg_applications_simple_list * applications_;
+
 	rtg_execution_requests_simple_list * execution_requests_;
 } rtg_doc;
 

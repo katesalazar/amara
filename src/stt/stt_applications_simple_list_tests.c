@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -176,7 +176,78 @@ stt_applications_simple_list_construct_and_destruct_tests()
 }
 
 void
+stt_applications_simple_list_length_test_0()
+{
+	stt_applications_simple_list * list_;
+	stt_applications_simple_list_length_ret * len_ret_ptr_;
+
+	list_ = stt_applications_simple_list_default_constructor();
+	forced_assertion(list_ != NULL);
+#ifndef NDEBUG
+	assertion(list_->first == NULL);
+	assertion(list_->next == NULL);
+#endif
+
+	len_ret_ptr_ = stt_applications_simple_list_length(list_);
+	forced_assertion(len_ret_ptr_ != NULL);
+	forced_assertion(len_ret_ptr_->status ==
+			STT_APPLICATIONS_SIMPLE_LIST_LENGTH_RET_STATUS_SUCCESS);
+	forced_assertion(len_ret_ptr_->length == 0);
+
+	free(len_ret_ptr_);
+	stt_applications_simple_list_destructor(list_);
+}
+
+void
+stt_applications_simple_list_length_test_1()
+{
+	stt_applications_simple_list * list_;
+	stt_application * application_;
+	stt_applications_simple_list_length_ret * len_ret_ptr_;
+
+	list_ = stt_applications_simple_list_default_constructor();
+	forced_assertion(list_ != NULL);
+#ifndef NDEBUG
+	assertion(list_->first == NULL);
+	assertion(list_->next == NULL);
+#endif
+
+	application_ = stt_application_example_print_foo();
+	forced_assertion(application_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_application_example_print_foo(application_);
+#endif
+
+	list_ = stt_applications_simple_list_push_front(list_, application_);
+	forced_assertion(list_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_application_example_print_foo(application_);
+	assertion(list_->first != NULL);
+	assert_expectations_on_stt_application_example_print_foo(list_->first);
+	assertion(list_->next == NULL);
+#endif
+
+	len_ret_ptr_ = stt_applications_simple_list_length(list_);
+	forced_assertion(len_ret_ptr_ != NULL);
+	forced_assertion(len_ret_ptr_->status ==
+			STT_APPLICATIONS_SIMPLE_LIST_LENGTH_RET_STATUS_SUCCESS);
+	forced_assertion(len_ret_ptr_->length == 1);
+
+	free(len_ret_ptr_);
+	stt_application_destructor(application_);
+	stt_applications_simple_list_destructor(list_);
+}
+
+void
+stt_applications_simple_list_length_tests()
+{
+	stt_applications_simple_list_length_test_0();
+	stt_applications_simple_list_length_test_1();
+}
+
+void
 stt_applications_simple_list_tests()
 {
 	stt_applications_simple_list_construct_and_destruct_tests();
+	stt_applications_simple_list_length_tests();
 }

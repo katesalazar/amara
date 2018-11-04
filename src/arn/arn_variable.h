@@ -36,7 +36,7 @@ typedef struct arn_variable {
 	amara_boolean raw_natural_was_moved_;
 	*/
 	natural * natural_;
-	amara_boolean * natural_was_moved_;
+	amara_boolean natural_was_moved_;
 } arn_variable
 ;
 

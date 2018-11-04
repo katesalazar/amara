@@ -26,6 +26,10 @@
 /*   For `stt_operation_arg`. */
 #include "../stt/stt_operation_arg.h"
 
+/*   For `rtg_expression`. */
+#include "rtg_expression.h"
+
+/*   For `rtg_operation`. */
 #include "rtg_operation.h"
 
 /*   This is an enumeration. */
@@ -34,14 +38,16 @@
 #define RTG_OPERATION_ARG_TYPE_STRING_LITERAL            0x01
 #define RTG_OPERATION_ARG_TYPE_NATURAL_LITERAL           0x02
 #define RTG_OPERATION_ARG_TYPE_INTEGER_LITERAL           0x04
-#define RTG_OPERATION_ARG_TYPE_RATIONAL_LITERAL          0x08
+/* #define RTG_OPERATION_ARG_TYPE_RATIONAL_LITERAL       0x08 */
 #define RTG_OPERATION_ARG_TYPE_IDENTIFIER_TO_BE_RESOLVED 0x10
+#define RTG_OPERATION_ARG_TYPE_IDENTIFIER RTG_OPERATION_ARG_TYPE_IDENTIFIER_TO_BE_RESOLVED
 #define RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE     0x20
 #define RTG_OPERATION_ARG_TYPE_STRING_VARIABLE           RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE
 #define RTG_OPERATION_ARG_TYPE_NATURAL_VARIABLE          RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE
-#define RTG_OPERATION_ARG_TYPE_INTEGER_VARIABLE          RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE
-#define RTG_OPERATION_ARG_TYPE_RATIONAL_VARIABLE         RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE
-#define RTG_OPERATION_ARG_TYPE_OPERATION                 0x40
+/* #define RTG_OPERATION_ARG_TYPE_INTEGER_VARIABLE       RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE */
+/* #define RTG_OPERATION_ARG_TYPE_RATIONAL_VARIABLE      RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE */
+#define RTG_OPERATION_ARG_TYPE_EXPRESSION                0x40
+#define RTG_OPERATION_ARG_TYPE_OPERATION                 0x80
 
 typedef struct rtg_operation_arg {
 	unsigned char type_;
@@ -62,9 +68,11 @@ typedef struct rtg_operation_arg {
 
 	/**  Later would have to be resolved as a reference to the
 	 * actual variable storing its actual current value. */
-	amara_string * variable_name_;
+	/* amara_string * variable_name_; */
 
 	/* rtg_variable * variable_; */
+
+	rtg_expression * expression_;
 
 	struct rtg_operation * operation_;
 } rtg_operation_arg;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,13 +23,32 @@
 #include "stt_condition_subnode.h"
 
 stt_condition_subnode *
+stt_condition_subnode_exhaustive_constructor(const stt_condition * condition)
+{
+	stt_condition_subnode * returning_;
+
+#ifndef NDEBUG
+	assertion(condition != NULL);
+	/* TODO missing assertions. */
+#endif
+
+	returning_ = malloc(sizeof(stt_condition_subnode));
+
+	returning_->condition_ = stt_condition_copy_constructor(condition);
+
+	return returning_;
+}
+
+stt_condition_subnode *
 stt_condition_subnode_copy_constructor(const stt_condition_subnode * subnode)
 {
 	stt_condition_subnode * returning_;
 
+#ifndef NDEBUG
 	assertion(subnode != NULL);
 	assertion(subnode->condition_ != NULL);
 	/* TODO missing assertions. */
+#endif
 
 	returning_ = malloc(sizeof(stt_condition_subnode));
 

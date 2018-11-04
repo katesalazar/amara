@@ -20,9 +20,11 @@
 #ifndef __AMARA__APPLICATIONS_RUNNER__VALUE__H__
 #define __AMARA__APPLICATIONS_RUNNER__VALUE__H__
 
-#include "../asr/assertion.h"
 #include "../brt/natural.h"
+
 #include "../cmn/amara_string.h"
+
+#include "../rtg/rtg_where_value_binding.h"
 
 /**  Likely just created. */
 #define ARN_VALUE_TYPE_INVALID            0x00
@@ -44,13 +46,26 @@
 #define ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_STRING   0x15 /* XXX */
 #define ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_NATURAL  0x16 /* XXX */
 
+/**  Application run time value. */
 typedef struct arn_value {
+    
+    /**  `Application run time value` type. Enumeration. */
 	unsigned char type_;
+    
+    /**  `Application run time value` name, if any. */
 	amara_string * name_;
-	amara_string * string_;
-	amara_boolean string_was_moved_;
+    
+    /**  `Application run time value` value, if `string` type. */
+    amara_string * string_;
+    amara_boolean string_was_moved;
+    
+    /**  `Application run time value` value, if `boolean` type. */
+	amara_boolean * boolean_;
+	amara_boolean boolean_was_moved;
+     
+    /**  `Application run time value` value, if `natural` type. */
 	natural * natural_;
-	amara_boolean natural_was_moved_;
+	amara_boolean natural_was_moved;
 } arn_value
 ;
 
@@ -66,6 +81,12 @@ __attribute__((warn_unused_result))
 
 void
 arn_value_destructor(arn_value * value)
+;
+
+/**  Transformation constructor. */
+arn_value *
+arn_value_bind_where_value(const rtg_where_value_binding * where_value_binding)
+__attribute__((warn_unused_result))
 ;
 
 /**  XXX Must change into a returned struct, able to mark an error in the operation. */
@@ -98,17 +119,18 @@ arn_value_set_natural(arn_value * value, const natural * natural)
 #define ARN_VALUE_ASSIGN_NATURAL_OUT_OF_UNSIGNED_INT_RET_STATUS_ERROR_ALREADY_ASSIGNED  0x04
 #define ARN_VALUE_ASSIGN_NATURAL_OUT_OF_UNSIGNED_INT_RET_STATUS_SUCCESS                 0xFF
 
-typedef struct arn_value_assign_natural_out_of_unsigned_int_ret {
+typedef struct arn_value_assign_natural_out_of_unsigned_short_ret {
+
 	unsigned char status;
-} arn_value_assign_natural_out_of_unsigned_int_ret
+} arn_value_assign_natural_out_of_unsigned_short_ret
 ;
 
 /**  Pre: the value is not assigned (type not
  * `ARN_VALUE_TYPE_ASSIGNED_NATURAL`). */
-arn_value_assign_natural_out_of_unsigned_int_ret *
-arn_value_assign_natural_out_of_unsigned_int(
+arn_value_assign_natural_out_of_unsigned_short_ret *
+arn_value_assign_natural_out_of_unsigned_short(
 		arn_value * value,
-		const unsigned int unsigned_int)
+		const unsigned short unsigned_short)
 ;
 
 #endif

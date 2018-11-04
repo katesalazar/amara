@@ -23,8 +23,15 @@
 #include "stt_where_value_bindings_simple_list.h"
 
 typedef struct stt_where_value_bindings_subnode {
+
 	stt_where_value_bindings_simple_list * where_value_bindings_;
 } stt_where_value_bindings_subnode
+;
+
+/**  Temporary. XXX Must remove once the class hits 100% coverage. */
+stt_where_value_bindings_subnode *
+stt_where_value_bindings_subnode_default_constructor(void)
+__attribute__((warn_unused_result))
 ;
 
 stt_where_value_bindings_subnode *

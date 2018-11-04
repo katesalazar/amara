@@ -75,14 +75,18 @@ __attribute__((warn_unused_result))
 #define RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_operation_out_of_stt_operation_ret {
+
 	unsigned char status;
+
 	rtg_operation * operation;
+
 	amara_boolean operation_was_moved;
-} rtg_operation_out_of_stt_operation_ret;
+} rtg_operation_out_of_stt_operation_ret
+;
 
 void
 rtg_operation_out_of_stt_operation_ret_destructor(
-		rtg_operation_out_of_stt_operation_ret * rtg_operation_out_of_stt_operation_ret_)
+		rtg_operation_out_of_stt_operation_ret * input_ret_)
 ;
 
 rtg_operation_out_of_stt_operation_ret *

@@ -17,10 +17,17 @@
  * src/stt/stt_dice_expression.c: Amara syntax tree dice expression.
  */
 
+/*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
+void
+assertion(int expression)
+;
+
+/*   For own prototypes dependencies. */
 #include "stt_dice_expression.h"
 
+/**  FIXME REMOVE THIS */
 stt_dice_expression *
 stt_dice_expression_exhaustive_constructor(
 		const struct natural * left_hand_side,
@@ -37,6 +44,7 @@ stt_dice_expression_exhaustive_constructor(
 	return returning_;
 }
 
+/**  FIXME REMOVE THIS */
 void
 stt_dice_expression_destructor(stt_dice_expression * dice_expression)
 {

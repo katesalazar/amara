@@ -21,7 +21,7 @@
 
 typedef unsigned char amara_boolean;
 
-#define AMARA_BOOLEAN_FALSE (unsigned char) 0x00
-#define AMARA_BOOLEAN_TRUE (unsigned char) ~AMARA_BOOLEAN_FALSE
+#define AMARA_BOOLEAN_FALSE ((unsigned char) 0x00)
+#define AMARA_BOOLEAN_TRUE ((unsigned char) (~ ((unsigned char) AMARA_BOOLEAN_FALSE)))
 
 #endif

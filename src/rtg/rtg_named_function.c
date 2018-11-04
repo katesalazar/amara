@@ -41,6 +41,7 @@ rtg_named_function_default_constructor()
 rtg_named_function *
 rtg_named_function_exhaustive_constructor(
 		unsigned char type, const amara_string * name,
+		const rtg_where_value_bindings_simple_list * where_value_bindings,
 		const rtg_operations_simple_list * operations)
 {
 	rtg_named_function * ret_;
@@ -50,7 +51,7 @@ rtg_named_function_exhaustive_constructor(
 		assertion(type != RTG_NAMED_FUNCTION_TYPE_INVALID);
 	}
 	ret_ = malloc(sizeof(rtg_named_function));
-	if (name == NULL || operations == NULL) {
+	if (name == NULL || operations == NULL || where_value_bindings == NULL) {
 		/*
 		if (name == NULL) {
 			ret_->name_ = NULL;
@@ -66,11 +67,15 @@ rtg_named_function_exhaustive_constructor(
 		}
 		*/
 		ret_->name_ = NULL;
+		ret_->where_value_bindings_ = NULL;
 		ret_->operations_ = NULL;
 		ret_->type_ = RTG_NAMED_FUNCTION_TYPE_INVALID;
 		return ret_;
 	}
 	ret_->name_ = amara_string_copy_constructor(name);
+    ret_->where_value_bindings_ =
+                    rtg_where_value_bindings_simple_list_copy_constructor(
+                                    where_value_bindings);
 	ret_->operations_ = rtg_operations_simple_list_copy_constructor(
 			operations);
 	ret_->type_ = type;
@@ -80,16 +85,47 @@ rtg_named_function_exhaustive_constructor(
 rtg_named_function *
 rtg_named_function_copy_constructor(const rtg_named_function * original)
 {
+#ifndef NDEBUG
+    amara_boolean equality_;
+#endif
 	rtg_named_function * ret_;
+
+#ifndef NDEBUG
 	assertion(original != NULL);
 	assertion(original->type_ != RTG_NAMED_FUNCTION_TYPE_INVALID);
 	assertion(original->name_ != NULL);
 	assertion(original->name_->value_ != NULL);
+    /*
+     assertion(original->where_value_bindings_ != NULL);
+     */
 	assertion(original->operations_ != NULL);
+#endif
+
 	ret_ = malloc(sizeof(rtg_named_function));
+#ifndef NDEBUG
+    assertion(ret_ != NULL);
+#endif
+
 	ret_->operations_ = rtg_operations_simple_list_copy_constructor(original->operations_);
+#ifndef NDEBUG
+    assertion(ret_->operations_ != NULL);
+#endif
+
+    ret_->where_value_bindings_ = rtg_where_value_bindings_simple_list_copy_constructor(original->where_value_bindings_);
+#ifndef NDEBUG
+    assertion(ret_->where_value_bindings_ != NULL);
+#endif
+
 	ret_->name_ = amara_string_copy_constructor(original->name_);
+#ifndef NDEBUG
+    assertion(ret_->name_ != NULL);
+    assertion(ret_->name_->value_ != NULL);
+    equality_ = amara_string_equality(original->name_, ret_->name_);
+    assertion(equality_ == AMARA_BOOLEAN_TRUE);
+#endif
+
 	ret_->type_ = original->type_;
+
 	return ret_;
 }
 
@@ -99,10 +135,14 @@ rtg_named_function_destructor(rtg_named_function * named_function)
 	assertion(named_function != NULL);
 	if (named_function->type_ == RTG_NAMED_FUNCTION_TYPE_INVALID) {
 		assertion(named_function->name_ == NULL);
+        assertion(named_function->where_value_bindings_ == NULL);
 		assertion(named_function->operations_ == NULL);
 	} else {
 		assertion(named_function->name_ != NULL);
 		amara_string_destructor(named_function->name_);
+        assertion(named_function->where_value_bindings_ != NULL);
+        rtg_where_value_bindings_simple_list_destructor(
+                named_function->where_value_bindings_);
 		assertion(named_function->operations_ != NULL);
 		rtg_operations_simple_list_destructor(
 				named_function->operations_);
@@ -134,27 +174,79 @@ rtg_named_function_out_of_stt_named_function(
 		const stt_named_function * named_function)
 {
 	rtg_named_function_out_of_stt_named_function_ret * ret_;
-	rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * sub_ret_;
+	rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * operations_sub_ret_;
+#ifndef NDEBUG
+    amara_boolean equality_;
+#endif
+    /*
+	rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret * where_value_bindings_sub_ret_;
+	*/
+	rtg_where_value_bindings_simple_list * where_value_bindings_sub_ret_sub_;
+
 	fprintf(stderr, "----> %s:%u rtg_named_function_out_of_stt_named_function_ret * rtg_named_function_out_of_stt_named_function(const stt_named_function *)\n",
 			__FILE__, __LINE__);
+
 	ret_ = malloc(sizeof(rtg_named_function_out_of_stt_named_function_ret));
+#ifndef NDEBUG
+    assertion(ret_ != NULL);
+#endif
+
 	ret_->status = RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_INVALID;
+
 	ret_->named_function = rtg_named_function_default_constructor();
-	sub_ret_ = rtg_operations_simple_list_out_of_stt_operations_simple_list(
-			named_function->operations_);
-	assertion(sub_ret_ != NULL);
-	assertion(sub_ret_->status ==
-			RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
-	ret_->named_function->operations_ = sub_ret_->operations;
-	sub_ret_->operations_were_moved = AMARA_BOOLEAN_TRUE;
+#ifndef NDEBUG
+    assertion(ret_->named_function != NULL);
+#endif
+
+	operations_sub_ret_ =
+			rtg_operations_simple_list_out_of_stt_operations_simple_list(
+					named_function->operations_);
+#ifndef NDEBUG
+    assertion(operations_sub_ret_ != NULL);
+    assertion(operations_sub_ret_->status ==
+              RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
+#endif
+
+	/*
+	where_value_bindings_sub_ret_ =
+	*/
+	where_value_bindings_sub_ret_sub_ =
+			rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list(
+					named_function->where_value_bindings_);
+#ifndef NDEBUG
+    assertion(where_value_bindings_sub_ret_sub_ != NULL);
+    assertion(where_value_bindings_sub_ret_sub_->first != NULL || named_function->where_value_bindings_ == NULL);
+#endif
+
+	ret_->named_function->where_value_bindings_ = where_value_bindings_sub_ret_sub_;
+
+	ret_->named_function->operations_ = operations_sub_ret_->operations;
+	operations_sub_ret_->operations_were_moved = AMARA_BOOLEAN_TRUE;
 	rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_destructor(
-			sub_ret_);
+			operations_sub_ret_);
+
 	ret_->named_function->name_ =
 			amara_string_copy_constructor(named_function->name_);
-	ret_->named_function->type_ = named_function->type_;
+
+#ifndef NDEBUG
+    assertion(ret_->named_function->name_ != NULL);
+    assertion(ret_->named_function->name_->value_ != NULL);
+    equality_ = amara_string_equality(ret_->named_function->name_, named_function->name_);
+    assertion(equality_ == AMARA_BOOLEAN_TRUE);
+#endif
+
+#ifndef NDEBUG
+    assertion(named_function->type_ == STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION);
+#endif
+
+    ret_->named_function->type_ = RTG_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION;
+
 	ret_->named_function_was_moved = AMARA_BOOLEAN_FALSE;
+
 	ret_->status = RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_SUCCESS;
+
 	fprintf(stderr, "<---- %s:%u rtg_named_function_out_of_stt_named_function_ret * rtg_named_function_out_of_stt_named_function(const stt_named_function *)\n",
 			__FILE__, __LINE__);
+
 	return ret_;
 }

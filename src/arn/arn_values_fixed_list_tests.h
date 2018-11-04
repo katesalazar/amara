@@ -23,6 +23,6 @@
 #define __AMARA__APPLICATIONS_RUNNER__VALUES_FIXED_LIST_TESTS__H__
 
 void
-arn_values_fixed_list_tests();
+arn_values_fixed_list_tests(void);
 
 #endif

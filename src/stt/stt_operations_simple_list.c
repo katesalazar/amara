@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -103,16 +103,38 @@ stt_operations_simple_list_push_front(
 		const stt_operation * operation)
 {
 	stt_operations_simple_list * new_operations_list_node_;
+
+#ifndef NDEBUG
 	assertion(operations != NULL);
 	assertion(operation != NULL);
+#endif
+
 	if (operations->first == NULL) {
+
+#ifndef NDEBUG
 		assertion(operations->next == NULL);
+#endif
+
 		operations->first = stt_operation_copy_constructor(operation);
 		return operations;
 	}
 	new_operations_list_node_ = malloc(sizeof(stt_operations_simple_list));
+	forced_assertion(new_operations_list_node_ != NULL);
 	new_operations_list_node_->first =
 			stt_operation_copy_constructor(operation);
 	new_operations_list_node_->next = operations;
 	return new_operations_list_node_;
+}
+
+void
+stt_operations_simple_list_push_back(
+		stt_operations_simple_list * operations,
+		const stt_operation * operation)
+{
+	forced_assertion(operations != NULL);
+	forced_assertion(operation != NULL);
+	forced_assertion(operations->first == NULL); /* FIXME */
+	operations->first = stt_operation_copy_constructor(operation);
+	forced_assertion(operations->first != NULL);
+	forced_assertion(operations->next == NULL); /* FIXME */
 }

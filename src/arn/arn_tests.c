@@ -17,6 +17,7 @@
  * runner and its classes.
  */
 
+#include "arn_type_tests.h"
 #include "arn_value_tests.h"
 #include "arn_values_fixed_list_tests.h"
 #include "arn_values_simple_list_tests.h"
@@ -26,6 +27,7 @@
 void
 applications_runner_tests()
 {
+	arn_type_tests();
 	arn_value_tests();
 	arn_values_fixed_list_tests();
 	arn_values_simple_list_tests();

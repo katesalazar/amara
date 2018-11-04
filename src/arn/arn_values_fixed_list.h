@@ -21,6 +21,10 @@
 #ifndef __AMARA__APPLICATIONS_RUNNER__VALUES_FIXED_LIST__H__
 #define __AMARA__APPLICATIONS_RUNNER__VALUES_FIXED_LIST__H__
 
+/*   For `rtg_where_value_bindings_simple_list`. */
+#include "../rtg/rtg_where_value_bindings_simple_list.h"
+
+/*   For `arn_value.h`. */
 #include "arn_value.h"
 
 typedef struct arn_values_fixed_list {
@@ -36,6 +40,13 @@ __attribute__((warn_unused_result))
 
 void
 arn_values_fixed_list_destructor(arn_values_fixed_list * values)
+;
+
+/**  Transformation constructor. */
+arn_values_fixed_list *
+arn_values_fixed_list_out_of_rtg_where_value_bindings_simple_list(
+		const rtg_where_value_bindings_simple_list * values)
+__attribute__((warn_unused_result))
 ;
 
 void
@@ -54,10 +65,10 @@ __attribute__((warn_unused_result))
  * `ARN_VALUE_TYPE_ASSIGNED_NATURAL`).
  *   Pre: TODO Is the value known to be added to the list, or not? */
 void
-arn_values_fixed_list_assign_natural_out_of_unsigned_int(
+arn_values_fixed_list_assign_natural_out_of_unsigned_short(
 		arn_values_fixed_list * values,
 		const amara_string * value_name,
-		const unsigned int unsigned_int)
+		const unsigned short unsigned_short)
 ;
 
 #endif

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,26 +82,37 @@ natural_destructor(natural * natural)
 	free(natural);
 }
 
+#ifndef NDEBUG
+
 void
-natural_copy_unsigned_int_into_natural(
+natural_assert_healthy(const natural * natural)
+{
+	natural_assert_validity(natural);
+}
+
+#endif
+
+void
+natural_copy_unsigned_short_into_natural(
 		natural * destination,
-		const unsigned int source_unsigned_int)
+		const unsigned short source_unsigned_short)
 {
 	amara_string * raw_natural;
 	if (destination->raw_ != NULL) {
 		amara_string_destructor(destination->raw_);
 	}
-	raw_natural = copy_unsigned_int_into_raw_natural(source_unsigned_int);
+	raw_natural = natural_copy_unsigned_short_into_raw_natural(
+			source_unsigned_short);
 	destination->raw_ = raw_natural;
 }
 
 void
-natural_copy_from_unsigned_int(
+natural_copy_from_unsigned_short(
 		natural * destination,
-		const unsigned int source_unsigned_int)
+		const unsigned short source_unsigned_short)
 {
-	natural_copy_unsigned_int_into_natural(
-			destination, source_unsigned_int);
+	natural_copy_unsigned_short_into_natural(
+			destination, source_unsigned_short);
 }
 
 void
@@ -547,12 +558,11 @@ fit_raw_natural_in_unsigned_short_ret_destructor(
 }
 
 amara_string *
-copy_unsigned_int_into_raw_natural(const unsigned int input)
+natural_copy_unsigned_char_into_raw_natural(const unsigned char input)
 {
 	char * buffer_;
 	amara_string * returning_;
 	int snprintf_ret_;
-	assertion(input <= 0xFF);
 	buffer_ = (char *) malloc(3 + 1);
 	snprintf_ret_ = snprintf(
 			buffer_, (size_t) (/* 3 + 1 */ 4), "%u", input);
@@ -563,7 +573,39 @@ copy_unsigned_int_into_raw_natural(const unsigned int input)
 }
 
 amara_string *
-copy_pointer_to_unsigned_int_into_raw_natural(const unsigned int * input)
+natural_copy_unsigned_short_into_raw_natural(const unsigned short input)
+{
+	char * buffer_;
+	amara_string * returning_;
+	int snprintf_ret_;
+	buffer_ = malloc(5 + 1);
+	snprintf_ret_ = snprintf(
+			buffer_, (size_t) (/* 5 + 1 */ 6), "%hu", input);
+	assertion(snprintf_ret_ >= 0);
+	returning_ = amara_string_exhaustive_constructor(buffer_);
+	free(buffer_);
+	return returning_;
+}
+
+amara_string *
+natural_copy_unsigned_long_into_raw_natural(const unsigned long input)
+{
+	char * buffer_;
+	amara_string * returning_;
+	int snprintf_ret_;
+	assertion(input <= 0xFF);
+	buffer_ = (char *) malloc(3 + 1);
+	snprintf_ret_ = snprintf(
+			buffer_, (size_t) (/* 3 + 1 */ 4), "%lu", input);
+	assertion(snprintf_ret_ >= 0);
+	returning_ = amara_string_exhaustive_constructor(buffer_);
+	free(buffer_);
+	return returning_;
+}
+
+amara_string *
+natural_copy_pointer_to_unsigned_short_into_raw_natural(
+		const unsigned short * input)
 {
 	char * buffer_;
 	amara_string * returning_;
@@ -579,29 +621,16 @@ copy_pointer_to_unsigned_int_into_raw_natural(const unsigned int * input)
 }
 
 amara_string *
-copy_unsigned_char_into_raw_natural(unsigned char input)
+natural_copy_pointer_to_unsigned_long_into_raw_natural(
+		const unsigned long * input)
 {
 	char * buffer_;
 	amara_string * returning_;
 	int snprintf_ret_;
+	assertion(* input <= 0xFF);
 	buffer_ = (char *) malloc(3 + 1);
 	snprintf_ret_ = snprintf(
-			buffer_, (size_t) (/* 3 + 1 */ 4), "%u", input);
-	assertion(snprintf_ret_ >= 0);
-	returning_ = amara_string_exhaustive_constructor(buffer_);
-	free(buffer_);
-	return returning_;
-}
-
-amara_string *
-copy_unsigned_short_into_raw_natural(unsigned short input)
-{
-	char * buffer_;
-	amara_string * returning_;
-	int snprintf_ret_;
-	buffer_ = malloc(5 + 1);
-	snprintf_ret_ = snprintf(
-			buffer_, (size_t) (/* 5 + 1 */ 6), "%u", input);
+			buffer_, (size_t) (/* 3 + 1 */ 4), "%lu", * input);
 	assertion(snprintf_ret_ >= 0);
 	returning_ = amara_string_exhaustive_constructor(buffer_);
 	free(buffer_);
@@ -665,7 +694,8 @@ raw_naturals_substraction_as_raw_natural_zero_is_larger_than_one(
 	/* printf("substraction_result_: %u\n", substraction_result_); */ /* FIXME */
 	free(zero_fit_ret_);
 	free(one_fit_ret_);
-	return copy_unsigned_char_into_raw_natural(substraction_result_);
+	return natural_copy_unsigned_char_into_raw_natural(
+			substraction_result_);
 }
 
 amara_string *
@@ -732,17 +762,20 @@ raw_naturals_multiplication_as_raw_natural(
 		/* printf("multiplication_result_: %u\n", multiplication_result_); */ /* FIXME */
 		fit_raw_natural_in_unsigned_char_ret_destructor(zero_fit_ret_);
 		fit_raw_natural_in_unsigned_char_ret_destructor(one_fit_ret_);
-		return copy_unsigned_short_into_raw_natural(
+		return natural_copy_unsigned_short_into_raw_natural(
 				multiplication_result_16_);
 	}
 	/* printf("multiplication_result_: %u\n", multiplication_result_); */ /* FIXME */
+	/*
 	fit_raw_natural_in_unsigned_char_ret_destructor(zero_fit_ret_);
 	fit_raw_natural_in_unsigned_char_ret_destructor(one_fit_ret_);
-	return NULL /* unsigned_char_to_raw_natural(multiplication_result_8_) */;
+	return NULL;
+	*/
+	/* return unsigned_char_to_raw_natural(multiplication_result_8_) */;
 }
 
 amara_string *
-raw_naturals_division_as_raw_natural(
+raw_naturals_euclidean_quotient_as_raw_natural(
 		const amara_string * raw_natural_zero,
 		const amara_string * raw_natural_one)
 {
@@ -759,6 +792,7 @@ raw_naturals_division_as_raw_natural(
 	unsigned short sixteen_bits_division_result_;
 	char * returning_chars_array_;
 	amara_string * returning_;
+
 	use_8_bits_for_numerator_ = AMARA_BOOLEAN_FALSE;
 	use_16_bits_for_numerator_ = AMARA_BOOLEAN_FALSE;
 	r_n_zero_fits_8_bits_ret_ = NULL;
@@ -789,6 +823,9 @@ raw_naturals_division_as_raw_natural(
 			assertion(r_n_zero_fits_16_bits_ret_->status ==
 					FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_OK);
 			use_16_bits_for_numerator_ = AMARA_BOOLEAN_TRUE;
+			/*   In order to calm static analysis dissent. */
+			raw_natural_zero_as_unsigned_char_ = ~0x00;
+			/*   Actual code. */
 			raw_natural_zero_as_unsigned_short_ =
 					r_n_zero_fits_16_bits_ret_->value;
 		}
@@ -796,13 +833,18 @@ raw_naturals_division_as_raw_natural(
 		assertion(r_n_zero_fits_8_bits_ret_->status ==
 				FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_OK);
 		use_8_bits_for_numerator_ = AMARA_BOOLEAN_TRUE;
+		/*   Actual code. */
 		raw_natural_zero_as_unsigned_char_ =
 				r_n_zero_fits_8_bits_ret_->value;
+		/*   In order to calm static analysis dissent. */
+		raw_natural_zero_as_unsigned_short_ = ~0x0000;
 	}
 	r_n_one_fits_8_bits_ret_ = fit_raw_natural_in_unsigned_char(
 			raw_natural_one);
+	/*
 	assertion(r_n_one_fits_8_bits_ret_->status ==
 			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_OK);
+	*/
 	use_8_bits_for_denominator_ = AMARA_BOOLEAN_TRUE;
 	raw_natural_one_as_unsigned_char_ = r_n_one_fits_8_bits_ret_->value;
 	if (r_n_one_fits_8_bits_ret_->status ==
@@ -830,11 +872,17 @@ raw_naturals_division_as_raw_natural(
 	/* printf("one_fit_ret_->value: %u\n", one_fit_ret_->value); */ /* FIXME */
 	if (use_8_bits_for_numerator_ == AMARA_BOOLEAN_TRUE) {
 		assertion(use_8_bits_for_denominator_ == AMARA_BOOLEAN_TRUE);
-		eight_bits_division_result_ = raw_natural_zero_as_unsigned_char_ / /* XXX extract completely before using. */
+		/*   Actual code. */
+		eight_bits_division_result_ = raw_natural_zero_as_unsigned_char_ / /* XXX extract completely before using. */ /* FIXME this will fail badly if dividing 3 in 2 (returning 1 instead of 1.5 */
 				raw_natural_one_as_unsigned_char_; /* XXX extract completely before using. */
+		/*   In order to calm static analysis dissent. */
+		sixteen_bits_division_result_ = ~0x0000;
 	} else {
 		assertion(use_16_bits_for_numerator_ == AMARA_BOOLEAN_TRUE);
 		assertion(use_8_bits_for_denominator_ == AMARA_BOOLEAN_TRUE);
+		/*   In order to calm static analysis dissent. */
+		eight_bits_division_result_ = ~0x00;
+		/*   Actual code. */
 		sixteen_bits_division_result_ = raw_natural_zero_as_unsigned_short_ / /* XXX extract completely before using. */
 				raw_natural_one_as_unsigned_char_; /* XXX extract completely before using. */
 	}
@@ -849,12 +897,12 @@ raw_naturals_division_as_raw_natural(
 			r_n_one_fits_8_bits_ret_);
 	if (use_8_bits_for_numerator_ == AMARA_BOOLEAN_TRUE) {
 		assertion(use_8_bits_for_denominator_ == AMARA_BOOLEAN_TRUE);
-		return copy_unsigned_char_into_raw_natural(
+		return natural_copy_unsigned_char_into_raw_natural(
 				eight_bits_division_result_);
 	} else {
 		assertion(use_16_bits_for_numerator_ == AMARA_BOOLEAN_TRUE);
 		assertion(use_8_bits_for_denominator_ == AMARA_BOOLEAN_TRUE);
-		return copy_unsigned_short_into_raw_natural(
+		return natural_copy_unsigned_short_into_raw_natural(
 				sixteen_bits_division_result_);
 	}
 }
@@ -882,19 +930,20 @@ numeric_natural_nodes_multiplication_types_checked_both_are_valid_raw_naturals(
 
 /*   This is non destructive towards its arguments. */
 stt_node *
-numeric_natural_nodes_division_types_checked_both_are_valid_raw_naturals(
+numeric_natural_nodes_euclidean_quotient_types_checked_both_are_valid_raw_naturals(
 		const amara_string * raw_natural_zero,
 		const amara_string * raw_natural_one)
 __attribute__((warn_unused_result));
 
 stt_node *
-numeric_natural_nodes_division_types_checked_both_are_valid_raw_naturals(
+numeric_natural_nodes_euclidean_quotient_types_checked_both_are_valid_raw_naturals(
 		const amara_string * raw_natural_zero,
 		const amara_string * raw_natural_one)
 {
 	amara_string * raw_natural_;
 	stt_node * returning_;
-	raw_natural_ = raw_naturals_division_as_raw_natural(
+
+	raw_natural_ = raw_naturals_euclidean_quotient_as_raw_natural(
 			raw_natural_zero, raw_natural_one);
 	returning_ = stt_node_wrapping_raw_natural(raw_natural_);
 	return returning_;
@@ -916,6 +965,7 @@ numeric_natural_nodes_substraction_types_checked_both_are_valid_raw_naturals(
 	/*   Substraction results as a raw natural (characters array). */
 	amara_string * raw_natural_;
 	stt_node * returning_;
+
 	/* printf("raw_natural_zero: %s\n", raw_natural_zero);
 	fprintf(stderr, "raw_natural_one: %s\n", raw_natural_one); */
 	comparison_result_ = safe_arguments_natural_raw_comparison(
@@ -923,9 +973,13 @@ numeric_natural_nodes_substraction_types_checked_both_are_valid_raw_naturals(
 	/* printf("raw_natural_zero: %s\n", raw_natural_zero);
 	fprintf(stderr, "raw_natural_one: %s\n", raw_natural_one); */
 	if (comparison_result_ < 0) {
+		/*
 		assertion_two(0, "right now can not substract b from a if a is lesser than b");
 		fprintf(stderr, "right now can not substract b from a if a is lesset than b\n");
 		exit(EXIT_FAILURE);
+		*/
+		returning_ = stt_node_default_constructor();
+		return returning_;
 	} else if (comparison_result_ == 0) {
 		return stt_node_wrapping_raw_natural(
 				amara_string_exhaustive_constructor("0"));
@@ -950,10 +1004,10 @@ simplify_natural_literal_nodes_multiplication(
 	 * - operation node (multipliabe because the semantic analysis confirms)
 	 */
 	assertion(node_zero->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
-	assert_pure_natural_literal_node(node_zero);
+	assert_clean_natural_literal_node(node_zero);
 	assert_valid_raw_natural(node_zero->natural_literal_subnode_->raw_);
 	assertion(node_one->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
-	assert_pure_natural_literal_node(node_one);
+	assert_clean_natural_literal_node(node_one);
 	assert_valid_raw_natural(node_one->natural_literal_subnode_->raw_);
 	returning_ = numeric_natural_nodes_multiplication_types_checked_both_are_valid_raw_naturals(
 			node_zero->natural_literal_subnode_->raw_,
@@ -961,21 +1015,27 @@ simplify_natural_literal_nodes_multiplication(
 	return returning_;
 }
 
-/*   This is non destructive towards its arguments. */
+/*   This is non destructive towards its arguments. Note that euclidean
+ * division is performed, if arguments are naturals. */
 stt_node *
 simplify_natural_literal_nodes_division(
 		const stt_node * node_zero, const stt_node * node_one)
 {
 	stt_node * returning_;
 	assertion(node_zero->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
-	assert_pure_natural_literal_node(node_zero);
+	assert_clean_natural_literal_node(node_zero);
 	assert_valid_raw_natural(node_zero->natural_literal_subnode_->raw_);
 	assertion(node_one->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
-	assert_pure_natural_literal_node(node_one);
+	assert_clean_natural_literal_node(node_one);
 	assert_valid_raw_natural(node_one->natural_literal_subnode_->raw_);
-	returning_ = numeric_natural_nodes_division_types_checked_both_are_valid_raw_naturals(
+
+	/*   Note that since arguments are naturals, euclidean quotient
+	 * is computed here, **instead** of the division computed on the
+	 * promotion of the arguments to rationals. */
+	returning_ = numeric_natural_nodes_euclidean_quotient_types_checked_both_are_valid_raw_naturals(
 			node_zero->natural_literal_subnode_->raw_,
 			node_one->natural_literal_subnode_->raw_);
+
 	return returning_;
 }
 

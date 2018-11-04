@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -89,16 +89,24 @@ concatenate_two_char_arrays(const char * zero, const char * one)
 	ret_ = (char *) malloc(combined_length_ + 1);
 	snprintf_ret_ = snprintf(
 			ret_, combined_length_ + 1, "%s%s", zero, one);
+	assertion(snprintf_ret_ < max_concatenation_length_in_bytes);
+	/*
 	if (snprintf_ret_ >= max_concatenation_length_in_bytes) {
-		/* sprintf_ret_ = */ sprintf(
+	*/
+		/* sprintf_ret_ = */
+				/*
+				sprintf(
 				ret_, "%s",
 				"ERROR the concatenation is for some reason larger than the implemented maximum");
+				*/
 		/*
 		fprintf(stderr, "%s:%u - aborting operation", __FILE__,
 				__LINE__);
 		exit(EXIT_FAILURE);
 		*/
+	/*
 	}
+	*/
 	return ret_;
 }
 

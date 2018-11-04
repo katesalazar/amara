@@ -56,6 +56,18 @@ assertion_two(int expression, const char * message)
 	assertion(expression);
 }
 
+void
+forced_assertion(int expression)
+{
+	if (!expression) {
+		fprintf(stdout, "WARNING Assertion failed\n");
+	}
+	assert(expression);
+	if (!expression) {
+		exit(1); /* FIXME 1..? */
+	}
+}
+
 /*
 void disarm_interim(char * message)
 {

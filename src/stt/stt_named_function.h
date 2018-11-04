@@ -21,10 +21,19 @@
 #define __AMARA__SYNTAX_TREE__NAMED_FUNCTION__H__
 
 /*   For `amara_string`. */
-#include "../cmn/amara_string.h"
+/* #include "../cmn/amara_string.h" */
+
+/*   For `stt_named_function`. */
+#include "stt_forward_declarations.h"
+
+/*   For `stt_named_function_subnode`. */
+#include "stt_named_function_subnode.h"
 
 /*   For `stt_operations_simple_list`. */
 #include "stt_operations_simple_list.h"
+
+/*   For `stt_where_value_bindings_simple_list`. */
+#include "stt_where_value_bindings_simple_list.h"
 
 /*   This is an enumeration, but it should probably become a mask. */
 
@@ -34,12 +43,6 @@
 #define STT_NAMED_FUNCTION_TYPE_CLI_APP_NAMED_FUNCTION \
 		STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION
 
-typedef struct stt_named_function {
-	unsigned char type_;
-	amara_string * name_;
-	stt_operations_simple_list * operations_;
-} stt_named_function;
-
 stt_named_function *
 stt_named_function_default_constructor(void)
 __attribute__((warn_unused_result))
@@ -48,7 +51,8 @@ __attribute__((warn_unused_result))
 stt_named_function *
 stt_named_function_exhaustive_constructor(
 		unsigned char type, const amara_string * name,
-		const stt_operations_simple_list * operations)
+		const stt_operations_simple_list * operations,
+		const stt_where_value_bindings_simple_list * where_value_bindings_)
 __attribute__((warn_unused_result))
 ;
 
@@ -75,6 +79,18 @@ void
 stt_named_function_set_operations(
 		stt_named_function * named_function,
 		const stt_operations_simple_list * operations)
+;
+
+void
+stt_named_function_set_where_value_bindings(
+		stt_named_function * named_function,
+		const stt_where_value_bindings_simple_list * where_value_bindings)
+;
+
+stt_named_function *
+stt_named_function_out_of_stt_named_function_subnode(
+		const stt_named_function_subnode * named_function_subnode)
+__attribute__((warn_unused_result))
 ;
 
 #endif

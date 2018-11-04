@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,15 +32,15 @@ typedef struct stt_expression_sub_dice {
 ;
 
 stt_expression_sub_dice *
-stt_expression_sub_dice_copy_constructor(
-		const stt_expression_sub_dice * stt_expression_sub_dice_)
+stt_expression_sub_dice_exhaustive_constructor(
+		const natural * left_hand_side,
+		const natural * right_hand_side)
 __attribute__((warn_unused_result))
 ;
 
 stt_expression_sub_dice *
-stt_expression_sub_dice_exhaustive_constructor(
-		const natural * left_hand_side,
-		const natural * right_hand_side)
+stt_expression_sub_dice_copy_constructor(
+		const stt_expression_sub_dice * expression_sub_dice)
 __attribute__((warn_unused_result))
 ;
 

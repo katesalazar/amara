@@ -26,6 +26,7 @@
 #include "amara_boolean.h"
 
 typedef struct amara_string {
+
 	char * value_;
 } amara_string;
 
@@ -48,9 +49,19 @@ amara_string_copy_constructor(const amara_string * as)
 __attribute__((warn_unused_result))
 ;
 
+/**  Destructor. */
 void
 amara_string_destructor(amara_string * string)
 ;
+
+#ifndef NDEBUG
+
+/**  Health check. */
+void
+amara_string_assert_healthy(const amara_string * string)
+;
+
+#endif
 
 char *
 amara_string_get_value(const amara_string * string)

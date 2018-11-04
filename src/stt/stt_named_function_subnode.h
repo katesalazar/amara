@@ -23,7 +23,8 @@
 /*   For `amara_string`. */
 #include "../cmn/amara_string.h"
 
-#include "stt_named_function.h"
+/*   For `stt_named_function`. */
+#include "stt_forward_declarations.h"
 
 /*   For `stt_operations_simple_list.h`. */
 #include "stt_operations_simple_list.h"

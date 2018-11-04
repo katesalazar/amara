@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,10 @@
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
+void
+assertion(int expression)
+;
+
 /*   For `natural * natural_copy_constructor(const natural * natural)`. */
 #include "../brt/natural.h"
 
@@ -28,47 +32,20 @@
 #include "stt_expression_sub_dice.h"
 
 stt_expression_sub_dice *
-stt_expression_sub_dice_copy_constructor(
-		const stt_expression_sub_dice * stt_expression_sub_dice_)
-{
-	stt_expression_sub_dice * returning_;
-
-	assertion(stt_expression_sub_dice_ != NULL);
-	assertion(stt_expression_sub_dice_->left_hand_side_natural_ != NULL);
-	assertion(stt_expression_sub_dice_->left_hand_side_natural_->raw_ !=
-			NULL);
-	assertion(stt_expression_sub_dice_->left_hand_side_natural_->raw_->value_ !=
-			NULL);
-	assertion(stt_expression_sub_dice_->right_hand_side_natural_ != NULL);
-	assertion(stt_expression_sub_dice_->right_hand_side_natural_->raw_ !=
-			NULL);
-	assertion(stt_expression_sub_dice_->right_hand_side_natural_->raw_->value_ !=
-			NULL);
-
-	returning_ = malloc(sizeof(stt_expression_sub_dice));
-
-	returning_->left_hand_side_natural_ = natural_copy_constructor(
-			stt_expression_sub_dice_->left_hand_side_natural_);
-
-	returning_->right_hand_side_natural_ = natural_copy_constructor(
-			stt_expression_sub_dice_->right_hand_side_natural_);
-
-	return returning_;
-}
-
-stt_expression_sub_dice *
 stt_expression_sub_dice_exhaustive_constructor(
 		const natural * left_hand_side,
 		const natural * right_hand_side)
 {
 	stt_expression_sub_dice * returning_;
 
+#ifndef NDEBUG
 	assertion(left_hand_side != NULL);
 	assertion(left_hand_side->raw_ != NULL);
 	assertion(left_hand_side->raw_->value_ != NULL);
 	assertion(right_hand_side != NULL);
 	assertion(right_hand_side->raw_ != NULL);
 	assertion(right_hand_side->raw_->value_ != NULL);
+#endif
 
 	returning_ = malloc(sizeof(stt_expression_sub_dice));
 
@@ -81,13 +58,46 @@ stt_expression_sub_dice_exhaustive_constructor(
 	return returning_;
 }
 
+stt_expression_sub_dice *
+stt_expression_sub_dice_copy_constructor(
+		const stt_expression_sub_dice * expression_sub_dice)
+{
+	stt_expression_sub_dice * returning_;
+
+#ifndef NDEBUG
+	assertion(expression_sub_dice != NULL);
+	assertion(expression_sub_dice->left_hand_side_natural_ != NULL);
+	assertion(expression_sub_dice->left_hand_side_natural_->raw_ !=
+			NULL);
+	assertion(expression_sub_dice->left_hand_side_natural_->raw_->value_ !=
+			NULL);
+	assertion(expression_sub_dice->right_hand_side_natural_ != NULL);
+	assertion(expression_sub_dice->right_hand_side_natural_->raw_ !=
+			NULL);
+	assertion(expression_sub_dice->right_hand_side_natural_->raw_->value_ !=
+			NULL);
+#endif
+
+	returning_ = malloc(sizeof(stt_expression_sub_dice));
+
+	returning_->left_hand_side_natural_ = natural_copy_constructor(
+			expression_sub_dice->left_hand_side_natural_);
+
+	returning_->right_hand_side_natural_ = natural_copy_constructor(
+			expression_sub_dice->right_hand_side_natural_);
+
+	return returning_;
+}
+
 void
 stt_expression_sub_dice_destructor(
 		stt_expression_sub_dice * stt_expression_sub_dice_)
 {
+#ifndef NDEBUG
 	assertion(stt_expression_sub_dice_ != NULL);
 	assertion(stt_expression_sub_dice_->left_hand_side_natural_ != NULL);
 	assertion(stt_expression_sub_dice_->right_hand_side_natural_ != NULL);
+#endif
 	natural_destructor(stt_expression_sub_dice_->left_hand_side_natural_);
 	natural_destructor(stt_expression_sub_dice_->right_hand_side_natural_);
 	free(stt_expression_sub_dice_);

@@ -72,15 +72,15 @@
 #define STT_NODE_TYPE_NATURAL_LITERAL     0x02
 #define STT_NODE_TYPE_INTEGER_LITERAL     0x03
 #define STT_NODE_TYPE_RATIONAL_LITERAL    0x04
-#define STT_NODE_TYPE_IDENTIFIER          0x0D
-#define STT_NODE_TYPE_CONDITION           0x05
-#define STT_NODE_TYPE_EXPRESSION          0x06
-#define STT_NODE_TYPE_WHERE_BINDING       0x07
-#define STT_NODE_TYPE_WHERE_BINDINGS      0x08
-#define STT_NODE_TYPE_OPERATION           0x09
-#define STT_NODE_TYPE_OPERATIONS_LIST     0x0A
-#define STT_NODE_TYPE_NAMED_FUNCTION      0x0B
-#define STT_NODE_TYPE_APPLICATION         0x0C
+#define STT_NODE_TYPE_IDENTIFIER          0x05
+#define STT_NODE_TYPE_CONDITION           0x06
+#define STT_NODE_TYPE_EXPRESSION          0x07
+#define STT_NODE_TYPE_WHERE_BINDING       0x08
+#define STT_NODE_TYPE_WHERE_BINDINGS      0x09
+#define STT_NODE_TYPE_OPERATION           0x0A
+#define STT_NODE_TYPE_OPERATIONS_LIST     0x0B
+#define STT_NODE_TYPE_NAMED_FUNCTION      0x0C
+#define STT_NODE_TYPE_APPLICATION         0x0D
 #define STT_NODE_TYPE_DOC_FRAGMENT        0x0E
 #define STT_NODE_TYPE_DOC                 0x0F
 #define STT_NODE_TYPE_EXECUTION_REQUEST   0x10
@@ -105,7 +105,8 @@ typedef struct stt_node {
 	stt_application_subnode * application_subnode_;
 	stt_execution_request_subnode * execution_request_subnode_;
 	stt_doc_subnode * doc_subnode_;
-} stt_node;
+} stt_node
+;
 
 stt_node *
 stt_node_default_constructor(void)
@@ -157,9 +158,16 @@ stt_node_set_identifier(stt_node * node, const amara_string * identifier)
 ;
 
 void
+stt_node_set_condition(stt_node * node, const stt_condition * condition)
+;
+
+void
 stt_node_set_dice_expression(
-		stt_node * node,
-		stt_dice_expression * dice_expression)
+		stt_node * node, const stt_dice_expression * dice_expression)
+;
+
+void
+stt_node_set_expression(stt_node * node, const stt_expression * expression)
 ;
 
 void
@@ -213,18 +221,21 @@ __attribute__((warn_unused_result))
 /*   Decorates `node` registering function `function`. */
 stt_node *
 register_named_function(stt_node * node, const stt_node * named_function_node)
-__attribute__((warn_unused_result));
+__attribute__((warn_unused_result))
+;
 
 /*   Decorates `node` registering application `application`. */
 stt_node *
 register_application(stt_node * node, const stt_node * application_node)
-__attribute__((warn_unused_result));
+__attribute__((warn_unused_result))
+;
 
 /*   Decorates `node` registering execution request `execution_request`. */
 stt_node *
 register_execution_request(
 		stt_node * node, const stt_node * execution_request_node)
-__attribute__((warn_unused_result));
+__attribute__((warn_unused_result))
+;
 
 void
 dump_syntax_tree(const stt_node * node)
@@ -239,7 +250,8 @@ dump_syntax_tree(const stt_node * node)
 typedef struct look_for_undefined_labels_ret {
 	unsigned char status;
 	char_arrays_simple_list * messages;
-} look_for_undefined_labels_ret;
+} look_for_undefined_labels_ret
+;
 
 void
 look_for_undefined_labels_ret_destructor(
@@ -252,63 +264,63 @@ __attribute__((warn_unused_result))
 ;
 
 void
-assert_pure_string_literal_node(const stt_node * node)
+assert_clean_string_literal_node(const stt_node * node)
 ;
 
 void
-assert_pure_natural_literal_node(const stt_node * node)
+assert_clean_natural_literal_node(const stt_node * node)
 ;
 
 void
-assert_pure_integer_literal_node(const stt_node * node)
+assert_clean_integer_literal_node(const stt_node * node)
 ;
 
 void
-assert_pure_rational_literal_node(const stt_node * node)
+assert_clean_rational_literal_node(const stt_node * node)
 ;
 
 void
-assert_pure_identifier_node(const stt_node * node)
+assert_clean_identifier_node(const stt_node * node)
 ;
 
 void
-assert_pure_condition_node(const stt_node * node)
+assert_clean_condition_node(const stt_node * node)
 ;
 
 void
-assert_pure_expression_node(const stt_node * node)
+assert_clean_expression_node(const stt_node * node)
 ;
 
 void
-assert_pure_where_value_binding_node(const stt_node * node)
+assert_clean_where_value_binding_node(const stt_node * node)
 ;
 
 void
-assert_pure_where_value_bindings_node(const stt_node * node)
+assert_clean_where_value_bindings_node(const stt_node * node)
 ;
 
 void
-assert_pure_operation_node(const stt_node * node)
+assert_clean_operation_node(const stt_node * node)
 ;
 
 void
-assert_pure_operations_list_node(const stt_node * node)
+assert_clean_operations_list_node(const stt_node * node)
 ;
 
 void
-assert_pure_named_function_node(const stt_node * node)
+assert_clean_named_function_node(const stt_node * node)
 ;
 
 void
-assert_pure_application_node(const stt_node * node)
+assert_clean_application_node(const stt_node * node)
 ;
 
 void
-assert_pure_execution_request_node(const stt_node * node)
+assert_clean_execution_request_node(const stt_node * node)
 ;
 
 void
-assert_pure_doc_node(const stt_node * node)
+assert_clean_doc_node(const stt_node * node)
 ;
 
 #endif
