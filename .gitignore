@@ -4,6 +4,7 @@
 #   KDevelop stuff.
 amara.kdev4
 .kdev4/
+*.kate-swp
 
 #   macOS stuff.
 .DS_Store

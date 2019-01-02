@@ -26,8 +26,8 @@ A bunch of WIP utilities aimed at applications custom fast prototyping.
 * [dependencies][9]
 * [how to run on...][10]
   * [debian stretch][11]
-  * [macOS High Sierra (the Xcode way)][33]
-  * [macOS High Sierra (the Homebrew way)][12]
+  * [macOS Mojave (the Xcode way)][33]
+  * [macOS Mojave (the Homebrew way)][12]
   * [any other][13]
 * [development tasks][14]
   * [active][15]
@@ -93,7 +93,7 @@ Wish you have a wonderful day!
 $ _
 ```
 
-### macOS High Sierra (the Xcode way)
+### macOS Mojave (the Xcode way)
 
 This was written for Xcode `9.0`.
 
@@ -108,15 +108,18 @@ Wish you have a wonderful day!
 Program ended with exit code: 0
 ```
 
-### macOS High Sierra (the Homebrew way)
+### macOS Mojave (the Homebrew way)
 
-1. Optionally [install Homebrew][8]:
+1. **Optionally** [install Homebrew][8] (for updated `bison` and `flex`
+   packages, not required):
 
 ```
 $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-2. If you have Homebrew, optionally select the `bison` and `flex` packages:
+2. If you have Homebrew, **optionally** select the `bison` and `flex` packages
+   (it should just work using the `default` bison and `flex` programs shipped
+   in macOS):
 
 ```
 $ brew install bison flex
@@ -172,6 +175,30 @@ Check out [`INSTALL_LEGACY.md`][5].
 
 * TUI and GUI applications.
 
+* Modern Bison usage.
+
+  * Parser reentrancy: see [this][34] and [this][35]. The recommended way by
+    Bison 3.1 and 3.2 is to use `%define api.pure` (optionally
+    `%define api.pure full`), but Bison 2.3 (present in macOS devices without
+    Macports or Homebrew superpowers) doesn't know how to handle that. But
+    both 2.3 and 3.1 can handle the previous recommendation `%pure-parser`.
+    Also parser reentrancy of Bison 2.3 is now arcane technology, considering
+    the 3.1 era online documentation.
+
+    * Alternatively, access the parsing and tokens scanning facilities by means
+      of a queue of jobs to be parsed by a single proxy thread. This should
+      allow to stick in Yacc mode as a means to be Bison 2.3 compatible and
+      Bison 3+ compatible, in case Bison choose to deprecate `%pure-parser`
+      while choosing also to stay Yacc compatible. This is a scenario to
+      specially consider, given the large amount of written books and other
+      documentation materials about Yacc, in contrast to the relatively
+      current obscurity about Bison 2.3 support.
+
+  * Improved error reporting by the use of _the Bison locations tracking
+  devices_.
+
+  * Proper use of `yyerror(...)` and similar facilities?
+
 ## roadmap
 
 This is completely tentative, and most probably goals will be moved around up
@@ -197,7 +224,12 @@ and down.
 
 ## development info
 
-[stability policy][4].
+<!--
+[Stability policy][4].
+-->
+The stability policy is to hold 100% tests coverage. In case some conditions
+can not be tested, 100% testable wrappers should be written for those
+conditions, and those conditions shall be locked in specific namespaces.
 
 ## compliance with 3rd parties' terms
 
@@ -229,22 +261,43 @@ Copyright (c)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Authored by:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-2018 &lt;your name here&gt;
+2019 &lt;your name here&gt;:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-2018 Mercedes Catherine Salazar (katesalazar)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;your works here&gt;.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2018 Mercedes Catherine Salazar (katesalazar):
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Lexicon, syntax, semantics, implementation, tests, documentation.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contributions by:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-2018 &lt;your name here&gt;
+2019 &lt;your name here&gt;:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;your contributions here&gt;.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2018 Mia (spreadLink):
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Syntax consulting.
 
 Licensed to you under the terms of [the Apache License, version 2.0][29].
 
 
 [2]: https://discord.gg/2XDzsuq
 
+<!--
 [4]: https://github.com/katesalazar/amara/blob/STABILITY-POLICY/STABILITY_POLICY.md
+-->
 
 [5]: http://github.com/katesalazar/amara/tree/master/INSTALL_LEGACY.md
 
@@ -293,3 +346,7 @@ Licensed to you under the terms of [the Apache License, version 2.0][29].
 [32]: https://github.com/westes/flex/
 
 [33]: https://github.com/katesalazar/amara/tree/master#macos-high-sierra-the-xcode-way
+
+[34]: https://www.gnu.org/software/bison/manual/html_node/Pure-Decl.html
+
+[35]: https://www.gnu.org/software/bison/manual/html_node/Pure-Calling.html#Pure-Calling

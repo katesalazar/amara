@@ -27,8 +27,12 @@
 
 ### Apple
 
-(This list is empty).
+#### macOS High Sierra
+
+Refer macOS Mojave on the main README.md document.
 
 ## Other
+
+### Microsoft
 
 (This list is empty).
