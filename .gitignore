@@ -60,7 +60,7 @@ build/release/*.gcda
 #   `gcov` output docs.
 *.gcov
 
-#   `gcov` output log.
+#   `gcov` standard and error output, recorded.
 gcov_stdout
 gcov_stderr
 

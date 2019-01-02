@@ -1,5 +1,5 @@
 <!--
-    Copyright 2018 Mercedes Catherine Salazar
+    Copyright 2018-2019 Mercedes Catherine Salazar
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -27,8 +27,12 @@
 
 ### Apple
 
-(This list is empty).
+#### macOS High Sierra
+
+Refer macOS Mojave on the main README.md document.
 
 ## Other
+
+### Microsoft
 
 (This list is empty).
