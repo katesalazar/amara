@@ -64,6 +64,10 @@ build/release/*.gcno
 #   `gcov` output docs.
 *.gcov
 
+#   `gcov` standard and error output, recorded.
+gcov_stdout
+gcov_stderr
+
 #   `lcov` output docs.
 lcov.info
 

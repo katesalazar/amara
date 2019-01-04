@@ -1,5 +1,5 @@
 <!--
-    Copyright 2018 Mercedes Catherine Salazar
+    Copyright 2018-2019 Mercedes Catherine Salazar
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ A bunch of WIP utilities aimed at applications custom fast prototyping.
 * [development info][26]
 * [compliance with 3rd parties' terms][27]
   * [current observance][28]
-* [copying][30]
+* [credits &amp; copying][30]
 
 ## dependencies
 
@@ -175,6 +175,14 @@ Check out [`INSTALL_LEGACY.md`][5].
 
 * TUI and GUI applications.
 
+* Grammar amendments.
+
+  * Remove negative integers and negative rationals from the grammar (but not
+    from the language engine), replacing them for positive integers and
+    positive rationals after the occurrence of an unary operator minus.
+
+    * Probably add an unary operator plus too.
+
 * Modern Bison usage.
 
   * Parser reentrancy: see [this][34] and [this][35]. The recommended way by
@@ -254,7 +262,7 @@ and might explore different parsing strategies.
 of the BSD-2-clause license; as its COPYING document states, the Flex scanner
 skeleton is _freeware_.
 
-## copying
+## credits &amp; copying
 
 Copyright (c)
 
@@ -268,11 +276,15 @@ Copyright (c)
 &lt;your works here&gt;.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-2018 Mercedes Catherine Salazar (katesalazar):
+2018-2019 Mercedes Catherine Salazar (katesalazar):
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Lexicon, syntax, semantics, implementation, tests, documentation.
+2019 - Documentation.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2018 - Lexicon, syntax, semantics, implementation, tests, documentation.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contributions by:
 
@@ -339,7 +351,7 @@ Licensed to you under the terms of [the Apache License, version 2.0][29].
 
 [29]: https://www.apache.org/licenses/LICENSE-2.0
 
-[30]: https://github.com/katesalazar/amara/tree/master#copying
+[30]: https://github.com/katesalazar/amara/tree/master#credits--copying
 
 [31]: https://www.gnu.org/software/bison/
 
