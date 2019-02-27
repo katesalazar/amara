@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ rtg_operation_args_simple_list *
 rtg_operation_args_simple_list_default_constructor()
 {
 	rtg_operation_args_simple_list * ret_;
+
 	ret_ = malloc(sizeof(rtg_operation_args_simple_list));
+	forced_assertion(ret_ != NULL);
 	ret_->first = NULL;
 	ret_->next = NULL;
+
 	return ret_;
 }
 
@@ -41,8 +44,12 @@ rtg_operation_args_simple_list_copy_constructor(
 	const rtg_operation_args_simple_list * operation_args_ptr_;
 	rtg_operation_args_simple_list * ret_ptr_;
 	rtg_operation_arg * operation_arg_;
-	assertion(operation_args != NULL);
+
+	forced_assertion(operation_args != NULL);
+
 	ret_ = malloc(sizeof(rtg_operation_args_simple_list));
+	forced_assertion(ret_ != NULL);
+
 	if (operation_args->first == NULL) {
 		ret_->first = NULL;
 		assertion(operation_args->next == NULL);
@@ -143,26 +150,35 @@ void
 rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_destructor(
 		rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret * input_ret)\
 {
-	assertion(input_ret != NULL);
+	forced_assertion(input_ret != NULL);
+
 	if (input_ret->status ==
 			RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
-		assertion(input_ret->operation_args != NULL);
-		if (input_ret->operation_args_were_moved ==
-				AMARA_BOOLEAN_FALSE) {
+
+		forced_assertion(input_ret->operation_args == NULL);
+
+		/*
+		if (input_ret->operation_args != NULL) {
+
 			rtg_operation_args_simple_list_destructor(
 					input_ret->operation_args);
 		}
+		*/
 	} else {
-		assertion(input_ret->status ==
-				RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC);
-		assertion(input_ret->operation_args == NULL);
+		forced_assertion(input_ret->status ==
+				RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER);
+
+		forced_assertion(input_ret->operation_args == NULL);
 	}
+
 	free(input_ret);
 }
 
 rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret *
 rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list(
-		const stt_operation_args_simple_list * operation_args)
+		const stt_operation_args_simple_list * operation_args,
+		const stt_operation_type operation_type,
+		const stt_where_value_bindings_simple_list * function_where_bindings)
 {
 	rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret * ret_;
 	rtg_operation_args_simple_list * sub_ret_;
@@ -170,12 +186,16 @@ rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list(
 	rtg_operation_args_simple_list * sub_ret_ptr_;
 	rtg_operation_arg_out_of_stt_operation_arg_ret * sub_ret_ptr_element_ret_;
 	rtg_operation_arg * sub_ret_ptr_element_;
+
 	ret_ = malloc(sizeof(
 			rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret));
+	forced_assertion(ret_ != NULL);
 	ret_->status = RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_INVALID;
+	ret_->error_messages = NULL;
 	ret_->operation_args = NULL;
 	assertion(operation_args != NULL);
 	sub_ret_ = malloc(sizeof(rtg_operation_args_simple_list));
+	forced_assertion(sub_ret_ != NULL);
 	if (operation_args->first == NULL) {
 		sub_ret_->first = NULL;
 		assertion(operation_args->next == NULL);
@@ -190,33 +210,63 @@ rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list(
 		assertion(operation_args_ptr_->first != NULL);
 		sub_ret_ptr_element_ret_ =
 				rtg_operation_arg_out_of_stt_operation_arg(
-						operation_args_ptr_->first);
+						operation_args_ptr_->first,
+						operation_type,
+						function_where_bindings);
 		assertion(sub_ret_ptr_element_ret_->status ==
 				RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS);
 		sub_ret_ptr_element_ = sub_ret_ptr_element_ret_->operation_arg;
-		sub_ret_ptr_element_ret_->operation_arg_was_moved =
-				AMARA_BOOLEAN_TRUE;
+		sub_ret_ptr_element_ret_->operation_arg = NULL;
 		rtg_operation_arg_out_of_stt_operation_arg_ret_destructor(
 				sub_ret_ptr_element_ret_);
 		sub_ret_ptr_->first = sub_ret_ptr_element_;
 		sub_ret_ptr_->next =
 				malloc(sizeof(rtg_operation_args_simple_list));
+		forced_assertion(sub_ret_ptr_->next != NULL);
 		operation_args_ptr_ = operation_args_ptr_->next;
 		sub_ret_ptr_ = sub_ret_ptr_->next;
 	}
 	assertion(operation_args_ptr_->first != NULL);
 	sub_ret_ptr_element_ret_ = rtg_operation_arg_out_of_stt_operation_arg(
-			operation_args_ptr_->first);
+			operation_args_ptr_->first,
+			operation_type,
+			function_where_bindings);
+	forced_assertion(sub_ret_ptr_element_ret_ != NULL);
+
+	if (sub_ret_ptr_element_ret_->status !=
+			RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS) {
+
+		assertion(sub_ret_ptr_element_ret_->status ==
+				RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_IDENTIFIER);
+
+		ret_->operation_args = NULL;
+		ret_->error_messages =
+				sub_ret_ptr_element_ret_->error_messages;
+		sub_ret_ptr_element_ret_->error_messages = NULL;
+
+		forced_assertion(sub_ret_ptr_element_ret_->operation_arg ==
+				NULL);
+		rtg_operation_arg_out_of_stt_operation_arg_ret_destructor(
+				sub_ret_ptr_element_ret_);
+		/*
+		free(sub_ret_ptr_element_ret_);
+		*/
+
+		ret_->status = RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER;
+
+		return ret_;
+	}
+
 	assertion(sub_ret_ptr_element_ret_->status ==
 			RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS);
 	sub_ret_ptr_element_ = sub_ret_ptr_element_ret_->operation_arg;
-	sub_ret_ptr_element_ret_->operation_arg_was_moved =
-			AMARA_BOOLEAN_TRUE;
+	sub_ret_ptr_element_ret_->operation_arg = NULL;
 	rtg_operation_arg_out_of_stt_operation_arg_ret_destructor(
 			sub_ret_ptr_element_ret_);
 	sub_ret_ptr_->first = sub_ret_ptr_element_;
 	sub_ret_ptr_->next = NULL;
 	ret_->operation_args = sub_ret_;
 	ret_->status = RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_SUCCESS;
+
 	return ret_;
 }

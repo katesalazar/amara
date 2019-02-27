@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,34 @@
  */
 
 #include "../asr/assertion.h"
+
 #include "../stt/stt_execution_request_tests.h"
 
 #include "rtg_application_tests.h"
+
 #include "rtg_execution_request_tests.h"
+
 #include "rtg_execution_requests_simple_list.h"
 
 #include "rtg_execution_requests_simple_list_tests.h"
+
+void
+rtg_execution_requests_simple_list_copy_constructor_test_0()
+{
+	rtg_execution_requests_simple_list * original_;
+	rtg_execution_requests_simple_list * copy_;
+
+	original_ = NULL;
+
+	copy_ = rtg_execution_requests_simple_list_copy_constructor(original_);
+	forced_assertion(copy_ != NULL);
+#ifndef NDEBUG
+	assertion(copy_->first == NULL);
+	assertion(copy_->next == NULL);
+#endif
+
+	rtg_execution_requests_simple_list_destructor(copy_);
+}
 
 void
 rtg_execution_requests_simple_list_construct_and_destruct_test_0()
@@ -99,10 +120,18 @@ rtg_execution_requests_simple_list_construct_and_destruct_test_1()
 }
 
 void
+rtg_execution_requests_simple_list_destructor_tests()
+{
+	rtg_execution_requests_simple_list_destructor(NULL);
+}
+
+void
 rtg_execution_requests_simple_list_construct_and_destruct_tests()
 {
+	rtg_execution_requests_simple_list_copy_constructor_test_0();
 	rtg_execution_requests_simple_list_construct_and_destruct_test_0();
 	rtg_execution_requests_simple_list_construct_and_destruct_test_1();
+	rtg_execution_requests_simple_list_destructor_tests();
 }
 
 /**  Try to create run time graph execution requests out of a NULL
@@ -121,8 +150,16 @@ rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and
 			stt_execution_requests_, rtg_applications_);
 	assertion(target_ret_ != NULL);
 	assertion(target_ret_->status ==
-			RTG_EXECUTION_REQUESTS_SIMPLE_LIST_OUT_OF_STT_EXECUTION_REQUESTS_SIMPLE_LIST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC);
-	assertion(target_ret_->execution_requests == NULL);
+			RTG_EXECUTION_REQUESTS_SIMPLE_LIST_OUT_OF_STT_EXECUTION_REQUESTS_SIMPLE_LIST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
+	forced_assertion(target_ret_->execution_requests != NULL);
+#ifndef NDEBUG
+	assertion(target_ret_->execution_requests->first == NULL);
+	assertion(target_ret_->execution_requests->next == NULL);
+#endif
+
+	rtg_execution_requests_simple_list_destructor(
+			target_ret_->execution_requests);
+	free(target_ret_);
 }
 
 /**  Try to create run time graph execution requests out of a syntax
@@ -160,8 +197,10 @@ rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and
 			stt_execution_request_zero_->application_name_);
 	assertion(equality_ == AMARA_BOOLEAN_TRUE);
 	*/
+#ifndef NDEBUG
 	assert_expectations_on_stt_execution_request_example_print_foo(
 			stt_execution_request_zero_); /* TODO and remove the prior checks. */
+#endif
 
 	stt_execution_request_one_ =
 			stt_execution_request_example_print_foo();
@@ -175,8 +214,10 @@ rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and
 			stt_execution_request_one_->application_name_);
 	assertion(equality_ == AMARA_BOOLEAN_TRUE);
 	*/
+#ifndef NDEBUG
 	assert_expectations_on_stt_execution_request_example_print_foo(
 			stt_execution_request_one_); /* TODO and remove the prior checks. */
+#endif
 
 	stt_execution_requests_ =
 			stt_execution_requests_simple_list_default_constructor();
@@ -190,8 +231,10 @@ rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and
 					stt_execution_request_one_);
 	assertion(stt_execution_requests_ != NULL);
 	assertion(stt_execution_requests_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_stt_execution_request_example_print_foo(
 			stt_execution_requests_->first);
+#endif
 	assertion(stt_execution_requests_->next == NULL);
 
 	stt_execution_requests_ =
@@ -200,18 +243,24 @@ rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and
 					stt_execution_request_zero_);
 	assertion(stt_execution_requests_ != NULL);
 	assertion(stt_execution_requests_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_stt_execution_request_example_print_foo(
 			stt_execution_requests_->first);
+#endif
 	assertion(stt_execution_requests_->next != NULL);
 	assertion(stt_execution_requests_->next->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_stt_execution_request_example_print_foo(
 			stt_execution_requests_->next->first);
+#endif
 	assertion(stt_execution_requests_->next->next == NULL);
 
 	rtg_application_ = rtg_application_example_cli_app_print_foo();
 	assertion(rtg_application_ != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_application_example_cli_app_print_foo(
 			rtg_application_);
+#endif
 
 	rtg_applications_ = rtg_applications_simple_list_default_constructor();
 	assertion(rtg_applications_ != NULL);
@@ -222,11 +271,15 @@ rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and
 			rtg_applications_, rtg_application_);
 	assertion(rtg_applications_ != NULL);
 	assertion(rtg_applications_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_application_example_cli_app_print_foo(
 			rtg_applications_->first);
+#endif
 	assertion(rtg_applications_->next == NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_application_example_cli_app_print_foo(
 			rtg_application_);
+#endif
 
 	target_ret_ = rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list(
 			stt_execution_requests_, rtg_applications_);

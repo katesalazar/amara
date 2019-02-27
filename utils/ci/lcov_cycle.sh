@@ -285,6 +285,6 @@ do
 done
 nice -n 19 git checkout ${ORIGINAL_BRANCH}
 date
-echo 'sleep 900...'
-sleep 900
+echo 'sleep 600...'
+sleep 600
 done

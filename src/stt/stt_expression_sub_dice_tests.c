@@ -58,6 +58,27 @@ stt_expression_sub_dice_example_single_vanilla_dice()
 	return returning_;
 }
 
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_expression_sub_dice_example_single_vanilla_dice(
+		const stt_expression_sub_dice * sub_dice)
+{
+	assertion(sub_dice != NULL);
+	assertion(sub_dice->left_hand_side_natural_ != NULL);
+	assertion(sub_dice->left_hand_side_natural_->raw_ != NULL);
+	assertion(sub_dice->left_hand_side_natural_->raw_->value_ != NULL);
+	assertion(sub_dice->left_hand_side_natural_->raw_->value_[0] == '1');
+	assertion(sub_dice->left_hand_side_natural_->raw_->value_[1] == '\0');
+	assertion(sub_dice->right_hand_side_natural_ != NULL);
+	assertion(sub_dice->right_hand_side_natural_->raw_ != NULL);
+	assertion(sub_dice->right_hand_side_natural_->raw_->value_ != NULL);
+	assertion(sub_dice->right_hand_side_natural_->raw_->value_[0] == '6');
+	assertion(sub_dice->right_hand_side_natural_->raw_->value_[1] == '\0');
+}
+
+#endif
+
 void
 stt_expression_sub_dice_exhaustive_constructor_test_0()
 {

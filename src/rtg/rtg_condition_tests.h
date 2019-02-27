@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,13 +23,50 @@
 /*   For `rtg_condition`. */
 #include "rtg_condition.h"
 
+rtg_condition *
+rtg_condition_example_simple_less_than_condition(void)
+__attribute__((warn_unused_result))
+;
+
 #ifndef NDEBUG
 
 void
-assert_expectations_on_rtg_condition_example_simple_conditional(
+assert_expectations_on_rtg_condition_example_simple_less_than_condition(
 		const rtg_condition * condition)
 ;
 
 #endif
+
+rtg_condition *
+rtg_condition_example_simple_greater_than_condition(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_condition_example_simple_greater_than_condition(
+		const rtg_condition * condition)
+;
+
+#endif
+
+rtg_condition *
+rtg_condition_example_simple_condition(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_condition_example_simple_condition(
+		const rtg_condition * condition)
+;
+
+#endif
+
+void
+rtg_condition_tests(void)
+;
 
 #endif

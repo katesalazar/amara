@@ -20,10 +20,21 @@
 #ifndef __AMARA__SYNTAX_TREE__APPLICATIONS_SIMPLE_LIST_TESTS__H__
 #define __AMARA__SYNTAX_TREE__APPLICATIONS_SIMPLE_LIST_TESTS__H__
 
-/*
+#include "stt_applications_simple_list.h"
+
 stt_applications_simple_list *
-stt_applications_simple_list_example_...
-*/
+stt_applications_simple_list_example_two_applications(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_applications_simple_list_example_two_applications(
+		const stt_applications_simple_list * list)
+;
+
+#endif
 
 void
 stt_applications_simple_list_tests(void)

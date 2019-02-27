@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -80,14 +80,13 @@ stt_natural_literal_subnode_set_raw(
 		const amara_string * raw)
 {
 	validate_amara_string_as_natural(raw);
-	assertion(subnode != NULL);
+	forced_assertion(subnode != NULL);
 	if (subnode->raw_ != NULL) {
 		amara_string_destructor(subnode->raw_);
 		subnode->raw_ = NULL;
 	}
-	if (raw != NULL) {
-		subnode->raw_ = amara_string_copy_constructor(raw);
-	}
+	forced_assertion(raw != NULL);
+	subnode->raw_ = amara_string_copy_constructor(raw);
 }
 
 /* TODO missing equality function */

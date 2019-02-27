@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -273,11 +273,7 @@ rtg_expression_destructor(rtg_expression * expression)
 
 		rtg_expression_sub_identifier_destructor(
 				expression->sub_identifier_);
-	} else {
-#ifndef NDEBUG
-		assertion(expression->type_ ==
-				RTG_EXPRESSION_TYPE_CONDITIONAL);
-#endif
+	} else if (expression->type_ == RTG_EXPRESSION_TYPE_CONDITIONAL) {
 
 #ifndef NDEBUG
 		assertion(expression->sub_conditional_ != NULL);
@@ -286,6 +282,23 @@ rtg_expression_destructor(rtg_expression * expression)
 
 		rtg_expression_sub_conditional_destructor(
 				expression->sub_conditional_);
+	} else {
+		forced_assertion(expression->type_ ==
+				RTG_EXPRESSION_TYPE_DICE);
+
+#ifndef NDEBUG
+		assertion(expression->sub_dice_ != NULL);
+		assertion(expression->sub_dice_->left_hand_side_natural_ !=
+				NULL);
+		natural_assert_validity(
+				expression->sub_dice_->left_hand_side_natural_);
+		assertion(expression->sub_dice_->right_hand_side_natural_ !=
+				NULL);
+		natural_assert_validity(
+				expression->sub_dice_->right_hand_side_natural_);
+#endif
+
+		rtg_expression_sub_dice_destructor(expression->sub_dice_);
 	}
 
 	free(expression);
@@ -296,19 +309,27 @@ rtg_expression_destructor(rtg_expression * expression)
 void
 rtg_expression_assert_healthy(const rtg_expression * expression)
 {
-	assertion(expression != NULL);
+	forced_assertion(expression != NULL);
 
+	forced_assertion(expression->type_ != RTG_EXPRESSION_TYPE_INVALID);
+
+	/*
 	if (expression->type_ == RTG_EXPRESSION_TYPE_INVALID) {
 
 		assertion(expression->sub_natural_literal_ == NULL);
+	*/
 		/* FIXME */
+	/*
 	} else {
+	*/
 		assertion(expression->type_ == /* XXX */
 				RTG_EXPRESSION_TYPE_NATURAL_LITERAL); /* XXX */
 
 		rtg_expression_sub_natural_literal_assert_healthy(
 				expression->sub_natural_literal_);
+	/*
 	}
+	*/
 }
 
 #endif
@@ -331,13 +352,20 @@ void
 rtg_expression_out_of_stt_expression_ret_destructor(
 		rtg_expression_out_of_stt_expression_ret * input_ret_)
 {
-#ifndef NDEBUG
-	assertion(input_ret_ != NULL);
-	assertion(input_ret_->status ==
+	forced_assertion(input_ret_ != NULL);
+
+	forced_assertion(input_ret_->status ==
 			RTG_EXPRESSION_OUT_OF_STT_EXPRESSION_RET_STATUS_SUCCESS);
-	assertion(input_ret_->expression != NULL);
-	assertion(input_ret_->expression_was_moved == AMARA_BOOLEAN_TRUE);
-#endif
+
+	forced_assertion(input_ret_->expression == NULL);
+
+	/*
+	if (input_ret_->expression != NULL) {
+
+		rtg_expression_destructor(input_ret_->expression);
+	}
+	*/
+
 	free(input_ret_);
 }
 
@@ -372,13 +400,20 @@ rtg_expression_out_of_stt_expression(const stt_expression * expression)
 				NULL);
 		assertion(expression->sub_conditional_->if_->expression_then_ !=
 				NULL);
+
+		assertion(expression->sub_conditional_->if_->type_ ==  /* XXX */
+				STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE);  /* XXX */
+
+		/*
 		if (expression->sub_conditional_->if_->type_ ==
-					STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE) {
+				STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE) {
+		*/
 
 			assertion(expression->sub_conditional_->if_->expression_else_ !=
 					NULL);
 			assertion(expression->sub_conditional_->if_->next_if_ ==
 					NULL);
+		/*
 		} else {
 			assertion(expression->sub_conditional_->if_->type_ ==
 					STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE_IF);
@@ -388,6 +423,7 @@ rtg_expression_out_of_stt_expression(const stt_expression * expression)
 			assertion(expression->sub_conditional_->if_->next_if_ !=
 					NULL);
 		}
+		*/
 	} else {
 		assertion(expression->type_ == STT_EXPRESSION_TYPE_DICE);
 

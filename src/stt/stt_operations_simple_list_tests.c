@@ -40,18 +40,20 @@ stt_operations_simple_list_example_print_foo(void)
 	assertion(operations_->next == NULL);
 #endif
 
-	operation_ = stt_operation_example_print_foo();
+	operation_ = stt_operation_example_print_string_literal_foo();
 #ifndef NDEBUG
 	assertion(operation_ != NULL);
-	assert_expectations_on_stt_operation_example_print_foo(operation_);
+	assert_expectations_on_stt_operation_example_print_string_literal_foo(
+			operation_);
 #endif
 
 	stt_operations_simple_list_push_back(operations_, operation_);
 #ifndef NDEBUG
 	assertion(operation_ != NULL);
-	assert_expectations_on_stt_operation_example_print_foo(operation_);
+	assert_expectations_on_stt_operation_example_print_string_literal_foo(
+			operation_);
 	assertion(operations_->first != NULL);
-	assert_expectations_on_stt_operation_example_print_foo(
+	assert_expectations_on_stt_operation_example_print_string_literal_foo(
 			operations_->first);
 	assertion(operations_->next == NULL);
 #endif
@@ -69,7 +71,7 @@ assert_expectations_on_stt_operations_simple_list_example_print_foo(
 {
 	assertion(operations != NULL);
 	assertion(operations->first != NULL);
-	assert_expectations_on_stt_operation_example_print_foo(
+	assert_expectations_on_stt_operation_example_print_string_literal_foo(
 			operations->first);
 	assertion(operations->next == NULL);
 }

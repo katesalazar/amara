@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,9 @@
 #include "stt_where_value_binding.h"
 
 typedef struct stt_where_value_bindings_simple_list {
+
 	stt_where_value_binding * first;
+
 	struct stt_where_value_bindings_simple_list * next;
 } stt_where_value_bindings_simple_list
 ;
@@ -48,6 +50,14 @@ void
 stt_where_value_bindings_simple_list_push_back(
 		stt_where_value_bindings_simple_list * list,
 		const stt_where_value_binding * addition)
+;
+
+/**  Returns a pointer **without** ownership, or `NULL` if not found. */
+stt_where_value_binding *
+stt_where_value_bindings_simple_list_find_by_value_name(
+		const stt_where_value_bindings_simple_list * value_bindings_haystack,
+		const amara_string * needle_value_name)
+__attribute__((warn_unused_result))
 ;
 
 #endif

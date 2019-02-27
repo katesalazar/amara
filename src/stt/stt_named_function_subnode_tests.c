@@ -30,7 +30,7 @@
 #ifndef NDEBUG
 
 void
-assert_expectations_on_stt_named_function_subnode_example_print_foo(
+assert_expectations_on_stt_named_function_subnode_example_print_string_literal_foo(
 		const stt_named_function_subnode * subnode)
 {
 	amara_string * expected_named_function_name_;
@@ -51,7 +51,7 @@ assert_expectations_on_stt_named_function_subnode_example_print_foo(
 	assertion(equality_ == AMARA_BOOLEAN_TRUE);
 	assertion(subnode->operations_ != NULL);
 	assertion(subnode->operations_->first != NULL);
-	assert_expectations_on_stt_operation_example_print_foo(
+	assert_expectations_on_stt_operation_example_print_string_literal_foo(
 			subnode->operations_->first);
 	assertion(subnode->operations_->next == NULL);
 
@@ -79,21 +79,33 @@ stt_named_function_subnode_construct_and_destruct_test_1()
 {
 	stt_named_function_subnode * named_function_subnode_zero_;
 	stt_named_function_subnode * named_function_subnode_one_;
+
 	named_function_subnode_zero_ =
 			stt_named_function_subnode_default_constructor();
+#ifndef NDEBUG
 	assertion(named_function_subnode_zero_ != NULL);
 	assertion(named_function_subnode_zero_->type_ ==
 			STT_NAMED_FUNCTION_SUBNODE_TYPE_INVALID);
 	assertion(named_function_subnode_zero_->name_ == NULL);
 	assertion(named_function_subnode_zero_->operations_ == NULL);
-	named_function_subnode_zero_->name_ =
-			amara_string_exhaustive_constructor("foo");
-	named_function_subnode_zero_->operations_ =
-			stt_operations_simple_list_default_constructor();
+	assertion(named_function_subnode_zero_->where_value_bindings_ == NULL);
+#endif
+
+	named_function_subnode_zero_->name_ =  /* XXX */
+			amara_string_exhaustive_constructor("foo");  /* XXX */
+
+	named_function_subnode_zero_->operations_ =  /* XXX */
+			stt_operations_simple_list_default_constructor();  /* XXX */
+
+	named_function_subnode_zero_->where_value_bindings_ = /* XXX */
+			stt_where_value_bindings_simple_list_default_constructor();  /* XXX */
+
 	named_function_subnode_zero_->type_ =
 			STT_NAMED_FUNCTION_SUBNODE_TYPE_CLI_APP_NAMED_FUNCTION;
+
 	named_function_subnode_one_ = stt_named_function_subnode_copy_constructor(
 			named_function_subnode_zero_);
+#ifndef NDEBUG
 	assertion(named_function_subnode_one_ != NULL);
 	assertion(named_function_subnode_one_->type_ !=
 			STT_NAMED_FUNCTION_SUBNODE_TYPE_INVALID);
@@ -103,6 +115,8 @@ stt_named_function_subnode_construct_and_destruct_test_1()
 			named_function_subnode_one_->name_,
 			amara_string_exhaustive_constructor("foo")));
 	assertion(named_function_subnode_one_->operations_ != NULL);
+#endif
+
 	stt_named_function_subnode_destructor(named_function_subnode_one_);
 	stt_named_function_subnode_destructor(named_function_subnode_zero_);
 }

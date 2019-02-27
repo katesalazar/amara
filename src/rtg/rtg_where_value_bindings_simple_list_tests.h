@@ -20,6 +20,15 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__WHERE_VALUE_BINDINGS_SIMPLE_LIST_TESTS__H__
 #define __AMARA__RUN_TIME_GRAPH__WHERE_VALUE_BINDINGS_SIMPLE_LIST_TESTS__H__
 
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_where_value_bindings_simple_list_example_simple_value_bind(
+		const rtg_where_value_bindings_simple_list * list)
+;
+
+#endif
+
 void
 rtg_where_value_bindings_simple_list_tests(void)
 ;

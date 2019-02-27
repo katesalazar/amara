@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -120,16 +120,25 @@ stt_where_value_bindings_simple_list_push_back(
 		stt_where_value_bindings_simple_list * list,
 		const stt_where_value_binding * addition)
 {
+	/*
 	stt_where_value_bindings_simple_list * ptr_;
+	*/
 
 	assertion(list != NULL);
 	assertion(addition != NULL);
 
+	forced_assertion(list->first == NULL);
+
+	/*
 	if (list->first == NULL) {
+	*/
+
 		assertion(list->next == NULL);
 		list->first = stt_where_value_binding_copy_constructor(
 				addition);
+	/*
 	} else {
+
 		ptr_ = list;
 		while (ptr_->next != NULL) {
 			ptr_ = ptr_->next;
@@ -140,4 +149,72 @@ stt_where_value_bindings_simple_list_push_back(
 				addition);
 		ptr_->next->next = NULL;
 	}
+	*/
+}
+
+/**  Returns a pointer **without** ownership, or `NULL` if not found. */
+stt_where_value_binding *
+stt_where_value_bindings_simple_list_find_by_value_name_inner(
+		const stt_where_value_bindings_simple_list * value_bindings_haystack,
+		const amara_string * needle_value_name)
+__attribute__((warn_unused_result))
+;
+
+stt_where_value_binding *
+stt_where_value_bindings_simple_list_find_by_value_name_inner(
+		const stt_where_value_bindings_simple_list * value_bindings_haystack,
+		const amara_string * needle_value_name)
+{
+	amara_boolean equality_;
+	/*
+	stt_where_value_binding * ret_;
+	*/
+
+	if (value_bindings_haystack == NULL) {
+
+		return NULL;
+	}
+
+#ifndef NDEBUG
+	assertion(value_bindings_haystack->first != NULL);
+#endif
+
+	forced_assertion(value_bindings_haystack->first->value_name_ != NULL);
+	forced_assertion(value_bindings_haystack->first->value_name_->value_ !=
+			NULL);
+
+	equality_ = amara_strings_equality(
+			value_bindings_haystack->first->value_name_,
+			needle_value_name);
+
+	if (equality_ == AMARA_BOOLEAN_TRUE) {
+
+		return value_bindings_haystack->first;
+	}
+
+	return stt_where_value_bindings_simple_list_find_by_value_name_inner(
+			value_bindings_haystack->next, needle_value_name);
+}
+
+stt_where_value_binding *
+stt_where_value_bindings_simple_list_find_by_value_name(
+		const stt_where_value_bindings_simple_list * value_bindings_haystack,
+		const amara_string * needle_value_name)
+{
+	if (value_bindings_haystack == NULL) {
+
+		return NULL;
+	}
+
+	if (value_bindings_haystack->first == NULL) {
+
+#ifndef NDEBUG
+		assertion(value_bindings_haystack->next == NULL);
+#endif
+
+		return NULL;
+	}
+
+	return stt_where_value_bindings_simple_list_find_by_value_name_inner(
+			value_bindings_haystack, needle_value_name);
 }

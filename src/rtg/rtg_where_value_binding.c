@@ -203,7 +203,7 @@ rtg_where_value_binding_out_of_stt_where_value_binding(
 #endif
 
 	returning_->value_expression_ = rtg_exp_ret_->expression;
-	rtg_exp_ret_->expression_was_moved = AMARA_BOOLEAN_TRUE;
+	rtg_exp_ret_->expression = NULL;
 	rtg_expression_out_of_stt_expression_ret_destructor(rtg_exp_ret_);
 
 	return returning_;

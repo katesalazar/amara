@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,10 @@
 
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
+
+/*   For `stt_execution_request *
+ * stt_execution_request_example_print_foo()`. */
+#include "stt_execution_request_tests.h"
 
 /*   For `stt_execution_requests_simple_list`. */
 #include "stt_execution_requests_simple_list.h"
@@ -170,20 +174,83 @@ stt_execution_requests_simple_list_construct_and_destruct_tests()
 void
 stt_execution_requests_simple_list_length_test_0()
 {
-	stt_execution_requests_simple_list * null_list_;
-	unsigned char null_list_len_;
+	stt_execution_requests_simple_list * execution_requests_;
+	unsigned char execution_requests_len_;
 
-	null_list_ = NULL;
+	execution_requests_ = NULL;
 
-	null_list_len_ = stt_execution_requests_simple_list_length(null_list_);
+	execution_requests_len_ = stt_execution_requests_simple_list_length(
+			execution_requests_);
 
-	assertion(null_list_len_ == 0);
+	forced_assertion(execution_requests_len_ == 0);
+}
+
+void
+stt_execution_requests_simple_list_length_test_1()
+{
+	stt_execution_requests_simple_list * execution_requests_;
+	unsigned char execution_requests_len_;
+
+	execution_requests_ = stt_execution_requests_simple_list_default_constructor();
+	forced_assertion(execution_requests_ != NULL);
+#ifndef NDEBUG
+	forced_assertion(execution_requests_->first == NULL);
+	forced_assertion(execution_requests_->next == NULL);
+#endif
+
+	execution_requests_len_ = stt_execution_requests_simple_list_length(
+			execution_requests_);
+
+	forced_assertion(execution_requests_len_ == 0);
+}
+
+void
+stt_execution_requests_simple_list_length_test_2()
+{
+	stt_execution_requests_simple_list * execution_requests_;
+	stt_execution_request * execution_request_;
+	unsigned char execution_requests_len_;
+
+	execution_requests_ = stt_execution_requests_simple_list_default_constructor();
+	forced_assertion(execution_requests_ != NULL);
+#ifndef NDEBUG
+	forced_assertion(execution_requests_->first == NULL);
+	forced_assertion(execution_requests_->next == NULL);
+#endif
+
+	execution_request_ = stt_execution_request_example_print_foo();
+	forced_assertion(execution_request_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_execution_request_example_print_foo(
+			execution_request_);
+#endif
+
+	execution_requests_ = stt_execution_requests_simple_list_push_front(
+			execution_requests_, execution_request_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_execution_request_example_print_foo(
+			execution_request_);
+#endif
+	forced_assertion(execution_requests_ != NULL);
+#ifndef NDEBUG
+	forced_assertion(execution_requests_->first != NULL);
+	assert_expectations_on_stt_execution_request_example_print_foo(
+			execution_requests_->first);
+	forced_assertion(execution_requests_->next == NULL);
+#endif
+
+	execution_requests_len_ = stt_execution_requests_simple_list_length(
+			execution_requests_);
+
+	forced_assertion(execution_requests_len_ == 1);
 }
 
 void
 stt_execution_requests_simple_list_length_tests()
 {
 	stt_execution_requests_simple_list_length_test_0();
+	stt_execution_requests_simple_list_length_test_1();
+	stt_execution_requests_simple_list_length_test_2();
 }
 
 void

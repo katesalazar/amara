@@ -49,13 +49,18 @@ stt_operations_simple_list_copy_constructor_inner(
 	ret_ = malloc(sizeof(stt_operations_simple_list));
 	assertion(operations->first != NULL);
 	ret_->first = stt_operation_copy_constructor(operations->first);
+	forced_assertion(operations->next == NULL);
+	/*
 	if (operations->next == NULL) {
+	*/
 		ret_->next = NULL;
 		return ret_;
+	/*
 	}
 	ret_->next = stt_operations_simple_list_copy_constructor_inner(
 			operations->next);
 	return ret_;
+	*/
 }
 
 stt_operations_simple_list *

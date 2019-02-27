@@ -132,3 +132,15 @@ concatenate_four_char_arrays(
 	ret_ = concatenate_two_char_arrays(inner_ret_, three);
 	return ret_;
 }
+
+char *
+concatenate_five_char_arrays(
+		const char * zero, const char * one, const char * two,
+		const char * three, const char * four)
+{
+	char * ret_;
+	const char * inner_ret_;
+	inner_ret_ = concatenate_four_char_arrays(zero, one, two, three);
+	ret_ = concatenate_two_char_arrays(inner_ret_, four);
+	return ret_;
+}

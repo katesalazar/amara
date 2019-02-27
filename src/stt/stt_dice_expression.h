@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@
 #ifndef __AMARA__SYNTAX_TREE__DICE_EXPRESSION__H__
 #define __AMARA__SYNTAX_TREE__DICE_EXPRESSION__H__
 
+/*   For `typedef struct stt_dice_expression { ... }
+ * stt_dice_expression;`. */
 #include "stt_forward_declarations.h"
 
 #include "../brt/natural.h"

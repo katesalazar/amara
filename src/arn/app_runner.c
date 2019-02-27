@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -312,11 +312,15 @@ run_operation(const rtg_operation * operation,
 	/**  In case the operation includes the interpretation of
 	 * another operation, this stores the returned value by that
 	 * nested operation. */
+	/*
 	arn_operation_returned_value * operation_returned_value_;
+	*/
 
-	/**  In case this operation must return some value, this is
+	/*   In case this operation must return some value, this is
 	 * where the value is stored before returning. */
+	/*
 	arn_operation_returned_value * returning_;
+	*/
 
 #ifndef NDEBUG
 	amara_string * operation_type_as_string_;
@@ -327,8 +331,9 @@ run_operation(const rtg_operation * operation,
 
 	values_ = (arn_values_simple_list *) values;
 
-	if (operation->type_ == RTG_OPERATION_TYPE_PRINT ||
-			operation->type_ == RTG_OPERATION_TYPE_PRINT_NO_CRLF) {
+	if (operation->type_ == RTG_OPERATION_TYPE_PRINT /*||
+			operation->type_ == RTG_OPERATION_TYPE_PRINT_NO_CRLF*/) {
+
 		assertion(operation->args_ != NULL);
 		assertion(rtg_operation_args_simple_list_length(
 				operation->args_) == 1);
@@ -369,29 +374,10 @@ run_operation(const rtg_operation * operation,
 			/******* FIXME this assertion above is failing...... */
 			natural_assert_validity(value_->natural_);
 			printf("%s", value_->natural_->raw_->value_);
+		/*
 		} else if (operation->args_->first->type_ ==
-				RTG_OPERATION_ARG_TYPE_EXPRESSION) {
+					RTG_OPERATION_ARG_TYPE_OPERATION) {
 
-            expression_evaluated_value_ = evaluate_expression(
-                    operation->args_->first->expression_);
-#ifndef NDEBUG
-            assertion(expression_evaluated_value_ != NULL);
-#endif
-#ifndef NDEBUG
-            assertion(expression_evaluated_value_->type_ ==
-                      ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING);
-#endif
-#ifndef NDEBUG
-            assertion(expression_evaluated_value_->string_ != NULL);
-            assertion(expression_evaluated_value_->string_->value_ != NULL);
-#endif
-            printf("%s", expression_evaluated_value_->string_->value_);
-		} else {
-#ifndef NDEBUG
-			assertion(operation->args_->first->type_ ==
-					RTG_OPERATION_ARG_TYPE_OPERATION);
-#endif
-            
 			operation_returned_value_ = run_operation(
 					operation->args_->first->operation_,
 					values_);
@@ -401,7 +387,8 @@ run_operation(const rtg_operation * operation,
 			if (operation_returned_value_->type_ ==
 					ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL) {
 #ifndef NDEBUG
-				assertion(operation_returned_value_->natural_ != NULL);
+				assertion(operation_returned_value_->natural_ !=
+						NULL);
 				natural_assert_validity(
 						operation_returned_value_->natural_);
 #endif
@@ -412,22 +399,48 @@ run_operation(const rtg_operation * operation,
 				assertion(operation_returned_value_->type_ ==
 						ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING);
 #endif
-                
+
 #ifndef NDEBUG
-				assertion(operation_returned_value_->string_ != NULL);
-                assertion(operation_returned_value_->string_->value_ != NULL);
+				assertion(operation_returned_value_->string_ !=
+						NULL);
+				assertion(operation_returned_value_->string_->value_ !=
+						NULL);
 #endif
-				printf("%s", operation_returned_value_->string_->value_);
+				printf("%s",
+				       operation_returned_value_->string_->value_);
 			}
+		*/
+		} else if (operation->args_->first->type_ ==
+				RTG_OPERATION_ARG_TYPE_EXPRESSION) {
+
+			expression_evaluated_value_ = evaluate_expression(
+					operation->args_->first->expression_);
+			forced_assertion(expression_evaluated_value_ != NULL);
+#ifndef NDEBUG
+			assertion(expression_evaluated_value_->type_ ==
+					ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING);
+#endif
+#ifndef NDEBUG
+			assertion(expression_evaluated_value_->string_ != NULL);
+			assertion(expression_evaluated_value_->string_->value_ !=
+					NULL);
+#endif
+			printf("%s",
+			       expression_evaluated_value_->string_->value_);
 		}
+		forced_assertion(operation->type_ == RTG_OPERATION_TYPE_PRINT);
+		/*
 		if (operation->type_ == RTG_OPERATION_TYPE_PRINT) {
+		*/
 			/*
 			printf("\n");
 			*/
+		/*
 		} else {
 			assertion(operation->type_ ==
 					RTG_OPERATION_TYPE_PRINT_NO_CRLF);
 		}
+		*/
 		/* XXX return the printed value? a description of the operation ran? */
 	} else if (operation->type_ == RTG_OPERATION_TYPE_PRINT_CRLF) {
 		assertion(operation->args_ != NULL);
@@ -460,6 +473,7 @@ run_operation(const rtg_operation * operation,
 				natural_read_);
 		/* XXX return the read value? the identifier? */
 
+	/*
 	} else if (operation->type_ == RTG_OPERATION_TYPE_SUBSTRACTION) {
 		assertion(operation->args_ != NULL);
 		assertion(rtg_operation_args_simple_list_length(
@@ -471,8 +485,10 @@ run_operation(const rtg_operation * operation,
 		assertion(operation->args_->next != NULL);
 		assertion(operation->args_->next->first != NULL);
 		assertion(operation->args_->next->first->type_ == RTG_OPERATION_ARG_TYPE_NATURAL_LITERAL);
+	*/
 
 		/* FIXME resolve the identifier actually */
+	/*
 		fprintf(stderr, "%s\n", operation->args_->first->identifier_->value_);
 		assertion(!strcmp(operation->args_->first->identifier_->value_, "i_fahrenheit"));
 		assertion(values_ != NULL);
@@ -488,10 +504,12 @@ run_operation(const rtg_operation * operation,
 		assertion(values_->first->natural_->raw_ != NULL);
 		assertion(values_->first->natural_->raw_->value_ != NULL);
 		assertion(!strcmp(values_->first->natural_->raw_->value_, "99"));
+	*/
 
 		/* FIXME DO THE SUBSTRACTION ACTUALLY
 		operation_returned_value_->natural_->raw_->value_
 		*/
+	/*
 		fprintf(stderr, "%s\n", operation->args_->next->first->natural_literal_->value_);
 		assertion(!strcmp(operation->args_->next->first->natural_literal_->value_, "32"));
 		returning_ = arn_value_default_constructor();
@@ -509,8 +527,10 @@ run_operation(const rtg_operation * operation,
 		assertion(operation->args_->next != NULL);
 		assertion(operation->args_->next->first != NULL);
 		assertion(operation->args_->next->first->type_ == RTG_OPERATION_ARG_TYPE_NATURAL_LITERAL);
+	*/
 
 		/*   Run the nested operation. */
+	/*
 		operation_returned_value_ = run_operation(
 				operation->args_->first->operation_, values_);
 		assertion(operation_returned_value_ != NULL);
@@ -518,10 +538,12 @@ run_operation(const rtg_operation * operation,
 				ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
 		assertion(operation_returned_value_->natural_ != NULL);
 		natural_assert_validity(operation_returned_value_->natural_);
+	*/
 
 		/* FIXME DO THE MULTIPLICATION ACTUALLY
 		operation_returned_value_->natural_->raw_->value_
 		*/
+	/*
 		fprintf(stderr, "%s\n", operation_returned_value_->natural_->raw_->value_);
 		fprintf(stderr, "%s\n", operation->args_->next->first->natural_literal_->value_);
 		assertion(!strcmp(operation_returned_value_->natural_->raw_->value_, "67"));
@@ -541,8 +563,10 @@ run_operation(const rtg_operation * operation,
 		assertion(operation->args_->next != NULL);
 		assertion(operation->args_->next->first != NULL);
 		assertion(operation->args_->next->first->type_ == RTG_OPERATION_ARG_TYPE_NATURAL_LITERAL);
+	*/
 
 		/*   Run the nested operation. */
+	/*
 		operation_returned_value_ = run_operation(
 				operation->args_->first->operation_, values_);
 		assertion(operation_returned_value_ != NULL);
@@ -550,10 +574,12 @@ run_operation(const rtg_operation * operation,
 				ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
 		assertion(operation_returned_value_->natural_ != NULL);
 		natural_assert_validity(operation_returned_value_->natural_);
+	*/
 
 		/* FIXME DO THE DIVISION ACTUALLY
 		operation_returned_value_->natural_->raw_->value_
 		*/
+	/*
 		fprintf(stderr, "%s\n", operation_returned_value_->natural_->raw_->value_);
 		fprintf(stderr, "%s\n", operation->args_->next->first->natural_literal_->value_);
 		assertion(!strcmp(operation_returned_value_->natural_->raw_->value_, "335"));
@@ -572,8 +598,10 @@ run_operation(const rtg_operation * operation,
 		assertion(operation->args_->first != NULL);
 		assertion(operation->args_->first->type_ == RTG_OPERATION_ARG_TYPE_OPERATION);
 		assertion(operation->args_->next == NULL);
+	*/
 
 		/*   Run the nested operation. */
+	/*
 		operation_returned_value_ = run_operation(
 				operation->args_->first->operation_, values_);
 		assertion(operation_returned_value_ != NULL);
@@ -587,6 +615,7 @@ run_operation(const rtg_operation * operation,
 				amara_string_exhaustive_constructor("natural");
 		returning_->type_ = ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING;
 		return returning_;
+	*/
 
 	} else {
 		if (operation->type_ != RTG_OPERATION_TYPE_INVALID) {

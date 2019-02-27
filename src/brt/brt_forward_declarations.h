@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@
 /**  Belongs to the natural class (`brt/natural.h`) however it was moved
  * here because it is needed as forward declaration. */
 typedef struct natural {
+
 	amara_string * raw_;
 } natural
 ;

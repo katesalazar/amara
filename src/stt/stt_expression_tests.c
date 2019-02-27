@@ -22,8 +22,16 @@
 /*   For `natural * natural_example_zero()`. */
 #include "../brt/natural_tests.h"
 
+/*   For `stt_dice_expression *
+ * stt_dice_expression_example_single_vanilla_dice()`. */
+#include "stt_dice_expression_tests.h"
+
 /*   For `stt_expression_sub_conditional_example_simple_conditional`. */
 #include "stt_expression_sub_conditional_tests.h"
+
+/*   For `stt_expression_sub_dice *
+ * stt_expression_sub_dice_example_single_vanilla_dice()`. */
+#include "stt_expression_sub_dice_tests.h"
 
 /*   For own prototypes definitions. */
 #include "stt_expression_tests.h"
@@ -55,6 +63,7 @@ stt_expression_example_natural_zero()
 }
 
 #ifndef NDEBUG
+
 void
 assert_expectations_on_stt_expression_example_natural_zero(
 		const stt_expression * expression)
@@ -72,6 +81,7 @@ assert_expectations_on_stt_expression_example_natural_zero(
 	assertion(expression->sub_natural_literal_->natural_literal_->raw_->value_[1] ==
 			0);  /* '\0'. */
 }
+
 #endif
 
 stt_expression *
@@ -103,6 +113,7 @@ stt_expression_example_natural_one()
 }
 
 #ifndef NDEBUG
+
 void
 assert_expectations_on_stt_expression_example_natural_one(
 		const stt_expression * expression)
@@ -120,6 +131,7 @@ assert_expectations_on_stt_expression_example_natural_one(
 	assertion(expression->sub_natural_literal_->natural_literal_->raw_->value_[1] ==
 			0);  /* '\0'. */
 }
+
 #endif
 
 stt_expression *
@@ -154,6 +166,7 @@ stt_expression_example_string_literal_foo()
 }
 
 #ifndef NDEBUG
+
 void
 assert_expectations_on_stt_expression_example_string_literal_foo(
 		const stt_expression * expression)
@@ -173,6 +186,7 @@ assert_expectations_on_stt_expression_example_string_literal_foo(
 	assertion(expression->sub_string_literal_->string_literal_->value_[3] ==
 			0);  /* '\0'. */
 }
+
 #endif
 
 /**  `'bar'`. */
@@ -208,6 +222,7 @@ stt_expression_example_string_literal_bar()
 }
 
 #ifndef NDEBUG
+
 void
 assert_expectations_on_stt_expression_example_string_literal_bar(
 		const stt_expression * expression)
@@ -227,6 +242,131 @@ assert_expectations_on_stt_expression_example_string_literal_bar(
 	assertion(expression->sub_string_literal_->string_literal_->value_[3] ==
 			0);  /* '\0'. */
 }
+
+#endif
+
+stt_expression *
+stt_expression_example_identifier_foo()
+{
+	amara_string * identifier_;
+	stt_expression * returning_;
+
+	identifier_ = amara_string_exhaustive_constructor("foo");
+#ifndef NDEBUG
+	assertion(identifier_ != NULL);
+	assertion(identifier_->value_ != NULL);
+#endif
+
+	returning_ = stt_expression_default_constructor();
+#ifndef NDEBUG
+	assertion(returning_ != NULL);
+	assertion(returning_->type_ == STT_EXPRESSION_TYPE_INVALID);
+#endif
+
+	stt_expression_set_identifier(returning_, identifier_);
+#ifndef NDEBUG
+	assertion(returning_->type_ == STT_EXPRESSION_TYPE_IDENTIFIER);
+	assertion(returning_->sub_identifier_ != NULL);
+	assertion(returning_->sub_identifier_->identifier_ != NULL);
+	assertion(returning_->sub_identifier_->identifier_->value_ != NULL);
+	assertion(identifier_->value_ != NULL);
+#endif
+
+	return returning_;
+}
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_expression_example_identifier_foo(
+		const stt_expression * expression)
+{
+	assertion(expression != NULL);
+	assertion(expression->type_ == STT_EXPRESSION_TYPE_IDENTIFIER);
+	assertion(expression->sub_identifier_ != NULL);
+	assertion(expression->sub_identifier_->identifier_ != NULL);
+	assertion(expression->sub_identifier_->identifier_->value_ != NULL);
+	/* 100: 'f'. */
+	assertion(expression->sub_identifier_->identifier_->value_[0] == 0x66);
+	/* 111: 'o'. */
+	assertion(expression->sub_identifier_->identifier_->value_[1] == 0x6F);
+	/* 111: 'o'. */
+	assertion(expression->sub_identifier_->identifier_->value_[2] == 0x6F);
+	/* '\0'. */
+	assertion(expression->sub_identifier_->identifier_->value_[3] == 0);
+}
+
+#endif
+
+stt_expression *
+stt_expression_example_single_vanilla_dice()
+{
+	stt_dice_expression * dice_expression_;
+	stt_expression * returning_;
+
+	dice_expression_ = stt_dice_expression_example_single_vanilla_dice();
+	forced_assertion(dice_expression_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_dice_expression_example_single_vanilla_dice(
+			dice_expression_);
+#endif
+
+	returning_ = stt_expression_default_constructor();
+#ifndef NDEBUG
+	assertion(returning_ != NULL);
+	assertion(returning_->type_ == STT_EXPRESSION_TYPE_INVALID);
+#endif
+
+	stt_expression_set_dice(returning_, dice_expression_);
+#ifndef NDEBUG
+	assertion(returning_->type_ == STT_EXPRESSION_TYPE_DICE);
+	assertion(returning_->sub_dice_ != NULL);
+	assertion(returning_->sub_dice_->left_hand_side_natural_ != NULL);
+	assertion(returning_->sub_dice_->left_hand_side_natural_->raw_ !=
+			NULL);
+	assertion(returning_->sub_dice_->right_hand_side_natural_ != NULL);
+	assertion(returning_->sub_dice_->right_hand_side_natural_->raw_ !=
+			NULL);
+	assert_expectations_on_stt_expression_sub_dice_example_single_vanilla_dice(
+			returning_->sub_dice_);
+	assert_expectations_on_stt_dice_expression_example_single_vanilla_dice(
+			dice_expression_);
+#endif
+
+	return returning_;
+}
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_expression_example_single_vanilla_dice(
+		const stt_expression * expression)
+{
+	assertion(expression != NULL);
+	assertion(expression->type_ == STT_EXPRESSION_TYPE_DICE);
+	assertion(expression->sub_dice_ != NULL);
+	assertion(expression->sub_dice_->left_hand_side_natural_ != NULL);
+	assertion(expression->sub_dice_->left_hand_side_natural_->raw_ !=
+			NULL);
+	assertion(expression->sub_dice_->left_hand_side_natural_->raw_->value_ !=
+			NULL);
+	assertion(expression->sub_dice_->left_hand_side_natural_->raw_->value_[0] ==
+			'1');
+	assertion(expression->sub_dice_->left_hand_side_natural_->raw_->value_[1] ==
+			'\0');
+	assertion(expression->sub_dice_->right_hand_side_natural_ != NULL);
+	assertion(expression->sub_dice_->right_hand_side_natural_->raw_->value_ !=
+			NULL);
+	assertion(expression->sub_dice_->right_hand_side_natural_->raw_ !=
+			NULL);
+	assertion(expression->sub_dice_->right_hand_side_natural_->raw_->value_[0] ==
+			'6');
+	assertion(expression->sub_dice_->right_hand_side_natural_->raw_->value_[1] ==
+			'\0');
+	assert_expectations_on_stt_expression_sub_dice_example_single_vanilla_dice(
+			expression->sub_dice_);
+}
+
 #endif
 
 stt_expression *
@@ -263,6 +403,7 @@ stt_expression_example_simple_conditional()
 }
 
 #ifndef NDEBUG
+
 void
 assert_expectations_on_stt_expression_example_simple_conditional(
 		const stt_expression * expression)
@@ -281,10 +422,11 @@ assert_expectations_on_stt_expression_example_simple_conditional(
 			STT_CONDITION_TYPE_LESS_THAN);
 	assertion(expression->sub_conditional_->if_->expression_then_ != NULL);
 }
+
 #endif
 
 void
-stt_expression_default_constructor_test_10_default()
+stt_expression_default_constructor_test()
 {
 	stt_expression * expression_;
 
@@ -390,8 +532,7 @@ stt_expression_copy_constructor_test_20_identifier()
 void
 stt_expression_default_constructor_tests()
 {
-	stt_expression_default_constructor_test_10_default();
-	stt_expression_copy_constructor_test_20_identifier();
+	stt_expression_default_constructor_test();
 }
 
 void
@@ -441,12 +582,76 @@ stt_expression_copy_constructor_test_30_conditional()
 }
 
 void
-stt_expression_copy_constructor_tests()
+stt_expression_copy_constructor_test_40_dice()
 {
 	/*
-	stt_expression_copy_constructor_test_0();
+	stt_expression_sub_dice * sub_dice_;
 	*/
+	stt_dice_expression * dice_expression_;
+	stt_expression * original_expression_;
+	stt_expression * expression_copy_;
+
+	/*
+	sub_dice_ = stt_expression_sub_dice_example_single_vanilla_dice();
+	forced_assertion(sub_dice_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_expression_sub_dice_example_single_vanilla_dice(
+			sub_dice_);
+#endif
+	*/
+
+	dice_expression_ = stt_dice_expression_example_single_vanilla_dice();
+	forced_assertion(dice_expression_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_dice_expression_example_single_vanilla_dice(
+			dice_expression_);
+#endif
+
+	original_expression_ = stt_expression_default_constructor();
+#ifndef NDEBUG
+	assertion(original_expression_ != NULL);
+	assertion(original_expression_->type_ == STT_EXPRESSION_TYPE_INVALID);
+#endif
+
+	stt_expression_set_dice(original_expression_, dice_expression_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_dice_expression_example_single_vanilla_dice(
+			dice_expression_);
+#endif
+	forced_assertion(original_expression_->sub_dice_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_expression_sub_dice_example_single_vanilla_dice(
+			original_expression_->sub_dice_);
+#endif
+
+	expression_copy_ =
+			stt_expression_copy_constructor(original_expression_);
+#ifndef NDEBUG
+	assertion(original_expression_->sub_dice_ != NULL);
+	assert_expectations_on_stt_expression_sub_dice_example_single_vanilla_dice(
+			original_expression_->sub_dice_);
+#endif
+	forced_assertion(expression_copy_ != NULL);
+#ifndef NDEBUG
+	assertion(expression_copy_->sub_dice_ != NULL);
+	assert_expectations_on_stt_expression_sub_dice_example_single_vanilla_dice(
+			expression_copy_->sub_dice_);
+#endif
+
+	stt_expression_destructor(expression_copy_);
+	stt_expression_destructor(original_expression_);
+	/*
+	stt_expression_sub_dice_destructor(sub_dice_);
+	*/
+	stt_dice_expression_destructor(dice_expression_);
+}
+
+void
+stt_expression_copy_constructor_tests()
+{
+	stt_expression_copy_constructor_test_20_identifier();
 	stt_expression_copy_constructor_test_30_conditional();
+	stt_expression_copy_constructor_test_40_dice();
 }
 
 void
@@ -457,7 +662,109 @@ stt_expression_constructors_and_destructors_tests()
 }
 
 void
+stt_expression_equality_test_0()
+{
+	stt_expression * e0_;
+	stt_expression * e1_;
+	amara_boolean equality_;
+
+	e0_ = stt_expression_example_string_literal_foo();
+	forced_assertion(e0_ != NULL);
+
+	e1_ = stt_expression_example_natural_zero();
+	forced_assertion(e1_ != NULL);
+
+	equality_ = stt_expression_equality(e0_, e1_);
+	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+}
+
+void
+stt_expression_equality_test_1()
+{
+	stt_expression * e0_;
+	stt_expression * e1_;
+	amara_boolean equality_;
+
+	e0_ = stt_expression_example_string_literal_foo();
+	forced_assertion(e0_ != NULL);
+
+	e1_ = stt_expression_example_string_literal_bar();
+	forced_assertion(e1_ != NULL);
+
+	equality_ = stt_expression_equality(e0_, e1_);
+	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+}
+
+void
+stt_expression_equality_tests()
+{
+	stt_expression_equality_test_0();
+	stt_expression_equality_test_1();
+}
+
+#ifndef NDEBUG
+
+void
+stt_expression_cleanliness_test_10_string_literal()
+{
+	stt_expression * expression_;
+
+	expression_ = stt_expression_example_string_literal_foo();
+	forced_assertion(expression_ != NULL);
+	assert_expectations_on_stt_expression_example_string_literal_foo(
+			expression_);
+
+	stt_expression_assert_cleanliness(expression_);
+
+	stt_expression_destructor(expression_);
+}
+
+void
+stt_expression_cleanliness_test_20_identifier()
+{
+	stt_expression * expression_;
+
+	expression_ = stt_expression_example_identifier_foo();
+	forced_assertion(expression_ != NULL);
+	assert_expectations_on_stt_expression_example_identifier_foo(
+			expression_);
+
+	stt_expression_assert_cleanliness(expression_);
+
+	stt_expression_destructor(expression_);
+}
+
+void
+stt_expression_cleanliness_test_30_dice()
+{
+	stt_expression * expression_;
+
+	expression_ = stt_expression_example_single_vanilla_dice();
+	forced_assertion(expression_ != NULL);
+	assert_expectations_on_stt_expression_example_single_vanilla_dice(
+			expression_);
+
+	stt_expression_assert_cleanliness(expression_);
+
+	stt_expression_destructor(expression_);
+}
+
+void
+stt_expression_cleanliness_tests()
+{
+	stt_expression_cleanliness_test_10_string_literal();
+	stt_expression_cleanliness_test_20_identifier();
+	stt_expression_cleanliness_test_30_dice();
+}
+
+#endif
+
+void
 stt_expression_tests()
 {
 	stt_expression_constructors_and_destructors_tests();
+	stt_expression_equality_tests();
+#ifndef NDEBUG
+	stt_expression_cleanliness_tests();
+#endif
 }

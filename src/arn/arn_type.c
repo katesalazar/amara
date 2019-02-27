@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ assertion(int expression)
 /*   For `arn_type`. */
 #include "arn_type.h"
 
+/*
 arn_type_type
 arn_type_type_ill()
 {
@@ -48,6 +49,7 @@ arn_type_type_ill()
 
 	return returning_;
 }
+*/
 
 amara_boolean
 arn_type_type_is_valid(arn_type_type type_type)
@@ -70,7 +72,7 @@ arn_type_type_is_valid(arn_type_type type_type)
 	}
 	return AMARA_BOOLEAN_FALSE;
 }
-
+/*
 amara_boolean
 arn_type_type_is_known(arn_type_type type_type)
 {
@@ -105,6 +107,7 @@ arn_type_type_is_ill(arn_type_type type_type)
 		return AMARA_BOOLEAN_FALSE;
 	}
 }
+*/
 
 arn_type *
 arn_type_default_constructor()
@@ -131,7 +134,9 @@ arn_type_destructor(arn_type * type)
 	assertion(type->type_ != ARN_TYPE_TYPE_INVALID);
 #endif
 
+	/*
 	if (arn_type_type_is_known(type->type_) == AMARA_BOOLEAN_TRUE) {
+	*/
 
 #ifndef NDEBUG
 		assertion(type->name_ != NULL);
@@ -139,6 +144,7 @@ arn_type_destructor(arn_type * type)
 #endif
 
 		amara_string_destructor(type->name_);
+	/*
 	} else {
 #ifndef NDEBUG
 		assertion(arn_type_type_is_ill(type->type_) ==
@@ -153,6 +159,7 @@ arn_type_destructor(arn_type * type)
 			amara_string_destructor(type->name_);
 		}
 	}
+	*/
 
 	free(type);
 }
@@ -353,14 +360,21 @@ arn_type_out_of_rtg_condition(const rtg_condition * condition)
 
 	returning_ = NULL;
 
+	forced_assertion(condition->type_ == RTG_CONDITION_TYPE_LESS_THAN);  /* XXX temporary */
+
+	/*
 	if (condition->type_ == RTG_CONDITION_TYPE_LESS_THAN) {
+	*/
+
 		returning_ = arn_type_out_of_rtg_condition_of_type_less_than(
 				condition);
 #ifndef NDEBUG
 		assertion(returning_ != NULL);
 #endif
 		return returning_;
+	/*
 	}
+	*/
 	/*
 	if (condition->type_ == RTG_CONDITION_TYPE_EQUAL_TO) {
 		returning_ = arn_type_out_of_rtg_condition_of_type_equal_to(
@@ -404,6 +418,7 @@ arn_type_out_of_rtg_condition(const rtg_condition * condition)
 	}
 	*/
 
+	/*
 	if (returning_ == NULL) {
 		returning_ = arn_type_default_constructor();
 #ifndef NDEBUG
@@ -415,6 +430,7 @@ arn_type_out_of_rtg_condition(const rtg_condition * condition)
 		returning_->name_ = arn_type_type_name_out_of_type_type(
 				ARN_TYPE_TYPE_TYPE_ERROR_HAPPENED);
 	}
+	*/
 
 	return returning_;
 }
@@ -459,6 +475,10 @@ arn_type_out_of_rtg_expression_sub_conditional_if(
 	expression_then_type_ = arn_type_out_of_rtg_expression(
 			expression_sub_conditional_if->expression_then_);
 
+	forced_assertion(expression_sub_conditional_if->expression_else_ !=
+			NULL);
+
+	/*
 	if (expression_sub_conditional_if->expression_else_ == NULL) {
 
 		next_if_is_null_ = AMARA_BOOLEAN_FALSE;
@@ -467,49 +487,78 @@ arn_type_out_of_rtg_expression_sub_conditional_if(
 				expression_sub_conditional_if->next_if_);
 		expression_else_type_ = NULL;
 	} else {
-		assertion(expression_sub_conditional_if->next_if_ == NULL);
+	*/
+		forced_assertion(expression_sub_conditional_if->next_if_ == NULL);
 
 		next_if_is_null_ = AMARA_BOOLEAN_TRUE;
 		else_is_null_ = AMARA_BOOLEAN_FALSE;
 		next_if_type_ = NULL;
 		expression_else_type_ = arn_type_out_of_rtg_expression(
 				expression_sub_conditional_if->expression_else_);
+	/*
 	}
+	*/
 
 	returning_ = NULL;
 
+	forced_assertion(condition_type_->type_ == ARN_TYPE_TYPE_BOOLEAN);
+
+	/*
 	if (condition_type_->type_ != ARN_TYPE_TYPE_BOOLEAN) {
+
 		returning_ = arn_type_default_constructor();
 		returning_->type_ = ARN_TYPE_TYPE_TYPE_ERROR_HAPPENED;
 		return returning_;
 	}
+	*/
 
+	forced_assertion(expression_then_type_->type_ !=
+			ARN_TYPE_TYPE_TYPE_ERROR_HAPPENED);
+
+	/*
 	if (expression_then_type_->type_ ==
 			ARN_TYPE_TYPE_TYPE_ERROR_HAPPENED) {
+
 		returning_ = arn_type_default_constructor();
 		returning_->type_ = ARN_TYPE_TYPE_TYPE_ERROR_HAPPENED;
 		return returning_;
 	}
+	*/
 
 	if (next_if_is_null_ == AMARA_BOOLEAN_TRUE) {
+
 		assertion(else_is_null_ == AMARA_BOOLEAN_FALSE);
+
+		forced_assertion(expression_else_type_->type_ !=
+				ARN_TYPE_TYPE_TYPE_ERROR_HAPPENED);
+
+		/*
 		if (expression_else_type_->type_ ==
 				ARN_TYPE_TYPE_TYPE_ERROR_HAPPENED) {
+
 			returning_ = arn_type_default_constructor();
 			returning_->type_ = ARN_TYPE_TYPE_TYPE_ERROR_HAPPENED;
 			return returning_;
 		}
+		*/
 	}
 
+	forced_assertion(else_is_null_ != AMARA_BOOLEAN_TRUE);
+
+	/*
 	if (else_is_null_ == AMARA_BOOLEAN_TRUE) {
+
 		assertion(next_if_is_null_ == AMARA_BOOLEAN_FALSE);
+
 		if (next_if_type_->type_ ==
 				ARN_TYPE_TYPE_TYPE_ERROR_HAPPENED) {
+
 			returning_ = arn_type_default_constructor();
 			returning_->type_ = ARN_TYPE_TYPE_TYPE_ERROR_HAPPENED;
 			return returning_;
 		}
 	}
+	*/
 
 	if (next_if_is_null_ == AMARA_BOOLEAN_TRUE) {
 		assertion(else_is_null_ == AMARA_BOOLEAN_FALSE);

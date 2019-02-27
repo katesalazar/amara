@@ -23,37 +23,88 @@
 #include "stt_operation.h"
 
 stt_operation *
-stt_operation_example_print_foo(void)
+stt_operation_example_print_string_literal_foo(void)
 __attribute__((warn_unused_result))
 ;
 
 #ifndef NDEBUG
 
 void
-assert_expectations_on_stt_operation_example_print_foo(
+assert_expectations_on_stt_operation_example_print_string_literal_foo(
 		const stt_operation * operation)
 ;
 
 #endif
 
 stt_operation *
-stt_operation_example_print_bar(void)
+stt_operation_example_print_string_literal_bar(void)
 __attribute__((warn_unused_result))
 ;
 
 #ifndef NDEBUG
 
 void
-assert_expectations_on_stt_operation_example_print_bar(
+assert_expectations_on_stt_operation_example_print_string_literal_bar(
 		const stt_operation * operation)
 ;
 
 #endif
 
 stt_operation *
-stt_operation_example_print_foo_no_crlf(void)
+stt_operation_example_print_string_literal_foo_no_crlf(void)
 __attribute__((warn_unused_result))
 ;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_operation_example_print_string_literal_foo_no_crlf(
+		const stt_operation * operation)
+;
+
+#endif
+
+stt_operation *
+stt_operation_example_print_identifier_foo(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_operation_example_print_identifier_foo(
+		const stt_operation * operation)
+;
+
+#endif
+
+stt_operation *
+stt_operation_example_read_natural_into_foo(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_operation_example_read_natural_into_foo(
+		const stt_operation * operation)
+;
+
+#endif
+
+stt_operation *
+stt_operation_example_read_integer_into_foo(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_operation_example_read_integer_into_foo(
+		const stt_operation * operation)
+;
+
+#endif
 
 void
 stt_operation_tests(void)

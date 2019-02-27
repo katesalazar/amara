@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,9 @@
 #define STT_EXECUTION_REQUEST_TYPE_CLI_APPLICATION 0xFF
 
 typedef struct stt_execution_request {
+
 	unsigned char type_;
+
 	amara_string * application_name_;
 } stt_execution_request;
 

@@ -166,6 +166,10 @@ Check out [`INSTALL_LEGACY.md`][5].
 
 ### to do
 
+* Leaks review.
+
+  * Because currently tests can not be run before applications, but only in an execution of their own, tests are written with special careless for leaks. This has to be fixed any time before the moment tests can be run before an actual application.
+
 * Valgrind and Gprof reporting.
 
 * Unicode support.
@@ -232,32 +236,30 @@ skeleton is _freeware_.
 
 ## copying
 
-Copyright (c)
+Copyright (c) 2018-2019 the *amara project* authors and contributors.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Authored by:
+* Authored by:
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-2018 &lt;your name here&gt;
+  * 2019 &lt;your name here&gt;
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-2018 Mercedes Catherine Salazar (katesalazar):
+    * &lt;your work here&gt;
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Lexicon, syntax, semantics, implementation, tests.
+  * 2018-2019 Mercedes Catherine Salazar (katesalazar):
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contributions by:
+    * (2019) Implementation, tests, documentation.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-2018 &lt;your name here&gt;
+    * (2018) Lexicon, syntax, semantics, implementation, tests, documentation.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-2018 Mia (spreadLink):
+* Contributions by:
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Sequential operations conjunction: lexicon (`OPERATION and then OPERATION`).
-Syntax consulting.
+  * 2019 &lt;your name here&gt;
+
+    * &lt;your work here&gt;
+
+  * 2018 Mia (spreadLink):
+
+    * Sequential operations conjunction: lexicon (`OPERATION and then OPERATION`).
+      Syntax consulting.
 
 Licensed to you under the terms of [the Apache License, version 2.0][29].
 

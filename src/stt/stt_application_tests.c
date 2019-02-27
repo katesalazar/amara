@@ -1,3 +1,21 @@
+/*
+ * Copyright 2018-2019 Mercedes Catherine Salazar
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * src/stt/stt_application_tests.c: Amara syntax tree application tests.
+ */
+
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
@@ -29,6 +47,21 @@ stt_application_example_print_bar()
 	application_->type_ = STT_APPLICATION_TYPE_CLI_APPLICATION;
 	return application_;
 }
+
+stt_application *
+stt_application_example_print_baz()
+{
+	stt_application * application_;
+	application_ = stt_application_default_constructor();
+	application_->name_ = amara_string_exhaustive_constructor(
+			"cli_app_print_baz");
+	application_->entry_point_function_name_ =
+			amara_string_exhaustive_constructor("print_baz");
+	application_->type_ = STT_APPLICATION_TYPE_CLI_APPLICATION;
+	return application_;
+}
+
+#ifndef NDEBUG
 
 void
 assert_expectations_on_stt_application_example_print_foo(
@@ -101,6 +134,44 @@ assert_expectations_on_stt_application_example_print_bar(
 	amara_string_destructor(entry_point_function_name_);
 	amara_string_destructor(application_name_);
 }
+
+void
+assert_expectations_on_stt_application_example_print_baz(
+		const stt_application * application)
+{
+	amara_string * application_name_;
+	amara_string * entry_point_function_name_;
+	amara_boolean equality_;
+
+	application_name_ = amara_string_exhaustive_constructor(
+			"cli_app_print_baz");
+	assertion(application_name_ != NULL);
+	assertion(application_name_->value_ != NULL);
+
+	entry_point_function_name_ =
+			amara_string_exhaustive_constructor("print_baz");
+	assertion(entry_point_function_name_ != NULL);
+	assertion(entry_point_function_name_->value_ != NULL);
+
+	assertion(application != NULL);
+	assertion(application->type_ == STT_APPLICATION_TYPE_CLI_APPLICATION);
+	assertion(application->name_ != NULL);
+	assertion(application->name_->value_ != NULL);
+	equality_ = amara_string_equality(
+			application->name_, application_name_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+	assertion(application->entry_point_function_name_ != NULL);
+	assertion(application->entry_point_function_name_->value_ != NULL);
+	equality_ = amara_string_equality(
+			application->entry_point_function_name_,
+			entry_point_function_name_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
+	amara_string_destructor(entry_point_function_name_);
+	amara_string_destructor(application_name_);
+}
+
+#endif
 
 void
 stt_application_construct_and_destruct_test_0()

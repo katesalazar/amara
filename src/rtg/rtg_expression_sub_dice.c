@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,6 +45,20 @@ rtg_expression_sub_dice_out_of_stt_expression_sub_dice(
 			expression_sub_dice->right_hand_side_natural_);
 
 	return returning_;
+}
+
+void
+rtg_expression_sub_dice_destructor(
+		rtg_expression_sub_dice * expression_sub_dice)
+{
+#ifndef NDEBUG
+	assertion(expression_sub_dice != NULL);
+	assertion(expression_sub_dice->left_hand_side_natural_ != NULL);
+	assertion(expression_sub_dice->right_hand_side_natural_ != NULL);
+#endif
+	natural_destructor(expression_sub_dice->left_hand_side_natural_);
+	natural_destructor(expression_sub_dice->right_hand_side_natural_);
+	free(expression_sub_dice);
 }
 
 #ifndef NDEBUG

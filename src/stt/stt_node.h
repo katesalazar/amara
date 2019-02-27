@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,6 +66,8 @@
 #include "stt_where_value_binding_subnode.h"
 #include "stt_where_value_bindings_subnode.h"
 
+typedef unsigned char stt_node_type;
+
 /*   This is an enumeration. */
 #define STT_NODE_TYPE_INVALID             0x00
 #define STT_NODE_TYPE_STRING_LITERAL      0x01
@@ -75,35 +77,51 @@
 #define STT_NODE_TYPE_IDENTIFIER          0x05
 #define STT_NODE_TYPE_CONDITION           0x06
 #define STT_NODE_TYPE_EXPRESSION          0x07
-#define STT_NODE_TYPE_WHERE_BINDING       0x08
-#define STT_NODE_TYPE_WHERE_BINDINGS      0x09
-#define STT_NODE_TYPE_OPERATION           0x0A
-#define STT_NODE_TYPE_OPERATIONS_LIST     0x0B
+#define STT_NODE_TYPE_OPERATION           0x08
+#define STT_NODE_TYPE_OPERATIONS_LIST     0x09
+#define STT_NODE_TYPE_WHERE_BINDING       0x0A
+#define STT_NODE_TYPE_WHERE_BINDINGS      0x0B
 #define STT_NODE_TYPE_NAMED_FUNCTION      0x0C
 #define STT_NODE_TYPE_APPLICATION         0x0D
-#define STT_NODE_TYPE_DOC_FRAGMENT        0x0E
-#define STT_NODE_TYPE_DOC                 0x0F
-#define STT_NODE_TYPE_EXECUTION_REQUEST   0x10
-#define STT_NODE_TYPE_CLI_OPERATIONS_LIST 0x11
+#define STT_NODE_TYPE_EXECUTION_REQUEST   0x0E
+#define STT_NODE_TYPE_DOC_FRAGMENT        0x0F
+#define STT_NODE_TYPE_DOC                 0x10
+#define STT_NODE_TYPE_CLI_OPERATIONS_LIST 0x81
 #define STT_NODE_TYPE_ERRORED             0xFF
 
 /*   `stt_node` for '**S**yn**t**ax **t**ree node'. */
 typedef struct stt_node {
-	unsigned char type_;
+
+	stt_node_type type_;
+
 	stt_string_literal_subnode * string_literal_subnode_;
+
 	stt_natural_literal_subnode * natural_literal_subnode_;
+
 	stt_integer_literal_subnode * integer_literal_subnode_;
+
 	stt_rational_literal_subnode * rational_literal_subnode_;
+
 	stt_identifier_subnode * identifier_subnode_;
+
 	stt_condition_subnode * condition_subnode_;
+
 	stt_expression_subnode * expression_subnode_;
+
 	stt_where_value_binding_subnode * where_value_binding_subnode_;
+
 	stt_where_value_bindings_subnode * where_value_bindings_subnode_;
+
 	stt_operation_subnode * operation_subnode_;
+
 	stt_operations_list_subnode * operations_list_subnode_;
+
 	stt_named_function_subnode * named_function_subnode_;
+
 	stt_application_subnode * application_subnode_;
+
 	stt_execution_request_subnode * execution_request_subnode_;
+
 	stt_doc_subnode * doc_subnode_;
 } stt_node
 ;
@@ -130,8 +148,16 @@ __attribute__((warn_unused_result))
 ;
 
 void
-stt_node_destructor(stt_node const *)
+stt_node_destructor(stt_node const * node)
 ;
+
+/*
+
+void
+stt_node_set_type(stt_node * node, const stt_node_type type)
+;
+
+*/
 
 void
 stt_node_set_string_literal(
@@ -213,24 +239,47 @@ stt_node_set_doc(
 		const stt_execution_requests_simple_list * execution_requests)
 ;
 
+amara_boolean
+stt_node_equality(const stt_node * n0, const stt_node * n1)
+__attribute__((warn_unused_result))
+;
+
 amara_string *
 stt_node_type_name(const stt_node * node)
 __attribute__((warn_unused_result))
 ;
 
-/*   Decorates `node` registering function `function`. */
+stt_node *
+stt_nodes_multiplication(const stt_node * node_0, const stt_node * node_1)
+__attribute__((warn_unused_result))
+;
+
+stt_node *
+stt_nodes_division(const stt_node * node_0, const stt_node * node_1)
+__attribute__((warn_unused_result))
+;
+
+stt_node *
+stt_nodes_substraction(const stt_node * node_0, const stt_node * node_1)
+__attribute__((warn_unused_result))
+;
+
+/*   Decorates `node` registering function `function`.
+ *   WATCH OUT, EDITS IN PLACE. */
 stt_node *
 register_named_function(stt_node * node, const stt_node * named_function_node)
 __attribute__((warn_unused_result))
 ;
 
-/*   Decorates `node` registering application `application`. */
+/*   Decorates `node` registering application `application`.
+ *   WATCH OUT, EDITS IN PLACE. */
 stt_node *
 register_application(stt_node * node, const stt_node * application_node)
 __attribute__((warn_unused_result))
 ;
 
-/*   Decorates `node` registering execution request `execution_request`. */
+/*   Decorates `node` registering execution request `execution_request`.
+ *   WATCH OUT, EDITS IN PLACE. */
 stt_node *
 register_execution_request(
 		stt_node * node, const stt_node * execution_request_node)
@@ -245,10 +294,13 @@ dump_syntax_tree(const stt_node * node)
 
 #define LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID 0x00
 #define LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_OK      0x0F
+#define LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_SUCCESS LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_OK
 #define LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR   0xF0
 
 typedef struct look_for_undefined_labels_ret {
+
 	unsigned char status;
+
 	char_arrays_simple_list * messages;
 } look_for_undefined_labels_ret
 ;
@@ -317,6 +369,10 @@ assert_clean_application_node(const stt_node * node)
 
 void
 assert_clean_execution_request_node(const stt_node * node)
+;
+
+void
+assert_clean_doc_fragment_node(const stt_node * node)
 ;
 
 void

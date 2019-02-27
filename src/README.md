@@ -21,7 +21,10 @@
 ## explanation of the directories names.
 
 * `arn`: The **a**pplications **r**u**n**ner, currently separated from
-the tests system.
+  the tests system. It also takes care of state vision on `rtg` data
+  structures, e.g. variable named references are resolved to the corresponding
+  values or to references to them, or any otherwise non constant name
+  reference.
 
 * `asr`: The **as**se**r**tions utilities are isolated because they tend to be
 not fully coverable by tests, as the failure to assert something makes a debug
@@ -45,9 +48,13 @@ being under C99.
 fully coverable by tests, abstracting uncoverable conditions proxied by docs of
 the `wrp/` directory.
 
-* `rtg`: Scripts **r**un **t**ime **g**raphs.
+* `rtg`: Scripts **r**un **t**ime **g**raphs. These data structures correspond
+  to the same data structures of `stt`, just that every possible constant name
+  reference is resolved to the corresponding pointer, or to the corresponding
+  otherwise non-pointer identifying reference.
 
-* `stt`: Scripts **s**yn**t**ax **t**rees.
+* `stt`: Scripts **s**yn**t**ax **t**rees. These data structures are faithful
+  representations of the tree structure of the documents written in minia DSL.
 
 * `tst`: The **t**e**st**s system is currently separated from applications
 running. But I have forgotten why.

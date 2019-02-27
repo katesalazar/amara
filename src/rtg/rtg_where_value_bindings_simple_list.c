@@ -154,16 +154,22 @@ void
 rtg_where_value_bindings_simple_list_assert_healthy(
 		const rtg_where_value_bindings_simple_list * list)
 {
-	assertion(list != NULL);
+	forced_assertion(list != NULL);
 
+	forced_assertion(list->first != NULL);
+
+	/*
 	if (list->first == NULL) {
 
 		assertion(list->next == NULL);
 	} else {
+	*/
 
 		rtg_where_value_bindings_simple_list_assert_healthy_inner(
 				list);
+	/*
 	}
+	*/
 }
 
 #endif

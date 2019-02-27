@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,22 +25,32 @@
 
 /*   This is an enumeration. */
 
+typedef unsigned char stt_operation_type;
+
 #define STT_OPERATION_TYPE_INVALID       0x00
 #define STT_OPERATION_TYPE_PRINT      0x03
 #define STT_OPERATION_TYPE_PRINT_CRLF 0x0C
 #define STT_OPERATION_TYPE_READ_NATURAL_TO_VALUE 0x2F
-#define STT_OPERATION_TYPE_READ_NATURAL_TO_VARIABLE 0x30
+#define STT_OPERATION_TYPE_READ_NATURAL_INTO_VALUE \
+		STT_OPERATION_TYPE_READ_NATURAL_TO_VALUE
+#define STT_OPERATION_TYPE_READ_INTEGER_INTO_VALUE 0x30
+/* #define STT_OPERATION_TYPE_READ_NATURAL_TO_VARIABLE 0x30  *//* TODO remove it temporarily */
+/* XXX mutate this into expression only
 #define STT_OPERATION_TYPE_RESOLVE_TYPE_OF_EXPRESSION 0x31
-#define STT_OPERATION_TYPE_MULTIPLICATION           0x32
-#define STT_OPERATION_TYPE_DIVISION                 0x33
-#define STT_OPERATION_TYPE_ADDITION                 0x34
-#define STT_OPERATION_TYPE_SUBSTRACTION             0x35
-#define STT_OPERATION_TYPE_PRINT_NO_CRLF            0xFF /* TODO obsolete, must remove */
+*/
+/* #define STT_OPERATION_TYPE_MULTIPLICATION           0x32 *//* XXX will mutate this into an expression only */
+/* #define STT_OPERATION_TYPE_DIVISION                 0x33 *//* XXX will mutate this into an expression only */
+/* #define STT_OPERATION_TYPE_ADDITION                 0x34 *//* XXX will mutate this into an expression only */
+/* #define STT_OPERATION_TYPE_SUBSTRACTION             0x35 *//* XXX will mutate this into an expression only */
+/* #define STT_OPERATION_TYPE_PRINT_NO_CRLF            0xFF *//* TODO obsolete, must remove */
 
 typedef struct stt_operation {
-	unsigned char type_;
+
+	stt_operation_type type_;
+
 	stt_operation_args_simple_list * args_;
-} stt_operation;
+} stt_operation
+;
 
 stt_operation *
 stt_operation_default_constructor(void)
@@ -54,6 +64,17 @@ __attribute__((warn_unused_result))
 
 void
 stt_operation_destructor(stt_operation * operation)
+;
+
+void
+stt_operation_set_type(
+		stt_operation * operation, const stt_operation_type type)
+;
+
+void
+stt_operation_set_args(
+		stt_operation * operation,
+		const stt_operation_args_simple_list * args)
 ;
 
 #endif

@@ -112,7 +112,13 @@ char_arrays_simple_list_concat(
 	char_arrays_simple_list * ptr_out_;
 	/*   To be returned. */
 	char_arrays_simple_list * ret_;
-	assertion(list_zero != NULL);
+
+	if (list_zero == NULL) {
+
+		ret_ = char_arrays_simple_list_copy_constructor(list_one);
+		return ret_;
+	}
+
 	assertion(list_one != NULL);
 	if (list_zero->first == NULL) {
 		assertion(list_zero->next == NULL);

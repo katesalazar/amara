@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,9 @@
 
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
+
+/*   For `void stt_node_destructor(stt_node const * node)`. */
+#include "stt_node.h"
 
 /*   For own definitions. */
 #include "stt_operation_arg.h"
@@ -70,4 +73,74 @@ stt_operation_arg_copy_constructor(const stt_operation_arg * operation_arg)
 	*/
 	ret_->type_ = operation_arg->type_;
 	return ret_;
+}
+
+void
+stt_operation_arg_destructor(const stt_operation_arg * operation_arg)
+{
+#ifndef NDEBUG
+	assertion(operation_arg != NULL);
+	assertion(operation_arg->type_ == STT_OPERATION_ARG_TYPE_VALID);
+#endif
+	stt_node_destructor(operation_arg->node_);
+}
+
+void
+stt_operation_arg_set_type(
+		stt_operation_arg * operation_arg,
+		const stt_operation_arg_type type)
+{
+	forced_assertion(operation_arg != NULL);
+	forced_assertion(type == STT_OPERATION_ARG_TYPE_VALID);
+	forced_assertion(operation_arg->type_ ==
+			/*
+			STT_OPERATION_ARG_TYPE_INVALID
+			*/
+			STT_OPERATION_ARG_TYPE_VALID
+	);
+	operation_arg->type_ = STT_OPERATION_ARG_TYPE_VALID;
+}
+
+void
+stt_operation_arg_set_node(
+		stt_operation_arg * operation_arg,
+		const struct stt_node * node)
+{
+	forced_assertion(operation_arg != NULL);
+	forced_assertion(operation_arg->type_ ==
+			STT_OPERATION_ARG_TYPE_INVALID);
+	operation_arg->node_ = stt_node_copy_constructor(node);
+	operation_arg->type_ = STT_OPERATION_ARG_TYPE_VALID;
+}
+
+void
+stt_operation_arg_set_string_literal(
+		stt_operation_arg * operation_arg,
+		const amara_string * string_literal)
+{
+	forced_assertion(operation_arg != NULL);
+	forced_assertion(operation_arg->type_ ==
+			STT_OPERATION_ARG_TYPE_INVALID);
+	operation_arg->node_ = stt_node_default_constructor();
+	stt_node_set_string_literal(operation_arg->node_, string_literal);
+	/*
+	stt_node_set_type(operation_arg->node_, STT_NODE_TYPE_STRING_LITERAL);
+	*/
+	operation_arg->type_ = STT_OPERATION_ARG_TYPE_VALID;
+}
+
+void
+stt_operation_arg_set_identifier(
+		stt_operation_arg * operation_arg,
+		const amara_string * identifier)
+{
+	forced_assertion(operation_arg != NULL);
+	forced_assertion(operation_arg->type_ ==
+			STT_OPERATION_ARG_TYPE_INVALID);
+	operation_arg->node_ = stt_node_default_constructor();
+	stt_node_set_identifier(operation_arg->node_, identifier);
+	/*
+	stt_node_set_type(operation_arg->node_, STT_NODE_TYPE_IDENTIFIER);
+	*/
+	operation_arg->type_ = STT_OPERATION_ARG_TYPE_VALID;
 }

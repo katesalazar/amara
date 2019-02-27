@@ -3,5 +3,15 @@
 
 SUCCESS='0'
 
+GCDA_DOCS=`find ./ | grep \.gcda$`
 
-rm -v `find ./ | grep \.gcda$` && exit ${SUCCESS} || exit ${SUCCESS}
+# echo "\${GCDA_DOCS}: ${GCDA_DOCS}"
+
+if test $? -eq 64 -o $? -eq 1
+then
+    # echo $?
+    true
+else
+    # echo $?
+    rm -v ${GCDA_DOCS} && exit ${SUCCESS} || exit ${SUCCESS}
+fi

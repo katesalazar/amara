@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,64 @@
 
 /*   For `typedef stt_dice_expression { ... } stt_dice_expression`. */
 #include "stt_dice_expression.h"
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_dice_expression_example_single_vanilla_dice(
+		const stt_dice_expression * dice_expression)
+{
+	assertion(dice_expression != NULL);
+	assertion(dice_expression->left_hand_side_natural_ != NULL);
+	assertion(dice_expression->left_hand_side_natural_->raw_ != NULL);
+	assertion(dice_expression->left_hand_side_natural_->raw_->value_ !=
+			NULL);
+	assertion(dice_expression->left_hand_side_natural_->raw_->value_[0] ==
+			'1');
+	assertion(dice_expression->left_hand_side_natural_->raw_->value_[1] ==
+			'\0');
+	assertion(dice_expression->right_hand_side_natural_ != NULL);
+	assertion(dice_expression->right_hand_side_natural_->raw_ != NULL);
+	assertion(dice_expression->right_hand_side_natural_->raw_->value_ !=
+			NULL);
+	assertion(dice_expression->right_hand_side_natural_->raw_->value_[0] ==
+			'6');
+	assertion(dice_expression->right_hand_side_natural_->raw_->value_[1] ==
+			'\0');
+}
+
+#endif
+
+stt_dice_expression *
+stt_dice_expression_example_single_vanilla_dice()
+{
+	stt_dice_expression * ret_;
+	natural * left_hand_side_natural_;
+	natural * right_hand_side_natural_;
+
+	left_hand_side_natural_ = natural_example_one();
+	forced_assertion(left_hand_side_natural_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_natural_example_one(left_hand_side_natural_);
+#endif
+
+	right_hand_side_natural_ = natural_example_six();
+	forced_assertion(right_hand_side_natural_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_natural_example_six(right_hand_side_natural_);
+#endif
+
+	ret_ = stt_dice_expression_exhaustive_constructor(
+			left_hand_side_natural_, right_hand_side_natural_);
+
+	forced_assertion(ret_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_dice_expression_example_single_vanilla_dice(
+			ret_);
+#endif
+
+	return ret_;
+}
 
 void
 stt_dice_expression_constructors_test_0()

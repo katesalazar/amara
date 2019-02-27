@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,21 +61,24 @@ stt_doc_subnode_exhaustive_constructor(
 				stt_named_functions_simple_list_copy_constructor(
 						named_functions);
 	} else {
-		ret_->named_functions_ = NULL;
+		ret_->named_functions_ =
+				stt_named_functions_simple_list_default_constructor();
 	}
 	if (applications != NULL /* && applications->first != NULL */) {
 		ret_->applications_ =
 				stt_applications_simple_list_copy_constructor(
 						applications);
 	} else {
-		ret_->applications_ = NULL;
+		ret_->applications_ =
+				stt_applications_simple_list_default_constructor();
 	}
 	if (execution_requests != NULL /* && execution_requests->first != NULL */) {
 		ret_->execution_requests_ =
 				stt_execution_requests_simple_list_copy_constructor(
 						execution_requests);
 	} else {
-		ret_->execution_requests_ = NULL;
+		ret_->execution_requests_ =
+				stt_execution_requests_simple_list_default_constructor();
 	}
 	return ret_;
 }
@@ -85,61 +88,100 @@ stt_doc_subnode_copy_constructor(const stt_doc_subnode * subnode)
 {
 	stt_doc_subnode * ret_;
 	assertion(subnode != NULL);
+	assertion(subnode->named_functions_ != NULL);
+	/*
 	if (subnode->named_functions_ == NULL) {
+	*/
 		/*if (subnode->applications_ == NULL) {
 			assertion(subnode->execution_requests_ != NULL);
 		}*/
+	/*
 		assertion(subnode->applications_ == NULL);
 		assertion(subnode->execution_requests_ == NULL);
 	}
+	*/
 	ret_ = malloc(sizeof(stt_doc_subnode));
+	assertion(subnode->named_functions_ != NULL);
+	/*
 	if (subnode->named_functions_ != NULL) {
+	*/
 		ret_->named_functions_ =
 				stt_named_functions_simple_list_copy_constructor(
 						subnode->named_functions_);
+	/*
 	} else {
-		ret_->named_functions_ = NULL;
+		ret_->named_functions_ =
+				stt_named_functions_simple_list_default_constructor();
 	}
+	*/
+	assertion(subnode->applications_ != NULL);
+	/*
 	if (subnode->applications_ != NULL) {
+	*/
 		ret_->applications_ =
 				stt_applications_simple_list_copy_constructor(
 						subnode->applications_);
+	/*
 	} else {
-		ret_->applications_ = NULL;
+		ret_->applications_ =
+				stt_applications_simple_list_default_constructor();
 	}
+	*/
+	assertion(subnode->execution_requests_ != NULL);
+	/*
 	if (subnode->execution_requests_ != NULL) {
+	*/
 		ret_->execution_requests_ =
 				stt_execution_requests_simple_list_copy_constructor(
 						subnode->execution_requests_);
+	/*
 	} else {
-		ret_->execution_requests_ = NULL;
+		ret_->execution_requests_ =
+				stt_execution_requests_simple_list_default_constructor();
 	}
+	*/
 	return ret_;
 }
 
 void
 stt_doc_subnode_destructor(stt_doc_subnode * subnode)
 {
-	assertion(subnode != NULL); /* XXX */
+	forced_assertion(subnode != NULL); /* XXX */
+
 	if (subnode->named_functions_ == NULL) { /* XXX */
+
 		assertion(subnode->applications_ == NULL); /* XXX */
 		assertion(subnode->execution_requests_ == NULL); /* XXX */
 	} else { /* XXX */
+
 		assertion(subnode->named_functions_ != NULL);
 		/*if (subnode->named_functions_ != NULL) {*/ /* XXX */
 			stt_named_functions_simple_list_destructor( /* XXX */
 					subnode->named_functions_); /* XXX */
 		/*}*/ /* XXX */
+
 		assertion(subnode->applications_ != NULL);
-		/*if (subnode->applications_ != NULL) {*/ /* XXX */
-			stt_applications_simple_list_destructor( /* XXX */
-					subnode->applications_); /* XXX */
-		/*}*/ /* XXX */
+		/*
+		if (subnode->applications_ != NULL) {
+		*/
+
+			stt_applications_simple_list_destructor(
+					subnode->applications_);
+		/*
+		}
+		*/
+
 		assertion(subnode->execution_requests_ != NULL);
-		/*if (subnode->execution_requests_ != NULL) {*/ /* XXX */
-			stt_execution_requests_simple_list_destructor( /* XXX */
-					subnode->execution_requests_); /* XXX */
-		/*}*/ /* XXX */
+		/*
+		if (subnode->execution_requests_ != NULL) {
+		*/
+
+			stt_execution_requests_simple_list_destructor(
+					subnode->execution_requests_);
+		/*
+		}
+		*/
 	} /* XXX */
+
 	free(subnode); /* XXX */
 }

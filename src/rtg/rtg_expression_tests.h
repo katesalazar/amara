@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,12 +26,63 @@
 #ifndef NDEBUG
 
 void
+assert_expectations_on_rtg_expression_example_string_literal_foo(
+		const rtg_expression * expression)
+;
+
+#endif
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_expression_example_string_literal_bar(
+		const rtg_expression * expression)
+;
+
+#endif
+
+#ifndef NDEBUG
+
+void
 assert_expectations_on_rtg_expression_example_natural_literal_zero(
 		const rtg_expression * expression)
 ;
 
+#endif
+
+#ifndef NDEBUG
+
 void
 assert_expectations_on_rtg_expression_example_natural_literal_one(
+		const rtg_expression * expression)
+;
+
+#endif
+
+rtg_expression *
+rtg_expression_example_identifier_foo(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_expression_example_identifier_foo(
+		const rtg_expression * expression)
+;
+
+#endif
+
+/**  `1d6`. */
+rtg_expression *
+rtg_expression_example_single_vanilla_dice(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_expression_example_single_vanilla_dice(
 		const rtg_expression * expression)
 ;
 
@@ -51,5 +102,9 @@ assert_expectations_on_rtg_expression_example_simple_conditional(
 ;
 
 #endif
+
+void
+rtg_expression_tests(void)
+;
 
 #endif

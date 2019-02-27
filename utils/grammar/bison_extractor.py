@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 #
-# Copyright 2018 Mercedes Catherine Salazar
+# Copyright 2018-2019 Mercedes Catherine Salazar
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,9 +19,12 @@
 # doc.
 #
 
+
 #   The input Bison doc is required to be written in Bellard's canonical
 # format.
 
+
+from datetime import datetime as datetime_datetime
 
 from os import getcwd as os_getcwd
 
@@ -40,6 +43,33 @@ def modify(line):
     """ modify a line. """
 
     return line.replace('T_', '', 1).replace(' T_', ' ')
+
+
+def dump_license(write_handle):
+    """   TODO This embedded license **must** come from a shared
+        resource document."""
+
+    now_ = datetime_datetime.now()
+    year_ = now_.year
+    year_as_string_ = str(year_)
+    write_handle.write('/*\n')
+    write_handle.write(' * Copyright 2018-' + year_as_string_ + ' Mercedes Catherine Salazar\n')
+    write_handle.write(' *\n')
+    write_handle.write(' * Licensed under the Apache License, Version 2.0 (the "License");\n')
+    write_handle.write(' * you may not use this file except in compliance with the License.\n')
+    write_handle.write(' * You may obtain a copy of the License at\n')
+    write_handle.write(' *\n')
+    write_handle.write(' *     http://www.apache.org/licenses/LICENSE-2.0\n')
+    write_handle.write(' *\n')
+    write_handle.write(' * Unless required by applicable law or agreed to in writing, software\n')
+    write_handle.write(' * distributed under the License is distributed on an "AS IS" BASIS,\n')
+    write_handle.write(' * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n')
+    write_handle.write(' * See the License for the specific language governing permissions and\n')
+    write_handle.write(' * limitations under the License.\n')
+    write_handle.write(' *\n')
+    write_handle.write(' * res/minia.grammar: Minia grammar as extracted from a Bison document.\n')
+    write_handle.write(' */\n')
+    write_handle.write('\n')
 
 
 def do():
@@ -109,6 +139,7 @@ def do():
 
     print('dumping to output doc...')
     with open('../../res/minia.grammar', 'w') as d:
+        dump_license(d)
         for selected_line in selected_lines:
             d.write(modify(selected_line) + '\n')
     print('done')

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__EXECUTION_REQUESTS_SIMPLE_LIST__H__
 #define __AMARA__RUN_TIME_GRAPH__EXECUTION_REQUESTS_SIMPLE_LIST__H__
 
+#include "../cmn/amara_strings_simple_list.h"
+
 /*   For `stt_doc_subnode`. */
 #include "../stt/stt_doc_subnode.h"
 
@@ -33,9 +35,12 @@
 #include "rtg_execution_request.h"
 
 typedef struct rtg_execution_requests_simple_list {
+
 	rtg_execution_request * first;
+
 	struct rtg_execution_requests_simple_list * next;
-} rtg_execution_requests_simple_list;
+} rtg_execution_requests_simple_list
+;
 
 rtg_execution_requests_simple_list *
 rtg_execution_requests_simple_list_default_constructor(void)
@@ -61,19 +66,27 @@ __attribute__((warn_unused_result))
 ;
 
 #define RTG_EXECUTION_REQUESTS_SIMPLE_LIST_OUT_OF_STT_EXECUTION_REQUESTS_SIMPLE_LIST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_INVALID 0x00
+#define RTG_EXECUTION_REQUESTS_SIMPLE_LIST_OUT_OF_STT_EXECUTION_REQUESTS_SIMPLE_LIST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_ONE_OR_MORE_APPLICATIONS_NOT_FOUND 0x0A
 #define RTG_EXECUTION_REQUESTS_SIMPLE_LIST_OUT_OF_STT_EXECUTION_REQUESTS_SIMPLE_LIST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC 0x0F
 #define RTG_EXECUTION_REQUESTS_SIMPLE_LIST_OUT_OF_STT_EXECUTION_REQUESTS_SIMPLE_LIST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list_ret {
+
 	unsigned char status;
+
+	amara_strings_simple_list * error_messages;
+
 	rtg_execution_requests_simple_list * execution_requests;
-} rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list_ret;
+} rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list_ret
+;
 
 /*
+
 void
 rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list_ret_destructor(
 		rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list_ret * rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list_ret_)
 ;
+
 */
 
 rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list_ret *
@@ -84,14 +97,19 @@ __attribute__((warn_unused_result))
 ;
 
 #define RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_INVALID 0x00
+#define RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_ONE_OR_MORE_APPLICATIONS_REQUESTED_TO_BE_EXECUTED_NOT_FOUND 0x0A
 #define RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC 0x0F
 #define RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret {
+
 	unsigned char status;
+
+	amara_strings_simple_list * error_messages;
+
 	rtg_execution_requests_simple_list * execution_requests;
-	amara_boolean execution_requests_were_moved;
-} rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret;
+} rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret
+;
 
 void
 rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_destructor(

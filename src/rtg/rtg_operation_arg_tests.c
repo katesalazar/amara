@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,15 @@
  * application function operation argument class.
  */
 
+/*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
-#include "rtg_operation_arg.h"
+
+/*   For `stt_operation_arg *
+ * stt_operation_arg_example_natural_literal_zero()`. */
+#include "../stt/stt_operation_arg_tests.h"
+
+/*   For own prototypes. */
+#include "rtg_operation_arg_tests.h"
 
 rtg_operation_arg *
 rtg_operation_arg_example_string_literal_foo()
@@ -49,6 +56,8 @@ rtg_operation_arg_example_string_literal_foo()
 	return operation_arg_;
 }
 
+#ifndef NDEBUG
+
 void
 assert_expectations_on_rtg_operation_arg_example_string_literal_foo(
 		const rtg_operation_arg * operation_arg)
@@ -72,19 +81,42 @@ assert_expectations_on_rtg_operation_arg_example_string_literal_foo(
 	amara_string_destructor(expected_string_literal_);
 }
 
+#endif
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_operation_arg_example_natural_literal_zero(
+		const rtg_operation_arg * operation_arg)
+{
+	assertion(operation_arg != NULL);
+	assertion(operation_arg->type_ ==
+			RTG_OPERATION_ARG_TYPE_NATURAL_LITERAL);
+	assertion(operation_arg->natural_literal_ != NULL);
+	assertion(operation_arg->natural_literal_->value_ != NULL);
+	assertion(operation_arg->natural_literal_->value_[0] == '0');
+	assertion(operation_arg->natural_literal_->value_[1] == '\0');
+}
+
+#endif
+
 rtg_operation_arg *
 rtg_operation_arg_example_identifier_foo()
 {
-	return rtg_operation_arg_example_string_literal_foo(); /* XXX */
+	return rtg_operation_arg_example_string_literal_foo(); /* XXX */ /* FIXME */
 }
+
+#ifndef NDEBUG
 
 void
 assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 		const rtg_operation_arg * operation_arg)
 {
-	assert_expectations_on_rtg_operation_arg_example_string_literal_foo( /* XXX */
-			operation_arg); /* XXX */
+	assert_expectations_on_rtg_operation_arg_example_string_literal_foo( /* XXX */ /* FIXME */
+			operation_arg); /* XXX */ /* FIXME */
 }
+
+#endif
 
 rtg_operation_arg *
 rtg_operation_arg_example_identifier_bar()
@@ -121,6 +153,8 @@ rtg_operation_arg_example_identifier_bar()
 	return operation_arg_;
 }
 
+#ifndef NDEBUG
+
 void
 assert_expectations_on_rtg_operation_arg_example_identifier_bar(
 		const rtg_operation_arg * operation_arg)
@@ -143,8 +177,10 @@ assert_expectations_on_rtg_operation_arg_example_identifier_bar(
 	amara_string_destructor(expected_identifier_);
 }
 
+#endif
+
 void
-rtg_operation_arg_construct_and_destruct_test_0()
+rtg_operation_arg_default_constructor_test()
 {
 	rtg_operation_arg * operation_arg_;
 
@@ -156,9 +192,70 @@ rtg_operation_arg_construct_and_destruct_test_0()
 }
 
 void
+rtg_operation_arg_copy_constructor_test_0()
+{
+	stt_operation_arg * stt_operation_arg_;
+	rtg_operation_arg_out_of_stt_operation_arg_ret * rtg_operation_arg_out_of_stt_operation_arg_ret_;
+	rtg_operation_arg * rtg_operation_arg_zero_;
+	rtg_operation_arg * rtg_operation_arg_one_;
+
+	stt_operation_arg_ = stt_operation_arg_example_natural_literal_zero();
+	forced_assertion(stt_operation_arg_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_arg_example_natural_literal_zero(
+			stt_operation_arg_);
+#endif
+
+	rtg_operation_arg_out_of_stt_operation_arg_ret_ =
+			rtg_operation_arg_out_of_stt_operation_arg(
+					stt_operation_arg_,
+					STT_OPERATION_TYPE_PRINT,
+					NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_arg_example_natural_literal_zero(
+			stt_operation_arg_);
+#endif
+	forced_assertion(rtg_operation_arg_out_of_stt_operation_arg_ret_ !=
+			NULL);
+	forced_assertion(rtg_operation_arg_out_of_stt_operation_arg_ret_->status ==
+			RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS);
+	forced_assertion(rtg_operation_arg_out_of_stt_operation_arg_ret_->operation_arg !=
+			NULL);
+	rtg_operation_arg_zero_ =
+			rtg_operation_arg_out_of_stt_operation_arg_ret_->operation_arg;
+#ifndef NDEBUG
+	assert_expectations_on_rtg_operation_arg_example_natural_literal_zero(
+			rtg_operation_arg_zero_);
+#endif
+
+	rtg_operation_arg_one_ = rtg_operation_arg_copy_constructor(
+			rtg_operation_arg_zero_);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_operation_arg_example_natural_literal_zero(
+			rtg_operation_arg_zero_);
+#endif
+	forced_assertion(rtg_operation_arg_one_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_operation_arg_example_natural_literal_zero(
+			rtg_operation_arg_one_);
+#endif
+
+	rtg_operation_arg_destructor(rtg_operation_arg_one_);
+	rtg_operation_arg_destructor(rtg_operation_arg_zero_);
+	stt_operation_arg_destructor(stt_operation_arg_);
+}
+
+void
+rtg_operation_arg_copy_constructor_tests()
+{
+	rtg_operation_arg_copy_constructor_test_0();
+}
+
+void
 rtg_operation_arg_construct_and_destruct_tests()
 {
-	rtg_operation_arg_construct_and_destruct_test_0();
+	rtg_operation_arg_default_constructor_test();
+	rtg_operation_arg_copy_constructor_tests();
 }
 
 /* FIXME Remove leaks in this test. */
@@ -314,12 +411,45 @@ rtg_operation_arg_type_setter_test_3_set_invalid_when_being_invalid()
 }
 
 void
+rtg_operation_arg_type_setter_test_4_set_invalid_when_being_string_literal()
+{
+	rtg_operation_arg * operation_arg_;
+
+	operation_arg_ = rtg_operation_arg_default_constructor();
+	forced_assertion(operation_arg_ != NULL);
+#ifndef NDEBUG
+	assertion(operation_arg_->type_ == RTG_OPERATION_ARG_TYPE_INVALID);
+#endif
+
+	rtg_operation_arg_set_string_literal(operation_arg_, amara_string_exhaustive_constructor("foo"));
+	/* TODO missing assertions */
+	/* FIXME memory gets leaked */
+
+	rtg_operation_arg_set_type(
+			operation_arg_, RTG_OPERATION_ARG_TYPE_STRING_LITERAL);
+	/* TODO missing assertions */
+
+	rtg_operation_arg_set_type(
+			operation_arg_, RTG_OPERATION_ARG_TYPE_INVALID);
+#ifndef NDEBUG
+	assertion(operation_arg_->type_ == RTG_OPERATION_ARG_TYPE_INVALID);
+	assertion(operation_arg_->string_literal_ == NULL);
+	assertion(operation_arg_->natural_literal_ == NULL);
+	assertion(operation_arg_->identifier_ == NULL);
+	assertion(operation_arg_->operation_ == NULL);
+#endif
+
+	rtg_operation_arg_destructor(operation_arg_);
+}
+
+void
 rtg_operation_arg_type_setter_tests()
 {
 	rtg_operation_arg_type_setter_test_0_string_literal();
 	rtg_operation_arg_type_setter_test_1_natural_literal();
 	rtg_operation_arg_type_setter_test_2_identifier();
 	rtg_operation_arg_type_setter_test_3_set_invalid_when_being_invalid();
+	rtg_operation_arg_type_setter_test_4_set_invalid_when_being_string_literal();
 }
 
 void

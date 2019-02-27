@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,15 +75,24 @@ stt_named_function_exhaustive_constructor(
 	assertion(operations->first->args_->next == NULL);
 	assertion(operations->next == NULL);
 	*/
-	assertion(where_value_bindings_ != NULL);
+
 	ret_ = malloc(sizeof(stt_named_function));
+	forced_assertion(ret_ != NULL);
 	ret_->type_ = STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION;
 	ret_->name_ = amara_string_copy_constructor(name);
 	ret_->operations_ = stt_operations_simple_list_copy_constructor(
 			operations);
+
+	if (where_value_bindings_ != NULL) {
+
 	ret_->where_value_bindings_ =
 			stt_where_value_bindings_simple_list_copy_constructor(
 					where_value_bindings_);
+	} else {
+		ret_->where_value_bindings_ =
+				stt_where_value_bindings_simple_list_default_constructor();
+	}
+
 	return ret_;
 }
 

@@ -25,16 +25,68 @@
 #include "stt_execution_request_tests.h"
 #include "stt_named_function_tests.h"
 
+#include "stt_named_functions_simple_list_tests.h"
+
+stt_doc_subnode *
+stt_doc_subnode_example_one_invalid_named_function()
+{
+	stt_named_functions_simple_list * named_functions_;
+	stt_applications_simple_list * applications_;
+	stt_execution_requests_simple_list * execution_requests_;
+	stt_doc_subnode * ret_;
+
+	named_functions_ =
+			stt_named_functions_simple_list_example_one_invalid_named_function();
+	forced_assertion(named_functions_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_named_functions_simple_list_example_one_invalid_named_function(
+			named_functions_);
+#endif
+
+	applications_ = NULL;
+
+	execution_requests_ = NULL;
+
+	ret_ = stt_doc_subnode_exhaustive_constructor(
+			named_functions_, applications_, execution_requests_);
+
+	stt_named_functions_simple_list_destructor(named_functions_);
+
+	return ret_;
+}
+
 #ifndef NDEBUG
 
 void
-assert_expectations_on_stt_doc_subnode_example_print_foo(
+assert_expectations_on_stt_doc_subnode_example_one_invalid_named_function(
+		const stt_doc_subnode * doc_subnode)
+{
+	assertion(doc_subnode != NULL);
+	assertion(doc_subnode->named_functions_ != NULL);
+	assertion(doc_subnode->named_functions_->first != NULL);
+	assert_expectations_on_stt_named_function_ill_formed_example_print_identifier_foo(
+			doc_subnode->named_functions_->first);
+	assertion(doc_subnode->named_functions_->next == NULL);
+	assertion(doc_subnode->applications_ != NULL);
+	assertion(doc_subnode->applications_->first == NULL);
+	assertion(doc_subnode->applications_->next == NULL);
+	assertion(doc_subnode->execution_requests_ != NULL);
+	assertion(doc_subnode->execution_requests_->first == NULL);
+	assertion(doc_subnode->execution_requests_->next == NULL);
+}
+
+#endif
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_doc_subnode_example_print_string_literal_foo(
 		const stt_doc_subnode * subnode)
 {
 	assertion(subnode != NULL);
 	assertion(subnode->named_functions_ != NULL);
 	assertion(subnode->named_functions_->first != NULL);
-	assert_expectations_on_stt_named_function_example_print_foo(
+	assert_expectations_on_stt_named_function_example_print_string_literal_foo(
 			subnode->named_functions_->first);
 	assertion(subnode->named_functions_->next == NULL);
 	assertion(subnode->applications_ != NULL);
@@ -72,7 +124,8 @@ stt_doc_subnode_construct_and_destruct_test_1()
 	stt_named_functions_simple_list * named_functions_;
 	stt_applications_simple_list * applications_;
 	stt_execution_requests_simple_list * execution_requests_;
-	named_function_ = stt_named_function_example_print_foo();
+	named_function_ =
+			stt_named_function_example_print_string_literal_foo();
 	named_functions_ =
 			stt_named_functions_simple_list_default_constructor();
 	named_functions_ = stt_named_functions_simple_list_push_front(
@@ -147,15 +200,29 @@ stt_doc_subnode_construct_and_destruct_test_3()
 	stt_named_functions_simple_list * named_functions_;
 	stt_applications_simple_list * applications_;
 	stt_execution_requests_simple_list * execution_requests_;
+
 	named_functions_ = NULL;
 	applications_ = NULL;
 	execution_requests_ = NULL;
 	doc_subnode_ = stt_doc_subnode_exhaustive_constructor(
 			named_functions_, applications_, execution_requests_);
-	assertion(doc_subnode_ != NULL);
-	assertion(doc_subnode_->named_functions_ == NULL);
-	assertion(doc_subnode_->applications_ == NULL);
-	assertion(doc_subnode_->execution_requests_ == NULL);
+	forced_assertion(doc_subnode_ != NULL);
+	forced_assertion(doc_subnode_->named_functions_ != NULL);
+#ifndef NDEBUG
+	assertion(doc_subnode_->named_functions_->first == NULL);
+	assertion(doc_subnode_->named_functions_->next == NULL);
+#endif
+	forced_assertion(doc_subnode_->applications_ != NULL);
+#ifndef NDEBUG
+	assertion(doc_subnode_->applications_->first == NULL);
+	assertion(doc_subnode_->applications_->next == NULL);
+#endif
+	forced_assertion(doc_subnode_->execution_requests_ != NULL);
+#ifndef NDEBUG
+	assertion(doc_subnode_->execution_requests_->first == NULL);
+	assertion(doc_subnode_->execution_requests_->next == NULL);
+#endif
+
 	stt_doc_subnode_destructor(doc_subnode_);
 }
 
@@ -167,20 +234,47 @@ stt_doc_subnode_construct_and_destruct_test_4()
 	stt_named_functions_simple_list * named_functions_;
 	stt_applications_simple_list * applications_;
 	stt_execution_requests_simple_list * execution_requests_;
+
 	named_functions_ = NULL;
 	applications_ = NULL;
 	execution_requests_ = NULL;
 	doc_subnode_zero_ = stt_doc_subnode_exhaustive_constructor(
 			named_functions_, applications_, execution_requests_);
-	assertion(doc_subnode_zero_ != NULL);
-	assertion(doc_subnode_zero_->named_functions_ == NULL);
-	assertion(doc_subnode_zero_->applications_ == NULL);
-	assertion(doc_subnode_zero_->execution_requests_ == NULL);
+	forced_assertion(doc_subnode_zero_ != NULL);
+	forced_assertion(doc_subnode_zero_->named_functions_ != NULL);
+#ifndef NDEBUG
+	assertion(doc_subnode_zero_->named_functions_->first == NULL);
+	assertion(doc_subnode_zero_->named_functions_->next == NULL);
+#endif
+	forced_assertion(doc_subnode_zero_->applications_ != NULL);
+#ifndef NDEBUG
+	assertion(doc_subnode_zero_->applications_->first == NULL);
+	assertion(doc_subnode_zero_->applications_->next == NULL);
+#endif
+	forced_assertion(doc_subnode_zero_->execution_requests_ != NULL);
+#ifndef NDEBUG
+	assertion(doc_subnode_zero_->execution_requests_->first == NULL);
+	assertion(doc_subnode_zero_->execution_requests_->next == NULL);
+#endif
+
 	doc_subnode_one_ = stt_doc_subnode_copy_constructor(doc_subnode_zero_);
-	assertion(doc_subnode_one_ != NULL);
-	assertion(doc_subnode_one_->named_functions_ == NULL);
-	assertion(doc_subnode_one_->applications_ == NULL);
-	assertion(doc_subnode_one_->execution_requests_ == NULL);
+	forced_assertion(doc_subnode_one_ != NULL);
+	forced_assertion(doc_subnode_one_->named_functions_ != NULL);
+#ifndef NDEBUG
+	assertion(doc_subnode_one_->named_functions_->first == NULL);
+	assertion(doc_subnode_one_->named_functions_->next == NULL);
+#endif
+	forced_assertion(doc_subnode_one_->applications_ != NULL);
+#ifndef NDEBUG
+	assertion(doc_subnode_one_->applications_->first == NULL);
+	assertion(doc_subnode_one_->applications_->next == NULL);
+#endif
+	forced_assertion(doc_subnode_one_->execution_requests_ != NULL);
+#ifndef NDEBUG
+	assertion(doc_subnode_one_->execution_requests_->first == NULL);
+	assertion(doc_subnode_one_->execution_requests_->next == NULL);
+#endif
+
 	stt_doc_subnode_destructor(doc_subnode_one_);
 	stt_doc_subnode_destructor(doc_subnode_zero_);
 }

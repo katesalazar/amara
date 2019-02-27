@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,10 +34,16 @@ typedef struct rtg_expression_sub_dice {
 } rtg_expression_sub_dice
 ;
 
+/**  Transformation constructor. */
 rtg_expression_sub_dice *
 rtg_expression_sub_dice_out_of_stt_expression_sub_dice(
 		const stt_expression_sub_dice * expression_sub_dice)
 __attribute__((warn_unused_result))
+;
+
+void
+rtg_expression_sub_dice_destructor(
+		rtg_expression_sub_dice * expression_sub_dice)
 ;
 
 #ifndef NDEBUG

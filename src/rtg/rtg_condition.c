@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ assertion(int expression)
 /*   For `rtg_condition`. */
 #include "rtg_condition.h"
 
+/*
 rtg_condition_type
 rtg_condition_type_ill()
 {
@@ -41,6 +42,7 @@ rtg_condition_type_ill()
 
 	return returning_;
 }
+*/
 
 amara_boolean
 rtg_condition_type_is_valid(rtg_condition_type condition_type)
@@ -49,9 +51,13 @@ rtg_condition_type_is_valid(rtg_condition_type condition_type)
 
 		return AMARA_BOOLEAN_TRUE;
 	}
-	return AMARA_BOOLEAN_FALSE;
+
+	forced_assertion(condition_type == RTG_CONDITION_TYPE_GREATER_THAN);  /* XXX */
+
+	return AMARA_BOOLEAN_TRUE;
 }
 
+/*
 amara_boolean
 rtg_condition_type_is_known(rtg_condition_type condition_type)
 {
@@ -87,6 +93,7 @@ rtg_condition_type_is_ill(rtg_condition_type condition_type)
 		return AMARA_BOOLEAN_FALSE;
 	}
 }
+*/
 
 rtg_condition *
 rtg_condition_default_constructor()
@@ -158,11 +165,25 @@ rtg_condition_destructor(rtg_condition * condition)
 	assertion(condition != NULL);
 	assertion(condition->type_ != RTG_CONDITION_TYPE_INVALID);
 #endif
+	/*
+	forced_assertion(rtg_condition_type_is_known(condition->type_));
+	*/
 
+	/*
 	if (rtg_condition_type_is_known(condition->type_)) {
+	*/
+
+	if (condition->type_ == RTG_CONDITION_TYPE_LESS_THAN) {
 
 #ifndef NDEBUG
 		assertion(condition->type_ == RTG_CONDITION_TYPE_LESS_THAN);
+#endif
+	} else {
+		forced_assertion(condition->type_ ==
+				RTG_CONDITION_TYPE_GREATER_THAN);
+	}
+
+#ifndef NDEBUG
 		assertion(condition->left_hand_side_expression_ != NULL);
 #endif
 
@@ -175,6 +196,7 @@ rtg_condition_destructor(rtg_condition * condition)
 
 		rtg_expression_destructor(
 				condition->right_hand_side_expression_);
+	/*
 	} else {
 #ifndef NDEBUG
 		assertion(rtg_condition_type_is_ill(condition->type_) ==
@@ -193,6 +215,7 @@ rtg_condition_destructor(rtg_condition * condition)
 					condition->right_hand_side_expression_);
 		}
 	}
+	*/
 
 	free(condition);
 }
@@ -243,17 +266,21 @@ rtg_condition_flip(const rtg_condition * condition)
 	assertion(returning_->right_hand_side_expression_ != NULL);
 #endif
 
-	/*
-	if (condition->type_ == RTG_CONDITION_TYPE_GREATER_THAN_OR_EQUAL_TO) {
+	assertion(condition->type_ == RTG_CONDITION_TYPE_LESS_THAN);
 
-		returning_->type_ = RTG_CONDITION_TYPE_LESS_THAN;
+	returning_->type_ = RTG_CONDITION_TYPE_GREATER_THAN;
+
+	/*
+	if (condition->type_ == RTG_CONDITION_TYPE_LESS_THAN) {
+
+		returning_->type_ = RTG_CONDITION_TYPE_GREATER_THAN;
 	} else {
 #ifndef NDEBUG
 		assertion(condition->type_ ==
-				RTG_CONDITION_TYPE_LESS_THAN_OR_EQUAL_TO);
+				RTG_CONDITION_TYPE_GREATER_THAN);
 #endif
 
-		returning_->type_ = RTG_CONDITION_TYPE_GREATER_THAN;
+		returning_->type_ = RTG_CONDITION_TYPE_LESS_THAN;
 	}
 	*/
 
@@ -295,7 +322,7 @@ rtg_condition_out_of_stt_condition(const stt_condition * condition)
 
 	returning_->left_hand_side_expression_ =
 			left_hand_side_exp_ret_->expression;
-	left_hand_side_exp_ret_->expression_was_moved = AMARA_BOOLEAN_TRUE;
+	left_hand_side_exp_ret_->expression = NULL;
 	rtg_expression_out_of_stt_expression_ret_destructor(
 			left_hand_side_exp_ret_);
 
@@ -310,7 +337,7 @@ rtg_condition_out_of_stt_condition(const stt_condition * condition)
 
 	returning_->right_hand_side_expression_ =
 			right_hand_side_exp_ret_->expression;
-	right_hand_side_exp_ret_->expression_was_moved = AMARA_BOOLEAN_TRUE;
+	right_hand_side_exp_ret_->expression = NULL;
 	rtg_expression_out_of_stt_expression_ret_destructor(
 			right_hand_side_exp_ret_);
 

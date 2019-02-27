@@ -32,6 +32,8 @@
 
 #include "amara_string_tests.h"
 
+#include "amara_strings_simple_list_tests.h"
+
 /*   For `char * concatenate_two_char_arrays(const char * zero,
  * const char * one)`. */
 #include "char_array.h"
@@ -426,9 +428,16 @@ common_tests()
 #ifdef TRACE_STEPS_IN
 	fprintf(stderr, "----> %s:%u: void common_tests()\n", __FILE__, __LINE__);
 #endif
+
 	char_array_tests_();
+
 	char_array_tests();
+
 	char_arrays_simple_list_tests_();
+
 	char_arrays_simple_list_tests();
+
 	amara_string_tests();
+
+	amara_strings_simple_list_tests();
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,11 @@
 #define __AMARA__RUN_TIME_GRAPH__OPERATION_ARG__H__
 
 /*   For `amara_string`. */
+/*
 #include "../cmn/amara_string.h"
+*/
+
+#include "../cmn/amara_strings_simple_list.h"
 
 /*   For `stt_operation_arg`. */
 #include "../stt/stt_operation_arg.h"
@@ -47,9 +51,14 @@
 /* #define RTG_OPERATION_ARG_TYPE_INTEGER_VARIABLE       RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE */
 /* #define RTG_OPERATION_ARG_TYPE_RATIONAL_VARIABLE      RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE */
 #define RTG_OPERATION_ARG_TYPE_EXPRESSION                0x40
+/*   This might come back in the future, but at the time of writing
+ * makes no sense as is becoming void of meaning with the conversion of
+ * most arithmetics into expressions from being operations.
 #define RTG_OPERATION_ARG_TYPE_OPERATION                 0x80
+*/
 
 typedef struct rtg_operation_arg {
+
 	unsigned char type_;
 
 	amara_string * string_literal_;
@@ -75,7 +84,8 @@ typedef struct rtg_operation_arg {
 	rtg_expression * expression_;
 
 	struct rtg_operation * operation_;
-} rtg_operation_arg;
+} rtg_operation_arg
+;
 
 rtg_operation_arg *
 rtg_operation_arg_default_constructor(void)
@@ -115,14 +125,19 @@ rtg_operation_arg_set_identifier(
 ;
 
 #define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_INVALID 0x00
+#define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_IDENTIFIER 0x0E
 #define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_ERROR_UNSPECIFIC 0x0F
 #define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_operation_arg_out_of_stt_operation_arg_ret {
+
 	unsigned char status;
+
+	amara_strings_simple_list * error_messages;
+
 	rtg_operation_arg * operation_arg;
-	amara_boolean operation_arg_was_moved;
-} rtg_operation_arg_out_of_stt_operation_arg_ret;
+} rtg_operation_arg_out_of_stt_operation_arg_ret
+;
 
 void
 rtg_operation_arg_out_of_stt_operation_arg_ret_destructor(
@@ -131,7 +146,9 @@ rtg_operation_arg_out_of_stt_operation_arg_ret_destructor(
 
 rtg_operation_arg_out_of_stt_operation_arg_ret *
 rtg_operation_arg_out_of_stt_operation_arg(
-		const stt_operation_arg * operation_arg)
+		const stt_operation_arg * operation_arg,
+		const stt_operation_type operation_type,
+		const stt_where_value_bindings_simple_list * function_where_bindings)
 __attribute__((warn_unused_result))
 ;
 

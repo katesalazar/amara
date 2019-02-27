@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,26 @@
 
 #include "rtg_application_tests.h"
 #include "rtg_applications_simple_list_tests.h"
+
+/*   For `void rtg_condition_tests()`. */
+#include "rtg_condition_tests.h"
+
 #include "rtg_doc_tests.h"
 #include "rtg_execution_request_tests.h"
 #include "rtg_execution_requests_simple_list_tests.h"
+
+/*   For `void rtg_expression_sub_conditional_tests()`. */
+#include "rtg_expression_sub_conditional_tests.h"
+
+/*   For `void rtg_expression_sub_dice_tests()`. */
+#include "rtg_expression_sub_dice_tests.h"
+
+/*   For `void rtg_expression_sub_identifier_tests()`. */
+#include "rtg_expression_sub_identifier_tests.h"
+
+/*   For `void rtg_expression_tests()`. */
+#include "rtg_expression_tests.h"
+
 #include "rtg_named_function_tests.h"
 #include "rtg_named_functions_simple_list_tests.h"
 #include "rtg_operation_arg_tests.h"
@@ -34,6 +51,16 @@
 void
 run_time_graph_tests()
 {
+	rtg_condition_tests();
+
+	rtg_expression_sub_conditional_tests();
+
+	rtg_expression_sub_dice_tests();
+
+	rtg_expression_sub_identifier_tests();
+
+	rtg_expression_tests();
+
 	rtg_where_value_bindings_simple_list_tests();
 
 	rtg_operation_arg_tests();

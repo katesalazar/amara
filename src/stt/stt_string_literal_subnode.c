@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,24 +72,28 @@ stt_string_literal_subnode_destructor(stt_string_literal_subnode * subnode)
 void
 stt_string_literal_subnode_set_string_literal(
 		stt_string_literal_subnode * subnode,
-		amara_string * string_literal)
+		const amara_string * string_literal)
 {
-	assertion(subnode != NULL);
-	if (subnode->string_literal_ != NULL) {
-		amara_string_destructor(subnode->string_literal_);
-	}
+	forced_assertion(subnode != NULL);
+    if (subnode->string_literal_ != NULL) {
+	forced_assertion(subnode->string_literal_ != NULL);
+	amara_string_destructor(subnode->string_literal_);
+    }
+
 	if (string_literal != NULL) {
+
 		subnode->string_literal_ =
 				amara_string_copy_constructor(string_literal);
 	} else {
+
 		subnode->string_literal_ = NULL;
 	}
 }
 
 amara_boolean
 stt_string_literal_subnode_equality(
-		stt_string_literal_subnode * subnode0,
-		stt_string_literal_subnode * subnode1)
+		const stt_string_literal_subnode * subnode0,
+		const stt_string_literal_subnode * subnode1)
 {
 	assertion(subnode0 != NULL);
 	assertion(subnode1 != NULL);

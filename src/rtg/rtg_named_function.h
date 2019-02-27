@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,9 +45,9 @@ typedef struct rtg_named_function {
 
 	amara_string * name_;
 
-	rtg_where_value_bindings_simple_list * where_value_bindings_;
-
 	rtg_operations_simple_list * operations_;
+
+	rtg_where_value_bindings_simple_list * where_value_bindings_;
 } rtg_named_function;
 
 rtg_named_function *
@@ -58,8 +58,8 @@ __attribute__((warn_unused_result))
 rtg_named_function *
 rtg_named_function_exhaustive_constructor(
 		unsigned char type, const amara_string * name,
-		const rtg_where_value_bindings_simple_list * where_value_bindings,
-		const rtg_operations_simple_list * operations)
+		const rtg_operations_simple_list * operations,
+		const rtg_where_value_bindings_simple_list * where_value_bindings)
 __attribute__((warn_unused_result))
 ;
 
@@ -73,6 +73,7 @@ rtg_named_function_destructor(rtg_named_function * named_function)
 ;
 
 #define RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_INVALID          0x00
+#define RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION 0x0E
 #define RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_ERROR_UNSPECIFIC 0x0F
 #define RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_SUCCESS          0xFF
 
@@ -80,9 +81,9 @@ typedef struct rtg_named_function_out_of_stt_named_function_ret {
 
 	unsigned char status;
 
-	rtg_named_function * named_function;
+	amara_strings_simple_list * error_messages;
 
-	amara_boolean named_function_was_moved;
+	rtg_named_function * named_function;
 } rtg_named_function_out_of_stt_named_function_ret;
 
 void

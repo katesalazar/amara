@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,25 +42,41 @@ typedef unsigned char arn_type_type;
  * this `arn_type` object is 'a type error happened'". */
 #define ARN_TYPE_TYPE_TYPE_ERROR_HAPPENED 0xFF
 
+/*
 arn_type_type
 arn_type_type_ill(void)
 __attribute__((warn_unused_result))
 ;
+*/
 
+/**  Valid means that is not _invalid_. */
 amara_boolean
 arn_type_type_is_valid(arn_type_type type_type)
 __attribute__((warn_unused_result))
 ;
 
+/*
 amara_boolean
 arn_type_type_is_known(arn_type_type type_type)
 __attribute__((warn_unused_result))
 ;
+*/
 
+/**  Healthy means that no error has happened. */
+/*
+amara_boolean
+arn_type_type_is_healthy(arn_type_type type_type)
+__attribute__((warn_unused_result))
+;
+*/
+
+/**  Ill means that an error has happened. */
+/*
 amara_boolean
 arn_type_type_is_ill(arn_type_type type_type)
 __attribute__((warn_unused_result))
 ;
+*/
 
 typedef struct arn_type {
 	arn_type_type type_;

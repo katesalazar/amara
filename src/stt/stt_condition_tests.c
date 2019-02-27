@@ -138,17 +138,17 @@ stt_condition_example_simple_gt_true_condition(void)
 	stt_expression * right_hand_side_expression_;
 	stt_condition * returning_;
 
-	left_hand_side_expression_ = stt_expression_example_natural_zero();
+	left_hand_side_expression_ = stt_expression_example_natural_one();
 #ifndef NDEBUG
 	assertion(left_hand_side_expression_ != NULL);
-	assert_expectations_on_stt_expression_example_natural_zero(
+	assert_expectations_on_stt_expression_example_natural_one(
 			left_hand_side_expression_);
 #endif
 
-	right_hand_side_expression_ = stt_expression_example_natural_one();
+	right_hand_side_expression_ = stt_expression_example_natural_zero();
 #ifndef NDEBUG
 	assertion(right_hand_side_expression_ != NULL);
-	assert_expectations_on_stt_expression_example_natural_one(
+	assert_expectations_on_stt_expression_example_natural_zero(
 			right_hand_side_expression_);
 #endif
 
@@ -163,9 +163,9 @@ stt_condition_example_simple_gt_true_condition(void)
 			right_hand_side_expression_);
 #ifndef NDEBUG
 	assertion(returning_->type_ == STT_CONDITION_TYPE_GREATER_THAN);
-	assert_expectations_on_stt_expression_example_natural_zero(
-			returning_->left_hand_side_expression_);
 	assert_expectations_on_stt_expression_example_natural_one(
+			returning_->left_hand_side_expression_);
+	assert_expectations_on_stt_expression_example_natural_zero(
 			returning_->right_hand_side_expression_);
 #endif
 
@@ -186,11 +186,30 @@ assert_expectations_on_stt_condition_example_simple_gt_true_condition(
 	assertion(condition != NULL);
 	assertion(condition->type_ == STT_CONDITION_TYPE_GREATER_THAN);
 	assertion(condition->left_hand_side_expression_ != NULL);
-	assert_expectations_on_stt_expression_example_natural_zero(
+	assert_expectations_on_stt_expression_example_natural_one(
 			condition->left_hand_side_expression_);
 	assertion(condition->right_hand_side_expression_ != NULL);
-	assert_expectations_on_stt_expression_example_natural_one(
+	assert_expectations_on_stt_expression_example_natural_zero(
 			condition->right_hand_side_expression_);
+}
+
+#endif
+
+stt_condition *
+stt_condition_example_simple_greater_than_condition()
+{
+	return stt_condition_example_simple_gt_true_condition();
+}
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_condition_example_simple_greater_than_condition(
+		const stt_condition * condition)
+{
+	assertion(condition != NULL);
+	assert_expectations_on_stt_condition_example_simple_gt_true_condition(
+			condition);
 }
 
 #endif

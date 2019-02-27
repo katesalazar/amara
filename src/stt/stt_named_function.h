@@ -37,6 +37,8 @@
 
 /*   This is an enumeration, but it should probably become a mask. */
 
+typedef unsigned char stt_named_function_type;
+
 #define STT_NAMED_FUNCTION_TYPE_INVALID      0x00
 #define STT_NAMED_FUNCTION_TYPE_PURE_FUNCTION 0x0F
 #define STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION 0xF0
@@ -50,7 +52,7 @@ __attribute__((warn_unused_result))
 
 stt_named_function *
 stt_named_function_exhaustive_constructor(
-		unsigned char type, const amara_string * name,
+		stt_named_function_type type, const amara_string * name,
 		const stt_operations_simple_list * operations,
 		const stt_where_value_bindings_simple_list * where_value_bindings_)
 __attribute__((warn_unused_result))

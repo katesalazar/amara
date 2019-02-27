@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,25 @@
 
 #ifndef __AMARA__SYNTAX_TREE__DICE_EXPRESSION_TESTS__H__
 #define __AMARA__SYNTAX_TREE__DICE_EXPRESSION_TESTS__H__
+
+/*   For `typedef struct stt_dice_expression { ... }
+ * stt_dice_expression;` eventually in `stt_forward_declarations.h`
+ * actually. */
+#include "stt_dice_expression.h"
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_dice_expression_example_single_vanilla_dice(
+		const stt_dice_expression * dice_expression)
+;
+
+#endif
+
+stt_dice_expression *
+stt_dice_expression_example_single_vanilla_dice(void)
+__attribute__((warn_unused_result))
+;
 
 void
 stt_dice_expression_tests(void)

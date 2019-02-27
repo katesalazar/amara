@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,15 +23,20 @@
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
+#include "stt_node.h"
+
 /*   For own definitions. */
 #include "stt_operation.h"
 
 stt_operation *
 stt_operation_default_constructor()
 {
-	stt_operation * returning_ = malloc(sizeof(stt_operation));
+	stt_operation * returning_;
+
+	returning_ = malloc(sizeof(stt_operation));
 	returning_->type_ = STT_OPERATION_TYPE_INVALID;
 	returning_->args_ = NULL;
+
 	return returning_;
 }
 
@@ -52,17 +57,107 @@ void
 stt_operation_destructor(stt_operation * operation)
 {
 	assertion(operation != NULL);
+
 	if (operation->type_ == STT_OPERATION_TYPE_INVALID) {
+
 		assertion(operation->args_ == NULL);
-	} else if (operation->type_ == STT_OPERATION_TYPE_PRINT) {
+	/*
+	} else if (operation->type_ == STT_OPERATION_TYPE_PRINT_NO_CRLF) {
+
+		assertion(operation->args_ != NULL);
+		stt_operation_args_simple_list_destructor(operation->args_);
+	*/
+	} else if (operation->type_ ==
+			STT_OPERATION_TYPE_READ_NATURAL_INTO_VALUE) {
+
+		assertion(operation->args_ != NULL);
+		stt_operation_args_simple_list_destructor(operation->args_);
+	} else if (operation->type_ ==
+			STT_OPERATION_TYPE_READ_INTEGER_INTO_VALUE) {
+
 		assertion(operation->args_ != NULL);
 		stt_operation_args_simple_list_destructor(operation->args_);
 	} else {
 		assertion(operation->type_ ==
-				STT_OPERATION_TYPE_PRINT_NO_CRLF);
+				STT_OPERATION_TYPE_PRINT);
+
 		assertion(operation->args_ != NULL);
 		stt_operation_args_simple_list_destructor(operation->args_);
 	}
+
 	free(operation);
 }
 
+void
+stt_operation_set_type(
+		stt_operation * operation, const stt_operation_type type)
+{
+	forced_assertion(operation != NULL);
+
+	if (type == STT_OPERATION_TYPE_READ_NATURAL_INTO_VALUE) {
+
+		forced_assertion(operation->type_ ==
+				STT_OPERATION_TYPE_INVALID);
+
+		forced_assertion(operation->args_ != NULL);
+		forced_assertion(operation->args_->first != NULL);
+		forced_assertion(operation->args_->first->type_ ==
+				STT_OPERATION_ARG_TYPE_VALID);
+		forced_assertion(operation->args_->first->node_ != NULL);
+		assert_clean_identifier_node(operation->args_->first->node_);
+		forced_assertion(operation->args_->next == NULL);
+	} else if (type == STT_OPERATION_TYPE_PRINT) {
+
+		forced_assertion(type ==
+				STT_OPERATION_TYPE_PRINT);
+
+		forced_assertion(operation->args_ != NULL);
+		forced_assertion(operation->args_->first != NULL);
+		forced_assertion(operation->args_->first->type_ ==
+				STT_OPERATION_ARG_TYPE_VALID);
+		forced_assertion(operation->args_->first->node_ != NULL);
+		assert_clean_identifier_node(operation->args_->first->node_);
+		forced_assertion(operation->args_->next == NULL);
+	} else {
+		forced_assertion(type ==
+				STT_OPERATION_TYPE_READ_INTEGER_INTO_VALUE);
+
+		forced_assertion(operation->type_ ==
+				STT_OPERATION_TYPE_INVALID);
+
+		forced_assertion(operation->args_ != NULL);
+		forced_assertion(operation->args_->first != NULL);
+		forced_assertion(operation->args_->first->type_ ==
+				STT_OPERATION_ARG_TYPE_VALID);
+		forced_assertion(operation->args_->first->node_ != NULL);
+		assert_clean_identifier_node(operation->args_->first->node_);
+		forced_assertion(operation->args_->next == NULL);
+	}
+
+	forced_assertion(operation->args_ != NULL);
+
+	operation->type_ = type;
+}
+
+void
+stt_operation_set_args(
+		stt_operation * operation,
+		const stt_operation_args_simple_list * args)
+{
+#ifndef NDEBUG
+	amara_boolean equality_;
+#endif
+
+	forced_assertion(operation != NULL);
+	forced_assertion(operation->type_ == STT_OPERATION_TYPE_INVALID);
+	forced_assertion(args != NULL);
+	forced_assertion(operation->args_ == NULL);
+	operation->args_ =
+			stt_operation_args_simple_list_copy_constructor(args);
+	forced_assertion(operation->args_ != NULL);
+#ifndef NDEBUG
+	equality_ = stt_operation_args_simple_list_equality(
+			operation->args_, args);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+#endif
+}

@@ -21,10 +21,12 @@
 
 #include "stt_node.h"
 
+#include "stt_operation_arg_tests.h"
+
 #include "stt_operation_tests.h"
 
 stt_operation *
-stt_operation_example_print_foo()
+stt_operation_example_print_string_literal_foo()
 {
 	stt_operation * operation_;
 	stt_operation_args_simple_list * operation_args_;
@@ -32,6 +34,7 @@ stt_operation_example_print_foo()
 	stt_node * operation_arg_node_;
 	stt_string_literal_subnode * operation_arg_node_string_literal_subnode_;
 	amara_string * string_literal_;
+
 	string_literal_ = amara_string_exhaustive_constructor("foo");
 	operation_arg_node_string_literal_subnode_ =
 			stt_string_literal_subnode_exhaustive_constructor(
@@ -57,7 +60,7 @@ stt_operation_example_print_foo()
 #ifndef NDEBUG
 
 void
-assert_expectations_on_stt_operation_example_print_foo(
+assert_expectations_on_stt_operation_example_print_string_literal_foo(
 		const stt_operation * operation)
 {
 	const stt_operation_arg * operation_arg_;
@@ -98,7 +101,7 @@ assert_expectations_on_stt_operation_example_print_foo(
 #endif
 
 stt_operation *
-stt_operation_example_print_bar()
+stt_operation_example_print_string_literal_bar()
 {
 	stt_operation * operation_;
 	stt_operation_args_simple_list * operation_args_;
@@ -106,6 +109,7 @@ stt_operation_example_print_bar()
 	stt_node * operation_arg_node_;
 	stt_string_literal_subnode * operation_arg_node_string_literal_subnode_;
 	amara_string * string_literal_;
+
 	string_literal_ = amara_string_exhaustive_constructor("bar");
 	operation_arg_node_string_literal_subnode_ =
 			stt_string_literal_subnode_exhaustive_constructor(
@@ -131,7 +135,7 @@ stt_operation_example_print_bar()
 #ifndef NDEBUG
 
 void
-assert_expectations_on_stt_operation_example_print_bar(
+assert_expectations_on_stt_operation_example_print_string_literal_bar(
 		const stt_operation * operation)
 {
 	const stt_operation_arg * operation_arg_;
@@ -171,8 +175,10 @@ assert_expectations_on_stt_operation_example_print_bar(
 
 #endif
 
+/*
+
 stt_operation *
-stt_operation_example_print_foo_no_crlf()
+stt_operation_example_print_string_literal_foo_no_crlf()
 {
 	stt_operation * operation_;
 	stt_operation_args_simple_list * operation_args_;
@@ -202,6 +208,233 @@ stt_operation_example_print_foo_no_crlf()
 	return operation_;
 }
 
+*/
+
+stt_operation *
+stt_operation_example_print_identifier_foo()
+{
+	stt_operation_arg * operation_arg_;
+	stt_operation_args_simple_list * operation_args_;
+	stt_operation * ret_;
+
+	operation_arg_ = stt_operation_arg_example_identifier_foo();
+	forced_assertion(operation_arg_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_arg_example_identifier_foo(
+			operation_arg_);
+#endif
+
+	operation_args_ = stt_operation_args_simple_list_default_constructor();
+	forced_assertion(operation_args_ != NULL);
+#ifndef NDEBUG
+	assertion(operation_args_->first == NULL);
+	assertion(operation_args_->next == NULL);
+#endif
+
+	operation_args_ = stt_operation_args_simple_list_push_front(
+			operation_args_, operation_arg_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_arg_example_identifier_foo(
+			operation_arg_);
+#endif
+	forced_assertion(operation_args_ != NULL);
+	forced_assertion(operation_args_->first != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_arg_example_identifier_foo(
+			operation_args_->first);
+	assertion(operation_args_->next == NULL);
+#endif
+
+	stt_operation_arg_destructor(operation_arg_);
+
+	ret_ = stt_operation_default_constructor();
+	forced_assertion(ret_ != NULL);
+#ifndef NDEBUG
+	assertion(ret_->type_ == STT_OPERATION_TYPE_INVALID);
+#endif
+
+	stt_operation_set_args(ret_, operation_args_);
+#ifndef NDEBUG
+	assertion(operation_args_->first != NULL);
+	assert_expectations_on_stt_operation_arg_example_identifier_foo(
+			operation_args_->first);
+	assertion(operation_args_->next == NULL);
+#endif
+	forced_assertion(ret_->args_ != NULL);
+#ifndef NDEBUG
+	assertion(ret_->args_->first != NULL);
+	assert_expectations_on_stt_operation_arg_example_identifier_foo(
+			ret_->args_->first);
+	assertion(ret_->args_->next == NULL);
+#endif
+
+	stt_operation_args_simple_list_destructor(operation_args_);
+
+	stt_operation_set_type(ret_, STT_OPERATION_TYPE_PRINT);
+	forced_assertion(ret_->type_ == STT_OPERATION_TYPE_PRINT);
+
+	return ret_;
+}
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_operation_example_print_identifier_foo(
+		const stt_operation * operation)
+{
+	assertion(operation != NULL);
+	assertion(operation->type_ == STT_OPERATION_TYPE_PRINT);
+	assertion(operation->args_ != NULL);
+	assertion(operation->args_->first != NULL);
+	assert_expectations_on_stt_operation_arg_example_identifier_foo(
+			operation->args_->first);
+	assertion(operation->args_->next == NULL);
+}
+
+#endif
+
+stt_operation *
+stt_operation_example_read_natural_into_foo(void)
+{
+	stt_operation_arg * operation_arg_;
+	stt_operation_args_simple_list * operation_args_;
+	stt_operation * ret_;
+
+	operation_arg_ = stt_operation_arg_example_identifier_foo();
+	forced_assertion(operation_arg_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_arg_example_identifier_foo(
+			operation_arg_);
+#endif
+
+	operation_args_ = stt_operation_args_simple_list_default_constructor();
+	forced_assertion(operation_args_ != NULL);
+#ifndef NDEBUG
+	assertion(operation_args_->first == NULL);
+	assertion(operation_args_->next == NULL);
+#endif
+
+	operation_args_ = stt_operation_args_simple_list_push_front(
+			operation_args_, operation_arg_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_arg_example_identifier_foo(
+			operation_arg_);
+#endif
+	forced_assertion(operation_args_ != NULL);
+#ifndef NDEBUG
+	assertion(operation_args_->first != NULL);
+	assert_expectations_on_stt_operation_arg_example_identifier_foo(
+			operation_args_->first);
+	assertion(operation_args_->next == NULL);
+#endif
+
+	stt_operation_arg_destructor(operation_arg_);
+
+	ret_ = stt_operation_default_constructor();
+	forced_assertion(ret_ != NULL);
+#ifndef NDEBUG
+	assertion(ret_->type_ == STT_OPERATION_TYPE_INVALID);
+#endif
+
+	stt_operation_set_args(ret_, operation_args_);
+
+	stt_operation_set_type(ret_,
+	                       STT_OPERATION_TYPE_READ_NATURAL_INTO_VALUE);
+
+	return ret_;
+}
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_operation_example_read_natural_into_foo(
+		const stt_operation * operation)
+{
+	assertion(operation != NULL);
+	assertion(operation->type_ ==
+			STT_OPERATION_TYPE_READ_NATURAL_INTO_VALUE);
+	assertion(operation->args_ != NULL);
+	assertion(operation->args_->first != NULL);
+	assertion(operation->args_->first->type_ ==
+			STT_OPERATION_ARG_TYPE_VALID);
+	assert_expectations_on_stt_operation_arg_example_identifier_foo(
+			operation->args_->first);
+	assertion(operation->args_->next == NULL);
+}
+
+#endif
+
+stt_operation *
+stt_operation_example_read_integer_into_foo(void)
+{
+	stt_operation_arg * operation_arg_;
+	stt_operation_args_simple_list * operation_args_;
+	stt_operation * ret_;
+
+	operation_arg_ = stt_operation_arg_example_identifier_foo();
+	forced_assertion(operation_arg_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_arg_example_identifier_foo(
+			operation_arg_);
+#endif
+
+	operation_args_ = stt_operation_args_simple_list_default_constructor();
+	forced_assertion(operation_args_ != NULL);
+#ifndef NDEBUG
+	assertion(operation_args_->first == NULL);
+	assertion(operation_args_->next == NULL);
+#endif
+
+	operation_args_ = stt_operation_args_simple_list_push_front(
+			operation_args_, operation_arg_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_arg_example_identifier_foo(
+			operation_arg_);
+#endif
+	forced_assertion(operation_args_ != NULL);
+#ifndef NDEBUG
+	assertion(operation_args_->first != NULL);
+	assert_expectations_on_stt_operation_arg_example_identifier_foo(
+			operation_args_->first);
+	assertion(operation_args_->next == NULL);
+#endif
+
+	stt_operation_arg_destructor(operation_arg_);
+
+	ret_ = stt_operation_default_constructor();
+	forced_assertion(ret_ != NULL);
+#ifndef NDEBUG
+	assertion(ret_->type_ == STT_OPERATION_TYPE_INVALID);
+#endif
+
+	stt_operation_set_args(ret_, operation_args_);
+
+	stt_operation_set_type(ret_,
+	                       STT_OPERATION_TYPE_READ_INTEGER_INTO_VALUE);
+
+	return ret_;
+}
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_operation_example_read_integer_into_foo(
+		const stt_operation * operation)
+{
+	assertion(operation != NULL);
+	assertion(operation->type_ ==
+			STT_OPERATION_TYPE_READ_INTEGER_INTO_VALUE);
+	assertion(operation->args_ != NULL);
+	assertion(operation->args_->first != NULL);
+	assertion(operation->args_->first->type_ ==
+			STT_OPERATION_ARG_TYPE_VALID);
+	assert_expectations_on_stt_operation_arg_example_identifier_foo(
+			operation->args_->first);
+	assertion(operation->args_->next == NULL);
+}
+
+#endif
+
 void
 stt_operation_construct_and_destruct_test_0()
 {
@@ -214,6 +447,8 @@ stt_operation_construct_and_destruct_test_0()
 
 	stt_operation_destructor(operation_);
 }
+
+/*
 
 void
 stt_operation_construct_and_destruct_test_1()
@@ -251,11 +486,15 @@ stt_operation_construct_and_destruct_test_1()
 	stt_operation_destructor(operation_);
 }
 
+*/
+
 void
 stt_operation_construct_and_destruct_tests()
 {
 	stt_operation_construct_and_destruct_test_0();
+    /*
 	stt_operation_construct_and_destruct_test_1();
+    */
 }
 
 void

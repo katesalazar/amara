@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,22 @@
 
 #ifndef __AMARA__SYNTAX_TREE__OPERATION_ARGS_SIMPLE_LIST_TESTS__H__
 #define __AMARA__SYNTAX_TREE__OPERATION_ARGS_SIMPLE_LIST_TESTS__H__
+
+#include "stt_operation_args_simple_list.h"
+
+stt_operation_args_simple_list *
+stt_operation_args_simple_list_example_two_args_list(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_operation_args_simple_list_example_two_args_list(
+		const stt_operation_args_simple_list * list)
+;
+
+#endif
 
 void
 stt_operation_args_simple_list_tests(void)

@@ -20,6 +20,10 @@
 #ifndef __AMARA__SYNTAX_TREE__WHERE_VALUE_BINDINGS_SIMPLE_LIST_TESTS__H__
 #define __AMARA__SYNTAX_TREE__WHERE_VALUE_BINDINGS_SIMPLE_LIST_TESTS__H__
 
+/*   For `typedef struct stt_where_value_bindings_simple_list { ... }
+ * stt_where_value_bindings_simple_list;`. */
+#include "stt_where_value_bindings_simple_list.h"
+
 /**  Value `foo` is bound to the natural literal expression `0`. */
 stt_where_value_bindings_simple_list *
 stt_where_value_bindings_simple_list_example_simple_value_bind_foo_to_zero(void)

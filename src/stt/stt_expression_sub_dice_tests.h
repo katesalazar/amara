@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,15 @@ stt_expression_sub_dice *
 stt_expression_sub_dice_example_single_vanilla_dice(void)
 __attribute__((warn_unused_result))
 ;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_expression_sub_dice_example_single_vanilla_dice(
+		const stt_expression_sub_dice * sub_dice)
+;
+
+#endif
 
 void
 stt_expression_sub_dice_tests(void)

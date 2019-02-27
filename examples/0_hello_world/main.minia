@@ -5,7 +5,10 @@
 /*   Comments are a very important feature. They can span across
  * multiple lines. This is an example of a multiple lines comment. */
 
-/*   Functions are a core component in any programming language. */
+/*   Functions are a core component in any programming language.
+ *   The subroutine is an invention attributed to David J. Wheeler, as
+ * told by Bjarne Stroustrup, which was a student working under his
+ * supervision. */
 function main
 
 	/*   Tagging a function as `command line interface application
@@ -18,12 +21,16 @@ function main
 	and receives nothing at all
 	and returns nothing at all
 
-	/*   In the minia language it is mandatory to declare if a
+	/*   In the minia language it is mandatory to declare whether a
 	 * function is going to be pure or conversely it is going to be
 	 * allowed to have side effects. So the engine is allowed to
 	 * deny side effects to functions not correctly explicitly
 	 * declared as causing them. */
 	so it causes side effects
+
+	/*   By the way this function receives nothing at all and
+	 * returns nothing at all, so arguably it should only be allowed
+	 * if it causes side effects. */
 
 	/*   This is the line which separates function heading
 	 * declarations from the function implementation, i.e. _the
@@ -37,8 +44,17 @@ function main
 	print 'hello, world'
 
 	/*   Operations joined using the `and then` conjunction are
-	 * executed strictly sequentially. */
+	 * executed strictly sequentially. Up to five operations can
+	 * be sequenced in a single function. */
 	and then new line
+
+	/*   If this function returned something, the last operation had
+	 * to be a _return_ _operation_. But that's not the case. */
+
+	/*   After the function operations and before the function end,
+	 * there can optionally be binding declarations, but here there
+	 * are none. */
+
 /*   End the function scope in a similar way as traditional scope ending
  * in other languages would do in Algol, Pascal, etc. */
 end function main

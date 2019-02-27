@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,6 +35,18 @@ arn_type_type_is_valid_test_0()
 	arn_type_type arn_type_type_;
 	amara_boolean is_valid_;
 
+	arn_type_type_ = ARN_TYPE_TYPE_STRING;
+
+	is_valid_ = arn_type_type_is_valid(arn_type_type_);
+	assertion(is_valid_ == AMARA_BOOLEAN_TRUE);
+}
+
+void
+arn_type_type_is_valid_test_1()
+{
+	arn_type_type arn_type_type_;
+	amara_boolean is_valid_;
+
 	arn_type_type_ = ARN_TYPE_TYPE_INVALID;
 
 	is_valid_ = arn_type_type_is_valid(arn_type_type_);
@@ -42,7 +54,7 @@ arn_type_type_is_valid_test_0()
 }
 
 void
-arn_type_type_is_valid_test_1()
+arn_type_type_is_valid_test_2()
 {
 	arn_type_type arn_type_type_;
 	amara_boolean is_valid_;
@@ -54,7 +66,7 @@ arn_type_type_is_valid_test_1()
 }
 
 void
-arn_type_type_is_valid_test_2()
+arn_type_type_is_valid_test_3()
 {
 	arn_type_type arn_type_type_;
 	amara_boolean is_valid_;
@@ -66,13 +78,28 @@ arn_type_type_is_valid_test_2()
 }
 
 void
+arn_type_type_is_valid_test_4()
+{
+	arn_type_type arn_type_type_;
+	amara_boolean is_valid_;
+
+	arn_type_type_ = ARN_TYPE_TYPE_TYPE_ERROR_HAPPENED;
+
+	is_valid_ = arn_type_type_is_valid(arn_type_type_);
+	assertion(is_valid_ == AMARA_BOOLEAN_TRUE);
+}
+
+void
 arn_type_type_is_valid_tests()
 {
 	arn_type_type_is_valid_test_0();
 	arn_type_type_is_valid_test_1();
 	arn_type_type_is_valid_test_2();
+	arn_type_type_is_valid_test_3();
+	arn_type_type_is_valid_test_4();
 }
 
+/*
 void
 arn_type_type_is_known_test_0()
 {
@@ -90,7 +117,9 @@ arn_type_type_is_known_tests()
 {
 	arn_type_type_is_known_test_0();
 }
+*/
 
+/*
 void
 arn_type_type_is_ill_test_0()
 {
@@ -108,6 +137,7 @@ arn_type_type_is_ill_tests()
 {
 	arn_type_type_is_ill_test_0();
 }
+*/
 
 void
 arn_type_default_constructor_test_0()
@@ -143,11 +173,13 @@ arn_type_out_of_rtg_condition(const rtg_condition * condition)
 __attribute__((warn_unused_result))
 ;
 
+/*
 void
 arn_type_out_of_rtg_condition_test_0()
 {
+*/
 	/**  ARN type out of an ill formed RTG condition. */
-
+/*
 	rtg_condition * condition_;
 	rtg_condition_type condition_requested_type_;
 	rtg_condition * ill_condition_;
@@ -173,11 +205,14 @@ arn_type_out_of_rtg_condition_test_0()
 	arn_type_destructor(ill_condition_arn_type_);
 	rtg_condition_destructor(ill_condition_);
 }
+*/
 
 void
 arn_type_out_of_rtg_condition_tests()
 {
+	/*
 	arn_type_out_of_rtg_condition_test_0();
+	*/
 }
 
 void
@@ -215,8 +250,12 @@ void
 arn_type_tests()
 {
 	arn_type_type_is_valid_tests();
+	/*
 	arn_type_type_is_known_tests();
+	*/
+	/*
 	arn_type_type_is_ill_tests();
+	*/
 	arn_type_constructors_and_destructors_tests();
 	arn_type_out_of_rtg_condition_tests();
 	arn_type_out_of_rtg_expression_tests();

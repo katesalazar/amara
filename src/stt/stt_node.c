@@ -695,6 +695,21 @@ stt_node_destructor(stt_node const * node)
 	free((stt_node *) node);
 }
 
+/*
+
+void
+stt_node_set_type(stt_node * node, const stt_node_type type)
+{
+	assertion(node != NULL);
+	assertion(node->type_ == STT_NODE_TYPE_INVALID);
+	assertion(type == STT_NODE_TYPE_IDENTIFIER);
+	assertion(node->identifier_subnode_ != NULL);
+	assertion(node->identifier_subnode_->value_ != NULL);
+	node->type_ = STT_NODE_TYPE_IDENTIFIER;
+}
+
+*/
+
 void
 stt_node_set_string_literal(
 		stt_node * node, const amara_string * string_literal)
@@ -932,16 +947,19 @@ stt_node_set_where_value_bindings(
 		stt_node * node,
 		const stt_where_value_bindings_simple_list * where_value_bindings)
 {
-	assertion(node != NULL);
-	assertion(node->type_ == STT_NODE_TYPE_INVALID);
+	forced_assertion(node != NULL);
+	forced_assertion(node->type_ == STT_NODE_TYPE_INVALID);
+#ifndef NDEBUG
 	assert_all_subnodes_are_null(node);
+#endif
 
-	assertion(where_value_bindings != NULL);
+	forced_assertion(where_value_bindings != NULL);
 
 	node->where_value_bindings_subnode_ =
 			stt_where_value_bindings_subnode_exhaustive_constructor(
 					where_value_bindings);
-	assertion(node->where_value_bindings_subnode_ != NULL);
+	forced_assertion(node->where_value_bindings_subnode_ != NULL);
+
 	if (where_value_bindings->first == NULL) {
 		assertion(node->where_value_bindings_subnode_->where_value_bindings_->first ==
 				NULL);
@@ -1041,6 +1059,27 @@ stt_node_set_doc(
 	node->type_ = STT_NODE_TYPE_DOC;
 }
 
+amara_boolean
+stt_node_equality(const stt_node * n0, const stt_node * n1)
+{
+	amara_boolean equality_;
+
+	forced_assertion(n0->type_ == STT_NODE_TYPE_IDENTIFIER);
+	forced_assertion(n0->identifier_subnode_ != NULL);
+	forced_assertion(n0->identifier_subnode_->value_ != NULL);
+	forced_assertion(n1->type_ == STT_NODE_TYPE_IDENTIFIER);
+	forced_assertion(n1->identifier_subnode_ != NULL);
+	forced_assertion(n1->identifier_subnode_->value_ != NULL);
+
+	equality_ = amara_string_equality(
+			n0->identifier_subnode_->value_,
+			n1->identifier_subnode_->value_);
+
+	forced_assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
+	return AMARA_BOOLEAN_TRUE;
+}
+
 amara_string *
 stt_node_type_name(const stt_node * node)
 {
@@ -1069,9 +1108,183 @@ stt_node_type_name(const stt_node * node)
 		return amara_string_exhaustive_constructor(
 				"execution_request");
 	default:
-		assertion(node->type_ == STT_NODE_TYPE_INVALID);
+		forced_assertion(node->type_ == STT_NODE_TYPE_INVALID);
 		return amara_string_exhaustive_constructor("invalid");
 	}
+}
+
+stt_node *
+stt_nodes_substraction(const stt_node * node_0, const stt_node * node_1)
+{
+	stt_node * ret_;
+
+	forced_assertion(node_0 != NULL);
+	forced_assertion(node_1 != NULL);
+
+#ifndef NDEBUG
+	assertion(node_0->type_ == STT_NODE_TYPE_EXPRESSION);
+	assertion(node_0->expression_subnode_ != NULL);
+	assertion(node_0->expression_subnode_->expression_ != NULL);
+	assertion(node_1->type_ == STT_NODE_TYPE_EXPRESSION);
+	assertion(node_1->expression_subnode_ != NULL);
+	assertion(node_1->expression_subnode_->expression_ != NULL);
+#endif
+
+	ret_ = stt_node_default_constructor();
+	forced_assertion(ret_ != NULL);
+#ifndef NDEBUG
+	assertion(ret_->type_ == STT_NODE_TYPE_INVALID);
+#endif
+
+	assertion(node_0->expression_subnode_->expression_->type_ ==  /* XXX */
+			STT_EXPRESSION_TYPE_NATURAL_LITERAL);  /* XXX */
+	assertion(node_1->expression_subnode_->expression_->type_ ==  /* XXX */
+			STT_EXPRESSION_TYPE_NATURAL_LITERAL);  /* XXX */
+
+	assertion(node_0->expression_subnode_->expression_->sub_natural_literal_ != NULL);
+	assertion(node_0->expression_subnode_->expression_->sub_natural_literal_->natural_literal_ != NULL);
+	assertion(node_0->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_ != NULL);
+	assertion(node_0->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_->value_ != NULL);
+	assertion(node_0->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_->value_[0] == '0');
+	assertion(node_0->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_->value_[1] == '\0');
+	assertion(node_1->expression_subnode_->expression_->sub_natural_literal_ != NULL);
+	assertion(node_1->expression_subnode_->expression_->sub_natural_literal_->natural_literal_ != NULL);
+	assertion(node_1->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_ != NULL);
+	assertion(node_1->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_->value_ != NULL);
+	assertion(node_1->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_->value_[0] == '0');
+	assertion(node_1->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_->value_[1] == '\0');
+
+	/*   Can not use this primitive because it is expecting natural literal nodes, it does not expect nodes holding natural literal expressions! */
+	/*ret_ = simplify_natural_literal_nodes_substraction(node_0, node_1);*/  /* XXX This function should be probably here? */
+
+	ret_ = stt_node_copy_constructor(node_0);  /* XXX only for continuing developing other stuff... */
+	forced_assertion(ret_ != NULL);
+
+	/*
+	if (node_0->expression_subnode_->expression_->type_ ==
+			STT_EXPRESSION_TYPE_NATURAL_LITERAL) {
+
+		if (node_1->expression_subnode_->expression_->type_
+	}
+	*/
+
+	return ret_;
+}
+
+stt_node *
+stt_nodes_multiplication(const stt_node * node_0, const stt_node * node_1)
+{
+	stt_node * ret_;
+
+	forced_assertion(node_0 != NULL);
+	forced_assertion(node_1 != NULL);
+
+#ifndef NDEBUG
+	assertion(node_0->type_ == STT_NODE_TYPE_EXPRESSION);
+	assertion(node_0->expression_subnode_ != NULL);
+	assertion(node_0->expression_subnode_->expression_ != NULL);
+	assertion(node_1->type_ == STT_NODE_TYPE_EXPRESSION);
+	assertion(node_1->expression_subnode_ != NULL);
+	assertion(node_1->expression_subnode_->expression_ != NULL);
+#endif
+
+	ret_ = stt_node_default_constructor();
+	forced_assertion(ret_ != NULL);
+#ifndef NDEBUG
+	assertion(ret_->type_ == STT_NODE_TYPE_INVALID);
+#endif
+
+	assertion(node_0->expression_subnode_->expression_->type_ ==  /* XXX */
+			STT_EXPRESSION_TYPE_NATURAL_LITERAL);  /* XXX */
+	assertion(node_1->expression_subnode_->expression_->type_ ==  /* XXX */
+			STT_EXPRESSION_TYPE_NATURAL_LITERAL);  /* XXX */
+
+	assertion(node_0->expression_subnode_->expression_->sub_natural_literal_ != NULL);
+	assertion(node_0->expression_subnode_->expression_->sub_natural_literal_->natural_literal_ != NULL);
+	assertion(node_0->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_ != NULL);
+	assertion(node_0->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_->value_ != NULL);
+	assertion(node_0->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_->value_[0] == '0');
+	assertion(node_0->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_->value_[1] == '\0');
+	assertion(node_1->expression_subnode_->expression_->sub_natural_literal_ != NULL);
+	assertion(node_1->expression_subnode_->expression_->sub_natural_literal_->natural_literal_ != NULL);
+	assertion(node_1->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_ != NULL);
+	assertion(node_1->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_->value_ != NULL);
+	assertion(node_1->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_->value_[0] == '0');
+	assertion(node_1->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_->value_[1] == '\0');
+
+	/*   Can not use this primitive because it is expecting natural literal nodes, it does not expect nodes holding natural literal expressions! */
+	/*ret_ = simplify_natural_literal_nodes_substraction(node_0, node_1);*/  /* XXX This function should be probably here? */
+
+	ret_ = stt_node_copy_constructor(node_0);  /* XXX only for continuing developing other stuff... */
+	forced_assertion(ret_ != NULL);
+
+	/*
+	if (node_0->expression_subnode_->expression_->type_ ==
+			STT_EXPRESSION_TYPE_NATURAL_LITERAL) {
+
+		if (node_1->expression_subnode_->expression_->type_
+	}
+	*/
+
+	return ret_;
+}
+
+stt_node *
+stt_nodes_division(const stt_node * node_0, const stt_node * node_1)
+{
+	stt_node * ret_;
+
+	forced_assertion(node_0 != NULL);
+	forced_assertion(node_1 != NULL);
+
+#ifndef NDEBUG
+	assertion(node_0->type_ == STT_NODE_TYPE_EXPRESSION);
+	assertion(node_0->expression_subnode_ != NULL);
+	assertion(node_0->expression_subnode_->expression_ != NULL);
+	assertion(node_1->type_ == STT_NODE_TYPE_EXPRESSION);
+	assertion(node_1->expression_subnode_ != NULL);
+	assertion(node_1->expression_subnode_->expression_ != NULL);
+#endif
+
+	ret_ = stt_node_default_constructor();
+	forced_assertion(ret_ != NULL);
+#ifndef NDEBUG
+	assertion(ret_->type_ == STT_NODE_TYPE_INVALID);
+#endif
+
+	assertion(node_0->expression_subnode_->expression_->type_ ==  /* XXX */
+			STT_EXPRESSION_TYPE_NATURAL_LITERAL);  /* XXX */
+	assertion(node_1->expression_subnode_->expression_->type_ ==  /* XXX */
+			STT_EXPRESSION_TYPE_NATURAL_LITERAL);  /* XXX */
+
+	assertion(node_0->expression_subnode_->expression_->sub_natural_literal_ != NULL);
+	assertion(node_0->expression_subnode_->expression_->sub_natural_literal_->natural_literal_ != NULL);
+	assertion(node_0->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_ != NULL);
+	assertion(node_0->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_->value_ != NULL);
+	assertion(node_0->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_->value_[0] == '0');
+	assertion(node_0->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_->value_[1] == '\0');
+	assertion(node_1->expression_subnode_->expression_->sub_natural_literal_ != NULL);
+	assertion(node_1->expression_subnode_->expression_->sub_natural_literal_->natural_literal_ != NULL);
+	assertion(node_1->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_ != NULL);
+	assertion(node_1->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_->value_ != NULL);
+	assertion(node_1->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_->value_[0] == '1');
+	assertion(node_1->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_->value_[1] == '\0');
+
+	/*   Can not use this primitive because it is expecting natural literal nodes, it does not expect nodes holding natural literal expressions! */
+	/*ret_ = simplify_natural_literal_nodes_substraction(node_0, node_1);*/  /* XXX This function should be probably here? */
+
+	ret_ = stt_node_copy_constructor(node_0);  /* XXX only for continuing developing other stuff... */
+	forced_assertion(ret_ != NULL);
+
+	/*
+	if (node_0->expression_subnode_->expression_->type_ ==
+			STT_EXPRESSION_TYPE_NATURAL_LITERAL) {
+
+		if (node_1->expression_subnode_->expression_->type_
+	}
+	*/
+
+	return ret_;
 }
 
 stt_node *
@@ -1081,9 +1294,11 @@ register_named_function(stt_node * node, const stt_node * named_function_node)
 	stt_named_functions_simple_list * new_named_functions_list_node_;
 
 	assertion_two(node != NULL, "unexpected value NULL for `node`");
+	/*
 	if (node->type_ != STT_NODE_TYPE_DOC_FRAGMENT) {
 		fprintf(stderr, "%s:%u:%u\n", __FILE__, __LINE__, node->type_);
 	}
+	*/
 	assertion_two(node->type_ == STT_NODE_TYPE_DOC_FRAGMENT,
 	              "unexpected value for `node->type`");
 	assertion_two(node->doc_subnode_ != NULL,
@@ -1142,9 +1357,11 @@ register_application(stt_node * node, const stt_node * application_node)
 	stt_application * new_application_;
 	stt_applications_simple_list * new_applications_list_node_;
 	assertion_two(node != NULL, "unexpected value NULL for `node`");
+	/*
 	if (node->type_ != STT_NODE_TYPE_DOC_FRAGMENT) {
 		fprintf(stderr, "%s:%u:%u\n", __FILE__, __LINE__, node->type_);
 	}
+	*/
 	assertion_two(node->type_ == STT_NODE_TYPE_DOC_FRAGMENT,
 	              "unexpected value %u for `node->type`");
 	assertion_two(node->doc_subnode_ != NULL,
@@ -1177,9 +1394,11 @@ register_execution_request(
 	stt_execution_request * new_execution_request_;
 	stt_execution_requests_simple_list * new_execution_requests_list_node_;
 	assertion_two(node != NULL, "unexpected value NULL for `node`");
+	/*
 	if (node->type_ != STT_NODE_TYPE_DOC_FRAGMENT) {
 		fprintf(stderr, "%s:%u:%u\n", __FILE__, __LINE__, node->type_);
 	}
+	*/
 	assertion_two(node->type_ == STT_NODE_TYPE_DOC_FRAGMENT,
 	              "unexpected value %u for `node->type`");
 	assertion_two(node->doc_subnode_ != NULL,
@@ -1218,12 +1437,25 @@ dump_syntax_tree(const stt_node * node)
 			__FILE__, __LINE__);
 
 	assertion(node->type_ == STT_NODE_TYPE_DOC);
+	/*
 	assertion(node->doc_subnode_->named_functions_ != NULL);
 	assertion(node->doc_subnode_->applications_ != NULL);
-	assertion(node->doc_subnode_->execution_requests_ != NULL); /* In the future, this won't be true (for libraries). */
+	assertion(node->doc_subnode_->execution_requests_ != NULL); *//* In the future, this won't be true (for libraries). *//*
+	*/
+
+	if (node->doc_subnode_->named_functions_ != NULL) {
+
 	named_functions_len_ = stt_named_functions_simple_list_length(
 			node->doc_subnode_->named_functions_);
-	fprintf(stderr, "%s:%u - %u named_functions\n", __FILE__, __LINE__, named_functions_len_);
+	} else {
+
+		named_functions_len_ = 0;
+	}
+
+	fprintf(stderr, "%s:%u - %u named_functions\n", __FILE__, __LINE__,
+			named_functions_len_);
+
+	if (node->doc_subnode_->applications_ != NULL) {
 
 	/*
 	applications_len_ = stt_applications_simple_list_length(
@@ -1235,15 +1467,29 @@ dump_syntax_tree(const stt_node * node)
 			STT_APPLICATIONS_SIMPLE_LIST_LENGTH_RET_STATUS_SUCCESS);
 	applications_len_ = len_ret_ptr_->length;
 	free(len_ret_ptr_);
+	} else {
+
+		applications_len_ = 0;
+	}
 
 	fprintf(stderr, "%s:%u - %u applications\n", __FILE__, __LINE__,
 			applications_len_);
+
+	if (node->doc_subnode_->applications_ != NULL) {
+
 	applications_ptr_ = node->doc_subnode_->applications_;
+	} else {
+
+		applications_ptr_ = NULL;
+	}
+
 	while (applications_ptr_ != NULL) {
+
 		application_ = applications_ptr_->first;
 		assertion(application_->name_ != NULL);
 		assertion(application_->type_ != STT_APPLICATION_TYPE_INVALID);
-		fprintf(stderr, "%s:%u - %u\n", __FILE__, __LINE__, application_->type_);
+		fprintf(stderr, "%s:%u - %u\n", __FILE__, __LINE__,
+				application_->type_);
 		assertion(application_->entry_point_function_name_ != NULL);
 		assertion(
 				amara_string_length(
@@ -1253,7 +1499,8 @@ dump_syntax_tree(const stt_node * node)
 		entry_point_function_name_chars_array_ =
 				amara_string_get_value(
 						application_->entry_point_function_name_);
-		fprintf(stderr, "%s:%u - %s\n", __FILE__, __LINE__, entry_point_function_name_chars_array_);
+		fprintf(stderr, "%s:%u - %s\n", __FILE__, __LINE__,
+				entry_point_function_name_chars_array_);
 		free(entry_point_function_name_chars_array_);
 		applications_ptr_ = applications_ptr_->next;
 	}
@@ -1282,6 +1529,7 @@ look_for_undefined_labels_ret *
 look_for_undefined_labels_in_named_functions_(const stt_node * node)
 {
 	look_for_undefined_labels_ret * ret_;
+
 	fprintf(stderr, "%s:%u ----> look_for_undefined_labels_ret * look_for_undefined_labels_in_named_functions(const stt_node *)\n",
 			__FILE__, __LINE__);
 	ret_ = malloc(sizeof(look_for_undefined_labels_ret));
@@ -1312,6 +1560,7 @@ look_for_undefined_labels_in_applications_(const stt_node * node)
 	char_arrays_simple_list * messages_ptr_;
 	const char * target_entry_point_function_name_chars_array_;
 	const char * applications_ptr_first_name_chars_array_;
+
 	ret_ = malloc(sizeof(look_for_undefined_labels_ret));
 	ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID;
 	ret_->messages = NULL;
@@ -1320,10 +1569,15 @@ look_for_undefined_labels_in_applications_(const stt_node * node)
 	assertion(node->doc_subnode_ != NULL);
 	applications_ptr_ = node->doc_subnode_->applications_;
 	while (applications_ptr_ != NULL) {
+		if (applications_ptr_->first != NULL) {  /* XXX */
 		target_entry_point_function_name_ =
 				applications_ptr_->first->entry_point_function_name_;
 		named_functions_ptr_ = node->doc_subnode_->named_functions_;
 		function_name_found_ = AMARA_BOOLEAN_FALSE;
+		if (named_functions_ptr_->first == NULL) {
+			assertion(named_functions_ptr_->next == NULL);
+			named_functions_ptr_ = NULL;
+		} else {
 		while (named_functions_ptr_ != NULL) {
 			function_name_found_ = amara_string_equality(
 					named_functions_ptr_->first->name_,
@@ -1332,6 +1586,7 @@ look_for_undefined_labels_in_applications_(const stt_node * node)
 				break;
 			}
 			named_functions_ptr_ = named_functions_ptr_->next;
+		}
 		}
 		if (named_functions_ptr_ == NULL) {
 			/*   No function with a matching name with the
@@ -1346,11 +1601,12 @@ look_for_undefined_labels_in_applications_(const stt_node * node)
 			applications_ptr_first_name_chars_array_ =
 					amara_string_get_value(
 							applications_ptr_->first->name_);
-			ret_->messages->first = concatenate_four_char_arrays(
+			ret_->messages->first = concatenate_five_char_arrays(
 					"error, function '",
 					target_entry_point_function_name_chars_array_,
 					"' not found but has been requested as entry point function by application '",
-					applications_ptr_first_name_chars_array_);
+					applications_ptr_first_name_chars_array_,
+					"'");
 			free((char *) target_entry_point_function_name_chars_array_);
 			free((char *) applications_ptr_first_name_chars_array_);
 			ret_->messages->next = messages_ptr_;
@@ -1359,6 +1615,7 @@ look_for_undefined_labels_in_applications_(const stt_node * node)
 			/*   Entry point function name found. */
 			assertion(function_name_found_);
 		}
+		}  /* XXX */
 		applications_ptr_ = applications_ptr_->next;
 	}
 	return ret_;
@@ -1379,6 +1636,7 @@ look_for_undefined_labels_in_execution_requests_(const stt_node * node)
 	const amara_string * target_application_requested_to_be_run_name_;
 	const char * target_application_requested_to_be_run_name_chars_array_;
 	char_arrays_simple_list * messages_ptr_;
+
 	ret_ = malloc(sizeof(look_for_undefined_labels_ret));
 	ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID;
 	ret_->messages = NULL;
@@ -1387,10 +1645,15 @@ look_for_undefined_labels_in_execution_requests_(const stt_node * node)
 	assertion(node->doc_subnode_ != NULL);
 	execution_requests_ptr_ = node->doc_subnode_->execution_requests_;
 	while (execution_requests_ptr_ != NULL) {
+		if (execution_requests_ptr_->first != NULL) {  /* XXX */
 		target_application_requested_to_be_run_name_ =
 				execution_requests_ptr_->first->application_name_;
 		applications_ptr_ = node->doc_subnode_->applications_;
 		application_name_found_ = AMARA_BOOLEAN_FALSE;
+		if (applications_ptr_->first == NULL) {
+			assertion(applications_ptr_->next == NULL);
+			applications_ptr_ = NULL;
+		} else {
 		while (applications_ptr_ != NULL) {
 			application_name_found_ = amara_string_equality(
 					applications_ptr_->first->name_,
@@ -1399,6 +1662,7 @@ look_for_undefined_labels_in_execution_requests_(const stt_node * node)
 				break;
 			}
 			applications_ptr_ = applications_ptr_->next;
+		}
 		}
 		if (applications_ptr_ == NULL) {
 			/*   No application with a matching name with
@@ -1421,6 +1685,7 @@ look_for_undefined_labels_in_execution_requests_(const stt_node * node)
 			/*   Application to be run was found. */
 			assertion(application_name_found_);
 		}
+		}  /* XXX */
 		execution_requests_ptr_ = execution_requests_ptr_->next;
 	}
 	return ret_;
@@ -1433,8 +1698,9 @@ look_for_undefined_labels(const stt_node * node)
 	look_for_undefined_labels_ret * named_functions_sub_ret_;
 	look_for_undefined_labels_ret * applications_sub_ret_;
 	look_for_undefined_labels_ret * execution_requests_sub_ret_;
-	look_for_undefined_labels_ret * ret_ =
-			malloc(sizeof(look_for_undefined_labels_ret));
+	look_for_undefined_labels_ret * ret_;
+
+	ret_ = malloc(sizeof(look_for_undefined_labels_ret));
 	ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID;
 	ret_->messages = NULL;
 	assertion_two(node != NULL, "unexpected value NULL for `node`");
@@ -1444,21 +1710,25 @@ look_for_undefined_labels(const stt_node * node)
 	              "`node->doc` unexpectedly NULL");
 	named_functions_sub_ret_ =
 			look_for_undefined_labels_in_named_functions_(node);
+	assertion(named_functions_sub_ret_->status ==
+			LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_OK);
+	/*
 	if (named_functions_sub_ret_->status ==
 			LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR) {
 		ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR;
 		temp_ = ret_->messages;
-		ret_->messages = char_arrays_simple_list_concat_destructive(
+		ret_->messages = char_arrays_simple_list_concat(
 				temp_,
 				named_functions_sub_ret_->messages);
 	}
+	*/
 	applications_sub_ret_ =
 			look_for_undefined_labels_in_applications_(node);
 	if (applications_sub_ret_->status ==
 			LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR) {
 		ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR;
 		temp_ = ret_->messages;
-		ret_->messages = char_arrays_simple_list_concat_destructive(
+		ret_->messages = char_arrays_simple_list_concat(
 				temp_,
 				applications_sub_ret_->messages);
 	}
@@ -1468,7 +1738,7 @@ look_for_undefined_labels(const stt_node * node)
 			LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR) {
 		ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR;
 		temp_ = ret_->messages;
-		ret_->messages = char_arrays_simple_list_concat_destructive(
+		ret_->messages = char_arrays_simple_list_concat(
 				temp_,
 				execution_requests_sub_ret_->messages);
 	}
@@ -1821,6 +2091,52 @@ assert_clean_execution_request_node(const stt_node * node)
 }
 
 void
+assert_clean_doc_fragment_node(const stt_node * node)
+{
+	assertion(node != NULL);
+	assertion(node->type_ == STT_NODE_TYPE_DOC_FRAGMENT);
+	assertion(node->string_literal_subnode_ == NULL);
+	assertion(node->natural_literal_subnode_ == NULL);
+	assertion(node->integer_literal_subnode_ == NULL);
+	assertion(node->rational_literal_subnode_ == NULL);
+	assertion(node->identifier_subnode_ == NULL);
+	assertion(node->condition_subnode_ == NULL);
+	assertion(node->expression_subnode_ == NULL);
+	assertion(node->where_value_binding_subnode_ == NULL);
+	assertion(node->where_value_bindings_subnode_ == NULL);
+	assertion(node->operation_subnode_ == NULL);
+	assertion(node->operations_list_subnode_ == NULL);
+	assertion(node->named_function_subnode_ == NULL);
+	assertion(node->application_subnode_ == NULL);
+	assertion(node->execution_request_subnode_ == NULL);
+	assertion(node->doc_subnode_ != NULL);
+
+	if (node->doc_subnode_->named_functions_ == NULL) {  /* XXX */
+
+		assertion(node->doc_subnode_->named_functions_ == NULL);
+	} else {  /* XXX */
+
+		assertion(node->doc_subnode_->named_functions_ != NULL);
+	}  /* XXX */
+
+	if (node->doc_subnode_->applications_ == NULL) {  /* XXX */
+
+		assertion(node->doc_subnode_->applications_ == NULL);
+	} else {  /* XXX */
+
+		assertion(node->doc_subnode_->applications_ != NULL);
+	}  /* XXX */
+
+	if (node->doc_subnode_->execution_requests_ == NULL) {  /* XXX */
+
+		assertion(node->doc_subnode_->execution_requests_ == NULL);
+	} else {  /* XXX */
+
+		assertion(node->doc_subnode_->execution_requests_ != NULL);
+	}  /* XXX */
+}
+
+void
 assert_clean_doc_node(const stt_node * node)
 {
 	assertion(node != NULL);
@@ -1840,7 +2156,28 @@ assert_clean_doc_node(const stt_node * node)
 	assertion(node->application_subnode_ == NULL);
 	assertion(node->execution_request_subnode_ == NULL);
 	assertion(node->doc_subnode_ != NULL);
-	assertion(node->doc_subnode_->named_functions_ != NULL);
-	assertion(node->doc_subnode_->applications_ != NULL);
-	assertion(node->doc_subnode_->execution_requests_ != NULL);
+
+	/*if (node->doc_subnode_->named_functions_ == NULL) {*/  /* XXX */
+
+		/*assertion(node->doc_subnode_->named_functions_ == NULL);*/
+	/*} else {*/  /* XXX */
+
+		assertion(node->doc_subnode_->named_functions_ != NULL);
+	/*}*/  /* XXX */
+
+	/*if (node->doc_subnode_->applications_ == NULL) {*/  /* XXX */
+
+		/*assertion(node->doc_subnode_->applications_ == NULL);*/
+	/*} else {*/  /* XXX */
+
+		assertion(node->doc_subnode_->applications_ != NULL);
+	/*}*/  /* XXX */
+
+	/*if (node->doc_subnode_->execution_requests_ == NULL) {*/  /* XXX */
+
+		/*assertion(node->doc_subnode_->execution_requests_ == NULL);*/
+	/*} else {*/  /* XXX */
+
+		assertion(node->doc_subnode_->execution_requests_ != NULL);
+	/*}*/  /* XXX */
 }

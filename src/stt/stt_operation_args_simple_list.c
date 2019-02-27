@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,8 @@
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
+#include "stt_node.h"
+
 /*   For own definitions. */
 #include "stt_operation_args_simple_list.h"
 
@@ -30,9 +32,12 @@ stt_operation_args_simple_list *
 stt_operation_args_simple_list_default_constructor()
 {
 	stt_operation_args_simple_list * ret_;
+
 	ret_ = malloc(sizeof(stt_operation_args_simple_list));
+	forced_assertion(ret_ != NULL);
 	ret_->first = NULL;
 	ret_->next = NULL;
+
 	return ret_;
 }
 
@@ -97,9 +102,7 @@ void
 stt_operation_args_simple_list_destructor(
 		stt_operation_args_simple_list * list)
 {
-#ifndef NDEBUG
-	assertion(list != NULL);
-#endif
+	forced_assertion(list != NULL);
 
 	if (list->first == NULL) {
 
@@ -110,7 +113,6 @@ stt_operation_args_simple_list_destructor(
 
 	if (list->next != NULL) {
 
-		/* XXX Remove recursive call in all destructors of this sources subdirectory. */
 		stt_operation_args_simple_list_destructor(list->next);
 	}
 
@@ -122,32 +124,72 @@ stt_operation_args_simple_list_push_front(
 		stt_operation_args_simple_list * operation_args,
 		const stt_operation_arg * operation_arg)
 {
-	/*
 	stt_operation_args_simple_list * new_list_node_;
-	*/
 
-#ifndef NDEBUG
-	assertion(operation_args != NULL);
-#endif
+	forced_assertion(operation_args != NULL);
 
-#ifndef NDEBUG
-	assertion(operation_arg != NULL);
-#endif
+	forced_assertion(operation_arg != NULL);
 
-	/*
 	if (operation_args->first == NULL) {
-	*/
-	assertion(operation_args->first == NULL);
+
+#ifndef NDEBUG
 		assertion(operation_args->next == NULL);
+#endif
 		operation_args->first = stt_operation_arg_copy_constructor(
 				operation_arg);
+		forced_assertion(operation_args->first != NULL);
 		return operation_args;
-	/*
 	}
 	new_list_node_ = malloc(sizeof(stt_operation_args_simple_list));
+	forced_assertion(new_list_node_ != NULL);
 	new_list_node_->first = stt_operation_arg_copy_constructor(
 			operation_arg);
+	forced_assertion(new_list_node_->first != NULL);
 	new_list_node_->next = operation_args;
 	return new_list_node_;
+}
+
+amara_boolean
+stt_operation_args_simple_list_equality(
+		const stt_operation_args_simple_list * l0,
+		const stt_operation_args_simple_list * l1)
+{
+	amara_boolean equality_;
+
+	forced_assertion(l0 != NULL);
+	forced_assertion(l0->first != NULL);
+	forced_assertion(l0->first->type_ ==
+			STT_OPERATION_ARG_TYPE_VALID);
+	forced_assertion(l0->first->node_ != NULL);
+	/*
+	forced_assertion(l0->first->node_->type_ == STT_NODE_TYPE_IDENTIFIER);
+	forced_assertion(l0->first->node_->identifier_subnode_ != NULL);
+	forced_assertion(l0->first->node_->identifier_subnode_->value_ !=
+			NULL);
 	*/
+	forced_assertion(l0->next == NULL);
+	forced_assertion(l1 != NULL);
+	forced_assertion(l1->first != NULL);
+	forced_assertion(l1->first->type_ ==
+			STT_OPERATION_ARG_TYPE_VALID);
+	forced_assertion(l1->first->node_ != NULL);
+	/*
+	forced_assertion(l1->first->node_->type_ == STT_NODE_TYPE_IDENTIFIER);
+	forced_assertion(l1->first->node_->identifier_subnode_ != NULL);
+	forced_assertion(l1->first->node_->identifier_subnode_->value_ !=
+			NULL);
+	*/
+	forced_assertion(l1->next == NULL);
+
+	/*
+	equality_ = amara_string_equality(
+			l0->first->node_->identifier_subnode_->value_,
+			l1->first->node_->identifier_subnode_->value_);
+	*/
+
+	equality_ = stt_node_equality(l0->first->node_, l1->first->node_);
+
+	forced_assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
+	return AMARA_BOOLEAN_TRUE;
 }

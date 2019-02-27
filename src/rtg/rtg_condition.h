@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,16 +32,19 @@ typedef unsigned char rtg_condition_type;
 /* #define RTG_CONDITION_TYPE_NOT_EQUAL_TO             0x05 */
 /* #define RTG_CONDITION_TYPE_LESS_THAN_OR_EQUAL_TO    0x06 */
 
+/*
 rtg_condition_type
 rtg_condition_type_ill(void)
 __attribute__((warn_unused_result))
 ;
+*/
 
 amara_boolean
 rtg_condition_type_is_valid(rtg_condition_type condition_type)
 __attribute__((warn_unused_result))
 ;
 
+/*
 amara_boolean
 rtg_condition_type_is_known(rtg_condition_type condition_type)
 __attribute__((warn_unused_result))
@@ -51,10 +54,14 @@ amara_boolean
 rtg_condition_type_is_ill(rtg_condition_type condition_type)
 __attribute__((warn_unused_result))
 ;
+*/
 
 typedef struct rtg_condition {
+
 	rtg_condition_type type_;
+
 	struct rtg_expression * left_hand_side_expression_;
+
 	struct rtg_expression * right_hand_side_expression_;
 } rtg_condition
 ;

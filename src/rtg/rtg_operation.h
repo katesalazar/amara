@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,27 +29,40 @@
 #define RTG_OPERATION_TYPE_INVALID       0x00
 #define RTG_OPERATION_TYPE_PRINT      0x03
 #define RTG_OPERATION_TYPE_PRINT_CRLF 0x0C
+/*
 #define RTG_OPERATION_TYPE_MULTIPLICATION           0x30
 #define RTG_OPERATION_TYPE_DIVISION                 0x31
 #define RTG_OPERATION_TYPE_ADDITION                 0x32
 #define RTG_OPERATION_TYPE_SUBSTRACTION             0x33
+*/
 #define RTG_OPERATION_TYPE_READ_NATURAL_TO_VALUE    0xBF
 #define RTG_OPERATION_TYPE_READ_NATURAL_INTO_VALUE \
 		RTG_OPERATION_TYPE_READ_NATURAL_TO_VALUE
+#define RTG_OPERATION_TYPE_READ_INTEGER_INTO_VALUE  0xC0
+/*
 #define RTG_OPERATION_TYPE_READ_NATURAL_TO_VARIABLE 0xC0
 #define RTG_OPERATION_TYPE_READ_NATURAL_INTO_VARIABLE \
 		RTG_OPERATION_TYPE_READ_NATURAL_TO_VARIABLE
-#define RTG_FAKE_OPERATION_TYPE_RESOLVE_TYPE_OF_EXPRESSION 0xC1 /*   Must remain resolved by semantic analysis by the time run time comes. */
+*/
+/*
+#define RTG_FAKE_OPERATION_TYPE_RESOLVE_TYPE_OF_EXPRESSION 0xC1 *//*   Must remain resolved by semantic analysis by the time run time comes. */
+/*
 #define RTG_OPERATION_TYPE_PRINT_NO_CRLF            0xFF
+*/
+
+typedef unsigned char rtg_operation_type;
 
 typedef struct rtg_operation {
-	unsigned char type_;
+
+	rtg_operation_type type_;
+
 	struct rtg_operation_args_simple_list * args_;
-} rtg_operation;
+} rtg_operation
+;
 
 rtg_operation *
 rtg_operation_exhaustive_constructor(
-		unsigned char type,
+		const rtg_operation_type type,
 		const struct rtg_operation_args_simple_list * args)
 __attribute__((warn_unused_result))
 ;
@@ -71,6 +84,7 @@ __attribute__((warn_unused_result))
 /*   This is an enumeration. */
 
 #define RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_INVALID 0x00
+#define RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER 0x0E
 #define RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_ERROR_UNSPECIFIC 0x0F
 #define RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS 0xFF
 
@@ -78,9 +92,9 @@ typedef struct rtg_operation_out_of_stt_operation_ret {
 
 	unsigned char status;
 
-	rtg_operation * operation;
+	amara_strings_simple_list * error_messages;
 
-	amara_boolean operation_was_moved;
+	rtg_operation * operation;
 } rtg_operation_out_of_stt_operation_ret
 ;
 
@@ -90,7 +104,9 @@ rtg_operation_out_of_stt_operation_ret_destructor(
 ;
 
 rtg_operation_out_of_stt_operation_ret *
-rtg_operation_out_of_stt_operation(const stt_operation * operation)
+rtg_operation_out_of_stt_operation(
+		const stt_operation * operation,
+		const stt_where_value_bindings_simple_list * function_where_bindings)
 __attribute__((warn_unused_result))
 ;
 

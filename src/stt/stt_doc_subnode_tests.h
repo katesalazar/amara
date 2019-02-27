@@ -22,10 +22,24 @@
 
 #include "stt_doc_subnode.h"
 
+stt_doc_subnode *
+stt_doc_subnode_example_one_invalid_named_function(void)
+__attribute__((warn_unused_result))
+;
+
 #ifndef NDEBUG
 
 void
-assert_expectations_on_stt_doc_subnode_example_print_foo(
+assert_expectations_on_stt_doc_subnode_example_one_invalid_named_function(
+		const stt_doc_subnode * subnode)
+;
+
+#endif
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_doc_subnode_example_print_string_literal_foo(
 		const stt_doc_subnode * subnode)
 ;
 

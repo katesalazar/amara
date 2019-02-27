@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -317,11 +317,16 @@ stt_expression_set_conditional(
 			STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_INVALID);
 	assertion(expression_sub_conditional->if_->condition_ != NULL);
 	assertion(expression_sub_conditional->if_->expression_then_ != NULL);
+	forced_assertion(expression_sub_conditional->if_->type_ ==
+			STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE);
+	/*
 	if (expression_sub_conditional->if_->type_ ==
 			STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE) {
+	*/
 		assertion(expression_sub_conditional->if_->expression_else_ !=
 				NULL);
 		assertion(expression_sub_conditional->if_->next_if_ == NULL);
+	/*
 	} else {
 		assertion(expression_sub_conditional->if_->type_ ==
 				STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE_IF);
@@ -329,6 +334,7 @@ stt_expression_set_conditional(
 				NULL);
 		assertion(expression_sub_conditional->if_->next_if_ != NULL);
 	}
+	*/
 
 	expression->sub_conditional_ =
 			stt_expression_sub_conditional_copy_constructor(
@@ -376,6 +382,8 @@ stt_expression_equality(const stt_expression * e0, const stt_expression * e1)
 
 	if (e0->type_ != e1->type_) {
 
+		/*   XXX Potentially not? Revaluate identity, equality,
+		 * and equivalence considerations..? */
 		return AMARA_BOOLEAN_FALSE;
 	}
 
@@ -440,7 +448,7 @@ void
 stt_expression_assert_clean_string_literal(const stt_expression * this)
 {
 	assertion(this != NULL);
-	assertion(this->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL);
+	assertion(this->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL);
 	assertion(this->sub_string_literal_ != NULL);
 	assertion(this->sub_string_literal_->string_literal_ != NULL);
 	assertion(this->sub_string_literal_->string_literal_->value_ != NULL);
@@ -492,13 +500,18 @@ stt_expression_assert_clean_conditional(const stt_expression * this)
 	assertion(this->sub_conditional_->if_ != NULL);
 	assertion(this->sub_conditional_->if_->condition_ != NULL);
 	assertion(this->sub_conditional_->if_->expression_then_ != NULL);
+	forced_assertion(this->sub_conditional_->if_->next_if_ == NULL);
+	/*
 	if (this->sub_conditional_->if_->next_if_ == NULL) {
+	*/
 		assertion(this->sub_conditional_->if_->expression_else_ !=
 				NULL);
+	/*
 	} else {
 		assertion(this->sub_conditional_->if_->expression_else_ ==
 				NULL);
 	}
+	*/
 	assertion(this->sub_dice_ == NULL);
 }
 
@@ -532,10 +545,13 @@ stt_expression_assert_cleanliness(const stt_expression * this)
 	} else if (this->type_ == STT_EXPRESSION_TYPE_IDENTIFIER) {
 
 		stt_expression_assert_clean_identifier(this);
-	} else {
-		assertion(this->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL);
+	} else if (this->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL) {
 
 		stt_expression_assert_clean_natural_literal(this);
+	} else {
+		forced_assertion(this->type_ == STT_EXPRESSION_TYPE_DICE);
+
+		stt_expression_assert_clean_dice(this);
 	}
 }
 

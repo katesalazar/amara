@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -784,6 +784,7 @@ expression :
   stt_expression_destructor(expression_);
   stt_node_destructor($1);
 }
+/*
 | T_TYPE T_OF expression
 {
   char * value_char_array_;
@@ -824,11 +825,14 @@ expression :
   amara_string_set_value(
       $$->string_literal_subnode_->string_literal_, value_char_array_);
   $$->type_ = STT_NODE_TYPE_STRING_LITERAL;
+*/
   /* amara_string_destructor($3->natural_subnode_->raw_); */
   /* stt_natural_subnode_destructor($3->natural_subnode_); */
+/*
   stt_node_destructor($3);
   }
 }
+*/
 | T_IDENTIFIER
 {
   b_trace_chars_array("numeric_value : T_IDENTIFIER\n");
@@ -836,6 +840,7 @@ expression :
   assert_clean_identifier_node($1);
   $$ = $1;
 }
+/*
 | T_LEFT_PARENS expression T_RIGHT_PARENS
 {
   b_trace_chars_array(
@@ -851,16 +856,43 @@ expression :
   }
   $$ = $2;
 }
+*/
 | expression T_TIMES expression
 {
-  stt_operation_arg * first_operation_arg_;
-  stt_operation_arg * second_operation_arg_;
+  /*
+  stt_expression * left_expression_;
+  stt_expression * right_expression_;
+  */
+
   b_trace_chars_array(
-      "numeric_value : numeric_value T_TIMES numeric_value\n");
+      "expression : expression T_TIMES expression\n");
+
+  $$ = stt_nodes_multiplication($1, $3);
+
+  stt_node_destructor($1);
+  stt_node_destructor($3);
+
+  /*
   fprintf(stderr, "%u\n", $1->type_);
   fprintf(stderr, "%u\n", $3->type_);
+  if ($1->type_ == STT_NODE_TYPE_NATURAL_LITERAL &&
+      $3->type_ == STT_NODE_TYPE_NATURAL_LITERAL) {
+  */
+  /* XXX here is asserted a natural literal, but it can be either:
+         - natural literal
+         - variable
+         - operation (including variables and natural literals) */
+  /*
+  assertion($1->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
+  assertion($3->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
+  $$ = simplify_natural_literal_nodes_multiplication($1, $3);
+  stt_node_destructor($1);
+  stt_node_destructor($3);
+  } else
   if ($1->type_ == STT_NODE_TYPE_OPERATION) {
+  */
     /* assertion($1->type_ == STT_NODE_TYPE_IDENTIFIER); */ /* FIXME */
+    /*
     $$ = stt_node_default_constructor();
     $$->operation_subnode_ = stt_operation_subnode_default_constructor();
     $$->operation_subnode_->operation_ = stt_operation_default_constructor();
@@ -868,7 +900,8 @@ expression :
         stt_operation_args_simple_list_default_constructor();
     first_operation_arg_ = stt_operation_arg_default_constructor();
     first_operation_arg_->node_ = $1;
-    first_operation_arg_->type_ = STT_OPERATION_ARG_TYPE_VALID; /* XXX */
+    first_operation_arg_->type_ = STT_OPERATION_ARG_TYPE_VALID; *//* XXX */
+    /*
     second_operation_arg_ = stt_operation_arg_default_constructor();
     second_operation_arg_->node_ = $3;
     second_operation_arg_->type_ = STT_OPERATION_ARG_TYPE_VALID;
@@ -881,22 +914,27 @@ expression :
     $$->operation_subnode_->operation_->type_ =
         STT_OPERATION_TYPE_MULTIPLICATION;
     $$->type_ = STT_NODE_TYPE_OPERATION;
-  } else {
-  /* XXX here is asserted a natural literal, but it can be either:
-         - natural literal
-         - variable
-         - operation (including variables and natural literals) */
-  assertion($1->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
-  assertion($3->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
-  $$ = simplify_natural_literal_nodes_multiplication($1, $3);
-  stt_node_destructor($1);
-  stt_node_destructor($3);
   }
+  */
 }
 | expression T_DIVIDED T_BY expression
 {
+  /*
   stt_operation_arg * first_operation_arg_;
   stt_operation_arg * second_operation_arg_;
+  */
+
+  b_trace_chars_array(
+      "expression : expression T_DIVIDED T_BY expression\n");
+
+  $$ = stt_nodes_division($1, $4);
+
+  stt_node_destructor($1);
+  stt_node_destructor($4);
+
+  /*
+  fprintf(stderr, "%u\n", $1->type_);
+
   fprintf(stderr, "%u\n", $1->type_);
   fprintf(stderr, "%u\n", $4->type_);
   b_trace_chars_array(
@@ -910,7 +948,8 @@ expression :
   stt_node_destructor($1);
   stt_node_destructor($4);
   } else {
-    assertion($1->type_ == STT_NODE_TYPE_OPERATION); /* XXX but it can actually be an identifier legally */
+    assertion($1->type_ == STT_NODE_TYPE_OPERATION); *//* XXX but it can actually be an identifier legally */
+    /*
     assertion($1->operation_subnode_ != NULL);
     assertion($1->operation_subnode_->operation_ != NULL);
     assertion($1->operation_subnode_->operation_->type_ !=
@@ -924,9 +963,11 @@ expression :
           NULL);
     } else {
       fprintf(stderr, "%u\n", $1->operation_subnode_->operation_->type_);
-      assertion(0); /* XXX */
+      assertion(0); *//* XXX */
+    /*
     }
-    assertion($4->type_ == STT_NODE_TYPE_NATURAL_LITERAL); /* XXX but this is not quite true, just adding this temporarily. */
+    assertion($4->type_ == STT_NODE_TYPE_NATURAL_LITERAL); *//* XXX but this is not quite true, just adding this temporarily. */
+    /*
     $$ = stt_node_default_constructor();
     $$->operation_subnode_ = stt_operation_subnode_default_constructor();
     $$->operation_subnode_->operation_ = stt_operation_default_constructor();
@@ -934,7 +975,8 @@ expression :
         stt_operation_args_simple_list_default_constructor();
     first_operation_arg_ = stt_operation_arg_default_constructor();
     first_operation_arg_->node_ = $1;
-    first_operation_arg_->type_ = STT_OPERATION_ARG_TYPE_VALID; /* XXX */
+    first_operation_arg_->type_ = STT_OPERATION_ARG_TYPE_VALID; *//* XXX */
+    /*
     second_operation_arg_ = stt_operation_arg_default_constructor();
     second_operation_arg_->node_ = $4;
     second_operation_arg_->type_ = STT_OPERATION_ARG_TYPE_VALID;
@@ -948,22 +990,36 @@ expression :
         STT_OPERATION_TYPE_DIVISION;
     $$->type_ = STT_NODE_TYPE_OPERATION;
   }
+  */
 }
 | expression T_MINUS expression
 {
+  /*
   stt_operation_arg * first_operation_arg_;
   stt_operation_arg * second_operation_arg_;
+  */
+
   b_trace_chars_array(
-      "numeric_value : numeric_value T_MINUS numeric_value\n");
+      "expression : expression T_MINUS expression\n");
+
+  $$ = stt_nodes_substraction($1, $3);
+
+  stt_node_destructor($1);
+  stt_node_destructor($3);
+
+  /*
   if ($1->type_ == STT_NODE_TYPE_NATURAL_LITERAL) {
   assertion_two($3->type_ == STT_NODE_TYPE_NATURAL_LITERAL,
       "unexpected node type at %s:%d\n");
-  $$ = simplify_natural_literal_nodes_substraction($1, $3); /* TODO must reword this `numeric` to `numeric literal` or something. */
+  $$ = simplify_natural_literal_nodes_substraction($1, $3); *//* TODO must reword this `numeric` to `numeric literal` or something. */
   /* amara_string_destructor($1->natural_subnode_->raw_);
   stt_natural_subnode_destructor($1->natural_subnode_); */
+  /*
   stt_node_destructor($1);
+  */
   /* amara_string_destructor($3->natural_subnode_->raw_);
   stt_natural_subnode_destructor($3->natural_subnode_); */
+  /*
   stt_node_destructor($3);
   } else {
     assertion($1->type_ == STT_NODE_TYPE_IDENTIFIER);
@@ -974,7 +1030,8 @@ expression :
         stt_operation_args_simple_list_default_constructor();
     first_operation_arg_ = stt_operation_arg_default_constructor();
     first_operation_arg_->node_ = $1;
-    first_operation_arg_->type_ = STT_OPERATION_ARG_TYPE_VALID; /* XXX */
+    first_operation_arg_->type_ = STT_OPERATION_ARG_TYPE_VALID; *//* XXX */
+  /*
     second_operation_arg_ = stt_operation_arg_default_constructor();
     second_operation_arg_->node_ = $3;
     second_operation_arg_->type_ = STT_OPERATION_ARG_TYPE_VALID;
@@ -988,6 +1045,7 @@ expression :
         STT_OPERATION_TYPE_SUBSTRACTION;
     $$->type_ = STT_NODE_TYPE_OPERATION;
   }
+  */
 }
 | T_DICE_EXPRESSION
 {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,8 +66,15 @@ rtg_expression_sub_conditional_if_copy_constructor(
 	assertion(returning_->expression_then_ != NULL);
 #endif
 
+	forced_assertion(expression_sub_conditional_if->type_ ==
+			RTG_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE);
+
+	/*
+
 	if (expression_sub_conditional_if->type_ ==
 			RTG_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE) {
+
+	*/
 
 #ifndef NDEBUG
 		assertion(expression_sub_conditional_if->expression_else_ !=
@@ -88,6 +95,7 @@ rtg_expression_sub_conditional_if_copy_constructor(
 
 		returning_->type_ =
 				RTG_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE;
+	/*
 	} else {
 #ifndef NDEBUG
 		assertion(expression_sub_conditional_if->type_ ==
@@ -115,6 +123,7 @@ rtg_expression_sub_conditional_if_copy_constructor(
 		returning_->type_ =
 				RTG_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE_IF;
 	}
+	*/
 
 	return returning_;
 }
@@ -159,14 +168,21 @@ rtg_expression_sub_conditional_if_destructor(
 	assertion(expression_sub_conditional_if->expression_then_ != NULL);
 	rtg_expression_destructor(
 			expression_sub_conditional_if->expression_then_);
+
+	forced_assertion(expression_sub_conditional_if->type_ ==
+			RTG_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE);
+
+	/*
 	if (expression_sub_conditional_if->type_ ==
 			RTG_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE) {
+	*/
 
 		assertion(expression_sub_conditional_if->expression_else_ !=
 				NULL);
 		rtg_expression_destructor(
 				expression_sub_conditional_if->expression_else_);
 		assertion(expression_sub_conditional_if->next_if_ == NULL);
+	/*
 	} else {
 		assertion(expression_sub_conditional_if->type_ ==
 				RTG_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE_IF);
@@ -177,6 +193,8 @@ rtg_expression_sub_conditional_if_destructor(
 		rtg_expression_sub_conditional_if_destructor(
 				expression_sub_conditional_if->next_if_);
 	}
+	*/
+
 	free(expression_sub_conditional_if);
 }
 
@@ -209,12 +227,19 @@ rtg_expression_sub_conditional_if_out_of_stt_expression_sub_conditional_if(
 	assertion(expression_sub_conditional_if != NULL);
 	assertion(expression_sub_conditional_if->condition_ != NULL);
 	assertion(expression_sub_conditional_if->expression_then_ != NULL);
+
+	assertion(expression_sub_conditional_if->type_ ==
+			STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE);
+
+	/*
 	if (expression_sub_conditional_if->type_ ==
 			STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE) {
+	*/
 
 		assertion(expression_sub_conditional_if->expression_else_ !=
 				NULL);
 		assertion(expression_sub_conditional_if->next_if_ == NULL);
+	/*
 	} else{
 		assertion(expression_sub_conditional_if->type_ ==
 				STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE_IF);
@@ -223,6 +248,7 @@ rtg_expression_sub_conditional_if_out_of_stt_expression_sub_conditional_if(
 				NULL);
 		assertion(expression_sub_conditional_if->next_if_ != NULL);
 	}
+	*/
 #endif
 
 	returning_ = malloc(sizeof(rtg_expression_sub_conditional_if));
@@ -240,11 +266,16 @@ rtg_expression_sub_conditional_if_out_of_stt_expression_sub_conditional_if(
 #endif
 
 	returning_->expression_then_ = rtg_exp_ret_then_->expression;
-	rtg_exp_ret_then_->expression_was_moved = AMARA_BOOLEAN_TRUE;
+	rtg_exp_ret_then_->expression = NULL;
 	rtg_expression_out_of_stt_expression_ret_destructor(rtg_exp_ret_then_);
 
+	assertion(expression_sub_conditional_if->type_ ==
+			STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE);
+
+	/*
 	if (expression_sub_conditional_if->type_ ==
 			STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE) {
+	*/
 
 		rtg_exp_ret_else_ = rtg_expression_out_of_stt_expression(
 				expression_sub_conditional_if->expression_else_);
@@ -255,7 +286,7 @@ rtg_expression_sub_conditional_if_out_of_stt_expression_sub_conditional_if(
 #endif
 
 		returning_->expression_else_ = rtg_exp_ret_else_->expression;
-		rtg_exp_ret_else_->expression_was_moved = AMARA_BOOLEAN_TRUE;
+		rtg_exp_ret_else_->expression = NULL;
 		rtg_expression_out_of_stt_expression_ret_destructor(
 				rtg_exp_ret_else_);
 
@@ -263,6 +294,7 @@ rtg_expression_sub_conditional_if_out_of_stt_expression_sub_conditional_if(
 
 		returning_->type_ =
 				RTG_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE;
+	/*
 	} else {
 #ifndef NDEBUG
 		assertion(expression_sub_conditional_if->type_ ==
@@ -278,6 +310,7 @@ rtg_expression_sub_conditional_if_out_of_stt_expression_sub_conditional_if(
 		returning_->type_ =
 				RTG_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE_IF;
 	}
+	*/
 
 	return returning_;
 }
@@ -295,12 +328,19 @@ rtg_expression_sub_conditional_out_of_stt_expression_sub_conditional(
 			STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_INVALID);
 	assertion(expression_sub_conditional->if_->condition_ != NULL);
 	assertion(expression_sub_conditional->if_->expression_then_ != NULL);
+
+	assertion(expression_sub_conditional->if_->type_ ==
+			STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE);
+
+	/*
 	if (expression_sub_conditional->if_->type_ ==
 			STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE) {
+	*/
 
 		assertion(expression_sub_conditional->if_->expression_else_ !=
 				NULL);
 		assertion(expression_sub_conditional->if_->next_if_ == NULL);
+	/*
 	} else {
 		assertion(expression_sub_conditional->if_->type_ ==
 				STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE_IF);
@@ -309,6 +349,7 @@ rtg_expression_sub_conditional_out_of_stt_expression_sub_conditional(
 				NULL);
 		assertion(expression_sub_conditional->if_->next_if_ != NULL);
 	}
+	*/
 #endif
 
 	returning_ = malloc(sizeof(rtg_expression_sub_conditional));
@@ -344,8 +385,13 @@ rtg_expression_sub_conditional_if_assert_validity(
 	rtg_expression_assert_validity(
 			expression_sub_conditional_if->expression_then_);
 
+	assertion(expression_sub_conditional_if->type_ ==
+			RTG_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE);
+
+	/*
 	if (expression_sub_conditional_if->type_ ==
 			RTG_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE) {
+	*/
 
 		assertion(expression_sub_conditional_if->expression_else_ !=
 				NULL);
@@ -353,6 +399,7 @@ rtg_expression_sub_conditional_if_assert_validity(
 				expression_sub_conditional_if->expression_else_);
 
 		assertion(expression_sub_conditional_if->next_if_ == NULL);
+	/*
 	} else {
 		assertion(expression_sub_conditional_if->type_ ==
 				RTG_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE_IF);
@@ -365,6 +412,7 @@ rtg_expression_sub_conditional_if_assert_validity(
 		rtg_expression_sub_conditional_if_assert_validity(
 				expression_sub_conditional_if->next_if_);
 	}
+	*/
 }
 
 void

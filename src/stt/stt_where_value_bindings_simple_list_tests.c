@@ -183,7 +183,86 @@ stt_where_value_bindings_simple_list_constructors_tests()
 }
 
 void
+stt_where_value_bindings_simple_list_find_by_value_name_test_0()
+{
+	stt_where_value_bindings_simple_list * haystack_;
+	amara_string * needle_;
+	stt_where_value_binding * result_;
+
+	haystack_ = NULL;
+
+	needle_ = NULL;
+
+	result_ = stt_where_value_bindings_simple_list_find_by_value_name(
+			haystack_, needle_);
+	forced_assertion(result_ == NULL);
+}
+
+void
+stt_where_value_bindings_simple_list_find_by_value_name_test_1()
+{
+	stt_where_value_bindings_simple_list * haystack_;
+	amara_string * needle_;
+	stt_where_value_binding * result_;
+
+	haystack_ = stt_where_value_bindings_simple_list_example_simple_value_bind_foo_to_zero();
+	forced_assertion(haystack_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_simple_value_bind_foo_to_zero(
+			haystack_);
+#endif
+
+	needle_ = NULL;
+
+	result_ = stt_where_value_bindings_simple_list_find_by_value_name(
+			haystack_, needle_);
+	forced_assertion(result_ == NULL);
+
+	stt_where_value_bindings_simple_list_destructor(haystack_);
+}
+
+void
+stt_where_value_bindings_simple_list_find_by_value_name_test_2()
+{
+	stt_where_value_bindings_simple_list * haystack_;
+	amara_string * needle_;
+	stt_where_value_binding * result_;
+	amara_boolean equality_;
+
+	haystack_ = stt_where_value_bindings_simple_list_example_simple_value_bind_foo_to_zero();
+	forced_assertion(haystack_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_simple_value_bind_foo_to_zero(
+			haystack_);
+#endif
+
+	needle_ = amara_string_exhaustive_constructor("foo");
+	forced_assertion(needle_ != NULL);
+	forced_assertion(needle_->value_ != NULL);
+
+	result_ = stt_where_value_bindings_simple_list_find_by_value_name(
+			haystack_, needle_);
+	forced_assertion(result_ != NULL);
+	forced_assertion(result_->value_name_ != NULL);
+	forced_assertion(result_->value_name_->value_ != NULL);
+	equality_ = amara_strings_equality(result_->value_name_, needle_);
+	forced_assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
+	stt_where_value_bindings_simple_list_destructor(haystack_);
+	amara_string_destructor(needle_);
+}
+
+void
+stt_where_value_bindings_simple_list_find_by_value_name_tests()
+{
+	stt_where_value_bindings_simple_list_find_by_value_name_test_0();
+	stt_where_value_bindings_simple_list_find_by_value_name_test_1();
+	stt_where_value_bindings_simple_list_find_by_value_name_test_2();
+}
+
+void
 stt_where_value_bindings_simple_list_tests()
 {
 	stt_where_value_bindings_simple_list_constructors_tests();
+	stt_where_value_bindings_simple_list_find_by_value_name_tests();
 }

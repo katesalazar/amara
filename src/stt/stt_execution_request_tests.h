@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,10 +27,28 @@ stt_execution_request_example_print_foo(void)
 __attribute__((warn_unused_result))
 ;
 
+#ifndef NDEBUG
+
 void
 assert_expectations_on_stt_execution_request_example_print_foo(
 		const stt_execution_request * execution_request)
 ;
+
+#endif
+
+stt_execution_request *
+stt_execution_request_example_print_baz(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_execution_request_example_print_baz(
+		const stt_execution_request * execution_request)
+;
+
+#endif
 
 void
 stt_execution_request_tests(void)

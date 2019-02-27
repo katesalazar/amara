@@ -12,6 +12,7 @@ amara.kdev4
 #   Xcode stuff.
 amara.xcodeproj/project.xcworkspace/
 amara.xcodeproj/xcuserdata/
+amara.xcodeproj/xcshareddata/
 
 #   Bison object docs.
 minia.tab.h

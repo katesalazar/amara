@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,24 @@
 
 #ifndef __AMARA__SYNTAX_TREE__EXPRESSION_SUB_IDENTIFIER_TESTS__H__
 #define __AMARA__SYNTAX_TREE__EXPRESSION_SUB_IDENTIFIER_TESTS__H__
+
+/*   For `typedef struct stt_expression_sub_identifier { ... }
+ * stt_expression_sub_identifier;`. */
+#include "stt_expression_sub_identifier.h"
+
+stt_expression_sub_identifier *
+stt_expression_sub_identifier_example_foo(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_expression_sub_identifier_example_foo(
+		const stt_expression_sub_identifier * expression_sub)
+;
+
+#endif
 
 void
 stt_expression_sub_identifier_tests(void)

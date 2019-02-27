@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,17 @@
 
 #ifndef __AMARA__RUN_TIME_GRAPH__APPLICATIONS_SIMPLE_LIST_TESTS__H__
 #define __AMARA__RUN_TIME_GRAPH__APPLICATIONS_SIMPLE_LIST_TESTS__H__
+
+#include "rtg_applications_simple_list.h"
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_applications_simple_list_example_two_applications(
+		const rtg_applications_simple_list * list)
+;
+
+#endif
 
 void
 rtg_applications_simple_list_tests(void)

@@ -25,7 +25,7 @@
 #ifndef NDEBUG
 
 void
-assert_expectations_on_stt_named_function_subnode_example_print_foo(
+assert_expectations_on_stt_named_function_subnode_example_print_string_literal_foo(
 		const stt_named_function_subnode * subnode)
 ;
 

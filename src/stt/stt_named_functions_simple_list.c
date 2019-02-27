@@ -115,16 +115,25 @@ stt_named_functions_simple_list_length(stt_named_functions_simple_list * list)
 	stt_named_functions_simple_list * ptr_;
 
 	if (list == NULL) {
+
 		return 0;
-    } else if (list->first == NULL) { assertion(list->next == NULL); return 0; }
+	} else if (list->first == NULL) {
+
+		forced_assertion(list->next == NULL);
+		return 0;
+	}
+
 	ptr_ = list;
 	returning_ = 0;
 	while (ptr_ != NULL) {
+		forced_assertion(returning_ < 0xFF);  /* 255. */
+		/*
 		if (returning_ >= 255) {
 			fprintf(stderr, "%s:%u (unsigned char stt_named_functions_simple_list_length(stt_named_functions_simple_list *)): fatal\n",
 					__FILE__, __LINE__);
 			exit(EXIT_FAILURE);
 		}
+		*/
 		ptr_ = ptr_->next;
 		returning_++;
 	}

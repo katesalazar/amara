@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -80,18 +80,28 @@ stt_expression_sub_conditional_if_copy_constructor(
 			STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_INVALID);
 	assertion(expression_sub_conditional_if->condition_ != NULL);
 	assertion(expression_sub_conditional_if->expression_then_ != NULL);
+
+	forced_assertion(expression_sub_conditional_if->type_ ==
+			STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE);
+
+	/*
 	if (expression_sub_conditional_if->type_ ==
 			STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE) {
+	*/
+
 		assertion(expression_sub_conditional_if->expression_else_ !=
 				NULL);
 		assertion(expression_sub_conditional_if->next_if_ == NULL);
+	/*
 	} else {
-		assertion(expression_sub_conditional_if->type_ ==
+		forced_assertion(expression_sub_conditional_if->type_ ==
 				STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE_IF);
+
 		assertion(expression_sub_conditional_if->expression_else_ ==
 				NULL);
 		assertion(expression_sub_conditional_if->next_if_ != NULL);
 	}
+	*/
 
 	returning_ = malloc(sizeof(stt_expression_sub_conditional_if));
 
@@ -101,14 +111,20 @@ stt_expression_sub_conditional_if_copy_constructor(
 	returning_->expression_then_ = stt_expression_copy_constructor(
 			expression_sub_conditional_if->expression_then_);
 
+	forced_assertion(expression_sub_conditional_if->type_ ==
+			STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE);
+
+	/*
 	if (expression_sub_conditional_if->type_ ==
 			STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE) {
+	*/
 
 		returning_->expression_else_ = stt_expression_copy_constructor(
 				expression_sub_conditional_if->expression_else_);
 		returning_->next_if_ = NULL;
 		returning_->type_ =
 				STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE;
+	/*
 	} else {
 		assertion(expression_sub_conditional_if->type_ ==
 				STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE_IF);
@@ -121,6 +137,7 @@ stt_expression_sub_conditional_if_copy_constructor(
 		returning_->type_ =
 				STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE_IF;
 	}
+	*/
 
 	return returning_;
 }

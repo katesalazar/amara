@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,6 +40,8 @@ stt_execution_request_example_print_foo()
 	return ret_;
 }
 
+#ifndef NDEBUG
+
 void
 assert_expectations_on_stt_execution_request_example_print_foo(
 		const stt_execution_request * execution_request)
@@ -50,6 +52,40 @@ assert_expectations_on_stt_execution_request_example_print_foo(
 	assertion(execution_request->type_ ==
 			STT_EXECUTION_REQUEST_TYPE_CLI_APPLICATION);
 }
+
+#endif
+
+stt_execution_request *
+stt_execution_request_example_print_baz()
+{
+	stt_execution_request * ret_;
+
+	ret_ = stt_execution_request_default_constructor();
+	assertion(ret_ != NULL);
+
+	ret_->application_name_ = amara_string_exhaustive_constructor(
+			"cli_app_print_baz");
+	assertion(ret_->application_name_ != NULL);
+	assertion(ret_->application_name_->value_ != NULL);
+	ret_->type_ = STT_EXECUTION_REQUEST_TYPE_CLI_APPLICATION;
+
+	return ret_;
+}
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_execution_request_example_print_baz(
+		const stt_execution_request * execution_request)
+{
+	assertion(execution_request != NULL);
+	assertion(execution_request->application_name_ != NULL);
+	assertion(execution_request->application_name_->value_ != NULL);
+	assertion(execution_request->type_ ==
+			STT_EXECUTION_REQUEST_TYPE_CLI_APPLICATION);
+}
+
+#endif
 
 void
 stt_execution_request_construct_and_destruct_test_0()

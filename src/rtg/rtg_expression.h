@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -112,8 +112,6 @@ typedef struct rtg_expression_out_of_stt_expression_ret {
 	unsigned char status;
 
 	rtg_expression * expression;
-
-	amara_boolean expression_was_moved;
 } rtg_expression_out_of_stt_expression_ret
 ;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,10 @@
  * run time graph _where_ value bindings simple list.
  */
 
+/*   For `stt_where_value_bindings_simple_list *
+ * stt_where_value_bindings_simple_list_example_simple_value_bind()`. */
+#include "../stt/stt_where_value_bindings_simple_list_tests.h"
+
 /*   For `rtg_where_value_binding *
  * rtg_where_value_binding_example_bind_value_foo_to_expression_natural_zero()`. */
 #include "rtg_where_value_binding_tests.h"
@@ -24,6 +28,41 @@
 /*   For `typedef struct rtg_where_value_bindings_simple_list { ... }
  * rtg_where_value_bindings_simple_list`. */
 #include "rtg_where_value_bindings_simple_list.h"
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_where_value_bindings_simple_list_example_simple_value_bind(
+		const rtg_where_value_bindings_simple_list * list)
+{
+	assertion(list != NULL);
+	assertion(list->first != NULL);
+	assertion(list->first->value_name_ != NULL);
+	assertion(list->first->value_name_->value_ != NULL);
+	assertion(list->first->value_name_->value_[0] == 'f');
+	assertion(list->first->value_name_->value_[1] == 'o');
+	assertion(list->first->value_name_->value_[2] == 'o');
+	assertion(list->first->value_name_->value_[3] == '\0');
+	assertion(list->first->value_expression_ != NULL);
+	/* XXX delegate these checks below. */
+	assertion(list->first->value_expression_->type_ ==
+			RTG_EXPRESSION_TYPE_NATURAL_LITERAL);
+	assertion(list->first->value_expression_->sub_natural_literal_ !=
+			NULL);
+	assertion(list->first->value_expression_->sub_natural_literal_->natural_literal_ !=
+			NULL);
+	assertion(list->first->value_expression_->sub_natural_literal_->natural_literal_->raw_ !=
+			NULL);
+	assertion(list->first->value_expression_->sub_natural_literal_->natural_literal_->raw_->value_ !=
+			NULL);
+	assertion(list->first->value_expression_->sub_natural_literal_->natural_literal_->raw_->value_[0] ==
+			'0');
+	assertion(list->first->value_expression_->sub_natural_literal_->natural_literal_->raw_->value_[1] ==
+			'\0');
+	assertion(list->next == NULL);
+}
+
+#endif
 
 void
 rtg_where_value_bindings_simple_list_copy_constructors_test_0()
@@ -165,9 +204,55 @@ rtg_where_value_bindings_simple_list_copy_constructors_tests()
 }
 
 void
+rtg_where_value_bindings_simple_list_transformation_constructors_test_0()
+{
+	stt_where_value_bindings_simple_list * stt_where_bindings_list_;
+	/*
+	rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret * transformation_ret_;
+	*/
+	rtg_where_value_bindings_simple_list * rtg_where_bindings_list_;
+
+	stt_where_bindings_list_ =
+			stt_where_value_bindings_simple_list_example_simple_value_bind();
+	forced_assertion(stt_where_bindings_list_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_simple_value_bind(
+			stt_where_bindings_list_);
+#endif
+
+	rtg_where_bindings_list_ =
+			rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list(
+					stt_where_bindings_list_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_simple_value_bind(
+			stt_where_bindings_list_);
+#endif
+	forced_assertion(rtg_where_bindings_list_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_where_value_bindings_simple_list_example_simple_value_bind(
+			rtg_where_bindings_list_);
+#endif
+
+	rtg_where_value_bindings_simple_list_destructor(
+			rtg_where_bindings_list_);
+	/*
+	free(transformation_ret_);
+	*/
+	stt_where_value_bindings_simple_list_destructor(
+			stt_where_bindings_list_);
+}
+
+void
+rtg_where_value_bindings_simple_list_transformation_constructors_tests()
+{
+	rtg_where_value_bindings_simple_list_transformation_constructors_test_0();
+}
+
+void
 rtg_where_value_bindings_simple_list_constructors_tests()
 {
 	rtg_where_value_bindings_simple_list_copy_constructors_tests();
+	rtg_where_value_bindings_simple_list_transformation_constructors_tests();
 }
 
 void
