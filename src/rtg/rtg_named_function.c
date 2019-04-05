@@ -299,16 +299,19 @@ rtg_named_function_out_of_stt_named_function(
 
 #ifndef NDEBUG
 	/*   Subsidiary. */
-	forced_assertion(where_value_bindings_sub_ret_sub_->first == NULL);
-	/*   Subsidiary. */
-	assertion(named_function->where_value_bindings_ != NULL);
-	/*   Subsidiary. */
-	forced_assertion(named_function->where_value_bindings_->first == NULL);
 	/*
-	assertion(where_value_bindings_sub_ret_sub_->first != NULL ||
+	forced_assertion(where_value_bindings_sub_ret_sub_->first == NULL);
+	*/
+	/*   Subsidiary. */
+	forced_assertion(named_function->where_value_bindings_ != NULL);
+	/*   Subsidiary. */
+	/*
+	forced_assertion(named_function->where_value_bindings_->first == NULL);
+	*/
+
+	forced_assertion(where_value_bindings_sub_ret_sub_->first != NULL ||
 			named_function->where_value_bindings_ == NULL ||
 			named_function->where_value_bindings_->first == NULL);
-	*/
 #endif
 
 	ret_->named_function->where_value_bindings_ =

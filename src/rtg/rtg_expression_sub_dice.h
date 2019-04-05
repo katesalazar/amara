@@ -34,6 +34,12 @@ typedef struct rtg_expression_sub_dice {
 } rtg_expression_sub_dice
 ;
 
+rtg_expression_sub_dice *
+rtg_expression_sub_dice_copy_constructor(
+		const rtg_expression_sub_dice * expression_sub_dice)
+__attribute__((warn_unused_result))
+;
+
 /**  Transformation constructor. */
 rtg_expression_sub_dice *
 rtg_expression_sub_dice_out_of_stt_expression_sub_dice(

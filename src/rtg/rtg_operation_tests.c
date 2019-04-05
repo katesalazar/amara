@@ -255,6 +255,25 @@ assert_expectations_on_rtg_operation_example_read_integer_into_foo(
 
 #endif
 
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_operation_example_print_identifier_foo(
+		const rtg_operation * operation)
+{
+	assertion(operation != NULL);
+	assertion(operation->type_ == RTG_OPERATION_TYPE_PRINT);
+	assertion(operation->args_ != NULL);
+	assertion(operation->args_->first != NULL);
+	assertion(operation->args_->first->type_ ==
+			RTG_OPERATION_ARG_TYPE_IDENTIFIER);
+	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
+			operation->args_->first);
+	assertion(operation->args_->next == NULL);
+}
+
+#endif
+
 /*
 
 rtg_operation *

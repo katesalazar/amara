@@ -25,7 +25,12 @@ assertion(int expression)
 ;
 
 #include "stt_named_function_tests.h"
+
 #include "stt_operation_tests.h"
+
+#include "stt_operations_simple_list_tests.h"
+
+#include "stt_where_value_bindings_simple_list_tests.h"
 
 stt_named_function *
 stt_named_function_example_print_string_literal_foo()
@@ -381,6 +386,80 @@ assert_expectations_on_stt_named_function_ill_formed_example_print_identifier_fo
 	assert_expectations_on_stt_operation_example_print_identifier_foo(
 			named_function->operations_->first);
 	assertion(named_function->operations_->next == NULL);
+}
+
+#endif
+
+stt_named_function *
+stt_named_function_example_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(void)
+{
+	amara_string * name_;
+	stt_operations_simple_list * operations_;
+	stt_where_value_bindings_simple_list * where_bindings_;
+	stt_named_function * ret_;
+
+	name_ = amara_string_exhaustive_constructor(
+			"cli_app_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo");
+	forced_assertion(name_ != NULL);
+
+	operations_ = stt_operations_simple_list_example_print_identifier_foo();
+	forced_assertion(operations_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operations_simple_list_example_print_identifier_foo(
+			operations_);
+#endif
+
+	where_bindings_ = stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo();
+	forced_assertion(where_bindings_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo(
+			where_bindings_);
+#endif
+
+	ret_ = stt_named_function_exhaustive_constructor(
+			STT_NAMED_FUNCTION_TYPE_CLI_APP_NAMED_FUNCTION, name_,
+			operations_, where_bindings_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operations_simple_list_example_print_identifier_foo(
+			operations_);
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo(
+			where_bindings_);
+#endif
+	forced_assertion(ret_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_named_function_example_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+			ret_);
+#endif
+
+	return ret_;
+}
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_named_function_example_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+		const stt_named_function * named_function)
+{
+	amara_string * function_name_expectation_;
+	amara_boolean equality_;
+
+	function_name_expectation_ = amara_string_exhaustive_constructor(
+			"cli_app_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo");
+	forced_assertion(function_name_expectation_ != NULL);
+	forced_assertion(function_name_expectation_->value_ != NULL);
+
+	assertion(named_function != NULL);
+	assertion(named_function->name_ != NULL);
+	assertion(named_function->name_->value_ != NULL);
+	equality_ = amara_strings_equality(
+			function_name_expectation_, named_function->name_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+	assertion(named_function->operations_ != NULL);
+	assertion(named_function->operations_->first != NULL);
+	assertion(named_function->operations_->next == NULL);
+	assertion(named_function->where_value_bindings_ != NULL);
+	assertion(named_function->where_value_bindings_->first != NULL);
+	assertion(named_function->where_value_bindings_->next == NULL);
 }
 
 #endif

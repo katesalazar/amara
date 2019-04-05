@@ -78,6 +78,74 @@ assert_expectations_on_stt_operations_simple_list_example_print_foo(
 
 #endif
 
+stt_operations_simple_list *
+stt_operations_simple_list_example_print_string_literal_foo(void)
+{
+	return stt_operations_simple_list_example_print_foo();
+}
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_operations_simple_list_example_print_string_literal_foo(
+		const stt_operations_simple_list * operations)
+{
+	forced_assertion(operations != NULL);
+	assert_expectations_on_stt_operations_simple_list_example_print_foo(
+			operations);
+}
+
+#endif
+
+stt_operations_simple_list *
+stt_operations_simple_list_example_print_identifier_foo(void)
+{
+	stt_operation * operation_;
+	stt_operations_simple_list * ret_;
+
+	operation_ = stt_operation_example_print_identifier_foo();
+	forced_assertion(operation_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_example_print_identifier_foo(
+			operation_);
+#endif
+
+	ret_ = stt_operations_simple_list_default_constructor();
+	forced_assertion(ret_ != NULL);
+#ifndef NDEBUG
+	assertion(ret_->first == NULL);
+	assertion(ret_->next == NULL);
+#endif
+
+	stt_operations_simple_list_push_back(ret_, operation_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_example_print_identifier_foo(
+			operation_);
+	assert_expectations_on_stt_operation_example_print_identifier_foo(
+			ret_->first);
+	assertion(ret_->next == NULL);
+#endif
+
+	stt_operation_destructor(operation_);
+
+	return ret_;
+}
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_operations_simple_list_example_print_identifier_foo(
+		const stt_operations_simple_list * operations)
+{
+	assertion(operations != NULL);
+	assertion(operations->first != NULL);
+	assert_expectations_on_stt_operation_example_print_identifier_foo(
+			operations->first);
+	assertion(operations->next == NULL);
+}
+
+#endif
+
 void
 stt_operations_simple_list_construct_and_destruct_test_0()
 {

@@ -27,6 +27,31 @@
 #include "rtg_expression_sub_dice.h"
 
 rtg_expression_sub_dice *
+rtg_expression_sub_dice_copy_constructor(
+		const rtg_expression_sub_dice * expression_sub_dice)
+{
+	rtg_expression_sub_dice * returning_;
+
+	forced_assertion(expression_sub_dice != NULL);
+	forced_assertion(expression_sub_dice->left_hand_side_natural_ != NULL);
+	forced_assertion(expression_sub_dice->right_hand_side_natural_ !=
+			NULL);
+
+	returning_ = malloc(sizeof(rtg_expression_sub_dice));
+	forced_assertion(returning_ != NULL);
+
+	returning_->left_hand_side_natural_ = natural_copy_constructor(
+			expression_sub_dice->left_hand_side_natural_);
+	forced_assertion(returning_->left_hand_side_natural_ != NULL);
+
+	returning_->right_hand_side_natural_ = natural_copy_constructor(
+			expression_sub_dice->right_hand_side_natural_);
+	forced_assertion(returning_->right_hand_side_natural_ != NULL);
+
+	return returning_;
+}
+
+rtg_expression_sub_dice *
 rtg_expression_sub_dice_out_of_stt_expression_sub_dice(
 		const stt_expression_sub_dice * expression_sub_dice)
 {
@@ -37,12 +62,15 @@ rtg_expression_sub_dice_out_of_stt_expression_sub_dice(
 	assertion(expression_sub_dice->right_hand_side_natural_ != NULL);
 
 	returning_ = malloc(sizeof(rtg_expression_sub_dice));
+	forced_assertion(returning_ != NULL);
 
 	returning_->left_hand_side_natural_ = natural_copy_constructor(
 			expression_sub_dice->left_hand_side_natural_);
+	forced_assertion(returning_->left_hand_side_natural_ != NULL);
 
 	returning_->right_hand_side_natural_ = natural_copy_constructor(
 			expression_sub_dice->right_hand_side_natural_);
+	forced_assertion(returning_->right_hand_side_natural_ != NULL);
 
 	return returning_;
 }

@@ -114,6 +114,21 @@ assert_expectations_on_rtg_named_functions_simple_list_example_two_named_functio
 
 #endif
 
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_named_functions_simple_list_example_one_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+		const rtg_named_functions_simple_list * list)
+{
+	assertion(list != NULL);
+	assertion(list->first != NULL);
+	assert_expectations_on_rtg_named_function_example_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+			list->first);
+	assertion(list->next == NULL);
+}
+
+#endif
+
 void
 rtg_named_functions_simple_list_default_constructor_test()
 {
@@ -378,6 +393,42 @@ rtg_named_functions_simple_list_transformation_constructor_test_2()
 	assertion(transformation_ret_->named_functions == NULL);
 #endif
 
+	stt_doc_subnode_destructor(stt_doc_subnode_);
+	amara_string_destructor(expected_error_message_);
+	rtg_named_functions_out_of_stt_doc_ret_destructor(transformation_ret_);
+}
+
+void
+rtg_named_functions_simple_list_transformation_constructor_test_3()
+{
+	stt_doc_subnode * stt_doc_subnode_;
+	rtg_named_functions_out_of_stt_doc_ret * transformation_ret_;
+
+	stt_doc_subnode_ =
+			stt_doc_subnode_example_one_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo();
+	forced_assertion(stt_doc_subnode_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_doc_subnode_example_one_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+			stt_doc_subnode_);
+#endif
+
+	transformation_ret_ =
+			rtg_named_functions_out_of_stt_doc(stt_doc_subnode_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_doc_subnode_example_one_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+			stt_doc_subnode_);
+#endif
+	forced_assertion(transformation_ret_ != NULL);
+	forced_assertion(transformation_ret_->status ==
+			RTG_NAMED_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_SUCCESS);
+	forced_assertion(transformation_ret_->error_messages == NULL);
+	forced_assertion(transformation_ret_->named_functions != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_named_functions_simple_list_example_one_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+			transformation_ret_->named_functions);
+#endif
+
+	stt_doc_subnode_destructor(stt_doc_subnode_);
 	rtg_named_functions_out_of_stt_doc_ret_destructor(transformation_ret_);
 }
 
@@ -387,6 +438,7 @@ rtg_named_functions_simple_list_transformation_constructor_tests()
 	rtg_named_functions_simple_list_transformation_constructor_test_0();
 	rtg_named_functions_simple_list_transformation_constructor_test_1();
 	rtg_named_functions_simple_list_transformation_constructor_test_2();
+	rtg_named_functions_simple_list_transformation_constructor_test_3();
 }
 
 void

@@ -212,24 +212,235 @@ run_app_main_doc_exists(
 	return APP_RUNNER_RUN_APP_RET_SUCCESS;
 }
 
+typedef arn_value arn_condition_evaluated_value
+;
+
 typedef arn_value arn_expression_evaluated_value
 ;
 
+#ifndef NDEBUG
+
+/**  Type check failsafe. */
+amara_boolean
+assert_types_compatible_for_condition_type_less_than(
+		arn_value * left_hand_side_value_,
+		arn_value * right_hand_side_value_)
+;
+
+#endif
+
+#ifndef NDEBUG
+
+amara_boolean
+assert_types_compatible_for_condition_type_less_than(
+		arn_value * left_hand_side_value_,
+		arn_value * right_hand_side_value_)
+{
+	forced_assertion(left_hand_side_value_ != NULL);
+	forced_assertion(left_hand_side_value_->type_ ==
+			ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
+
+	forced_assertion(right_hand_side_value_ != NULL);
+	forced_assertion(right_hand_side_value_->type_ ==
+			ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
+
+	return AMARA_BOOLEAN_TRUE;
+}
+
+#endif
+
+#ifndef NDEBUG
+
+/**  Type check failsafe. */
+amara_boolean
+assert_types_compatible_for_condition_type_greater_than(
+		arn_value * left_hand_side_value_,
+		arn_value * right_hand_side_value_)
+;
+
+#endif
+
+#ifndef NDEBUG
+
+amara_boolean
+assert_types_compatible_for_condition_type_greater_than(
+		arn_value * left_hand_side_value_,
+		arn_value * right_hand_side_value_)
+{
+	forced_assertion(left_hand_side_value_ != NULL);
+	forced_assertion(left_hand_side_value_->type_ ==
+			ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
+
+	forced_assertion(right_hand_side_value_ != NULL);
+	forced_assertion(right_hand_side_value_->type_ ==
+			ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
+
+	return AMARA_BOOLEAN_TRUE;
+}
+
+#endif
+
+arn_value *
+arn_value_out_of_rtg_literal_expression(
+		const rtg_expression * expression)
+__attribute__((warn_unused_result))
+;
+
+arn_value *
+arn_value_out_of_rtg_literal_expression(
+		const rtg_expression * expression)
+{
+	arn_value * returning_;
+
+	forced_assertion(expression != NULL);
+
+	forced_assertion(expression->type_ ==
+			RTG_EXPRESSION_TYPE_NATURAL_LITERAL);
+
+	returning_ = arn_value_default_constructor();
+	forced_assertion(returning_ != NULL);
+
+	arn_value_characterize_as_natural(returning_);
+
+	arn_value_set_natural(
+			returning_,
+			expression->sub_natural_literal_->natural_literal_);
+
+	return returning_;
+}
+
+arn_condition_evaluated_value *
+evaluate_condition(const rtg_condition * condition,
+                   const arn_values_simple_list * values)
+__attribute__((warn_unused_result))
+;
+
+arn_condition_evaluated_value *
+evaluate_condition(const rtg_condition * condition,
+                   const arn_values_simple_list * values)
+{
+	amara_boolean condition_is_binary_;
+
+	/**  This is a non owned reference. */
+	amara_string * left_hand_side_requested_identifier_;
+
+	/**  This is a non owned reference. */
+	arn_value * left_hand_side_requested_identifier_value_;
+
+	if (condition->type_ == RTG_CONDITION_TYPE_LESS_THAN) {
+
+		condition_is_binary_ = AMARA_BOOLEAN_TRUE;
+	} else {
+		forced_assertion(condition->type_ ==
+				RTG_CONDITION_TYPE_GREATER_THAN);
+
+		condition_is_binary_ = AMARA_BOOLEAN_TRUE;
+	}
+
+	forced_assertion(condition_is_binary_ == AMARA_BOOLEAN_TRUE);
+
+	forced_assertion(condition->left_hand_side_expression_ != NULL);
+	forced_assertion(condition->left_hand_side_expression_->type_ ==
+			RTG_EXPRESSION_TYPE_IDENTIFIER);
+
+	left_hand_side_requested_identifier_ =
+			condition->left_hand_side_expression_->sub_identifier_->identifier_;
+
+	left_hand_side_requested_identifier_value_ =
+			arn_values_simple_list_find_value_by_name_return_reference(
+					values,
+					left_hand_side_requested_identifier_);
+
+	/* FIXME - must find the bounded value - there must be a way to find a bound value, if not, there should be no rtg condition ! */
+	forced_assertion(values != NULL);
+	forced_assertion(values->first != NULL);
+	if (values->next != NULL) {
+		forced_assertion(values->next->first != NULL);
+	}
+
+	forced_assertion(condition->right_hand_side_expression_ != NULL);
+	forced_assertion(condition->right_hand_side_expression_->type_ ==
+			RTG_EXPRESSION_TYPE_NATURAL_LITERAL);
+
+	if (condition->type_ == RTG_CONDITION_TYPE_LESS_THAN) {
+
+		/**  Types are guaranteed to be compatible by semantic analysis
+		 * (undertaken by the `stt` to `rtg` stage). This is failsafe
+		 * check. */
+#ifndef NDEBUG
+		assert_types_compatible_for_condition_type_less_than(
+				left_hand_side_requested_identifier_value_,
+				arn_value_out_of_rtg_literal_expression(
+						condition->right_hand_side_expression_));
+#endif
+
+		forced_assertion(left_hand_side_requested_identifier_value_->type_ ==
+				ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
+
+		forced_assertion(condition->right_hand_side_expression_->type_ ==
+				RTG_EXPRESSION_TYPE_NATURAL_LITERAL);
+
+		if (naturals_less_than(
+				left_hand_side_requested_identifier_value_->natural_,
+				condition->right_hand_side_expression_->sub_natural_literal_->natural_literal_)) {
+
+			return arn_value_out_of_amara_boolean(
+					AMARA_BOOLEAN_TRUE);
+		} else {
+
+			return arn_value_out_of_amara_boolean(
+					AMARA_BOOLEAN_FALSE);
+		}
+	} else {
+		forced_assertion(condition->type_ ==
+				RTG_CONDITION_TYPE_GREATER_THAN);
+
+		/**  Types are guaranteed to be compatible by semantic analysis
+		 * (undertaken by the `stt` to `rtg` stage). This is failsafe
+		 * check. */
+#ifndef NDEBUG
+		assert_types_compatible_for_condition_type_greater_than(
+				left_hand_side_requested_identifier_value_,
+				arn_value_out_of_rtg_literal_expression(
+						condition->right_hand_side_expression_));
+#endif
+
+		forced_assertion(left_hand_side_requested_identifier_value_->type_ ==
+				ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
+
+		forced_assertion(condition->right_hand_side_expression_->type_ ==
+				RTG_EXPRESSION_TYPE_NATURAL_LITERAL);
+
+		if (naturals_greater_than(
+				left_hand_side_requested_identifier_value_->natural_,
+				condition->right_hand_side_expression_->sub_natural_literal_->natural_literal_)) {
+
+			return arn_value_out_of_amara_boolean(
+					AMARA_BOOLEAN_TRUE);
+		} else {
+
+			return arn_value_out_of_amara_boolean(
+					AMARA_BOOLEAN_FALSE);
+		}
+	}
+}
+
 arn_expression_evaluated_value *
-evaluate_expression(const rtg_expression * expression/*,
-              const arn_values_simple_list * values,
-              const arn_variables_simple_list * variables*/)
+evaluate_expression(const rtg_expression * expression,
+                    const arn_values_simple_list * values/*,
+                    const arn_variables_simple_list * variables*/)
 __attribute__((warn_unused_result))
 ;
 
 arn_expression_evaluated_value *
-evaluate_expression(const rtg_expression * expression/*,
-                    const arn_values_simple_list * values,
+evaluate_expression(const rtg_expression * expression,
+                    const arn_values_simple_list * values/*,
                     const arn_variables_simple_list * variables*/)
 {
 	/**  The expression is evaluated to some value, and this is the
 	 * local variable where the value is stored before returning. */
 	arn_expression_evaluated_value * returning_;
+	arn_condition_evaluated_value * condition_value_;
 
 	returning_ = NULL;
 
@@ -268,10 +479,41 @@ evaluate_expression(const rtg_expression * expression/*,
 #endif
 	} else{
 #ifndef NDEBUG
-		assertion(expression->type_ == RTG_EXPRESSION_TYPE_CONDITIONAL);
+		forced_assertion(expression->type_ ==
+				RTG_EXPRESSION_TYPE_CONDITIONAL);
 #endif
 
-		/* FIXME */
+		forced_assertion(expression->sub_conditional_ != NULL);
+		forced_assertion(expression->sub_conditional_->if_ != NULL);
+		forced_assertion(expression->sub_conditional_->if_->next_if_ ==
+				NULL);
+		forced_assertion(expression->sub_conditional_->if_->expression_else_ !=
+				NULL);
+		forced_assertion(expression->sub_conditional_->if_->expression_then_ !=
+				NULL);
+		forced_assertion(expression->sub_conditional_->if_->condition_ !=
+				NULL);
+
+		condition_value_ = evaluate_condition(
+				expression->sub_conditional_->if_->condition_,
+				values);
+
+		forced_assertion(condition_value_->type_ = ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_BOOLEAN);
+		forced_assertion(condition_value_->boolean_ != NULL);
+
+		if ((* (condition_value_->boolean_)) == AMARA_BOOLEAN_TRUE) {
+
+			return evaluate_expression(
+					expression->sub_conditional_->if_->expression_then_,
+					values);
+		} else {
+			forced_assertion((* (condition_value_->boolean_)) ==
+					AMARA_BOOLEAN_FALSE);
+
+			return evaluate_expression(
+					expression->sub_conditional_->if_->expression_else_,
+					values);
+		}
 	}
 
 	return returning_;
@@ -370,7 +612,9 @@ run_operation(const rtg_operation * operation,
 			fprintf(stderr, "%u\n", value_->type_);
 			/******* FIXME this assertion below is failing...... */
 			assertion(value_->type_ ==
-					ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL); /* XXX might be string literal, other number class, etc. */
+						ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL 
+					|| value_->type_ ==
+							ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL); /* XXX might be string literal, other number class, etc. */
 			/******* FIXME this assertion above is failing...... */
 			natural_assert_validity(value_->natural_);
 			printf("%s", value_->natural_->raw_->value_);
@@ -414,7 +658,8 @@ run_operation(const rtg_operation * operation,
 				RTG_OPERATION_ARG_TYPE_EXPRESSION) {
 
 			expression_evaluated_value_ = evaluate_expression(
-					operation->args_->first->expression_);
+					operation->args_->first->expression_,
+					values);
 			forced_assertion(expression_evaluated_value_ != NULL);
 #ifndef NDEBUG
 			assertion(expression_evaluated_value_->type_ ==
@@ -671,16 +916,22 @@ run_named_function(const rtg_named_function * function,
 	where_values_ = arn_values_fixed_list_out_of_rtg_where_value_bindings_simple_list(
 			where_value_bindings_);
 	operation_scope_values_ = arn_values_simple_list_default_constructor();
+
+    /* XXX is this dangerous if theres no refcount? is it correct if shadowing is not allowed? */
 	operation_scope_values_ =
 			arn_values_simple_list_push_front_as_references_all_elements_of_arn_values_fixed_list(
 					operation_scope_values_,
 					function_scope_values);
+
+    /* XXX is this dangerous if theres no refcount? is it correct if shadowing is not allowed? */
 	operation_scope_values_ =
 			arn_values_simple_list_push_front_as_references_all_elements_of_arn_values_fixed_list(
 					operation_scope_values_,
 					where_values_);
 
 	while (operations_ptr_ != NULL) {
+        
+        /* operation_scope_values_ not correctly initialized? */
 		operation_returned_value_ = run_operation(
 				operations_ptr_->first,
 				operation_scope_values_/*,

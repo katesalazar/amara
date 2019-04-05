@@ -110,6 +110,55 @@ assert_expectations_on_stt_where_value_bindings_simple_list_example_simple_value
 
 #endif
 
+stt_where_value_bindings_simple_list *
+stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo()
+{
+	stt_where_value_binding * where_binding_;
+	stt_where_value_bindings_simple_list * ret_;
+
+	where_binding_ = stt_where_value_binding_example_identifier_foo_is_bound_to_string_literal_foo();
+	forced_assertion(where_binding_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_binding_example_identifier_foo_is_bound_to_string_literal_foo(
+			where_binding_);
+#endif
+
+	ret_ = stt_where_value_bindings_simple_list_default_constructor();
+	forced_assertion(ret_ != NULL);
+#ifndef NDEBUG
+	assertion(ret_->first == NULL);
+	assertion(ret_->next == NULL);
+#endif
+
+	stt_where_value_bindings_simple_list_push_back(ret_, where_binding_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_binding_example_identifier_foo_is_bound_to_string_literal_foo(
+			where_binding_);
+	assertion(ret_->first != NULL);
+	assert_expectations_on_stt_where_value_binding_example_identifier_foo_is_bound_to_string_literal_foo(
+			ret_->first);
+#endif
+
+	stt_where_value_binding_destructor(where_binding_);
+
+	return ret_;
+}
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo(
+		const stt_where_value_bindings_simple_list * where_value_bindings_)
+{
+	assertion(where_value_bindings_ != NULL);
+	assertion(where_value_bindings_->first != NULL);
+	assert_expectations_on_stt_where_value_binding_example_identifier_foo_is_bound_to_string_literal_foo(
+			where_value_bindings_->first);
+	assertion(where_value_bindings_->next == NULL);
+}
+
+#endif
+
 void
 stt_where_value_bindings_simple_list_default_constructor_test()
 {

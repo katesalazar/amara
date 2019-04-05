@@ -27,20 +27,37 @@ rtg_named_function_example_print_string_literal_foo(void)
 __attribute__((warn_unused_result))
 ;
 
+#ifndef NDEBUG
+
 void
 assert_expectations_on_rtg_named_function_example_print_string_literal_foo(
 		const rtg_named_function * named_function)
 ;
+
+#endif
 
 rtg_named_function *
 rtg_named_function_example_print_string_literal_bar(void)
 __attribute__((warn_unused_result))
 ;
 
+#ifndef NDEBUG
+
 void
 assert_expectations_on_rtg_named_function_example_print_string_literal_bar(
 		const rtg_named_function * named_function)
 ;
+
+#endif
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_named_function_example_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+		const rtg_named_function * named_function)
+;
+
+#endif
 
 void
 rtg_named_function_tests(void)

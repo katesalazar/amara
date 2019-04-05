@@ -81,6 +81,13 @@ void
 assert_valid_raw_natural(const amara_string * raw_natural)
 ;
 
+/**  More or less aliased to `assert_valid_raw_natural(1)`, or vice
+ * versa. */
+amara_boolean
+well_formed_raw_natural(const amara_string * raw_natural)
+__attribute__((warn_unused_result))
+;
+
 #define FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_INVALID          0x00
 #define FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_NOT_FITTING  0x01
 #define FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_OK               0xFF
@@ -208,6 +215,18 @@ struct stt_node *
 simplify_natural_literal_nodes_division(
 		const struct stt_node * node_zero,
 		const struct stt_node * node_one)
+__attribute__((warn_unused_result))
+;
+
+/**  Returns `true` if `n0` less than `n1`, otherwise `false`. */
+amara_boolean
+naturals_less_than(const natural * n0, const natural * n1)
+__attribute__((warn_unused_result))
+;
+
+/**  Returns `true` if `n0` greater than `n1`, otherwise `false`. */
+amara_boolean
+naturals_greater_than(const natural * n0, const natural * n1)
 __attribute__((warn_unused_result))
 ;
 

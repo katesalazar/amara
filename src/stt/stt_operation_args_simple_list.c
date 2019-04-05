@@ -41,8 +41,6 @@ stt_operation_args_simple_list_default_constructor()
 	return ret_;
 }
 
-/*
-
 stt_operation_args_simple_list *
 stt_operation_args_simple_list_copy_constructor_inner(
 		const stt_operation_args_simple_list * operation_args)
@@ -54,20 +52,21 @@ stt_operation_args_simple_list_copy_constructor_inner(
 		const stt_operation_args_simple_list * operation_args)
 {
 	stt_operation_args_simple_list * ret_;
+
 	if (operation_args == NULL) {
 		ret_ = NULL;
 		return ret_;
 	}
-	assertion(operation_args->first != NULL);
+	forced_assertion(operation_args->first != NULL);
 	ret_ = malloc(sizeof(stt_operation_args_simple_list));
+	forced_assertion(ret_ != NULL);
 	ret_->first = stt_operation_arg_copy_constructor(
 			operation_args->first);
+	forced_assertion(ret_->first != NULL);
 	ret_->next = stt_operation_args_simple_list_copy_constructor_inner(
 			operation_args->next);
 	return ret_;
 }
-
-*/
 
 stt_operation_args_simple_list *
 stt_operation_args_simple_list_copy_constructor(
@@ -84,18 +83,19 @@ stt_operation_args_simple_list_copy_constructor(
 	}
 	ret_->first = stt_operation_arg_copy_constructor(
 			operation_args->first);
+
 	/*
-	if (operation_args->next == NULL) {
-	*/
 	assertion(operation_args->next == NULL);
+	*/
+
+	if (operation_args->next == NULL) {
+
 		ret_->next = NULL;
 		return ret_;
-	/*
 	}
 	ret_->next = stt_operation_args_simple_list_copy_constructor_inner(
 			operation_args->next);
 	return ret_;
-	*/
 }
 
 void

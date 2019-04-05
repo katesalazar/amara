@@ -109,10 +109,31 @@ rtg_expression_assert_cleanly_conditional(const rtg_expression * expression)
 	assertion(expression->sub_identifier_literal_ == NULL);
 	*/
 	assertion(expression->sub_conditional_ != NULL);
-	assertion(expression->sub_conditional_ != NULL);
 	rtg_expression_sub_conditional_assert_validity(
 			expression->sub_conditional_);
 	assertion(expression->sub_dice_ == NULL);
+}
+
+void
+rtg_expression_assert_cleanly_dice(const rtg_expression * expression)
+;
+
+void
+rtg_expression_assert_cleanly_dice(const rtg_expression * expression)
+{
+	assertion(expression != NULL);
+	assertion(expression->type_ == RTG_EXPRESSION_TYPE_DICE);
+	assertion(expression->sub_string_literal_ == NULL);
+	assertion(expression->sub_natural_literal_ == NULL);
+	/*
+	assertion(expression->sub_integer_literal_ == NULL);
+	assertion(expression->sub_rational_literal_ == NULL);
+	assertion(expression->sub_identifier_literal_ == NULL);
+	*/
+	assertion(expression->sub_conditional_ == NULL);
+	assertion(expression->sub_dice_ != NULL);
+	rtg_expression_sub_dice_assert_validity(
+			expression->sub_dice_);
 }
 
 #endif
@@ -202,14 +223,35 @@ rtg_expression_copy_constructor(const rtg_expression * expression)
 		returning_->sub_identifier_ =
 				rtg_expression_sub_identifier_copy_constructor(
 						expression->sub_identifier_);
+		forced_assertion(returning_->sub_identifier_ != NULL);
+
+	} else if (expression->type_ == RTG_EXPRESSION_TYPE_DICE) {
+
 #ifndef NDEBUG
-		assertion(returning_->sub_identifier_ != NULL);
+		assertion(expression->sub_dice_ != NULL);
+		assertion(expression->sub_dice_->left_hand_side_natural_ !=
+				NULL);
+		assertion(expression->sub_dice_->left_hand_side_natural_->raw_ !=
+				NULL);
+		assertion(expression->sub_dice_->left_hand_side_natural_->raw_->value_ !=
+				NULL);
+		assertion(expression->sub_dice_->right_hand_side_natural_ !=
+				NULL);
+		assertion(expression->sub_dice_->right_hand_side_natural_->raw_ !=
+				NULL);
+		assertion(expression->sub_dice_->right_hand_side_natural_->raw_->value_ !=
+				NULL);
+		rtg_expression_assert_cleanly_dice(expression);
 #endif
+
+		returning_->sub_dice_ =
+				rtg_expression_sub_dice_copy_constructor(
+						expression->sub_dice_);
+		forced_assertion(returning_->sub_dice_ != NULL);
+
 	} else {
-#ifndef NDEBUG
-		assertion(expression->type_ ==
+		forced_assertion(expression->type_ ==
 				RTG_EXPRESSION_TYPE_CONDITIONAL);
-#endif
 
 #ifndef NDEBUG
 		assertion(expression->sub_conditional_ != NULL);

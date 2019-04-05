@@ -29,6 +29,15 @@ assert_expectations_on_rtg_where_value_bindings_simple_list_example_simple_value
 
 #endif
 
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo(
+		const rtg_where_value_bindings_simple_list * list)
+;
+
+#endif
+
 void
 rtg_where_value_bindings_simple_list_tests(void)
 ;

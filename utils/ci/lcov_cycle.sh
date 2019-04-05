@@ -90,9 +90,9 @@ do
 		echo 'nice -n 19 ./build/debug/amara_g run app examples/0_hello_world'
 		nice -n 19 ./build/debug/amara_g \
 				run app examples/0_hello_world
-		echo 'nice -n 19 ./build/debug/amara_g run app examples/1_functions_structure/'
+		echo 'nice -n 19 ./build/debug/amara_g run app examples/1_operations_sequencing/'
 		nice -n 19 ./build/debug/amara_g \
-				run app examples/1_functions_structure/
+				run app examples/1_operations_sequencing/
 # 		if test "${branch}" = 'integration' -o "${branch}" = 'master'
 # 		then
 			echo "nice -n 19 ./build/debug/amara_g run app 'examples/'"
@@ -123,8 +123,8 @@ do
 # 		then
 			echo 'nice -n 19 ./build/debug/amara_g run app examples/0_hello_world/'
 			nice -n 19 ./build/debug/amara_g run app examples/0_hello_world/
-			echo 'nice -n 19 ./build/debug/amara_g run app examples/1_functions_structure'
-			nice -n 19 ./build/debug/amara_g run app examples/1_functions_structure
+			echo 'nice -n 19 ./build/debug/amara_g run app examples/1_operations_sequencing'
+			nice -n 19 ./build/debug/amara_g run app examples/1_operations_sequencing
 # 		if test "${branch}" = 'integration' -o "${branch}" = 'master'
 # 		then
 			echo "nice -n 19 ./build/debug/amara_g run app 'examples/2_naturals_substraction/'"

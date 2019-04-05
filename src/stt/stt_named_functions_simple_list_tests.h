@@ -50,6 +50,20 @@ assert_expectations_on_stt_named_functions_simple_list_example_one_invalid_named
 
 #endif
 
+stt_named_functions_simple_list *
+stt_named_functions_simple_list_example_one_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_named_functions_simple_list_example_one_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+		const stt_named_functions_simple_list * list)
+;
+
+#endif
+
 void
 stt_named_functions_simple_list_tests(void)
 ;

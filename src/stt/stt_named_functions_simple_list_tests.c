@@ -166,6 +166,58 @@ assert_expectations_on_stt_named_functions_simple_list_example_one_invalid_named
 
 #endif
 
+stt_named_functions_simple_list *
+stt_named_functions_simple_list_example_one_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(void)
+{
+	stt_named_function * named_function_;
+	stt_named_functions_simple_list * ret_;
+
+	ret_ = stt_named_functions_simple_list_default_constructor();
+	forced_assertion(ret_ != NULL);
+#ifndef NDEBUG
+	assertion(ret_->first == NULL);
+	assertion(ret_->next == NULL);
+#endif
+
+	named_function_ = stt_named_function_example_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo();
+	forced_assertion(named_function_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_named_function_example_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+			named_function_);
+#endif
+
+	ret_ = stt_named_functions_simple_list_push_front(
+			ret_, named_function_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_named_function_example_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+			named_function_);
+#endif
+	forced_assertion(ret_ != NULL);
+	forced_assertion(ret_->first != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_named_function_example_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+			ret_->first);
+	assertion(ret_->next == NULL);
+#endif
+
+	return ret_;
+}
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_named_functions_simple_list_example_one_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+		const stt_named_functions_simple_list * list)
+{
+	assertion(list != NULL);
+	assertion(list->first != NULL);
+	assert_expectations_on_stt_named_function_example_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+			list->first);
+	assertion(list->next == NULL);
+}
+
+#endif
+
 void
 stt_named_functions_simple_list_construct_and_destruct_test_0()
 {

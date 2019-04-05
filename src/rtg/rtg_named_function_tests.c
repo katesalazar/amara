@@ -18,9 +18,14 @@
  */
 
 #include "../asr/assertion.h"
+
 #include "rtg_named_function_tests.h"
+
 #include "rtg_operation_tests.h"
-/* #include "rtg_operations_simple_list.h" */
+
+#include "rtg_operations_simple_list_tests.h"
+
+#include "rtg_where_value_bindings_simple_list_tests.h"
 
 rtg_named_function *
 rtg_named_function_example_print_string_literal_foo()
@@ -207,6 +212,25 @@ assert_expectations_on_rtg_named_function_example_print_string_literal_bar(
 	assertion(named_function->operations_->next == NULL);
 
 	amara_string_destructor(expected_named_function_name_);
+}
+
+#endif
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_named_function_example_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+		const rtg_named_function * named_function)
+{
+	assertion(named_function != NULL);
+	assertion(named_function->type_ ==
+			RTG_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION);
+	assertion(named_function->operations_ != NULL);
+	assert_expectations_on_rtg_operations_simple_list_example_print_identifier_foo(
+			named_function->operations_);
+	assertion(named_function->where_value_bindings_ != NULL);
+	assert_expectations_on_rtg_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo(
+			named_function->where_value_bindings_);
 }
 
 #endif

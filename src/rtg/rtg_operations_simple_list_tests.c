@@ -23,6 +23,21 @@
 
 #include "rtg_operations_simple_list.h"
 
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_operations_simple_list_example_print_identifier_foo(
+		const rtg_operations_simple_list * list)
+{
+	assertion(list != NULL);
+	assertion(list->first != NULL);
+	assert_expectations_on_rtg_operation_example_print_identifier_foo(
+			list->first);
+	assertion(list->next == NULL);
+}
+
+#endif
+
 void
 rtg_operations_simple_list_copy_constructor_test_0()
 {

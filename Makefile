@@ -692,19 +692,11 @@ $(SRC_DIR)/bsn/lex.minia.c: \
 $(BUILD_DIR_DEBUG)/amara_g: \
 		$(OBJ_DEBUG) \
 		$(DEBUG_RESOURCES)
-	$(CC) \
-			$(CFLAGS) \
-			$(CFLAGS_DEBUG) \
-			-o $@ \
-			$(OBJ_DEBUG)
+	$(CC) $(CFLAGS) $(CFLAGS_DEBUG) -o $@ $(OBJ_DEBUG)
 
 $(BUILD_DIR_RELEASE)/amara: \
 		$(OBJ_RELEASE)
-	$(CC) \
-			$(CFLAGS) \
-			$(CFLAGS_RELEASE) \
-			-o $@ \
-			$(OBJ_RELEASE)
+	$(CC) $(CFLAGS) $(CFLAGS_RELEASE) -o $@ $(OBJ_RELEASE)
 
 $(BUILD_DIR_DEBUG)/amara_string.o: \
 		$(SRC_DIR)/cmn/amara_string.c \

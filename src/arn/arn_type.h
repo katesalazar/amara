@@ -29,18 +29,18 @@
 typedef unsigned char arn_type_type;
 
 /**  Likely just created. */
-#define ARN_TYPE_TYPE_INVALID             0x00
+#define ARN_TYPE_TYPE_INVALID             0x20
 /**  String type. This is read as "the _type_ of this `arn_type` object
  * is the _type_ `string`. */
-#define ARN_TYPE_TYPE_STRING              0x01
+#define ARN_TYPE_TYPE_STRING              0x21
 /**  Boolean type. This is read as "the _type_ of this `arn_type` object
  * is the _type_ `boolean`. */
-#define ARN_TYPE_TYPE_BOOLEAN             0x02
+#define ARN_TYPE_TYPE_BOOLEAN             0x22
 /**  Algebraic natural number type. */
-#define ARN_TYPE_TYPE_NATURAL             0x03
+#define ARN_TYPE_TYPE_NATURAL             0x23
 /**  An error type happened evaluation. This is read as "the _type_ of
  * this `arn_type` object is 'a type error happened'". */
-#define ARN_TYPE_TYPE_TYPE_ERROR_HAPPENED 0xFF
+#define ARN_TYPE_TYPE_TYPE_ERROR_HAPPENED 0x7E
 
 /*
 arn_type_type

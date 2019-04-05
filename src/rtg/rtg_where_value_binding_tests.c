@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@
 /*   For `stt_where_value_binding *
  * stt_where_value_binding_example_bind_value_foo_to_expression_natural_zero()`. */
 #include "../stt/stt_where_value_binding_tests.h"
+
+#include "rtg_expression_tests.h"
 
 /*   For own function prototypes. */
 #include "rtg_where_value_binding_tests.h"
@@ -130,6 +132,26 @@ assert_expectations_on_rtg_where_value_binding_example_bind_value_bar_to_express
 			'1');
 	assertion(where_value_binding->value_expression_->sub_natural_literal_->natural_literal_->raw_->value_[1] ==
 			'\0');
+}
+
+#endif
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_where_value_binding_example_identifier_foo_is_bound_to_string_literal_foo(
+		const rtg_where_value_binding * where_value_binding)
+{
+	assertion(where_value_binding != NULL);
+	assertion(where_value_binding->value_name_ != NULL);
+	assertion(where_value_binding->value_name_->value_ != NULL);
+	assertion(where_value_binding->value_name_->value_[0] == 'f');
+	assertion(where_value_binding->value_name_->value_[1] == 'o');
+	assertion(where_value_binding->value_name_->value_[2] == 'o');
+	assertion(where_value_binding->value_name_->value_[3] == '\0');
+	assertion(where_value_binding->value_expression_ != NULL);
+	assert_expectations_on_rtg_expression_example_string_literal_foo(
+			where_value_binding->value_expression_);
 }
 
 #endif

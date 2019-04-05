@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,9 @@
 
 /*   For `void * malloc(size_t size)`. */
 #include <stdio.h>
+
+/*   For `rand`, `srand`, and `time`. */
+#include <time.h>
 
 /*   For `natural`. */
 #include "../brt/natural.h"
@@ -157,6 +160,32 @@ arn_value_copy_constructor(const arn_value * value)
 	return ret_;
 }
 
+arn_value *
+arn_value_out_of_amara_boolean(const amara_boolean boolean)
+{
+	arn_value * returning_;
+
+	returning_ = arn_value_default_constructor();
+	forced_assertion(returning_ != NULL);
+#ifndef NDEBUG
+	assertion(returning_->type_ == ARN_VALUE_TYPE_INVALID);
+#endif
+
+	arn_value_characterize_as_boolean(returning_);
+#ifndef NDEBUG
+	assertion(returning_->type_ ==
+			ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_BOOLEAN);
+#endif
+
+	arn_value_set_boolean(returning_, boolean);
+#ifndef NDEBUG
+	assertion(returning_->type_ ==
+			ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_BOOLEAN);
+#endif
+
+	return returning_;
+}
+
 void
 arn_value_destructor(arn_value * value)
 {
@@ -208,6 +237,59 @@ arn_value_destructor(arn_value * value)
 	free(value);
 }
 
+/**  Helper. */
+arn_value *
+run_dice(const rtg_expression_sub_dice * expression_sub_dice)
+__attribute__((warn_unused_result))
+;
+
+arn_value *
+run_dice(const rtg_expression_sub_dice * expression_sub_dice)
+{
+    time_t r_seed_;
+	arn_value * returning_;
+	unsigned char random_;
+	unsigned char uc_;
+
+	/*   `expression_sub_dice` already checked not `NULL`. */
+#ifndef NDEBUG
+	assertion(expression_sub_dice != NULL);
+#endif
+
+	forced_assertion(expression_sub_dice->left_hand_side_natural_ != NULL);
+	forced_assertion(expression_sub_dice->right_hand_side_natural_ !=
+			NULL);
+
+    r_seed_ = time(0L);
+	srand((unsigned int) r_seed_);
+
+	forced_assertion(expression_sub_dice->left_hand_side_natural_->raw_ != NULL);
+	forced_assertion(expression_sub_dice->left_hand_side_natural_->raw_->value_ != NULL);
+	forced_assertion(expression_sub_dice->left_hand_side_natural_->raw_->value_[0] == '3');
+	forced_assertion(expression_sub_dice->left_hand_side_natural_->raw_->value_[1] == '\0');
+	forced_assertion(expression_sub_dice->right_hand_side_natural_->raw_ != NULL);
+	forced_assertion(expression_sub_dice->right_hand_side_natural_->raw_->value_ != NULL);
+	forced_assertion(expression_sub_dice->right_hand_side_natural_->raw_->value_[0] == '6');
+	forced_assertion(expression_sub_dice->right_hand_side_natural_->raw_->value_[1] == '\0');
+
+	random_ = 0;
+	for (uc_ = 0; uc_ < 3; uc_++) {
+		random_ += rand() % 6 + 1;
+	}
+
+	returning_ = arn_value_default_constructor();
+	forced_assertion(returning_ != NULL);
+	/* XXX missing assertions */
+
+	arn_value_characterize_as_natural(returning_);
+	/* XXX missing assertions */
+
+	arn_value_assign_natural_out_of_unsigned_short(returning_, random_);
+	/* XXX missing assertions */
+
+	return returning_;
+}
+
 /**  Transformation constructor. */
 arn_value *
 arn_value_out_of_rtg_expression(const rtg_expression * expression)
@@ -219,8 +301,17 @@ arn_value_out_of_rtg_expression(const rtg_expression * expression)
 {
 	arn_value * returning_;
 
-	assertion(expression != NULL);
-	assertion(expression->type_ == RTG_EXPRESSION_TYPE_INVALID);
+	forced_assertion(expression != NULL);
+
+	if (expression->type_ == RTG_EXPRESSION_TYPE_DICE) {
+
+		forced_assertion(expression->sub_dice_ != NULL);
+		returning_ = run_dice(expression->sub_dice_);
+
+		return returning_;
+	}
+
+	forced_assertion(expression->type_ == RTG_EXPRESSION_TYPE_INVALID);
 
 	returning_ = NULL; /* XXX */
 	return returning_;
@@ -277,6 +368,7 @@ arn_value_bind_where_value(const rtg_where_value_binding * where_value_binding)
 		returning_->boolean_ = boolean_;
 		returning_->string_ = NULL;
 		returning_->natural_ = NULL;
+        returning_->type_ = ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_BOOLEAN;
 	} else if (expression_type_->type_ == ARN_TYPE_TYPE_STRING) {
 		string_value_ = arn_value_out_of_rtg_expression(
 				where_value_binding->value_expression_);
@@ -287,17 +379,20 @@ arn_value_bind_where_value(const rtg_where_value_binding * where_value_binding)
 		returning_->boolean_ = NULL;
 		returning_->string_ = string_;
 		returning_->natural_ = NULL;
+        returning_->type_ = ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING;
 	} else {
 		assertion(expression_type_->type_ == ARN_TYPE_TYPE_NATURAL);
 		natural_value_ = arn_value_out_of_rtg_expression(
 				where_value_binding->value_expression_);
 #ifndef NDEBUG
-		assertion(natural_value_->type_ == ARN_TYPE_TYPE_NATURAL);
+		assertion(natural_value_->type_ ==
+				ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
 #endif
 		natural_ = natural_value_->natural_;
 		returning_->boolean_ = NULL;
 		returning_->string_ = NULL;
 		returning_->natural_ = natural_;
+        returning_->type_ = ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL;
 	}
 
 	return returning_;
@@ -317,14 +412,33 @@ arn_value_characterize_as_string(arn_value * value)
 }
 
 void
+arn_value_characterize_as_boolean(arn_value * value)
+{
+	assertion(value != NULL);
+
+	if (value->type_ == ARN_VALUE_TYPE_INVALID) {
+
+		value->type_ = ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_BOOLEAN;
+	} else {
+		forced_assertion(value->type_ ==
+				ARN_VALUE_TYPE_NAMED_VALUE_OF_UNDEFINED_TYPE);
+
+		value->type_ = ARN_VALUE_TYPE_NAMED_UNASSIGNED_BOOLEAN;
+	}
+}
+
+void
 arn_value_characterize_as_natural(arn_value * value)
 {
 	assertion(value != NULL);
+
 	if (value->type_ == ARN_VALUE_TYPE_INVALID) {
+
 		value->type_ = ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_NATURAL;
 	} else {
-		assertion(value->type_ ==
+		forced_assertion(value->type_ ==
 				ARN_VALUE_TYPE_NAMED_VALUE_OF_UNDEFINED_TYPE);
+
 		value->type_ = ARN_VALUE_TYPE_NAMED_UNASSIGNED_NATURAL;
 	}
 }
@@ -390,6 +504,18 @@ arn_value_set_string(arn_value * value, const amara_string * string)
 }
 
 void
+arn_value_set_boolean(arn_value * value, const amara_boolean boolean)
+{
+	forced_assertion(value != NULL);
+	forced_assertion(value->type_ ==
+			ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_BOOLEAN);
+	forced_assertion(value->boolean_ == NULL);
+	value->boolean_ = malloc(sizeof(amara_boolean));
+	(* value->boolean_) = boolean;
+    value->type_ = ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_BOOLEAN;
+}
+
+void
 arn_value_set_natural(arn_value * value, const natural * natural)
 {
 	assertion(value != NULL);
@@ -399,14 +525,16 @@ arn_value_set_natural(arn_value * value, const natural * natural)
 	assertion(value->type_ != ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
 	assertion(value->type_ != ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL);
 	if (value->type_ == ARN_VALUE_TYPE_NAMED_VALUE_OF_UNDEFINED_TYPE) {
-		assertion(value->natural_ == NULL);
+
+		forced_assertion(value->natural_ == NULL);
 	} else {
 		if (value->type_ !=
 				ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_NATURAL) {
-			assertion(value->type_ ==
+
+			forced_assertion(value->type_ ==
 					ARN_VALUE_TYPE_NAMED_UNASSIGNED_NATURAL);
 		}
-		assertion(value->natural_ == NULL);
+		forced_assertion(value->natural_ == NULL);
 	}
 	assertion(natural != NULL);
 	assertion(natural->raw_ != NULL);
@@ -414,15 +542,20 @@ arn_value_set_natural(arn_value * value, const natural * natural)
 	value->natural_ = natural_copy_constructor(natural);
 	value->natural_was_moved = AMARA_BOOLEAN_FALSE;
 	fprintf(stderr, "%u\n", value->type_);
+
 	if (value->type_ == ARN_VALUE_TYPE_NAMED_UNASSIGNED_NATURAL) {
+
 		value->type_ = ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL;
 	} else if (value->type_ ==
 			ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_NATURAL) {
+
 		value->type_ = ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL;
 	} else {
-		fprintf(stderr, "%u\n", value->type_);
-		assertion(value->type_ ==
+		forced_assertion(value->type_ ==
 				ARN_VALUE_TYPE_NAMED_VALUE_OF_UNDEFINED_TYPE);
+
+		fprintf(stderr, "%u\n", value->type_);
+
 		value->type_ = ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL;
 	}
 }

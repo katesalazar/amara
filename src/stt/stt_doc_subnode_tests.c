@@ -77,6 +77,54 @@ assert_expectations_on_stt_doc_subnode_example_one_invalid_named_function(
 
 #endif
 
+stt_doc_subnode *
+stt_doc_subnode_example_one_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(void)
+{
+	stt_named_functions_simple_list * named_functions_;
+	stt_applications_simple_list * applications_;
+	stt_execution_requests_simple_list * execution_requests_;
+	stt_doc_subnode * ret_;
+
+	named_functions_ =
+			stt_named_functions_simple_list_example_one_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo();
+	forced_assertion(named_functions_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_named_functions_simple_list_example_one_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+			named_functions_);
+#endif
+
+	applications_ = NULL;
+
+	execution_requests_ = NULL;
+
+	ret_ = stt_doc_subnode_exhaustive_constructor(
+			named_functions_, applications_, execution_requests_);
+
+	stt_named_functions_simple_list_destructor(named_functions_);
+
+	return ret_;
+}
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_doc_subnode_example_one_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+		const stt_doc_subnode * subnode)
+{
+	assertion(subnode != NULL);
+	assertion(subnode->named_functions_ != NULL);
+	assert_expectations_on_stt_named_functions_simple_list_example_one_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+			subnode->named_functions_);
+	assertion(subnode->applications_ != NULL);
+	assertion(subnode->applications_->first == NULL);
+	assertion(subnode->applications_->next == NULL);
+	assertion(subnode->execution_requests_ != NULL);
+	assertion(subnode->execution_requests_->first == NULL);
+	assertion(subnode->execution_requests_->next == NULL);
+}
+
+#endif
+
 #ifndef NDEBUG
 
 void

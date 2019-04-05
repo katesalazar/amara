@@ -157,6 +157,15 @@ assert_valid_raw_natural(const amara_string * raw_natural)
 	}
 }
 
+amara_boolean
+well_formed_raw_natural(const amara_string * raw_natural)
+{
+	/* XXX never returning false? */
+
+	assert_valid_raw_natural(raw_natural);
+	return AMARA_BOOLEAN_TRUE;
+}
+
 /*   Both `raw_natural_zero` and `raw_natural_one` are raw natural
  * numbers with exactly the same length (in digits). See `signed char
  * safe_arguments_natural_raw_comparison(
@@ -1057,4 +1066,68 @@ simplify_natural_literal_nodes_substraction(
 			node_zero->natural_literal_subnode_->raw_,
 			node_one->natural_literal_subnode_->raw_);
 	return returning_;
+}
+
+amara_boolean
+naturals_less_than(const natural * n0, const natural * n1)
+{
+	unsigned char n0_as_unsigned_char_;
+	unsigned char n1_as_unsigned_char_;
+
+	forced_assertion(n0 != NULL);
+	forced_assertion(n0->raw_ != NULL);
+	forced_assertion(well_formed_raw_natural(n0->raw_));
+	forced_assertion(n0->raw_->value_[0] != '\0');
+	if (n0->raw_->value_[1] != '\0') {
+		forced_assertion(n0->raw_->value_[2] == '\0');
+	}
+	forced_assertion(n1 != NULL);
+	forced_assertion(n1->raw_ != NULL);
+	forced_assertion(well_formed_raw_natural(n1->raw_));
+	forced_assertion(n1->raw_->value_[0] != '\0');
+	if (n1->raw_->value_[1] != '\0') {
+		forced_assertion(n1->raw_->value_[2] == '\0');
+	}
+
+	n0_as_unsigned_char_ = atoi(n0->raw_->value_);
+	n1_as_unsigned_char_ = atoi(n1->raw_->value_);
+
+	if (n0_as_unsigned_char_ < n1_as_unsigned_char_) {
+
+		return AMARA_BOOLEAN_TRUE;
+	}
+
+	return AMARA_BOOLEAN_FALSE;
+}
+
+amara_boolean
+naturals_greater_than(const natural * n0, const natural * n1)
+{
+	unsigned char n0_as_unsigned_char_;
+	unsigned char n1_as_unsigned_char_;
+
+	forced_assertion(n0 != NULL);
+	forced_assertion(n0->raw_ != NULL);
+	forced_assertion(well_formed_raw_natural(n0->raw_));
+	forced_assertion(n0->raw_->value_[0] != '\0');
+	if (n0->raw_->value_[1] != '\0') {
+		forced_assertion(n0->raw_->value_[2] == '\0');
+	}
+	forced_assertion(n1 != NULL);
+	forced_assertion(n1->raw_ != NULL);
+	forced_assertion(well_formed_raw_natural(n1->raw_));
+	forced_assertion(n1->raw_->value_[0] != '\0');
+	if (n1->raw_->value_[1] != '\0') {
+		forced_assertion(n1->raw_->value_[2] == '\0');
+	}
+
+	n0_as_unsigned_char_ = atoi(n0->raw_->value_);
+	n1_as_unsigned_char_ = atoi(n1->raw_->value_);
+
+	if (n0_as_unsigned_char_ > n1_as_unsigned_char_) {
+
+		return AMARA_BOOLEAN_TRUE;
+	}
+
+	return AMARA_BOOLEAN_FALSE;
 }

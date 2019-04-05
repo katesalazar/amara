@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,6 +63,20 @@ __attribute__((warn_unused_result))
 
 void
 assert_expectations_on_stt_where_value_binding_example_simple_value_bind(
+		const stt_where_value_binding * where_value_binding_)
+;
+
+#endif
+
+stt_where_value_binding *
+stt_where_value_binding_example_identifier_foo_is_bound_to_string_literal_foo(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_where_value_binding_example_identifier_foo_is_bound_to_string_literal_foo(
 		const stt_where_value_binding * where_value_binding_)
 ;
 

@@ -327,13 +327,15 @@ rtg_named_functions_out_of_stt_doc_ret_destructor(
 	if (rtg_named_functions_out_of_stt_doc_ret_->status ==
 			RTG_NAMED_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_SUCCESS) {
 
-		forced_assertion(rtg_named_functions_out_of_stt_doc_ret_->named_functions ==
+		forced_assertion(rtg_named_functions_out_of_stt_doc_ret_->error_messages ==
 				NULL);
 
-		/*
-		rtg_named_functions_simple_list_destructor(
-				rtg_named_functions_out_of_stt_doc_ret_->named_functions);
-		*/
+		if (rtg_named_functions_out_of_stt_doc_ret_->named_functions !=
+				NULL) {
+
+			rtg_named_functions_simple_list_destructor(
+					rtg_named_functions_out_of_stt_doc_ret_->named_functions);
+		}
 	} else {
 		forced_assertion(rtg_named_functions_out_of_stt_doc_ret_->status ==
 					RTG_NAMED_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION_IN_AT_LEAST_ONE_FUNCTION);

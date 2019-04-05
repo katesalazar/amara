@@ -103,7 +103,36 @@ assert_expectations_on_rtg_operation_arg_example_natural_literal_zero(
 rtg_operation_arg *
 rtg_operation_arg_example_identifier_foo()
 {
-	return rtg_operation_arg_example_string_literal_foo(); /* XXX */ /* FIXME */
+	rtg_operation_arg * operation_arg_;
+	amara_string * string_for_operation_arg_;
+	amara_boolean equality_;
+
+	string_for_operation_arg_ = amara_string_exhaustive_constructor("foo");
+	forced_assertion(string_for_operation_arg_ != NULL);
+	forced_assertion(string_for_operation_arg_->value_ != NULL);
+
+	operation_arg_ = rtg_operation_arg_default_constructor();
+	forced_assertion(operation_arg_ != NULL);
+	assertion(operation_arg_->type_ == RTG_OPERATION_ARG_TYPE_INVALID);
+	rtg_operation_arg_set_identifier(
+			operation_arg_, string_for_operation_arg_);
+	assertion(operation_arg_->type_ ==
+			RTG_OPERATION_ARG_TYPE_INVALID);
+	assertion(operation_arg_->identifier_ != NULL);
+	assertion(operation_arg_->identifier_->value_ != NULL);
+	equality_ = amara_string_equality(
+			operation_arg_->identifier_,
+			string_for_operation_arg_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+	assertion(string_for_operation_arg_->value_ != NULL);
+
+	rtg_operation_arg_set_type(
+			operation_arg_,
+			RTG_OPERATION_ARG_TYPE_IDENTIFIER_TO_BE_RESOLVED);
+
+	amara_string_destructor(string_for_operation_arg_);
+
+	return operation_arg_;
 }
 
 #ifndef NDEBUG
@@ -112,8 +141,22 @@ void
 assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 		const rtg_operation_arg * operation_arg)
 {
-	assert_expectations_on_rtg_operation_arg_example_string_literal_foo( /* XXX */ /* FIXME */
-			operation_arg); /* XXX */ /* FIXME */
+	amara_string * expected_identifier_;
+	amara_boolean equality_;
+
+	expected_identifier_ = amara_string_exhaustive_constructor("foo");
+	assertion(expected_identifier_ != NULL);
+	assertion(expected_identifier_->value_ != NULL);
+
+	assertion(operation_arg->type_ ==
+			RTG_OPERATION_ARG_TYPE_IDENTIFIER_TO_BE_RESOLVED);
+	assertion(operation_arg->identifier_ != NULL);
+	assertion(operation_arg->identifier_->value_ != NULL);
+	equality_ = amara_string_equality(
+			expected_identifier_, operation_arg->identifier_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
+	amara_string_destructor(expected_identifier_);
 }
 
 #endif
@@ -126,11 +169,11 @@ rtg_operation_arg_example_identifier_bar()
 	amara_boolean equality_;
 
 	string_for_operation_arg_ = amara_string_exhaustive_constructor("bar");
-	assertion(string_for_operation_arg_ != NULL);
-	assertion(string_for_operation_arg_->value_ != NULL);
+	forced_assertion(string_for_operation_arg_ != NULL);
+	forced_assertion(string_for_operation_arg_->value_ != NULL);
 
 	operation_arg_ = rtg_operation_arg_default_constructor();
-	assertion(operation_arg_ != NULL);
+	forced_assertion(operation_arg_ != NULL);
 	assertion(operation_arg_->type_ == RTG_OPERATION_ARG_TYPE_INVALID);
 	rtg_operation_arg_set_identifier(
 			operation_arg_, string_for_operation_arg_);

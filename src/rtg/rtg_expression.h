@@ -42,10 +42,10 @@
 #define RTG_EXPRESSION_TYPE_INVALID             0x00
 #define RTG_EXPRESSION_TYPE_STRING_LITERAL      0x01
 /* #define RTG_EXPRESSION_TYPE_BOOLEAN_LITERAL  0x02 */
-#define RTG_EXPRESSION_TYPE_NATURAL_LITERAL     0x03  /* A.K.A. EOM, ETX, ^C, End of Text. */
+#define RTG_EXPRESSION_TYPE_NATURAL_LITERAL     0x03  /* A.K.A. EOM, ETX, ^C, '\x03', End of Text. */
 /* #define RTG_EXPRESSION_TYPE_INTEGER_LITERAL  0x04 */
 /* #define RTG_EXPRESSION_TYPE_RATIONAL_LITERAL 0x05 */
-#define RTG_EXPRESSION_TYPE_IDENTIFIER          0x06  /* A.K.A. RU, ACK, ^F, Acknowledgement. */
+#define RTG_EXPRESSION_TYPE_IDENTIFIER          0x06  /* A.K.A. RU, ACK, ^F, '\x06', Acknowledgement. */
 #define RTG_EXPRESSION_TYPE_CONDITIONAL         0x07  /* A.K.A. BELL, BEL, ^G, '\a', Bell. */
 /* #define RTG_EXPRESSION_TYPE_ADDITION         0x08 */
 /* #define RTG_EXPRESSION_TYPE_SUBSTRACTION     0x09 */

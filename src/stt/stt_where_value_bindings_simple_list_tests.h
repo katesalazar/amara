@@ -54,6 +54,20 @@ assert_expectations_on_stt_where_value_bindings_simple_list_example_simple_value
 
 #endif
 
+stt_where_value_bindings_simple_list *
+stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo(
+		const stt_where_value_bindings_simple_list * where_value_bindings_)
+;
+
+#endif
+
 void
 stt_where_value_bindings_simple_list_tests(void)
 ;

@@ -34,6 +34,15 @@ assert_expectations_on_rtg_named_functions_simple_list_example_two_named_functio
 
 #endif
 
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_named_functions_simple_list_example_one_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+		const rtg_named_functions_simple_list * list)
+;
+
+#endif
+
 void
 rtg_named_functions_simple_list_tests(void)
 ;

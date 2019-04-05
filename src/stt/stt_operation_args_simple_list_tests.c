@@ -131,9 +131,43 @@ stt_operation_args_simple_list_copy_constructor_test_0()
 }
 
 void
+stt_operation_args_simple_list_copy_constructor_test_1()
+{
+	stt_operation_args_simple_list * stt_operation_args_simple_list_original;
+	stt_operation_args_simple_list * stt_operation_args_simple_list_clone;
+
+	stt_operation_args_simple_list_original =
+			stt_operation_args_simple_list_example_two_args_list();
+	forced_assertion(stt_operation_args_simple_list_original != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_args_simple_list_example_two_args_list(
+			stt_operation_args_simple_list_original);
+#endif
+
+	stt_operation_args_simple_list_clone =
+			stt_operation_args_simple_list_copy_constructor(
+					stt_operation_args_simple_list_original);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_args_simple_list_example_two_args_list(
+			stt_operation_args_simple_list_original);
+#endif
+	forced_assertion(stt_operation_args_simple_list_clone != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_args_simple_list_example_two_args_list(
+			stt_operation_args_simple_list_clone);
+#endif
+
+	stt_operation_args_simple_list_destructor(
+			stt_operation_args_simple_list_original);
+	stt_operation_args_simple_list_destructor(
+			stt_operation_args_simple_list_clone);
+}
+
+void
 stt_operation_args_simple_list_copy_constructor_tests()
 {
 	stt_operation_args_simple_list_copy_constructor_test_0();
+	stt_operation_args_simple_list_copy_constructor_test_1();
 }
 
 void

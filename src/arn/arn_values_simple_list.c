@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,100 @@
 arn_values_simple_list *
 arn_values_simple_list_default_constructor(void)
 {
-	arn_values_simple_list * values;
-	values = malloc(sizeof(arn_values_simple_list));
-	values->first = NULL;
-	values->next = NULL;
-	return values;
+	arn_values_simple_list * values_;
+
+	values_ = malloc(sizeof(arn_values_simple_list));
+	forced_assertion(values_ != NULL);
+	values_->first = NULL;
+	values_->next = NULL;
+
+	return values_;
+}
+
+arn_values_simple_list *
+arn_values_simple_list_copy_constructor(
+		const arn_values_simple_list * list)
+{
+	arn_values_simple_list * returning_;
+
+	forced_assertion(list != NULL);
+
+	forced_assertion(list->first == NULL);  /* XXX */
+
+	forced_assertion(list->next == NULL);
+
+	returning_ = malloc(sizeof(arn_values_simple_list));
+	forced_assertion(returning_ != NULL);
+
+	returning_->first = NULL;
+
+	returning_->next = NULL;
+
+	return returning_;
+}
+
+arn_values_simple_list *
+arn_values_simple_list_out_of_arn_values_fixed_list_inner(
+		const arn_values_fixed_list * list)
+__attribute__((warn_unused_result))
+;
+
+arn_values_simple_list *
+arn_values_simple_list_out_of_arn_values_fixed_list_inner(
+		const arn_values_fixed_list * list)
+{
+	arn_values_simple_list * returning_;
+
+	if (list == NULL) {
+
+		return NULL;
+	}
+
+#ifndef NDEBUG
+	assertion(list->first != NULL);
+#endif
+
+	returning_ = malloc(sizeof(arn_values_simple_list));
+	forced_assertion(returning_ != NULL);
+
+	returning_->first = arn_value_copy_constructor(list->first);
+	forced_assertion(returning_->first != NULL);
+
+	returning_->next =
+			arn_values_simple_list_out_of_arn_values_fixed_list_inner(
+					list->next);
+
+#ifndef NDEBUG
+	if (list->next != NULL) {
+
+		assertion(returning_->next != NULL);
+	}
+#endif
+
+	return returning_;
+}
+
+arn_values_simple_list *
+arn_values_simple_list_out_of_arn_values_fixed_list(
+		const arn_values_fixed_list * list)
+{
+	arn_values_simple_list * returning_;
+
+	forced_assertion(list != NULL);
+
+	if (list->first == NULL) {
+
+#ifndef NDEBUG
+		assertion(list->next == NULL);
+#endif
+		returning_ = malloc(sizeof(arn_values_simple_list));
+		forced_assertion(returning_ != NULL);
+		returning_->first = NULL;
+		returning_->next = NULL;
+		return returning_;
+	}
+
+	return arn_values_simple_list_out_of_arn_values_fixed_list_inner(list);
 }
 
 void
@@ -88,19 +177,34 @@ arn_values_simple_list_push_front_as_references_all_elements_of_arn_values_fixed
 		const arn_values_fixed_list * source)
 {
 	arn_values_simple_list * returning_;
+	arn_values_simple_list * nested_call_returned_;
 
 	assertion(destination != NULL);
 
 	if (source == NULL) {
+
 		return destination;
 	}
 
 	returning_ = malloc(sizeof(arn_values_simple_list));
 
 	returning_->first = source->first;
-	returning_->next =
+
+	nested_call_returned_ =
 			arn_values_simple_list_push_front_as_references_all_elements_of_arn_values_fixed_list_inner(
 					destination, source->next);
+	forced_assertion(nested_call_returned_ != NULL);
+
+	if (nested_call_returned_->first == NULL) {
+
+#ifndef NDEBUG
+		assertion(nested_call_returned_->next == NULL);
+#endif
+		returning_->next = NULL;
+	} else {
+
+		returning_->next = nested_call_returned_;
+	}
 
 	return returning_;
 }
@@ -114,6 +218,15 @@ arn_values_simple_list_push_front_as_references_all_elements_of_arn_values_fixed
 
 	assertion(destination != NULL);
 	assertion(source != NULL);
+
+	if (source->first == NULL) {
+
+		assertion(source->next == NULL);
+		/*
+		return destination;
+		*/
+		return arn_values_simple_list_copy_constructor(destination);
+	}
 
 	return arn_values_simple_list_push_front_as_references_all_elements_of_arn_values_fixed_list_inner(
 			destination, source);

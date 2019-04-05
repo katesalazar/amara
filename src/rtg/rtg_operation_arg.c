@@ -510,35 +510,31 @@ rtg_operation_arg_out_of_stt_operation_arg(
 					STT_OPERATION_TYPE_PRINT);
 		}
 
-		forced_assertion(target_where_value_binding_ == NULL);  /* XXX */
-
 		/*
-		if (target_where_value_binding_ == NULL) {
+		reactivated flow for the example 1
+		forced_assertion(target_where_value_binding_ == NULL);
 		*/
+
+		if (target_where_value_binding_ == NULL) {
 
 			forced_assertion(target_where_value_binding_ == NULL);
-		/*
 		}
-		*/
 #endif
 
 		/*
-		if (
-		*/
-				/*   Operation depends on the
-				 * identifier. */
-		/*
-				operation_type == STT_OPERATION_TYPE_PRINT
-		*/
-				/*   There is no _where value_ binding
-				 * the requested name. */
-		/*
-				&& target_where_value_binding_ == NULL
-		) {
+		reactivated flow for the example 1
+		if (operation_type == STT_OPERATION_TYPE_PRINT) {
+			forced_assertion(target_where_value_binding_ == NULL);
 		*/
 
-		if (operation_type == STT_OPERATION_TYPE_PRINT) {  /* XXX */
-			forced_assertion(target_where_value_binding_ == NULL);  /* XXX */
+		if (
+				/*   Operation depends on the
+				 * identifier. */
+				operation_type == STT_OPERATION_TYPE_PRINT
+				/*   There is no _where value_ binding
+				 * the requested name. */
+				&& target_where_value_binding_ == NULL
+		) {
 
 			/*   Identifier not found in the function's scope. */
 			ret_->operation_arg = NULL;

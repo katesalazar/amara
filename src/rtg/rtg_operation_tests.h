@@ -100,6 +100,15 @@ assert_expectations_on_rtg_operation_example_print_integer_literal(
 
 */
 
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_operation_example_print_identifier_foo(
+		const rtg_operation * operation)
+;
+
+#endif
+
 void
 rtg_operation_tests(void)
 ;

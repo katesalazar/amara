@@ -32,8 +32,23 @@ typedef struct arn_values_simple_list {
 } arn_values_simple_list
 ;
 
+/**  Default constructor. */
 arn_values_simple_list *
 arn_values_simple_list_default_constructor(void)
+__attribute__((warn_unused_result))
+;
+
+/**  Copy constructor. */
+arn_values_simple_list *
+arn_values_simple_list_copy_constructor(
+		const arn_values_simple_list * list)
+__attribute__((warn_unused_result))
+;
+
+/**  Transformation constructor. */
+arn_values_simple_list *
+arn_values_simple_list_out_of_arn_values_fixed_list(
+		const arn_values_fixed_list * list)
 __attribute__((warn_unused_result))
 ;
 
