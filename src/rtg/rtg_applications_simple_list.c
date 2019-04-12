@@ -257,8 +257,14 @@ rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_f
 	if (stt_applications == NULL || stt_applications->first == NULL) {
 	*/
 
+	fprintf(stderr, "-100- rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret * rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list(const stt_applications_simple_list *, const rtg_named_functions_simple_list *) (%s:%u)\n",
+			__FILE__, __LINE__);
+
 	forced_assertion(stt_applications != NULL);
 	if (stt_applications->first == NULL) {
+
+		fprintf(stderr, "-110- rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret * rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list(const stt_applications_simple_list *, const rtg_named_functions_simple_list *) (%s:%u)\n",
+				__FILE__, __LINE__);
 
 		forced_assertion(stt_applications->first == NULL);
 
@@ -266,7 +272,10 @@ rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_f
 		if (stt_applications->first == NULL) {
 		*/
 
-			assertion(stt_applications->next == NULL);
+			fprintf(stderr, "-120- rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret * rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list(const stt_applications_simple_list *, const rtg_named_functions_simple_list *) (%s:%u)\n",
+					__FILE__, __LINE__);
+
+			forced_assertion(stt_applications->next == NULL);
 		/*
 		}
 		*/
@@ -279,24 +288,32 @@ rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_f
 
 		return ret_;
 	}
-	assertion(stt_applications->first != NULL);
+
+	fprintf(stderr, "-130- rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret * rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list(const stt_applications_simple_list *, const rtg_named_functions_simple_list *) (%s:%u)\n",
+			__FILE__, __LINE__);
+
+	forced_assertion(stt_applications->first != NULL);
 	sub_ret_ = malloc(sizeof(rtg_applications_simple_list));
 	forced_assertion(sub_ret_ != NULL);
 	sub_ret_app_ret_ =
 			rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list(
 					stt_applications->first,
 					rtg_named_functions);
-	assertion(sub_ret_app_ret_ != NULL);
+
+	fprintf(stderr, "-140- rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret * rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list(const stt_applications_simple_list *, const rtg_named_functions_simple_list *) (%s:%u)\n",
+			__FILE__, __LINE__);
+
+	forced_assertion(sub_ret_app_ret_ != NULL);
 
 	if (sub_ret_app_ret_->status !=
 			RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
 
-		assertion(sub_ret_app_ret_->status ==
+		forced_assertion(sub_ret_app_ret_->status ==
 				RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_FIND_ENTRY_POINT_FUNCTION_FOR_APPLICATION);
 
-		assertion(sub_ret_app_ret_->error_messages != NULL);
+		forced_assertion(sub_ret_app_ret_->error_messages != NULL);
 
-		assertion(sub_ret_app_ret_->application == NULL);
+		forced_assertion(sub_ret_app_ret_->application == NULL);
 
 		ret_->applications = NULL;
 
@@ -311,7 +328,10 @@ rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_f
 		return ret_;
 	}
 
-	assertion(sub_ret_app_ret_->status ==
+	fprintf(stderr, "-200- rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret * rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list(const stt_applications_simple_list *, const rtg_named_functions_simple_list *) (%s:%u)\n",
+			__FILE__, __LINE__);
+
+	forced_assertion(sub_ret_app_ret_->status ==
 			RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
 	sub_ret_->first = sub_ret_app_ret_->application;
 	sub_ret_app_ret_->application = NULL;
@@ -320,15 +340,15 @@ rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_f
 	stt_applications_ptr_ = stt_applications;
 	sub_ret_ptr_ = sub_ret_;
 	while (stt_applications_ptr_->next != NULL) {
-		assertion(stt_applications_ptr_->next->first != NULL);
+		forced_assertion(stt_applications_ptr_->next->first != NULL);
 		sub_ret_ptr_->next = malloc(sizeof(rtg_applications_simple_list));
 		forced_assertion(sub_ret_ptr_->next != NULL);
 		sub_ret_app_ret_ =
 				rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list(
 						stt_applications_ptr_->next->first,
 						rtg_named_functions);
-		assertion(sub_ret_app_ret_ != NULL);
-		assertion(sub_ret_app_ret_->status ==
+		forced_assertion(sub_ret_app_ret_ != NULL);
+		forced_assertion(sub_ret_app_ret_->status ==
 				RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
 		sub_ret_ptr_->next->first = sub_ret_app_ret_->application;
 		sub_ret_app_ret_->application = NULL;
@@ -398,6 +418,10 @@ rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list(
 	ret_->applications = NULL;
 	sub_ret_ = rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list(
 			subnode->applications_, functions);
+
+	fprintf(stderr, "----> %s:%u rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret * rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list(const stt_functions_simple_list *)\n",
+			__FILE__, __LINE__);
+
 	forced_assertion(sub_ret_ != NULL);
 
 	if (sub_ret_->status ==
@@ -406,13 +430,23 @@ rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list(
 		ret_->status = RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
 		ret_->applications = sub_ret_->applications;
 	} else {
+
+		fprintf(stderr, "-100- %s:%u rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret * rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list(const stt_functions_simple_list *)\n",
+				__FILE__, __LINE__);
+
 		forced_assertion(sub_ret_->status ==
 				RTG_APPLICATIONS_SIMPLE_LIST_OUT_OF_STT_APPLICATIONS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_FIND_ENTRY_POINT_FUNCTION_FOR_AT_LEAST_ONE_APPLICATION);
+
+		fprintf(stderr, "-200- %s:%u rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret * rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list(const stt_functions_simple_list *)\n",
+				__FILE__, __LINE__);
 
 		forced_assertion(sub_ret_->error_messages != NULL);
 
 		ret_->error_messages = sub_ret_->error_messages;
 		sub_ret_->error_messages = NULL;
+
+		fprintf(stderr, "-300- %s:%u rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret * rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list(const stt_functions_simple_list *)\n",
+				__FILE__, __LINE__);
 
 		forced_assertion(sub_ret_->applications == NULL);
 

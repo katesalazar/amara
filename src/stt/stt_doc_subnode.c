@@ -30,9 +30,18 @@ stt_doc_subnode *
 stt_doc_subnode_default_constructor()
 {
 	stt_doc_subnode * returning_ = malloc(sizeof(stt_doc_subnode));
-	returning_->named_functions_ = NULL;
-	returning_->applications_ = NULL;
-	returning_->execution_requests_ = NULL;
+	forced_assertion(returning_ != NULL);
+
+	returning_->named_functions_ =
+			stt_named_functions_simple_list_default_constructor();
+	forced_assertion(returning_->named_functions_ != NULL);
+	returning_->applications_ =
+			stt_applications_simple_list_default_constructor();
+	forced_assertion(returning_->applications_ != NULL);
+	returning_->execution_requests_ =
+			stt_execution_requests_simple_list_default_constructor();
+	forced_assertion(returning_->execution_requests_ != NULL);
+
 	return returning_;
 }
 

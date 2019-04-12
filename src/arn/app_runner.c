@@ -16,6 +16,13 @@
  * src/arn/app_runner.c: Amara applications runtime applications runner.
  */
 
+/* XXX */
+#define __AMARA__POSIX
+
+#ifdef __AMARA__POSIX
+#include <unistd.h>
+#endif
+
 /*   For `int printf(const char *, ...)`, and for
  * `FILE * fopen(const char * pathname, const char * mode)`. */
 #include <stdio.h>
@@ -81,6 +88,28 @@ run_app(const char * app_name)
 {
 	unsigned char acquire_dir_return_status_;
 	unsigned char inner_status_;
+#ifdef __AMARA__POSIX
+    char * cwd_buffer_;
+    char * getcwd_return_;
+#endif
+
+#ifdef __AMARA__POSIX
+    cwd_buffer_ = malloc(4096);
+    getcwd_return_ = getcwd(cwd_buffer_, 3072);
+    printf("cwd: %s\n", getcwd_return_);
+    printf("cwd: %s\n", cwd_buffer_);
+    /* XXX could react differently depending on the value of cwd?
+     * XXX /Users/uprego/Desktop/dat/not_backed_up/own/github_katesalazar/amara
+     * XXX vs
+     * XXX /Users/uprego/Library/Developer/Xcode/DerivedData/amara-crvidgitfstppwaorggtbfqtzsnb/Build/Products/Debug
+     */
+    if (strstr(cwd_buffer_, "/Library/Developer/Xcode/DerivedData/") != NULL) {
+		printf("%s\n", app_name);  /* FIXME if the app_name is a relative path, it's going to be most probably wrong. So if this is a test, it arguably can be simply ignored. If the path is absolute, it's going to be right, probably. */
+	} else {
+		/*   Not using Xcode. On GNU/Linux, probably? */
+	}
+#endif
+
 	acquire_dir_return_status_ = 0x00;
 	printf("Running app '%s'...\n", app_name);
 	acquire_dir_return_status_ = acquire_dir(app_name);
@@ -192,22 +221,34 @@ run_app_main_doc_exists(
 	 * or type analysis) have been turned to entity pointers. */
 	rtg_doc_out_of_stt_doc_ret_ =
 			rtg_doc_out_of_stt_doc(minia_bison_main_ret_);
+    
+    fprintf(stderr, "app_runner:225\n");
 
-	assertion(rtg_doc_out_of_stt_doc_ret_->status ==
+	forced_assertion(rtg_doc_out_of_stt_doc_ret_->status ==
 			RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_SUCCESS);
 
+    fprintf(stderr, "app_runner:230\n");
+    
 	process_rtg_doc_execution_requests_ret_ =
 			process_rtg_doc_execution_requests(
 					rtg_doc_out_of_stt_doc_ret_->doc);
+    
+    fprintf(stderr, "app_runner:236\n");
 
-	assertion(process_rtg_doc_execution_requests_ret_->status ==
+	forced_assertion(process_rtg_doc_execution_requests_ret_->status ==
 			PROCESS_RTG_DOC_EXECUTION_REQUESTS_RET_STATUS_SUCCESS);
+    
+    fprintf(stderr, "app_runner:241\n");
 
 	process_rtg_doc_execution_requests_ret_destructor(
 			process_rtg_doc_execution_requests_ret_);
 	process_rtg_doc_execution_requests_ret_ = NULL;
+    
+    fprintf(stderr, "app_runner:247\n");
 
 	rtg_doc_out_of_stt_doc_ret_destructor(rtg_doc_out_of_stt_doc_ret_);
+    
+    fprintf(stderr, "app_runner:251\n");
 
 	return APP_RUNNER_RUN_APP_RET_SUCCESS;
 }
@@ -981,14 +1022,22 @@ process_rtg_doc_execution_requests(const rtg_doc * doc)
 {
 	process_rtg_doc_execution_requests_ret * ret_;
 	rtg_execution_requests_simple_list * execution_requests_ptr_;
+
 	ret_ = malloc(sizeof(process_rtg_doc_execution_requests_ret));
+    forced_assertion(ret_ != NULL);
 	ret_->status = PROCESS_RTG_DOC_EXECUTION_REQUESTS_RET_STATUS_INVALID;
-	assertion(doc != NULL);
+	forced_assertion(doc != NULL);
 	execution_requests_ptr_ = doc->execution_requests_;
+    forced_assertion_two(doc->execution_requests_ != NULL, "abcdef");
+    if (doc->execution_requests_->first != NULL) {
+    forced_assertion_two(doc->execution_requests_->first != NULL, "cdefgh");
 	while (execution_requests_ptr_ != NULL) {
 		run_application(execution_requests_ptr_->first->application_);
 		execution_requests_ptr_ = execution_requests_ptr_->next;
 	}
+    } else {
+        forced_assertion_two(doc->execution_requests_->next == NULL, "fghijk");
+    }
 	ret_->status = PROCESS_RTG_DOC_EXECUTION_REQUESTS_RET_STATUS_SUCCESS;
 	return ret_;
 }

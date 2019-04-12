@@ -5,16 +5,16 @@ function main
 	so it causes side effects
 	and does
 	print 'you roll 3d6 and get '
-	/*   You can sequence up to five operations per function. */
+	comment   You can sequence up to five operations per function. comment ends
 	and then print value_rolls_results_
 	and then print ', '
 	and then print
-		/*   The `if` statement, and expression, can be also a
+		comment   The `if` statement, and expression, can be also a
 		 * value. Note that the `if` statement and expression is
 		 * an expression, and a value, like in functional
 		 * languages such as _Lisps_ and _Haskells_; but is not
 		 * an operation, as in the case of imperative
-		 * programming such as C++. */
+		 * programming such as C++. comment ends
 		if value_rolls_results_ is greater than 12
 		then
 			"that's awesome"
@@ -28,12 +28,12 @@ function main
 		end if
 	and then new line
 
-	/*   After the sequenced operations and before the end of the
+	comment   After the sequenced operations and before the end of the
 	 * function, value bindings can be declared. Value expressions
-	 * can be bound to names, then used inside the operations. */
+	 * can be bound to names, then used inside the operations. comment ends
 
-	/*   The `value_rolls_results_` is a value bound to a _dice
-	 * operator_ returned value, by virtue of this `where` clause. */
+	comment   The `value_rolls_results_` is a value bound to a _dice
+	 * operator_ returned value, by virtue of this `where` clause. comment ends
 	where value_rolls_results_ is set to 3d6
 end function main
 

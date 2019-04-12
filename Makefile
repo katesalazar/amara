@@ -202,13 +202,15 @@ UTILS_DIR = utils
 	$(SRC_DIR)/arn/arn_variables_simple_list_tests.c \
 	$(SRC_DIR)/arg.c \
 	$(SRC_DIR)/asr/assertion.c \
-	$(SRC_DIR)/brt/basic_arithmetic_tests.o \
-	$(SRC_DIR)/cmn/char_array.h \
-	$(SRC_DIR)/cmn/char_array_tests.h \
-	$(SRC_DIR)/cmn/char_arrays_simple_list.h \
-	$(SRC_DIR)/cmn/char_arrays_simple_list_tests.h \
+	$(SRC_DIR)/brt/basic_arithmetic_tests.c \
+	$(SRC_DIR)/bsn/bison_tests.c \
+	$(SRC_DIR)/cmn/char_array.c \
+	$(SRC_DIR)/cmn/char_array_tests.c \
+	$(SRC_DIR)/cmn/char_arrays_simple_list.c \
+	$(SRC_DIR)/cmn/char_arrays_simple_list_tests.c \
 	$(SRC_DIR)/cmn/common_tests.c \
 	$(SRC_DIR)/wrp/dirent_wrapper.c \
+	$(SRC_DIR)/bsn/flex_tests.c \
 	$(SRC_DIR)/brt/integer.c \
 	$(SRC_DIR)/brt/integer_tests.c \
 	$(SRC_DIR)/main.c \
@@ -353,12 +355,14 @@ OBJ_DEBUG = \
 		$(BUILD_DIR_DEBUG)/arg.o \
 		$(BUILD_DIR_DEBUG)/assertion.o \
 		$(BUILD_DIR_DEBUG)/basic_arithmetic_tests.o \
+		$(BUILD_DIR_DEBUG)/bison_tests.o \
 		$(BUILD_DIR_DEBUG)/char_array.o \
 		$(BUILD_DIR_DEBUG)/char_array_tests.o \
 		$(BUILD_DIR_DEBUG)/char_arrays_simple_list.o \
 		$(BUILD_DIR_DEBUG)/char_arrays_simple_list_tests.o \
 		$(BUILD_DIR_DEBUG)/common_tests.o \
 		$(BUILD_DIR_DEBUG)/dirent_wrapper.o \
+		$(BUILD_DIR_DEBUG)/flex_tests.o \
 		$(BUILD_DIR_DEBUG)/integer.o \
 		$(BUILD_DIR_DEBUG)/integer_tests.o \
 		$(BUILD_DIR_DEBUG)/main.o \
@@ -503,12 +507,14 @@ OBJ_RELEASE = \
 		$(BUILD_DIR_RELEASE)/arg.o \
 		$(BUILD_DIR_RELEASE)/assertion.o \
 		$(BUILD_DIR_RELEASE)/basic_arithmetic_tests.o \
+		$(BUILD_DIR_RELEASE)/bison_tests.o \
 		$(BUILD_DIR_RELEASE)/char_array.o \
 		$(BUILD_DIR_RELEASE)/char_array_tests.o \
 		$(BUILD_DIR_RELEASE)/char_arrays_simple_list.o \
 		$(BUILD_DIR_RELEASE)/char_arrays_simple_list_tests.o \
 		$(BUILD_DIR_RELEASE)/common_tests.o \
 		$(BUILD_DIR_RELEASE)/dirent_wrapper.o \
+		$(BUILD_DIR_RELEASE)/flex_tests.o \
 		$(BUILD_DIR_RELEASE)/integer.o \
 		$(BUILD_DIR_RELEASE)/integer_tests.o \
 		$(BUILD_DIR_RELEASE)/main.o \
@@ -763,6 +769,20 @@ $(BUILD_DIR_DEBUG)/basic_arithmetic_tests.o: $(SRC_DIR)/brt/basic_arithmetic_tes
 
 $(BUILD_DIR_RELEASE)/basic_arithmetic_tests.o: $(SRC_DIR)/brt/basic_arithmetic_tests.c $(SRC_DIR)/brt/basic_arithmetic_tests.h $(SRC_DIR)/brt/natural.h $(SRC_DIR)/stt/stt_node.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $(SRC_DIR)/brt/basic_arithmetic_tests.c
+
+$(BUILD_DIR_DEBUG)/bison_tests.o: \
+		$(SRC_DIR)/bsn/bison_tests.c \
+		$(SRC_DIR)/bsn/bison_tests.h \
+		$(SRC_DIR)/bsn/minia.tab.h \
+		$(SRC_DIR)/stt/stt_node.h
+	$(CC) $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/bison_tests.o: \
+		$(SRC_DIR)/bsn/bison_tests.c \
+		$(SRC_DIR)/bsn/bison_tests.h \
+		$(SRC_DIR)/bsn/minia.tab.h \
+		$(SRC_DIR)/stt/stt_node.h
+	$(CC) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_DEBUG)/char_array.o: $(SRC_DIR)/cmn/char_array.c $(SRC_DIR)/cmn/char_array.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $(SRC_DIR)/cmn/char_array.c
@@ -1047,6 +1067,22 @@ $(BUILD_DIR_RELEASE)/arn_variables_simple_list_tests.o: \
 		$(SRC_DIR)/arn/arn_variable.h \
 		$(SRC_DIR)/brt/natural.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/flex_tests.o: \
+		$(SRC_DIR)/bsn/flex_tests.c \
+		$(SRC_DIR)/bsn/flex_tests.h \
+		$(SRC_DIR)/bsn/minia.l \
+		$(SRC_DIR)/bsn/minia.tab.h \
+		$(SRC_DIR)/stt/stt_node.h
+	$(CC) $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/flex_tests.o: \
+		$(SRC_DIR)/bsn/flex_tests.c \
+		$(SRC_DIR)/bsn/flex_tests.h \
+		$(SRC_DIR)/bsn/minia.l \
+		$(SRC_DIR)/bsn/minia.tab.h \
+		$(SRC_DIR)/stt/stt_node.h
+	$(CC) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_DEBUG)/persistence.o: $(SRC_DIR)/prs/persistence.c $(SRC_DIR)/prs/persistence.h $(SRC_DIR)/wrp/dirent_wrapper.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $(BUILD_DIR_DEBUG)/persistence.o $(SRC_DIR)/prs/persistence.c

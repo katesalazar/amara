@@ -17,9 +17,11 @@
     the GitHub friendly Markdown format.
 -->
 
+
 # amara
 
 A bunch of WIP utilities aimed at applications custom fast prototyping.
+
 
 ## table of contents
 
@@ -43,14 +45,47 @@ A bunch of WIP utilities aimed at applications custom fast prototyping.
   * [current observance][28]
 * [credits &amp; copying][30]
 
+
 ## dependencies
 
-[Bison][31] and [Flex][32] are required dependencies.
+[Bison][31] and [Flex][32] are required dependencies. In order to maximize
+compatibility, only ancient (Yacc) [Bison][31] features are in use, which
+[Bison][31] so far supports. This has some consequences, such as that only one
+program thread at a same time is allowed to use the parser.
 
-Other third party libraries should be added soon as dependencies, e.g. libyaml,
+Other third party libraries culd be added soon as dependencies, e.g. libyaml,
 Ncurses, or GMP, as long as there is no licensing clash.
 
+
+### note on bison
+
+Bear in mind macOS is locked and stucked in Bison 2.3 because of licensing
+considerations. But it is kind of a major platform.
+
+For that reason, as long as Bison 3+ keeps compatibility with the Bison 2.3
+features, this isn't using the Bison 3+ features because there is no acceptable
+reason for. But prove me wrong.
+
+As soon as Bison 3+ parts ways with Bison 2.3, this should either:
+
+* Fall back to the Yacc mode, if possible.
+
+  * Some platforms such as macOS ship Bison by default in every system.
+
+* Move forward to Bison 3+ use, only after proving at least one of these:
+
+  * That LALR(k) should be promoted to GLR(k) for some reason.
+
+    * In case Yacc doesn't ship GLR(k) (must read that...).
+
+    * One thread for parsing (Yacc constraint) is not enought parsing
+      throughput.
+
+
 ## how to run on...
+
+Contribute your missing system build guide!
+
 
 ### debian stretch
 
@@ -93,6 +128,7 @@ Wish you have a wonderful day!
 $ _
 ```
 
+
 ### macOS Mojave (the Xcode way)
 
 This was written for Xcode `9.0`.
@@ -107,6 +143,7 @@ This was written for Xcode `9.0`.
 Wish you have a wonderful day!
 Program ended with exit code: 0
 ```
+
 
 ### macOS Mojave (the Homebrew way)
 
@@ -145,9 +182,11 @@ Wish you have a wonderful day!
 $ _
 ```
 
+
 ### any other
 
 Check out [`INSTALL_LEGACY.md`][5].
+
 
 ## features
 
@@ -159,29 +198,46 @@ Check out [`INSTALL_LEGACY.md`][5].
 
 * Lcov reporting.
 
-## coming ~soon~ ~~soon~~ ~~~soon~~~ ~~~~soon~~~~ ~~~~~soon~~~~~
+
+## coming ~~soon~~
+
 
 ### active
 
-* Conditional expressions (feature branch `if`).
+* Ban non alpha characters.
+
+  * [x] comments and extensions.
+
+  * [ ] string literals. Ban single and double quotes.
+
+  * [ ] identifiers. Put special attention to underscore characters.
 
 * Valgrind and Gprof instrumentation.
 
-* Conditional [minia language][36] expressions.
-
 * CLI applications.
+
 
 ### stalled
 
-(This list is empty).
+* Multiple case conditional [minia language][36] expressions (feature branch
+`if`).
+
 
 ### to do
 
 * Leaks review.
 
-  * Because currently tests can not be run before applications, but only in an execution of their own, tests are written with special careless for leaks. This has to be fixed any time before the moment tests can be run before an actual application.
+  * Because currently tests can not be run before applications, but only in an
+    execution of their own, tests are written without special care for
+    preventing leaks (anyway I'll remove every at some point with the help of
+    Valgrind). This obviously has to be fixed any time before the moment tests
+    can be run before an actual application.
 
-* Function recursion.
+* Function calls.
+
+  * Functions recursion.
+
+    * Tail recursion optimization.
 
 * YAML configuration docs management.
 
@@ -259,18 +315,30 @@ Check out [`INSTALL_LEGACY.md`][5].
 
   * Proper use of `yyerror(...)` and similar facilities?
 
+* Can build with the C++ compilers instead of only with the C compilers,
+  in order to be embeddable in C++ programs.
+
+
 ## roadmap
 
 This is completely tentative, and most probably goals will be moved around up
 and down.
 
+
 ### 0.0.1
 
-* Simple and mostly Turing complete ish scripting engine for all-in-one functions. Selective (conditional) expression, anonymous functions mapping, fold or reduce, etc.
+* Simple and mostly Turing complete ish scripting engine for all-in-one
+  functions. Selective (conditional) expression, anonymous functions mapping,
+  fold or reduce, etc.
+
 
 ### 0.0.x
 
-* ~~Function calls, anonymous functions~~, `procedure` keyword (instead of `function [...] and returns nothing at all [...] and causes side effects`) (idea contributed by Mia, however this form of it is not exactly the way Mia wanted it).
+* ~~Function calls, anonymous functions~~, `procedure` keyword (instead of
+  `function [...] and returns nothing at all [...] and causes side effects`)
+  (idea contributed by Mia, however this form of it is not exactly the way Mia
+  wanted it).
+
 
 ### 0.1.0
 
@@ -278,17 +346,21 @@ and down.
 
 * Any contents in the [active development task][15] list.
 
+
 ### 0.2.0
 
 * Unicode support.
+
 
 ### 0.3.0
 
 * TUI applications.
 
+
 ### 0.4.0
 
 * GUI applications.
+
 
 ## development info
 
@@ -297,26 +369,28 @@ and down.
 -->
 The stability policy is to hold 100% tests coverage. In case some conditions
 can not be tested, 100% testable wrappers should be written for those
-conditions, and those conditions shall be locked in specific namespaces.
+conditions, and those conditions shall be locked in specific namespaces (have a
+look [here](https://github.com/katesalazar/amara/tree/master/src/wrp/)).
+
 
 ## compliance with 3rd parties' terms
 
 If you know of some terms this project might be in breach of, please open an
 issue explaining. Thanks.
 
+
 ### current observance
 
 These terms are in observance.
 
+
 #### generated code
 
-* While [GNU Bison][31]
-itself is GPL
-software, the parsers it generates are distributed under the terms of a custom
-license such that if the parser is used without modification, then it
-can be used in programs not distributed under the terms of the GPL. If GNU
-changes such policy in the future, this project shall freeze its use of Bison,
-and might explore different parsing strategies.
+* While [GNU Bison][31] itself is GPL software, the parsers it generates are
+distributed under the terms of a custom license such that if the parser is used
+without modification, then it can be used in programs not distributed under the
+terms of the GPL. If GNU changes such policy in the future, this project shall
+freeze its use of Bison, and might explore different parsing strategies.
 
 * While [Flex][32] itself is distributed under the terms of a custom variation
 of the BSD-2-clause license; as its COPYING document states, the Flex scanner

@@ -16,6 +16,8 @@
  * src/rtg/rtg_doc_tests.c: Test the Amara run time graph document.
  */
 
+#include <stdio.h>
+
 #include "../asr/assertion.h"
 
 #include "../stt/stt_node_tests.h"
@@ -76,6 +78,8 @@ rtg_doc_transformation_constructor_test_0()
 #endif
 
 	/* FIXME missing destructor calls. */
+    
+    fprintf(stderr, "<---- test_0...");
 }
 
 void
@@ -102,6 +106,8 @@ rtg_doc_transformation_constructor_test_4()
 #endif
 
 	/* FIXME missing destructor calls. */
+    
+    fprintf(stderr, "<---- test_4...");
 }
 
 void

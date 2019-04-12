@@ -123,7 +123,7 @@ b_trace_unsigned_char(unsigned char value)
 %token T_NOTHING T_OPERATOR T_POINT T_PRINT T_RATIONAL T_READ T_RECEIVES
 %token T_RETURN T_RETURNS T_RUN T_SET T_SIDE T_SIMPLE T_SMALL T_SO
 %token T_SUBSTRACTION
-%token T_THAN T_THAT T_THE T_THEN T_TO
+%token T_THAN T_THAT T_THE T_THEN T_THREAD T_TO
 %token T_WHERE T_WITH T_WITHOUT
 
 %token<node> T_STRING_LITERAL
@@ -172,6 +172,25 @@ document :
       "`fns_and_apps_defs_and_exectn_reqs->doc` unexpectedly NULL");
   syntax_tree->type_ = STT_NODE_TYPE_DOC;
   syntax_tree->doc_subnode_ = $1->doc_subnode_;
+
+  if (syntax_tree->doc_subnode_->named_functions_ == NULL) {
+
+    syntax_tree->doc_subnode_->named_functions_ =
+        stt_named_functions_simple_list_default_constructor();
+  }
+
+  if (syntax_tree->doc_subnode_->applications_ == NULL) {
+
+    syntax_tree->doc_subnode_->applications_ =
+        stt_applications_simple_list_default_constructor();
+  }
+
+  if (syntax_tree->doc_subnode_->execution_requests_ == NULL) {
+
+    syntax_tree->doc_subnode_->execution_requests_ =
+        stt_execution_requests_simple_list_default_constructor();
+  }
+
   free($1);
 }
 ;

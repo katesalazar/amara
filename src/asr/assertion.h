@@ -31,6 +31,10 @@ void
 forced_assertion(int expression)
 ;
 
+void
+forced_assertion_two(int expression, const char * message)
+;
+
 /*
 void disarm_interim(char * message)
 ;

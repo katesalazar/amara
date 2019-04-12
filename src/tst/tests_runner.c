@@ -33,6 +33,10 @@
 /*   For `void basic_arithmetic_tests()`. */
 #include "../brt/basic_arithmetic_tests.h"
 
+#include "../bsn/bison_tests.h"
+
+#include "../bsn/flex_tests.h"
+
 /*   For `void common_tests()`. */
 #include "../cmn/common_tests.h"
 
@@ -123,21 +127,36 @@ run_tests(amara_boolean double_end_of_line_char)
 #ifdef TRACE_STEPS_IN
 	fprintf(stderr, "----> %s:%u: void run_tests(uint_fast8_t)\n", __FILE__, __LINE__);
 #endif
+
 	running_tests();
+
 	printf("Running tests...\n");
+
 	/* printf("%d\n", running_tests_ctl(RUNNING_TESTS_HOLD)); */ /* XXX */
 
 	applications_runner_tests();
+
 	assertion_tests();
+
 	basic_arithmetic_tests();
+
 	common_tests();
+
 	persistence_tests();
+
 	syntax_tree_tests();
+
+	flex_tests();
+
+	bison_tests();
+
 	run_time_graph_tests();
 
 	printf("... done\n");
+
 	if (double_end_of_line_char) {
 		printf("\n");
 	}
+
 	not_running_tests();
 }

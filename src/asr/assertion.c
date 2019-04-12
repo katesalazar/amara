@@ -42,7 +42,7 @@ void
 assertion_two(int expression, const char * message)
 {
 	if (!expression) {
-		fprintf(stderr, "%s", message);
+		fprintf(stderr, "%s\n", message);
 	}
 
 	assert(expression);
@@ -55,8 +55,14 @@ assertion_two(int expression, const char * message)
 void
 forced_assertion(int expression)
 {
+	forced_assertion_two(expression, "WARNING Assertion failed\n");
+}
+
+void
+forced_assertion_two(int expression, const char * message)
+{
 	if (!expression) {
-		fprintf(stdout, "WARNING Assertion failed\n");
+		fprintf(stderr, "%s\n", message);
 	}
 
 	assert(expression);

@@ -1356,22 +1356,24 @@ register_application(stt_node * node, const stt_node * application_node)
 {
 	stt_application * new_application_;
 	stt_applications_simple_list * new_applications_list_node_;
-	assertion_two(node != NULL, "unexpected value NULL for `node`");
+
+	forced_assertion_two(node != NULL, "unexpected value NULL for `node`");
 	/*
 	if (node->type_ != STT_NODE_TYPE_DOC_FRAGMENT) {
 		fprintf(stderr, "%s:%u:%u\n", __FILE__, __LINE__, node->type_);
 	}
 	*/
-	assertion_two(node->type_ == STT_NODE_TYPE_DOC_FRAGMENT,
+	forced_assertion_two(node->type_ == STT_NODE_TYPE_DOC_FRAGMENT,
 	              "unexpected value %u for `node->type`");
-	assertion_two(node->doc_subnode_ != NULL,
+	forced_assertion_two(node->doc_subnode_ != NULL,
 			"unexpected value for `node->doc`");
-	assertion_two(application_node != NULL,
+	forced_assertion_two(application_node != NULL,
 			"`application_node` unexpectedly NULL");
-	assertion_two(application_node->type_ ==
+	forced_assertion_two(application_node->type_ ==
 			STT_NODE_TYPE_APPLICATION,
 			"unexpected value at `application_node->type`");
 	new_application_ = malloc(sizeof(stt_application));
+	forced_assertion(new_application_ != NULL);
 	new_application_->name_ =
 			application_node->application_subnode_->name_;
 	new_application_->type_ =
@@ -1381,8 +1383,23 @@ register_application(stt_node * node, const stt_node * application_node)
 					->entry_point_function_name_;
 	new_applications_list_node_ =
 			malloc(sizeof(stt_applications_simple_list));
+	forced_assertion(new_applications_list_node_ != NULL);
 	new_applications_list_node_->first = new_application_;
-	new_applications_list_node_->next = node->doc_subnode_->applications_;
+	if (node->doc_subnode_->applications_ != NULL) {
+		if (node->doc_subnode_->applications_->first == NULL) {
+#ifndef NDEBUG
+			assertion(node->doc_subnode_->applications_->next ==
+					NULL);
+#endif
+			new_applications_list_node_->next = NULL;
+		} else {
+			new_applications_list_node_->next =
+				node->doc_subnode_->applications_;
+		}
+	} else {
+		new_applications_list_node_->next =
+				node->doc_subnode_->applications_;
+	}
 	node->doc_subnode_->applications_ = new_applications_list_node_;
 	return node;
 }
@@ -1393,31 +1410,47 @@ register_execution_request(
 {
 	stt_execution_request * new_execution_request_;
 	stt_execution_requests_simple_list * new_execution_requests_list_node_;
-	assertion_two(node != NULL, "unexpected value NULL for `node`");
+
+	forced_assertion_two(node != NULL, "unexpected value NULL for `node`");
 	/*
 	if (node->type_ != STT_NODE_TYPE_DOC_FRAGMENT) {
 		fprintf(stderr, "%s:%u:%u\n", __FILE__, __LINE__, node->type_);
 	}
 	*/
-	assertion_two(node->type_ == STT_NODE_TYPE_DOC_FRAGMENT,
+	forced_assertion_two(node->type_ == STT_NODE_TYPE_DOC_FRAGMENT,
 	              "unexpected value %u for `node->type`");
-	assertion_two(node->doc_subnode_ != NULL,
+	forced_assertion_two(node->doc_subnode_ != NULL,
 			"unexpected value for `node->doc_subnode_`");
-	assertion_two(execution_request_node != NULL,
+	forced_assertion_two(execution_request_node != NULL,
 			"`execution_request_node` unexpectedly NULL");
-	assertion_two(execution_request_node->type_ ==
+	forced_assertion_two(execution_request_node->type_ ==
 			STT_NODE_TYPE_EXECUTION_REQUEST,
 			"unexpected value at `execution_request_node->type_`");
 	new_execution_request_ = malloc(sizeof(stt_execution_request));
+	forced_assertion(new_execution_request_ != NULL);
 	new_execution_request_->type_ =
 			execution_request_node->execution_request_subnode_->type_;
 	new_execution_request_->application_name_ =
 			execution_request_node->execution_request_subnode_->application_name_;
 	new_execution_requests_list_node_ =
 			malloc(sizeof(stt_execution_requests_simple_list));
+	forced_assertion(new_execution_requests_list_node_ != NULL);
 	new_execution_requests_list_node_->first = new_execution_request_;
-	new_execution_requests_list_node_->next =
-			node->doc_subnode_->execution_requests_;
+	if (node->doc_subnode_->execution_requests_ != NULL) {
+		if (node->doc_subnode_->execution_requests_->first == NULL) {
+#ifndef NDEBUG
+			assertion(node->doc_subnode_->execution_requests_->next ==
+					NULL);
+#endif
+			new_execution_requests_list_node_->next = NULL;
+		} else {
+			new_execution_requests_list_node_->next =
+					node->doc_subnode_->execution_requests_;
+		}
+	} else {
+		new_execution_requests_list_node_->next =
+				node->doc_subnode_->execution_requests_;
+	}
 	node->doc_subnode_->execution_requests_ =
 			new_execution_requests_list_node_;
 	return node;
@@ -1475,7 +1508,7 @@ dump_syntax_tree(const stt_node * node)
 	fprintf(stderr, "%s:%u - %u applications\n", __FILE__, __LINE__,
 			applications_len_);
 
-	if (node->doc_subnode_->applications_ != NULL) {
+	if (node->doc_subnode_->applications_ != NULL && node->doc_subnode_->applications_->first != NULL) {
 
 	applications_ptr_ = node->doc_subnode_->applications_;
 	} else {

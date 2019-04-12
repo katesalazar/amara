@@ -72,7 +72,83 @@ trace_flex_three(const char * s0, const char * s1, const char * s2)
 
 %%
 
-[/][*]([*][^/]|[^*])*[*][/] {
+! {
+    /*   ASCII 0x21
+       Decimal 33. */
+    trace_flex_three("ignoring excl mark ('", yytext, "')\n");
+}
+
+ /* TODO   Exclude double quotes. */
+
+# {
+    /*   ASCII 0x23
+     * Decimal 35. */
+    trace_flex_three("ignoring hash character ('", yytext, "')\n");
+}
+
+[$] {
+    /*   ASCII 0x24
+     * Decimal 36. */
+    trace_flex_three("ignoring dollar character ('", yytext, "')\n");
+}
+
+% {
+    /*   ASCII 0x25
+     * Decimal 37. */
+    trace_flex_three("ignoring percent character ('", yytext, "')\n");
+}
+
+[*] {
+    /*   ASCII 0x2A
+     * Decimal 42. */
+    trace_flex_three("ignoring asterisk ('", yytext, "')\n");
+}
+
+[/] {
+    /*   ASCII 0x2F
+     * Decimal 47. */
+    trace_flex_three("ignoring slash ('", yytext, "')\n");
+}
+
+@ {
+    /*   ASCII 0x40
+     * Decimal 64. */
+    trace_flex_three("ignoring _at symbol_ ('", yytext, "')\n");
+}
+
+[[] {
+    /*   ASCII 0x5B
+     * Decimal 91. */
+    trace_flex_three("ignoring square bracket opening ('", yytext, "')\n");
+}
+
+` {
+    /*   ASCII 0x60
+     * Decimal 96. */
+    trace_flex_three("ignoring backtick quote ('", yytext, "')\n");
+}
+
+[{] {
+    /*   ASCII 0x7B
+     * Decimal 123. */
+    trace_flex_three("ignoring brace opening ('", yytext, "')\n");
+}
+
+~ {
+    /*   ASCII 0x7E
+     * Decimal 126. */
+    trace_flex_three("ignoring tilde ('", yytext, "')\n");
+}
+
+[Ee][Xx][Tt][Ee][Nn][s][i][o][n]([^Ee]|[Ee][^Xx]|[e][x][^Tt]|[e][x][t][^Ee]|[e][x][t][e][^Nn]|exten[^Ss]|extens[^Ii]|extensi[^Oo]|extensio[^Nn]|extension[^ \n\t]|extension[ \n\t]+[^Ee]|extension[ \n\t]+e[^n]|extension[ \n\t]+en[^d]|extension[ \n\t]+end[^s])*extension[ \n\t]+ends {
+
+    /*   Extensions are implementation dependent. */
+    trace_flex_three("ignoring extension ('", yytext, "')\n");
+  }
+
+[Cc][Oo][Mm][Mm][Ee][Nn][Tt]([^c]|c[^o]|co[^m]|com[^m]|comm[^e]|comme[^n]|commen[^t]|comment[^ \n\t]|comment[ \n\t]+[^e]|comment[ \n\t]+e[^n]|comment[ \n\t]+en[^d]|comment[ \n\t]+end[^s])*[c][o][m][m][e][n][t][ \n\t]+[e][n][d][s] {
+
+    /*   Comments are ignored. */
     trace_flex_three("ignoring comment ('", yytext, "')\n");
   }
 [ \n\t]         {
@@ -86,14 +162,6 @@ trace_flex_three(const char * s0, const char * s1, const char * s2)
                     }
     /*   Ignore all white space. */
                 }
-[(] {
-    trace_flex_three("returning T_LEFT_PARENS ('", yytext, "')\n");
-    return T_LEFT_PARENS;
-  }
-[)] {
-    trace_flex_three("returning T_RIGHT_PARENS ('", yytext, "')\n");
-    return T_RIGHT_PARENS;
-  }
 -[1-9][0-9]* {
     trace_flex_three("returning T_INTEGER_LITERAL (", yytext, ")\n");
     assertion_two(0, "unimplemented code at %s:%d\n");
@@ -217,6 +285,10 @@ type {
 to {
     trace_flex_three("returning T_TO (", yytext, ")\n");
     return T_TO;
+  }
+thread {
+    trace_flex_three("returning T_THREAD (", yytext, ")\n");
+    return T_THREAD;
   }
 then {
     trace_flex_three("returning T_THEN (", yytext, ")\n");
@@ -450,14 +522,15 @@ an              {
     trace_flex_three("returning T_AN (", yytext, ")\n");
                   return T_AN;
                 }
-all             {
+[Aa][Ll][Ll] {
     trace_flex_three("returning T_ALL (", yytext, ")\n");
                   return T_ALL;
                 }
-a               {
+[Aa] {
     trace_flex_three("returning T_A (", yytext, ")\n");
                   return T_A;
                 }
+
 ('[^']*'|\"[^"]*\") {
     unsigned char single_byte_indexer_;
     /* unsigned short double_byte_indexer_; */

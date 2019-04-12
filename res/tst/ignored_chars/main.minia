@@ -1,0 +1,16 @@
+comment   All of these characters aren't used, but their use doesn't
+        make the interpreter yell or yield errors.
+          FIXME Missing single quote, can't add it yet.
+          XXX Missing digits.
+          XXX Missing alpha characters.
+comment ends
+ !"#$%& ()*+,-./          :;<=>?@                          [\]^_`                          {|}~
+
+function main
+	is a command line interface application function
+	and receives nothing at all
+	and returns nothing at all
+	so it causes side effects
+	and does
+	print 'foo'
+end function main

@@ -10,6 +10,8 @@
 		CF00823B21A579DB00456CD6 /* stt_where_value_binding_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CF00823A21A579DA00456CD6 /* stt_where_value_binding_tests.c */; };
 		CF00823D21A5E1F800456CD6 /* stt_where_value_binding_subnode_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CF00823C21A5E1F700456CD6 /* stt_where_value_binding_subnode_tests.c */; };
 		CF00823F21A5F4A100456CD6 /* stt_where_value_bindings_subnode_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CF00823E21A5F4A100456CD6 /* stt_where_value_bindings_subnode_tests.c */; };
+		CF0CF28A2263273B00D8CE3E /* bison_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CF0CF2882263273B00D8CE3E /* bison_tests.c */; };
+		CF0CF28B2263273B00D8CE3E /* flex_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CF0CF2892263273B00D8CE3E /* flex_tests.c */; };
 		CF1E1A4E224E9AEE004CDDEE /* amara_strings_simple_list.c in Sources */ = {isa = PBXBuildFile; fileRef = CF1E1A4D224E9AEE004CDDEE /* amara_strings_simple_list.c */; };
 		CF2BC4D52232DD4A003AFD9C /* rtg_expression_sub_conditional_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CF2BC4D42232DD4A003AFD9C /* rtg_expression_sub_conditional_tests.c */; };
 		CF2BC4D72234712E003AFD9C /* stt_operation_arg_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CF2BC4D62234712E003AFD9C /* stt_operation_arg_tests.c */; };
@@ -176,6 +178,8 @@
 		CF00823A21A579DA00456CD6 /* stt_where_value_binding_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = stt_where_value_binding_tests.c; path = src/stt/stt_where_value_binding_tests.c; sourceTree = "<group>"; };
 		CF00823C21A5E1F700456CD6 /* stt_where_value_binding_subnode_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = stt_where_value_binding_subnode_tests.c; path = src/stt/stt_where_value_binding_subnode_tests.c; sourceTree = "<group>"; };
 		CF00823E21A5F4A100456CD6 /* stt_where_value_bindings_subnode_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = stt_where_value_bindings_subnode_tests.c; path = src/stt/stt_where_value_bindings_subnode_tests.c; sourceTree = "<group>"; };
+		CF0CF2882263273B00D8CE3E /* bison_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bison_tests.c; path = src/bsn/bison_tests.c; sourceTree = "<group>"; };
+		CF0CF2892263273B00D8CE3E /* flex_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = flex_tests.c; path = src/bsn/flex_tests.c; sourceTree = "<group>"; };
 		CF1E1A4D224E9AEE004CDDEE /* amara_strings_simple_list.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = amara_strings_simple_list.c; path = src/cmn/amara_strings_simple_list.c; sourceTree = "<group>"; };
 		CF2BC4D42232DD4A003AFD9C /* rtg_expression_sub_conditional_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = rtg_expression_sub_conditional_tests.c; path = src/rtg/rtg_expression_sub_conditional_tests.c; sourceTree = "<group>"; };
 		CF2BC4D62234712E003AFD9C /* stt_operation_arg_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = stt_operation_arg_tests.c; path = src/stt/stt_operation_arg_tests.c; sourceTree = "<group>"; };
@@ -545,6 +549,8 @@
 		CF10B9C022269A400030F34E /* bsn */ = {
 			isa = PBXGroup;
 			children = (
+				CF0CF2882263273B00D8CE3E /* bison_tests.c */,
+				CF0CF2892263273B00D8CE3E /* flex_tests.c */,
 				CF9518332157D3AD004D3F16 /* lex.minia.c */,
 				CF9518342157D3AD004D3F16 /* minia.tab.c */,
 			);
@@ -676,6 +682,7 @@
 				CF9518302157D39D004D3F16 /* char_arrays_simple_list.c in Sources */,
 				CF9518182157D357004D3F16 /* rtg_doc.c in Sources */,
 				CF95183B2157D3B9004D3F16 /* natural.c in Sources */,
+				CF0CF28A2263273B00D8CE3E /* bison_tests.c in Sources */,
 				CF376D5221653F7B000736E5 /* stt_operations_simple_list_tests.c in Sources */,
 				CF376D7321654022000736E5 /* natural_tests.c in Sources */,
 				CF95181B2157D357004D3F16 /* rtg_applications_simple_list.c in Sources */,
@@ -772,6 +779,7 @@
 				CF95181D2157D357004D3F16 /* rtg_application.c in Sources */,
 				CF376D6921653F96000736E5 /* rtg_operations_simple_list_tests.c in Sources */,
 				CF8AEB37219CAF3A00103D5F /* stt_condition_tests.c in Sources */,
+				CF0CF28B2263273B00D8CE3E /* flex_tests.c in Sources */,
 				CFA5DC3E2188E88D00D16B4B /* char_array_tests.c in Sources */,
 				CF1E1A4E224E9AEE004CDDEE /* amara_strings_simple_list.c in Sources */,
 				CF8AEB38219CAF3A00103D5F /* stt_expression_sub_string_literal.c in Sources */,

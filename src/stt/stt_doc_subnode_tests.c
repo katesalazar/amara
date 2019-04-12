@@ -157,9 +157,15 @@ stt_doc_subnode_construct_and_destruct_test_0()
 	stt_doc_subnode * doc_subnode_;
 	doc_subnode_ = stt_doc_subnode_default_constructor();
 	assertion(doc_subnode_ != NULL);
-	assertion(doc_subnode_->named_functions_ == NULL);
-	assertion(doc_subnode_->applications_ == NULL);
-	assertion(doc_subnode_->execution_requests_ == NULL);
+	assertion(doc_subnode_->named_functions_ != NULL);
+    assertion(doc_subnode_->named_functions_->first == NULL);
+    assertion(doc_subnode_->named_functions_->next == NULL);
+	assertion(doc_subnode_->applications_ != NULL);
+    assertion(doc_subnode_->applications_->first == NULL);
+    assertion(doc_subnode_->applications_->next == NULL);
+    assertion(doc_subnode_->execution_requests_ != NULL);
+    assertion(doc_subnode_->execution_requests_->first == NULL);
+    assertion(doc_subnode_->execution_requests_->next == NULL);
 	stt_doc_subnode_destructor(doc_subnode_);
 }
 
