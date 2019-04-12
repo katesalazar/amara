@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,12 +37,16 @@
 rtg_doc *
 rtg_doc_default_constructor()
 {
-	rtg_doc * ret_ = malloc(sizeof(rtg_doc));
+	rtg_doc * ret_;
+
+	ret_ = malloc(sizeof(rtg_doc));
+	forced_assertion(ret_ != NULL);
 	ret_->functions_ = rtg_named_functions_simple_list_default_constructor();
 	ret_->applications_ =
 			rtg_applications_simple_list_default_constructor();
 	ret_->execution_requests_ =
 			rtg_execution_requests_simple_list_default_constructor();
+
 	return ret_;
 }
 
@@ -52,7 +56,10 @@ rtg_doc_exhaustive_constructor(
 		rtg_applications_simple_list * applications,
 		rtg_execution_requests_simple_list * execution_requests)
 {
-	rtg_doc * ret_ = malloc(sizeof(rtg_doc));
+	rtg_doc * ret_;
+
+	ret_ = malloc(sizeof(rtg_doc));
+	forced_assertion(ret_ != NULL);
 	ret_->functions_ =
 			rtg_named_functions_simple_list_copy_constructor(
 					named_functions);
@@ -61,6 +68,7 @@ rtg_doc_exhaustive_constructor(
 	ret_->execution_requests_ =
 			rtg_execution_requests_simple_list_copy_constructor(
 					execution_requests);
+
 	return ret_;
 }
 
@@ -105,20 +113,28 @@ rtg_doc_out_of_stt_doc(const stt_node * node)
 	rtg_named_functions_simple_list * rtg_named_functions_;
 	rtg_applications_simple_list * rtg_applications_;
 	rtg_execution_requests_simple_list * rtg_execution_requests_;
+
 	fprintf(stderr, "%s:%u ----> rtg_doc_out_of_stt_doc_ret * rtg_doc_out_of_stt_doc(const stt_node *)\n",
 			__FILE__, __LINE__);
+
 	ret_ = malloc(sizeof(rtg_doc_out_of_stt_doc_ret));
+#ifndef NDEBUG
+	assertion(ret_ != NULL);
+#endif
 	ret_->status = RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_INVALID;
 	ret_->doc = NULL;
-	assertion(node->type_ == SYNTAX_TREE_NODE_TYPE_DOC);
+	ret_->error_messages = NULL;
+
+	assertion(node->type_ == STT_NODE_TYPE_DOC);
+
 	rtg_named_functions_out_of_stt_doc_ret_ =
 			rtg_named_functions_out_of_stt_doc(node->doc_subnode_);
 	assertion(rtg_named_functions_out_of_stt_doc_ret_->status ==
 			RTG_NAMED_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_SUCCESS);
 	rtg_named_functions_ =
 			rtg_named_functions_out_of_stt_doc_ret_->named_functions;
-	rtg_named_functions_out_of_stt_doc_ret_->named_functions_were_moved =
-			AMARA_BOOLEAN_TRUE;
+	rtg_named_functions_out_of_stt_doc_ret_->named_functions = NULL;
+
 	rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret_ =
 			rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list(
 					node->doc_subnode_,
@@ -127,36 +143,95 @@ rtg_doc_out_of_stt_doc(const stt_node * node)
 			RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
 	rtg_applications_ =
 			rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret_->applications;
-	rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret_->applications_were_moved =
-			AMARA_BOOLEAN_TRUE;
+	rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret_->applications =
+			NULL;
+
 	rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_ =
 			rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list(
 					node->doc_subnode_, rtg_applications_);
-	assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->status ==
-			RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
+
+	if (rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->status ==
+			RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
+
+#ifndef NDEBUG
+		assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->error_messages ==
+				NULL);
+		assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests !=
+				NULL);
+#endif
+	} else {
+		forced_assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->status ==
+				RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_ONE_OR_MORE_APPLICATIONS_REQUESTED_TO_BE_EXECUTED_NOT_FOUND);
+
+		ret_->status = RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_ERROR_ONE_OR_MORE_APPLICATIONS_REQUESTED_TO_BE_EXECUTED_NOT_FOUND;
+		forced_assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->error_messages !=
+				NULL);
+		ret_->error_messages = rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->error_messages;
+		rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->error_messages = NULL;
+
+		assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests !=
+				NULL);
+
+		/*
+		if (rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests !=
+				NULL) {
+		*/
+
+			rtg_execution_requests_simple_list_destructor(  /* XXX */
+					rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests);  /* XXX */
+			rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests = NULL;  /* XXX */
+
+			free(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_);  /* XXX */
+		/*
+		}
+		*/
+
+		rtg_named_functions_simple_list_destructor(
+				rtg_named_functions_);
+		rtg_applications_simple_list_destructor(rtg_applications_);
+
+		rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret_destructor(
+				rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret_);
+
+		rtg_named_functions_out_of_stt_doc_ret_destructor(
+				rtg_named_functions_out_of_stt_doc_ret_);
+
+		return ret_;
+	}
+
+#ifndef NDEBUG
+	assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->error_messages == NULL);
+#endif
 	rtg_execution_requests_ =
 			rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests;
-	rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests_were_moved =
-			AMARA_BOOLEAN_TRUE;
+	rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests = NULL;
+
 	ret_->doc = rtg_doc_exhaustive_constructor(
 			rtg_named_functions_, rtg_applications_,
 			rtg_execution_requests_);
+
 	rtg_named_functions_simple_list_destructor(rtg_named_functions_);
 	rtg_applications_simple_list_destructor(rtg_applications_);
 	rtg_execution_requests_simple_list_destructor(rtg_execution_requests_);
+
 	ret_->status = RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_SUCCESS;
+
 	rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_destructor(
 			rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_);
 	rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_ =
 			NULL;
+
 	rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret_destructor(
 			rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret_);
 	rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret_ =
 			NULL;
+
 	rtg_named_functions_out_of_stt_doc_ret_destructor(
 			rtg_named_functions_out_of_stt_doc_ret_);
 	rtg_named_functions_out_of_stt_doc_ret_ = NULL;
+
 	fprintf(stderr, "%s:%u <---- rtg_doc_out_of_stt_doc_ret * rtg_doc_out_of_stt_doc(const stt_node *)\n",
 			__FILE__, __LINE__);
+
 	return ret_;
 }

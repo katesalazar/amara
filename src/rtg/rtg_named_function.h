@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,9 @@
 /*   For `rtg_operations_simple_list`. */
 #include "rtg_operations_simple_list.h"
 
+/*   For `rtg_where_value_bindings_simple_list`. */
+#include "rtg_where_value_bindings_simple_list.h"
+
 /*   This is an enumeration, however it should probably become a mask
  * somewhat soon. */
 
@@ -37,9 +40,14 @@
 #define RTG_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION 0xF0
 
 typedef struct rtg_named_function {
-	uint_fast8_t type_;
+
+	unsigned char type_;
+
 	amara_string * name_;
+
 	rtg_operations_simple_list * operations_;
+
+	rtg_where_value_bindings_simple_list * where_value_bindings_;
 } rtg_named_function;
 
 rtg_named_function *
@@ -49,8 +57,9 @@ __attribute__((warn_unused_result))
 
 rtg_named_function *
 rtg_named_function_exhaustive_constructor(
-		uint_fast8_t type, const amara_string * name,
-		const rtg_operations_simple_list * operations)
+		unsigned char type, const amara_string * name,
+		const rtg_operations_simple_list * operations,
+		const rtg_where_value_bindings_simple_list * where_value_bindings)
 __attribute__((warn_unused_result))
 ;
 
@@ -64,13 +73,17 @@ rtg_named_function_destructor(rtg_named_function * named_function)
 ;
 
 #define RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_INVALID          0x00
+#define RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION 0x0E
 #define RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_ERROR_UNSPECIFIC 0x0F
 #define RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_SUCCESS          0xFF
 
 typedef struct rtg_named_function_out_of_stt_named_function_ret {
-	uint_fast8_t status;
+
+	unsigned char status;
+
+	amara_strings_simple_list * error_messages;
+
 	rtg_named_function * named_function;
-	amara_boolean named_function_was_moved;
 } rtg_named_function_out_of_stt_named_function_ret;
 
 void

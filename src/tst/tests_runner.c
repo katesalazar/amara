@@ -16,9 +16,6 @@
  * src/tst/tests_runner.c: Amara tests runner.
  */
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 /*   For `int printf(const char *, ...)`. */
 #include <stdio.h>
 
@@ -50,22 +47,22 @@
 /*   For definitions. */
 #include "tests_runner.h"
 
-uint_fast8_t
+unsigned char
 running_tests()
 {
 	return running_tests_ctl(RUNNING_TESTS_TRUE);
 }
 
-uint_fast8_t
+unsigned char
 not_running_tests()
 {
 	return running_tests_ctl(RUNNING_TESTS_FALSE);
 }
 
-uint_fast8_t
-running_tests_ctl(uint_fast8_t input)
+unsigned char
+running_tests_ctl(unsigned char input)
 {
-	static uint_fast8_t running_tests_;
+	static unsigned char running_tests_;
 	if (input == RUNNING_TESTS_TRUE) {
 		running_tests_ = RUNNING_TESTS_TRUE;
 	/*
@@ -121,7 +118,7 @@ assertion_tests()
 }
 
 void
-run_tests(uint_fast8_t double_end_of_line_char)
+run_tests(amara_boolean double_end_of_line_char)
 {
 #ifdef TRACE_STEPS_IN
 	fprintf(stderr, "----> %s:%u: void run_tests(uint_fast8_t)\n", __FILE__, __LINE__);

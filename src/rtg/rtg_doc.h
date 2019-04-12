@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,9 +31,14 @@
 /*   For `rtg_execution_requests_simple_list`. */
 #include "rtg_execution_requests_simple_list.h"
 
+/**  @see stt_doc_subnode. */
 typedef struct rtg_doc {
+
+	/**  @see stt_named_functions_simple_list. */
 	rtg_named_functions_simple_list * functions_;
+
 	rtg_applications_simple_list * applications_;
+
 	rtg_execution_requests_simple_list * execution_requests_;
 } rtg_doc;
 
@@ -56,12 +61,18 @@ rtg_doc_destructor(rtg_doc * doc)
 
 #define RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_INVALID 0x00
 #define RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_SUCCESS          0x0F
+#define RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_ERROR_ONE_OR_MORE_APPLICATIONS_REQUESTED_TO_BE_EXECUTED_NOT_FOUND 0x0A
 #define RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_ERROR_UNSPECIFIC 0xF0
 
 typedef struct rtg_doc_out_of_stt_doc_ret {
-	uint_fast8_t status;
+
+	unsigned char status;
+
+	amara_strings_simple_list * error_messages;
+
 	rtg_doc * doc;
-} rtg_doc_out_of_stt_doc_ret;
+} rtg_doc_out_of_stt_doc_ret
+;
 
 void
 rtg_doc_out_of_stt_doc_ret_destructor(

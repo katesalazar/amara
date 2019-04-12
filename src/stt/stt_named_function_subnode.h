@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,19 +23,27 @@
 /*   For `amara_string`. */
 #include "../cmn/amara_string.h"
 
-#include "stt_named_function.h"
+/*   For `stt_named_function`. */
+#include "stt_forward_declarations.h"
 
 /*   For `stt_operations_simple_list.h`. */
 #include "stt_operations_simple_list.h"
+
+#include "stt_where_value_bindings_simple_list.h"
 
 /*   Enumeration. */
 #define STT_NAMED_FUNCTION_SUBNODE_TYPE_INVALID      0x00
 #define STT_NAMED_FUNCTION_SUBNODE_TYPE_CLI_APP_NAMED_FUNCTION 0xFF
 
 typedef struct stt_named_function_subnode {
-	uint_fast8_t type_;
+
+	unsigned char type_;
+
 	amara_string * name_;
+
 	stt_operations_simple_list * operations_;
+
+	stt_where_value_bindings_simple_list * where_value_bindings_;
 } stt_named_function_subnode;
 
 stt_named_function_subnode *

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,29 +23,91 @@
 #include "rtg_operation.h"
 
 rtg_operation *
-rtg_operation_example_print_foo(void)
+rtg_operation_example_print_string_literal_foo(void)
 __attribute__((warn_unused_result))
 ;
 
+#ifndef NDEBUG
+
 void
-assert_expectations_on_rtg_operation_example_print_foo(
+assert_expectations_on_rtg_operation_example_print_string_literal_foo(
 		const rtg_operation * operation)
 ;
 
+#endif
+
 rtg_operation *
-rtg_operation_example_print_bar(void)
+rtg_operation_example_print_string_literal_bar(void)
 __attribute__((warn_unused_result))
 ;
 
+#ifndef NDEBUG
+
 void
-assert_expectations_on_rtg_operation_example_print_bar(
+assert_expectations_on_rtg_operation_example_print_string_literal_bar(
 		const rtg_operation * operation)
 ;
 
+#endif
+
 rtg_operation *
-rtg_operation_example_read_natural_into_i_foo(void)
+rtg_operation_example_read_natural_into_foo(void)
 __attribute__((warn_unused_result))
 ;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_operation_example_read_natural_into_foo(
+		const rtg_operation * operation)
+;
+
+#endif
+
+rtg_operation *
+rtg_operation_example_read_integer_into_foo(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_operation_example_read_integer_into_foo(
+		const rtg_operation * operation)
+;
+
+#endif
+
+/*
+
+rtg_operation *
+rtg_operation_example_print_integer_literal(void)
+__attribute__((warn_unused_result))
+;
+
+*/
+
+/*
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_operation_example_print_integer_literal(
+		const rtg_operation * operation)
+;
+
+#endif
+
+*/
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_operation_example_print_identifier_foo(
+		const rtg_operation * operation)
+;
+
+#endif
 
 void
 rtg_operation_tests(void)

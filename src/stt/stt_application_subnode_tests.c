@@ -25,6 +25,8 @@
 
 #include "stt_application_tests.h"
 
+/*
+
 stt_application_subnode *
 stt_application_subnode_example_print_foo()
 {
@@ -39,6 +41,8 @@ stt_application_subnode_example_print_foo()
 
 	return ret_;
 }
+
+*/
 
 void
 assert_expectations_on_stt_application_subnode_example_print_foo(

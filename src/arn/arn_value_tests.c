@@ -150,9 +150,9 @@ arn_value_construct_and_destruct_test_0()
 	assertion(value_->type_ == ARN_VALUE_TYPE_INVALID);
 	assertion(value_->name_ == NULL);
 	assertion(value_->string_ == NULL);
-	assertion(value_->string_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_->string_was_moved == AMARA_BOOLEAN_FALSE);
 	assertion(value_->natural_ == NULL);
-	assertion(value_->natural_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_->natural_was_moved == AMARA_BOOLEAN_FALSE);
 
 	arn_value_destructor(value_);
 }
@@ -172,9 +172,9 @@ arn_value_construct_and_destruct_test_1()
 	assertion(value_->type_ == ARN_VALUE_TYPE_INVALID);
 	assertion(value_->name_ == NULL);
 	assertion(value_->string_ == NULL);
-	assertion(value_->string_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_->string_was_moved == AMARA_BOOLEAN_FALSE);
 	assertion(value_->natural_ == NULL);
-	assertion(value_->natural_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_->natural_was_moved == AMARA_BOOLEAN_FALSE);
 	/*
 	assertion(value_->integer_ == NULL);
 	assertion(value_->rational_ == NULL);
@@ -189,9 +189,9 @@ arn_value_construct_and_destruct_test_1()
 			ARN_VALUE_TYPE_NAMED_VALUE_OF_UNDEFINED_TYPE);
 	assertion(value_->name_ != NULL);
 	assertion(value_->string_ == NULL);
-	assertion(value_->string_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_->string_was_moved == AMARA_BOOLEAN_FALSE);
 	assertion(value_->natural_ == NULL);
-	assertion(value_->natural_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_->natural_was_moved == AMARA_BOOLEAN_FALSE);
 	/*
 	assertion(value_->integer_ == NULL);
 	assertion(value_->rational_ == NULL);
@@ -207,9 +207,9 @@ arn_value_construct_and_destruct_test_1()
 	equality_ = amara_string_equality(value_->name_, value_name_);
 	assertion(equality_ == AMARA_BOOLEAN_TRUE);
 	assertion(value_->string_ == NULL);
-	assertion(value_->string_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_->string_was_moved == AMARA_BOOLEAN_FALSE);
 	assertion(value_->natural_ == NULL);
-	assertion(value_->natural_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_->natural_was_moved == AMARA_BOOLEAN_FALSE);
 	/*
 	assertion(value_->integer_ == NULL);
 	assertion(value_->rational_ == NULL);
@@ -221,9 +221,9 @@ arn_value_construct_and_destruct_test_1()
 	equality_ = amara_string_equality(value_copy_->name_, value_name_);
 	assertion(equality_ == AMARA_BOOLEAN_TRUE);
 	assertion(value_copy_->string_ == NULL);
-	assertion(value_copy_->string_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_copy_->string_was_moved == AMARA_BOOLEAN_FALSE);
 	assertion(value_copy_->natural_ == NULL);
-	assertion(value_copy_->natural_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_copy_->natural_was_moved == AMARA_BOOLEAN_FALSE);
 	/*
 	assertion(value_copy_->integer_ == NULL);
 	assertion(value_copy_->rational_ == NULL);
@@ -249,9 +249,9 @@ arn_value_construct_and_destruct_test_2()
 	assertion(value_->type_ == ARN_VALUE_TYPE_INVALID);
 	assertion(value_->name_ == NULL);
 	assertion(value_->string_ == NULL);
-	assertion(value_->string_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_->string_was_moved == AMARA_BOOLEAN_FALSE);
 	assertion(value_->natural_ == NULL);
-	assertion(value_->natural_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_->natural_was_moved == AMARA_BOOLEAN_FALSE);
 	/*
 	assertion(value_->integer_ == NULL);
 	assertion(value_->rational_ == NULL);
@@ -266,9 +266,9 @@ arn_value_construct_and_destruct_test_2()
 			ARN_VALUE_TYPE_NAMED_VALUE_OF_UNDEFINED_TYPE);
 	assertion(value_->name_ != NULL);
 	assertion(value_->string_ == NULL);
-	assertion(value_->string_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_->string_was_moved == AMARA_BOOLEAN_FALSE);
 	assertion(value_->natural_ == NULL);
-	assertion(value_->natural_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_->natural_was_moved == AMARA_BOOLEAN_FALSE);
 	/*
 	assertion(value_->integer_ == NULL);
 	assertion(value_->rational_ == NULL);
@@ -288,9 +288,9 @@ arn_value_construct_and_destruct_test_2()
 	equality_ = amara_string_equality(value_->name_, value_name_);
 	assertion(equality_ == AMARA_BOOLEAN_TRUE);
 	assertion(value_->string_ == NULL);
-	assertion(value_->string_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_->string_was_moved == AMARA_BOOLEAN_FALSE);
 	assertion(value_->natural_ == NULL);
-	assertion(value_->natural_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_->natural_was_moved == AMARA_BOOLEAN_FALSE);
 	/*
 	assertion(value_->integer_ == NULL);
 	assertion(value_->rational_ == NULL);
@@ -302,9 +302,9 @@ arn_value_construct_and_destruct_test_2()
 	equality_ = amara_string_equality(value_copy_->name_, value_name_);
 	assertion(equality_ == AMARA_BOOLEAN_TRUE);
 	assertion(value_copy_->string_ == NULL);
-	assertion(value_copy_->string_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_copy_->string_was_moved == AMARA_BOOLEAN_FALSE);
 	assertion(value_copy_->natural_ == NULL);
-	assertion(value_copy_->natural_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_copy_->natural_was_moved == AMARA_BOOLEAN_FALSE);
 	/*
 	assertion(value_copy_->integer_ == NULL);
 	assertion(value_copy_->rational_ == NULL);
@@ -331,9 +331,9 @@ arn_value_construct_and_destruct_test_3()
 	assertion(value_->type_ == ARN_VALUE_TYPE_INVALID);
 	assertion(value_->name_ == NULL);
 	assertion(value_->string_ == NULL);
-	assertion(value_->string_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_->string_was_moved == AMARA_BOOLEAN_FALSE);
 	assertion(value_->natural_ == NULL);
-	assertion(value_->natural_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_->natural_was_moved == AMARA_BOOLEAN_FALSE);
 	/*
 	assertion(value_->integer_ == NULL);
 	assertion(value_->rational_ == NULL);
@@ -394,9 +394,9 @@ arn_value_construct_and_destruct_test_4()
 	assertion(value_->type_ == ARN_VALUE_TYPE_INVALID);
 	assertion(value_->name_ == NULL);
 	assertion(value_->string_ == NULL);
-	assertion(value_->string_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_->string_was_moved == AMARA_BOOLEAN_FALSE);
 	assertion(value_->natural_ == NULL);
-	assertion(value_->natural_was_moved_ == AMARA_BOOLEAN_FALSE);
+	assertion(value_->natural_was_moved == AMARA_BOOLEAN_FALSE);
 	/*
 	assertion(value_->integer_ == NULL);
 	assertion(value_->rational_ == NULL);
@@ -442,19 +442,19 @@ arn_value_construct_and_destruct_tests()
 }
 
 void
-arn_value_assign_natural_out_of_unsigned_int_test_0()
+arn_value_assign_natural_out_of_unsigned_short_test_0()
 {
 	arn_value * value_;
-	unsigned int unsigned_int_;
+	unsigned short unsigned_short_;
 	amara_string * expected_value_raw_natural_;
-	arn_value_assign_natural_out_of_unsigned_int_ret * ret_;
+	arn_value_assign_natural_out_of_unsigned_short_ret * ret_;
 	amara_boolean equality_;
 
 	value_ = arn_value_default_constructor();
 	assertion(value_ != NULL);
 	assertion(value_->type_ == ARN_VALUE_TYPE_INVALID);
 
-	unsigned_int_ = 0;
+	unsigned_short_ = 0;
 
 	expected_value_raw_natural_ = amara_string_exhaustive_constructor("0");
 	assertion(expected_value_raw_natural_ != NULL);
@@ -462,8 +462,8 @@ arn_value_assign_natural_out_of_unsigned_int_test_0()
 
 	value_->type_ = ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_NATURAL; /* XXX */
 
-	ret_ = arn_value_assign_natural_out_of_unsigned_int(
-			value_, unsigned_int_);
+	ret_ = arn_value_assign_natural_out_of_unsigned_short(
+			value_, unsigned_short_);
 	assertion(value_->type_ == ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
 	assertion(value_->natural_ != NULL);
 	assertion(value_->natural_->raw_ != NULL);
@@ -476,7 +476,7 @@ arn_value_assign_natural_out_of_unsigned_int_test_0()
 			ARN_VALUE_ASSIGN_NATURAL_OUT_OF_UNSIGNED_INT_RET_STATUS_SUCCESS);
 
 	/*
-	arn_value_assign_natural_out_of_unsigned_int_ret_destructor(ret_);
+	arn_value_assign_natural_out_of_unsigned_short_ret_destructor(ret_);
 	*/
 	free(ret_);
 	amara_string_destructor(expected_value_raw_natural_);
@@ -484,14 +484,14 @@ arn_value_assign_natural_out_of_unsigned_int_test_0()
 }
 
 void
-arn_value_assign_natural_out_of_unsigned_int_tests()
+arn_value_assign_natural_out_of_unsigned_short_tests()
 {
-	arn_value_assign_natural_out_of_unsigned_int_test_0();
+	arn_value_assign_natural_out_of_unsigned_short_test_0();
 }
 
 void
 arn_value_tests()
 {
 	arn_value_construct_and_destruct_tests();
-	arn_value_assign_natural_out_of_unsigned_int_tests();
+	arn_value_assign_natural_out_of_unsigned_short_tests();
 }

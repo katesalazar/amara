@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,11 +48,13 @@ stt_applications_simple_list_copy_constructor_inner(
 	assertion(applications->first != NULL);
 	ret_ = malloc(sizeof(stt_applications_simple_list));
 	ret_->first = stt_application_copy_constructor(applications->first);
+	/*
 	if (applications->next == NULL) {
 		ret_->next = NULL;
 		return ret_;
 	}
-	ret_->next = stt_applications_simple_list_copy_constructor(
+	*/
+	ret_->next = stt_applications_simple_list_copy_constructor_inner(
 			applications->next);
 	return ret_;
 }
@@ -126,18 +128,48 @@ stt_applications_simple_list_push_front(
 	return new_list_node_;
 }
 
-uint_fast8_t
-stt_applications_simple_list_length(stt_applications_simple_list * list)
+stt_applications_simple_list_length_ret *
+stt_applications_simple_list_length(const stt_applications_simple_list * list)
 {
-	uint_fast8_t returning_ = 0;
-	while (list != NULL) {
-		if (returning_ >= UINT8_MAX) {
-			fprintf(stderr, "%s:%u (uint_fast8_t functions_list_length(functions_list *)): fatal\n",
-					__FILE__, __LINE__);
-			exit(EXIT_FAILURE);
-		}
-		list = list->next;
-		returning_++;
+	stt_applications_simple_list_length_ret * ret_;
+	const stt_applications_simple_list * ptr_;
+
+	ret_ = malloc(sizeof(stt_applications_simple_list_length_ret));
+	forced_assertion(ret_ != NULL);
+
+	ret_->status = STT_APPLICATIONS_SIMPLE_LIST_LENGTH_RET_STATUS_INVALID;
+
+#ifndef NDEBUG
+	assertion(list != NULL);
+#endif
+
+	if (list->first == NULL) {
+
+#ifndef NDEBUG
+		assertion(list->next == NULL);
+#endif
+		ret_->length = 0;
+		ret_->status = STT_APPLICATIONS_SIMPLE_LIST_LENGTH_RET_STATUS_SUCCESS;
+		return ret_;
 	}
-	return returning_;
+
+	ret_->length = 0;
+
+	ptr_ = list;
+	while (ptr_ != NULL) {
+
+		if (ret_->length >= 255) {
+
+			ret_->status = STT_APPLICATIONS_SIMPLE_LIST_LENGTH_RET_STATUS_ERROR_OVERFLOW;
+			return ret_;
+		}
+
+		ret_->length++;
+
+		ptr_ = ptr_->next;
+	}
+
+	ret_->status = STT_APPLICATIONS_SIMPLE_LIST_LENGTH_RET_STATUS_SUCCESS;
+
+	return ret_;
 }

@@ -168,7 +168,7 @@ dirent_wrapper_closedir(const dirent_wrapper * dirent_wrapper, DIR * dirp)
 
 void
 dirent_wrapper_reflect_add_flags(
-		dirent_wrapper * dirent_wrapper, uint_fast8_t flags)
+		dirent_wrapper * dirent_wrapper, unsigned char flags)
 {
 	const manipulation_details * manipulation_details_;
 	assertion_two(dirent_wrapper != NULL,
@@ -192,7 +192,7 @@ dirent_wrapper_reflect_add_flags(
 
 void
 dirent_wrapper_reflect_remove_flags(
-		dirent_wrapper * dirent_wrapper, uint_fast8_t flags)
+		dirent_wrapper * dirent_wrapper, unsigned char flags)
 {
 	assertion(dirent_wrapper != NULL);
 	assertion(dirent_wrapper->manipulation ==

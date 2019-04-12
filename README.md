@@ -118,7 +118,7 @@ $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/inst
 ```
 
 2. If you have Homebrew, **optionally** select the `bison` and `flex` packages
-   (it should just work using the `default` bison and `flex` programs shipped
+   (it should just work using the default `bison` and `flex` programs shipped
    in macOS):
 
 ```
@@ -149,17 +149,25 @@ $ _
 
 Check out [`INSTALL_LEGACY.md`][5].
 
-## development tasks
+## features
 
-### active
+* (Incomplete) [minia language][36] interpreter.
 
 * Unit tests framework.
 
+* Gcov instrumentation.
+
+* Lcov reporting.
+
+## coming ~soon~ ~~soon~~ ~~~soon~~~ ~~~~soon~~~~ ~~~~~soon~~~~~
+
+### active
+
+* Conditional expressions (feature branch `if`).
+
 * Valgrind and Gprof instrumentation.
 
-* Initial scripting engine.
-
-* YAML configuration docs management.
+* Conditional [minia language][36] expressions.
 
 * CLI applications.
 
@@ -169,19 +177,63 @@ Check out [`INSTALL_LEGACY.md`][5].
 
 ### to do
 
+* Leaks review.
+
+  * Because currently tests can not be run before applications, but only in an execution of their own, tests are written with special careless for leaks. This has to be fixed any time before the moment tests can be run before an actual application.
+
+* Function recursion.
+
+* YAML configuration docs management.
+
 * Valgrind and Gprof reporting.
+
+* Code coverage for interpreted minia source documents.
+
+* Support for multiple source documents.
+
+* Anonymous functions?
 
 * Unicode support.
 
 * TUI and GUI applications.
 
+* Remove string literals, trading interpreter size for sources complexity.
+
+  * But holding those string literals present in debug only parts in debug
+    builds?
+
 * Grammar amendments.
+
+  * Operation returning rational can not be made in a scope in which there is
+    no precision declaration, like:
+
+    ```
+    precision 4  #   Operation returning rational is going to compute
+                 # up to four decimal digits.
+    store 1.0 / 10000 in a  #   This should raise a semantic error
+                            # (at some point, but before run time) if
+                            # there was no clear way to infer what the
+                            # user is requesting. Not this case here,
+                            # because it is clear what the user is
+                            # requesting.
+    print a  #   In `a` there is a `0.0001` `rational` value stored.
+             # Would `precision 3` had been issued, `a` would then
+             # store a `0` `natural` value.
+    store 1 / 10000 in b
+    print b  #   In `b` there isn't necessarily a `0.001` `rational`
+             # value, but arguably a `0` `natural` value is the correct
+             # result, as is the correct result of the euclidean division...
+    ```
 
   * Remove negative integers and negative rationals from the grammar (but not
     from the language engine), replacing them for positive integers and
     positive rationals after the occurrence of an unary operator minus.
 
     * Probably add an unary operator plus too.
+
+      * These might be super important in order to ease introduction of user
+        defined operators, particularly infix, but not limited to. Read also
+        http://lists.gnu.org/archive/html/help-bison/2018-11/msg00007.html
 
 * Modern Bison usage.
 
@@ -211,6 +263,14 @@ Check out [`INSTALL_LEGACY.md`][5].
 
 This is completely tentative, and most probably goals will be moved around up
 and down.
+
+### 0.0.1
+
+* Simple and mostly Turing complete ish scripting engine for all-in-one functions. Selective (conditional) expression, anonymous functions mapping, fold or reduce, etc.
+
+### 0.0.x
+
+* ~~Function calls, anonymous functions~~, `procedure` keyword (instead of `function [...] and returns nothing at all [...] and causes side effects`) (idea contributed by Mia, however this form of it is not exactly the way Mia wanted it).
 
 ### 0.1.0
 
@@ -264,101 +324,90 @@ skeleton is _freeware_.
 
 ## credits &amp; copying
 
-Copyright (c)
+Copyright (c) 2018-2019 the *amara project* authors and contributors.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Authored by:
+* Authored by:
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-2019 &lt;your name here&gt;:
+  * 2019 &lt;your name here&gt;
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&lt;your works here&gt;.
+    * &lt;your work here&gt;
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-2018-2019 Mercedes Catherine Salazar (katesalazar):
+  * 2018-2019 Mercedes Catherine Salazar (katesalazar):
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-2019 - Documentation.
+    * (2019) Implementation, tests, documentation.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-2018 - Lexicon, syntax, semantics, implementation, tests, documentation.
+    * (2018) Lexicon, syntax, semantics, implementation, tests, documentation.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contributions by:
+* Contributions by:
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-2019 &lt;your name here&gt;:
+  * 2019 &lt;your name here&gt;
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&lt;your contributions here&gt;.
+    * &lt;your work here&gt;
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-2018 Mia (spreadLink):
+  * 2018 Mia (spreadLink):
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Syntax consulting.
+    * Sequential operations conjunction: lexicon
+      (`OPERATION and then OPERATION`). Syntax consulting.
 
 Licensed to you under the terms of [the Apache License, version 2.0][29].
 
 
-[2]: https://discord.gg/2XDzsuq
+[2]: http://discord.gg/2XDzsuq
 
 <!--
-[4]: https://github.com/katesalazar/amara/blob/STABILITY-POLICY/STABILITY_POLICY.md
+[4]: http://github.com/katesalazar/amara/blob/STABILITY-POLICY/STABILITY_POLICY.md
 -->
 
 [5]: http://github.com/katesalazar/amara/tree/master/INSTALL_LEGACY.md
 
-[8]: https://brew.sh/
+[8]: http://brew.sh/
 
-[9]: https://github.com/katesalazar/amara/tree/master#dependencies
+[9]: http://github.com/katesalazar/amara/tree/master#dependencies
 
-[10]: https://github.com/katesalazar/amara/tree/master#how-to-run-on
+[10]: http://github.com/katesalazar/amara/tree/master#how-to-run-on
 
-[11]: https://github.com/katesalazar/amara/tree/master#debian-stretch
+[11]: http://github.com/katesalazar/amara/tree/master#debian-stretch
 
-[12]: https://github.com/katesalazar/amara/tree/master#macos-high-sierra-the-homebrew-way
+[12]: http://github.com/katesalazar/amara/tree/master#macos-high-sierra-the-homebrew-way
 
-[13]: https://github.com/katesalazar/amara/tree/master#any-other
+[13]: http://github.com/katesalazar/amara/tree/master#any-other
 
-[14]: https://github.com/katesalazar/amara/tree/master#development-tasks
+[14]: http://github.com/katesalazar/amara/tree/master#development-tasks
 
-[15]: https://github.com/katesalazar/amara/tree/master#active
+[15]: http://github.com/katesalazar/amara/tree/master#active
 
-[16]: https://github.com/katesalazar/amara/tree/master#stalled
+[16]: http://github.com/katesalazar/amara/tree/master#stalled
 
-[17]: https://github.com/katesalazar/amara/tree/master#to-do
+[17]: http://github.com/katesalazar/amara/tree/master#to-do
 
-[18]: https://github.com/katesalazar/amara/tree/master#roadmap
+[18]: http://github.com/katesalazar/amara/tree/master#roadmap
 
-[19]: https://github.com/katesalazar/amara/tree/master#010
+[19]: http://github.com/katesalazar/amara/tree/master#010
 
-[20]: https://github.com/katesalazar/amara/tree/master#020
+[20]: http://github.com/katesalazar/amara/tree/master#020
 
-[21]: https://github.com/katesalazar/amara/tree/master#030
+[21]: http://github.com/katesalazar/amara/tree/master#030
 
-[22]: https://github.com/katesalazar/amara/tree/master#040
+[22]: http://github.com/katesalazar/amara/tree/master#040
 
-[26]: https://github.com/katesalazar/amara/tree/master#development-info
+[26]: http://github.com/katesalazar/amara/tree/master#development-info
 
-[27]: https://github.com/katesalazar/amara/tree/master#compliance-with-3rd-parties-terms
+[27]: http://github.com/katesalazar/amara/tree/master#compliance-with-3rd-parties-terms
 
-[28]: https://github.com/katesalazar/amara/tree/master#current-observance
+[28]: http://github.com/katesalazar/amara/tree/master#current-observance
 
-[29]: https://www.apache.org/licenses/LICENSE-2.0
+[29]: http://www.apache.org/licenses/LICENSE-2.0
 
-[30]: https://github.com/katesalazar/amara/tree/master#credits--copying
+[30]: http://github.com/katesalazar/amara/tree/master#credits--copying
 
-[31]: https://www.gnu.org/software/bison/
+[31]: http://www.gnu.org/software/bison/
 
-[32]: https://github.com/westes/flex/
+[32]: http://github.com/westes/flex/
 
-[33]: https://github.com/katesalazar/amara/tree/master#macos-high-sierra-the-xcode-way
+[33]: http://github.com/katesalazar/amara/tree/master#macos-high-sierra-the-xcode-way
 
-[34]: https://www.gnu.org/software/bison/manual/html_node/Pure-Decl.html
+[34]: http://www.gnu.org/software/bison/manual/html_node/Pure-Decl.html
 
-[35]: https://www.gnu.org/software/bison/manual/html_node/Pure-Calling.html#Pure-Calling
+[35]: http://www.gnu.org/software/bison/manual/html_node/Pure-Calling.html#Pure-Calling
+
+[36]: http://github.com/katesalazar/minia

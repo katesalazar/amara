@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@
 #include "rtg_operation.h"
 
 typedef struct rtg_operations_simple_list {
+
 	rtg_operation * first;
+
 	struct rtg_operations_simple_list * next;
-} rtg_operations_simple_list;
+} rtg_operations_simple_list
+;
 
 rtg_operations_simple_list *
 rtg_operations_simple_list_default_constructor(void)
@@ -54,23 +57,31 @@ __attribute__((warn_unused_result))
 ;
 
 #define RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_INVALID 0x00
+#define RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION 0x0E
 #define RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC 0x0F
 #define RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_operations_simple_list_out_of_stt_operations_simple_list_ret {
-	uint_fast8_t status;
+
+	unsigned char status;
+
+	amara_strings_simple_list * error_messages;
+
 	rtg_operations_simple_list * operations;
-	amara_boolean operations_were_moved;
-} rtg_operations_simple_list_out_of_stt_operations_simple_list_ret;
+} rtg_operations_simple_list_out_of_stt_operations_simple_list_ret
+;
 
 void
 rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_destructor(
 		rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_)
 ;
 
+/*   @param operations - A function's operations.
+ *   @param where_bindings - A function's where value bindings. */
 rtg_operations_simple_list_out_of_stt_operations_simple_list_ret *
 rtg_operations_simple_list_out_of_stt_operations_simple_list(
-		const stt_operations_simple_list * list)
+		const stt_operations_simple_list * operations,
+		const stt_where_value_bindings_simple_list * function_where_bindings)
 __attribute__((warn_unused_result))
 ;
 

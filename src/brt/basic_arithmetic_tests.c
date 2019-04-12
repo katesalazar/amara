@@ -16,9 +16,6 @@
  * src/brt/basic_arithmetic_tests.c: Self explanatory...
  */
 
-/*   For `int_fast8_t`. */
-#include <stdint.h>
-
 /*   For `int fprintf(FILE * stream, const char * format, ...)`. */
 #include <stdio.h>
 
@@ -33,10 +30,10 @@
 
 #include "integer_tests.h"
 
-/*   For `int_fast8_t safe_arguments_natural_raw_comparison(
+/*   For `signed char safe_arguments_natural_raw_comparison(
  * const char * raw_natural_zero, const char * raw_natural_one)`, and
- * for `typedef struct fit_raw_natural_in_uint_fast8_t_ret { ... }
- * fit_raw_natural_in_uint_fast8_t_ret`, and for several others. */
+ * for `typedef struct fit_raw_natural_in_unsigned_char_ret { ... }
+ * fit_raw_natural_in_unsigned_char_ret`, and for several others. */
 #include "natural.h"
 
 #include "natural_tests.h"
@@ -68,35 +65,35 @@ safe_arguments_natural_raw_comparison_tests(void)
 ;
 
 void
-fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not_test_0(void)
+fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_test_0(void)
 ;
 
 void
-fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not_test_1(void)
+fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_test_1(void)
 ;
 
 void
-fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not_test_2(void)
+fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_test_2(void)
 ;
 
 void
-fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not_test_3(void)
+fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_test_3(void)
 ;
 
 void
-fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not_test_4(void)
+fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_test_4(void)
 ;
 
 void
-fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not_tests(void)
+fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_tests(void)
 ;
 
 void
-fit_raw_natural_in_uint_fast8_t_test_0(void)
+fit_raw_natural_in_unsigned_char_test_0(void)
 ;
 
 void
-fit_raw_natural_in_uint_fast8_t_tests(void)
+fit_raw_natural_in_unsigned_char_tests(void)
 ;
 
 void
@@ -112,15 +109,15 @@ raw_naturals_substraction_as_raw_natural_zero_is_larger_than_one_tests(void)
 ;
 
 void
-raw_naturals_division_as_raw_natural_test_0(void)
+raw_naturals_euclidean_quotient_as_raw_natural_test__0(void)
 ;
 
 void
-raw_naturals_division_as_raw_natural_test_1(void)
+raw_naturals_euclidean_quotient_as_raw_natural_test__1(void)
 ;
 
 void
-raw_naturals_division_as_raw_natural_tests(void)
+raw_naturals_euclidean_quotient_as_raw_natural_tests_(void)
 ;
 
 void
@@ -146,7 +143,7 @@ safe_arguments_natural_raw_comparison_test_0()
 	const amara_string * raw_natural_one_ =
 			amara_string_exhaustive_constructor(
 					raw_natural_one_chars_array_);
-	const int_fast8_t result_ = safe_arguments_natural_raw_comparison(
+	const signed char result_ = safe_arguments_natural_raw_comparison(
 			raw_natural_zero_, raw_natural_one_);
 	assertion_two(result_ == 0, "unexpected result");
 	amara_string_destructor((amara_string *) raw_natural_zero_);
@@ -169,7 +166,7 @@ safe_arguments_natural_raw_comparison_test_1()
 	const amara_string * raw_natural_one_ =
 			amara_string_exhaustive_constructor(
 					raw_natural_one_chars_array_);
-	const int_fast8_t result_ = safe_arguments_natural_raw_comparison(
+	const signed char result_ = safe_arguments_natural_raw_comparison(
 			raw_natural_zero_, raw_natural_one_);
 	assertion_two(result_ < 0, "unexpected result");
 	amara_string_destructor((amara_string *) raw_natural_zero_);
@@ -192,7 +189,7 @@ safe_arguments_natural_raw_comparison_test_2()
 	const amara_string * raw_natural_one_ =
 			amara_string_exhaustive_constructor(
 					raw_natural_one_chars_array_);
-	const int_fast8_t result_ = safe_arguments_natural_raw_comparison(
+	const signed char result_ = safe_arguments_natural_raw_comparison(
 			raw_natural_zero_, raw_natural_one_);
 	assertion_two(result_ < 0, "unexpected result");
 	amara_string_destructor((amara_string *) raw_natural_zero_);
@@ -215,7 +212,7 @@ safe_arguments_natural_raw_comparison_test_3()
 	const amara_string * raw_natural_one_ =
 			amara_string_exhaustive_constructor(
 					raw_natural_one_chars_array_);
-	const int_fast8_t result_ = safe_arguments_natural_raw_comparison(
+	const signed char result_ = safe_arguments_natural_raw_comparison(
 			raw_natural_zero_, raw_natural_one_);
 	assertion_two(result_ > 0, "unexpected result");
 	amara_string_destructor((amara_string *) raw_natural_zero_);
@@ -238,7 +235,7 @@ safe_arguments_natural_raw_comparison_test_4()
 	const amara_string * raw_natural_one_ =
 			amara_string_exhaustive_constructor(
 					raw_natural_one_chars_array_);
-	const int_fast8_t result_ = safe_arguments_natural_raw_comparison(
+	const signed char result_ = safe_arguments_natural_raw_comparison(
 			raw_natural_zero_, raw_natural_one_);
 	assertion_two(result_ > 0, "unexpected result");
 	amara_string_destructor((amara_string *) raw_natural_zero_);
@@ -260,104 +257,104 @@ safe_arguments_natural_raw_comparison_tests()
 	safe_arguments_natural_raw_comparison_test_4();
 }
 
-fit_raw_natural_in_uint_fast8_t_ret *
-fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not(
+fit_raw_natural_in_unsigned_char_ret *
+fit_raw_natural_in_unsigned_char_inner_might_fit_or_not(
 		const amara_string * valid_raw_natural)
 __attribute__((warn_unused_result));
 
 void
-fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not_test_0()
+fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_test_0()
 {
 	const char * raw_natural_chars_array_ = "123";
 	const amara_string * raw_natural_ =
 			amara_string_exhaustive_constructor(
 					raw_natural_chars_array_);
-	const fit_raw_natural_in_uint_fast8_t_ret * ret_ =
-			fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not(
+	const fit_raw_natural_in_unsigned_char_ret * ret_ =
+			fit_raw_natural_in_unsigned_char_inner_might_fit_or_not(
 					raw_natural_);
 	assertion(ret_->status ==
-			FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_OK);
+			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_OK);
 }
 
 void
-fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not_test_1()
+fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_test_1()
 {
 	const char * raw_natural_chars_array_ = "234";
 	const amara_string * raw_natural_ =
 			amara_string_exhaustive_constructor(
 					raw_natural_chars_array_);
-	const fit_raw_natural_in_uint_fast8_t_ret * ret_ =
-			fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not(
+	const fit_raw_natural_in_unsigned_char_ret * ret_ =
+			fit_raw_natural_in_unsigned_char_inner_might_fit_or_not(
 					raw_natural_);
 	assertion(ret_->status ==
-			FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_OK);
+			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_OK);
 }
 
 void
-fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not_test_2()
+fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_test_2()
 {
 	const char * raw_natural_chars_array_ = "255";
 	const amara_string * raw_natural_ =
 			amara_string_exhaustive_constructor(
 					raw_natural_chars_array_);
-	const fit_raw_natural_in_uint_fast8_t_ret * ret_ =
-			fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not(
+	const fit_raw_natural_in_unsigned_char_ret * ret_ =
+			fit_raw_natural_in_unsigned_char_inner_might_fit_or_not(
 					raw_natural_);
 	assertion(ret_->status ==
-			FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_OK);
+			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_OK);
 }
 
 void
-fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not_test_3()
+fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_test_3()
 {
 	const char * raw_natural_chars_array_ = "260";
 	const amara_string * raw_natural_ =
 			amara_string_exhaustive_constructor(
 					raw_natural_chars_array_);
-	const fit_raw_natural_in_uint_fast8_t_ret * ret_ =
-			fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not(
+	const fit_raw_natural_in_unsigned_char_ret * ret_ =
+			fit_raw_natural_in_unsigned_char_inner_might_fit_or_not(
 					raw_natural_);
 	assertion(ret_->status ==
-			FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_ERR_DOES_NOT_FIT);
+			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_DOES_NOT_FIT);
 }
 
 void
-fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not_test_4()
+fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_test_4()
 {
 	const char * raw_natural_chars_array_ = "300";
 	const amara_string * raw_natural_ =
 			amara_string_exhaustive_constructor(
 					raw_natural_chars_array_);
-	const fit_raw_natural_in_uint_fast8_t_ret * ret_ =
-			fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not(
+	const fit_raw_natural_in_unsigned_char_ret * ret_ =
+			fit_raw_natural_in_unsigned_char_inner_might_fit_or_not(
 					raw_natural_);
 	assertion(ret_->status ==
-			FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_ERR_DOES_NOT_FIT);
+			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_DOES_NOT_FIT);
 }
 
 void
-fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not_tests()
+fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_tests()
 {
-	fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not_test_0();
-	fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not_test_1();
-	fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not_test_2();
-	fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not_test_3();
-	fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not_test_4();
+	fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_test_0();
+	fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_test_1();
+	fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_test_2();
+	fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_test_3();
+	fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_test_4();
 }
 
 void
-fit_raw_natural_in_uint_fast8_t_test_0()
+fit_raw_natural_in_unsigned_char_test_0()
 {
 	const char * raw_natural_chars_array_ = "32993";
 	const amara_string * raw_natural_ =
 			amara_string_exhaustive_constructor(
 					raw_natural_chars_array_);
-	const fit_raw_natural_in_uint_fast8_t_ret * ret_ =
-			fit_raw_natural_in_uint_fast8_t(raw_natural_);
+	const fit_raw_natural_in_unsigned_char_ret * ret_ =
+			fit_raw_natural_in_unsigned_char(raw_natural_);
 	assertion(ret_->status ==
-			FIT_RAW_NATURAL_IN_UINT_FAST8_T_RET_STATUS_ERR_NOT_FITTING);
-	fit_raw_natural_in_uint_fast8_t_ret_destructor(
-			(fit_raw_natural_in_uint_fast8_t_ret *) ret_);
+			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_NOT_FITTING);
+	fit_raw_natural_in_unsigned_char_ret_destructor(
+			(fit_raw_natural_in_unsigned_char_ret *) ret_);
 	amara_string_destructor((amara_string *) raw_natural_);
 	/* FIXME attempt to free a non heap object */
 	/*
@@ -366,9 +363,9 @@ fit_raw_natural_in_uint_fast8_t_test_0()
 }
 
 void
-fit_raw_natural_in_uint_fast8_t_tests()
+fit_raw_natural_in_unsigned_char_tests()
 {
-	fit_raw_natural_in_uint_fast8_t_test_0();
+	fit_raw_natural_in_unsigned_char_test_0();
 }
 
 /*   This is a _friend_ declaration of a function otherwise private to
@@ -462,7 +459,7 @@ raw_naturals_substraction_as_raw_natural_zero_is_larger_than_one_tests()
 }
 
 void
-raw_naturals_division_as_raw_natural_test_0()
+raw_naturals_euclidean_quotient_as_raw_natural_test__0()
 {
 	const char * raw_natural_zero_chars_array_ = "256";
 	const char * raw_natural_one_chars_array_ = "1";
@@ -472,7 +469,7 @@ raw_naturals_division_as_raw_natural_test_0()
 	const amara_string * raw_natural_one_ =
 			amara_string_exhaustive_constructor(
 					raw_natural_one_chars_array_);
-	const amara_string * ret_ = raw_naturals_division_as_raw_natural(
+	const amara_string * ret_ = raw_naturals_euclidean_quotient_as_raw_natural(
 			raw_natural_zero_, raw_natural_one_);
 	const char * expected_raw_natural_chars_array_ = "256";
 	const amara_string * expected_raw_natural_ =
@@ -491,7 +488,7 @@ raw_naturals_division_as_raw_natural_test_0()
 
 /*
 void
-raw_naturals_division_as_raw_natural_test_1()
+raw_naturals_euclidean_quotient_as_raw_natural_test_1_()
 {
 	const char * raw_natural_zero_chars_array_ = "1";
 	const char * raw_natural_one_chars_array_ = "256";
@@ -501,7 +498,7 @@ raw_naturals_division_as_raw_natural_test_1()
 	const amara_string * raw_natural_one_ =
 			amara_string_exhaustive_constructor(
 					raw_natural_one_chars_array_);
-	const amara_string * ret_ = raw_naturals_division_as_raw_natural(
+	const amara_string * ret_ = raw_naturals_euclidean_quotient_as_raw_natural(
 			raw_natural_zero_, raw_natural_one_);
 	const char * expected_raw_natural_chars_array_ =
 			"MACHINE_NUMERIC_OVERFLOW";
@@ -523,11 +520,11 @@ raw_naturals_division_as_raw_natural_test_1()
 */
 
 void
-raw_naturals_division_as_raw_natural_tests()
+raw_naturals_euclidean_quotient_as_raw_natural_tests_()
 {
-	raw_naturals_division_as_raw_natural_test_0();
+	raw_naturals_euclidean_quotient_as_raw_natural_test__0();
 	/*
-	raw_naturals_division_as_raw_natural_test_1();
+	raw_naturals_euclidean_quotient_as_raw_natural_test__1();
 	*/
 }
 
@@ -555,7 +552,7 @@ simplify_natural_literal_nodes_substraction_test_0()
 	amara_string_set_value(
 			(amara_string *) expectation_raw_,
 			expectation_raw_chars_array_);
-	assert_pure_natural_literal_node(result_);
+	assert_clean_natural_literal_node(result_);
 	assertion(
 			amara_string_equality(
 				result_->natural_literal_subnode_->raw_,
@@ -590,10 +587,10 @@ void
 natural_tests_()
 {
 	safe_arguments_natural_raw_comparison_tests();
-	fit_raw_natural_in_uint_fast8_t_inner_might_fit_or_not_tests();
-	fit_raw_natural_in_uint_fast8_t_tests();
+	fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_tests();
+	fit_raw_natural_in_unsigned_char_tests();
 	raw_naturals_substraction_as_raw_natural_zero_is_larger_than_one_tests();
-	raw_naturals_division_as_raw_natural_tests();
+	raw_naturals_euclidean_quotient_as_raw_natural_tests_();
 	simplify_natural_literal_nodes_substraction_tests();
 }
 

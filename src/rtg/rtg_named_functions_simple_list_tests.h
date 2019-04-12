@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,29 @@
 
 #ifndef __AMARA__RUN_TIME_GRAPH__NAMED_FUNCTIONS_SIMPLE_LIST_TESTS__H__
 #define __AMARA__RUN_TIME_GRAPH__NAMED_FUNCTIONS_SIMPLE_LIST_TESTS__H__
+
+rtg_named_functions_simple_list *
+rtg_named_functions_simple_list_example_two_named_functions(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_named_functions_simple_list_example_two_named_functions(
+		const rtg_named_functions_simple_list * list)
+;
+
+#endif
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_named_functions_simple_list_example_one_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+		const rtg_named_functions_simple_list * list)
+;
+
+#endif
 
 void
 rtg_named_functions_simple_list_tests(void)

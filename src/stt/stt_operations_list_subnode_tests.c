@@ -32,7 +32,8 @@ stt_operations_list_subnode_example_print_foo()
 	stt_operations_list_subnode * subnode_;
 	stt_operations_simple_list * operations_;
 	stt_operation * operation_;
-	operation_ = stt_operation_example_print_foo();
+
+	operation_ = stt_operation_example_print_string_literal_foo();
 	assertion(operation_ != NULL);
 	/* TODO add missing assertions. */
 	operations_ = stt_operations_simple_list_default_constructor();
@@ -57,6 +58,7 @@ stt_operations_list_subnode_example_print_foo()
 	/* stt_operations_list_subnode_destructor(subnode_); */
 	stt_operations_simple_list_destructor(operations_);
 	stt_operation_destructor(operation_);
+
 	return subnode_;
 }
 

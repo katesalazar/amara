@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -103,18 +103,39 @@ stt_execution_requests_simple_list_destructor(
 	free(list);
 }
 
-uint_fast8_t
+unsigned char
 stt_execution_requests_simple_list_length(
 		stt_execution_requests_simple_list * list)
 {
-	uint_fast8_t returning_ = 0;
-	while (list != NULL) {
-		if (returning_ >= UINT8_MAX) {
+	unsigned char returning_;
+	stt_execution_requests_simple_list * ptr_;
+
+	returning_ = 0;
+
+	if (list == NULL) {
+
+		return 0;
+	}
+
+	if (list->first == NULL) {
+
+#ifndef NDEBUG
+		assertion(list->next == NULL);
+#endif
+		return 0;
+	}
+
+	ptr_ = list;
+	while (ptr_ != NULL) {
+		forced_assertion(returning_ < 255);
+		/*
+		if (returning_ >= 255) {
 			fprintf(stderr, "%s:%u (uint_fast8_t functions_list_length(functions_list *)): fatal\n",
 					__FILE__, __LINE__);
 			exit(EXIT_FAILURE);
 		}
-		list = list->next;
+		*/
+		ptr_ = ptr_->next;
 		returning_++;
 	}
 	return returning_;

@@ -22,7 +22,7 @@
 
 FORCE=0
 
-BASE='/var/www/html/lcov/github/????'
+BASE='/var/www/html/lcov0/github/katesalazar'
 
 ORIGINAL_BRANCH=`git branch | grep '*' | cut -d ' ' -f 2`
 
@@ -39,11 +39,11 @@ current_hash=`nice -n 19 git log --pretty=%H | head -1`
 
 until false
 do
-for branch in master integration experimental
+for branch in master 'if' # integration experimental
 do
 	previous_hash=${current_hash} &&
-			# nice -n 19 git fetch origin &&
-			nice -n 19 git pull &&
+			nice -n 19 git fetch origin &&
+			# nice -n 19 git pull &&
 			nice -n 19 git checkout ${branch} &&
 			nice -n 19 git reset --hard origin/${branch} &&
 			current_hash=`nice -n 19 git log --pretty=%H | head -1`
@@ -90,9 +90,9 @@ do
 		echo 'nice -n 19 ./build/debug/amara_g run app examples/0_hello_world'
 		nice -n 19 ./build/debug/amara_g \
 				run app examples/0_hello_world
-		echo 'nice -n 19 ./build/debug/amara_g run app examples/1_functions_structure/'
+		echo 'nice -n 19 ./build/debug/amara_g run app examples/1_operations_sequencing/'
 		nice -n 19 ./build/debug/amara_g \
-				run app examples/1_functions_structure/
+				run app examples/1_operations_sequencing/
 # 		if test "${branch}" = 'integration' -o "${branch}" = 'master'
 # 		then
 			echo "nice -n 19 ./build/debug/amara_g run app 'examples/'"
@@ -123,8 +123,8 @@ do
 # 		then
 			echo 'nice -n 19 ./build/debug/amara_g run app examples/0_hello_world/'
 			nice -n 19 ./build/debug/amara_g run app examples/0_hello_world/
-			echo 'nice -n 19 ./build/debug/amara_g run app examples/1_functions_structure'
-			nice -n 19 ./build/debug/amara_g run app examples/1_functions_structure
+			echo 'nice -n 19 ./build/debug/amara_g run app examples/1_operations_sequencing'
+			nice -n 19 ./build/debug/amara_g run app examples/1_operations_sequencing
 # 		if test "${branch}" = 'integration' -o "${branch}" = 'master'
 # 		then
 			echo "nice -n 19 ./build/debug/amara_g run app 'examples/2_naturals_substraction/'"
@@ -285,6 +285,6 @@ do
 done
 nice -n 19 git checkout ${ORIGINAL_BRANCH}
 date
-echo 'sleep 900...'
-sleep 900
+echo 'sleep 600...'
+sleep 600
 done

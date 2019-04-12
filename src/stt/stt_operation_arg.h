@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,22 +20,25 @@
 #ifndef __AMARA__SYNTAX_TREE__OPERATION_ARG__H__
 #define __AMARA__SYNTAX_TREE__OPERATION_ARG__H__
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 /*   For `amara_string`. */
 #include "../cmn/amara_string.h"
+
+typedef unsigned char stt_operation_arg_type;
 
 #define STT_OPERATION_ARG_TYPE_INVALID 0x00
 #define STT_OPERATION_ARG_TYPE_VALID   0xFF
 
 typedef struct stt_operation_arg {
-	uint_fast8_t type_;
+
+	stt_operation_arg_type type_;
+
 	/*
 	amara_string * raw_;
 	*/
+
 	struct stt_node * node_;
-} stt_operation_arg;
+} stt_operation_arg
+;
 
 stt_operation_arg *
 stt_operation_arg_default_constructor(void)
@@ -48,7 +51,31 @@ __attribute__((warn_unused_result))
 ;
 
 void
-stt_operation_arg_destructor(void)
+stt_operation_arg_destructor(const stt_operation_arg * operation_arg)
+;
+
+void
+stt_operation_arg_set_type(
+		stt_operation_arg * operation_arg,
+		const stt_operation_arg_type type)
+;
+
+void
+stt_operation_arg_set_node(
+		stt_operation_arg * operation_arg,
+		const struct stt_node * node)
+;
+
+void
+stt_operation_arg_set_string_literal(
+		stt_operation_arg * operation_arg,
+		const amara_string * string_literal)
+;
+
+void
+stt_operation_arg_set_identifier(
+		stt_operation_arg * operation_arg,
+		const amara_string * identifier)
 ;
 
 #endif

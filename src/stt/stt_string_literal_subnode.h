@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,8 +27,10 @@
 #include "../cmn/amara_string.h"
 
 typedef struct stt_string_literal_subnode {
+
 	amara_string * string_literal_;
-} stt_string_literal_subnode;
+} stt_string_literal_subnode
+;
 
 stt_string_literal_subnode *
 stt_string_literal_subnode_default_constructor(void)
@@ -61,13 +63,13 @@ __attribute__((warn_unused_result))
 void
 stt_string_literal_subnode_set_string_literal(
 		stt_string_literal_subnode * subnode,
-		amara_string * string_literal)
+		const amara_string * string_literal)
 ;
 
 amara_boolean
 stt_string_literal_subnode_equality(
-		stt_string_literal_subnode * subnode0,
-		stt_string_literal_subnode * subnode1)
+		const stt_string_literal_subnode * subnode0,
+		const stt_string_literal_subnode * subnode1)
 __attribute__((warn_unused_result))
 ;
 

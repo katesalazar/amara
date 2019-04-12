@@ -16,12 +16,19 @@
     src/README.md: Amara sources README doc.
 -->
 
+
 # sources
+
+Misc documentation about the source code.
+
 
 ## explanation of the directories names.
 
 * `arn`: The **a**pplications **r**u**n**ner, currently separated from
-the tests system.
+  the tests system. It also takes care of state vision on `rtg` data
+  structures, e.g. variable named references are resolved to the corresponding
+  values or to references to them, or any otherwise non constant name
+  reference. Everything inside must be under 100% coverage.
 
 * `asr`: The **as**se**r**tions utilities are isolated because they tend to be
 not fully coverable by tests, as the failure to assert something makes a debug
@@ -35,26 +42,81 @@ would not be fixing them... unless for some reason the amara scope decided to
 apply custom patches on top of upstream Bison (supposing legal stuff allows for
 that).
 
-* `cmn`: **C**o**m**mo**n** boiler plates.
+* `cmn`: **C**o**m**mo**n** boiler plates. Everything inside must be under 100% coverage.
 
 * `ftr`: The **f**u**t**u**r**e system deals with providing the C99 `int
 snprintf(char * str, size_t size, const char * format, ...)` without actually
 being under C99.
 
 * `prs`: The **p**e**rs**istence system deals with persistent IO, in a way
-fully coverable by tests, abstracting uncoverable conditions proxied by docs of
-the `wrp/` directory.
+fully coverable by tests, abstracting uncoverable conditions by proxying them to source documents in
+the `wrp/` directory. You could call this the IO port, thinking in terms of ports&amp;adapters (A.K.A. hexagonal). Everything inside must be under 100% coverage.
 
-* `rtg`: Scripts **r**un **t**ime **g**raphs.
+* `rtg`: Scripts **r**un **t**ime **g**raphs. These data structures correspond
+  to the same data structures of `stt`, just that every possible constant name
+  reference is resolved to the corresponding pointer, or to the corresponding
+  otherwise non-pointer identifying reference.
+  Everything inside must be under 100% coverage.
 
-* `stt`: Scripts **s**yn**t**ax **t**rees.
+* `stt`: Scripts **s**yn**t**ax **t**rees. These data structures are faithful
+  representations of the tree structure of the documents written in minia DSL.
+  Everything inside must be under 100% coverage.
 
 * `tst`: The **t**e**st**s system is currently separated from applications
-running. But I have forgotten why.
+running. But I have forgotten why. Everything inside must be under 100% coverage.
 
 * `wrp`: External systems **wr**a**p**pers are provided in order to provide
-mock versions of all external systems. So by definition this directory is not
-fully coverable by tests.
+mock versions of all external systems. You could call this the IO adapter, thinking in terms of ports&amp;adapters (A.K.A. hexagonal). By definition this directory can not reach full tests coverage.
+
+
+## design decisions
+
+### `simple_list`
+
+Super simple linked list, with a single pointer to the head. No pointer to the tail, no reverse direction.
+
+Empty:
+
+```
++-------+------+
+| first | next |
++-------+------+
+| NULL  | NULL |
++-------+------+
+```
+
+Not empty, one single element:
+
+```
++-------+------+
+| first | next |
++-------+------+
+| o     | NULL |
++-+-----+------+
+  |
+  |   +---------+
+  +-->| element |
+      +---------+
+```
+
+Not empty, two different elements:
+
+```
++-------+------+   +-------+------+
+| first | next |   | first | next |
++-------+------+   +-------+------+
+| o     | o----+-->| o     | NULL |
++-+-----+------+   +-+-----+------+
+  |                  |
+  |   +-----------+  |   +-----------+
+  +-->| element 0 |  +-->| element 1 |
+      +-----------+      +-----------+
+```
+
+### `fixed_list`
+
+Almost like `simple_list`, just the pointer to the head is guaranteed to be constant from construction till destruction.
+
 
 ## coding style
 
@@ -83,7 +145,7 @@ fully coverable by tests.
 * Other stuff.
 
   * Markdown syntax is simple and ubiquitous. Allow it inside comments as long
-    as it doesn't interfere with common external systems in use (or potentially), e.g. Doxygen.
+    as it doesn't interfere with common external systems in use (or potentially), e.g. Doxygen. You don't know whether at some point the editor or pager might render richly **bold**, _italic_, `code`...
 
 * When in doubt about something, look into what do other big projects (e.g.
 Linux or Apache) do.

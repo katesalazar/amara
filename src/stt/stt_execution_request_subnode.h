@@ -20,9 +20,6 @@
 #ifndef __AMARA__SYNTAX_TREE__EXECUTION_REQUEST_SUBNODE__H__
 #define __AMARA__SYNTAX_TREE__EXECUTION_REQUEST_SUBNODE__H__
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 #include "stt_execution_request.h"
 
 /*   For `amara_string`. */
@@ -32,7 +29,7 @@
 #define STT_EXECUTION_REQUEST_SUBNODE_TYPE_RUN_CLI_APPLICATION 0xFF
 
 typedef struct stt_execution_request_subnode {
-	uint_fast8_t type_;
+	unsigned char type_;
 	amara_string * application_name_;
 } stt_execution_request_subnode;
 

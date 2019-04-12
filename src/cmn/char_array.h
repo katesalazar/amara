@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,6 +40,15 @@ char *
 concatenate_four_char_arrays(
 		const char * zero, const char * one, const char * two,
 		const char * three)
+__attribute__((warn_unused_result))
+;
+
+/*   This is non destructive on the input arguments.
+ *   Never returns a char array larger than 255 bytes long. */
+char *
+concatenate_five_char_arrays(
+		const char * zero, const char * one, const char * two,
+		const char * three, const char * four)
 __attribute__((warn_unused_result))
 ;
 

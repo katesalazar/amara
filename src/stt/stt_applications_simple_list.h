@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,9 @@
 #include "stt_application.h"
 
 typedef struct stt_applications_simple_list {
+
 	stt_application * first;
+
 	struct stt_applications_simple_list * next;
 } stt_applications_simple_list;
 
@@ -51,8 +53,20 @@ stt_applications_simple_list_push_front(
 __attribute__((warn_unused_result))
 ;
 
-uint_fast8_t
-stt_applications_simple_list_length(stt_applications_simple_list * list)
+#define STT_APPLICATIONS_SIMPLE_LIST_LENGTH_RET_STATUS_INVALID 0x00
+#define STT_APPLICATIONS_SIMPLE_LIST_LENGTH_RET_STATUS_ERROR_OVERFLOW 0x0F
+#define STT_APPLICATIONS_SIMPLE_LIST_LENGTH_RET_STATUS_SUCCESS 0xF0
+
+typedef struct stt_applications_simple_list_length_ret {
+
+	unsigned char status;
+
+	unsigned char length;
+} stt_applications_simple_list_length_ret
+;
+
+stt_applications_simple_list_length_ret *
+stt_applications_simple_list_length(const stt_applications_simple_list * list)
 __attribute__((warn_unused_result))
 ;
 

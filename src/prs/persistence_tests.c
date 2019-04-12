@@ -39,7 +39,7 @@ void
 acquire_dir_tests()
 {
 	dirent_wrapper * dirent_wrapper_;
-	uint_fast8_t acquire_dir_ret_;
+	unsigned char acquire_dir_ret_;
 
 	dirent_wrapper_ = construct_dirent_wrapper();
 

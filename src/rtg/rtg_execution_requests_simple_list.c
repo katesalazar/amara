@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ rtg_execution_requests_simple_list *
 rtg_execution_requests_simple_list_default_constructor()
 {
 	rtg_execution_requests_simple_list * ret_;
+
 	ret_ = malloc(sizeof(rtg_execution_requests_simple_list));
+	forced_assertion(ret_ != NULL);
 	ret_->first = NULL;
 	ret_->next = NULL;
+
 	return ret_;
 }
 
@@ -41,8 +44,13 @@ rtg_execution_requests_simple_list_copy_constructor(
 	const rtg_execution_requests_simple_list * list_ptr_;
 	rtg_execution_requests_simple_list * ret_ptr_;
 	rtg_execution_request * execution_request_;
-	assertion(list != NULL);
+
+	if (list == NULL) {
+		return rtg_execution_requests_simple_list_default_constructor();
+	}
+
 	ret_ = malloc(sizeof(rtg_execution_requests_simple_list));
+	forced_assertion(ret_ != NULL);
 	if (list->first == NULL) {
 		assertion(list->next == NULL);
 		ret_->first = NULL;
@@ -73,6 +81,9 @@ void
 rtg_execution_requests_simple_list_destructor(
 		rtg_execution_requests_simple_list * list)
 {
+	if (list == NULL) {
+		return;
+	}
 	assertion(list != NULL);
 	if (list->first == NULL) {
 		assertion(list->next == NULL);
@@ -116,26 +127,55 @@ rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and
 	rtg_execution_requests_simple_list * sub_ret_ptr_;
 	const stt_execution_requests_simple_list * stt_execution_requests_ptr_;
 	rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret * sub_ret_execution_request_ret_;
+
 	ret_ = malloc(sizeof(
 			rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list_ret));
+	forced_assertion(ret_ != NULL);
+
+	ret_->error_messages = NULL;
 	ret_->status = RTG_EXECUTION_REQUESTS_SIMPLE_LIST_OUT_OF_STT_EXECUTION_REQUESTS_SIMPLE_LIST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_INVALID;
-	if (stt_execution_requests == NULL) {
-		ret_->execution_requests = NULL;
-		ret_->status = RTG_EXECUTION_REQUESTS_SIMPLE_LIST_OUT_OF_STT_EXECUTION_REQUESTS_SIMPLE_LIST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC;
+
+	if (stt_execution_requests == NULL ||
+			stt_execution_requests->first == NULL) {
+
+		if (stt_execution_requests != NULL) {
+
+#ifndef NDEBUG
+			assertion(stt_execution_requests->first == NULL);
+			assertion(stt_execution_requests->next == NULL);
+#endif
+		}
+		ret_->execution_requests =
+				rtg_execution_requests_simple_list_default_constructor();
+		ret_->error_messages = NULL;
+		ret_->status = RTG_EXECUTION_REQUESTS_SIMPLE_LIST_OUT_OF_STT_EXECUTION_REQUESTS_SIMPLE_LIST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
 		return ret_;
 	}
-	assertion(stt_execution_requests->first != NULL);
+	forced_assertion(stt_execution_requests->first != NULL);
 	sub_ret_ = malloc(sizeof(rtg_execution_requests_simple_list));
+	forced_assertion(sub_ret_ != NULL);
 	sub_ret_execution_request_ret_ =
 			rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list(
 					stt_execution_requests->first,
 					rtg_applications);
 	assertion(sub_ret_execution_request_ret_ != NULL);
+	if (sub_ret_execution_request_ret_->status ==
+			RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_APPLICATION_NOT_FOUND) {
+
+#ifndef NDEBUG
+		assertion(ret_->error_messages == NULL);
+#endif
+		ret_->error_messages =
+				sub_ret_execution_request_ret_->error_messages;
+		ret_->status = RTG_EXECUTION_REQUESTS_SIMPLE_LIST_OUT_OF_STT_EXECUTION_REQUESTS_SIMPLE_LIST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_ONE_OR_MORE_APPLICATIONS_NOT_FOUND;
+	} else {
 	assertion(sub_ret_execution_request_ret_->status ==
 			RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
+
+		;
+	}
 	sub_ret_->first = sub_ret_execution_request_ret_->execution_request;
-	sub_ret_execution_request_ret_->execution_request_was_moved =
-			AMARA_BOOLEAN_TRUE;
+	sub_ret_execution_request_ret_->execution_request = NULL;
 	rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret_destructor(
 			sub_ret_execution_request_ret_);
 	stt_execution_requests_ptr_ = stt_execution_requests;
@@ -143,6 +183,7 @@ rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and
 	while (stt_execution_requests_ptr_->next != NULL) {
 		assertion(stt_execution_requests_ptr_->next->first != NULL);
 		sub_ret_ptr_->next = malloc(sizeof(rtg_execution_requests_simple_list));
+		forced_assertion(sub_ret_ptr_->next != NULL);
 		sub_ret_execution_request_ret_ =
 				rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list(
 						stt_execution_requests_ptr_->next->first,
@@ -151,8 +192,7 @@ rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and
 		assertion(sub_ret_execution_request_ret_->status ==
 				RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
 		sub_ret_ptr_->next->first = sub_ret_execution_request_ret_->execution_request;
-		sub_ret_execution_request_ret_->execution_request_was_moved =
-				AMARA_BOOLEAN_TRUE;
+		sub_ret_execution_request_ret_->execution_request = NULL;
 		rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret_destructor(
 				sub_ret_execution_request_ret_);
 		stt_execution_requests_ptr_ = stt_execution_requests_ptr_->next;
@@ -160,7 +200,19 @@ rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and
 	}
 	sub_ret_ptr_->next = NULL;
 	ret_->execution_requests = sub_ret_;
-	ret_->status = RTG_EXECUTION_REQUESTS_SIMPLE_LIST_OUT_OF_STT_EXECUTION_REQUESTS_SIMPLE_LIST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
+
+	if (ret_->status ==
+			RTG_EXECUTION_REQUESTS_SIMPLE_LIST_OUT_OF_STT_EXECUTION_REQUESTS_SIMPLE_LIST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_ONE_OR_MORE_APPLICATIONS_NOT_FOUND) {
+
+		forced_assertion(ret_->error_messages != NULL);
+	} else {
+		forced_assertion(ret_->status ==
+				RTG_EXECUTION_REQUESTS_SIMPLE_LIST_OUT_OF_STT_EXECUTION_REQUESTS_SIMPLE_LIST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_INVALID);
+
+		forced_assertion(ret_->error_messages == NULL);
+		ret_->status = RTG_EXECUTION_REQUESTS_SIMPLE_LIST_OUT_OF_STT_EXECUTION_REQUESTS_SIMPLE_LIST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
+	}
+
 	return ret_;
 }
 
@@ -168,25 +220,40 @@ void
 rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_destructor(
 		rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret * rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_)
 {
-	assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_ !=
+	forced_assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_ !=
 			NULL);
+
+	forced_assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->status ==
+			RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
+
+	/*
 	if (rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->status ==
 			RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
-		assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests !=
+	*/
+
+		forced_assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests ==
 				NULL);
-		if (rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests_were_moved ==
-				AMARA_BOOLEAN_FALSE) {
+
+		/*
+		if (rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests != NULL) {
+
+			forced_assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests !=
+					NULL);
+
 			rtg_execution_requests_simple_list_destructor(
 					rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests);
 		}
+		*/
+	/*
 	} else {
-		assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->status ==
-					RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_INVALID /* ||
-				rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->status ==
-						RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC */);
-		assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests ==
+		forced_assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->status ==
+				RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_INVALID);
+
+		forced_assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests ==
 				NULL);
 	}
+	*/
+
 	free(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_);
 }
 
@@ -205,17 +272,44 @@ rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list(
 			subnode->execution_requests_, applications);
 	if (sub_ret_->status ==
 			RTG_EXECUTION_REQUESTS_SIMPLE_LIST_OUT_OF_STT_EXECUTION_REQUESTS_SIMPLE_LIST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
+
 		ret_->status = RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
+#ifndef NDEBUG
+		assertion(sub_ret_->error_messages == NULL);
+#endif
+		ret_->error_messages = NULL;
 		ret_->execution_requests = sub_ret_->execution_requests;
-	} else {
-		assertion(sub_ret_->status ==
-				RTG_EXECUTION_REQUESTS_SIMPLE_LIST_OUT_OF_STT_EXECUTION_REQUESTS_SIMPLE_LIST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC);
+		sub_ret_->execution_requests = NULL;
+	/*
+	} else if (sub_ret_->status ==
+				RTG_EXECUTION_REQUESTS_SIMPLE_LIST_OUT_OF_STT_EXECUTION_REQUESTS_SIMPLE_LIST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC) {
+
+		ret_->status = RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC;
+		forced_assertion(ret_->error_messages != NULL);
+		ret_->error_messages = sub_ret_->error_messages;
+		sub_ret_->error_messages = NULL;
+#ifndef NDEBUG
 		assertion(sub_ret_->execution_requests == NULL);
+#endif
+		ret_->execution_requests = NULL;
+	*/
+	} else {
+		forced_assertion(sub_ret_->status ==
+			RTG_EXECUTION_REQUESTS_SIMPLE_LIST_OUT_OF_STT_EXECUTION_REQUESTS_SIMPLE_LIST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_ONE_OR_MORE_APPLICATIONS_NOT_FOUND);
+
+		ret_->status = RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_ONE_OR_MORE_APPLICATIONS_REQUESTED_TO_BE_EXECUTED_NOT_FOUND;
+		forced_assertion(sub_ret_->error_messages != NULL);
+		ret_->error_messages = sub_ret_->error_messages;
+		sub_ret_->error_messages = NULL;
+		ret_->execution_requests = sub_ret_->execution_requests;
+		sub_ret_->execution_requests = NULL;
 	}
+
 	/*
 	rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list_ret_destructor(
 			sub_ret_);
 	*/
 	free(sub_ret_);
+
 	return ret_;
 }

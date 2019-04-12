@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,6 @@
 /*   For `void assert(scalar expression)`. */
 #include <assert.h>
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 /*   For `int fprintf(FILE * stream, const char * format, ...)`. */
 #include <stdio.h>
 
@@ -38,16 +35,7 @@
 void
 assertion(int expression)
 {
-#ifdef NDEBUG
-	if (!expression) {
-		fprintf(stdout, "WARNING Assertion failed\n");
-	}
-#endif
-	assert(expression);
-
-	/* TODO    Convert to macro so this can be removed without
-	 * TODO  triggering `-Werror,-Wunused-parameter`. */
-	expression--;
+	assertion_two(expression, "WARNING Assertion failed\n");
 }
 
 void
@@ -56,13 +44,32 @@ assertion_two(int expression, const char * message)
 	if (!expression) {
 		fprintf(stderr, "%s", message);
 	}
-	assertion(expression);
+
+	assert(expression);
+
+	/* TODO    Convert to macro so this can be removed without
+	 * TODO  triggering `-Werror,-Wunused-parameter`. */
+	expression--;
+}
+
+void
+forced_assertion(int expression)
+{
+	if (!expression) {
+		fprintf(stdout, "WARNING Assertion failed\n");
+	}
+
+	assert(expression);
+
+	if (!expression) {
+		exit(1); /* FIXME 1..? */
+	}
 }
 
 /*
 void disarm_interim(char * message)
 {
-	const uint_fast8_t traces_printing = 0x00;
+	const unsigned char traces_printing = 0x00;
 	size_t i;
 	assertion_two(message != NULL, "expectation was not met");
 	if (traces_printing) {
@@ -132,29 +139,33 @@ assertion_two_located_interim(
 void
 interpret_and_assert(const char * expression)
 {
-	uint_fast8_t expression_numeric_value_;
+	unsigned char expression_numeric_value_;
 
 	assertion(strlen(expression) == 1);
-	if (!strcmp(expression, "0")) {
-		expression_numeric_value_ = 0;
-	} else {
-		assertion(!strcmp(expression, "1"));
-		expression_numeric_value_ = 1;
-	}
+
+	assertion(expression[0] != '\0');
+	assertion(expression[0] >= '0');
+	assertion(expression[0] <= '1');
+	assertion(expression[1] == '\0');
+
+	expression_numeric_value_ = expression[0] - 48;
+
 	assertion(expression_numeric_value_);
 }
 
 void
 interpret_and_assert_two(const char * expression, const char * message)
 {
-	uint_fast8_t expression_numeric_value_;
+	unsigned char expression_numeric_value_;
 
 	assertion_two(strlen(expression) == 1, "expression uses an unexpected length");
-	if (!strcmp(expression, "0")) {
-		expression_numeric_value_ = 0;
-	} else {
-		assertion_two(!strcmp(expression, "1"), "unexpected expression");
-		expression_numeric_value_ = 1;
-	}
+
+	assertion_two(expression[0] != '\0', "unexpected expression");
+	assertion_two(expression[0] >= '0', "unexpected expression");
+	assertion_two(expression[0] <= '1', "unexpected expression");
+	assertion_two(expression[1] == '\0', "unexpected expression");
+
+	expression_numeric_value_ = expression[0] - 48;
+
 	assertion_two(expression_numeric_value_, message);
 }

@@ -19,6 +19,45 @@
 #ifndef __AMARA__BASIC_ARITHMETIC__NATURAL_TESTS__H__
 #define __AMARA__BASIC_ARITHMETIC__NATURAL_TESTS__H__
 
+/*   For the `natural` class. */
+#include "natural.h"
+
+natural *
+natural_example_zero(void)
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_natural_example_zero(const natural * zero)
+;
+
+#endif
+
+natural *
+natural_example_one(void)
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_natural_example_one(const natural * one)
+;
+
+#endif
+
+natural *
+natural_example_six(void)
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_natural_example_six(const natural * six)
+;
+
+#endif
+
 void
 natural_tests(void)
 ;

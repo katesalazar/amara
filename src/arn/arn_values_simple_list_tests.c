@@ -368,12 +368,12 @@ arn_values_simple_list_find_tests()
 }
 
 void
-arn_values_simple_list_assign_natural_out_of_unsigned_int_test_0()
+arn_values_simple_list_assign_natural_out_of_unsigned_short_test_0()
 {
 	arn_value * value_;
 	arn_values_simple_list * values_;
 	amara_string * value_name_;
-	unsigned int unsigned_int_;
+	unsigned short unsigned_short_;
 	amara_boolean equality_;
 	amara_string * expected_value_raw_natural_;
 
@@ -433,14 +433,14 @@ arn_values_simple_list_assign_natural_out_of_unsigned_int_test_0()
 	assertion(value_->string_ == NULL);
 	assertion(value_->natural_ == NULL);
 
-	unsigned_int_ = 7;
+	unsigned_short_ = 7;
 
 	expected_value_raw_natural_ = amara_string_exhaustive_constructor("7");
 	assertion(expected_value_raw_natural_ != NULL);
 	assertion(expected_value_raw_natural_->value_ != NULL);
 
-	values_ = arn_values_simple_list_assign_natural_out_of_unsigned_int(
-			values_, value_name_, unsigned_int_);
+	values_ = arn_values_simple_list_assign_natural_out_of_unsigned_short(
+			values_, value_name_, unsigned_short_);
 	/* if (values_ == NULL) { */ /* XXX */
 	/* } else { */ /* XXX*/
 	assertion(values_ != NULL);
@@ -472,9 +472,9 @@ arn_values_simple_list_assign_natural_out_of_unsigned_int_test_0()
 }
 
 void
-arn_values_simple_list_assign_natural_out_of_unsigned_int_tests()
+arn_values_simple_list_assign_natural_out_of_unsigned_short_tests()
 {
-	arn_values_simple_list_assign_natural_out_of_unsigned_int_test_0();
+	arn_values_simple_list_assign_natural_out_of_unsigned_short_test_0();
 }
 
 void
@@ -482,5 +482,5 @@ arn_values_simple_list_tests()
 {
 	arn_values_simple_list_construct_and_destruct_tests();
 	arn_values_simple_list_find_tests();
-	arn_values_simple_list_assign_natural_out_of_unsigned_int_tests();
+	arn_values_simple_list_assign_natural_out_of_unsigned_short_tests();
 }

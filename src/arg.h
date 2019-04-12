@@ -16,11 +16,9 @@
  * src/arg.h: Amara arguments parser.
  */
 
-/* For `uint_fast8_t`. */
-#include <stdint.h>
-
 typedef struct {
-	uint_fast8_t value;
+
+	unsigned char value;
 
 	/*   When running an app, this is the app's directory. When
 	 * asserting an expression, this is the expression. */

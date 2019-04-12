@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ rtg_execution_request_default_constructor()
 
 rtg_execution_request *
 rtg_execution_request_exhaustive_constructor(
-		uint_fast8_t requested_type,
+		unsigned char requested_type,
 		const rtg_application * application)
 {
 	rtg_execution_request * ret_;
@@ -84,27 +84,26 @@ rtg_execution_request_destructor(
 
 void
 rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret_destructor(
-		rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret * rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret_)
+		rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret * input_ret_)
 {
-	assertion(rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret_ != NULL);
-	if (rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret_->status ==
+	forced_assertion(input_ret_ != NULL);
+
+	if (input_ret_->status ==
 			RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
-		assertion(rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret_->execution_request !=
-				NULL);
-		if (rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret_->execution_request_was_moved ==
-				AMARA_BOOLEAN_FALSE) {
+
+		if (input_ret_->execution_request != NULL) {
+
 			rtg_execution_request_destructor(
-					rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret_->execution_request);
+					input_ret_->execution_request);
 		}
 	} else {
-		assertion(rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret_->status ==
-					RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_INVALID /* ||
-				rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret_->status ==
-					RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC */);
-		assertion(rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret_->execution_request ==
-				NULL);
+		assertion(input_ret_->status ==
+					RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_APPLICATION_NOT_FOUND);
+
+		;
 	}
-	free(rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret_);
+
+	free(input_ret_);
 }
 
 rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret *
@@ -113,30 +112,99 @@ rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_l
 		const rtg_applications_simple_list * applications)
 {
 	rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret * ret_;
+	amara_string * error_message_;
+	amara_strings_simple_list * error_messages_;
 	rtg_application * application_requested_to_be_executed_;
 	rtg_applications_simple_list_find_by_name_ret * find_rtg_application_requested_to_be_executed_ret_;
+
 	ret_ = malloc(sizeof(
 			rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret));
+	forced_assertion(ret_ != NULL);
+
 	ret_->status = RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_INVALID;
+
+	if (applications == NULL) {
+
+		forced_assertion(execution_request != NULL);
+		forced_assertion(execution_request->application_name_ !=
+				NULL);
+		forced_assertion(execution_request->application_name_->value_ !=
+				NULL);
+		forced_assertion(execution_request->application_name_->value_[0] !=
+				0x00);
+
+		ret_->status = RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_APPLICATION_NOT_FOUND;  /* XXX but the list is not null, not empty; maybe that's what should be signaled here... */
+		error_messages_ = amara_strings_simple_list_default_constructor();
+		forced_assertion(error_messages_ != NULL);
+#ifndef NDEBUG
+		assertion(error_messages_->first == NULL);
+		assertion(error_messages_->next == NULL);
+#endif
+
+		error_message_ = amara_string_exhaustive_constructor_three(
+				"unable to find application '",
+				execution_request->application_name_->value_,
+				"' requested to be executed");
+		forced_assertion(error_message_ != NULL);
+#ifndef NDEBUG
+		assertion(error_message_->value_ != NULL);
+#endif
+
+		error_messages_ = amara_strings_simple_list_push_front(
+				error_messages_, error_message_);
+		forced_assertion(error_messages_ != NULL);
+#ifndef NDEBUG
+		assertion(error_messages_->first != NULL);
+		assertion(error_messages_->next == NULL);
+#endif
+
+		ret_->error_messages = error_messages_;
+		ret_->execution_request = NULL;
+
+		return ret_;
+	}
+
+	/*   TODO defer this construction. */
 	ret_->execution_request = rtg_execution_request_default_constructor();
+	forced_assertion(ret_->execution_request != NULL);
+
 	ret_->execution_request->type_ = RTG_EXECUTION_REQUEST_TYPE_INVALID;
+
 	find_rtg_application_requested_to_be_executed_ret_ =
 			rtg_applications_simple_list_find_by_name(
 					applications,
 					execution_request->application_name_);
-	assertion(find_rtg_application_requested_to_be_executed_ret_ != NULL);
-	assertion(find_rtg_application_requested_to_be_executed_ret_->status ==
-			RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS);
-	assertion(find_rtg_application_requested_to_be_executed_ret_->application != NULL);
-	application_requested_to_be_executed_ =
-			find_rtg_application_requested_to_be_executed_ret_->application;
-	find_rtg_application_requested_to_be_executed_ret_->application_was_moved =
-			AMARA_BOOLEAN_TRUE;
+	forced_assertion(find_rtg_application_requested_to_be_executed_ret_ !=
+			NULL);
+
+	if (find_rtg_application_requested_to_be_executed_ret_->status ==
+			RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_FOUND) {
+
+		assertion(find_rtg_application_requested_to_be_executed_ret_->application !=
+				NULL);
+
+		application_requested_to_be_executed_ =
+				find_rtg_application_requested_to_be_executed_ret_->application;
+
+		find_rtg_application_requested_to_be_executed_ret_->application_was_moved =
+				AMARA_BOOLEAN_TRUE;
+
+		ret_->execution_request->application_ =
+				application_requested_to_be_executed_;
+		ret_->execution_request->type_ =
+				RTG_EXECUTION_REQUEST_TYPE_CLI_APPLICATION;
+		ret_->status = RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
+
+	} else {
+		forced_assertion(find_rtg_application_requested_to_be_executed_ret_->status ==
+				RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND);
+
+		rtg_execution_request_destructor(ret_->execution_request);
+		ret_->status = RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_APPLICATION_NOT_FOUND;
+	}
+
 	rtg_applications_simple_list_find_by_name_ret_destructor(
 			find_rtg_application_requested_to_be_executed_ret_);
-	ret_->execution_request->application_ = application_requested_to_be_executed_;
-	ret_->execution_request->type_ = RTG_EXECUTION_REQUEST_TYPE_CLI_APPLICATION;
-	ret_->execution_request_was_moved = AMARA_BOOLEAN_FALSE;
-	ret_->status = RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
+
 	return ret_;
 }

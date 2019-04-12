@@ -21,7 +21,7 @@
 #define __AMARA__COMMON__CHAR_ARRAYS_SIMPLE_LIST_TESTS__H__
 
 void
-char_arrays_simple_list_tests()
+char_arrays_simple_list_tests(void)
 ;
 
 #endif

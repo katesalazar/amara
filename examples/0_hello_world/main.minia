@@ -1,17 +1,77 @@
+/*   `hello, world` program in minia language. */
+
+/*   This is a single line comment. */
+
+/*   Comments are a very important feature. They can span across
+ * multiple lines. This is an example of a multiple lines comment. */
+
+/*   Functions are a core component in any programming language.
+ *   The subroutine is an invention attributed to David J. Wheeler, as
+ * told by Bjarne Stroustrup, which was a student working under his
+ * supervision. */
 function main
-	is an awesome command line interface application function
+
+	/*   Tagging a function as `command line interface application
+	 * function` unlocks some features, like access to printing
+	 * lines to the console, or reading user input from it. */
+	is a command line interface application function
+
+	/*   Functions transform input values into output values, as in
+	 * math and as in any other programming language. */
 	and receives nothing at all
 	and returns nothing at all
+
+	/*   In the minia language it is mandatory to declare whether a
+	 * function is going to be pure or conversely it is going to be
+	 * allowed to have side effects. So the engine is allowed to
+	 * deny side effects to functions not correctly explicitly
+	 * declared as causing them. */
 	so it causes side effects
+
+	/*   By the way this function receives nothing at all and
+	 * returns nothing at all, so arguably it should only be allowed
+	 * if it causes side effects. */
+
+	/*   This is the line which separates function heading
+	 * declarations from the function implementation, i.e. _the
+	 * code_. */
 	and does
+
+	/*   This is an operation. Function bodies are composed of
+	 * operations, such as `print` or `new line`. Operations can
+	 * be composed of expressions. For instance, the `print`
+	 * operation needs and accepts exactly one argument. */
 	print 'hello, world'
-	and new line
-	with ease
-	and that is function main
 
+	/*   Operations joined using the `and then` conjunction are
+	 * executed strictly sequentially. Up to five operations can
+	 * be sequenced in a single function. */
+	and then new line
+
+	/*   If this function returned something, the last operation had
+	 * to be a _return_ _operation_. But that's not the case. */
+
+	/*   After the function operations and before the function end,
+	 * there can optionally be binding declarations, but here there
+	 * are none. */
+
+/*   End the function scope in a similar way as traditional scope ending
+ * in other languages would do in Algol, Pascal, etc. */
+end function main
+
+/*   Applications describe functions that can be called from outside the
+ * language. */
 application hello_world
-	is an awesome command line interface application
-	and the entry point is function main
-	and that is application hello_world
 
+	/*   Tagging an application as `command line interface
+	 * application` unlocks the possibility of running _command line
+	 * interface application functions_. */
+	is a command line interface application
+
+	/*   The entry point function name is explicit. */
+	and the entry point is function main
+end application hello_world
+
+/*   An execution request must be processed by the language processor
+ * as triggering a run of the chosen application. */
 run command line interface application hello_world

@@ -74,8 +74,7 @@ stt_execution_request_destructor(stt_execution_request * execution_request_)
 
 void
 stt_execution_request_set_type(
-		stt_execution_request * execution_request,
-		uint_fast8_t type)
+		stt_execution_request * execution_request, unsigned char type)
 {
 	assertion(execution_request->type_ ==
 			STT_EXECUTION_REQUEST_TYPE_INVALID);

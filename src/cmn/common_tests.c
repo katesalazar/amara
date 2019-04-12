@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,6 @@
  * src/cmn/common_tests.c: Self explanatory...
  */
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 /*   For `int fprintf(FILE * stream, const char * format, ...)`. */
 #include <stdio.h>
 
@@ -34,6 +31,8 @@
 #include "amara_boolean.h"
 
 #include "amara_string_tests.h"
+
+#include "amara_strings_simple_list_tests.h"
 
 /*   For `char * concatenate_two_char_arrays(const char * zero,
  * const char * one)`. */
@@ -185,30 +184,32 @@ char_array_tests_()
 }
 
 void
-char_arrays_simple_list_equality_test_0()
+char_arrays_simple_list_equality_test_0_()
 {
 	char_arrays_simple_list * zero_ = NULL;
 	char_arrays_simple_list * one_ = NULL;
-	uint_fast8_t equality_ = char_arrays_simple_list_equality(zero_, one_);
+	unsigned char equality_ =
+			char_arrays_simple_list_equality(zero_, one_);
 	assertion(equality_);
 }
 
 void
-char_arrays_simple_list_equality_test_1()
+char_arrays_simple_list_equality_test_1_()
 {
 	char_arrays_simple_list * zero_ =
 			char_arrays_simple_list_default_constructor();
 	char_arrays_simple_list * one_ =
 			char_arrays_simple_list_default_constructor();
-	uint_fast8_t equality_ = char_arrays_simple_list_equality(zero_, one_);
+	unsigned char equality_ =
+			char_arrays_simple_list_equality(zero_, one_);
 	assertion(equality_);
 }
 
 void
 char_arrays_simple_list_equality_tests_()
 {
-	char_arrays_simple_list_equality_test_0();
-	char_arrays_simple_list_equality_test_1();
+	char_arrays_simple_list_equality_test_0_();
+	char_arrays_simple_list_equality_test_1_();
 }
 
 void
@@ -217,8 +218,8 @@ char_arrays_simple_list_concatenation_test_0()
 	char_arrays_simple_list * zero_;
 	char_arrays_simple_list * one_;
 	char_arrays_simple_list * concat_;
-	uint_fast8_t zero_one_equality_;
-	uint_fast8_t zero_concat_equality_;
+	unsigned char zero_one_equality_;
+	unsigned char zero_concat_equality_;
 	zero_ = char_arrays_simple_list_default_constructor();
 	one_ = char_arrays_simple_list_default_constructor();
 	zero_one_equality_ = char_arrays_simple_list_equality(zero_, one_);
@@ -427,9 +428,16 @@ common_tests()
 #ifdef TRACE_STEPS_IN
 	fprintf(stderr, "----> %s:%u: void common_tests()\n", __FILE__, __LINE__);
 #endif
+
 	char_array_tests_();
+
 	char_array_tests();
+
 	char_arrays_simple_list_tests_();
+
 	char_arrays_simple_list_tests();
+
 	amara_string_tests();
+
+	amara_strings_simple_list_tests();
 }

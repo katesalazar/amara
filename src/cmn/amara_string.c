@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,28 +33,87 @@
 amara_string *
 amara_string_default_constructor()
 {
-	amara_string * ret_ = malloc(sizeof(amara_string));
+	amara_string * ret_;
+
+	ret_ = malloc(sizeof(amara_string));
+	forced_assertion(ret_ != NULL);
 	ret_->value_ = NULL;
+
 	return ret_;
 }
+
+#ifndef MAX_STRING_LEN
+#define MAX_STRING_LEN 4096
+#endif
 
 amara_string *
 amara_string_exhaustive_constructor(const char * value)
 {
-	amara_string * ret_ = malloc(sizeof(amara_string));
-	ret_->value_ = malloc(strlen(value) + 1);
+	amara_string * ret_;
+	size_t value_len_;
+	const size_t new_string_max_len_ = MAX_STRING_LEN;
+	size_t new_string_len_;
+
+	value_len_ = strlen(value);
+	new_string_len_ = value_len_;
+	forced_assertion(new_string_len_ <= new_string_max_len_);
+
+	ret_ = malloc(sizeof(amara_string));
+	forced_assertion(ret_ != NULL);
+	ret_->value_ = malloc(new_string_len_ + 1);
+	forced_assertion(ret_->value_ != NULL);
 	strcpy(ret_->value_, value);
+
+	return ret_;
+}
+
+amara_string *
+amara_string_exhaustive_constructor_three(
+		const char * ca0, const char * ca1, const char * ca2)
+{
+	amara_string * ret_;
+	size_t ca0_len_;
+	size_t ca1_len_;
+	size_t ca2_len_;
+	const size_t new_string_max_len_ = MAX_STRING_LEN;
+	size_t new_string_len_;
+
+	ca0_len_ = strlen(ca0);
+	ca1_len_ = strlen(ca1);
+	ca2_len_ = strlen(ca2);
+	new_string_len_ = ca0_len_;
+	forced_assertion(new_string_len_ <= new_string_max_len_);
+	new_string_len_ += ca1_len_;
+	forced_assertion(new_string_len_ <= new_string_max_len_);
+	new_string_len_ += ca2_len_;
+	forced_assertion(new_string_len_ <= new_string_max_len_);
+
+	ret_ = malloc(sizeof(amara_string));
+	forced_assertion(ret_ != NULL);
+	ret_->value_ = malloc(new_string_len_ + 1);
+	forced_assertion(ret_->value_ != NULL);
+	strcpy(ret_->value_, ca0);
+	strcat(ret_->value_, ca1);
+	strcat(ret_->value_, ca2);
+
 	return ret_;
 }
 
 amara_string *
 amara_string_copy_constructor(const amara_string * as)
 {
-	amara_string * ret_ = malloc(sizeof(amara_string));
-	char * as_value_ = amara_string_get_value(as);
+	amara_string * ret_;
+	char * as_value_;
+
+	ret_ = malloc(sizeof(amara_string));
+	forced_assertion(ret_ != NULL);
+	as_value_ = amara_string_get_value(as);
+	forced_assertion(as_value_ != NULL);
 	ret_->value_ = malloc(strlen(as_value_) + 1);
+	forced_assertion(ret_->value_ != NULL);
 	strcpy(ret_->value_, as_value_);
 	free(as_value_);
+
 	return ret_;
 }
 
@@ -68,11 +127,32 @@ amara_string_destructor(amara_string * string)
 	free(string);
 }
 
+#ifndef NDEBUG
+
+void
+amara_string_assert_healthy(const amara_string * string)
+{
+	assertion(string != NULL);
+	assertion(string->value_ != NULL);
+}
+
+#endif
+
 char *
 amara_string_get_value(const amara_string * string)
 {
-	char * value_copy_ = malloc(strlen(string->value_) + 1);
-	strcpy(value_copy_, string->value_);
+	char * value_copy_;
+
+	if (string == NULL) {
+
+		value_copy_ = malloc(1);
+		value_copy_[0] = 0x00;  /* '\0'. */
+	} else {
+
+		value_copy_ = malloc(strlen(string->value_) + 1);
+		strcpy(value_copy_, string->value_);
+	}
+
 	return value_copy_;
 }
 
@@ -107,19 +187,46 @@ amara_boolean
 amara_string_equality(const amara_string * a1, const amara_string * a2)
 {
 	int amara_string_strcmp_ret_;
+
 	if (a1 == NULL && a2 == NULL) { /* XXX */
 		return AMARA_BOOLEAN_TRUE; /* XXX */
 	} /* XXX */
+
 	if (a1 == NULL) {
-		return AMARA_BOOLEAN_FALSE;
+
+		if (a2->value_[0] == 0x00) {  /* '\0'. */  /* XXX */
+
+			return AMARA_BOOLEAN_TRUE;  /* XXX */
+		} else {  /* XXX */
+
+			return AMARA_BOOLEAN_FALSE;
+		}  /* XXX */
 	}
+
 	if (a2 == NULL) {
-		return AMARA_BOOLEAN_FALSE;
+
+		if (a1->value_[0] == 0x00) {  /* '\0'. */  /* XXX */
+
+			return AMARA_BOOLEAN_TRUE;  /* XXX */
+		} else {  /* XXX */
+
+			return AMARA_BOOLEAN_FALSE;
+		}  /* XXX */
 	}
+
 	amara_string_strcmp_ret_ = amara_string_strcmp(a1, a2);
+
 	if (amara_string_strcmp_ret_) {
+
 		return AMARA_BOOLEAN_FALSE;
 	} else {
+
 		return AMARA_BOOLEAN_TRUE;
 	}
+}
+
+amara_boolean
+amara_strings_equality(const amara_string * a1, const amara_string * a2)
+{
+	return amara_string_equality(a1, a2);
 }

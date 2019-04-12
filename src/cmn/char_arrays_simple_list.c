@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -112,7 +112,13 @@ char_arrays_simple_list_concat(
 	char_arrays_simple_list * ptr_out_;
 	/*   To be returned. */
 	char_arrays_simple_list * ret_;
-	assertion(list_zero != NULL);
+
+	if (list_zero == NULL) {
+
+		ret_ = char_arrays_simple_list_copy_constructor(list_one);
+		return ret_;
+	}
+
 	assertion(list_one != NULL);
 	if (list_zero->first == NULL) {
 		assertion(list_zero->next == NULL);
@@ -182,7 +188,7 @@ char_arrays_simple_list_concat_destructive(
 	ret_ = list_zero_;
 	ptr_ = list_zero_;
 	while (ptr_->next != NULL) {
-		ptr_->next = ptr_->next->next;
+		ptr_ = ptr_->next;
 	}
 	if (list_one_ == NULL) {
 		ptr_->next = NULL;
@@ -203,16 +209,66 @@ char_arrays_simple_list_equality(
 {
 	const char_arrays_simple_list * list_zero_ptr_;
 	const char_arrays_simple_list * list_one_ptr_;
+
+	if (list_zero == NULL) {
+
+		if (list_one == NULL) {
+
+			return AMARA_BOOLEAN_TRUE;
+		} else {
+
+			if (list_one->first == NULL) {
+
+#ifndef NDEBUG
+				assertion(list_one->next == NULL);
+#endif
+				return AMARA_BOOLEAN_TRUE;
+			} else {
+
+				return AMARA_BOOLEAN_FALSE;
+			}
+		}
+	}
+
+	if (list_one == NULL) {
+
+#ifndef NDEBUG
+		/*   By virtue of previous flows. */
+		assertion(list_zero != NULL);
+#endif
+
+		if (list_zero->first == NULL) {
+
+#ifndef NDEBUG
+			assertion(list_zero->next == NULL);
+#endif
+			return AMARA_BOOLEAN_TRUE;
+		} else {
+
+			return AMARA_BOOLEAN_FALSE;
+		}
+	}
+
 	list_zero_ptr_ = list_zero;
 	list_one_ptr_ = list_one;
 	while (list_zero_ptr_ != NULL) {
 		if (list_one_ptr_ == NULL) {
 			return AMARA_BOOLEAN_FALSE;
 		} else {
+			/*
 			assertion(list_zero_ptr_->first != NULL ||
 					list_zero_ptr_->next == NULL);
+			*/
+			if (list_zero_ptr_->first == NULL) {
+				assertion(list_zero_ptr_->next == NULL);
+			}
+			/*
 			assertion(list_one_ptr_->first != NULL ||
 					list_one_ptr_->next == NULL);
+			*/
+			if (list_one_ptr_->first == NULL) {
+				assertion(list_one_ptr_->next == NULL);
+			}
 			if (list_zero_ptr_->first == NULL) {
 				assertion(list_one_ptr_->first == NULL);
 				list_zero_ptr_ = list_zero_ptr_->next;

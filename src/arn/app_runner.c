@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,6 @@
  * src/arn/app_runner.c: Amara applications runtime applications runner.
  */
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 /*   For `int printf(const char *, ...)`, and for
  * `FILE * fopen(const char * pathname, const char * mode)`. */
 #include <stdio.h>
@@ -32,7 +29,7 @@
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
-/*   For `uint_fast8_t acquire_dir(const char *)`. */
+/*   For `unsigned char acquire_dir(const char *)`. */
 #include "../prs/persistence.h"
 
 /*   For `rtg_application`. */
@@ -56,30 +53,34 @@
 /*   For `st_node`. */
 #include "../stt/stt_node.h"
 
+/*   For `arn_values_fixed_list`. */
 #include "arn_values_fixed_list.h"
-/* #include "arn_values_simple_list.h" */
-#include "arn_variables_simple_list.h"
+
+/*   For `arn_values_simple_list`. */
+#include "arn_values_simple_list.h"
+/* #include "arn_variables_simple_list.h" */
 
 /*   For definitions. */
 #include "app_runner.h"
 
 #define MAIN_NAME "main.minia"
 
-uint_fast8_t
+unsigned char
 run_app_dir_exists(const char * app_name)
 __attribute__((warn_unused_result))
 ;
 
-uint_fast8_t
+unsigned char
 run_app_main_doc_exists(
 		const char * app_name, const FILE * main_doc_descriptor)
 __attribute__((warn_unused_result))
 ;
 
-uint_fast8_t run_app(const char * app_name)
+unsigned char
+run_app(const char * app_name)
 {
-	uint_fast8_t acquire_dir_return_status_;
-	uint_fast8_t inner_status_;
+	unsigned char acquire_dir_return_status_;
+	unsigned char inner_status_;
 	acquire_dir_return_status_ = 0x00;
 	printf("Running app '%s'...\n", app_name);
 	acquire_dir_return_status_ = acquire_dir(app_name);
@@ -94,15 +95,16 @@ uint_fast8_t run_app(const char * app_name)
 	return inner_status_;
 }
 
-uint_fast8_t run_app_dir_exists(const char * app_name)
+unsigned char
+run_app_dir_exists(const char * app_name)
 {
-	uint_fast8_t app_name_len_;
+	unsigned char app_name_len_;
 	const char * path_to_main_;
 	const char * appended_;
-	uint_fast8_t must_append_slash_;
-	uint_fast8_t path_to_main_len_;
+	unsigned char must_append_slash_;
+	unsigned char path_to_main_len_;
 	FILE * main_doc_descriptor_;
-	uint_fast8_t inner_status_;
+	unsigned char inner_status_;
 	app_name_len_ = strlen(app_name);
 	assertion(app_name_len_ < 0x7F);
 	if (app_name[app_name_len_ - 1] == '/') {
@@ -138,7 +140,7 @@ minia_bison_main(FILE * file)
 __attribute__((warn_unused_result))
 ;
 
-uint_fast8_t
+unsigned char
 run_app_main_doc_exists(
 		const char * app_name, const FILE * main_doc_descriptor)
 {
@@ -210,42 +212,370 @@ run_app_main_doc_exists(
 	return APP_RUNNER_RUN_APP_RET_SUCCESS;
 }
 
+typedef arn_value arn_condition_evaluated_value
+;
+
+typedef arn_value arn_expression_evaluated_value
+;
+
+#ifndef NDEBUG
+
+/**  Type check failsafe. */
+amara_boolean
+assert_types_compatible_for_condition_type_less_than(
+		arn_value * left_hand_side_value_,
+		arn_value * right_hand_side_value_)
+;
+
+#endif
+
+#ifndef NDEBUG
+
+amara_boolean
+assert_types_compatible_for_condition_type_less_than(
+		arn_value * left_hand_side_value_,
+		arn_value * right_hand_side_value_)
+{
+	forced_assertion(left_hand_side_value_ != NULL);
+	forced_assertion(left_hand_side_value_->type_ ==
+			ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
+
+	forced_assertion(right_hand_side_value_ != NULL);
+	forced_assertion(right_hand_side_value_->type_ ==
+			ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
+
+	return AMARA_BOOLEAN_TRUE;
+}
+
+#endif
+
+#ifndef NDEBUG
+
+/**  Type check failsafe. */
+amara_boolean
+assert_types_compatible_for_condition_type_greater_than(
+		arn_value * left_hand_side_value_,
+		arn_value * right_hand_side_value_)
+;
+
+#endif
+
+#ifndef NDEBUG
+
+amara_boolean
+assert_types_compatible_for_condition_type_greater_than(
+		arn_value * left_hand_side_value_,
+		arn_value * right_hand_side_value_)
+{
+	forced_assertion(left_hand_side_value_ != NULL);
+	forced_assertion(left_hand_side_value_->type_ ==
+			ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
+
+	forced_assertion(right_hand_side_value_ != NULL);
+	forced_assertion(right_hand_side_value_->type_ ==
+			ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
+
+	return AMARA_BOOLEAN_TRUE;
+}
+
+#endif
+
+arn_value *
+arn_value_out_of_rtg_literal_expression(
+		const rtg_expression * expression)
+__attribute__((warn_unused_result))
+;
+
+arn_value *
+arn_value_out_of_rtg_literal_expression(
+		const rtg_expression * expression)
+{
+	arn_value * returning_;
+
+	forced_assertion(expression != NULL);
+
+	forced_assertion(expression->type_ ==
+			RTG_EXPRESSION_TYPE_NATURAL_LITERAL);
+
+	returning_ = arn_value_default_constructor();
+	forced_assertion(returning_ != NULL);
+
+	arn_value_characterize_as_natural(returning_);
+
+	arn_value_set_natural(
+			returning_,
+			expression->sub_natural_literal_->natural_literal_);
+
+	return returning_;
+}
+
+arn_condition_evaluated_value *
+evaluate_condition(const rtg_condition * condition,
+                   const arn_values_simple_list * values)
+__attribute__((warn_unused_result))
+;
+
+arn_condition_evaluated_value *
+evaluate_condition(const rtg_condition * condition,
+                   const arn_values_simple_list * values)
+{
+	amara_boolean condition_is_binary_;
+
+	/**  This is a non owned reference. */
+	amara_string * left_hand_side_requested_identifier_;
+
+	/**  This is a non owned reference. */
+	arn_value * left_hand_side_requested_identifier_value_;
+
+	if (condition->type_ == RTG_CONDITION_TYPE_LESS_THAN) {
+
+		condition_is_binary_ = AMARA_BOOLEAN_TRUE;
+	} else {
+		forced_assertion(condition->type_ ==
+				RTG_CONDITION_TYPE_GREATER_THAN);
+
+		condition_is_binary_ = AMARA_BOOLEAN_TRUE;
+	}
+
+	forced_assertion(condition_is_binary_ == AMARA_BOOLEAN_TRUE);
+
+	forced_assertion(condition->left_hand_side_expression_ != NULL);
+	forced_assertion(condition->left_hand_side_expression_->type_ ==
+			RTG_EXPRESSION_TYPE_IDENTIFIER);
+
+	left_hand_side_requested_identifier_ =
+			condition->left_hand_side_expression_->sub_identifier_->identifier_;
+
+	left_hand_side_requested_identifier_value_ =
+			arn_values_simple_list_find_value_by_name_return_reference(
+					values,
+					left_hand_side_requested_identifier_);
+
+	/* FIXME - must find the bounded value - there must be a way to find a bound value, if not, there should be no rtg condition ! */
+	forced_assertion(values != NULL);
+	forced_assertion(values->first != NULL);
+	if (values->next != NULL) {
+		forced_assertion(values->next->first != NULL);
+	}
+
+	forced_assertion(condition->right_hand_side_expression_ != NULL);
+	forced_assertion(condition->right_hand_side_expression_->type_ ==
+			RTG_EXPRESSION_TYPE_NATURAL_LITERAL);
+
+	if (condition->type_ == RTG_CONDITION_TYPE_LESS_THAN) {
+
+		/**  Types are guaranteed to be compatible by semantic analysis
+		 * (undertaken by the `stt` to `rtg` stage). This is failsafe
+		 * check. */
+#ifndef NDEBUG
+		assert_types_compatible_for_condition_type_less_than(
+				left_hand_side_requested_identifier_value_,
+				arn_value_out_of_rtg_literal_expression(
+						condition->right_hand_side_expression_));
+#endif
+
+		forced_assertion(left_hand_side_requested_identifier_value_->type_ ==
+				ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
+
+		forced_assertion(condition->right_hand_side_expression_->type_ ==
+				RTG_EXPRESSION_TYPE_NATURAL_LITERAL);
+
+		if (naturals_less_than(
+				left_hand_side_requested_identifier_value_->natural_,
+				condition->right_hand_side_expression_->sub_natural_literal_->natural_literal_)) {
+
+			return arn_value_out_of_amara_boolean(
+					AMARA_BOOLEAN_TRUE);
+		} else {
+
+			return arn_value_out_of_amara_boolean(
+					AMARA_BOOLEAN_FALSE);
+		}
+	} else {
+		forced_assertion(condition->type_ ==
+				RTG_CONDITION_TYPE_GREATER_THAN);
+
+		/**  Types are guaranteed to be compatible by semantic analysis
+		 * (undertaken by the `stt` to `rtg` stage). This is failsafe
+		 * check. */
+#ifndef NDEBUG
+		assert_types_compatible_for_condition_type_greater_than(
+				left_hand_side_requested_identifier_value_,
+				arn_value_out_of_rtg_literal_expression(
+						condition->right_hand_side_expression_));
+#endif
+
+		forced_assertion(left_hand_side_requested_identifier_value_->type_ ==
+				ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
+
+		forced_assertion(condition->right_hand_side_expression_->type_ ==
+				RTG_EXPRESSION_TYPE_NATURAL_LITERAL);
+
+		if (naturals_greater_than(
+				left_hand_side_requested_identifier_value_->natural_,
+				condition->right_hand_side_expression_->sub_natural_literal_->natural_literal_)) {
+
+			return arn_value_out_of_amara_boolean(
+					AMARA_BOOLEAN_TRUE);
+		} else {
+
+			return arn_value_out_of_amara_boolean(
+					AMARA_BOOLEAN_FALSE);
+		}
+	}
+}
+
+arn_expression_evaluated_value *
+evaluate_expression(const rtg_expression * expression,
+                    const arn_values_simple_list * values/*,
+                    const arn_variables_simple_list * variables*/)
+__attribute__((warn_unused_result))
+;
+
+arn_expression_evaluated_value *
+evaluate_expression(const rtg_expression * expression,
+                    const arn_values_simple_list * values/*,
+                    const arn_variables_simple_list * variables*/)
+{
+	/**  The expression is evaluated to some value, and this is the
+	 * local variable where the value is stored before returning. */
+	arn_expression_evaluated_value * returning_;
+	arn_condition_evaluated_value * condition_value_;
+
+	returning_ = NULL;
+
+	if (expression->type_ == RTG_EXPRESSION_TYPE_STRING_LITERAL) {
+
+#ifndef NDEBUG
+		assertion(expression->sub_string_literal_ != NULL);
+		assertion(expression->sub_string_literal_->string_literal_ !=
+				NULL);
+		assertion(expression->sub_string_literal_->string_literal_->value_ !=
+				NULL);
+#endif
+
+		returning_ = arn_value_default_constructor();
+#ifndef NDEBUG
+		assertion(returning_ != NULL);
+		assertion(returning_->type_ == ARN_VALUE_TYPE_INVALID);
+#endif
+
+		arn_value_characterize_as_string(returning_);
+#ifndef NDEBUG
+		assertion(returning_->type_ ==
+				ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_STRING);
+		assertion(returning_->string_ == NULL);
+#endif
+
+		arn_value_set_string(
+				returning_,
+				expression->sub_string_literal_->string_literal_);
+#ifndef NDEBUG
+		assertion(returning_->type_ ==
+				ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING);
+		assertion(returning_->string_was_moved == AMARA_BOOLEAN_FALSE);
+		assertion(returning_->string_ != NULL);
+		assertion(returning_->string_->value_ != AMARA_BOOLEAN_FALSE);
+#endif
+	} else{
+#ifndef NDEBUG
+		forced_assertion(expression->type_ ==
+				RTG_EXPRESSION_TYPE_CONDITIONAL);
+#endif
+
+		forced_assertion(expression->sub_conditional_ != NULL);
+		forced_assertion(expression->sub_conditional_->if_ != NULL);
+		forced_assertion(expression->sub_conditional_->if_->next_if_ ==
+				NULL);
+		forced_assertion(expression->sub_conditional_->if_->expression_else_ !=
+				NULL);
+		forced_assertion(expression->sub_conditional_->if_->expression_then_ !=
+				NULL);
+		forced_assertion(expression->sub_conditional_->if_->condition_ !=
+				NULL);
+
+		condition_value_ = evaluate_condition(
+				expression->sub_conditional_->if_->condition_,
+				values);
+
+		forced_assertion(condition_value_->type_ = ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_BOOLEAN);
+		forced_assertion(condition_value_->boolean_ != NULL);
+
+		if ((* (condition_value_->boolean_)) == AMARA_BOOLEAN_TRUE) {
+
+			return evaluate_expression(
+					expression->sub_conditional_->if_->expression_then_,
+					values);
+		} else {
+			forced_assertion((* (condition_value_->boolean_)) ==
+					AMARA_BOOLEAN_FALSE);
+
+			return evaluate_expression(
+					expression->sub_conditional_->if_->expression_else_,
+					values);
+		}
+	}
+
+	return returning_;
+}
+
 typedef arn_value arn_operation_returned_value
 ;
 
 arn_operation_returned_value *
-run_operation(
-		const rtg_operation * operation,
-		arn_values_fixed_list * values/*,
-		const arn_variables_simple_list * variables*/)
+run_operation(const rtg_operation * operation,
+              const arn_values_simple_list * values/*,
+              const arn_variables_simple_list * variables*/)
 __attribute__((warn_unused_result))
 ;
 
 arn_operation_returned_value *
-run_operation(
-		const rtg_operation * operation,
-		arn_values_fixed_list * values/*,
-		const arn_variables_simple_list * variables*/)
+run_operation(const rtg_operation * operation,
+              const arn_values_simple_list * values/*,
+              const arn_variables_simple_list * variables*/)
 {
-	unsigned int natural_read_;
+	/*   Copy of the parameter `values` in a local variable, because
+	 * not all list implementations hold the pointer to their head. */
+	arn_values_simple_list * values_;
+
+	unsigned short natural_read_;
+
 	int items_read_ct_;
+
 	/**  In case one `arn_value` has to be searched in the `values`
 	 * `arn_values_simple_list` of known values at this scope. */
 	arn_value * value_;
+
+	/**  In case the operation includes the evaluation of an
+	 * expression (most likely will), this stores the value that
+	 * expression is evaluated to. */
+	arn_expression_evaluated_value * expression_evaluated_value_;
+
 	/**  In case the operation includes the interpretation of
 	 * another operation, this stores the returned value by that
 	 * nested operation. */
+	/*
 	arn_operation_returned_value * operation_returned_value_;
-	/**  In case this operation must return some value, this is
+	*/
+
+	/*   In case this operation must return some value, this is
 	 * where the value is stored before returning. */
+	/*
 	arn_operation_returned_value * returning_;
+	*/
+
 #ifndef NDEBUG
 	amara_string * operation_type_as_string_;
 #endif
+
 	fprintf(stderr, "----> %s:%u (%s)\n", __FILE__, __LINE__,
 			"void run_operation(const operation *)");
-	if (operation->type_ == RTG_OPERATION_TYPE_PRINT ||
-			operation->type_ == RTG_OPERATION_TYPE_PRINT_NO_CRLF) {
+
+	values_ = (arn_values_simple_list *) values;
+
+	if (operation->type_ == RTG_OPERATION_TYPE_PRINT /*||
+			operation->type_ == RTG_OPERATION_TYPE_PRINT_NO_CRLF*/) {
+
 		assertion(operation->args_ != NULL);
 		assertion(rtg_operation_args_simple_list_length(
 				operation->args_) == 1);
@@ -271,46 +601,91 @@ run_operation(
 			assertion(operation->args_->first->identifier_ != NULL);
 			assertion(operation->args_->first->identifier_->value_ !=
 					NULL);
-			value_ = arn_values_fixed_list_find_value_by_name(
-					values,
+			value_ = arn_values_simple_list_find_value_by_name_return_reference(
+					values_,
 					operation->args_->first->identifier_);
+			if (value_ == NULL) {
+				fprintf(stderr, "%s\n",
+				        operation->args_->first->identifier_->value_);
+			}
 			assertion(value_ != NULL); /* XXX it might not be, and then must raise semantic error */
 			fprintf(stderr, "%u\n", value_->type_);
 			/******* FIXME this assertion below is failing...... */
 			assertion(value_->type_ ==
-					ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL); /* XXX might be string literal, other number class, etc. */
+						ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL 
+					|| value_->type_ ==
+							ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL); /* XXX might be string literal, other number class, etc. */
 			/******* FIXME this assertion above is failing...... */
 			natural_assert_validity(value_->natural_);
 			printf("%s", value_->natural_->raw_->value_);
-		} else {
-			assertion(operation->args_->first->type_ ==
-					RTG_OPERATION_ARG_TYPE_OPERATION);
+		/*
+		} else if (operation->args_->first->type_ ==
+					RTG_OPERATION_ARG_TYPE_OPERATION) {
+
 			operation_returned_value_ = run_operation(
 					operation->args_->first->operation_,
-					values);
+					values_);
+#ifndef NDEBUG
 			assertion(operation_returned_value_ != NULL);
+#endif
 			if (operation_returned_value_->type_ ==
 					ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL) {
-				assertion(operation_returned_value_->natural_ != NULL);
+#ifndef NDEBUG
+				assertion(operation_returned_value_->natural_ !=
+						NULL);
 				natural_assert_validity(
 						operation_returned_value_->natural_);
+#endif
 				printf("%s",
 				       operation_returned_value_->natural_->raw_->value_);
 			} else {
+#ifndef NDEBUG
 				assertion(operation_returned_value_->type_ ==
 						ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING);
-				assertion(operation_returned_value_->string_ != NULL);
-				printf("%s", operation_returned_value_->string_->value_);
+#endif
+
+#ifndef NDEBUG
+				assertion(operation_returned_value_->string_ !=
+						NULL);
+				assertion(operation_returned_value_->string_->value_ !=
+						NULL);
+#endif
+				printf("%s",
+				       operation_returned_value_->string_->value_);
 			}
+		*/
+		} else if (operation->args_->first->type_ ==
+				RTG_OPERATION_ARG_TYPE_EXPRESSION) {
+
+			expression_evaluated_value_ = evaluate_expression(
+					operation->args_->first->expression_,
+					values);
+			forced_assertion(expression_evaluated_value_ != NULL);
+#ifndef NDEBUG
+			assertion(expression_evaluated_value_->type_ ==
+					ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING);
+#endif
+#ifndef NDEBUG
+			assertion(expression_evaluated_value_->string_ != NULL);
+			assertion(expression_evaluated_value_->string_->value_ !=
+					NULL);
+#endif
+			printf("%s",
+			       expression_evaluated_value_->string_->value_);
 		}
+		forced_assertion(operation->type_ == RTG_OPERATION_TYPE_PRINT);
+		/*
 		if (operation->type_ == RTG_OPERATION_TYPE_PRINT) {
+		*/
 			/*
 			printf("\n");
 			*/
+		/*
 		} else {
 			assertion(operation->type_ ==
 					RTG_OPERATION_TYPE_PRINT_NO_CRLF);
 		}
+		*/
 		/* XXX return the printed value? a description of the operation ran? */
 	} else if (operation->type_ == RTG_OPERATION_TYPE_PRINT_CRLF) {
 		assertion(operation->args_ != NULL);
@@ -335,14 +710,15 @@ run_operation(
 				operation->args_->first->identifier_);
 		*/
 		fflush(stdout); /* XXX this is a bit of an invasion. maybe better provide a scripting level flush, or (probably best) flush right after printing. */
-		items_read_ct_ = scanf("%u", & natural_read_);
+		items_read_ct_ = scanf("%hu", & natural_read_);
 		assertion(items_read_ct_ == 1);
-		arn_values_fixed_list_assign_natural_out_of_unsigned_int(
-				values,
+		values_ = arn_values_simple_list_assign_natural_out_of_unsigned_short(
+				values_,
 				operation->args_->first->identifier_,
 				natural_read_);
 		/* XXX return the read value? the identifier? */
 
+	/*
 	} else if (operation->type_ == RTG_OPERATION_TYPE_SUBSTRACTION) {
 		assertion(operation->args_ != NULL);
 		assertion(rtg_operation_args_simple_list_length(
@@ -354,25 +730,31 @@ run_operation(
 		assertion(operation->args_->next != NULL);
 		assertion(operation->args_->next->first != NULL);
 		assertion(operation->args_->next->first->type_ == RTG_OPERATION_ARG_TYPE_NATURAL_LITERAL);
+	*/
 
 		/* FIXME resolve the identifier actually */
+	/*
 		fprintf(stderr, "%s\n", operation->args_->first->identifier_->value_);
 		assertion(!strcmp(operation->args_->first->identifier_->value_, "i_fahrenheit"));
-		assertion(values != NULL);
-		assertion(values->first != NULL);
-		assertion(values->first->name_ != NULL);
-		assertion(values->first->name_->value_ != NULL);
-		assertion(!strcmp(values->first->name_->value_, "i_fahrenheit"));
-		assertion(values->first->type_ ==
+		assertion(values_ != NULL);
+		assertion(values_->first != NULL);
+		assertion(values_->first->name_ != NULL);
+		assertion(values_->first->name_->value_ != NULL);
+		assertion(!strcmp(
+				values_->first->name_->value_,
+				"i_fahrenheit"));
+		assertion(values_->first->type_ ==
 				ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL);
-		assertion(values->first->natural_ != NULL);
-		assertion(values->first->natural_->raw_ != NULL);
-		assertion(values->first->natural_->raw_->value_ != NULL);
-		assertion(!strcmp(values->first->natural_->raw_->value_, "99"));
+		assertion(values_->first->natural_ != NULL);
+		assertion(values_->first->natural_->raw_ != NULL);
+		assertion(values_->first->natural_->raw_->value_ != NULL);
+		assertion(!strcmp(values_->first->natural_->raw_->value_, "99"));
+	*/
 
 		/* FIXME DO THE SUBSTRACTION ACTUALLY
 		operation_returned_value_->natural_->raw_->value_
 		*/
+	/*
 		fprintf(stderr, "%s\n", operation->args_->next->first->natural_literal_->value_);
 		assertion(!strcmp(operation->args_->next->first->natural_literal_->value_, "32"));
 		returning_ = arn_value_default_constructor();
@@ -390,19 +772,23 @@ run_operation(
 		assertion(operation->args_->next != NULL);
 		assertion(operation->args_->next->first != NULL);
 		assertion(operation->args_->next->first->type_ == RTG_OPERATION_ARG_TYPE_NATURAL_LITERAL);
+	*/
 
 		/*   Run the nested operation. */
+	/*
 		operation_returned_value_ = run_operation(
-				operation->args_->first->operation_, values);
+				operation->args_->first->operation_, values_);
 		assertion(operation_returned_value_ != NULL);
 		assertion(operation_returned_value_->type_ ==
 				ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
 		assertion(operation_returned_value_->natural_ != NULL);
 		natural_assert_validity(operation_returned_value_->natural_);
+	*/
 
 		/* FIXME DO THE MULTIPLICATION ACTUALLY
 		operation_returned_value_->natural_->raw_->value_
 		*/
+	/*
 		fprintf(stderr, "%s\n", operation_returned_value_->natural_->raw_->value_);
 		fprintf(stderr, "%s\n", operation->args_->next->first->natural_literal_->value_);
 		assertion(!strcmp(operation_returned_value_->natural_->raw_->value_, "67"));
@@ -422,19 +808,23 @@ run_operation(
 		assertion(operation->args_->next != NULL);
 		assertion(operation->args_->next->first != NULL);
 		assertion(operation->args_->next->first->type_ == RTG_OPERATION_ARG_TYPE_NATURAL_LITERAL);
+	*/
 
 		/*   Run the nested operation. */
+	/*
 		operation_returned_value_ = run_operation(
-				operation->args_->first->operation_, values);
+				operation->args_->first->operation_, values_);
 		assertion(operation_returned_value_ != NULL);
 		assertion(operation_returned_value_->type_ ==
 				ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
 		assertion(operation_returned_value_->natural_ != NULL);
 		natural_assert_validity(operation_returned_value_->natural_);
+	*/
 
 		/* FIXME DO THE DIVISION ACTUALLY
 		operation_returned_value_->natural_->raw_->value_
 		*/
+	/*
 		fprintf(stderr, "%s\n", operation_returned_value_->natural_->raw_->value_);
 		fprintf(stderr, "%s\n", operation->args_->next->first->natural_literal_->value_);
 		assertion(!strcmp(operation_returned_value_->natural_->raw_->value_, "335"));
@@ -453,10 +843,12 @@ run_operation(
 		assertion(operation->args_->first != NULL);
 		assertion(operation->args_->first->type_ == RTG_OPERATION_ARG_TYPE_OPERATION);
 		assertion(operation->args_->next == NULL);
+	*/
 
 		/*   Run the nested operation. */
+	/*
 		operation_returned_value_ = run_operation(
-				operation->args_->first->operation_, values);
+				operation->args_->first->operation_, values_);
 		assertion(operation_returned_value_ != NULL);
 		assertion(operation_returned_value_->type_ ==
 				ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
@@ -468,6 +860,7 @@ run_operation(
 				amara_string_exhaustive_constructor("natural");
 		returning_->type_ = ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING;
 		return returning_;
+	*/
 
 	} else {
 		if (operation->type_ != RTG_OPERATION_TYPE_INVALID) {
@@ -488,29 +881,61 @@ run_operation(
 typedef arn_value arn_named_function_returned_value
 ;
 
+/**  Run a named function.
+ *   @param function Named function to run.
+ *   @param function_scope_values Values valid in this function's scope.
+ *    param function_scope_variables Variables valid in this function's
+ * scope.
+ *   @see `void run_application(const rtg_application * application)`. */
 arn_named_function_returned_value *
-run_named_function(
-		const rtg_named_function * function,
-		arn_values_fixed_list * values/*,
-		const arn_variables_simple_list * variables*/)
+run_named_function(const rtg_named_function * function,
+                   const arn_values_fixed_list * function_scope_values/*,
+                   const arn_variables_simple_list * function_scope_variables*/)
 __attribute__((warn_unused_result))
 ;
 
 arn_named_function_returned_value *
-run_named_function(
-		const rtg_named_function * function,
-		arn_values_fixed_list * values/*,
-		const arn_variables_simple_list * variables*/)
+run_named_function(const rtg_named_function * function,
+                   const arn_values_fixed_list * function_scope_values/*,
+                   const arn_variables_simple_list * function_scope_variables*/)
 {
 	const rtg_operations_simple_list * operations_ptr_;
+	const rtg_where_value_bindings_simple_list * where_value_bindings_;
+	const arn_values_fixed_list * where_values_;
+	arn_values_simple_list * operation_scope_values_;
 	arn_operation_returned_value * operation_returned_value_;
+
 	fprintf(stderr, "----> %s:%u (%s)\n", __FILE__, __LINE__,
 			"void run_function(const function *)");
+
 	operation_returned_value_ = NULL;
+
 	operations_ptr_ = function->operations_;
+
+	where_value_bindings_ = function->where_value_bindings_;
+	where_values_ = arn_values_fixed_list_out_of_rtg_where_value_bindings_simple_list(
+			where_value_bindings_);
+	operation_scope_values_ = arn_values_simple_list_default_constructor();
+
+    /* XXX is this dangerous if theres no refcount? is it correct if shadowing is not allowed? */
+	operation_scope_values_ =
+			arn_values_simple_list_push_front_as_references_all_elements_of_arn_values_fixed_list(
+					operation_scope_values_,
+					function_scope_values);
+
+    /* XXX is this dangerous if theres no refcount? is it correct if shadowing is not allowed? */
+	operation_scope_values_ =
+			arn_values_simple_list_push_front_as_references_all_elements_of_arn_values_fixed_list(
+					operation_scope_values_,
+					where_values_);
+
 	while (operations_ptr_ != NULL) {
+        
+        /* operation_scope_values_ not correctly initialized? */
 		operation_returned_value_ = run_operation(
-				operations_ptr_->first, values/*, variables*/);
+				operations_ptr_->first,
+				operation_scope_values_/*,
+				function_scope_variables*/);
 		operations_ptr_ = operations_ptr_->next;
 	}
 	return operation_returned_value_;
@@ -518,18 +943,23 @@ run_named_function(
 
 void
 run_application(const rtg_application * application)
+;
+
+void
+run_application(const rtg_application * application)
 {
 	const rtg_named_function * entry_point_function_;
-	arn_values_fixed_list * values_;
+	arn_values_fixed_list * global_values_scope_;
 	arn_named_function_returned_value * entry_point_function_returned_value_;
 	/* arn_variables_simple_list * variables_; */
 	fprintf(stderr, "----> %s:%u (%s)\n", __FILE__, __LINE__,
 			"void run_application(const application *)");
-	values_ = arn_values_fixed_list_default_constructor();
+	global_values_scope_ = arn_values_fixed_list_default_constructor();
 	/* variables_ = arn_variables_simple_list_default_constructor(); */
 	entry_point_function_ = application->entry_point_function_;
 	entry_point_function_returned_value_ = run_named_function(
-			entry_point_function_, values_/*, variables_*/);
+			entry_point_function_, global_values_scope_/*,
+			variables_*/);
 
 	/*
 	assertion(entry_point_function_returned_value_ != NULL);

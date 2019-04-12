@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,9 +30,12 @@ rtg_operations_simple_list *
 rtg_operations_simple_list_default_constructor()
 {
 	rtg_operations_simple_list * ret_;
+
 	ret_ = malloc(sizeof(rtg_operations_simple_list));
+	forced_assertion(ret_ != NULL);
 	ret_->first = NULL;
 	ret_->next = NULL;
+
 	return ret_;
 }
 
@@ -44,8 +47,10 @@ rtg_operations_simple_list_copy_constructor(
 	const rtg_operations_simple_list * list_ptr_;
 	rtg_operations_simple_list * ret_ptr_;
 	rtg_operation * operation_;
+
 	assertion(list != NULL);
 	ret_ = malloc(sizeof(rtg_operations_simple_list));
+	forced_assertion(ret_ != NULL);
 	if (list->first == NULL) {
 		ret_->first = NULL;
 		assertion(list->next == NULL);
@@ -59,11 +64,12 @@ rtg_operations_simple_list_copy_constructor(
 		assertion(operation_ != NULL);
 		ret_ptr_->first = operation_;
 		ret_ptr_->next = malloc(sizeof(rtg_operations_simple_list));
+		forced_assertion(ret_ptr_->next != NULL);
 		list_ptr_ = list_ptr_->next;
 		ret_ptr_ = ret_ptr_->next;
 	}
 	operation_ = rtg_operation_copy_constructor(list_ptr_->first);
-	assertion(operation_ != NULL);
+	forced_assertion(operation_ != NULL);
 	ret_ptr_->first = operation_;
 	ret_ptr_->next = NULL;
 	return ret_;
@@ -90,6 +96,7 @@ rtg_operations_simple_list_push_front(
 		rtg_operation * operation)
 {
 	rtg_operations_simple_list * new_operations_list_node_;
+
 	assertion(operations != NULL);
 	assertion(operation != NULL);
 	if (operations->first == NULL) {
@@ -98,6 +105,7 @@ rtg_operations_simple_list_push_front(
 		return operations;
 	}
 	new_operations_list_node_ = malloc(sizeof(rtg_operations_simple_list));
+	forced_assertion(new_operations_list_node_ != NULL);
 	new_operations_list_node_->first =
 			rtg_operation_copy_constructor(operation);
 	new_operations_list_node_->next = operations;
@@ -108,87 +116,141 @@ void
 rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_destructor(
 		rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_)
 {
-	assertion(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_ !=
+	forced_assertion(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_ !=
 			NULL);
+
 	if (rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->status ==
 			RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
-		assertion(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->operations !=
+
+		forced_assertion(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->operations ==
 				NULL);
-		if (rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->operations_were_moved ==
-				AMARA_BOOLEAN_FALSE) {
+
+		/*
+		if (rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->operations !=
+				NULL) {
+
 			rtg_operations_simple_list_destructor(
 					rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->operations);
 		}
+		*/
+
+		forced_assertion(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->error_messages ==
+				NULL);
 	} else {
-		assertion(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->status ==
-					RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_INVALID /* ||
-				rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->status ==
-						RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC */);
-		assertion(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->operations ==
+		forced_assertion(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->status ==
+				RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION);
+
+		forced_assertion(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->error_messages ==
+				NULL);
+
+		forced_assertion(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->operations ==
 				NULL);
 	}
+
 	free(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_);
 }
 
 rtg_operations_simple_list_out_of_stt_operations_simple_list_ret *
 rtg_operations_simple_list_out_of_stt_operations_simple_list(
-		const stt_operations_simple_list * list)
+		const stt_operations_simple_list * operations,
+		const stt_where_value_bindings_simple_list * function_where_bindings)
 {
 	rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * ret_;
 	rtg_operations_simple_list * ret_list_;
-	const stt_operations_simple_list * list_ptr_;
+	const stt_operations_simple_list * operations_ptr_;
 	rtg_operations_simple_list * ret_list_ptr_;
 	rtg_operation_out_of_stt_operation_ret * single_operation_transformation_;
 	rtg_operation * new_rtg_op_;
+
 	fprintf(stderr, "%s:%u ----> rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * rtg_operations_simple_list_out_of_stt_operations_simple_list(const stt_operations_simple_list *)\n",
 			__FILE__, __LINE__);
+
 	ret_ = malloc(sizeof(
 			rtg_operations_simple_list_out_of_stt_operations_simple_list_ret));
+	forced_assertion(ret_ != NULL);
 	ret_->status = RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_INVALID;
+	ret_->error_messages = NULL;
 	ret_->operations = NULL;
-	if (list == NULL) {
-		ret_list_ = NULL;
+	if (operations == NULL || operations->first == NULL) {
+		ret_list_ = rtg_operations_simple_list_default_constructor();
+		forced_assertion(ret_list_ != NULL);
+#ifndef NDEBUG
+		assertion(ret_list_->first == NULL);
+		assertion(ret_list_->next == NULL);
+#endif
 		ret_->operations = ret_list_;
 		ret_->status = RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
 		fprintf(stderr, "%s:%u <---- rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * rtg_operations_simple_list_out_of_stt_operations_simple_list(const stt_operations_simple_list *)\n",
 				__FILE__, __LINE__);
 		return ret_;
 	}
-	assertion(list->first != NULL);
+	assertion(operations->first != NULL);
 	ret_list_ = malloc(sizeof(rtg_operations_simple_list));
+	forced_assertion(ret_list_ != NULL);
 	single_operation_transformation_ =
-			rtg_operation_out_of_stt_operation(list->first);
+			rtg_operation_out_of_stt_operation(
+					operations->first,
+					function_where_bindings);
+
+	if (single_operation_transformation_->status !=
+			RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS) {
+
+		forced_assertion(single_operation_transformation_->status ==
+				RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER);
+
+		forced_assertion(single_operation_transformation_->error_messages !=
+				NULL);
+
+		forced_assertion(single_operation_transformation_->operation ==
+				NULL);
+
+		ret_->operations = NULL;
+
+		ret_->error_messages =
+				single_operation_transformation_->error_messages;
+		single_operation_transformation_->error_messages = NULL;
+
+		rtg_operation_out_of_stt_operation_ret_destructor(
+				single_operation_transformation_);
+
+		ret_->status = RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION;
+
+		return ret_;
+	}
+
 	assertion(single_operation_transformation_->status ==
 			RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS);
 	new_rtg_op_ = single_operation_transformation_->operation;
-	single_operation_transformation_->operation_was_moved =
-			AMARA_BOOLEAN_TRUE;
+	single_operation_transformation_->operation = NULL;
 	rtg_operation_out_of_stt_operation_ret_destructor(
 			single_operation_transformation_);
 	ret_list_->first = new_rtg_op_;
-	list_ptr_ = list;
+	operations_ptr_ = operations;
 	ret_list_ptr_ = ret_list_;
-	while (list_ptr_->next != NULL) {
+	while (operations_ptr_->next != NULL) {
 		ret_list_ptr_->next =
 				malloc(sizeof(rtg_operations_simple_list));
+		forced_assertion(ret_list_ptr_->next != NULL);
 		single_operation_transformation_ =
 				rtg_operation_out_of_stt_operation(
-						list_ptr_->next->first);
+						operations_ptr_->next->first,
+						function_where_bindings);
 		assertion(single_operation_transformation_->status ==
 				RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS);
 		new_rtg_op_ = single_operation_transformation_->operation;
-		single_operation_transformation_->operation_was_moved =
-				AMARA_BOOLEAN_TRUE;
+		single_operation_transformation_->operation = NULL;
 		rtg_operation_out_of_stt_operation_ret_destructor(
 				single_operation_transformation_);
 		ret_list_ptr_->next->first = new_rtg_op_;
-		list_ptr_ = list_ptr_->next;
+		operations_ptr_ = operations_ptr_->next;
 		ret_list_ptr_ = ret_list_ptr_->next;
 	}
 	ret_list_ptr_->next = NULL;
 	ret_->operations = ret_list_;
 	ret_->status = RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
+
 	fprintf(stderr, "%s:%u <---- rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * rtg_operations_simple_list_out_of_stt_operations_simple_list(const stt_operations_simple_list *)\n",
 			__FILE__, __LINE__);
+
 	return ret_;
 }

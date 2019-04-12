@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,34 +20,46 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__OPERATION_ARG__H__
 #define __AMARA__RUN_TIME_GRAPH__OPERATION_ARG__H__
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 /*   For `amara_string`. */
+/*
 #include "../cmn/amara_string.h"
+*/
+
+#include "../cmn/amara_strings_simple_list.h"
 
 /*   For `stt_operation_arg`. */
 #include "../stt/stt_operation_arg.h"
 
+/*   For `rtg_expression`. */
+#include "rtg_expression.h"
+
+/*   For `rtg_operation`. */
 #include "rtg_operation.h"
 
 /*   This is an enumeration. */
 
-#define RTG_OPERATION_ARG_TYPE_INVALID        0x00
-#define RTG_OPERATION_ARG_TYPE_STRING_LITERAL            0x01
-#define RTG_OPERATION_ARG_TYPE_NATURAL_LITERAL           0x02
-#define RTG_OPERATION_ARG_TYPE_INTEGER_LITERAL           0x04
-#define RTG_OPERATION_ARG_TYPE_RATIONAL_LITERAL          0x08
-#define RTG_OPERATION_ARG_TYPE_IDENTIFIER_TO_BE_RESOLVED 0x10
-#define RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE     0x20
+#define RTG_OPERATION_ARG_TYPE_INVALID                   0x20
+#define RTG_OPERATION_ARG_TYPE_STRING_LITERAL            0x21
+#define RTG_OPERATION_ARG_TYPE_NATURAL_LITERAL           0x22
+#define RTG_OPERATION_ARG_TYPE_INTEGER_LITERAL           0x23
+/* #define RTG_OPERATION_ARG_TYPE_RATIONAL_LITERAL       0x24 */
+#define RTG_OPERATION_ARG_TYPE_IDENTIFIER_TO_BE_RESOLVED 0x25  /* 37: '%'. */
+#define RTG_OPERATION_ARG_TYPE_IDENTIFIER RTG_OPERATION_ARG_TYPE_IDENTIFIER_TO_BE_RESOLVED
+#define RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE     0x26
 #define RTG_OPERATION_ARG_TYPE_STRING_VARIABLE           RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE
 #define RTG_OPERATION_ARG_TYPE_NATURAL_VARIABLE          RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE
-#define RTG_OPERATION_ARG_TYPE_INTEGER_VARIABLE          RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE
-#define RTG_OPERATION_ARG_TYPE_RATIONAL_VARIABLE         RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE
-#define RTG_OPERATION_ARG_TYPE_OPERATION                 0x40
+/* #define RTG_OPERATION_ARG_TYPE_INTEGER_VARIABLE       RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE */
+/* #define RTG_OPERATION_ARG_TYPE_RATIONAL_VARIABLE      RTG_OPERATION_ARG_TYPE_UNKNOWN_TYPE_VARIABLE */
+#define RTG_OPERATION_ARG_TYPE_EXPRESSION                0x27  /* 39: "'". */
+/*   This might come back in the future, but at the time of writing
+ * makes no sense as is becoming void of meaning with the conversion of
+ * most arithmetics into expressions from being operations.
+#define RTG_OPERATION_ARG_TYPE_OPERATION                 0x28
+*/
 
 typedef struct rtg_operation_arg {
-	uint_fast8_t type_;
+
+	unsigned char type_;
 
 	amara_string * string_literal_;
 
@@ -65,12 +77,15 @@ typedef struct rtg_operation_arg {
 
 	/**  Later would have to be resolved as a reference to the
 	 * actual variable storing its actual current value. */
-	amara_string * variable_name_;
+	/* amara_string * variable_name_; */
 
 	/* rtg_variable * variable_; */
 
+	rtg_expression * expression_;
+
 	struct rtg_operation * operation_;
-} rtg_operation_arg;
+} rtg_operation_arg
+;
 
 rtg_operation_arg *
 rtg_operation_arg_default_constructor(void)
@@ -88,7 +103,7 @@ rtg_operation_arg_destructor(rtg_operation_arg * operation_arg)
 
 void
 rtg_operation_arg_set_type(
-		rtg_operation_arg * operation_arg, uint_fast8_t type)
+		rtg_operation_arg * operation_arg, unsigned char type)
 ;
 
 void
@@ -110,14 +125,19 @@ rtg_operation_arg_set_identifier(
 ;
 
 #define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_INVALID 0x00
+#define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_IDENTIFIER 0x0E
 #define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_ERROR_UNSPECIFIC 0x0F
 #define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_operation_arg_out_of_stt_operation_arg_ret {
-	uint_fast8_t status;
+
+	unsigned char status;
+
+	amara_strings_simple_list * error_messages;
+
 	rtg_operation_arg * operation_arg;
-	amara_boolean operation_arg_was_moved;
-} rtg_operation_arg_out_of_stt_operation_arg_ret;
+} rtg_operation_arg_out_of_stt_operation_arg_ret
+;
 
 void
 rtg_operation_arg_out_of_stt_operation_arg_ret_destructor(
@@ -126,7 +146,9 @@ rtg_operation_arg_out_of_stt_operation_arg_ret_destructor(
 
 rtg_operation_arg_out_of_stt_operation_arg_ret *
 rtg_operation_arg_out_of_stt_operation_arg(
-		const stt_operation_arg * operation_arg)
+		const stt_operation_arg * operation_arg,
+		const stt_operation_type operation_type,
+		const stt_where_value_bindings_simple_list * function_where_bindings)
 __attribute__((warn_unused_result))
 ;
 

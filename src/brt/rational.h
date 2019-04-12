@@ -30,13 +30,15 @@ void
 assert_valid_raw_rational(const amara_string * raw_rational)
 ;
 
+/*
 #define FIT_RAW_RATIONAL_IN_INT_FAST8_T_RET_STATUS_INVALID          0x00
 #define FIT_RAW_RATIONAL_IN_INT_FAST8_T_RET_STATUS_ERR_DOES_NOT_FIT 0x01
 #define FIT_RAW_RATIONAL_IN_INT_FAST8_T_RET_STATUS_OK               0xFF
+*/
 
 typedef struct fit_raw_rational_in_int_fast8_t_ret {
-	uint_fast8_t status;
-	uint_fast8_t value;
+	unsigned char status;
+	unsigned char value;
 } fit_raw_rational_in_int_fast8_t_ret;
 
 /*   Input `valid_raw_rational` is expected to be valid and canonical,
@@ -62,7 +64,7 @@ __attribute__((warn_unused_result));
 /*   Shoud return negative rational, zero, or positive rational, as the
  * first argument is less than, equal, or greater than the second. Both
  * arguments are valid canonical raw rational numbers. */
-int_fast8_t
+signed char
 safe_arguments_rational_raw_comparison(
 		const amara_string * raw_rational_zero,
 		const amara_string * raw_rational_one)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,50 @@
 
 #ifndef __AMARA__SYNTAX_TREE__NAMED_FUNCTIONS_SIMPLE_LIST_TESTS__H__
 #define __AMARA__SYNTAX_TREE__NAMED_FUNCTIONS_SIMPLE_LIST_TESTS__H__
+
+#include "stt_named_functions_simple_list.h"
+
+stt_named_functions_simple_list *
+stt_named_functions_simple_list_example_two_named_functions(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_named_functions_simple_list_example_two_named_functions(
+		const stt_named_functions_simple_list * list)
+;
+
+#endif
+
+stt_named_functions_simple_list *
+stt_named_functions_simple_list_example_one_invalid_named_function(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_named_functions_simple_list_example_one_invalid_named_function(
+		const stt_named_functions_simple_list * list)
+;
+
+#endif
+
+stt_named_functions_simple_list *
+stt_named_functions_simple_list_example_one_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_named_functions_simple_list_example_one_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+		const stt_named_functions_simple_list * list)
+;
+
+#endif
 
 void
 stt_named_functions_simple_list_tests(void)

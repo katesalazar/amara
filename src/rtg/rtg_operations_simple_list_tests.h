@@ -20,6 +20,15 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__OPERATIONS_SIMPLE_LIST_TESTS__H__
 #define __AMARA__RUN_TIME_GRAPH__OPERATIONS_SIMPLE_LIST_TESTS__H__
 
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_operations_simple_list_example_print_identifier_foo(
+		const rtg_operations_simple_list * list)
+;
+
+#endif
+
 void
 rtg_operations_simple_list_tests(void)
 ;

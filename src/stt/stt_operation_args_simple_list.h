@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,9 +24,12 @@
 #include "stt_operation_arg.h"
 
 typedef struct stt_operation_args_simple_list {
+
 	stt_operation_arg * first;
+
 	struct stt_operation_args_simple_list * next;
-} stt_operation_args_simple_list;
+} stt_operation_args_simple_list
+;
 
 stt_operation_args_simple_list *
 stt_operation_args_simple_list_default_constructor(void)
@@ -51,10 +54,16 @@ stt_operation_args_simple_list_push_front(
 __attribute__((warn_unused_result))
 ;
 
-uint_fast8_t
+unsigned char
 stt_operation_args_simple_list_length(
 		const stt_operation_args_simple_list * operation_args)
 __attribute__((warn_unused_result))
+;
+
+amara_boolean
+stt_operation_args_simple_list_equality(
+		const stt_operation_args_simple_list * l0,
+		const stt_operation_args_simple_list * l1)
 ;
 
 #endif

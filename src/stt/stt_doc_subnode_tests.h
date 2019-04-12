@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +22,42 @@
 
 #include "stt_doc_subnode.h"
 
+stt_doc_subnode *
+stt_doc_subnode_example_one_invalid_named_function(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
 void
-assert_expectations_on_stt_doc_subnode_example_print_foo(
+assert_expectations_on_stt_doc_subnode_example_one_invalid_named_function(
 		const stt_doc_subnode * subnode)
 ;
+
+#endif
+
+stt_doc_subnode *
+stt_doc_subnode_example_one_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_doc_subnode_example_one_valid_named_function_print_identifier_foo_where_identifier_foo_is_bound_to_string_literal_foo(
+		const stt_doc_subnode * subnode)
+;
+
+#endif
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_doc_subnode_example_print_string_literal_foo(
+		const stt_doc_subnode * subnode)
+;
+
+#endif
 
 void
 stt_doc_subnode_tests(void)

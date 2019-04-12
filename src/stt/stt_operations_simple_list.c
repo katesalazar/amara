@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,9 +34,12 @@ stt_operations_simple_list *
 stt_operations_simple_list_default_constructor()
 {
 	stt_operations_simple_list * ret_;
+
 	ret_ = malloc(sizeof(stt_operations_simple_list));
+	forced_assertion(ret_ != NULL);
 	ret_->first = NULL;
 	ret_->next = NULL;
+
 	return ret_;
 }
 
@@ -45,11 +48,21 @@ stt_operations_simple_list_copy_constructor_inner(
 		const stt_operations_simple_list * operations)
 {
 	stt_operations_simple_list * ret_;
-	assertion(operations != NULL);
+
+	forced_assertion(operations != NULL);
 	ret_ = malloc(sizeof(stt_operations_simple_list));
-	assertion(operations->first != NULL);
+	forced_assertion(ret_ != NULL);
+	forced_assertion(operations->first != NULL);
 	ret_->first = stt_operation_copy_constructor(operations->first);
+	forced_assertion(ret_->first != NULL);
+
+	/*
+	not compatible with the example 1
+	forced_assertion(operations->next == NULL);
+	*/
+
 	if (operations->next == NULL) {
+
 		ret_->next = NULL;
 		return ret_;
 	}
@@ -63,15 +76,20 @@ stt_operations_simple_list_copy_constructor(
 		const stt_operations_simple_list * operations)
 {
 	stt_operations_simple_list * ret_;
+
 	assertion(operations != NULL);
 	ret_ = malloc(sizeof(stt_operations_simple_list));
+	forced_assertion(ret_ != NULL);
+
 	if (operations->first == NULL) {
+
 		ret_->first = NULL;
-		assertion(operations->next == NULL);
+		forced_assertion(operations->next == NULL);
 		ret_->next = NULL;
 		return ret_;
 	}
 	ret_->first = stt_operation_copy_constructor(operations->first);
+	forced_assertion(ret_->first != NULL);
 	if (operations->next == NULL) {
 		ret_->next = NULL;
 		return ret_;
@@ -103,16 +121,38 @@ stt_operations_simple_list_push_front(
 		const stt_operation * operation)
 {
 	stt_operations_simple_list * new_operations_list_node_;
+
+#ifndef NDEBUG
 	assertion(operations != NULL);
 	assertion(operation != NULL);
+#endif
+
 	if (operations->first == NULL) {
+
+#ifndef NDEBUG
 		assertion(operations->next == NULL);
+#endif
+
 		operations->first = stt_operation_copy_constructor(operation);
 		return operations;
 	}
 	new_operations_list_node_ = malloc(sizeof(stt_operations_simple_list));
+	forced_assertion(new_operations_list_node_ != NULL);
 	new_operations_list_node_->first =
 			stt_operation_copy_constructor(operation);
 	new_operations_list_node_->next = operations;
 	return new_operations_list_node_;
+}
+
+void
+stt_operations_simple_list_push_back(
+		stt_operations_simple_list * operations,
+		const stt_operation * operation)
+{
+	forced_assertion(operations != NULL);
+	forced_assertion(operation != NULL);
+	forced_assertion(operations->first == NULL); /* FIXME */
+	operations->first = stt_operation_copy_constructor(operation);
+	forced_assertion(operations->first != NULL);
+	forced_assertion(operations->next == NULL); /* FIXME */
 }

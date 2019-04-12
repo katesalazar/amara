@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,10 +35,14 @@
 #define RTG_APPLICATION_TYPE_CLI_APPLICATION 0xFF
 
 typedef struct rtg_application {
-	uint_fast8_t type_;
+
+	unsigned char type_;
+
 	amara_string * name_;
+
 	rtg_named_function * entry_point_function_;
-} rtg_application;
+} rtg_application
+;
 
 rtg_application *
 rtg_application_default_constructor(void)
@@ -55,14 +59,19 @@ rtg_application_destructor(rtg_application * application)
 ;
 
 #define RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID 0x00
-#define RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC 0x00
+#define RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_FIND_ENTRY_POINT_FUNCTION_FOR_APPLICATION 0x0E
+#define RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNSPECIFIC 0x0F
 #define RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS 0xFF
 
 typedef struct rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret {
-	uint_fast8_t status;
+
+	unsigned char status;
+
+	amara_strings_simple_list * error_messages;
+
 	rtg_application * application;
-	amara_boolean application_was_moved;
-} rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret;
+} rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret
+;
 
 void
 rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret_destructor(

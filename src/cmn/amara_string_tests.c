@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,67 @@
 
 #include "../asr/assertion.h"
 
-#include "amara_string.h"
+#include "amara_string_tests.h"
+
+amara_string *
+amara_string_example_foo()
+{
+	amara_string * ret_;
+
+	ret_ = amara_string_exhaustive_constructor("foo");
+	forced_assertion(ret_ != NULL);
+	forced_assertion(ret_->value_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_amara_string_example_foo(ret_);
+#endif
+
+	return ret_;
+}
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_amara_string_example_foo(const amara_string * string)
+{
+	assertion(string != NULL);
+	assertion(string->value_ != NULL);
+	assertion(string->value_[0] == 'f');
+	assertion(string->value_[1] == 'o');
+	assertion(string->value_[2] == 'o');
+	assertion(string->value_[3] == '\0');
+}
+
+#endif
+
+amara_string *
+amara_string_example_bar()
+{
+	amara_string * ret_;
+
+	ret_ = amara_string_exhaustive_constructor("bar");
+	forced_assertion(ret_ != NULL);
+	forced_assertion(ret_->value_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_amara_string_example_bar(ret_);
+#endif
+
+	return ret_;
+}
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_amara_string_example_bar(const amara_string * string)
+{
+	assertion(string != NULL);
+	assertion(string->value_ != NULL);
+	assertion(string->value_[0] == 'b');
+	assertion(string->value_[1] == 'a');
+	assertion(string->value_[2] == 'r');
+	assertion(string->value_[3] == '\0');
+}
+
+#endif
 
 void
 amara_string_construct_and_destruct_test_0()
@@ -64,15 +124,87 @@ amara_string_equality_test_0()
 	assertion(a2->value_ != NULL);
 
 	equality_ = amara_string_equality(a1, a2);
-	assertion(equality_ == AMARA_BOOLEAN_FALSE);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);  /* XXX */
 
 	amara_string_destructor(a2);
 }
 
+#ifndef NDEBUG
+#endif
+
+void
+amara_string_equality_test_1()
+{
+	amara_string * a1_;
+	amara_string * a2_;
+	amara_boolean equality_;
+
+	a1_ = amara_string_exhaustive_constructor("foo");
+	assertion(a1_ != NULL);
+	assertion(a1_->value_ != NULL);
+
+	a2_ = NULL;
+
+	equality_ = amara_string_equality(a1_, a2_);
+	assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	amara_string_destructor(a1_);
+}
+
+#ifndef NDEBUG
+#endif
+
+void
+amara_string_equality_test_2()
+{
+	amara_string * a1_;
+	amara_string * a2_;
+	amara_boolean equality_;
+
+	a1_ = amara_string_exhaustive_constructor("");
+	assertion(a1_ != NULL);
+	assertion(a1_->value_ != NULL);
+
+	a2_ = NULL;
+
+	equality_ = amara_string_equality(a1_, a2_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
+	amara_string_destructor(a1_);
+}
+
+void
+amara_string_equality_test_3()
+{
+	amara_string * a1_;
+	amara_string * a2_;
+	amara_boolean equality_;
+
+	a1_ = NULL;
+
+	a2_ = amara_string_exhaustive_constructor("foo");
+	assertion(a2_ != NULL);
+	assertion(a2_->value_ != NULL);
+
+	equality_ = amara_string_equality(a1_, a2_);
+	assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	amara_string_destructor(a2_);
+}
+
+#ifndef NDEBUG
+#endif
 void
 amara_string_equality_tests()
 {
 	amara_string_equality_test_0();
+#ifndef NDEBUG
+#endif
+	amara_string_equality_test_1();
+#ifndef NDEBUG
+#endif
+	amara_string_equality_test_2();
+	amara_string_equality_test_3();
 }
 
 void

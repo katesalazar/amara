@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #
-# Copyright 2018 Mercedes Catherine Salazar
+# Copyright 2018-2019 Mercedes Catherine Salazar
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,7 +20,8 @@
 #
 
 
-nice -n 19 make clean &&
+true &&
+		nice -n 19 make clean &&
 		nice -n 19 rm -fv `find ./ | grep gcno$` &&
 		nice -n 19 make all &&
 		nice -n 19 rm -fv `find ./ | grep gcda$`
@@ -215,7 +216,7 @@ true &&
 		clear &&
 		nice -n 19 gcov \
 				--branch-probabilities \
-				`find ./ | grep gcda`
+				`find ./ | grep gcda` \
 
 if test $? -ne 0
 then

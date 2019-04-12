@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,35 +20,59 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__OPERATION_ARG_TESTS__H__
 #define __AMARA__RUN_TIME_GRAPH__OPERATION_ARG_TESTS__H__
 
+/*   For `typedef struct rtg_operation_arg { ... } rtg_operation_arg;`. */
+#include "rtg_operation_arg.h"
+
 rtg_operation_arg *
 rtg_operation_arg_example_string_literal_foo(void)
 __attribute__((warn_unused_result))
 ;
+
+#ifndef NDEBUG
 
 void
 assert_expectations_on_rtg_operation_arg_example_string_literal_foo(
 		const rtg_operation_arg * operation_arg)
 ;
 
+#endif
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_operation_arg_example_natural_literal_zero(
+		const rtg_operation_arg * operation_arg)
+;
+
+#endif
+
 rtg_operation_arg *
 rtg_operation_arg_example_identifier_foo(void)
 __attribute__((warn_unused_result))
 ;
+
+#ifndef NDEBUG
 
 void
 assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 		const rtg_operation_arg * operation_arg)
 ;
 
+#endif
+
 rtg_operation_arg *
 rtg_operation_arg_example_identifier_bar(void)
 __attribute__((warn_unused_result))
 ;
 
+#ifndef NDEBUG
+
 void
 assert_expectations_on_rtg_operation_arg_example_identifier_bar(
 		const rtg_operation_arg * operation_arg)
 ;
+
+#endif
 
 void
 rtg_operation_arg_tests(void)

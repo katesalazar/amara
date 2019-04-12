@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,19 @@
  */
 
 #include "../asr/assertion.h"
+
+#include "../cmn/amara_string_tests.h"
+
+#include "../stt/stt_operation_tests.h"
+
 #include "rtg_operation_arg.h"
+
 #include "rtg_operation_arg_tests.h"
+
 #include "rtg_operation_tests.h"
 
 rtg_operation *
-rtg_operation_example_print_foo()
+rtg_operation_example_print_string_literal_foo()
 {
 	rtg_operation * operation_;
 	rtg_operation_args_simple_list * operation_args_;
@@ -35,7 +42,11 @@ rtg_operation_example_print_foo()
 	assertion(operation_arg_->type_ == RTG_OPERATION_ARG_TYPE_INVALID);
 	assertion(operation_arg_->string_literal_ == NULL);
 
-	string_literal_ = amara_string_exhaustive_constructor("foo");
+	string_literal_ = amara_string_example_foo();
+	forced_assertion(string_literal_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_amara_string_example_foo(string_literal_);
+#endif
 
 	rtg_operation_arg_set_string_literal(operation_arg_, string_literal_);
 	rtg_operation_arg_set_type(
@@ -56,8 +67,10 @@ rtg_operation_example_print_foo()
 	return operation_;
 }
 
+#ifndef NDEBUG
+
 void
-assert_expectations_on_rtg_operation_example_print_foo(
+assert_expectations_on_rtg_operation_example_print_string_literal_foo(
 		const rtg_operation * operation)
 {
 	rtg_operation_args_simple_list * args_;
@@ -65,10 +78,12 @@ assert_expectations_on_rtg_operation_example_print_foo(
 	amara_string * expected_operation_arg_string_literal_;
 	amara_boolean equality_;
 
-	expected_operation_arg_string_literal_ =
-			amara_string_exhaustive_constructor("foo");
-	assertion(expected_operation_arg_string_literal_ != NULL);
-	assertion(expected_operation_arg_string_literal_->value_ != NULL);
+	expected_operation_arg_string_literal_ = amara_string_example_foo();
+	forced_assertion(expected_operation_arg_string_literal_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_amara_string_example_foo(
+			expected_operation_arg_string_literal_);
+#endif
 
 	assertion(operation != NULL);
 	assertion(operation->type_ == RTG_OPERATION_TYPE_PRINT);
@@ -88,8 +103,10 @@ assert_expectations_on_rtg_operation_example_print_foo(
 	amara_string_destructor(expected_operation_arg_string_literal_);
 }
 
+#endif
+
 rtg_operation *
-rtg_operation_example_print_bar()
+rtg_operation_example_print_string_literal_bar()
 {
 	rtg_operation * operation_;
 	rtg_operation_args_simple_list * operation_args_;
@@ -122,8 +139,10 @@ rtg_operation_example_print_bar()
 	return operation_;
 }
 
+#ifndef NDEBUG
+
 void
-assert_expectations_on_rtg_operation_example_print_bar(
+assert_expectations_on_rtg_operation_example_print_string_literal_bar(
 		const rtg_operation * operation)
 {
 	rtg_operation_args_simple_list * args_;
@@ -154,8 +173,10 @@ assert_expectations_on_rtg_operation_example_print_bar(
 	amara_string_destructor(expected_operation_arg_string_literal_);
 }
 
+#endif
+
 rtg_operation *
-rtg_operation_example_read_natural_into_i_foo()
+rtg_operation_example_read_natural_into_foo()
 {
 	rtg_operation * operation_;
 	rtg_operation_args_simple_list * operation_args_;
@@ -191,10 +212,109 @@ rtg_operation_example_read_natural_into_i_foo()
 	return operation_;
 }
 
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_operation_example_read_natural_into_foo(
+		const rtg_operation * operation)
+{
+	assertion(operation != NULL);
+	assertion(operation->type_ ==
+			RTG_OPERATION_TYPE_READ_NATURAL_INTO_VALUE);
+	assertion(operation->args_ != NULL);
+	assertion(operation->args_->first != NULL);
+	assertion(operation->args_->first->type_ ==
+			RTG_OPERATION_ARG_TYPE_IDENTIFIER_TO_BE_RESOLVED);
+	assertion(operation->args_->first->type_ != 0);
+	assertion(operation->args_->next == NULL);
+}
+
+#endif
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_operation_example_read_integer_into_foo(
+		const rtg_operation * operation)
+{
+	assertion(operation != NULL);
+	assertion(operation->type_ ==
+			RTG_OPERATION_TYPE_READ_INTEGER_INTO_VALUE);
+	assertion(operation->args_ != NULL);
+	assertion(operation->args_->first != NULL);
+	assertion(operation->args_->first->type_ ==
+			RTG_OPERATION_ARG_TYPE_IDENTIFIER_TO_BE_RESOLVED);
+	assertion(operation->args_->first->identifier_ != NULL);
+	assertion(operation->args_->first->identifier_->value_ != NULL);
+	assertion(operation->args_->first->identifier_->value_[0] == 'f');
+	assertion(operation->args_->first->identifier_->value_[1] == 'o');
+	assertion(operation->args_->first->identifier_->value_[2] == 'o');
+	assertion(operation->args_->first->identifier_->value_[3] == '\0');
+	assertion(operation->args_->next == NULL);
+}
+
+#endif
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_operation_example_print_identifier_foo(
+		const rtg_operation * operation)
+{
+	assertion(operation != NULL);
+	assertion(operation->type_ == RTG_OPERATION_TYPE_PRINT);
+	assertion(operation->args_ != NULL);
+	assertion(operation->args_->first != NULL);
+	assertion(operation->args_->first->type_ ==
+			RTG_OPERATION_ARG_TYPE_IDENTIFIER);
+	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
+			operation->args_->first);
+	assertion(operation->args_->next == NULL);
+}
+
+#endif
+
+/*
+
+rtg_operation *
+rtg_operation_example_print_integer_literal(void)
+{
+	;
+}
+
+*/
+
+/*
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_operation_example_print_integer_literal(
+		const rtg_operation * operation)
+{
+	assertion(operation != NULL);
+	assertion(operation->type_ ==
+			RTG_OPERATION_TYPE_PRINT_INTEGER_LITERAL);
+	assertion(operation->args_ != NULL);
+	assertion(operation->args_->first != NULL);
+	assertion(operation->args_->first->type_ ==
+			RTG_OPERATION_ARG_TYPE_INTEGER_LITERAL);
+	assertion(operation->args_->first->integer_literal_ != NULL);
+	assertion(operation->args_->first->integer_literal_->value_ != NULL);
+	assertion(operation->args_->first->integer_literal_->value_[0] == '-');
+	assertion(operation->args_->first->integer_literal_->value_[1] == '1');
+	assertion(operation->args_->first->integer_literal_->value_[2] ==
+			'\0');
+}
+
+#endif
+
+*/
+
 /**  Construct an invalid operation using the exhaustive constructor
  * and then destroy it. */
 void
-rtg_operation_construct_and_destruct_test_0()
+rtg_operation_exhaustive_constructor_test_0()
 {
 	rtg_operation_args_simple_list * operation_args_;
 	rtg_operation * operation_;
@@ -219,9 +339,9 @@ rtg_operation_construct_and_destruct_test_0()
 /**  Construct an invalid operation using the exhaustive constructor
  * and then destroy it. */
 void
-rtg_operation_construct_and_destruct_test_1()
+rtg_operation_exhaustive_constructor_test_1()
 {
-	uint_fast8_t requested_type_;
+	unsigned char requested_type_;
 	rtg_operation_args_simple_list * operation_args_;
 	/*
 	rtg_operation_arg * operation_arg_;
@@ -262,9 +382,9 @@ rtg_operation_construct_and_destruct_test_1()
 /**  Construct an invalid operation using the exhaustive constructor
  * and then destroy it. */
 void
-rtg_operation_construct_and_destruct_test_2()
+rtg_operation_exhaustive_constructor_test_2()
 {
-	uint_fast8_t requested_type_;
+	unsigned char requested_type_;
 	rtg_operation_args_simple_list * operation_args_;
 	/*
 	rtg_operation_arg * operation_arg_;
@@ -299,9 +419,9 @@ rtg_operation_construct_and_destruct_test_2()
 /**  Construct a _read into value_ valid operation using the exhaustive
  * constructor and then destroy it. */
 void
-rtg_operation_construct_and_destruct_test_3()
+rtg_operation_exhaustive_constructor_test_3()
 {
-	uint_fast8_t requested_type_;
+	unsigned char requested_type_;
 	rtg_operation_args_simple_list * operation_args_;
 	rtg_operation_arg * operation_arg_;
 	rtg_operation * operation_;
@@ -315,33 +435,43 @@ rtg_operation_construct_and_destruct_test_3()
 
 	operation_arg_ = rtg_operation_arg_example_identifier_foo();
 	assertion(operation_arg_ != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_arg_);
+#endif
 
 	operation_args_ = rtg_operation_args_simple_list_push_front(
 			operation_args_, operation_arg_);
 	assertion(operation_arg_ != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_arg_);
+#endif
 	assertion(operation_args_ != NULL);
 	assertion(operation_args_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_args_->first);
+#endif
 	assertion(operation_args_->next == NULL);
 
 	operation_ = rtg_operation_exhaustive_constructor(
 			requested_type_, operation_args_);
 	assertion(operation_args_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_args_->first);
+#endif
 	assertion(operation_args_->next == NULL);
 	assertion(operation_ != NULL);
 	assertion(operation_->type_ ==
 			RTG_OPERATION_TYPE_READ_NATURAL_INTO_VALUE);
 	assertion(operation_->args_ != NULL);
 	assertion(operation_->args_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_->args_->first);
+#endif
 	assertion(operation_->args_->next == NULL);
 
 	rtg_operation_destructor(operation_);
@@ -352,10 +482,11 @@ rtg_operation_construct_and_destruct_test_3()
 /**  Construct a _read into value_ valid operation using the exhaustive
  * constructor and then copy it and then destroy it and destroy the copy
  * too. */
+/*
 void
-rtg_operation_construct_and_destruct_test_4()
+rtg_operation_exhaustive_constructor_test_4()
 {
-	uint_fast8_t requested_type_;
+	unsigned char requested_type_;
 	rtg_operation_args_simple_list * operation_args_;
 	rtg_operation_arg * operation_arg_zero_;
 	rtg_operation_arg * operation_arg_one_;
@@ -371,81 +502,111 @@ rtg_operation_construct_and_destruct_test_4()
 
 	operation_arg_zero_ = rtg_operation_arg_example_identifier_foo();
 	assertion(operation_arg_zero_ != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_arg_zero_);
+#endif
 
 	operation_args_ = rtg_operation_args_simple_list_push_front(
 			operation_args_, operation_arg_zero_);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_arg_zero_);
+#endif
 	assertion(operation_args_ != NULL);
 	assertion(operation_args_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_args_->first);
+#endif
 	assertion(operation_args_->next == NULL);
 
 	operation_arg_one_ = rtg_operation_arg_example_identifier_bar();
 	assertion(operation_arg_one_ != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_bar(
 			operation_arg_one_);
+#endif
 
 	operation_args_ = rtg_operation_args_simple_list_push_front(
 			operation_args_, operation_arg_one_);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_bar(
 			operation_arg_one_);
+#endif
 	assertion(operation_args_ != NULL);
 	assertion(operation_args_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_bar(
 			operation_args_->first);
+#endif
 	assertion(operation_args_->next != NULL);
 	assertion(operation_args_->next->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_args_->next->first);
+#endif
 	assertion(operation_args_->next->next == NULL);
 
 	operation_zero_ = rtg_operation_exhaustive_constructor(
 			requested_type_, operation_args_);
 	assertion(operation_args_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_bar(
 			operation_args_->first);
+#endif
 	assertion(operation_args_->next != NULL);
 	assertion(operation_args_->next->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_args_->next->first);
+#endif
 	assertion(operation_args_->next->next == NULL);
 	assertion(operation_zero_ != NULL);
 	assertion(operation_zero_->type_ == RTG_OPERATION_TYPE_ADDITION);
 	assertion(operation_zero_->args_ != NULL);
 	assertion(operation_zero_->args_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_bar(
 			operation_zero_->args_->first);
+#endif
 	assertion(operation_zero_->args_->next != NULL);
 	assertion(operation_zero_->args_->next->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_zero_->args_->next->first);
+#endif
 	assertion(operation_zero_->args_->next->next == NULL);
 
 	operation_one_ = rtg_operation_copy_constructor(operation_zero_);
 	assertion(operation_zero_->type_ == RTG_OPERATION_TYPE_ADDITION);
 	assertion(operation_zero_->args_ != NULL);
 	assertion(operation_zero_->args_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_bar(
 			operation_zero_->args_->first);
+#endif
 	assertion(operation_zero_->args_->next != NULL);
 	assertion(operation_zero_->args_->next->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_zero_->args_->next->first);
+#endif
 	assertion(operation_zero_->args_->next->next == NULL);
 	assertion(operation_one_ != NULL);
 	assertion(operation_one_->type_ == RTG_OPERATION_TYPE_ADDITION);
 	assertion(operation_one_->args_ != NULL);
 	assertion(operation_one_->args_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_bar(
 			operation_one_->args_->first);
+#endif
 	assertion(operation_one_->args_->next != NULL);
 	assertion(operation_one_->args_->next->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_one_->args_->next->first);
+#endif
 	assertion(operation_one_->args_->next->next == NULL);
 
 	rtg_operation_destructor(operation_one_);
@@ -454,18 +615,19 @@ rtg_operation_construct_and_destruct_test_4()
 	rtg_operation_arg_destructor(operation_arg_zero_);
 	rtg_operation_args_simple_list_destructor(operation_args_);
 }
+*/
 
 /**  Create a sum operation, copy it, and destroy it and the copy. */
 void
-rtg_operation_construct_and_destruct_test_5()
+rtg_operation_copy_constructor_test_0()
 {
-	uint_fast8_t requested_type_;
+	unsigned char requested_type_;
 	rtg_operation_args_simple_list * operation_args_;
 	rtg_operation_arg * operation_arg_;
 	rtg_operation * operation_zero_;
 	rtg_operation * operation_one_;
 
-	requested_type_ = RTG_OPERATION_TYPE_READ_NATURAL_TO_VARIABLE;
+	requested_type_ = RTG_OPERATION_TYPE_READ_NATURAL_TO_VALUE;
 
 	operation_args_ = rtg_operation_args_simple_list_default_constructor();
 	assertion(operation_args_ != NULL);
@@ -474,50 +636,64 @@ rtg_operation_construct_and_destruct_test_5()
 
 	operation_arg_ = rtg_operation_arg_example_identifier_foo();
 	assertion(operation_arg_ != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_arg_);
+#endif
 
 	operation_args_ = rtg_operation_args_simple_list_push_front(
 			operation_args_, operation_arg_);
 	assertion(operation_arg_ != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_arg_);
+#endif
 	assertion(operation_args_ != NULL);
 	assertion(operation_args_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_args_->first);
+#endif
 	assertion(operation_args_->next == NULL);
 
 	operation_zero_ = rtg_operation_exhaustive_constructor(
 			requested_type_, operation_args_);
 	assertion(operation_args_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_args_->first);
+#endif
 	assertion(operation_args_->next == NULL);
 	assertion(operation_zero_ != NULL);
 	assertion(operation_zero_->type_ ==
-			RTG_OPERATION_TYPE_READ_NATURAL_INTO_VARIABLE);
+			RTG_OPERATION_TYPE_READ_NATURAL_INTO_VALUE);
 	assertion(operation_zero_->args_ != NULL);
 	assertion(operation_zero_->args_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_zero_->args_->first);
+#endif
 	assertion(operation_zero_->args_->next == NULL);
 
 	operation_one_ = rtg_operation_copy_constructor(operation_zero_);
 	assertion(operation_zero_->type_ ==
-			RTG_OPERATION_TYPE_READ_NATURAL_INTO_VARIABLE);
+			RTG_OPERATION_TYPE_READ_NATURAL_INTO_VALUE);
 	assertion(operation_zero_->args_ != NULL);
 	assertion(operation_zero_->args_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_zero_->args_->first);
+#endif
 	assertion(operation_zero_->args_->next == NULL);
 	assertion(operation_one_ != NULL);
 	assertion(operation_one_->type_ ==
-			RTG_OPERATION_TYPE_READ_NATURAL_INTO_VARIABLE);
+			RTG_OPERATION_TYPE_READ_NATURAL_INTO_VALUE);
 	assertion(operation_one_->args_ != NULL);
 	assertion(operation_one_->args_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_one_->args_->first);
+#endif
 	assertion(operation_one_->args_->next == NULL);
 
 	rtg_operation_destructor(operation_one_);
@@ -529,15 +705,15 @@ rtg_operation_construct_and_destruct_test_5()
 /**  Create a _print without line feed and carriage return_ operation,
  * copy it, and destroy it and the copy. */
 void
-rtg_operation_construct_and_destruct_test_6()
+rtg_operation_copy_constructor_test_1()
 {
-	uint_fast8_t requested_type_;
+	unsigned char requested_type_;
 	rtg_operation_args_simple_list * operation_args_;
 	rtg_operation_arg * operation_arg_;
 	rtg_operation * operation_zero_;
 	rtg_operation * operation_one_;
 
-	requested_type_ = RTG_OPERATION_TYPE_PRINT_NO_CRLF;
+	requested_type_ = RTG_OPERATION_TYPE_PRINT;
 
 	operation_args_ = rtg_operation_args_simple_list_default_constructor();
 	assertion(operation_args_ != NULL);
@@ -546,47 +722,61 @@ rtg_operation_construct_and_destruct_test_6()
 
 	operation_arg_ = rtg_operation_arg_example_identifier_foo();
 	assertion(operation_arg_ != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_arg_);
+#endif
 
 	operation_args_ = rtg_operation_args_simple_list_push_front(
 			operation_args_, operation_arg_);
 	assertion(operation_arg_ != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_arg_);
+#endif
 	assertion(operation_args_ != NULL);
 	assertion(operation_args_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_args_->first);
+#endif
 	assertion(operation_args_->next == NULL);
 
 	operation_zero_ = rtg_operation_exhaustive_constructor(
 			requested_type_, operation_args_);
 	assertion(operation_args_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_args_->first);
+#endif
 	assertion(operation_args_->next == NULL);
 	assertion(operation_zero_ != NULL);
-	assertion(operation_zero_->type_ == RTG_OPERATION_TYPE_PRINT_NO_CRLF);
+	assertion(operation_zero_->type_ == RTG_OPERATION_TYPE_PRINT);
 	assertion(operation_zero_->args_ != NULL);
 	assertion(operation_zero_->args_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_zero_->args_->first);
+#endif
 	assertion(operation_zero_->args_->next == NULL);
 
 	operation_one_ = rtg_operation_copy_constructor(operation_zero_);
-	assertion(operation_zero_->type_ == RTG_OPERATION_TYPE_PRINT_NO_CRLF);
+	assertion(operation_zero_->type_ == RTG_OPERATION_TYPE_PRINT);
 	assertion(operation_zero_->args_ != NULL);
 	assertion(operation_zero_->args_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_zero_->args_->first);
+#endif
 	assertion(operation_zero_->args_->next == NULL);
 	assertion(operation_one_ != NULL);
-	assertion(operation_one_->type_ == RTG_OPERATION_TYPE_PRINT_NO_CRLF);
+	assertion(operation_one_->type_ == RTG_OPERATION_TYPE_PRINT);
 	assertion(operation_one_->args_ != NULL);
 	assertion(operation_one_->args_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_operation_arg_example_identifier_foo(
 			operation_one_->args_->first);
+#endif
 	assertion(operation_one_->args_->next == NULL);
 
 	rtg_operation_destructor(operation_one_);
@@ -596,19 +786,196 @@ rtg_operation_construct_and_destruct_test_6()
 }
 
 void
-rtg_operation_construct_and_destruct_tests()
+rtg_operation_copy_constructor_test_10_read_natural_from_stdin()
 {
-	rtg_operation_construct_and_destruct_test_0();
-	rtg_operation_construct_and_destruct_test_1();
-	rtg_operation_construct_and_destruct_test_2();
-	rtg_operation_construct_and_destruct_test_3();
-	rtg_operation_construct_and_destruct_test_4();
-	rtg_operation_construct_and_destruct_test_5();
-	rtg_operation_construct_and_destruct_test_6();
+	rtg_operation * operation_zero_;
+	rtg_operation * operation_one_;
+
+	operation_zero_ = rtg_operation_example_read_natural_into_foo();
+	forced_assertion(operation_zero_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_operation_example_read_natural_into_foo(
+			operation_zero_);
+#endif
+
+	operation_one_ = rtg_operation_copy_constructor(operation_zero_);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_operation_example_read_natural_into_foo(
+			operation_zero_);
+#endif
+	forced_assertion(operation_one_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_operation_example_read_natural_into_foo(
+			operation_one_);
+#endif
+
+	rtg_operation_destructor(operation_one_);
+	rtg_operation_destructor(operation_zero_);
+}
+
+void
+rtg_operation_exhaustive_constructors_tests()
+{
+	rtg_operation_exhaustive_constructor_test_0();
+	rtg_operation_exhaustive_constructor_test_1();
+	rtg_operation_exhaustive_constructor_test_2();
+	rtg_operation_exhaustive_constructor_test_3();
+	/*
+	rtg_operation_exhaustive_constructor_test_4();
+	*/
+}
+
+void
+rtg_operation_copy_constructors_tests()
+{
+	rtg_operation_copy_constructor_test_0();
+	rtg_operation_copy_constructor_test_1();
+	rtg_operation_copy_constructor_test_10_read_natural_from_stdin();
+}
+
+void
+rtg_operation_transformation_constructor_test_10_read_natural_into_value()
+{
+	stt_operation * stt_operation_;
+	rtg_operation_out_of_stt_operation_ret * transformation_ret_;
+	rtg_operation * rtg_operation_;
+
+	stt_operation_ = stt_operation_example_read_natural_into_foo();
+	forced_assertion(stt_operation_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_example_read_natural_into_foo(
+			stt_operation_);
+#endif
+
+	transformation_ret_ =
+			rtg_operation_out_of_stt_operation(stt_operation_,
+			                                   NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_example_read_natural_into_foo(
+			stt_operation_);
+#endif
+	forced_assertion(transformation_ret_ != NULL);
+#ifndef NDEBUG
+	assertion(transformation_ret_->status ==
+			RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS);
+#endif
+	forced_assertion(transformation_ret_->operation != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_operation_example_read_natural_into_foo(
+			transformation_ret_->operation);
+#endif
+
+	stt_operation_destructor(stt_operation_);
+
+	rtg_operation_ = transformation_ret_->operation;
+
+	free(transformation_ret_);
+	rtg_operation_destructor(rtg_operation_);
+}
+
+void
+rtg_operation_transformation_constructor_test_20_read_integer_into_value()
+{
+	stt_operation * stt_operation_;
+	rtg_operation_out_of_stt_operation_ret * transformation_ret_;
+	rtg_operation * rtg_operation_;
+
+	stt_operation_ = stt_operation_example_read_integer_into_foo();
+	forced_assertion(stt_operation_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_example_read_integer_into_foo(
+			stt_operation_);
+#endif
+
+	transformation_ret_ =
+			rtg_operation_out_of_stt_operation(stt_operation_,
+			                                   NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_example_read_integer_into_foo(
+			stt_operation_);
+#endif
+	forced_assertion(transformation_ret_ != NULL);
+#ifndef NDEBUG
+	assertion(transformation_ret_->status ==
+			RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS);
+#endif
+	forced_assertion(transformation_ret_->operation != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_operation_example_read_integer_into_foo(
+			transformation_ret_->operation);
+#endif
+
+	stt_operation_destructor(stt_operation_);
+
+	rtg_operation_ = transformation_ret_->operation;
+
+	free(transformation_ret_);
+	rtg_operation_destructor(rtg_operation_);
+}
+
+/*
+
+void
+rtg_operation_transformation_constructor_test_30_print_integer_literal()
+{
+	stt_operation * stt_operation_;
+	rtg_operation_out_of_stt_operation_ret * transformation_ret_;
+	rtg_operation * rtg_operation_;
+
+	stt_operation_ = stt_operation_example_print_integer_literal();
+	forced_assertion(stt_operation_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_example_print_integer_literal(
+			stt_operation_);
+#endif
+
+	transformation_ret_ =
+			rtg_operation_out_of_stt_operation(stt_operation_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_example_print_integer_literal(
+			stt_operation_);
+#endif
+	forced_assertion(transformation_ret_ != NULL);
+#ifndef NDEBUG
+	assertion(transformation_ret_->status ==
+			RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS);
+#endif
+	forced_assertion(transformation_ret_->operation != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_operation_example_print_integer_literal(
+			transformation_ret_->operation);
+#endif
+
+	stt_operation_destructor(stt_operation_);
+
+	rtg_operation_ = transformation_ret_->operation;
+
+	free(transformation_ret_);
+	rtg_operation_destructor(rtg_operation_);
+}
+
+*/
+
+void
+rtg_operation_transformation_constructors_tests()
+{
+	rtg_operation_transformation_constructor_test_10_read_natural_into_value();
+	rtg_operation_transformation_constructor_test_20_read_integer_into_value();
+	/*
+	rtg_operation_transformation_constructor_test_30_print_integer_literal();
+	*/
+}
+
+void
+rtg_operation_constructors_tests()
+{
+	rtg_operation_exhaustive_constructors_tests();
+	rtg_operation_copy_constructors_tests();
+	rtg_operation_transformation_constructors_tests();
 }
 
 void
 rtg_operation_tests()
 {
-	rtg_operation_construct_and_destruct_tests();
+	rtg_operation_constructors_tests();
 }

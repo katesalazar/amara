@@ -55,7 +55,7 @@ stt_application *
 stt_application_exhaustive_constructor(
 		const amara_string * name,
 		const amara_string * entry_point_function_name,
-		uint_fast8_t flags)
+		unsigned char flags)
 {
 	stt_application * ret_;
 	assertion(name != NULL);

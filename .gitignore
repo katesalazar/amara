@@ -12,6 +12,7 @@ amara.kdev4
 #   Xcode stuff.
 amara.xcodeproj/project.xcworkspace/
 amara.xcodeproj/xcuserdata/
+amara.xcodeproj/xcshareddata/
 
 #   Bison object docs.
 minia.tab.h
@@ -41,10 +42,6 @@ build/debug/*.o
 build/release/*.o
 build/debug/amara_g
 build/release/amara
-# FIXME REMOVE THIS LEGACY.
-amara_g
-# FIXME REMOVE THIS LEGACY.
-amara
 
 #   macOS debugging symbols.
 amara_g.dSYM/
@@ -55,11 +52,10 @@ gmon.out
 #   GCC coverage output docs.
 build/debug/*.gcno
 build/release/*.gcno
-# FIXME REMOVE THIS LEGACY.
-*.gcno
 
 #   Coverage raw data.
-*.gcda
+build/debug/*.gcda
+build/release/*.gcda
 
 #   `gcov` output docs.
 *.gcov
@@ -81,3 +77,6 @@ build/debug/minia.l
 #   Miscellaneous coverage stuff. This is a symbolic link as a
 # workaround for a presentation issue in `lcov`.
 build/debug/minia.y
+
+#   Doxygen stuff.
+doxygen_reports/

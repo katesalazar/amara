@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,6 @@
 #ifndef __AMARA__SYNTAX_TREE__EXECUTION_REQUEST__H__
 #define __AMARA__SYNTAX_TREE__EXECUTION_REQUEST__H__
 
-/*   For `uint_fast8_t`. */
-#include <stdint.h>
-
 /*   For `amara_string`. */
 #include "../cmn/amara_string.h"
 
@@ -30,7 +27,9 @@
 #define STT_EXECUTION_REQUEST_TYPE_CLI_APPLICATION 0xFF
 
 typedef struct stt_execution_request {
-	uint_fast8_t type_;
+
+	unsigned char type_;
+
 	amara_string * application_name_;
 } stt_execution_request;
 
@@ -51,8 +50,7 @@ stt_execution_request_destructor(stt_execution_request * execution_request_)
 
 void
 stt_execution_request_set_type(
-		stt_execution_request * execution_request,
-		uint_fast8_t type)
+		stt_execution_request * execution_request, unsigned char type)
 ;
 
 void
