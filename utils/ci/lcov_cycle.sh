@@ -39,7 +39,7 @@ current_hash=`nice -n 19 git log --pretty=%H | head -1`
 
 until false
 do
-for branch in master 'if' # integration experimental
+for branch in master new-comment-syntax # integration experimental
 do
 	previous_hash=${current_hash} &&
 			nice -n 19 git fetch origin &&
