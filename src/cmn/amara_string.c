@@ -178,8 +178,12 @@ amara_string_strcmp(const amara_string * s1, const amara_string * s2)
 	assertion(s1->value_ != NULL);
 	assertion(s2 != NULL);
 	assertion(s2->value_ != NULL);
+
+#ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "%s:%u:s1->value_: %s\n", __FILE__, __LINE__, s1->value_);
 	fprintf(stderr, "%s:%u:s2->value_: %s\n", __FILE__, __LINE__, s2->value_);
+#endif
+
 	return strcmp(s1->value_, s2->value_);
 }
 

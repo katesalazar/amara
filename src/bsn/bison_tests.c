@@ -50,12 +50,68 @@ bison_test_0()
 
 	ret_ = run_app("./res/tst/ignored_chars/");
 
-if (0) { assertion(ret_ == 0); } /* XXX disarm 'set but not used' */
+	if (0) { assertion(ret_ == 0); } /* XXX disarm 'set but not used' */
 
-    /* XXX
+	/* XXX
 	forced_assertion(ret_ == 0);
-    */
-    fprintf(stderr, "<---- bison_tests...");
+	*/
+#ifdef DUMP_FLOW_TO_STDERR
+	fprintf(stderr, "<---- bison_tests...");
+#endif
+}
+
+void
+bison_test_1()
+{
+	/*
+	char * path_to_main_;
+	const FILE * main_doc_descriptor_;
+	*/
+	char ret_;
+
+	/*
+	path_to_main_ = malloc(strlen("res/tst/ignored_chars/main.minia") + 1);
+	strcpy(path_to_main_, "res/tst/ignored_chars/main.minia");
+
+	main_doc_descriptor_ = fopen(path_to_main_, "r");
+
+	forced_assertion(main_doc_descriptor_ != NULL);
+
+	ret_ = run_app_main_doc_exists("ignored_chars", main_doc_descriptor_);
+
+	forced_assertion(ret_ == 0);
+	*/
+
+	ret_ = run_app("./res/tst/where_clause/");
+
+	if (0) { assertion(ret_ == 0); } /* XXX disarm 'set but not used' */
+
+	/* XXX
+	forced_assertion(ret_ == 0);
+	*/
+#ifdef DUMP_FLOW_TO_STDERR
+	fprintf(stderr, "<---- bison_tests...");
+#endif
+}
+
+void
+bison_test_3()
+{
+	char ret_;
+
+	ret_ = run_app("./res/tst/dice/");
+
+	if (0) { assertion(ret_ == 0); } /* XXX disarm 'set but not used' */
+}
+
+void
+bison_test_4()
+{
+	char ret_;
+
+	ret_ = run_app("./res/tst/conditional_expression/");
+
+	if (0) { assertion(ret_ == 0); } /* XXX disarm 'set but not used' */
 }
 
 void
@@ -63,4 +119,10 @@ bison_tests(void)
 {
 	/* FIXME This test should not be executed under Xcode. */
 	bison_test_0();
+
+	bison_test_1();
+
+	bison_test_3();
+
+	bison_test_4();
 }

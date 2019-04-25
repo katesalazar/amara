@@ -51,7 +51,7 @@ function main
 	 * operations, such as `print` or `new line`. Operations can
 	 * be composed of expressions. For instance, the `print`
 	 * operation needs and accepts exactly one argument. comment ends
-	print 'hello, world'
+	print string literal hello, world string literal ends
 
 	comment   Operations joined using the `and then` conjunction are
 	 * executed strictly sequentially. Up to five operations can

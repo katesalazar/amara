@@ -78,8 +78,10 @@ rtg_doc_transformation_constructor_test_0()
 #endif
 
 	/* FIXME missing destructor calls. */
-    
-    fprintf(stderr, "<---- test_0...");
+
+#ifdef DUMP_FLOW_TO_STDERR
+	fprintf(stderr, "<---- test_0...\n");
+#endif
 }
 
 void
@@ -106,8 +108,10 @@ rtg_doc_transformation_constructor_test_4()
 #endif
 
 	/* FIXME missing destructor calls. */
-    
-    fprintf(stderr, "<---- test_4...");
+
+#ifdef DUMP_FLOW_TO_STDERR
+	fprintf(stderr, "<---- test_4...\n");
+#endif
 }
 
 void

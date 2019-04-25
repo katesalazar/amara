@@ -162,8 +162,10 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list(
 	rtg_operation_out_of_stt_operation_ret * single_operation_transformation_;
 	rtg_operation * new_rtg_op_;
 
+#ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "%s:%u ----> rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * rtg_operations_simple_list_out_of_stt_operations_simple_list(const stt_operations_simple_list *)\n",
 			__FILE__, __LINE__);
+#endif
 
 	ret_ = malloc(sizeof(
 			rtg_operations_simple_list_out_of_stt_operations_simple_list_ret));
@@ -180,8 +182,12 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list(
 #endif
 		ret_->operations = ret_list_;
 		ret_->status = RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
+
+#ifdef DUMP_FLOW_TO_STDERR
 		fprintf(stderr, "%s:%u <---- rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * rtg_operations_simple_list_out_of_stt_operations_simple_list(const stt_operations_simple_list *)\n",
 				__FILE__, __LINE__);
+#endif
+
 		return ret_;
 	}
 	assertion(operations->first != NULL);
@@ -249,8 +255,10 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list(
 	ret_->operations = ret_list_;
 	ret_->status = RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
 
+#ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "%s:%u <---- rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * rtg_operations_simple_list_out_of_stt_operations_simple_list(const stt_operations_simple_list *)\n",
 			__FILE__, __LINE__);
+#endif
 
 	return ret_;
 }

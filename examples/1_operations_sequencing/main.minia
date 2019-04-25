@@ -4,10 +4,10 @@ function main
 	and returns nothing at all
 	so it causes side effects
 	and does
-	print 'you roll 3d6 and get '
+	print string literal you roll 3d6 and get  string literal ends
 	comment   You can sequence up to five operations per function. comment ends
 	and then print value_rolls_results_
-	and then print ', '
+	and then print string literal ,  string literal ends
 	and then print
 		comment   The `if` statement, and expression, can be also a
 		 * value. Note that the `if` statement and expression is
@@ -17,13 +17,13 @@ function main
 		 * programming such as C++. comment ends
 		if value_rolls_results_ is greater than 12
 		then
-			"that's awesome"
+			string literal that's awesome string literal ends
 		else
 			if value_rolls_results_ is less than 6
 			then
-				"that's bad luck"
+				string literal that's bad luck string literal ends
 			else
-				"that's fine"
+				string literal that's fine string literal ends
 			end if
 		end if
 	and then new line

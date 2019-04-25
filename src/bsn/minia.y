@@ -110,6 +110,8 @@ b_trace_unsigned_char(unsigned char value)
   stt_node * node;
 }
 
+%token T_AT_SYMBOL
+
 %token<node> T_NATURAL_LITERAL
 %token<node> T_INTEGER_LITERAL
 %token<node> T_RATIONAL_LITERAL
@@ -292,7 +294,10 @@ cli_application :
 
   assertion_two($2 != NULL, "`$2` unexpectedly NULL");
   if ($2->type_ != STT_NODE_TYPE_IDENTIFIER) {
+
+#ifdef DUMP_FLOW_TO_STDERR
     fprintf(stderr, "%s:%u - $2->type: %u\n", __FILE__, __LINE__, $2->type_);
+#endif
   }
   assertion($2->type_ == STT_NODE_TYPE_IDENTIFIER);
   assertion($2->identifier_subnode_ != NULL);
@@ -353,7 +358,10 @@ cli_named_function :
 
   assertion($2 != NULL);
   if ($2->type_ != STT_NODE_TYPE_IDENTIFIER) {
+
+#ifdef DUMP_FLOW_TO_STDERR
     fprintf(stderr, "%s:%u - $2->type_: %u\n", __FILE__, __LINE__, $2->type_);
+#endif
   }
   assertion($2->type_ == STT_NODE_TYPE_IDENTIFIER);
   assertion($2->identifier_subnode_ != NULL);
@@ -373,7 +381,10 @@ cli_named_function :
   /*   Those are hanging from $17 */
   assertion_two($17 != NULL, "`$17` unexpectedly NULL");
   if ($17->type_ != STT_NODE_TYPE_CLI_OPERATIONS_LIST) {
+
+#ifdef DUMP_FLOW_TO_STDERR
     fprintf(stderr, "$17->type_: %u\n", $17->type_);
+#endif
   }
   assertion_two($17->type_ == STT_NODE_TYPE_CLI_OPERATIONS_LIST,
       "unexpected value for `$17->type_`");
@@ -625,7 +636,9 @@ function_statement :
   b_trace_unsigned_char($2->type_);
   b_trace_chars_array("\n");
 
+#ifdef DUMP_FLOW_TO_STDERR
   fprintf(stderr, "%u\n", $2->type_);
+#endif
   if ($2->type_ == STT_NODE_TYPE_STRING_LITERAL) {
     assert_clean_string_literal_node($2);
   } else if ($2->type_ == STT_NODE_TYPE_NATURAL_LITERAL) {
@@ -703,7 +716,10 @@ expression :
       STT_CONDITION_TYPE_INVALID);
   assertion($4 != NULL);
   if ($4->type_ != STT_NODE_TYPE_EXPRESSION) {
+
+#ifdef DUMP_FLOW_TO_STDERR
     fprintf(stderr, "%u\n", $4->type_);
+#endif
   }
   assertion($4->type_ == STT_NODE_TYPE_EXPRESSION);
   assertion($4->expression_subnode_ != NULL);
@@ -1167,7 +1183,10 @@ condition :
     assertion($1->identifier_subnode_->value_ != NULL);
   } else {
     if ($1->type_ != STT_NODE_TYPE_EXPRESSION) {
+
+#ifdef DUMP_FLOW_TO_STDERR
       fprintf(stderr, "%u\n", $1->type_);
+#endif
     }
     assertion($1->type_ == STT_NODE_TYPE_EXPRESSION);
     assertion($1->expression_subnode_ != NULL);
@@ -1185,7 +1204,10 @@ condition :
     assertion($5->identifier_subnode_->value_ != NULL);
   } else {
     if ($5->type_ != STT_NODE_TYPE_EXPRESSION) {
+
+#ifdef DUMP_FLOW_TO_STDERR
       fprintf(stderr, "%u\n", $5->type_);
+#endif
     }
     assertion($5->type_ == STT_NODE_TYPE_EXPRESSION);
     assertion($5->expression_subnode_ != NULL);
@@ -1253,7 +1275,10 @@ condition :
     assertion($1->identifier_subnode_->value_ != NULL);
   } else {
     if ($1->type_ != STT_NODE_TYPE_EXPRESSION) {
+
+#ifdef DUMP_FLOW_TO_STDERR
       fprintf(stderr, "%u\n", $1->type_);
+#endif
     }
     assertion($1->type_ == STT_NODE_TYPE_EXPRESSION);
     assertion($1->expression_subnode_ != NULL);
@@ -1271,7 +1296,10 @@ condition :
     assertion($5->identifier_subnode_->value_ != NULL);
   } else {
     if ($5->type_ != STT_NODE_TYPE_EXPRESSION) {
+
+#ifdef DUMP_FLOW_TO_STDERR
       fprintf(stderr, "%u\n", $5->type_);
+#endif
     }
     assertion($5->type_ == STT_NODE_TYPE_EXPRESSION);
     assertion($5->expression_subnode_ != NULL);
@@ -1338,8 +1366,11 @@ minia_bison_main(FILE * file)
         } while (!feof(miniain));
   if (miniaparse_ret_ == miniaparse_ret_success_) {
     if (shared_with_miniaparse_->type_ != STT_NODE_TYPE_DOC) {
+
+#ifdef DUMP_FLOW_TO_STDERR
       fprintf(stderr, "shared_with_miniaparse_->type_: %u\n",
           shared_with_miniaparse_->type_);
+#endif
     }
     assertion_two(
         shared_with_miniaparse_->type_ == STT_NODE_TYPE_DOC,

@@ -4,7 +4,7 @@ comment   All of these characters aren't used, but their use doesn't
           XXX Missing digits.
           XXX Missing alpha characters.
 comment ends
- !"#$%& ()*+,-./          :;<=>?@                          [\]^_`                          {|}~
+ !"#$%&'()*+,-./          :;<=>?@                          [\]^_`                          {|}~
 
 function main
 	is a command line interface application function
@@ -12,5 +12,8 @@ function main
 	and returns nothing at all
 	so it causes side effects
 	and does
-	print 'foo'
+	print string literal foo string literal ends
+	and then new line
+	and then print string literal 0 string literal ends
+	and then new line
 end function main

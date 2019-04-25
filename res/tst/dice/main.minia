@@ -1,0 +1,9 @@
+function main
+	is a command line interface application function
+	and receives nothing at all
+	and returns nothing at all
+	so it causes side effects
+	and does
+	print 3d6
+	and then new line
+end function main

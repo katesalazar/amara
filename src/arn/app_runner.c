@@ -89,15 +89,22 @@ run_app(const char * app_name)
 	unsigned char acquire_dir_return_status_;
 	unsigned char inner_status_;
 #ifdef __AMARA__POSIX
-    char * cwd_buffer_;
-    char * getcwd_return_;
+	char * cwd_buffer_;
+	char * getcwd_return_;
 #endif
 
 #ifdef __AMARA__POSIX
-    cwd_buffer_ = malloc(4096);
-    getcwd_return_ = getcwd(cwd_buffer_, 3072);
-    printf("cwd: %s\n", getcwd_return_);
-    printf("cwd: %s\n", cwd_buffer_);
+	cwd_buffer_ = malloc(4096);
+	forced_assertion(cwd_buffer_ != NULL);
+	getcwd_return_ = getcwd(cwd_buffer_, 3072);
+
+#ifdef DUMP_FLOW_TO_STDERR
+	printf("cwd: %s\n", getcwd_return_);
+	printf("cwd: %s\n", cwd_buffer_);
+#endif
+
+	forced_assertion(getcwd_return_ == cwd_buffer_);
+
     /* XXX could react differently depending on the value of cwd?
      * XXX /Users/uprego/Desktop/dat/not_backed_up/own/github_katesalazar/amara
      * XXX vs
@@ -142,6 +149,7 @@ run_app_dir_exists(const char * app_name)
 		must_append_slash_ = 0xFF;
 	}
 	appended_ = (const char *) malloc(sizeof(MAIN_NAME) + 1);
+	forced_assertion(appended_ != NULL);
 	strcpy((char *) appended_, MAIN_NAME);
 	path_to_main_len_ = app_name_len_ + (must_append_slash_ ? 1 : 0) +
 			strlen(appended_);
@@ -199,7 +207,9 @@ run_app_main_doc_exists(
 				look_for_undefined_labels_ret_->status);
 		ptr_ = look_for_undefined_labels_ret_->messages;
 		while (ptr_ != NULL) {
+#ifdef DUMP_FLOW_TO_STDERR
 			fprintf(stderr, "%s\n", ptr_->first);
+#endif
 			ptr_ = ptr_->next;
 		}
 		look_for_undefined_labels_ret_destructor(
@@ -221,34 +231,46 @@ run_app_main_doc_exists(
 	 * or type analysis) have been turned to entity pointers. */
 	rtg_doc_out_of_stt_doc_ret_ =
 			rtg_doc_out_of_stt_doc(minia_bison_main_ret_);
-    
-    fprintf(stderr, "app_runner:225\n");
+
+#ifdef DUMP_FLOW_TO_STDERR
+	fprintf(stderr, "app_runner:225\n");
+#endif
 
 	forced_assertion(rtg_doc_out_of_stt_doc_ret_->status ==
 			RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_SUCCESS);
 
-    fprintf(stderr, "app_runner:230\n");
-    
+#ifdef DUMP_FLOW_TO_STDERR
+	fprintf(stderr, "app_runner:230\n");
+#endif
+
 	process_rtg_doc_execution_requests_ret_ =
 			process_rtg_doc_execution_requests(
 					rtg_doc_out_of_stt_doc_ret_->doc);
-    
-    fprintf(stderr, "app_runner:236\n");
+
+#ifdef DUMP_FLOW_TO_STDERR
+	fprintf(stderr, "app_runner:236\n");
+#endif
 
 	forced_assertion(process_rtg_doc_execution_requests_ret_->status ==
 			PROCESS_RTG_DOC_EXECUTION_REQUESTS_RET_STATUS_SUCCESS);
-    
-    fprintf(stderr, "app_runner:241\n");
+
+#ifdef DUMP_FLOW_TO_STDERR
+	fprintf(stderr, "app_runner:241\n");
+#endif
 
 	process_rtg_doc_execution_requests_ret_destructor(
 			process_rtg_doc_execution_requests_ret_);
 	process_rtg_doc_execution_requests_ret_ = NULL;
-    
-    fprintf(stderr, "app_runner:247\n");
+
+#ifdef DUMP_FLOW_TO_STDERR
+	fprintf(stderr, "app_runner:247\n");
+#endif
 
 	rtg_doc_out_of_stt_doc_ret_destructor(rtg_doc_out_of_stt_doc_ret_);
-    
-    fprintf(stderr, "app_runner:251\n");
+
+#ifdef DUMP_FLOW_TO_STDERR
+	fprintf(stderr, "app_runner:251\n");
+#endif
 
 	return APP_RUNNER_RUN_APP_RET_SUCCESS;
 }
@@ -958,21 +980,21 @@ run_named_function(const rtg_named_function * function,
 			where_value_bindings_);
 	operation_scope_values_ = arn_values_simple_list_default_constructor();
 
-    /* XXX is this dangerous if theres no refcount? is it correct if shadowing is not allowed? */
+	/* XXX is this dangerous if theres no refcount? is it correct if shadowing is not allowed? */
 	operation_scope_values_ =
 			arn_values_simple_list_push_front_as_references_all_elements_of_arn_values_fixed_list(
 					operation_scope_values_,
 					function_scope_values);
 
-    /* XXX is this dangerous if theres no refcount? is it correct if shadowing is not allowed? */
+	/* XXX is this dangerous if theres no refcount? is it correct if shadowing is not allowed? */
 	operation_scope_values_ =
 			arn_values_simple_list_push_front_as_references_all_elements_of_arn_values_fixed_list(
 					operation_scope_values_,
 					where_values_);
 
 	while (operations_ptr_ != NULL) {
-        
-        /* operation_scope_values_ not correctly initialized? */
+
+		/* operation_scope_values_ not correctly initialized? */
 		operation_returned_value_ = run_operation(
 				operations_ptr_->first,
 				operation_scope_values_/*,
@@ -993,8 +1015,12 @@ run_application(const rtg_application * application)
 	arn_values_fixed_list * global_values_scope_;
 	arn_named_function_returned_value * entry_point_function_returned_value_;
 	/* arn_variables_simple_list * variables_; */
+
+#ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "----> %s:%u (%s)\n", __FILE__, __LINE__,
 			"void run_application(const application *)");
+#endif
+
 	global_values_scope_ = arn_values_fixed_list_default_constructor();
 	/* variables_ = arn_variables_simple_list_default_constructor(); */
 	entry_point_function_ = application->entry_point_function_;
@@ -1024,20 +1050,22 @@ process_rtg_doc_execution_requests(const rtg_doc * doc)
 	rtg_execution_requests_simple_list * execution_requests_ptr_;
 
 	ret_ = malloc(sizeof(process_rtg_doc_execution_requests_ret));
-    forced_assertion(ret_ != NULL);
+	forced_assertion(ret_ != NULL);
 	ret_->status = PROCESS_RTG_DOC_EXECUTION_REQUESTS_RET_STATUS_INVALID;
 	forced_assertion(doc != NULL);
 	execution_requests_ptr_ = doc->execution_requests_;
-    forced_assertion_two(doc->execution_requests_ != NULL, "abcdef");
-    if (doc->execution_requests_->first != NULL) {
-    forced_assertion_two(doc->execution_requests_->first != NULL, "cdefgh");
+	forced_assertion_two(doc->execution_requests_ != NULL, "abcdef");
+	if (doc->execution_requests_->first != NULL) {
+		forced_assertion_two(doc->execution_requests_->first != NULL,
+				"cdefgh");
 	while (execution_requests_ptr_ != NULL) {
 		run_application(execution_requests_ptr_->first->application_);
 		execution_requests_ptr_ = execution_requests_ptr_->next;
 	}
-    } else {
-        forced_assertion_two(doc->execution_requests_->next == NULL, "fghijk");
-    }
+	} else {
+		forced_assertion_two(doc->execution_requests_->next == NULL,
+				"fghijk");
+	}
 	ret_->status = PROCESS_RTG_DOC_EXECUTION_REQUESTS_RET_STATUS_SUCCESS;
 	return ret_;
 }

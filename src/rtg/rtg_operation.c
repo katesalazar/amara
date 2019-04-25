@@ -139,7 +139,10 @@ rtg_operation_copy_constructor(const rtg_operation * operation)
 	assertion(operation->type_ != RTG_OPERATION_TYPE_INVALID);
 	assertion(operation->args_ != NULL);
 	if (operation->args_->first == NULL) {
+
+#ifdef DUMP_FLOW_TO_STDERR
 		fprintf(stderr, "%u\n", operation->type_);
+#endif
 	}
 	if (operation->type_ == RTG_OPERATION_TYPE_PRINT_CRLF) {
 		/*   No args operation. */
@@ -228,13 +231,22 @@ rtg_operation_copy_constructor(const rtg_operation * operation)
 	/*
 	if (operation->type_ != RTG_OPERATION_TYPE_INVALID *//* &&
 			operation->type_ !=  *//*) {*/
+
+#ifdef DUMP_FLOW_TO_STDERR
 		fprintf(stderr, "%u\n", operation->type_);
+#endif
+
 #ifndef NDEBUG
 		operation_type_as_string_ =
 				rtg_operation_type_as_string(operation->type_);
+
+#ifdef DUMP_FLOW_TO_STDERR
 		fprintf(stderr, "%s\n", operation_type_as_string_->value_);
+#endif
+
 		amara_string_destructor(operation_type_as_string_);
 #endif
+
 	/*
 	}
 	assertion(operation->type_ == RTG_OPERATION_TYPE_INVALID);

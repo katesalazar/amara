@@ -143,10 +143,16 @@ rtg_named_functions_simple_list_find_by_name(
 	rtg_named_functions_simple_list_find_by_name_ret * ret_;
 	rtg_named_functions_simple_list_find_by_name_ret * rec_ret_;
 	rtg_named_function * named_function_;
+
 	ret_ = malloc(sizeof(
 			rtg_named_functions_simple_list_find_by_name_ret));
+	forced_assertion(ret_ != NULL);
+
+#ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "----> %s:%u:rtg_named_functions_find_by_name_ret * rtg_named_functions_find_by_name(const rtg_named_functions_simple_list *, const amara_string *)\n",
 			__FILE__, __LINE__);
+#endif
+
 	ret_->status = RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_INVALID;
 	ret_->named_function = NULL;
 	ret_->named_function_was_moved = AMARA_BOOLEAN_FALSE;
@@ -154,8 +160,12 @@ rtg_named_functions_simple_list_find_by_name(
 		ret_->status = RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND;
 		ret_->named_function = NULL;
 		ret_->named_function_was_moved = AMARA_BOOLEAN_FALSE;
-		/* fprintf(stderr, "<---- %s:%u:find_rtg_named_function_by_name_ret * find_rtg_named_function_by_name(const amara_string *, const rtg_named_functions_simple_list *) - not found\n",
-				__FILE__, __LINE__); */
+
+#ifdef DUMP_FLOW_TO_STDERR
+		fprintf(stderr, "<---- %s:%u:find_rtg_named_function_by_name_ret * find_rtg_named_function_by_name(const amara_string *, const rtg_named_functions_simple_list *) - not found\n",
+				__FILE__, __LINE__);
+#endif
+
 		return ret_;
 	}
 	assertion(needle != NULL);
@@ -164,12 +174,20 @@ rtg_named_functions_simple_list_find_by_name(
 		named_function_ = rtg_named_function_copy_constructor(haystack->first);
 		ret_->named_function = named_function_;
 		ret_->named_function_was_moved = AMARA_BOOLEAN_FALSE;
-		/* fprintf(stderr, "<---- %s:%u:find_rtg_named_function_by_name_ret * find_rtg_named_function_by_name(const amara_string *, const rtg_named_functions_simple_list *) - found\n",
-				__FILE__, __LINE__); */
+
+#ifdef DUMP_FLOW_TO_STDERR
+		fprintf(stderr, "<---- %s:%u:find_rtg_named_function_by_name_ret * find_rtg_named_function_by_name(const amara_string *, const rtg_named_functions_simple_list *) - found\n",
+				__FILE__, __LINE__);
+#endif
+
 		return ret_;
 	}
-	/* fprintf(stderr, "--85- %s:%u:find_rtg_named_function_by_name_ret * find_rtg_named_function_by_name(const amara_string *, const rtg_named_functions_simple_list *) - looking in next\n",
-			__FILE__, __LINE__); */
+
+#ifdef DUMP_FLOW_TO_STDERR
+	fprintf(stderr, "--85- %s:%u:find_rtg_named_function_by_name_ret * find_rtg_named_function_by_name(const amara_string *, const rtg_named_functions_simple_list *) - looking in next\n",
+			__FILE__, __LINE__);
+#endif
+
 	rec_ret_ = rtg_named_functions_simple_list_find_by_name(
 			haystack->next, needle);
 	ret_->status = rec_ret_->status;
@@ -191,8 +209,12 @@ rtg_named_functions_simple_list_find_by_name(
 		ret_->named_function_was_moved = AMARA_BOOLEAN_FALSE;
 	}
 	rtg_named_functions_simple_list_find_by_name_ret_destructor(rec_ret_);
-	/* fprintf(stderr, "<---- %s:%u:find_rtg_named_function_by_name_ret * find_rtg_named_function_by_name(const amara_string *, const rtg_named_functions_simple_list *) - returning recursive case result inconditionally\n",
-			__FILE__, __LINE__); */
+
+#ifdef DUMP_FLOW_TO_SDERR
+	fprintf(stderr, "<---- %s:%u:find_rtg_named_function_by_name_ret * find_rtg_named_function_by_name(const amara_string *, const rtg_named_functions_simple_list *) - returning recursive case result inconditionally\n",
+			__FILE__, __LINE__);
+#endif
+
 	return ret_;
 }
 
@@ -206,10 +228,10 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 	const stt_named_functions_simple_list * list_ptr_;
 	rtg_named_function_out_of_stt_named_function_ret * sub_ret_fun_ret_;
 
-	/*
+#ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "%s:%u ----> rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list_ret * rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(const stt_named_functions_simple_list *)\n",
 			__FILE__, __LINE__);
-	*/
+#endif
 
 	ret_ = malloc(sizeof(
 			rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list_ret));
@@ -236,10 +258,12 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 		assertion(ret_->named_functions->next == NULL);
 #endif
 		ret_->status = RTG_NAMED_FUNCTIONS_SIMPLE_LIST_OUT_OF_STT_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
-		/*
+
+#ifdef DUMP_FLOW_TO_STDERR
 		fprintf(stderr, "%s:%u <---- rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list_ret * rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(const stt_named_functions_simple_list *)\n",
 				__FILE__, __LINE__);
-		*/
+#endif
+
 		return ret_;
 	}
 
@@ -312,8 +336,10 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 	ret_->named_functions = sub_ret_;
 	ret_->status = RTG_NAMED_FUNCTIONS_SIMPLE_LIST_OUT_OF_STT_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
 
+#ifdef DUMP_TRACE_TO_STDERR
 	fprintf(stderr, "%s:%u <---- rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list_ret * rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(const stt_named_functions_simple_list *)\n",
 			__FILE__, __LINE__);
+#endif
 
 	return ret_;
 }
@@ -359,8 +385,10 @@ rtg_named_functions_out_of_stt_doc(const stt_doc_subnode * subnode)
 	rtg_named_functions_out_of_stt_doc_ret * ret_;
 	rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list_ret * sub_ret_;
 
+#ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "%s:%u ----> rtg_named_functions_out_of_stt_doc_ret * rtg_named_functions_out_of_stt_doc(const stt_node *)\n",
 			__FILE__, __LINE__);
+#endif
 
 	ret_ = malloc(sizeof(rtg_named_functions_out_of_stt_doc_ret));
 	forced_assertion(ret_ != NULL);
@@ -401,8 +429,10 @@ rtg_named_functions_out_of_stt_doc(const stt_doc_subnode * subnode)
 
 	free(sub_ret_);
 
+#ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "%s:%u <---- rtg_named_functions_out_of_stt_doc_ret * rtg_named_functions_out_of_stt_doc(const stt_node *)\n",
 			__FILE__, __LINE__);
+#endif
 
 	return ret_;
 }

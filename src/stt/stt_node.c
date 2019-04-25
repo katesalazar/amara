@@ -1459,15 +1459,21 @@ register_execution_request(
 void
 dump_syntax_tree(const stt_node * node)
 {
+#ifdef DUMP_FLOW_TO_STDERR
 	unsigned char named_functions_len_; /* XXX */
+#endif
 	stt_applications_simple_list * applications_ptr_;
 	stt_applications_simple_list_length_ret * len_ret_ptr_;
+#ifdef DUMP_FLOW_TO_STDERR
 	unsigned char applications_len_; /* XXX */
+#endif
 	stt_application * application_;
 	char * entry_point_function_name_chars_array_;
 
+#ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "%s:%u ----> void dump_syntax_tree(const stt_node *)\n",
 			__FILE__, __LINE__);
+#endif
 
 	assertion(node->type_ == STT_NODE_TYPE_DOC);
 	/*
@@ -1476,6 +1482,7 @@ dump_syntax_tree(const stt_node * node)
 	assertion(node->doc_subnode_->execution_requests_ != NULL); *//* In the future, this won't be true (for libraries). *//*
 	*/
 
+#ifdef DUMP_FLOW_TO_STDERR
 	if (node->doc_subnode_->named_functions_ != NULL) {
 
 	named_functions_len_ = stt_named_functions_simple_list_length(
@@ -1484,9 +1491,12 @@ dump_syntax_tree(const stt_node * node)
 
 		named_functions_len_ = 0;
 	}
+#endif
 
+#ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "%s:%u - %u named_functions\n", __FILE__, __LINE__,
 			named_functions_len_);
+#endif
 
 	if (node->doc_subnode_->applications_ != NULL) {
 
@@ -1498,15 +1508,21 @@ dump_syntax_tree(const stt_node * node)
 			node->doc_subnode_->applications_);
 	forced_assertion(len_ret_ptr_->status ==
 			STT_APPLICATIONS_SIMPLE_LIST_LENGTH_RET_STATUS_SUCCESS);
+#ifdef DUMP_FLOW_TO_STDERR
 	applications_len_ = len_ret_ptr_->length;
+#endif
 	free(len_ret_ptr_);
 	} else {
 
+#ifdef DUMP_FLOW_TO_STDERR
 		applications_len_ = 0;
+#endif
 	}
 
+#ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "%s:%u - %u applications\n", __FILE__, __LINE__,
 			applications_len_);
+#endif
 
 	if (node->doc_subnode_->applications_ != NULL && node->doc_subnode_->applications_->first != NULL) {
 
@@ -1537,8 +1553,11 @@ dump_syntax_tree(const stt_node * node)
 		free(entry_point_function_name_chars_array_);
 		applications_ptr_ = applications_ptr_->next;
 	}
+
+#ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "%s:%u <---- void dump_syntax_tree(const stt_node *)\n",
 			__FILE__, __LINE__);
+#endif
 }
 
 void
@@ -1563,17 +1582,25 @@ look_for_undefined_labels_in_named_functions_(const stt_node * node)
 {
 	look_for_undefined_labels_ret * ret_;
 
+#ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "%s:%u ----> look_for_undefined_labels_ret * look_for_undefined_labels_in_named_functions(const stt_node *)\n",
 			__FILE__, __LINE__);
+#endif
+
 	ret_ = malloc(sizeof(look_for_undefined_labels_ret));
+	forced_assertion(ret_ != NULL);
 	ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID;
 	ret_->messages = NULL;
 	assertion(node != NULL);
 	assertion(node->type_ == STT_NODE_TYPE_DOC);
 	assertion(node->doc_subnode_ != NULL);
 	ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_OK;
+
+#ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "%s:%u <---- look_for_undefined_labels_ret * look_for_undefined_labels_in_named_functions(const stt_node *)\n",
 			__FILE__, __LINE__);
+#endif
+
 	return ret_;
 }
 
