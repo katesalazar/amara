@@ -756,7 +756,7 @@ an              {
                   return T_STRING_LITERAL;
                 }
 
-identifier[ ]([^i]|i[^d]|id[^e]|ide[^n]|iden[^t]|ident[^i]|identi[^f]|identif[^i]|identifi[^e]|identifie[^r]|identifier[^ ]|identifier[ ][^e]|identifier[ ]e[^n]|identifier[ ]en[^d]|identifier[ ]end[^s])+[ ]identifier[ ]ends {
+(identifier[ ]([^i]|i[^d]|id[^e]|ide[^n]|iden[^t]|ident[^i]|identi[^f]|identif[^i]|identifi[^e]|identifie[^r]|identifier[^ ]|identifier[ ][^e]|identifier[ ]e[^n]|identifier[ ]en[^d]|identifier[ ]end[^s])+[ ]identifier[ ]ends)|(ident[ ]([^i]|i[^d]|id[^e]|ide[^n]|iden[^t]|ident[^ ]|ident[ ][^e]|ident[ ]e[^n]|ident[ ]en[^d]|ident[ ]end[^s])+[ ]ident[ ]ends)|(id[ ]([^i]|i[^d]|id[^ ]|id[ ][^e]|id[ ]e[^n]|id[ ]en[^d]|id[ ]end[^s])+[ ]id[ ]ends) {
 
     unsigned char single_byte_indexer_;
     /* unsigned short double_bytes_indexer_; */
