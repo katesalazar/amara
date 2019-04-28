@@ -902,8 +902,16 @@ stt_node_set_expression(stt_node * node, const stt_expression * expression)
 		assertion(expression->sub_natural_literal_ == NULL);
 		assertion(expression->sub_conditional_ != NULL);
 		assertion(expression->sub_dice_ == NULL);
+	} else if (expression->type_ == STT_EXPRESSION_TYPE_IDENTIFIER) {
+
+		assertion(expression->sub_string_literal_ == NULL);
+		assertion(expression->sub_natural_literal_ == NULL);
+		assertion(expression->sub_conditional_ == NULL);
+		assertion(expression->sub_identifier_ != NULL);
+		assertion(expression->sub_dice_ == NULL);
 	} else {
-		assertion(expression->type_ == STT_EXPRESSION_TYPE_DICE);
+		assertion_two(expression->type_ == STT_EXPRESSION_TYPE_DICE,
+				"unidentifiable expression type");
 
 		assertion(expression->sub_string_literal_ == NULL);
 		assertion(expression->sub_natural_literal_ == NULL);

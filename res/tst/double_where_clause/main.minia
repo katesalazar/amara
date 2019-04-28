@@ -1,0 +1,11 @@
+function ident main ident ends
+	is a command line interface application function
+	and receives nothing at all
+	and returns nothing at all
+	so it causes side effects
+	and does
+	print id something id ends
+	and then new line
+	where id something id ends is set to id another thing id ends
+	where id another thing id ends is set to 0
+end function ident main ident ends

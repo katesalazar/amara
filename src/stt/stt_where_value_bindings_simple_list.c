@@ -115,6 +115,59 @@ stt_where_value_bindings_simple_list_destructor(
 	}
 }
 
+/**  `list` already checked as not NULL.
+ *   `addition` already checked as not NULL. */
+stt_where_value_bindings_simple_list *
+stt_where_value_bindings_simple_list_push_front_inner(
+		stt_where_value_bindings_simple_list * list,
+		const stt_where_value_binding * addition)
+__attribute__((warn_unused_result))
+;
+
+stt_where_value_bindings_simple_list *
+stt_where_value_bindings_simple_list_push_front_inner(
+		stt_where_value_bindings_simple_list * list,
+		const stt_where_value_binding * addition)
+{
+	stt_where_value_bindings_simple_list * new_node_;
+
+	new_node_ = (stt_where_value_bindings_simple_list *) malloc(sizeof(
+			stt_where_value_bindings_simple_list));
+	forced_assertion(new_node_ != NULL);
+
+	new_node_->first = stt_where_value_binding_copy_constructor(addition);
+	forced_assertion(new_node_->first != NULL);
+
+	new_node_->next = list;
+
+	return new_node_;
+}
+
+stt_where_value_bindings_simple_list *
+stt_where_value_bindings_simple_list_push_front(
+		stt_where_value_bindings_simple_list * list,
+		const stt_where_value_binding * addition)
+{
+	forced_assertion(list != NULL);
+	forced_assertion(addition != NULL);
+
+	if (list->first == NULL) {
+
+#ifndef NDEBUG
+		assertion(list->next == NULL);
+#endif
+
+		list->first = stt_where_value_binding_copy_constructor(
+				addition);
+		forced_assertion(list->first != NULL);
+
+		return list;
+	}
+
+	return stt_where_value_bindings_simple_list_push_front_inner(
+			list, addition);
+}
+
 void
 stt_where_value_bindings_simple_list_push_back(
 		stt_where_value_bindings_simple_list * list,

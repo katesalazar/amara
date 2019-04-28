@@ -509,7 +509,7 @@ function_where_clauses :
   /*
   }
   */
-  stt_where_value_bindings_simple_list_push_back(
+  where_value_bindings_ = stt_where_value_bindings_simple_list_push_front(
       where_value_bindings_, where_value_binding_);
   stt_node_set_where_value_bindings($$, where_value_bindings_);
   stt_node_destructor($2);
@@ -537,18 +537,30 @@ function_where_clause :
 {
   stt_where_value_binding * where_value_binding_;
 
-  b_trace_chars_array("function_where_clause : T_IDENTIFIER T_IS T_SET T_TO \n");
+  b_trace_chars_array("function_where_clause : T_IDENTIFIER T_IS T_SET T_TO ");
   b_trace_chars_array("expression\n");
 
-  assertion($1 != NULL);
-  assertion($1->type_ == STT_NODE_TYPE_IDENTIFIER);
-  assertion($1->identifier_subnode_ != NULL);
-  assertion($1->identifier_subnode_->value_ != NULL);
-  assertion($1->identifier_subnode_->value_->value_ != NULL);
-  assertion($5 != NULL);
-  assertion($5->type_ == STT_NODE_TYPE_EXPRESSION);
-  assertion($5->expression_subnode_ != NULL);
-  assertion($5->expression_subnode_->expression_ != NULL);
+  assertion_two($1 != NULL, "543");
+  assertion_two($1->type_ == STT_NODE_TYPE_IDENTIFIER, "544");
+  assertion_two($1->identifier_subnode_ != NULL, "545");
+  assertion_two($1->identifier_subnode_->value_ != NULL, "546");
+  assertion_two($1->identifier_subnode_->value_->value_ != NULL, "547");
+  assertion_two($5 != NULL, "548");
+
+  /*
+  if ($5->type_ == STT_NODE_TYPE_EXPRESSION) {
+  */
+
+    assertion_two($5->type_ == STT_NODE_TYPE_EXPRESSION, "549");
+    assertion_two($5->expression_subnode_ != NULL, "550");
+    assertion_two($5->expression_subnode_->expression_ != NULL, "551");
+  /*
+  } else {
+    forced_assertion_two($5->type_ == STT_NODE_TYPE_IDENTIFIER, "556");
+
+    FIXME
+  }
+  */
 
   where_value_binding_ = stt_where_value_binding_exhaustive_constructor(
       $1->identifier_subnode_->value_, $5->expression_subnode_->expression_);
@@ -870,10 +882,45 @@ expression :
 */
 | T_IDENTIFIER
 {
-  b_trace_chars_array("numeric_value : T_IDENTIFIER\n");
-  assertion($1->type_ == STT_NODE_TYPE_IDENTIFIER);
+  stt_expression * expression_;
+
+  b_trace_chars_array("expression : T_IDENTIFIER\n");
+  assertion_two($1->type_ == STT_NODE_TYPE_IDENTIFIER, "888");
+  fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
   assert_clean_identifier_node($1);
-  $$ = $1;
+  fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+
+  fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+  expression_ = stt_expression_default_constructor();
+  forced_assertion_two(expression_ != NULL, "892");
+  forced_assertion_two(expression_->type_ == STT_EXPRESSION_TYPE_INVALID,
+                       "896");
+  fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+
+  fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+  assertion_two($1->identifier_subnode_ != NULL, "894");
+  fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+  assertion_two($1->identifier_subnode_->value_ != NULL, "895");
+  fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+  stt_expression_set_identifier(expression_, $1->identifier_subnode_->value_);
+  forced_assertion_two(expression_->type_ == STT_EXPRESSION_TYPE_IDENTIFIER,
+                       "907");
+  forced_assertion_two(expression_->sub_identifier_ != NULL,
+                       "909");
+  fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+
+  fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+  $$ = stt_node_default_constructor();
+  forced_assertion_two($$ != NULL, "899");
+  fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+
+  fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+  stt_node_set_expression($$, expression_);
+  fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+
+  fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+  stt_expression_destructor(expression_);
+  fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
 }
 /*
 | T_LEFT_PARENS expression T_RIGHT_PARENS

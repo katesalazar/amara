@@ -46,6 +46,13 @@ stt_where_value_bindings_simple_list_destructor(
 		stt_where_value_bindings_simple_list * list)
 ;
 
+stt_where_value_bindings_simple_list *
+stt_where_value_bindings_simple_list_push_front(
+		stt_where_value_bindings_simple_list * list,
+		const stt_where_value_binding * addition)
+__attribute__((warn_unused_result))
+;
+
 void
 stt_where_value_bindings_simple_list_push_back(
 		stt_where_value_bindings_simple_list * list,

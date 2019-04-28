@@ -50,7 +50,7 @@ bison_test_0()
 
 	ret_ = run_app("./res/tst/ignored_chars/");
 
-	if (0) { assertion(ret_ == 0); } /* XXX disarm 'set but not used' */
+	if (1) { assertion(ret_ == 0); } /* XXX disarm 'set but not used' */
 
 	/* XXX
 	forced_assertion(ret_ == 0);
@@ -82,9 +82,9 @@ bison_test_1()
 	forced_assertion(ret_ == 0);
 	*/
 
-	ret_ = run_app("./res/tst/where_clause/");
+	ret_ = run_app("./res/tst/single_where_clause/");
 
-	if (0) { assertion(ret_ == 0); } /* XXX disarm 'set but not used' */
+	if (1) { assertion(ret_ == 0); } /* XXX disarm 'set but not used' */
 
 	/* XXX
 	forced_assertion(ret_ == 0);
@@ -101,7 +101,7 @@ bison_test_3()
 
 	ret_ = run_app("./res/tst/dice/");
 
-	if (0) { assertion(ret_ == 0); } /* XXX disarm 'set but not used' */
+	if (1) { assertion(ret_ == 0); } /* XXX disarm 'set but not used' */
 }
 
 void
@@ -111,7 +111,17 @@ bison_test_4()
 
 	ret_ = run_app("./res/tst/conditional_expression/");
 
-	if (0) { assertion(ret_ == 0); } /* XXX disarm 'set but not used' */
+	if (1) { assertion(ret_ == 0); } /* XXX disarm 'set but not used' */
+}
+
+void
+bison_test_5()
+{
+	char ret_;
+
+	ret_ = run_app("./res/tst/double_where_clause/");
+
+	if (1) { assertion(ret_ == 0); } /* XXX disarm 'set but not used' */
 }
 
 void
@@ -125,4 +135,6 @@ bison_tests(void)
 	bison_test_3();
 
 	bison_test_4();
+
+	bison_test_5();
 }
