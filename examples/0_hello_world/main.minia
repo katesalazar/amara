@@ -11,7 +11,7 @@ comment
   told by Bjarne Stroustrup, which was a student working under his
   supervision.
 comment ends
-function main
+function identifier main identifier ends
 
 	comment
 	    Tagging a function as `command line interface application
@@ -67,11 +67,11 @@ function main
 
 comment   End the function scope in a similar way as traditional scope ending
  * in other languages would do in Algol, Pascal, etc. comment ends
-end function main
+end function identifier main identifier ends
 
 comment   Applications describe functions that can be called from outside the
  * language. comment ends
-application hello_world
+application identifier hello, world identifier ends
 
 	comment   Tagging an application as `command line interface
 	 * application` unlocks the possibility of running _command line
@@ -79,9 +79,9 @@ application hello_world
 	is a command line interface application
 
 	comment   The entry point function name is explicit. comment ends
-	and the entry point is function main
-end application hello_world
+	and the entry point is function identifier main identifier ends
+end application identifier hello, world identifier ends
 
 comment   An execution request must be processed by the language processor
  * as triggering a run of the chosen application. comment ends
-run command line interface application hello_world
+run command line interface application identifier hello, world identifier ends

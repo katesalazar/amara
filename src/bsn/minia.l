@@ -756,7 +756,7 @@ an              {
                   return T_STRING_LITERAL;
                 }
 
-[a-z][0-9_a-z]* {
+identifier[ ]([^i]|i[^d]|id[^e]|ide[^n]|iden[^t]|ident[^i]|identi[^f]|identif[^i]|identifi[^e]|identifie[^r]|identifier[^ ]|identifier[ ][^e]|identifier[ ]e[^n]|identifier[ ]en[^d]|identifier[ ]end[^s])+[ ]identifier[ ]ends {
 
     unsigned char single_byte_indexer_;
     /* unsigned short double_bytes_indexer_; */

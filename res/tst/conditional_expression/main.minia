@@ -1,10 +1,13 @@
-function main
+function identifier main identifier ends
 	is a command line interface application function
 	and receives nothing at all
 	and returns nothing at all
 	so it causes side effects
 	and does
-	print something_
+	print identifier something else identifier ends
 	and then new line
-	where something_ is set to if 0 is less than 1 then 0 else 1 end if
-end function main
+	where
+		identifier something else identifier ends
+		is set to
+		if 0 is less than 1 then 0 else 1 end if
+end function identifier main identifier ends

@@ -6,7 +6,7 @@ comment   All of these characters aren't used, but their use doesn't
 comment ends
  !"#$%&'()*+,-./          :;<=>?@                          [\]^_`                          {|}~
 
-function main
+function identifier main identifier ends
 	is a command line interface application function
 	and receives nothing at all
 	and returns nothing at all
@@ -16,4 +16,4 @@ function main
 	and then new line
 	and then print string literal 0 string literal ends
 	and then new line
-end function main
+end function identifier main identifier ends
