@@ -34,7 +34,8 @@ function identifier main identifier ends
 
 	comment   The `value rolls results` identifier is a value bound to a _dice
 	 * operator_ returned value, by virtue of this `where` clause. comment ends
-	where identifier value rolls results identifier ends is set to 3d6
+	where identifier value rolls results identifier ends is bound to
+		extension roll 3 6 sided dice extension ends
 end function identifier main identifier ends
 
 application identifier functions structure identifier ends

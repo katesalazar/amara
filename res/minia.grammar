@@ -64,7 +64,7 @@ function_where_clauses :
 |
 ;
 function_where_clause :
-  IDENTIFIER IS SET TO expression
+  IDENTIFIER IS BOUND TO expression
 ;
 execution_request :
   RUN COMMAND LINE INTERFACE APPLICATION IDENTIFIER

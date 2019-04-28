@@ -116,7 +116,8 @@ b_trace_unsigned_char(unsigned char value)
 %token<node> T_INTEGER_LITERAL
 %token<node> T_RATIONAL_LITERAL
 
-%token T_A T_ALL T_AN T_AND T_APPLICATION T_ARGS T_AT T_AWESOME T_CARRIAGE
+%token T_A T_ALL T_AN T_AND T_APPLICATION T_ARGS T_AT T_AWESOME T_BOUND
+%token T_CARRIAGE
 %token T_CAUSES T_CHAIN T_COMMAND T_COMMANDS T_DIVISION
 %token T_DOES T_EASE T_EFFECTS T_ELSE T_END
 %token T_ENTRY T_FEED T_FORMULA T_FUNCTION T_GREATER T_IF T_INTEGER T_INTERFACE
@@ -533,11 +534,11 @@ function_where_clauses :
 ;
 
 function_where_clause :
-  T_IDENTIFIER T_IS T_SET T_TO expression
+  T_IDENTIFIER T_IS T_BOUND T_TO expression
 {
   stt_where_value_binding * where_value_binding_;
 
-  b_trace_chars_array("function_where_clause : T_IDENTIFIER T_IS T_SET T_TO ");
+  b_trace_chars_array("function_where_clause : T_IDENTIFIER T_IS T_BOUND T_TO ");
   b_trace_chars_array("expression\n");
 
   assertion_two($1 != NULL, "543");

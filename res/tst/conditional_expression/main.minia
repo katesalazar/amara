@@ -8,6 +8,6 @@ function identifier main identifier ends
 	and then new line
 	where
 		identifier something else identifier ends
-		is set to
+		is bound to
 		if 0 is less than 1 then 0 else 1 end if
 end function identifier main identifier ends

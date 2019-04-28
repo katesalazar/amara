@@ -540,7 +540,36 @@ evaluate_expression(const rtg_expression * expression,
 		assertion(returning_->string_ != NULL);
 		assertion(returning_->string_->value_ != AMARA_BOOLEAN_FALSE);
 #endif
-	} else{
+	} else if (expression->type_ == RTG_EXPRESSION_TYPE_IDENTIFIER) {
+
+		forced_assertion_two(expression->sub_identifier_ != NULL,
+				"app_runner.c: 545");
+		forced_assertion_two(expression->sub_identifier_->identifier_ != NULL,
+				"app_runner.c: 546");
+
+		forced_assertion_two(values != NULL,
+				"identifier binding not found");
+
+		forced_assertion_two(values->first != NULL,
+				"identifier binding not found");
+		forced_assertion_two(values->first->name_ != NULL,
+				"identifier binding not found");
+		forced_assertion_two(expression->sub_identifier_ != NULL,
+				"app_runner.c: 552");
+
+		if (amara_strings_equality(
+				values->first->name_,
+				expression->sub_identifier_->identifier_) ==
+						AMARA_BOOLEAN_TRUE) {
+
+			/* XXX Maybe better a reference? */
+			return arn_value_copy_constructor(values->first);
+		} else {
+
+			/* XXX Maybe better an iterative search? */
+			return evaluate_expression(expression, values->next);
+		}
+	} else {
 #ifndef NDEBUG
 		forced_assertion(expression->type_ ==
 				RTG_EXPRESSION_TYPE_CONDITIONAL);
@@ -724,10 +753,17 @@ run_operation(const rtg_operation * operation,
 					operation->args_->first->expression_,
 					values);
 			forced_assertion(expression_evaluated_value_ != NULL);
+
 #ifndef NDEBUG
+			/*
 			assertion(expression_evaluated_value_->type_ ==
 					ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING);
+			*/
 #endif
+
+			if (expression_evaluated_value_->type_ ==
+					ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING) {
+
 #ifndef NDEBUG
 			assertion(expression_evaluated_value_->string_ != NULL);
 			assertion(expression_evaluated_value_->string_->value_ !=
@@ -735,6 +771,21 @@ run_operation(const rtg_operation * operation,
 #endif
 			printf("%s",
 			       expression_evaluated_value_->string_->value_);
+			} else {
+				forced_assertion_two(expression_evaluated_value_->type_ == ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL,
+						"unexpected behavior, app_runner.c: 761");
+
+#ifndef NDEBUG
+				assertion_two(expression_evaluated_value_->natural_ != NULL,
+						"app_runner.c: 764");
+				assertion_two(expression_evaluated_value_->natural_->raw_ != NULL,
+						"app_runner.c: 765");
+				assertion_two(expression_evaluated_value_->natural_->raw_->value_ != NULL,
+						"app_runner.c: 766");
+#endif
+				printf("%s",
+				       expression_evaluated_value_->natural_->raw_->value_);
+			}
 		}
 		forced_assertion(operation->type_ == RTG_OPERATION_TYPE_PRINT);
 		/*

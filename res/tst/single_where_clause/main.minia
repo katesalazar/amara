@@ -6,5 +6,5 @@ function ident main ident ends
 	and does
 	print id something id ends
 	and then new line
-	where id something id ends is set to 0
+	where id something id ends is bound to 0
 end function ident main ident ends

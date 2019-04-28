@@ -243,10 +243,150 @@ _ {
     trace_flex_three("ignoring tilde ('", yytext, "')\n");
 }
 
-[Ee][Xx][Tt][Ee][Nn][s][i][o][n]([^Ee]|[Ee][^Xx]|[e][x][^Tt]|[e][x][t][^Ee]|[e][x][t][e][^Nn]|exten[^Ss]|extens[^Ii]|extensi[^Oo]|extensio[^Nn]|extension[^ \n\t]|extension[ \n\t]+[^Ee]|extension[ \n\t]+e[^n]|extension[ \n\t]+en[^d]|extension[ \n\t]+end[^s])*extension[ \n\t]+ends {
+[Ee][Xx][Tt][Ee][Nn][s][i][o][n][ ]([^ ]|[ ][^Ee]|[ ][Ee][^Xx]|[ ][e][x][^Tt]|[ ][e][x][t][^Ee]|[ ][e][x][t][e][^Nn]|[ ]exten[^Ss]|[ ]extens[^Ii]|[ ]extensi[^Oo]|[ ]extensio[^Nn]|[ ]extension[^ \n\t]|[ ]extension[ \n\t]+[^Ee]|[ ]extension[ \n\t]+e[^n]|[ ]extension[ \n\t]+en[^d]|[ ]extension[ \n\t]+end[^s])+[ ]extension[ \n\t]+ends {
 
     /*   Extensions are implementation dependent. */
-    trace_flex_three("ignoring extension ('", yytext, "')\n");
+
+    unsigned short miniatext_index_;
+    char * dice_left_hand_side_char_array_;
+    amara_string * dice_left_hand_side_raw_natural_;
+    natural * dice_left_hand_side_;
+    char * dice_right_hand_side_char_array_;
+    amara_string * dice_right_hand_side_raw_natural_;
+    natural * dice_right_hand_side_;
+    stt_dice_expression * dice_expression_;
+
+    trace_flex_three("analyzing extension ('", yytext, "')...\n");
+
+    forced_assertion(yytext[0] == 'e');
+    forced_assertion(yytext[1] == 'x');
+    forced_assertion(yytext[2] == 't');
+    forced_assertion(yytext[3] == 'e');
+    forced_assertion(yytext[4] == 'n');
+    forced_assertion(yytext[5] == 's');
+    forced_assertion(yytext[6] == 'i');
+    forced_assertion(yytext[7] == 'o');
+    forced_assertion(miniatext[8] == 'n');
+    forced_assertion(yytext[9] == ' ');
+
+    fprintf(stderr, "minialeng: %u\n", minialeng);
+    for (
+        miniatext_index_ = 0; miniatext_index_ < minialeng;
+        miniatext_index_++)
+    {
+      fprintf(stderr, "miniatext[miniatext_index_: %u]: %c\n",
+              miniatext_index_, miniatext[miniatext_index_]);
+    }
+
+    if (miniatext[10] == 'r') {
+
+      forced_assertion(yytext[11] == 'o');
+      forced_assertion(yytext[12] == 'l');
+      forced_assertion(yytext[13] == 'l');
+      forced_assertion(yytext[14] == ' ');
+
+      assertion(yytext[15] > 48 && yytext[15] < 58);
+      dice_left_hand_side_char_array_ = malloc(1 + 1);
+      dice_left_hand_side_char_array_[0] = yytext[15];
+      dice_left_hand_side_char_array_[1] = '\0';
+      dice_left_hand_side_raw_natural_ =
+          amara_string_exhaustive_constructor(dice_left_hand_side_char_array_);
+      dice_left_hand_side_ =
+          natural_exhaustive_constructor(dice_left_hand_side_raw_natural_);
+
+      assertion(yytext[16] == ' ');
+
+      if (yytext[17] == '4' || yytext[17] == '6' || yytext[17] == '8') {
+        dice_right_hand_side_char_array_ = malloc(1 + 1);
+        dice_right_hand_side_char_array_[0] = yytext[17];
+        dice_right_hand_side_char_array_[1] = '\0';
+        forced_assertion(yytext[18] == ' ');
+        forced_assertion(yytext[19] == 's');
+        forced_assertion(yytext[20] == 'i');
+        forced_assertion(yytext[21] == 'd');
+        forced_assertion(yytext[22] == 'e');
+        forced_assertion(yytext[23] == 'd');
+        forced_assertion(yytext[24] == ' ');
+        forced_assertion(yytext[25] == 'd');
+        forced_assertion(yytext[26] == 'i');
+        forced_assertion(yytext[27] == 'c');
+        forced_assertion(yytext[28] == 'e');
+        forced_assertion(yytext[29] == ' ');
+        forced_assertion(yytext[30] == 'e');
+        forced_assertion(yytext[31] == 'x');
+        forced_assertion(yytext[32] == 't');
+        forced_assertion(yytext[33] == 'e');
+        forced_assertion(yytext[34] == 'n');
+        forced_assertion(yytext[35] == 's');
+        forced_assertion(yytext[36] == 'i');
+        forced_assertion(yytext[37] == 'o');
+        forced_assertion(yytext[38] == 'n');
+        forced_assertion(yytext[39] == ' ');
+        forced_assertion(yytext[40] == 'e');
+        forced_assertion(yytext[41] == 'n');
+        forced_assertion(yytext[42] == 'd');
+        forced_assertion(yytext[43] == 's');
+      } else {
+        assertion(yytext[17] == '1' || yytext[17] == '2');
+        dice_right_hand_side_char_array_ = malloc(2 + 1);
+        dice_right_hand_side_char_array_[0] = yytext[17];
+        if (yytext[17] == '1') {
+          assertion(yytext[18] == '2');
+        } else if (yytext[17] == '2') {
+          assertion(yytext[18] == '0');
+        }
+        dice_right_hand_side_char_array_[1] = yytext[18];
+        dice_right_hand_side_char_array_[2] = '\0';
+        forced_assertion(yytext[19] == ' ');
+        forced_assertion(yytext[20] == 's');
+        forced_assertion(yytext[21] == 'i');
+        forced_assertion(yytext[22] == 'd');
+        forced_assertion(yytext[23] == 'e');
+        forced_assertion(yytext[24] == 'd');
+        forced_assertion(yytext[25] == ' ');
+        forced_assertion(yytext[26] == 'd');
+        forced_assertion(yytext[27] == 'i');
+        forced_assertion(yytext[28] == 'c');
+        forced_assertion(yytext[29] == 'e');
+        forced_assertion(yytext[30] == ' ');
+        forced_assertion(yytext[31] == 'e');
+        forced_assertion(yytext[32] == 'x');
+        forced_assertion(yytext[33] == 't');
+        forced_assertion(yytext[34] == 'e');
+        forced_assertion(yytext[35] == 'n');
+        forced_assertion(yytext[36] == 's');
+        forced_assertion(yytext[37] == 'i');
+        forced_assertion(yytext[38] == 'o');
+        forced_assertion(yytext[39] == 'n');
+        forced_assertion(yytext[40] == ' ');
+        forced_assertion(yytext[41] == 'e');
+        forced_assertion(yytext[42] == 'n');
+        forced_assertion(yytext[43] == 'd');
+        forced_assertion(yytext[44] == 's');
+      }
+
+      dice_right_hand_side_raw_natural_ = amara_string_exhaustive_constructor(
+          dice_right_hand_side_char_array_);
+      dice_right_hand_side_ =
+          natural_exhaustive_constructor(dice_right_hand_side_raw_natural_);
+
+      dice_expression_ = stt_dice_expression_exhaustive_constructor(
+          dice_left_hand_side_, dice_right_hand_side_);
+
+      minialval.node = stt_node_default_constructor();
+      stt_node_set_dice_expression(minialval.node, dice_expression_);
+
+      stt_dice_expression_destructor(dice_expression_);
+      natural_destructor(dice_left_hand_side_);
+      natural_destructor(dice_right_hand_side_);
+
+      trace_flex_three("accepting recognized extension ('", yytext, "')\n");
+
+      return T_DICE_EXPRESSION;
+    } else {
+
+      trace_flex_three("ignoring unrecognized extension ('", yytext, "')\n");
+    }
   }
 
 [Cc][Oo][Mm][Mm][Ee][Nn][Tt]([^c]|c[^o]|co[^m]|com[^m]|comm[^e]|comme[^n]|commen[^t]|comment[^ \n\t]|comment[ \n\t]+[^e]|comment[ \n\t]+e[^n]|comment[ \n\t]+en[^d]|comment[ \n\t]+end[^s])*[c][o][m][m][e][n][t][ \n\t]+[e][n][d][s] {
@@ -278,7 +418,7 @@ _ {
     assertion_two(0, "unimplemented code at %s:%d\n");
     return T_RATIONAL_LITERAL;
                 }
-
+ /*
 [1-9]d([468]|12|20) {
     char * dice_left_hand_side_char_array_;
     amara_string * dice_left_hand_side_raw_natural_;
@@ -286,7 +426,7 @@ _ {
     char * dice_right_hand_side_char_array_;
     amara_string * dice_right_hand_side_raw_natural_;
     natural * dice_right_hand_side_;
-    /**  FIXME MUST RETURN NOT AN stt_dice_expression BUT AN stt_expression CORRECTLY SET TO the STT_EXPRESSION_TYPE_DICE TYPE AND WITH ITS DATA HANGING FROM THE stt_expression_sub_dice SUB. */
+    *//**  FIXME MUST RETURN NOT AN stt_dice_expression BUT AN stt_expression CORRECTLY SET TO the STT_EXPRESSION_TYPE_DICE TYPE AND WITH ITS DATA HANGING FROM THE stt_expression_sub_dice SUB. *//*
     stt_dice_expression * dice_expression_;
 
     trace_flex_three("returning T_DICE_EXPRESSION (", yytext, ")\n");
@@ -339,6 +479,7 @@ _ {
 
     return T_DICE_EXPRESSION;
   }
+*/
 
 (0|[1-9][0-9]*) {
     unsigned char single_byte_indexer_;
@@ -663,6 +804,12 @@ causes {
 carriage {
     trace_flex_three("returning T_CARRIAGE (", yytext, ")\n");
     return T_CARRIAGE;
+  }
+
+bound {
+
+    trace_flex_three("returning T_BOUND (", yytext, ")\n");
+    return T_BOUND;
   }
 
 awesome         {
