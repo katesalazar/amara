@@ -19,6 +19,9 @@
 /*   For `void assert(scalar expression)`. */
 #include <assert.h>
 
+/*   XXX won't be available in every system. */
+#include <execinfo.h>
+
 /*   For `int fprintf(FILE * stream, const char * format, ...)`. */
 #include <stdio.h>
 
@@ -61,8 +64,22 @@ forced_assertion(int expression)
 void
 forced_assertion_two(int expression, const char * message)
 {
+	/**  FIXME This repeated allocation MUST be removed. */
+	void * call_stack[128];
+	char * * call_stack_strings;
+	short i, frames;
+
 	if (!expression) {
 		fprintf(stderr, "%s\n", message);
+
+	/* WARNING THIS IS ONLY VALID IN LINUX AND MACO (http://stackoverflow.com/questions/3899870/) */
+	frames = backtrace(call_stack, 128);
+	call_stack_strings = backtrace_symbols(call_stack, frames);
+	for (i = 0; i < frames; i++) {
+		printf("%s\n", call_stack_strings[i]);
+	}
+	free(call_stack_strings);
+
 	}
 
 	assert(expression);

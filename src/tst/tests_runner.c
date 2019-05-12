@@ -25,6 +25,8 @@
 /*   For `char * strcpy(char * dest, const char * src)`. */
 #include <string.h>
 
+#include "../arn/app_runner_tests.h"
+
 #include "../arn/arn_tests.h"
 
 /*   For `void assertion(int expression)`. */
@@ -151,6 +153,8 @@ run_tests(amara_boolean double_end_of_line_char)
 	bison_tests();
 
 	run_time_graph_tests();
+
+	app_runner_tests();
 
 	printf("... done\n");
 

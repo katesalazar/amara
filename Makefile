@@ -187,6 +187,7 @@ UTILS_DIR = utils
 	$(SRC_DIR)/cmn/amara_strings_simple_list.c \
 	$(SRC_DIR)/cmn/amara_strings_simple_list_tests.c \
 	$(SRC_DIR)/arn/app_runner.c \
+	$(SRC_DIR)/arn/app_runner_tests.c \
 	$(SRC_DIR)/arn/arn_tests.c \
 	$(SRC_DIR)/arn/arn_type.c \
 	$(SRC_DIR)/arn/arn_type_tests.c \
@@ -339,6 +340,7 @@ OBJ_DEBUG = \
 		$(BUILD_DIR_DEBUG)/amara_strings_simple_list.o \
 		$(BUILD_DIR_DEBUG)/amara_strings_simple_list_tests.o \
 		$(BUILD_DIR_DEBUG)/app_runner.o \
+		$(BUILD_DIR_DEBUG)/app_runner_tests.o \
 		$(BUILD_DIR_DEBUG)/arn_tests.o \
 		$(BUILD_DIR_DEBUG)/arn_type.o \
 		$(BUILD_DIR_DEBUG)/arn_type_tests.o \
@@ -491,6 +493,7 @@ OBJ_RELEASE = \
 		$(BUILD_DIR_RELEASE)/amara_strings_simple_list.o \
 		$(BUILD_DIR_RELEASE)/amara_strings_simple_list_tests.o \
 		$(BUILD_DIR_RELEASE)/app_runner.o \
+		$(BUILD_DIR_RELEASE)/app_runner_tests.o \
 		$(BUILD_DIR_RELEASE)/arn_tests.o \
 		$(BUILD_DIR_RELEASE)/arn_type.o \
 		$(BUILD_DIR_RELEASE)/arn_type_tests.o \
@@ -920,6 +923,18 @@ $(BUILD_DIR_RELEASE)/app_runner.o: \
 		$(SRC_DIR)/rtg/rtg_operation_arg.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
+$(BUILD_DIR_DEBUG)/app_runner_tests.o: \
+		$(SRC_DIR)/arn/app_runner_tests.c \
+		$(SRC_DIR)/arn/app_runner_tests.h \
+		$(SRC_DIR)/arn/app_runner.h
+	$(CC) $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/app_runner_tests.o: \
+		$(SRC_DIR)/arn/app_runner_tests.c \
+		$(SRC_DIR)/arn/app_runner_tests.h \
+		$(SRC_DIR)/arn/app_runner.h
+	$(CC) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
 $(BUILD_DIR_DEBUG)/arn_tests.o: \
 		$(SRC_DIR)/arn/arn_tests.c \
 		$(SRC_DIR)/arn/arn_tests.h \
@@ -992,6 +1007,7 @@ $(BUILD_DIR_DEBUG)/arn_values_fixed_list_tests.o: \
 		$(SRC_DIR)/arn/arn_values_fixed_list_tests.c \
 		$(SRC_DIR)/arn/arn_values_fixed_list_tests.h \
 		$(SRC_DIR)/arn/arn_values_fixed_list.h \
+		$(SRC_DIR)/arn/arn_value_tests.h \
 		$(SRC_DIR)/arn/arn_value.h \
 		$(SRC_DIR)/brt/natural.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
@@ -1000,6 +1016,7 @@ $(BUILD_DIR_RELEASE)/arn_values_fixed_list_tests.o: \
 		$(SRC_DIR)/arn/arn_values_fixed_list_tests.c \
 		$(SRC_DIR)/arn/arn_values_fixed_list_tests.h \
 		$(SRC_DIR)/arn/arn_values_fixed_list.h \
+		$(SRC_DIR)/arn/arn_value_tests.h \
 		$(SRC_DIR)/arn/arn_value.h \
 		$(SRC_DIR)/brt/natural.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<

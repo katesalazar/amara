@@ -243,6 +243,12 @@ Check out [`INSTALL_LEGACY.md`][5].
 
 * Valgrind and Gprof reporting.
 
+* Cppcheck reporting?
+
+* PMD-CPD reporting?
+
+* CCCC reporting?
+
 * Code coverage for interpreted minia source documents.
 
 * Support for multiple source documents.

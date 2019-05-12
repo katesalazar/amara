@@ -299,19 +299,44 @@ rtg_named_function_out_of_stt_named_function(
 
 #ifndef NDEBUG
 	/*   Subsidiary. */
-	/*
-	forced_assertion(where_value_bindings_sub_ret_sub_->first == NULL);
-	*/
-	/*   Subsidiary. */
 	forced_assertion(named_function->where_value_bindings_ != NULL);
+
+	/*   Subsidiary. */
+	/*
+	if (where_value_bindings_sub_ret_sub_->first == NULL) {
+
+		forced_assertion(named_function->where_value_bindings_ == NULL ||
+				named_function->where_value_bindings_->first == NULL);
+
+		if (named_function->where_value_bindings_ != NULL) {
+
+			forced_assertion(named_function->where_value_bindings_->first ==
+					NULL);
+		}
+	}
+	*/
+
 	/*   Subsidiary. */
 	/*
 	forced_assertion(named_function->where_value_bindings_->first == NULL);
 	*/
 
+	/*
 	forced_assertion(where_value_bindings_sub_ret_sub_->first != NULL ||
 			named_function->where_value_bindings_ == NULL ||
 			named_function->where_value_bindings_->first == NULL);
+	*/
+
+	if (where_value_bindings_sub_ret_sub_->first == NULL) {
+
+		forced_assertion_two(named_function->where_value_bindings_ != NULL,
+				"rtg_named_function.c: 330");
+		forced_assertion_two(named_function->where_value_bindings_->first == NULL,
+				"rtg_named_function.c: 332");
+	} else {
+		forced_assertion_two(where_value_bindings_sub_ret_sub_->first != NULL,
+				"rtg_named_function.c: 334");
+	}
 #endif
 
 	ret_->named_function->where_value_bindings_ =
@@ -334,7 +359,8 @@ rtg_named_function_out_of_stt_named_function(
 #endif
 
 #ifndef NDEBUG
-	assertion(named_function->type_ == STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION);
+	assertion(named_function->type_ ==
+			STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION);
 #endif
 
 	ret_->named_function->type_ = RTG_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION;

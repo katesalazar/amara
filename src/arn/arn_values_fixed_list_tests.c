@@ -28,9 +28,11 @@ arn_values_fixed_list_construct_and_destruct_test_0()
 	arn_values_fixed_list * list_;
 
 	list_ = arn_values_fixed_list_default_constructor();
-	assertion(list_ != NULL);
+	forced_assertion(list_ != NULL);
+#ifndef NDEBUG
 	assertion(list_->first == NULL);
 	assertion(list_->next == NULL);
+#endif
 
 	arn_values_fixed_list_destructor(list_);
 }
@@ -42,20 +44,28 @@ arn_values_fixed_list_construct_and_destruct_test_1()
 	arn_value * value_;
 
 	list_ = arn_values_fixed_list_default_constructor();
-	assertion(list_ != NULL);
+	forced_assertion(list_ != NULL);
+#ifndef NDEBUG
 	assertion(list_->first == NULL);
 	assertion(list_->next == NULL);
+#endif
 
 	value_ = arn_value_example_named_natural_zero();
-	assertion(value_ != NULL);
+	forced_assertion(value_ != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_arn_value_example_named_natural_zero(value_);
+#endif
 
 	arn_values_fixed_list_push_front(list_, value_);
+#ifndef NDEBUG
 	assert_expectations_on_arn_value_example_named_natural_zero(value_);
-	assertion(list_->first != NULL);
+#endif
+	forced_assertion(list_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_arn_value_example_named_natural_zero(
 			list_->first);
 	assertion(list_->next == NULL);
+#endif
 
 	arn_value_destructor(value_);
 	arn_values_fixed_list_destructor(list_);
@@ -69,39 +79,55 @@ arn_values_fixed_list_construct_and_destruct_test_2()
 	arn_value * value_one_;
 
 	list_ = arn_values_fixed_list_default_constructor();
-	assertion(list_ != NULL);
+	forced_assertion(list_ != NULL);
+#ifndef NDEBUG
 	assertion(list_->first == NULL);
 	assertion(list_->next == NULL);
+#endif
 
 	value_zero_ = arn_value_example_named_natural_zero();
-	assertion(value_zero_ != NULL);
+	forced_assertion(value_zero_ != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_arn_value_example_named_natural_zero(
 			value_zero_);
+#endif
 
 	value_one_ = arn_value_example_named_natural_one();
-	assertion(value_one_ != NULL);
+	forced_assertion(value_one_ != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_arn_value_example_named_natural_one(
 			value_one_);
+#endif
 
 	arn_values_fixed_list_push_front(list_, value_zero_);
+#ifndef NDEBUG
 	assert_expectations_on_arn_value_example_named_natural_zero(
 			value_zero_);
-	assertion(list_->first != NULL);
+#endif
+	forced_assertion(list_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_arn_value_example_named_natural_zero(
 			list_->first);
 	assertion(list_->next == NULL);
+#endif
 
 	arn_values_fixed_list_push_front(list_, value_one_);
+#ifndef NDEBUG
 	assert_expectations_on_arn_value_example_named_natural_one(
 			value_one_);
-	assertion(list_->first != NULL);
+#endif
+	forced_assertion(list_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_arn_value_example_named_natural_one(
 			list_->first);
-	assertion(list_->next != NULL);
-	assertion(list_->next->first != NULL);
+#endif
+	forced_assertion(list_->next != NULL);
+	forced_assertion(list_->next->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_arn_value_example_named_natural_zero(
 			list_->next->first);
 	assertion(list_->next->next == NULL);
+#endif
 
 	arn_value_destructor(value_one_);
 	arn_value_destructor(value_zero_);
@@ -129,36 +155,38 @@ arn_values_fixed_list_find_value_by_name_test_0()
 
 	value_name_expectation_ =
 			amara_string_exhaustive_constructor("zero");
-	assertion(value_name_expectation_ != NULL);
-	assertion(value_name_expectation_->value_ != NULL);
+	forced_assertion(value_name_expectation_ != NULL);
+	forced_assertion(value_name_expectation_->value_ != NULL);
 
 	value_raw_natural_expectation_ =
 			amara_string_exhaustive_constructor("0");
-	assertion(value_raw_natural_expectation_ != NULL);
-	assertion(value_raw_natural_expectation_->value_ != NULL);
+	forced_assertion(value_raw_natural_expectation_ != NULL);
+	forced_assertion(value_raw_natural_expectation_->value_ != NULL);
 
 	value_ = arn_value_example_named_natural_zero();
-	assertion(value_ != NULL);
-	assertion(value_->name_ != NULL);
-	assertion(value_->name_->value_ != NULL);
+	forced_assertion(value_ != NULL);
+	forced_assertion(value_->name_ != NULL);
+	forced_assertion(value_->name_->value_ != NULL);
 	equality_ = amara_string_equality(
 			value_->name_, value_name_expectation_);
-	assertion(equality_ == AMARA_BOOLEAN_TRUE);
-	assertion(value_->natural_ != NULL);
-	assertion(value_->natural_->raw_ != NULL);
-	assertion(value_->natural_->raw_->value_ != NULL);
+	forced_assertion(equality_ == AMARA_BOOLEAN_TRUE);
+	forced_assertion(value_->natural_ != NULL);
+	forced_assertion(value_->natural_->raw_ != NULL);
+	forced_assertion(value_->natural_->raw_->value_ != NULL);
 	equality_ = amara_string_equality(
 			value_->natural_->raw_,
 			value_raw_natural_expectation_);
-	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+	forced_assertion(equality_ == AMARA_BOOLEAN_TRUE);
 
 	haystack_ = arn_values_fixed_list_default_constructor();
-	assertion(haystack_ != NULL);
+	forced_assertion(haystack_ != NULL);
+#ifndef NDEBUG
 	assertion(haystack_->first == NULL);
 	assertion(haystack_->next == NULL);
+#endif
 
 	arn_values_fixed_list_push_front(haystack_, value_);
-	assertion(haystack_ != NULL);
+	forced_assertion(haystack_ != NULL);
 	assertion(haystack_->first != NULL);
 	assertion(haystack_->first->name_ != NULL);
 	assertion(haystack_->first->name_->value_ != NULL);

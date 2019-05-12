@@ -158,6 +158,7 @@
 		CFAFC9D5217CBAE0000842FC /* rtg_named_function_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CFAFC9D3217CBAE0000842FC /* rtg_named_function_tests.c */; };
 		CFBD79F8222FE755005A6867 /* rtg_expression_sub_dice_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CFBD79F6222FE755005A6867 /* rtg_expression_sub_dice_tests.c */; };
 		CFBD79F9222FE755005A6867 /* rtg_expression_sub_identifier_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CFBD79F7222FE755005A6867 /* rtg_expression_sub_identifier_tests.c */; };
+		CFD55539227AFE0A00A44D9B /* app_runner_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CFD55538227AFE0A00A44D9B /* app_runner_tests.c */; };
 		CFFFACBC21DFC93000B45764 /* rtg_where_value_bindings_simple_list_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CFFFACBB21DFC93000B45764 /* rtg_where_value_bindings_simple_list_tests.c */; };
 		CFFFACBE21DFC94A00B45764 /* rtg_where_value_binding_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CFFFACBD21DFC94900B45764 /* rtg_where_value_binding_tests.c */; };
 /* End PBXBuildFile section */
@@ -326,6 +327,7 @@
 		CFAFC9D3217CBAE0000842FC /* rtg_named_function_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = rtg_named_function_tests.c; path = src/rtg/rtg_named_function_tests.c; sourceTree = "<group>"; };
 		CFBD79F6222FE755005A6867 /* rtg_expression_sub_dice_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = rtg_expression_sub_dice_tests.c; path = src/rtg/rtg_expression_sub_dice_tests.c; sourceTree = "<group>"; };
 		CFBD79F7222FE755005A6867 /* rtg_expression_sub_identifier_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = rtg_expression_sub_identifier_tests.c; path = src/rtg/rtg_expression_sub_identifier_tests.c; sourceTree = "<group>"; };
+		CFD55538227AFE0A00A44D9B /* app_runner_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = app_runner_tests.c; path = src/arn/app_runner_tests.c; sourceTree = "<group>"; };
 		CFFEB32C2157CD2F00527450 /* foo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = foo; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFFFACBB21DFC93000B45764 /* rtg_where_value_bindings_simple_list_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = rtg_where_value_bindings_simple_list_tests.c; path = src/rtg/rtg_where_value_bindings_simple_list_tests.c; sourceTree = "<group>"; };
 		CFFFACBD21DFC94900B45764 /* rtg_where_value_binding_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = rtg_where_value_binding_tests.c; path = src/rtg/rtg_where_value_binding_tests.c; sourceTree = "<group>"; };
@@ -490,6 +492,7 @@
 		CF10B9BB222699380030F34E /* arn */ = {
 			isa = PBXGroup;
 			children = (
+				CFD55538227AFE0A00A44D9B /* app_runner_tests.c */,
 				CF9518412157D3CC004D3F16 /* app_runner.c */,
 				CFAFC9CC217CBA9F000842FC /* arn_values_fixed_list.c */,
 				CF66A05A217A55B7004D0B09 /* arn_value.c */,
@@ -690,6 +693,7 @@
 				CF9518362157D3AD004D3F16 /* minia.tab.c in Sources */,
 				CF7FB865219587A20063D890 /* stt_where_value_binding_subnode.c in Sources */,
 				CF376D5921653F7B000736E5 /* stt_string_literal_subnode_tests.c in Sources */,
+				CFD55539227AFE0A00A44D9B /* app_runner_tests.c in Sources */,
 				CF9518042157D33A004D3F16 /* stt_applications_simple_list.c in Sources */,
 				CF9517F42157D33A004D3F16 /* stt_tests.c in Sources */,
 				CF7AA87A22539669004CBEA1 /* amara_strings_simple_list_tests.c in Sources */,

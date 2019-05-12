@@ -105,16 +105,25 @@ run_app(const char * app_name)
 
 	forced_assertion(getcwd_return_ == cwd_buffer_);
 
-    /* XXX could react differently depending on the value of cwd?
-     * XXX /Users/uprego/Desktop/dat/not_backed_up/own/github_katesalazar/amara
-     * XXX vs
-     * XXX /Users/uprego/Library/Developer/Xcode/DerivedData/amara-crvidgitfstppwaorggtbfqtzsnb/Build/Products/Debug
-     */
-    if (strstr(cwd_buffer_, "/Library/Developer/Xcode/DerivedData/") != NULL) {
-		printf("%s\n", app_name);  /* FIXME if the app_name is a relative path, it's going to be most probably wrong. So if this is a test, it arguably can be simply ignored. If the path is absolute, it's going to be right, probably. */
+	/* XXX could react differently depending on the value of cwd?
+	 * XXX /Users/uprego/Desktop/dat/not_backed_up/own/github_katesalazar/amara
+	 * XXX vs
+	 * XXX /Users/uprego/Library/Developer/Xcode/DerivedData/amara-crvidgitfstppwaorggtbfqtzsnb/Build/Products/Debug
+	 */
+	/*
+	if (strstr(cwd_buffer_, "/Library/Developer/Xcode/DerivedData/") != NULL) {
+	*/
+
+		/* FIXME if the app_name is a relative path, it's going to be most probably wrong. So if this is a test, it arguably can be simply ignored. If the path is absolute, it's going to be right, probably. */
+	/*
 	} else {
+	*/
+
 		/*   Not using Xcode. On GNU/Linux, probably? */
+	/*
 	}
+	*/
+	printf("%s\n", app_name);
 #endif
 
 	acquire_dir_return_status_ = 0x00;
@@ -300,14 +309,67 @@ assert_types_compatible_for_condition_type_less_than(
 		arn_value * right_hand_side_value_)
 {
 	forced_assertion(left_hand_side_value_ != NULL);
-	forced_assertion(left_hand_side_value_->type_ ==
-			ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
+
+#if 0
+	printf("left_hand_side_value_->type_: %u\n",
+			left_hand_side_value_->type_);
+#endif
+
+	if (left_hand_side_value_->type_ ==
+			ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL) {
+
+	forced_assertion_two(
+			left_hand_side_value_->type_ ==
+					ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL,
+			"app_runner.c: 312\n");
 
 	forced_assertion(right_hand_side_value_ != NULL);
-	forced_assertion(right_hand_side_value_->type_ ==
-			ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
+
+#if 0
+	printf("right_hand_side_value_->type_: %u\n",
+			right_hand_side_value_->type_);
+#endif
+
+	if (right_hand_side_value_->type_ ==
+			ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL) {
+
+	forced_assertion_two(
+			right_hand_side_value_->type_ ==
+					ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL,
+			"app_runner.c: 318\n");
 
 	return AMARA_BOOLEAN_TRUE;
+
+	} else {
+		forced_assertion_two(
+				right_hand_side_value_->type_ ==
+						ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL,
+				"app_runner.c: 347\n");
+
+		return AMARA_BOOLEAN_TRUE;
+	}
+
+	} else {
+		forced_assertion_two(
+				left_hand_side_value_->type_ ==
+						ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL,
+				"app_runner.c: 341\n");
+
+		forced_assertion(right_hand_side_value_ != NULL);
+
+#if 0
+		printf("right_hand_side_value_->type_: %u\n",
+				right_hand_side_value_->type_);
+#endif
+
+		forced_assertion_two(
+				right_hand_side_value_->type_ ==
+						ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL,
+				"app_runner.c: 365\n");
+
+		return AMARA_BOOLEAN_TRUE;
+
+	}
 }
 
 #endif
@@ -331,12 +393,16 @@ assert_types_compatible_for_condition_type_greater_than(
 		arn_value * right_hand_side_value_)
 {
 	forced_assertion(left_hand_side_value_ != NULL);
-	forced_assertion(left_hand_side_value_->type_ ==
-			ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
+	forced_assertion_two(
+			left_hand_side_value_->type_ ==
+					ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL,
+			"app_runner.c: 343\n");
 
 	forced_assertion(right_hand_side_value_ != NULL);
-	forced_assertion(right_hand_side_value_->type_ ==
-			ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
+	forced_assertion_two(
+			right_hand_side_value_->type_ ==
+					ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL,
+			"app_runner.c: 349\n");
 
 	return AMARA_BOOLEAN_TRUE;
 }

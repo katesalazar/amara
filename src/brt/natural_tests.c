@@ -883,6 +883,27 @@ natural_copy_pointer_to_unsigned_long_into_raw_natural_tests()
 }
 
 void
+well_formed_raw_natural_test_0()
+{
+	amara_string * raw_natural_;
+	amara_boolean well_formed_;
+
+	raw_natural_ = amara_string_exhaustive_constructor("0");
+	forced_assertion(raw_natural_ != NULL);
+
+	well_formed_ = well_formed_raw_natural(raw_natural_);
+	forced_assertion(well_formed_ == AMARA_BOOLEAN_TRUE);
+
+	amara_string_destructor(raw_natural_);
+}
+
+void
+well_formed_raw_natural_tests()
+{
+	well_formed_raw_natural_test_0();
+}
+
+void
 raw_naturals_multiplication_as_raw_natural_test_0()
 {
 	amara_string * raw_natural_zero_;
@@ -1171,6 +1192,202 @@ raw_naturals_euclidean_quotient_as_raw_natural_tests()
 }
 
 void
+naturals_less_than_test_0()
+{
+	amara_string * raw_natural_zero_;
+	natural * natural_zero_;
+	amara_string * raw_natural_one_;
+	natural * natural_one_;
+	amara_boolean result_;
+
+	raw_natural_zero_ = amara_string_exhaustive_constructor("0");
+	forced_assertion(raw_natural_zero_ != NULL);
+
+	natural_zero_ = natural_exhaustive_constructor(raw_natural_zero_);
+	forced_assertion(natural_zero_ != NULL);
+
+	raw_natural_one_ = amara_string_exhaustive_constructor("1");
+	forced_assertion(raw_natural_one_ != NULL);
+
+	natural_one_ = natural_exhaustive_constructor(raw_natural_one_);
+	forced_assertion(natural_one_ != NULL);
+
+	result_ = naturals_less_than(natural_zero_, natural_one_);
+	forced_assertion(result_ == AMARA_BOOLEAN_TRUE);
+
+	natural_destructor(natural_one_);
+	amara_string_destructor(raw_natural_one_);
+	natural_destructor(natural_zero_);
+	amara_string_destructor(raw_natural_zero_);
+}
+
+void
+naturals_less_than_test_1()
+{
+	amara_string * raw_natural_zero_;
+	natural * natural_zero_;
+	amara_string * raw_natural_one_;
+	natural * natural_one_;
+	amara_boolean result_;
+
+	raw_natural_zero_ = amara_string_exhaustive_constructor("10");
+	forced_assertion(raw_natural_zero_ != NULL);
+
+	natural_zero_ = natural_exhaustive_constructor(raw_natural_zero_);
+	forced_assertion(natural_zero_ != NULL);
+
+	raw_natural_one_ = amara_string_exhaustive_constructor("11");
+	forced_assertion(raw_natural_one_ != NULL);
+
+	natural_one_ = natural_exhaustive_constructor(raw_natural_one_);
+	forced_assertion(natural_one_ != NULL);
+
+	result_ = naturals_less_than(natural_zero_, natural_one_);
+	forced_assertion(result_ == AMARA_BOOLEAN_TRUE);
+
+	natural_destructor(natural_one_);
+	amara_string_destructor(raw_natural_one_);
+	natural_destructor(natural_zero_);
+	amara_string_destructor(raw_natural_zero_);
+}
+
+void
+naturals_less_than_test_2()
+{
+	amara_string * raw_natural_zero_;
+	natural * natural_zero_;
+	amara_string * raw_natural_one_;
+	natural * natural_one_;
+	amara_boolean result_;
+
+	raw_natural_zero_ = amara_string_exhaustive_constructor("1");
+	forced_assertion(raw_natural_zero_ != NULL);
+
+	natural_zero_ = natural_exhaustive_constructor(raw_natural_zero_);
+	forced_assertion(natural_zero_ != NULL);
+
+	raw_natural_one_ = amara_string_exhaustive_constructor("0");
+	forced_assertion(raw_natural_one_ != NULL);
+
+	natural_one_ = natural_exhaustive_constructor(raw_natural_one_);
+	forced_assertion(natural_one_ != NULL);
+
+	result_ = naturals_less_than(natural_zero_, natural_one_);
+	forced_assertion(result_ == AMARA_BOOLEAN_FALSE);
+
+	natural_destructor(natural_one_);
+	amara_string_destructor(raw_natural_one_);
+	natural_destructor(natural_zero_);
+	amara_string_destructor(raw_natural_zero_);
+}
+
+void
+naturals_less_than_tests()
+{
+	naturals_less_than_test_0();
+	naturals_less_than_test_1();
+	naturals_less_than_test_2();
+}
+
+void
+naturals_greater_than_test_0()
+{
+	amara_string * raw_natural_zero_;
+	natural * natural_zero_;
+	amara_string * raw_natural_one_;
+	natural * natural_one_;
+	amara_boolean result_;
+
+	raw_natural_zero_ = amara_string_exhaustive_constructor("1");
+	forced_assertion(raw_natural_zero_ != NULL);
+
+	natural_zero_ = natural_exhaustive_constructor(raw_natural_zero_);
+	forced_assertion(natural_zero_ != NULL);
+
+	raw_natural_one_ = amara_string_exhaustive_constructor("0");
+	forced_assertion(raw_natural_one_ != NULL);
+
+	natural_one_ = natural_exhaustive_constructor(raw_natural_one_);
+	forced_assertion(natural_one_ != NULL);
+
+	result_ = naturals_greater_than(natural_zero_, natural_one_);
+	forced_assertion(result_ == AMARA_BOOLEAN_TRUE);
+
+	natural_destructor(natural_one_);
+	amara_string_destructor(raw_natural_one_);
+	natural_destructor(natural_zero_);
+	amara_string_destructor(raw_natural_zero_);
+}
+
+void
+naturals_greater_than_test_1()
+{
+	amara_string * raw_natural_zero_;
+	natural * natural_zero_;
+	amara_string * raw_natural_one_;
+	natural * natural_one_;
+	amara_boolean result_;
+
+	raw_natural_zero_ = amara_string_exhaustive_constructor("11");
+	forced_assertion(raw_natural_zero_ != NULL);
+
+	natural_zero_ = natural_exhaustive_constructor(raw_natural_zero_);
+	forced_assertion(natural_zero_ != NULL);
+
+	raw_natural_one_ = amara_string_exhaustive_constructor("10");
+	forced_assertion(raw_natural_one_ != NULL);
+
+	natural_one_ = natural_exhaustive_constructor(raw_natural_one_);
+	forced_assertion(natural_one_ != NULL);
+
+	result_ = naturals_greater_than(natural_zero_, natural_one_);
+	forced_assertion(result_ == AMARA_BOOLEAN_TRUE);
+
+	natural_destructor(natural_one_);
+	amara_string_destructor(raw_natural_one_);
+	natural_destructor(natural_zero_);
+	amara_string_destructor(raw_natural_zero_);
+}
+
+void
+naturals_greater_than_test_2()
+{
+	amara_string * raw_natural_zero_;
+	natural * natural_zero_;
+	amara_string * raw_natural_one_;
+	natural * natural_one_;
+	amara_boolean result_;
+
+	raw_natural_zero_ = amara_string_exhaustive_constructor("0");
+	forced_assertion(raw_natural_zero_ != NULL);
+
+	natural_zero_ = natural_exhaustive_constructor(raw_natural_zero_);
+	forced_assertion(natural_zero_ != NULL);
+
+	raw_natural_one_ = amara_string_exhaustive_constructor("1");
+	forced_assertion(raw_natural_one_ != NULL);
+
+	natural_one_ = natural_exhaustive_constructor(raw_natural_one_);
+	forced_assertion(natural_one_ != NULL);
+
+	result_ = naturals_greater_than(natural_zero_, natural_one_);
+	forced_assertion(result_ == AMARA_BOOLEAN_FALSE);
+
+	natural_destructor(natural_one_);
+	amara_string_destructor(raw_natural_one_);
+	natural_destructor(natural_zero_);
+	amara_string_destructor(raw_natural_zero_);
+}
+
+void
+naturals_greater_than_tests()
+{
+	naturals_greater_than_test_0();
+	naturals_greater_than_test_1();
+	naturals_greater_than_test_2();
+}
+
+void
 natural_tests()
 {
 	stt_node_natural_copy_tests();
@@ -1186,6 +1403,9 @@ natural_tests()
 	natural_copy_pointer_to_unsigned_short_into_raw_natural_tests();
 	natural_copy_unsigned_long_into_raw_natural_tests();
 	natural_copy_pointer_to_unsigned_long_into_raw_natural_tests();
+	well_formed_raw_natural_tests();
 	raw_naturals_multiplication_as_raw_natural_tests();
 	raw_naturals_euclidean_quotient_as_raw_natural_tests();
+	naturals_less_than_tests();
+	naturals_greater_than_tests();
 }

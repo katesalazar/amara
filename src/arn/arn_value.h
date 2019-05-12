@@ -39,11 +39,11 @@
 /**  Named assigned string value. */
 #define ARN_VALUE_TYPE_NAMED_ASSIGNED_STRING         0x24
 /**  Named assigned natural value. */
-#define ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL        0x25
+#define ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL        0x25  /* 37: ..... */
 /**  Likely the result of running some [intermediate] operation, or some
  * named function, or... */
 #define ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING     0x26  /* XXX remove the _assigned_ part? */
-#define ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_BOOLEAN    0x27
+#define ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_BOOLEAN    0x27  /* 39: ..... */
 #define ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL    0x28  /* 40: '('. */  /* XXX remove the _assigned_ part? */
 #define ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_STRING   0x29  /* XXX ??? */
 #define ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_BOOLEAN  0x72

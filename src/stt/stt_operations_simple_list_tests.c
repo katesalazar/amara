@@ -78,6 +78,8 @@ assert_expectations_on_stt_operations_simple_list_example_print_foo(
 
 #endif
 
+/*
+
 stt_operations_simple_list *
 stt_operations_simple_list_example_print_string_literal_foo(void)
 {
@@ -96,6 +98,8 @@ assert_expectations_on_stt_operations_simple_list_example_print_string_literal_f
 }
 
 #endif
+
+*/
 
 stt_operations_simple_list *
 stt_operations_simple_list_example_print_identifier_foo(void)

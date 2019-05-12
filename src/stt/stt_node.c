@@ -1341,14 +1341,20 @@ register_named_function(stt_node * node, const stt_node * named_function_node)
 			node->doc_subnode_->named_functions_;
 	*/
 
+	forced_assertion_two(node->doc_subnode_->named_functions_ != NULL,
+			"stt_node.c: 1344");
+	/*
 	if (node->doc_subnode_->named_functions_ == NULL) {
 		new_named_functions_list_node_ =
 				stt_named_functions_simple_list_default_constructor();
 	} else {
+	*/
 		new_named_functions_list_node_ =
 				stt_named_functions_simple_list_copy_constructor(
 						node->doc_subnode_->named_functions_);
+	/*
 	}
+	*/
 
 	new_named_functions_list_node_ =
 			stt_named_functions_simple_list_push_front(
@@ -1393,21 +1399,33 @@ register_application(stt_node * node, const stt_node * application_node)
 			malloc(sizeof(stt_applications_simple_list));
 	forced_assertion(new_applications_list_node_ != NULL);
 	new_applications_list_node_->first = new_application_;
+	forced_assertion_two(node->doc_subnode_->applications_ != NULL,
+			"stt_node.c: 1396");
+	/*
 	if (node->doc_subnode_->applications_ != NULL) {
+	*/
+		forced_assertion_two(node->doc_subnode_->applications_->first == NULL,
+				"stt_node.c: 1408");
+		/*
 		if (node->doc_subnode_->applications_->first == NULL) {
+		*/
 #ifndef NDEBUG
 			assertion(node->doc_subnode_->applications_->next ==
 					NULL);
 #endif
 			new_applications_list_node_->next = NULL;
+		/*
 		} else {
 			new_applications_list_node_->next =
 				node->doc_subnode_->applications_;
 		}
+		*/
+	/*
 	} else {
 		new_applications_list_node_->next =
 				node->doc_subnode_->applications_;
 	}
+	*/
 	node->doc_subnode_->applications_ = new_applications_list_node_;
 	return node;
 }
@@ -1444,21 +1462,33 @@ register_execution_request(
 			malloc(sizeof(stt_execution_requests_simple_list));
 	forced_assertion(new_execution_requests_list_node_ != NULL);
 	new_execution_requests_list_node_->first = new_execution_request_;
+	forced_assertion_two(node->doc_subnode_->execution_requests_ != NULL,
+			"stt_node.c: 1447");
+	/*
 	if (node->doc_subnode_->execution_requests_ != NULL) {
+	*/
+		forced_assertion_two(node->doc_subnode_->execution_requests_->first == NULL,
+				"stt_node.c: 1470");
+		/*
 		if (node->doc_subnode_->execution_requests_->first == NULL) {
+		*/
 #ifndef NDEBUG
 			assertion(node->doc_subnode_->execution_requests_->next ==
 					NULL);
 #endif
 			new_execution_requests_list_node_->next = NULL;
+		/*
 		} else {
 			new_execution_requests_list_node_->next =
 					node->doc_subnode_->execution_requests_;
 		}
+		*/
+	/*
 	} else {
 		new_execution_requests_list_node_->next =
 				node->doc_subnode_->execution_requests_;
 	}
+	*/
 	node->doc_subnode_->execution_requests_ =
 			new_execution_requests_list_node_;
 	return node;
@@ -1506,7 +1536,12 @@ dump_syntax_tree(const stt_node * node)
 			named_functions_len_);
 #endif
 
+	/*
 	if (node->doc_subnode_->applications_ != NULL) {
+	*/
+
+	forced_assertion_two(node->doc_subnode_->applications_ != NULL,
+			"stt_node.c: 1513");
 
 	/*
 	applications_len_ = stt_applications_simple_list_length(
@@ -1520,19 +1555,27 @@ dump_syntax_tree(const stt_node * node)
 	applications_len_ = len_ret_ptr_->length;
 #endif
 	free(len_ret_ptr_);
+	/*
 	} else {
 
 #ifdef DUMP_FLOW_TO_STDERR
 		applications_len_ = 0;
 #endif
 	}
+	*/
 
 #ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "%s:%u - %u applications\n", __FILE__, __LINE__,
 			applications_len_);
 #endif
 
+	/*
 	if (node->doc_subnode_->applications_ != NULL && node->doc_subnode_->applications_->first != NULL) {
+	*/
+
+	forced_assertion(node->doc_subnode_->applications_ != NULL);
+
+	if (node->doc_subnode_->applications_->first != NULL) {
 
 	applications_ptr_ = node->doc_subnode_->applications_;
 	} else {
@@ -2179,29 +2222,29 @@ assert_clean_doc_fragment_node(const stt_node * node)
 	assertion(node->execution_request_subnode_ == NULL);
 	assertion(node->doc_subnode_ != NULL);
 
-	if (node->doc_subnode_->named_functions_ == NULL) {  /* XXX */
+	/* if (node->doc_subnode_->named_functions_ == NULL) {  *//* XXX */
 
-		assertion(node->doc_subnode_->named_functions_ == NULL);
-	} else {  /* XXX */
+		/* assertion(node->doc_subnode_->named_functions_ == NULL); */
+	/* } else {  *//* XXX */
 
 		assertion(node->doc_subnode_->named_functions_ != NULL);
-	}  /* XXX */
+	/* }  *//* XXX */
 
-	if (node->doc_subnode_->applications_ == NULL) {  /* XXX */
+	/* if (node->doc_subnode_->applications_ == NULL) {  *//* XXX */
 
-		assertion(node->doc_subnode_->applications_ == NULL);
-	} else {  /* XXX */
+		/* assertion(node->doc_subnode_->applications_ == NULL); */
+	/* } else {  *//* XXX */
 
 		assertion(node->doc_subnode_->applications_ != NULL);
-	}  /* XXX */
+	/* }  *//* XXX */
 
-	if (node->doc_subnode_->execution_requests_ == NULL) {  /* XXX */
+	/* if (node->doc_subnode_->execution_requests_ == NULL) {  *//* XXX */
 
-		assertion(node->doc_subnode_->execution_requests_ == NULL);
-	} else {  /* XXX */
+		/* assertion(node->doc_subnode_->execution_requests_ == NULL); */
+	/* } else {  *//* XXX */
 
 		assertion(node->doc_subnode_->execution_requests_ != NULL);
-	}  /* XXX */
+	/* }  *//* XXX */
 }
 
 void

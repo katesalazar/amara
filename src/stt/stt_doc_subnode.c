@@ -157,11 +157,11 @@ stt_doc_subnode_destructor(stt_doc_subnode * subnode)
 {
 	forced_assertion(subnode != NULL); /* XXX */
 
-	if (subnode->named_functions_ == NULL) { /* XXX */
+	/* if (subnode->named_functions_ == NULL) { *//* XXX */
 
-		assertion(subnode->applications_ == NULL); /* XXX */
-		assertion(subnode->execution_requests_ == NULL); /* XXX */
-	} else { /* XXX */
+		/* assertion(subnode->applications_ == NULL); *//* XXX */
+		/* assertion(subnode->execution_requests_ == NULL); *//* XXX */
+	/* } else { *//* XXX */
 
 		assertion(subnode->named_functions_ != NULL);
 		/*if (subnode->named_functions_ != NULL) {*/ /* XXX */
@@ -190,7 +190,7 @@ stt_doc_subnode_destructor(stt_doc_subnode * subnode)
 		/*
 		}
 		*/
-	} /* XXX */
+	/* } *//* XXX */
 
 	free(subnode); /* XXX */
 }
