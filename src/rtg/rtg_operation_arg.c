@@ -362,6 +362,23 @@ rtg_operation_arg_set_identifier(
 }
 
 void
+rtg_operation_arg_set_expression(
+		rtg_operation_arg * operation_arg,
+		const rtg_expression * expression)
+{
+	forced_assertion(operation_arg->type_ ==
+			RTG_OPERATION_ARG_TYPE_INVALID);
+	forced_assertion(operation_arg->expression_ == NULL);
+	/*
+	if (operation_arg->expression_ != NULL) {
+	*/
+	operation_arg->expression_ =
+			rtg_expression_copy_constructor(expression);
+	forced_assertion(operation_arg->expression_ != NULL);
+	operation_arg->type_ = RTG_OPERATION_ARG_TYPE_EXPRESSION;
+}
+
+void
 rtg_operation_arg_out_of_stt_operation_arg_ret_destructor(
 		rtg_operation_arg_out_of_stt_operation_arg_ret * rtg_operation_arg_out_of_stt_operation_arg_ret_)
 {
@@ -404,7 +421,8 @@ rtg_operation_arg_out_of_stt_operation_arg_ret *
 rtg_operation_arg_out_of_stt_operation_arg(
 		const stt_operation_arg * operation_arg,
 		const stt_operation_type operation_type,
-		const stt_where_value_bindings_simple_list * function_where_bindings)
+		const stt_where_value_bindings_simple_list * function_where_bindings,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 {
 	const stt_where_value_binding * target_where_value_binding_;
 	rtg_expression_out_of_stt_expression_ret * rtg_expression_out_of_stt_expression_ret_;
@@ -605,8 +623,9 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		forced_assertion(sub_ret_ != NULL);
 		rtg_expression_out_of_stt_expression_ret_ =
 				rtg_expression_out_of_stt_expression(
-						operation_arg->node_->expression_subnode_->expression_
+						operation_arg->node_->expression_subnode_->expression_,
 						/* FIXME: MUST RECEIVE FUNCTION WHERE VALUE BINDINGS TOO */
+						rtg_named_functions
 				);
 #ifndef NDEBUG
 		assertion(rtg_expression_out_of_stt_expression_ret_->status ==

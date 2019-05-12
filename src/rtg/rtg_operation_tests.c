@@ -23,6 +23,8 @@
 
 #include "../stt/stt_operation_tests.h"
 
+#include "rtg_named_functions_simple_list.h"
+
 #include "rtg_operation_arg.h"
 
 #include "rtg_operation_arg_tests.h"
@@ -837,6 +839,7 @@ void
 rtg_operation_transformation_constructor_test_10_read_natural_into_value()
 {
 	stt_operation * stt_operation_;
+	rtg_named_functions_simple_list * rtg_named_functions_;
 	rtg_operation_out_of_stt_operation_ret * transformation_ret_;
 	rtg_operation * rtg_operation_;
 
@@ -847,9 +850,12 @@ rtg_operation_transformation_constructor_test_10_read_natural_into_value()
 			stt_operation_);
 #endif
 
-	transformation_ret_ =
-			rtg_operation_out_of_stt_operation(stt_operation_,
-			                                   NULL);
+	rtg_named_functions_ =
+			rtg_named_functions_simple_list_default_constructor();
+	forced_assertion(rtg_named_functions_ != NULL);
+
+	transformation_ret_ = rtg_operation_out_of_stt_operation(
+			stt_operation_, NULL, rtg_named_functions_);
 #ifndef NDEBUG
 	assert_expectations_on_stt_operation_example_read_natural_into_foo(
 			stt_operation_);
@@ -870,6 +876,7 @@ rtg_operation_transformation_constructor_test_10_read_natural_into_value()
 	rtg_operation_ = transformation_ret_->operation;
 
 	free(transformation_ret_);
+	rtg_named_functions_simple_list_deep_destructor(rtg_named_functions_);
 	rtg_operation_destructor(rtg_operation_);
 }
 
@@ -877,6 +884,7 @@ void
 rtg_operation_transformation_constructor_test_20_read_integer_into_value()
 {
 	stt_operation * stt_operation_;
+	rtg_named_functions_simple_list * rtg_named_functions_;
 	rtg_operation_out_of_stt_operation_ret * transformation_ret_;
 	rtg_operation * rtg_operation_;
 
@@ -887,9 +895,12 @@ rtg_operation_transformation_constructor_test_20_read_integer_into_value()
 			stt_operation_);
 #endif
 
-	transformation_ret_ =
-			rtg_operation_out_of_stt_operation(stt_operation_,
-			                                   NULL);
+	rtg_named_functions_ =
+			rtg_named_functions_simple_list_default_constructor();
+	forced_assertion(rtg_named_functions_ != NULL);
+
+	transformation_ret_ = rtg_operation_out_of_stt_operation(
+			stt_operation_, NULL, rtg_named_functions_);
 #ifndef NDEBUG
 	assert_expectations_on_stt_operation_example_read_integer_into_foo(
 			stt_operation_);
@@ -910,6 +921,7 @@ rtg_operation_transformation_constructor_test_20_read_integer_into_value()
 	rtg_operation_ = transformation_ret_->operation;
 
 	free(transformation_ret_);
+	rtg_named_functions_simple_list_deep_destructor(rtg_named_functions_);
 	rtg_operation_destructor(rtg_operation_);
 }
 

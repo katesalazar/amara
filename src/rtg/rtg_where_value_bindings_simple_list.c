@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -152,7 +152,7 @@ rtg_where_value_bindings_simple_list_assert_healthy_inner(
 
 void
 rtg_where_value_bindings_simple_list_assert_healthy(
-		const rtg_where_value_bindings_simple_list * list)
+		const struct rtg_where_value_bindings_simple_list * list)
 {
 	forced_assertion(list != NULL);
 
@@ -218,7 +218,7 @@ rtg_where_value_bindings_simple_list_push_front_inner(
 rtg_where_value_bindings_simple_list *
 rtg_where_value_bindings_simple_list_push_front(
 		rtg_where_value_bindings_simple_list * list,
-		const rtg_where_value_binding * element)
+		const struct rtg_where_value_binding * element)
 {
 #ifndef NDEBUG
 	const rtg_where_value_bindings_simple_list * returning_;
@@ -276,13 +276,15 @@ rtg_where_value_bindings_simple_list_push_front(
 
 rtg_where_value_bindings_simple_list *
 rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_inner(
-		stt_where_value_bindings_simple_list * list)
+		const stt_where_value_bindings_simple_list * list,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 __attribute__((warn_unused_result))
 ;
 
 rtg_where_value_bindings_simple_list *
 rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_inner(
-		stt_where_value_bindings_simple_list * list)
+		const stt_where_value_bindings_simple_list * list,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 {
 	rtg_where_value_bindings_simple_list * returning_;
 
@@ -296,18 +298,19 @@ rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list
 
 	returning_->first =
 			rtg_where_value_binding_out_of_stt_where_value_binding(
-					list->first);
+					list->first, rtg_named_functions);
 
 	returning_->next =
 			rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_inner(
-					list->next);
+					list->next, rtg_named_functions);
 
 	return returning_;
 }
 
 rtg_where_value_bindings_simple_list *
 rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list(
-		stt_where_value_bindings_simple_list * list)
+		const stt_where_value_bindings_simple_list * list,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 {
 	rtg_where_value_bindings_simple_list * returning_;
 
@@ -327,5 +330,5 @@ rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list
 	}
 
 	return rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_inner(
-			list);
+			list, rtg_named_functions);
 }

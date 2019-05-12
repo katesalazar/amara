@@ -25,13 +25,69 @@ UNAME_S = $(shell uname -s)
 # $(info Platform: $(UNAME_S))
 
 ifeq ($(UNAME_S), Darwin)
-BISON ?= /usr/local/Cellar/bison/3.1/bin/bison
-FLEX ?= /usr/local/Cellar/flex/2.6.4/bin/flex
-XCODE ?= 1
+
+    HOMEBREW ?= yes
+
+    XCODE ?= yes
+
+    ifeq ($(HOMEBREW), yes)
+
+<<<<<<< Updated upstream
+        #   Latest know Bison version in Homebrew is `3.4.1`.
+        # BISON ?= /usr/local/Cellar/bison/3.4.1/bin/bison
+        BISON ?= bison
+
+        # BISON_VERSION = 3_4_1
+        BISON_VERSION = 2_3
+=======
+        #   Latest know Bison version in Homebrew is `3.5.1`.
+        BISON ?= /usr/local/Cellar/bison/3.5.1/bin/bison
+
+	BISON_VERSION = 3_5_1
+>>>>>>> Stashed changes
+
+        # CFLAGS_PARTICULAR_BISON = -DAMARA_USING_BISON_3_5_1
+
+<<<<<<< Updated upstream
+        #   Latest know Flex version in Homebrew is `2.6.4`.
+        # FLEX ?= /usr/local/Cellar/flex/2.6.4/bin/flex
+        FLEX ?= flex
+
+        # FLEX_VERSION = 2_6_4
+        FLEX_VERSION = 2_5_35
+=======
+        #   Latest know Flex version in Homebrew is `2.6.4_1`.
+        FLEX ?= /usr/local/Cellar/flex/2.6.4_1/bin/flex
+
+	FLEX_VERSION = 2_6_4_1
+>>>>>>> Stashed changes
+
+        CFLAGS_PARTICULAR_FLEX += -DAMARA_USING_FLEX_2_6_4_1
+
+    else
+
+        #   Default Bison shipped by macOS is `2.3`.
+        BISON ?= bison
+
+        BISON_VERSION = 2_3
+
+        # CFLAGS_PARTICULAR_BISON = -DAMARA_USING_BISON_2_3
+
+        #   Default Flex shipped by macOS is `flex 2.5.35
+        # Apple(flex-31)`.
+        FLEX ?= flex
+
+        FLEX_VERSION = 2_5_35
+
+        CFLAGS_PARTICULAR_FLEX += -DAMARA_USING_FLEX_2_5_35
+
+    endif
 else
-BISON ?= bison
-FLEX ?= flex
-XCODE ?= 0
+    XCODE ?= no
+    BISON ?= bison
+    BISON_VERSION = ?_?_?
+    FLEX ?= flex
+    FLEX_VERSION = ?_?_?
 endif
 
 # XXX    Why did I remove `-ansi` from Darwin? Maybe related to the fact
@@ -240,13 +296,16 @@ UTILS_DIR = utils
 	$(SRC_DIR)/rtg/rtg_expression_sub_conditional_tests.c \
 	$(SRC_DIR)/rtg/rtg_expression_sub_dice.c \
 	$(SRC_DIR)/rtg/rtg_expression_sub_dice_tests.c \
+	$(SRC_DIR)/rtg/rtg_expression_sub_function_call.c \
 	$(SRC_DIR)/rtg/rtg_expression_sub_identifier.c \
 	$(SRC_DIR)/rtg/rtg_expression_sub_identifier_tests.c \
 	$(SRC_DIR)/rtg/rtg_expression_sub_natural_literal.c \
 	$(SRC_DIR)/rtg/rtg_expression_sub_string_literal.c \
 	$(SRC_DIR)/rtg/rtg_expression_tests.c \
+	$(SRC_DIR)/rtg/rtg_expressions_simple_list.c \
 	$(SRC_DIR)/rtg/rtg_named_function.c \
 	$(SRC_DIR)/rtg/rtg_named_function_tests.c \
+	$(SRC_DIR)/rtg/rtg_named_functions_fixed_list.c \
 	$(SRC_DIR)/rtg/rtg_named_functions_simple_list.c \
 	$(SRC_DIR)/rtg/rtg_named_functions_simple_list_tests.c \
 	$(SRC_DIR)/rtg/rtg_operation.c \
@@ -288,6 +347,7 @@ UTILS_DIR = utils
 	$(SRC_DIR)/stt/stt_expression_sub_conditional_tests.c \
 	$(SRC_DIR)/stt/stt_expression_sub_dice.c \
 	$(SRC_DIR)/stt/stt_expression_sub_dice_tests.c \
+	$(SRC_DIR)/stt/stt_expression_sub_function_call.c \
 	$(SRC_DIR)/stt/stt_expression_sub_identifier.c \
 	$(SRC_DIR)/stt/stt_expression_sub_identifier_tests.c \
 	$(SRC_DIR)/stt/stt_expression_sub_natural_literal.c \
@@ -295,6 +355,7 @@ UTILS_DIR = utils
 	$(SRC_DIR)/stt/stt_expression_subnode.c \
 	$(SRC_DIR)/stt/stt_expression_subnode_tests.c \
 	$(SRC_DIR)/stt/stt_expression_tests.c \
+	$(SRC_DIR)/stt/stt_expressions_simple_list.c \
 	$(SRC_DIR)/stt/stt_named_function.c \
 	$(SRC_DIR)/stt/stt_named_function_subnode.c \
 	$(SRC_DIR)/stt/stt_named_function_subnode_tests.c \
@@ -309,6 +370,8 @@ UTILS_DIR = utils
 	$(SRC_DIR)/stt/stt_natural_literal_subnode_tests.c \
 	$(SRC_DIR)/stt/stt_node.c \
 	$(SRC_DIR)/stt/stt_node_tests.c \
+	$(SRC_DIR)/stt/stt_node_sub_call_options.c \
+	$(SRC_DIR)/stt/stt_node_sub_expressions_list.c \
 	$(SRC_DIR)/stt/stt_operation.c \
 	$(SRC_DIR)/stt/stt_operation_arg.c \
 	$(SRC_DIR)/stt/stt_operation_arg_tests.c \
@@ -393,13 +456,16 @@ OBJ_DEBUG = \
 		$(BUILD_DIR_DEBUG)/rtg_expression_sub_conditional_tests.o \
 		$(BUILD_DIR_DEBUG)/rtg_expression_sub_dice.o \
 		$(BUILD_DIR_DEBUG)/rtg_expression_sub_dice_tests.o \
+		$(BUILD_DIR_DEBUG)/rtg_expression_sub_function_call.o \
 		$(BUILD_DIR_DEBUG)/rtg_expression_sub_identifier.o \
 		$(BUILD_DIR_DEBUG)/rtg_expression_sub_identifier_tests.o \
 		$(BUILD_DIR_DEBUG)/rtg_expression_sub_natural_literal.o \
 		$(BUILD_DIR_DEBUG)/rtg_expression_sub_string_literal.o \
 		$(BUILD_DIR_DEBUG)/rtg_expression_tests.o \
+		$(BUILD_DIR_DEBUG)/rtg_expressions_simple_list.o \
 		$(BUILD_DIR_DEBUG)/rtg_named_function.o \
 		$(BUILD_DIR_DEBUG)/rtg_named_function_tests.o \
+		$(BUILD_DIR_DEBUG)/rtg_named_functions_fixed_list.o \
 		$(BUILD_DIR_DEBUG)/rtg_named_functions_simple_list.o \
 		$(BUILD_DIR_DEBUG)/rtg_named_functions_simple_list_tests.o \
 		$(BUILD_DIR_DEBUG)/rtg_operation.o \
@@ -441,6 +507,7 @@ OBJ_DEBUG = \
 		$(BUILD_DIR_DEBUG)/stt_expression_sub_conditional_tests.o \
 		$(BUILD_DIR_DEBUG)/stt_expression_sub_dice.o \
 		$(BUILD_DIR_DEBUG)/stt_expression_sub_dice_tests.o \
+		$(BUILD_DIR_DEBUG)/stt_expression_sub_function_call.o \
 		$(BUILD_DIR_DEBUG)/stt_expression_sub_identifier.o \
 		$(BUILD_DIR_DEBUG)/stt_expression_sub_identifier_tests.o \
 		$(BUILD_DIR_DEBUG)/stt_expression_sub_natural_literal.o \
@@ -448,6 +515,7 @@ OBJ_DEBUG = \
 		$(BUILD_DIR_DEBUG)/stt_expression_subnode.o \
 		$(BUILD_DIR_DEBUG)/stt_expression_subnode_tests.o \
 		$(BUILD_DIR_DEBUG)/stt_expression_tests.o \
+		$(BUILD_DIR_DEBUG)/stt_expressions_simple_list.o \
 		$(BUILD_DIR_DEBUG)/stt_named_function.o \
 		$(BUILD_DIR_DEBUG)/stt_named_function_subnode.o \
 		$(BUILD_DIR_DEBUG)/stt_named_function_subnode_tests.o \
@@ -462,6 +530,8 @@ OBJ_DEBUG = \
 		$(BUILD_DIR_DEBUG)/stt_natural_literal_subnode_tests.o \
 		$(BUILD_DIR_DEBUG)/stt_node.o \
 		$(BUILD_DIR_DEBUG)/stt_node_tests.o \
+		$(BUILD_DIR_DEBUG)/stt_node_sub_call_options.o \
+		$(BUILD_DIR_DEBUG)/stt_node_sub_expressions_list.o \
 		$(BUILD_DIR_DEBUG)/stt_operation.o \
 		$(BUILD_DIR_DEBUG)/stt_operation_arg.o \
 		$(BUILD_DIR_DEBUG)/stt_operation_arg_tests.o \
@@ -546,13 +616,16 @@ OBJ_RELEASE = \
 		$(BUILD_DIR_RELEASE)/rtg_expression_sub_conditional_tests.o \
 		$(BUILD_DIR_RELEASE)/rtg_expression_sub_dice.o \
 		$(BUILD_DIR_RELEASE)/rtg_expression_sub_dice_tests.o \
+		$(BUILD_DIR_RELEASE)/rtg_expression_sub_function_call.o \
 		$(BUILD_DIR_RELEASE)/rtg_expression_sub_identifier.o \
 		$(BUILD_DIR_RELEASE)/rtg_expression_sub_identifier_tests.o \
 		$(BUILD_DIR_RELEASE)/rtg_expression_sub_natural_literal.o \
 		$(BUILD_DIR_RELEASE)/rtg_expression_sub_string_literal.o \
 		$(BUILD_DIR_RELEASE)/rtg_expression_tests.o \
+		$(BUILD_DIR_RELEASE)/rtg_expressions_simple_list.o \
 		$(BUILD_DIR_RELEASE)/rtg_named_function.o \
 		$(BUILD_DIR_RELEASE)/rtg_named_function_tests.o \
+		$(BUILD_DIR_RELEASE)/rtg_named_functions_fixed_list.o \
 		$(BUILD_DIR_RELEASE)/rtg_named_functions_simple_list.o \
 		$(BUILD_DIR_RELEASE)/rtg_named_functions_simple_list_tests.o \
 		$(BUILD_DIR_RELEASE)/rtg_operation.o \
@@ -594,6 +667,7 @@ OBJ_RELEASE = \
 		$(BUILD_DIR_RELEASE)/stt_expression_sub_conditional_tests.o \
 		$(BUILD_DIR_RELEASE)/stt_expression_sub_dice.o \
 		$(BUILD_DIR_RELEASE)/stt_expression_sub_dice_tests.o \
+		$(BUILD_DIR_RELEASE)/stt_expression_sub_function_call.o \
 		$(BUILD_DIR_RELEASE)/stt_expression_sub_identifier.o \
 		$(BUILD_DIR_RELEASE)/stt_expression_sub_identifier_tests.o \
 		$(BUILD_DIR_RELEASE)/stt_expression_sub_natural_literal.o \
@@ -601,6 +675,7 @@ OBJ_RELEASE = \
 		$(BUILD_DIR_RELEASE)/stt_expression_subnode.o \
 		$(BUILD_DIR_RELEASE)/stt_expression_subnode_tests.o \
 		$(BUILD_DIR_RELEASE)/stt_expression_tests.o \
+		$(BUILD_DIR_RELEASE)/stt_expressions_simple_list.o \
 		$(BUILD_DIR_RELEASE)/stt_named_function.o \
 		$(BUILD_DIR_RELEASE)/stt_named_function_subnode.o \
 		$(BUILD_DIR_RELEASE)/stt_named_function_subnode_tests.o \
@@ -615,6 +690,8 @@ OBJ_RELEASE = \
 		$(BUILD_DIR_RELEASE)/stt_natural_literal_subnode_tests.o \
 		$(BUILD_DIR_RELEASE)/stt_node.o \
 		$(BUILD_DIR_RELEASE)/stt_node_tests.o \
+		$(BUILD_DIR_RELEASE)/stt_node_sub_call_options.o \
+		$(BUILD_DIR_RELEASE)/stt_node_sub_expressions_list.o \
 		$(BUILD_DIR_RELEASE)/stt_operation.o \
 		$(BUILD_DIR_RELEASE)/stt_operation_arg.o \
 		$(BUILD_DIR_RELEASE)/stt_operation_arg_tests.o \
@@ -643,9 +720,16 @@ OBJ_RELEASE = \
 DEBUG_RESOURCES = \
 		$(RESOURCES_DIR)/minia.grammar
 
-default: checkdirs $(BUILD_DIR_RELEASE)/amara
+default: \
+		checkdirs \
+		$(BUILD_DIR_RELEASE)/stripped_amara
 
-all: checkdirs $(BUILD_DIR_DEBUG)/amara_g $(BUILD_DIR_RELEASE)/amara
+all: \
+		checkdirs \
+		$(BUILD_DIR_DEBUG)/amara_g \
+		$(BUILD_DIR_DEBUG)/stripped_amara_g \
+		$(BUILD_DIR_RELEASE)/amara \
+		$(BUILD_DIR_RELEASE)/stripped_amara \
 
 checkdirs: $(BUILD_DIR_DEBUG) $(BUILD_DIR_RELEASE)
 
@@ -655,9 +739,13 @@ $(BUILD_DIR_DEBUG):
 $(BUILD_DIR_RELEASE):
 	mkdir -p $@
 
-amara_g: $(BUILD_DIR_DEBUG)/amara_g
+amara_g: \
+		checkdirs \
+		$(BUILD_DIR_DEBUG)/amara_g
 
-amara: $(BUILD_DIR_RELEASE)/amara
+amara: \
+		checkdirs \
+		$(BUILD_DIR_RELEASE)/amara
 
 #   It's most probably not required to go back to the source but... well
 # maybe it's tidier like this.
@@ -1173,10 +1261,18 @@ $(BUILD_DIR_RELEASE)/rtg_applications_simple_list.o: \
 		$(SRC_DIR)/rtg/rtg_application.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
-$(BUILD_DIR_DEBUG)/rtg_applications_simple_list_tests.o: $(SRC_DIR)/rtg/rtg_applications_simple_list_tests.c $(SRC_DIR)/rtg/rtg_applications_simple_list_tests.h $(SRC_DIR)/rtg/rtg_applications_simple_list.h
+$(BUILD_DIR_DEBUG)/rtg_applications_simple_list_tests.o: \
+		$(SRC_DIR)/rtg/rtg_applications_simple_list_tests.c \
+		$(SRC_DIR)/rtg/rtg_applications_simple_list_tests.h \
+		$(SRC_DIR)/rtg/rtg_applications_simple_list.h \
+		$(SRC_DIR)/rtg/rtg_named_functions_fixed_list.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
-$(BUILD_DIR_RELEASE)/rtg_applications_simple_list_tests.o: $(SRC_DIR)/rtg/rtg_applications_simple_list_tests.c $(SRC_DIR)/rtg/rtg_applications_simple_list_tests.h $(SRC_DIR)/rtg/rtg_applications_simple_list.h
+$(BUILD_DIR_RELEASE)/rtg_applications_simple_list_tests.o: \
+		$(SRC_DIR)/rtg/rtg_applications_simple_list_tests.c \
+		$(SRC_DIR)/rtg/rtg_applications_simple_list_tests.h \
+		$(SRC_DIR)/rtg/rtg_applications_simple_list.h \
+		$(SRC_DIR)/rtg/rtg_named_functions_fixed_list.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_DEBUG)/rtg_condition.o: \
@@ -1209,6 +1305,7 @@ $(BUILD_DIR_DEBUG)/rtg_doc.o: \
 		$(SRC_DIR)/stt/stt_node.h \
 		$(SRC_DIR)/rtg/rtg_execution_requests_simple_list.h \
 		$(SRC_DIR)/rtg/rtg_applications_simple_list.h \
+		$(SRC_DIR)/rtg/rtg_named_functions_fixed_list.h \
 		$(SRC_DIR)/rtg/rtg_named_functions_simple_list.h
 	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
@@ -1218,6 +1315,7 @@ $(BUILD_DIR_RELEASE)/rtg_doc.o: \
 		$(SRC_DIR)/stt/stt_node.h \
 		$(SRC_DIR)/rtg/rtg_execution_requests_simple_list.h \
 		$(SRC_DIR)/rtg/rtg_applications_simple_list.h \
+		$(SRC_DIR)/rtg/rtg_named_functions_fixed_list.h \
 		$(SRC_DIR)/rtg/rtg_named_functions_simple_list.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
@@ -1341,6 +1439,18 @@ $(BUILD_DIR_RELEASE)/rtg_expression_sub_dice_tests.o: \
 		$(SRC_DIR)/rtg/rtg_expression_sub_dice.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
+$(BUILD_DIR_DEBUG)/rtg_expression_sub_function_call.o: \
+		$(SRC_DIR)/rtg/rtg_expression_sub_function_call.c \
+		$(SRC_DIR)/rtg/rtg_expression_sub_function_call.h \
+		$(SRC_DIR)/stt/stt_expression_sub_function_call.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/rtg_expression_sub_function_call.o: \
+		$(SRC_DIR)/rtg/rtg_expression_sub_function_call.c \
+		$(SRC_DIR)/rtg/rtg_expression_sub_function_call.h \
+		$(SRC_DIR)/stt/stt_expression_sub_function_call.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
 $(BUILD_DIR_DEBUG)/rtg_expression_sub_identifier.o: \
 		$(SRC_DIR)/rtg/rtg_expression_sub_identifier.c \
 		$(SRC_DIR)/rtg/rtg_expression_sub_identifier.h \
@@ -1399,6 +1509,18 @@ $(BUILD_DIR_RELEASE)/rtg_expression_tests.o: \
 		$(SRC_DIR)/rtg/rtg_condition_tests.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
+$(BUILD_DIR_DEBUG)/rtg_expressions_simple_list.o: \
+		$(SRC_DIR)/rtg/rtg_expressions_simple_list.c \
+		$(SRC_DIR)/rtg/rtg_expressions_simple_list.h \
+		$(SRC_DIR)/rtg/rtg_expression.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/rtg_expressions_simple_list.o: \
+		$(SRC_DIR)/rtg/rtg_expressions_simple_list.c \
+		$(SRC_DIR)/rtg/rtg_expressions_simple_list.h \
+		$(SRC_DIR)/rtg/rtg_expression.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
 $(BUILD_DIR_DEBUG)/rtg_named_function.o: \
 		$(SRC_DIR)/rtg/rtg_named_function.c \
 		$(SRC_DIR)/rtg/rtg_named_function.h \
@@ -1429,6 +1551,20 @@ $(BUILD_DIR_RELEASE)/rtg_named_function_tests.o: \
 		$(SRC_DIR)/stt/stt_named_function.h \
 		$(SRC_DIR)/rtg/rtg_operations_simple_list.h \
 		$(SRC_DIR)/rtg/rtg_operation_tests.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/rtg_named_functions_fixed_list.o: \
+		$(SRC_DIR)/rtg/rtg_named_functions_fixed_list.c \
+		$(SRC_DIR)/rtg/rtg_named_functions_fixed_list.h \
+		$(SRC_DIR)/stt/stt_named_functions_simple_list.h \
+		$(SRC_DIR)/rtg/rtg_named_function.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/rtg_named_functions_fixed_list.o: \
+		$(SRC_DIR)/rtg/rtg_named_functions_fixed_list.c \
+		$(SRC_DIR)/rtg/rtg_named_functions_fixed_list.h \
+		$(SRC_DIR)/stt/stt_named_functions_simple_list.h \
+		$(SRC_DIR)/rtg/rtg_named_function.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_DEBUG)/rtg_named_functions_simple_list.o: \
@@ -1847,6 +1983,16 @@ $(BUILD_DIR_RELEASE)/stt_expression_sub_dice_tests.o: \
 		$(SRC_DIR)/brt/natural_tests.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
+$(BUILD_DIR_DEBUG)/stt_expression_sub_function_call.o: \
+		$(SRC_DIR)/stt/stt_expression_sub_function_call.c \
+		$(SRC_DIR)/stt/stt_expression_sub_function_call.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_expression_sub_function_call.o: \
+		$(SRC_DIR)/stt/stt_expression_sub_function_call.c \
+		$(SRC_DIR)/stt/stt_expression_sub_function_call.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
 $(BUILD_DIR_DEBUG)/stt_expression_sub_identifier.o: \
 		$(SRC_DIR)/stt/stt_expression_sub_identifier.c \
 		$(SRC_DIR)/stt/stt_expression_sub_identifier.h
@@ -1927,6 +2073,18 @@ $(BUILD_DIR_DEBUG)/stt_expression_tests.o: \
 $(BUILD_DIR_RELEASE)/stt_expression_tests.o: \
 		$(SRC_DIR)/stt/stt_expression_tests.c \
 		$(SRC_DIR)/stt/stt_expression_tests.h \
+		$(SRC_DIR)/stt/stt_expression.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/stt_expressions_simple_list.o: \
+		$(SRC_DIR)/stt/stt_expressions_simple_list.c \
+		$(SRC_DIR)/stt/stt_expressions_simple_list.h \
+		$(SRC_DIR)/stt/stt_expression.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_expressions_simple_list.o: \
+		$(SRC_DIR)/stt/stt_expressions_simple_list.c \
+		$(SRC_DIR)/stt/stt_expressions_simple_list.h \
 		$(SRC_DIR)/stt/stt_expression.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
@@ -2090,6 +2248,26 @@ $(BUILD_DIR_RELEASE)/stt_node_tests.o: \
 		$(SRC_DIR)/stt/stt_named_function_tests.h \
 		$(SRC_DIR)/stt/stt_named_function_subnode_tests.h \
 		$(SRC_DIR)/stt/stt_doc_subnode_tests.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/stt_node_sub_call_options.o: \
+		$(SRC_DIR)/stt/stt_node_sub_call_options.c \
+		$(SRC_DIR)/stt/stt_node_sub_call_options.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_node_sub_call_options.o: \
+		$(SRC_DIR)/stt/stt_node_sub_call_options.c \
+		$(SRC_DIR)/stt/stt_node_sub_call_options.h
+	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_DEBUG)/stt_node_sub_expressions_list.o: \
+		$(SRC_DIR)/stt/stt_node_sub_expressions_list.c \
+		$(SRC_DIR)/stt/stt_node_sub_expressions_list.h
+	gcc $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_node_sub_expressions_list.o: \
+		$(SRC_DIR)/stt/stt_node_sub_expressions_list.c \
+		$(SRC_DIR)/stt/stt_node_sub_expressions_list.h
 	gcc $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_DEBUG)/stt_operation.o: $(SRC_DIR)/stt/stt_operation.c $(SRC_DIR)/stt/stt_operation.h $(SRC_DIR)/stt/stt_operation_args_simple_list.h
@@ -2331,15 +2509,61 @@ $(RESOURCES_DIR)/minia.grammar: $(SRC_DIR)/bsn/minia.y
 			cd ../../ && \
 			pwd
 
-.PHONY: all checkdirs clean default amara_g amara
+.PHONY: \
+		all \
+		clean \
+		default \
+		checkdirs \
+		amara_g \
+		amara \
+		stripped_amara \
+		stripped_amara_g
+
+stripped_amara_g: \
+		$(BUILD_DIR_DEBUG)/stripped_amara_g
+
+stripped_amara: \
+		$(BUILD_DIR_RELEASE)/stripped_amara
+
+CP ?= cp
+STRIP ?= strip
+
+$(BUILD_DIR_DEBUG)/stripped_amara_g: \
+		$(BUILD_DIR_DEBUG)/amara_g
+	$(CP) $< $@
+	$(STRIP) $@
+
+$(BUILD_DIR_RELEASE)/stripped_amara: \
+		$(BUILD_DIR_RELEASE)/amara
+	$(CP) $< $@
+	$(STRIP) $@
 
 clean:
 	rm -fv \
 			$(BUILD_DIR_DEBUG)/amara_g \
+			$(BUILD_DIR_DEBUG)/stripped_amara_g \
 			$(BUILD_DIR_RELEASE)/amara \
+			$(BUILD_DIR_RELEASE)/stripped_amara \
 			$(BUILD_DIR_DEBUG)/*.o \
 			$(BUILD_DIR_RELEASE)/*.o \
 			$(BUILD_DIR_DEBUG)/*.gcno \
+			$(BUILD_DIR_DEBUG)/*.gcda \
 			$(SRC_DIR)/bsn/minia.tab.c \
 			$(SRC_DIR)/bsn/lex.minia.c \
 			$(SRC_DIR)/bsn/minia.tab.h
+	rmdir $(BUILD_DIR_DEBUG) || true
+	rmdir $(BUILD_DIR_RELEASE) || true
+#	rm -fv \
+#			$(BUILD_DIR)/src/bsn/minia.y \
+#			$(BUILD_DIR)/src/bsn/minia.output \
+#			$(BUILD_DIR)/src/bsn/minia.vcg \
+#			$(BUILD_DIR)/src/bsn/minia.l
+#	rm -fv $(BUILD_DIR)/src/*.h
+#	rm -fv $(BUILD_DIR)/src/*/*.h
+#	rm -fv $(BUILD_DIR)/src/*.c
+#	rm -fv $(BUILD_DIR)/src/*/*.c
+#	rm -fv $(BUILD_DIR)/src/*.cpp
+#	rm -fv $(BUILD_DIR)/src/*/*.cpp
+# 	rmdir $(BUILD_DIR)/src/*/ || true
+# 	rmdir $(BUILD_DIR)/src/ || true
+	rmdir $(BUILD_DIR)/ || true

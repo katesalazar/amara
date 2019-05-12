@@ -28,7 +28,7 @@
 
 typedef struct rtg_operations_simple_list {
 
-	rtg_operation * first;
+	struct rtg_operation * first;
 
 	struct rtg_operations_simple_list * next;
 } rtg_operations_simple_list
@@ -52,7 +52,7 @@ rtg_operations_simple_list_destructor(rtg_operations_simple_list * list)
 rtg_operations_simple_list *
 rtg_operations_simple_list_push_front(
 		rtg_operations_simple_list * operations,
-		rtg_operation * operation)
+		const struct rtg_operation * operation)
 __attribute__((warn_unused_result))
 ;
 
@@ -81,7 +81,8 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_destructor(
 rtg_operations_simple_list_out_of_stt_operations_simple_list_ret *
 rtg_operations_simple_list_out_of_stt_operations_simple_list(
 		const stt_operations_simple_list * operations,
-		const stt_where_value_bindings_simple_list * function_where_bindings)
+		const stt_where_value_bindings_simple_list * function_where_bindings,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 __attribute__((warn_unused_result))
 ;
 

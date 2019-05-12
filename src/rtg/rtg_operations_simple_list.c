@@ -93,7 +93,7 @@ rtg_operations_simple_list_destructor(rtg_operations_simple_list * list)
 rtg_operations_simple_list *
 rtg_operations_simple_list_push_front(
 		rtg_operations_simple_list * operations,
-		rtg_operation * operation)
+		const struct rtg_operation * operation)
 {
 	rtg_operations_simple_list * new_operations_list_node_;
 
@@ -153,7 +153,8 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_destructor(
 rtg_operations_simple_list_out_of_stt_operations_simple_list_ret *
 rtg_operations_simple_list_out_of_stt_operations_simple_list(
 		const stt_operations_simple_list * operations,
-		const stt_where_value_bindings_simple_list * function_where_bindings)
+		const stt_where_value_bindings_simple_list * function_where_bindings,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 {
 	rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * ret_;
 	rtg_operations_simple_list * ret_list_;
@@ -196,7 +197,8 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list(
 	single_operation_transformation_ =
 			rtg_operation_out_of_stt_operation(
 					operations->first,
-					function_where_bindings);
+					function_where_bindings,
+					rtg_named_functions);
 
 	if (single_operation_transformation_->status !=
 			RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS) {
@@ -240,7 +242,8 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list(
 		single_operation_transformation_ =
 				rtg_operation_out_of_stt_operation(
 						operations_ptr_->next->first,
-						function_where_bindings);
+						function_where_bindings,
+						rtg_named_functions);
 		assertion(single_operation_transformation_->status ==
 				RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS);
 		new_rtg_op_ = single_operation_transformation_->operation;

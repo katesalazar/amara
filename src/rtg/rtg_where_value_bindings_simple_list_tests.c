@@ -21,6 +21,8 @@
  * stt_where_value_bindings_simple_list_example_simple_value_bind()`. */
 #include "../stt/stt_where_value_bindings_simple_list_tests.h"
 
+#include "rtg_named_functions_simple_list.h"
+
 /*   For `rtg_where_value_binding *
  * rtg_where_value_binding_example_bind_value_foo_to_expression_natural_zero()`. */
 #include "rtg_where_value_binding_tests.h"
@@ -222,6 +224,7 @@ void
 rtg_where_value_bindings_simple_list_transformation_constructors_test_0()
 {
 	stt_where_value_bindings_simple_list * stt_where_bindings_list_;
+	rtg_named_functions_simple_list * rtg_named_functions_;
 	/*
 	rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret * transformation_ret_;
 	*/
@@ -235,9 +238,14 @@ rtg_where_value_bindings_simple_list_transformation_constructors_test_0()
 			stt_where_bindings_list_);
 #endif
 
+	rtg_named_functions_ =
+			rtg_named_functions_simple_list_default_constructor();
+	forced_assertion(rtg_named_functions_ != NULL);
+
 	rtg_where_bindings_list_ =
 			rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list(
-					stt_where_bindings_list_);
+					stt_where_bindings_list_,
+					rtg_named_functions_);
 #ifndef NDEBUG
 	assert_expectations_on_stt_where_value_bindings_simple_list_example_simple_value_bind(
 			stt_where_bindings_list_);
@@ -253,6 +261,7 @@ rtg_where_value_bindings_simple_list_transformation_constructors_test_0()
 	/*
 	free(transformation_ret_);
 	*/
+	rtg_named_functions_simple_list_deep_destructor(rtg_named_functions_);
 	stt_where_value_bindings_simple_list_destructor(
 			stt_where_bindings_list_);
 }

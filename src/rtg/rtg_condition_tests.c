@@ -23,6 +23,8 @@
 /*   For `assert_expectations_on_rtg_expression_example_natural_zero`. */
 #include "rtg_expression_tests.h"
 
+#include "rtg_named_functions_simple_list.h"
+
 /*   For own functions prototypes. */
 #include "rtg_condition_tests.h"
 
@@ -30,6 +32,7 @@ rtg_condition *
 rtg_condition_example_simple_less_than_condition()
 {
 	stt_condition * stt_condition_;
+	rtg_named_functions_simple_list * rtg_named_functions_;
 	rtg_condition * ret_;
 
 	stt_condition_ = stt_condition_example_simple_condition();
@@ -39,12 +42,23 @@ rtg_condition_example_simple_less_than_condition()
 			stt_condition_);
 #endif
 
-	ret_ = rtg_condition_out_of_stt_condition(stt_condition_);
+	rtg_named_functions_ =
+			rtg_named_functions_simple_list_default_constructor();
+	forced_assertion(rtg_named_functions_ != NULL);
+#ifndef NDEBUG
+	assertion(rtg_named_functions_->first == NULL);
+	assertion(rtg_named_functions_->next == NULL);
+#endif
+
+	ret_ = rtg_condition_out_of_stt_condition(
+			stt_condition_, rtg_named_functions_);
 	forced_assertion(ret_ != NULL);
 #ifndef NDEBUG
 	assert_expectations_on_rtg_condition_example_simple_condition(
 			ret_);
 #endif
+
+	rtg_named_functions_simple_list_deep_destructor(rtg_named_functions_);
 
 	return ret_;
 }
@@ -184,6 +198,7 @@ void
 rtg_condition_transformation_constructor_test_0()
 {
 	stt_condition * stt_condition_;
+	rtg_named_functions_simple_list * rtg_named_functions_;
 	rtg_condition * rtg_condition_;
 
 	stt_condition_ = stt_condition_example_simple_greater_than_condition();
@@ -193,7 +208,16 @@ rtg_condition_transformation_constructor_test_0()
 			stt_condition_);
 #endif
 
-	rtg_condition_ = rtg_condition_out_of_stt_condition(stt_condition_);
+	rtg_named_functions_ =
+			rtg_named_functions_simple_list_default_constructor();
+	forced_assertion(rtg_named_functions_ != NULL);
+#ifndef NDEBUG
+	assertion(rtg_named_functions_->first == NULL);
+	assertion(rtg_named_functions_->next == NULL);
+#endif
+
+	rtg_condition_ = rtg_condition_out_of_stt_condition(
+			stt_condition_, rtg_named_functions_);
 #ifndef NDEBUG
 	assert_expectations_on_stt_condition_example_simple_greater_than_condition(
 			stt_condition_);
@@ -204,8 +228,9 @@ rtg_condition_transformation_constructor_test_0()
 			rtg_condition_);
 #endif
 
-	stt_condition_destructor(stt_condition_);
 	rtg_condition_destructor(rtg_condition_);
+	rtg_named_functions_simple_list_deep_destructor(rtg_named_functions_);
+	stt_condition_destructor(stt_condition_);
 }
 
 void

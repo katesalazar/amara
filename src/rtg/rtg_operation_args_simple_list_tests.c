@@ -21,6 +21,8 @@
 
 #include "../stt/stt_operation_args_simple_list_tests.h"
 
+#include "rtg_named_functions_simple_list.h"
+
 #include "rtg_operation_arg_tests.h"
 
 #include "rtg_operation_args_simple_list.h"
@@ -324,6 +326,7 @@ void
 rtg_operation_args_simple_list_transformation_constructor_test_0()
 {
 	stt_operation_args_simple_list * stt_operation_args_;
+	rtg_named_functions_simple_list * rtg_named_functions_;
 	rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret * transformation_ret_;
 	rtg_operation_args_simple_list * rtg_operation_args_;
 
@@ -335,11 +338,16 @@ rtg_operation_args_simple_list_transformation_constructor_test_0()
 			stt_operation_args_);
 #endif
 
+	rtg_named_functions_ =
+			rtg_named_functions_simple_list_default_constructor();
+	forced_assertion(rtg_named_functions_ != NULL);
+
 	transformation_ret_ =
 			rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list(
 					stt_operation_args_,
 					STT_OPERATION_TYPE_PRINT,
-					NULL);
+					NULL,
+					rtg_named_functions_);
 #ifndef NDEBUG
 	assert_expectations_on_stt_operation_args_simple_list_example_two_args_list(
 			stt_operation_args_);
@@ -357,6 +365,8 @@ rtg_operation_args_simple_list_transformation_constructor_test_0()
 	rtg_operation_args_ = transformation_ret_->operation_args;
 
 	free(transformation_ret_);
+
+	rtg_named_functions_simple_list_deep_destructor(rtg_named_functions_);
 
 	rtg_operation_args_simple_list_destructor(rtg_operation_args_);
 }

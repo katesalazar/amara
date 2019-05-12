@@ -51,6 +51,10 @@
 /*   For `stt_natural_literal_subnode`. */
 #include "stt_natural_literal_subnode.h"
 
+#include "stt_node_sub_call_options.h"
+
+#include "stt_node_sub_expressions_list.h"
+
 /*   For `stt_operation_subnode`. */
 #include "stt_operation_subnode.h"
 
@@ -69,25 +73,28 @@
 typedef unsigned char stt_node_type;
 
 /*   This is an enumeration. */
-#define STT_NODE_TYPE_INVALID             0x00
-#define STT_NODE_TYPE_STRING_LITERAL      0x01
-#define STT_NODE_TYPE_NATURAL_LITERAL     0x02
-#define STT_NODE_TYPE_INTEGER_LITERAL     0x03
-#define STT_NODE_TYPE_RATIONAL_LITERAL    0x04
-#define STT_NODE_TYPE_IDENTIFIER          0x05
-#define STT_NODE_TYPE_CONDITION           0x06
-#define STT_NODE_TYPE_EXPRESSION          0x07
-#define STT_NODE_TYPE_OPERATION           0x08
-#define STT_NODE_TYPE_OPERATIONS_LIST     0x09
-#define STT_NODE_TYPE_WHERE_BINDING       0x0A
-#define STT_NODE_TYPE_WHERE_BINDINGS      0x0B
-#define STT_NODE_TYPE_NAMED_FUNCTION      0x0C
-#define STT_NODE_TYPE_APPLICATION         0x0D
-#define STT_NODE_TYPE_EXECUTION_REQUEST   0x0E
-#define STT_NODE_TYPE_DOC_FRAGMENT        0x0F
-#define STT_NODE_TYPE_DOC                 0x10
-#define STT_NODE_TYPE_CLI_OPERATIONS_LIST 0x81
-#define STT_NODE_TYPE_ERRORED             0xFF
+#define STT_NODE_TYPE_INVALID             0x30
+#define STT_NODE_TYPE_STRING_LITERAL      0x31
+#define STT_NODE_TYPE_NATURAL_LITERAL     0x32
+#define STT_NODE_TYPE_INTEGER_LITERAL     0x33
+#define STT_NODE_TYPE_RATIONAL_LITERAL    0x34
+#define STT_NODE_TYPE_IDENTIFIER          0x35
+#define STT_NODE_TYPE_CONDITION           0x36
+#define STT_NODE_TYPE_EXPRESSION          0x37
+#define STT_NODE_TYPE_EXPRESSIONS_LIST    0x42  /* 66: 'B'. */
+#define STT_NODE_TYPE_CALL_OPTIONS        0x43
+#define STT_NODE_TYPE_CALL                0x44
+#define STT_NODE_TYPE_OPERATION           0x38
+#define STT_NODE_TYPE_OPERATIONS_LIST     0x39
+#define STT_NODE_TYPE_WHERE_BINDING       0x3A
+#define STT_NODE_TYPE_WHERE_BINDINGS      0x3B
+#define STT_NODE_TYPE_NAMED_FUNCTION      0x3C
+#define STT_NODE_TYPE_APPLICATION         0x3D
+#define STT_NODE_TYPE_EXECUTION_REQUEST   0x3E
+#define STT_NODE_TYPE_DOC_FRAGMENT        0x3F
+#define STT_NODE_TYPE_DOC                 0x40  /* 64: '@'. */
+#define STT_NODE_TYPE_CLI_OPERATIONS_LIST 0x41  /* 65: 'A'. */
+#define STT_NODE_TYPE_ERRORED             0x7F
 
 /*   `stt_node` for '**S**yn**t**ax **t**ree node'. */
 typedef struct stt_node {
@@ -105,6 +112,10 @@ typedef struct stt_node {
 	stt_identifier_subnode * identifier_subnode_;
 
 	stt_condition_subnode * condition_subnode_;
+
+	stt_node_sub_call_options * sub_call_options_;
+
+	stt_node_sub_expressions_list * sub_expressions_list_;
 
 	stt_expression_subnode * expression_subnode_;
 
@@ -190,6 +201,18 @@ stt_node_set_condition(stt_node * node, const stt_condition * condition)
 void
 stt_node_set_dice_expression(
 		stt_node * node, const stt_dice_expression * dice_expression)
+;
+
+void
+stt_node_set_sub_call_options(
+		stt_node * node,
+		const stt_node_sub_call_options * sub_call_options)
+;
+
+void
+stt_node_set_sub_expressions_list(
+		stt_node * node,
+		const stt_node_sub_expressions_list * sub_expressions_list)
 ;
 
 void
@@ -341,6 +364,10 @@ assert_clean_condition_node(const stt_node * node)
 
 void
 assert_clean_expression_node(const stt_node * node)
+;
+
+void
+assert_clean_expressions_list_node(const stt_node * node)
 ;
 
 void

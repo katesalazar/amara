@@ -252,8 +252,7 @@ rtg_operation_arg_copy_constructor_test_0()
 	rtg_operation_arg_out_of_stt_operation_arg_ret_ =
 			rtg_operation_arg_out_of_stt_operation_arg(
 					stt_operation_arg_,
-					STT_OPERATION_TYPE_PRINT,
-					NULL);
+					STT_OPERATION_TYPE_PRINT, NULL, NULL);
 #ifndef NDEBUG
 	assert_expectations_on_stt_operation_arg_example_natural_literal_zero(
 			stt_operation_arg_);

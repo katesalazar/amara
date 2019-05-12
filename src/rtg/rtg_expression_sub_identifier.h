@@ -32,6 +32,13 @@ typedef struct rtg_expression_sub_identifier {
 } rtg_expression_sub_identifier
 ;
 
+/**  Exhaustive constructor. */
+rtg_expression_sub_identifier *
+rtg_expression_sub_identifier_exhaustive_constructor(
+		const amara_string * identifier)
+__attribute__((warn_unused_result))
+;
+
 /**  Copy constructor. */
 rtg_expression_sub_identifier *
 rtg_expression_sub_identifier_copy_constructor(

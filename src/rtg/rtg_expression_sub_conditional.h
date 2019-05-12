@@ -20,6 +20,8 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__EXPRESSION_SUB_CONDITIONAL__H__
 #define __AMARA__RUN_TIME_GRAPH__EXPRESSION_SUB_CONDITIONAL__H__
 
+#include "rtg_forward_declarations.h"
+
 /*   For `rtg_condition`. */
 #include "rtg_condition.h"
 
@@ -64,7 +66,8 @@ rtg_expression_sub_conditional_destructor(
 
 rtg_expression_sub_conditional *
 rtg_expression_sub_conditional_out_of_stt_expression_sub_conditional(
-		const stt_expression_sub_conditional * expression_sub_conditional)
+		const stt_expression_sub_conditional * expression_sub_conditional,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 __attribute__((warn_unused_result))
 ;
 

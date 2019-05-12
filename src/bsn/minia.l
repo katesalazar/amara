@@ -269,7 +269,19 @@ _ {
     forced_assertion(miniatext[8] == 'n');
     forced_assertion(yytext[9] == ' ');
 
+    /*   Here flex `2.6.4` (Homebrew) was accepting `%u` OK, but flex `2.5.35 Apple(flex-31)` (macOS Mojave default) was requesting `%lu` (talking about `clang` actually!). */
+#ifdef AMARA_USING_FLEX_2_6_4
+<<<<<<< Updated upstream
+    /*
     fprintf(stderr, "minialeng: %u\n", minialeng);
+    */
+=======
+    fprintf(stderr, "minialeng: %lu\n", minialeng);
+>>>>>>> Stashed changes
+#endif
+#ifdef AMARA_USING_FLEX_2_5_35
+    fprintf(stderr, "minialeng: %lu\n", minialeng);
+#endif
     for (
         miniatext_index_ = 0; miniatext_index_ < minialeng;
         miniatext_index_++)
@@ -571,9 +583,19 @@ times {
     return T_TIMES;
   }
 
+texts {
+    trace_flex_three("returning T_TEXTS (", yytext, ")\n");
+    return T_TEXTS;
+  }
+
 substraction {
     trace_flex_three("returning T_SUBSTRACTION (", yytext, ")\n");
     return T_SUBSTRACTION;
+  }
+
+string {
+    trace_flex_three("returning T_STRING (", yytext, ")\n");
+    return T_STRING;
   }
 
 so {
@@ -611,9 +633,19 @@ returns         {
                   return T_RETURNS;
                 }
 
+returning {
+    trace_flex_three("returning T_RETURNING (", yytext, ")\n");
+    return T_RETURNING;
+  }
+
 return {
     trace_flex_three("returning T_RETURN (", yytext, ")\n");
     return T_RETURN;
+  }
+
+receiving {
+    trace_flex_three("returning T_RECEIVING (", yytext, ")\n");
+    return T_RECEIVING;
   }
 
 receives        {
@@ -631,6 +663,11 @@ rational {
     return T_RATIONAL;
   }
 
+pure {
+    trace_flex_three("returning T_PURE (", yytext, ")\n");
+    return T_PURE;
+  }
+
 print           {
     trace_flex_three("returning T_PRINT (", yytext, ")\n");
                   return T_PRINT;
@@ -640,6 +677,11 @@ point           {
     trace_flex_three("returning T_POINT (", yytext, ")\n");
                   return T_POINT;
                 }
+
+passing {
+    trace_flex_three("returning T_PASSING (", yytext, ")\n");
+    return T_PASSING;
+  }
 
 operator {
     trace_flex_three("returning T_OPERATOR (", yytext, ")\n");
@@ -722,7 +764,7 @@ greater {
   }
 
 function        {
-    trace_flex_three("returning T_FUNCTION (", yytext, ")\n");
+    trace_flex_three("returning T_FUNCTION (", miniatext, ")\n");
                   return T_FUNCTION;
                 }
 
@@ -730,6 +772,8 @@ formula {
     trace_flex_three("returning T_FORMULA (", yytext, ")\n");
     return T_FORMULA;
   }
+
+filler_remove_me { trace_flex_three("returning T_FILLER_REMOVEME (", yytext, ")\n"); return T_FILLER_REMOVE_ME; }
 
 feed {
     trace_flex_three("returning T_FEED (", yytext, ")\n");
@@ -740,6 +784,11 @@ entry           {
     trace_flex_three("returning T_ENTRY (", yytext, ")\n");
                   return T_ENTRY;
                 }
+
+ends {
+    trace_flex_three("returning T_ENDS (", miniatext, ")\n");
+    return T_ENDS;
+  }
 
 end {
     trace_flex_three("returning T_END (", yytext, ")\n");
@@ -781,6 +830,16 @@ by {
     return T_BY;
   }
 
+conditional {
+    trace_flex_three("returning T_CONDITIONAL (", miniatext, ")\n");
+    return T_CONDITIONAL;
+  }
+
+concatenate {
+    trace_flex_three("returning T_CONCATENATE (", yytext, ")\n");
+    return T_CONCATENATE;
+  }
+
 commands {
     trace_flex_three("returning T_COMMANDS (", yytext, ")\n");
     return T_COMMANDS;
@@ -796,6 +855,11 @@ chain {
     return T_CHAIN;
   }
 
+causing {
+    trace_flex_three("returning T_CAUSING (", yytext, ")\n");
+    return T_CAUSING;
+  }
+
 causes {
     trace_flex_three("returning T_CAUSES (", yytext, ")\n");
     return T_CAUSES;
@@ -806,10 +870,26 @@ carriage {
     return T_CARRIAGE;
   }
 
+call {
+    trace_flex_three("returning T_CALL (", yytext, ")\n");
+    return T_CALL;
+  }
+
+builtin {
+    trace_flex_three("returning T_BUILTIN (", yytext, ")\n");
+    return T_BUILTIN;
+  }
+
 bound {
 
     trace_flex_three("returning T_BOUND (", yytext, ")\n");
     return T_BOUND;
+  }
+
+before {
+
+    trace_flex_three("returning T_BEFORE (", yytext, ")\n");
+    return T_BEFORE;
   }
 
 awesome         {
@@ -841,6 +921,11 @@ an              {
     trace_flex_three("returning T_AN (", yytext, ")\n");
                   return T_AN;
                 }
+
+[s][e][q]uentially {
+    trace_flex_three("returning T_SEQUENTIALLY (", yytext, ")\n");
+    return T_SEQUENTIALLY;
+  }
 
 [Aa][Ll][Ll] {
     trace_flex_three("returning T_ALL (", yytext, ")\n");

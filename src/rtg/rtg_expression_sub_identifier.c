@@ -28,6 +28,26 @@ assertion(int expression)
 #include "rtg_expression_sub_identifier.h"
 
 rtg_expression_sub_identifier *
+rtg_expression_sub_identifier_exhaustive_constructor(
+		const amara_string * identifier)
+{
+	rtg_expression_sub_identifier * ret_;
+
+#ifndef NDEBUG
+	assertion(identifier != NULL);
+	assertion(identifier->value_ != NULL);
+#endif
+
+	ret_ = malloc(sizeof(rtg_expression_sub_identifier));
+	forced_assertion(ret_ != NULL);
+
+	ret_->identifier_ = amara_string_copy_constructor(identifier);
+	forced_assertion(ret_->identifier_ != NULL);
+
+	return ret_;
+}
+
+rtg_expression_sub_identifier *
 rtg_expression_sub_identifier_copy_constructor(
 		const rtg_expression_sub_identifier * expression_sub_identifier)
 {

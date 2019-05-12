@@ -1,46 +1,204 @@
-function identifier main identifier ends
-	is a command line interface application function
-	and receives nothing at all
-	and returns nothing at all
-	so it causes side effects
+function
+	identifier roll the dice identifier ends
+	is a pure function
+	receiving nothing at all
+	returning a natural
+	without causing side effects
 	and does
-	print string literal you roll 3d6 and get  string literal ends
-	comment   You can sequence up to five operations per function. comment ends
-	and then print identifier value rolls results identifier ends
-	and then print string literal ,  string literal ends
-	and then print
+	return identifier value rolls results identifier ends
+	comment   The `value rolls results` identifier is a value bound
+	        to a _dice operator_ returned value, by virtue of this
+	        `where` clause.
+	comment ends
+	where identifier value rolls results identifier ends is bound to
+		extension roll 3 6 sided dice extension ends
+function ends
+
+comment   Move this to sort of a prelude.
+comment ends
+function
+	identifier concatenate 2 texts identifier ends
+	is a pure function
+	receiving
+		a string
+			identifier first string identifier ends
+		and a string
+			identifier second string identifier ends
+	returning a string
+	without causing side effects
+	and does
+	return
+		call builtin function identifier concatenate identifier ends
+			passing
+				identifier first string identifier ends
+				and identifier second string identifier ends
+		call ends
+function ends
+
+comment   Move this to sort of a prelude.
+comment ends
+function
+	identifier concatenate 3 texts identifier ends
+	is a pure function
+	receiving
+		a string
+			identifier first string identifier ends
+		and a string
+			identifier second string identifier ends
+		and a string
+			identifier third string identifier ends
+	returning a string
+	without causing side effects
+	and does
+	return
+		call function identifier concatenate 2 texts identifier ends
+			passing
+				identifier first string identifier ends
+				and ident all strings but first ident ends
+		call ends
+	where ident all strings but first ident ends is bound to
+		call function identifier concatenate 2 texts identifier ends
+			passing
+				identifier second string identifier ends
+				and identifier third string identifier ends
+		call ends
+function ends
+
+comment   Move this to sort of a prelude.
+comment ends
+function
+	identifier concatenate 4 texts identifier ends
+	is a pure function
+	receiving
+		a string
+			identifier first string identifier ends
+		and a string
+			identifier second string identifier ends
+		and a string
+			identifier third string identifier ends
+		and a string
+			identifier fourth string identifier ends
+	returning a string
+	without causing side effects
+	and does
+	return
+		call function identifier concatenate 2 texts identifier ends
+			passing
+				identifier first string identifier ends
+				and ident all strings but first ident ends
+		call ends
+	where ident all strings but first ident ends is bound to
+		call function identifier concatenate 3 texts identifier ends
+			passing
+				identifier second string identifier ends
+				and identifier third string identifier ends
+				and identifier fourth string identifier ends
+		call ends
+function ends
+
+function
+	identifier format the output text identifier ends
+	is a pure function
+	receiving a natural
+		identifier input number identifier ends
+	returning a string
+	without causing side effects
+	and does
+	return identifier text identifier ends
+	where identifier text identifier ends is bound to
+		call function identifier concatenate 4 texts identifier ends
+			passing
+				identifier heading text identifier ends
+				and identifier results as text identifier ends
+				and identifier comma identifier ends
+				and identifier judgement identifier ends
+		call ends
+	where identifier heading text identifier ends is bound to
+		string literal you roll 3d6 and get  string literal ends
+	where identifier results as text identifier ends is bound to
+		call function identifier number to string identifier ends
+			passing identifier input number identifier ends
+		call ends
+	where identifier comma identifier ends is bound to
+		string literal ,  string literal ends
+	where identifier judgement identifier ends is bound to
 		comment   The `if` statement, and expression, can be also a
 		 * value. Note that the `if` statement and expression is
 		 * an expression, and a value, like in functional
 		 * languages such as _Lisps_ and _Haskells_; but is not
 		 * an operation, as in the case of imperative
 		 * programming such as C++. comment ends
-		if identifier value rolls results identifier ends is greater than 12
+		conditional
+			identifier value rolls results identifier ends
+			is greater than 12
 		then
 			string literal that's awesome string literal ends
 		else
-			if identifier value rolls results identifier ends is less than 6
+			conditional
+				identifier value rolls results identifier ends
+					is less than 6
 			then
 				string literal that's bad luck string literal ends
 			else
 				string literal that's fine string literal ends
-			end if
-		end if
-	and then new line
+			conditional ends
+		conditional ends
+	comment where judgment binding comment ends
+function ends
 
-	comment   After the sequenced operations and before the end of the
-	 * function, value bindings can be declared. Value expressions
-	 * can be bound to names, then used inside the operations. comment ends
+function
+	identifier print the string identifier ends
+	is a command line interface application function
+	receiving a string
+		identifier input string identifier ends
+	returning nothing
+	so it causes side effects
+	and does
+	print identifier input string identifier ends
+	sequentially before new line
+function ends
 
-	comment   The `value rolls results` identifier is a value bound to a _dice
-	 * operator_ returned value, by virtue of this `where` clause. comment ends
-	where identifier value rolls results identifier ends is bound to
-		extension roll 3 6 sided dice extension ends
-end function identifier main identifier ends
+function
+	identifier main identifier ends
+	comment   The function must be a command line interface
+	        application because some function called inside is a
+	        command line interface application function as well
+	comment ends
+	is a command line interface application function
+	receiving nothing at all
+	returning nothing at all
+	so it causes side effects
+	and does
+	comment   Here, the keyword `run` asks to evaluate the argument.
+	        The argument is an expression, but it has to trigger
+	        some kind of side effect. For, if it doesn't, then
+	        evaluating the argument makes no sense, as it is not
+	        productive work.
+	          For this reason, requesting to `run` something that
+	        doesn't trigger side effects must result in an error.
+	          Note that, contrary wise, `return`ing something that
+	        doesn't trigger any side effects is completely
+	        legitimate.
+	comment ends
+	run
+		call function identifier print the string identifier ends
+			passing ident formatted judgement text ident ends
+		call ends
+	where identifier formatted judgment text identifier ends is bound to
+		call function identifier format the output text identifier ends
+			passing identifier rolls results identifier ends
+		call ends
+	where identifier rolls results identifier ends is bound to
+		call function identifier roll the dice identifier ends
+			passing nothing
+		call ends
+function ends
 
-application identifier functions structure identifier ends
+application
+	identifier functions structure identifier ends
 	is a command line interface application
 	and the entry point is function identifier main identifier ends
-end application identifier functions structure identifier ends
+application ends
 
-run command line interface application identifier functions structure identifier ends
+run command line interface application
+	identifier functions structure identifier ends

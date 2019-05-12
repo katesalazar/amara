@@ -27,6 +27,8 @@
  * `assert_expectations_on_rtg_condition_example_simple_conditional`. */
 #include "rtg_condition_tests.h"
 
+#include "rtg_named_functions_simple_list.h"
+
 /*   For owned function prototypes. */
 #include "rtg_expression_tests.h"
 
@@ -126,6 +128,7 @@ rtg_expression *
 rtg_expression_example_identifier_foo()
 {
 	stt_expression * stt_expression_;
+	rtg_named_functions_simple_list * rtg_named_functions_;
 	rtg_expression_out_of_stt_expression_ret * transformation_ret_;
 	rtg_expression * ret_;
 
@@ -136,8 +139,12 @@ rtg_expression_example_identifier_foo()
 			stt_expression_);
 #endif
 
-	transformation_ret_ =
-			rtg_expression_out_of_stt_expression(stt_expression_);
+	rtg_named_functions_ =
+			rtg_named_functions_simple_list_default_constructor();
+	forced_assertion(rtg_named_functions_ != NULL);
+
+	transformation_ret_ = rtg_expression_out_of_stt_expression(
+			stt_expression_, rtg_named_functions_);
 #ifndef NDEBUG
 	assert_expectations_on_stt_expression_example_identifier_foo(
 			stt_expression_);
@@ -156,6 +163,8 @@ rtg_expression_example_identifier_foo()
 	ret_ = transformation_ret_->expression;
 
 	free(transformation_ret_);
+
+	rtg_named_functions_simple_list_deep_destructor(rtg_named_functions_);
 
 	return ret_;
 }
@@ -183,6 +192,7 @@ rtg_expression *
 rtg_expression_example_single_vanilla_dice(void)
 {
 	stt_expression * stt_expression_;
+	rtg_named_functions_simple_list * rtg_named_functions_;
 	rtg_expression_out_of_stt_expression_ret * transformation_ret_;
 	rtg_expression * ret_;
 
@@ -193,8 +203,12 @@ rtg_expression_example_single_vanilla_dice(void)
 			stt_expression_);
 #endif
 
-	transformation_ret_ =
-			rtg_expression_out_of_stt_expression(stt_expression_);
+	rtg_named_functions_ =
+			rtg_named_functions_simple_list_default_constructor();
+	forced_assertion(rtg_named_functions_ != NULL);
+
+	transformation_ret_ = rtg_expression_out_of_stt_expression(
+			stt_expression_, rtg_named_functions_);
 #ifndef NDEBUG
 	assert_expectations_on_stt_expression_example_single_vanilla_dice(
 			stt_expression_);
@@ -213,6 +227,8 @@ rtg_expression_example_single_vanilla_dice(void)
 	ret_ = transformation_ret_->expression;
 
 	free(transformation_ret_);
+
+	rtg_named_functions_simple_list_deep_destructor(rtg_named_functions_);
 
 	stt_expression_destructor(stt_expression_);
 
@@ -263,7 +279,7 @@ rtg_expression_example_simple_conditional()
 			expression_);
 #endif
 
-	mid_ret_ = rtg_expression_out_of_stt_expression(expression_);
+	mid_ret_ = rtg_expression_out_of_stt_expression(expression_, NULL);
 #ifndef NDEBUG
 	assertion(mid_ret_ != NULL);
 	assertion(mid_ret_->status ==

@@ -50,6 +50,7 @@ stt_expression_default_constructor(void)
 	returning_->sub_natural_literal_ = NULL;
 	returning_->sub_identifier_ = NULL;
 	returning_->sub_conditional_ = NULL;
+	returning_->sub_function_call_ = NULL;
 	returning_->sub_dice_ = NULL;
 	returning_->type_ = STT_EXPRESSION_TYPE_INVALID;
 
@@ -144,6 +145,21 @@ stt_expression_copy_constructor(const stt_expression * expression)
 		/* XXX missing assertions? */
 		assertion(expression->sub_dice_ == NULL);
 #endif
+	} else if (expression->type_ == STT_EXPRESSION_TYPE_FUNCTION_CALL) {
+
+#ifndef NDEBUG
+		assertion(expression->sub_string_literal_ == NULL);
+		assertion(expression->sub_natural_literal_ == NULL);
+		assertion(expression->sub_conditional_ == NULL);
+		assertion(expression->sub_function_call_ != NULL);
+#endif
+
+		returning_->sub_function_call_ =
+				stt_expression_sub_function_call_copy_constructor(
+						expression->sub_function_call_);
+#ifndef NDEBUG
+		assertion(returning_->sub_function_call_ != NULL);
+#endif
 	} else {
 #ifndef NDEBUG
 		fprintf(stderr, "%u\n", expression->type_);
@@ -208,6 +224,13 @@ stt_expression_destructor(stt_expression * expression)
 #endif
 		stt_expression_sub_conditional_destructor(
 				expression->sub_conditional_);
+	} else if (expression->type_ == STT_EXPRESSION_TYPE_FUNCTION_CALL) {
+
+#ifndef NDEBUG
+		assertion(expression->sub_function_call_ != NULL);
+#endif
+		stt_expression_sub_function_call_destructor(
+				expression->sub_function_call_);
 	} else {
 #ifndef NDEBUG
 		assertion(expression->type_ == STT_EXPRESSION_TYPE_DICE);
@@ -344,6 +367,31 @@ stt_expression_set_conditional(
 }
 
 void
+stt_expression_set_function_call(
+		stt_expression * expression,
+		const struct stt_expression_sub_function_call * sub_function_call)
+{
+#ifndef NDEBUG
+	assertion_two(expression != NULL, "stt_expression.c: 352\n");
+	assertion_two(expression->type_ == STT_EXPRESSION_TYPE_INVALID,
+			"stt_expression.c: 353\n");
+	assertion_two(sub_function_call != NULL, "stt_expression.c: 355\n");
+#endif
+
+#ifndef NDEBUG
+	assertion_two(expression->sub_function_call_ == NULL,
+			"stt_expression.c: 359\n");
+#endif
+
+	expression->sub_function_call_ =
+			stt_expression_sub_function_call_copy_constructor(
+					sub_function_call);
+	forced_assertion(expression->sub_function_call_ != NULL);
+
+	expression->type_ = STT_EXPRESSION_TYPE_FUNCTION_CALL;
+}
+
+void
 stt_expression_set_dice(stt_expression * expression,
                         const stt_dice_expression * dice_expression)
 {
@@ -387,8 +435,8 @@ stt_expression_equality(const stt_expression * e0, const stt_expression * e1)
 		return AMARA_BOOLEAN_FALSE;
 	}
 
-	fprintf(stderr, "%u\n", e0->type_);
-	fprintf(stderr, "%u\n", e1->type_);
+	fprintf(stderr, "stt_expression.c: 437: %u\n", e0->type_);
+	fprintf(stderr, "stt_expression.c: 438: %u\n", e1->type_);
 
 	if (e0->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL) {
 
@@ -406,10 +454,7 @@ stt_expression_equality(const stt_expression * e0, const stt_expression * e1)
 		equality_ = amara_string_equality(
 				e0->sub_string_literal_->string_literal_,
 				e1->sub_string_literal_->string_literal_);
-	} else {
-#ifndef NDEBUG
-		assertion(e0->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL);
-#endif
+	} else if (e0->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL) {
 
 #ifndef NDEBUG
 		assertion(e0->sub_natural_literal_ != NULL);
@@ -437,9 +482,48 @@ stt_expression_equality(const stt_expression * e0, const stt_expression * e1)
 		equality_ = amara_string_equality(
 				e0->sub_natural_literal_->natural_literal_->raw_,
 				e1->sub_natural_literal_->natural_literal_->raw_);
+	} else if (e0->type_ == STT_EXPRESSION_TYPE_FUNCTION_CALL) {
+
+#ifndef NDEBUG
+		assertion(e0->sub_function_call_ != NULL);
+		assertion(e0->sub_function_call_->function_name_ != NULL);
+		assertion(e0->sub_function_call_->call_arguments_ != NULL);
+		assertion(e0->sub_function_call_->builtin_function_ != NULL);
+		assertion(e1->sub_function_call_ != NULL);
+		assertion(e1->sub_function_call_->function_name_ != NULL);
+		assertion(e1->sub_function_call_->call_arguments_ != NULL);
+		assertion(e1->sub_function_call_->builtin_function_ != NULL);
+#endif
+
+		equality_ = stt_expression_sub_function_call_equality(
+				e0->sub_function_call_,
+				e1->sub_function_call_);
+	} else {
+		forced_assertion_two(
+				e0->type_ == STT_EXPRESSION_TYPE_IDENTIFIER,
+				"stt_expression.c: 438\n");
+
+#ifndef NDEBUG
+		assertion_two(e0->sub_identifier_ != NULL, "stt_expression.c: 443\n");
+		assertion_two(e0->sub_identifier_->identifier_ != NULL, "stt_expression.c: 444\n");
+		assertion_two(e0->sub_identifier_->identifier_->value_ != NULL, "stt_expression.c: 445\n");
+		assertion_two(e1->sub_identifier_ != NULL, "stt_expression.c: 446\n");
+		assertion_two(e1->sub_identifier_->identifier_ != NULL, "stt_expression.c: 447\n");
+		assertion_two(e1->sub_identifier_->identifier_->value_ != NULL, "stt_expression.c: 448\n");
+#endif
+
+		equality_ = amara_strings_equality(
+				e0->sub_identifier_->identifier_,
+				e1->sub_identifier_->identifier_);
 	}
 
 	return equality_;
+}
+
+amara_boolean
+stt_expressions_equality(const stt_expression * e0, const stt_expression * e1)
+{
+	return stt_expression_equality(e0, e1);
 }
 
 #ifndef NDEBUG
@@ -513,6 +597,22 @@ stt_expression_assert_clean_conditional(const stt_expression * this)
 	}
 	*/
 	assertion(this->sub_dice_ == NULL);
+}
+
+void
+stt_expression_assert_clean_function_call(const stt_expression * this)
+{
+	located_assertion(this != NULL);
+	located_assertion(this->type_ == STT_EXPRESSION_TYPE_FUNCTION_CALL);
+	assertion(this->sub_string_literal_ == NULL);
+	assertion(this->sub_natural_literal_ == NULL);
+	assertion(this->sub_identifier_ == NULL);
+	assertion(this->sub_conditional_ == NULL);
+	located_assertion(this->sub_function_call_ != NULL);
+	located_assertion(this->sub_function_call_->builtin_function_ != NULL);
+	located_assertion(this->sub_function_call_->function_name_ != NULL);
+	located_assertion(this->sub_function_call_->call_arguments_ != NULL);
+	located_assertion(this->sub_dice_ == NULL);
 }
 
 void

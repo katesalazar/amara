@@ -278,7 +278,7 @@ rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_test_
 	rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret_destructor(
 			target_);
 	rtg_named_function_destructor(rtg_named_function_);
-	rtg_named_functions_simple_list_destructor(rtg_named_functions_);
+	rtg_named_functions_simple_list_deep_destructor(rtg_named_functions_);
 	stt_application_destructor(stt_application_);
 }
 

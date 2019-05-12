@@ -11,7 +11,8 @@ comment
   told by Bjarne Stroustrup, which was a student working under his
   supervision.
 comment ends
-function identifier main identifier ends
+function
+	identifier main identifier ends
 
 	comment
 	    Tagging a function as `command line interface application
@@ -24,8 +25,8 @@ function identifier main identifier ends
 	    Functions transform input values into output values, as in
 	  math and as in any other programming language.
 	comment ends
-	and receives nothing at all
-	and returns nothing at all
+	receiving nothing at all
+	returning nothing at all
 
 	comment
 	    In the minia language it is mandatory to declare whether a
@@ -54,34 +55,38 @@ function identifier main identifier ends
 	print string literal hello, world string literal ends
 
 	comment   Operations joined using the `and then` conjunction are
-	 * executed strictly sequentially. Up to five operations can
-	 * be sequenced in a single function. comment ends
-	and then new line
+	        executed strictly sequentially. Up to five operations
+	        can be sequenced in a single function. comment ends
+	sequentially before new line
 
-	comment   If this function returned something, the last operation had
-	 * to be a _return_ _operation_. But that's not the case. comment ends
+	comment   If this function returned something, the last
+	        operation had to be a _return_ _operation_. But that's
+	        not the case. comment ends
 
-	comment   After the function operations and before the function end,
-	 * there can optionally be binding declarations, but here there
-	 * are none. comment ends
+	comment   After the function operations and before the function
+	        end, there can optionally be binding declarations, but
+	        here there are none. comment ends
 
-comment   End the function scope in a similar way as traditional scope ending
- * in other languages would do in Algol, Pascal, etc. comment ends
-end function identifier main identifier ends
+comment   End the function scope in a similar way as traditional scope
+        ending in other languages would do in Algol, Pascal, etc. comment ends
+function ends
 
-comment   Applications describe functions that can be called from outside the
- * language. comment ends
-application identifier hello, world identifier ends
+comment   Applications describe functions that can be called from
+        outside the language. comment ends
+application
+	identifier hello, world identifier ends
 
 	comment   Tagging an application as `command line interface
-	 * application` unlocks the possibility of running _command line
-	 * interface application functions_. comment ends
+	        application` unlocks the possibility of running _command
+	        line interface application functions_. comment ends
 	is a command line interface application
 
 	comment   The entry point function name is explicit. comment ends
 	and the entry point is function identifier main identifier ends
-end application identifier hello, world identifier ends
+application ends
 
-comment   An execution request must be processed by the language processor
- * as triggering a run of the chosen application. comment ends
-run command line interface application identifier hello, world identifier ends
+comment   An execution request must be processed by the language
+        processor as triggering a run of the chosen application.
+comment ends
+run command line interface application
+	identifier hello, world identifier ends

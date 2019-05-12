@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,32 +32,45 @@ application :
 ;
 cli_application :
   APPLICATION IDENTIFIER IS A COMMAND LINE INTERFACE
-  APPLICATION AND THE ENTRY POINT IS FUNCTION IDENTIFIER END
-  APPLICATION IDENTIFIER
+  APPLICATION AND THE ENTRY POINT IS FUNCTION IDENTIFIER
+  APPLICATION ENDS
 ;
 named_function :
-  cli_named_function
+  FUNCTION IDENTIFIER function_characterization_clause
+  function_receives_clause function_returns_clause
+  function_side_effects_clause AND DOES function_statements
+  function_where_clauses FUNCTION ENDS
 ;
-cli_named_function :
-  FUNCTION IDENTIFIER IS A COMMAND LINE INTERFACE
-  APPLICATION FUNCTION AND function_receives_clause AND
-  function_returns_clause function_side_effects_clause AND DOES
-  function_statements function_where_clauses END FUNCTION IDENTIFIER
+function_characterization_clause :
+  IS A PURE FUNCTION
+| IS A COMMAND LINE INTERFACE
+  APPLICATION FUNCTION
 ;
 function_receives_clause :
-  RECEIVES function_receives_clause_inner
+  RECEIVING function_receives_clause_inner
 ;
 function_receives_clause_inner :
-  NOTHING AT ALL
+  NOTHING
+| NOTHING AT ALL
+| A STRING IDENTIFIER function_receives_clause_inner_continuation
+| A NATURAL IDENTIFIER
+;
+function_receives_clause_inner_continuation :
+  AND function_receives_clause_inner
+|
 ;
 function_returns_clause :
-  RETURNS function_returns_clause_inner
+  RETURNING function_returns_clause_inner
 ;
 function_returns_clause_inner :
   NOTHING AT ALL
+| NOTHING
+| A STRING
+| A NATURAL
 ;
 function_side_effects_clause :
-  SO IT CAUSES SIDE EFFECTS
+  WITHOUT CAUSING SIDE EFFECTS
+| SO IT CAUSES SIDE EFFECTS
 ;
 function_where_clauses :
   WHERE function_where_clause function_where_clauses
@@ -70,16 +83,32 @@ execution_request :
   RUN COMMAND LINE INTERFACE APPLICATION IDENTIFIER
 ;
 function_statements :
-  function_statement AND THEN function_statements
+  function_statement SEQUENTIALLY BEFORE function_statements
+| function_statement CONCURRENTLY WITH function_statements
 | function_statement
 ;
 function_statement :
-  PRINT expression
+  RUN expression
+| RETURN expression
+| PRINT expression
 | NEW LINE
 | READ NATURAL IDENTIFIER
 ;
+call_options :
+  BUILTIN
+|
+;
+expressions_list :
+  expression expressions_list_continuation
+| NOTHING
+;
+expressions_list_continuation :
+  AND expression expressions_list_continuation
+|
+;
 expression :
-  IF condition THEN expression ELSE expression END IF
+  CONDITIONAL condition THEN expression ELSE expression CONDITIONAL
+  ENDS
 | STRING_LITERAL
 /*
 | TYPE OF expression
@@ -95,7 +124,21 @@ expression :
 | NATURAL_LITERAL
 | INTEGER_LITERAL
 | RATIONAL_LITERAL
+/*
+| CONCATENATE NATURAL_LITERAL TEXTS list_of_arguments
+*/
+| CALL call_options FUNCTION IDENTIFIER PASSING expressions_list CALL ENDS
 ;
+/*
+CANT HAS 'AND' PARTICLE HERE AS SEPARATOR, AS IT'S ALREADY THE OPERATIONS SEPARATOR, WOULD CREATE SR CONFLICT
+*/
+/*
+list_of_arguments :
+  list_of_arguments AND STRING_LITERAL
+| list_of_arguments AND IDENTIFIER
+|
+;
+*/
 condition :
   expression IS LESS THAN expression
 | expression IS GREATER THAN expression

@@ -115,23 +115,30 @@ void
 assert_expectations_on_stt_operation_arg_example_string_literal_foo(
 		const stt_operation_arg * operation_arg)
 {
-	assertion(operation_arg != NULL);
-	assertion(operation_arg->type_ == STT_OPERATION_ARG_TYPE_VALID);
-	assertion(operation_arg->node_ != NULL);
-	assertion(operation_arg->node_->type_ == STT_NODE_TYPE_STRING_LITERAL);
-	assertion(operation_arg->node_->string_literal_subnode_ != NULL);
-	assertion(operation_arg->node_->string_literal_subnode_->string_literal_ !=
-			NULL);
-	assertion(operation_arg->node_->string_literal_subnode_->string_literal_->value_ !=
-			NULL);
-	assertion(operation_arg->node_->string_literal_subnode_->string_literal_->value_[0] ==
-			'f');
-	assertion(operation_arg->node_->string_literal_subnode_->string_literal_->value_[1] ==
-			'o');
-	assertion(operation_arg->node_->string_literal_subnode_->string_literal_->value_[2] ==
-			'o');
-	assertion(operation_arg->node_->string_literal_subnode_->string_literal_->value_[3] ==
-			'\0');
+	assertion_two(operation_arg != NULL,
+			"stt_operation_arg_tests.c: 118\n");
+	assertion_two(operation_arg->type_ == STT_OPERATION_ARG_TYPE_VALID,
+			"stt_operation_arg_tests.c: 120\n");
+	assertion_two(operation_arg->node_ != NULL,
+			"stt_operation_arg_tests.c: 122\n");
+	assertion_two(
+			operation_arg->node_->type_ ==
+					STT_NODE_TYPE_STRING_LITERAL,
+			"stt_operation_arg_tests.c: 124\n");
+	assertion_two(operation_arg->node_->string_literal_subnode_ != NULL,
+			"stt_operation_arg_tests.c: 128\n");
+	assertion_two(operation_arg->node_->string_literal_subnode_->string_literal_ !=
+			NULL, "stt_operation_arg_tests.c: 130\n");
+	assertion_two(operation_arg->node_->string_literal_subnode_->string_literal_->value_ !=
+			NULL, "stt_operation_arg_tests.c: 132\n");
+	assertion_two(operation_arg->node_->string_literal_subnode_->string_literal_->value_[0] ==
+			'f', "stt_operation_arg_tests.c: 134\n");
+	assertion_two(operation_arg->node_->string_literal_subnode_->string_literal_->value_[1] ==
+			'o', "stt_operation_arg_tests.c: 136\n");
+	assertion_two(operation_arg->node_->string_literal_subnode_->string_literal_->value_[2] ==
+			'o', "stt_operation_arg_tests.c: 138\n");
+	assertion_two(operation_arg->node_->string_literal_subnode_->string_literal_->value_[3] ==
+			'\0', "stt_operation_arg_tests.c: 140\n");
 }
 
 #endif

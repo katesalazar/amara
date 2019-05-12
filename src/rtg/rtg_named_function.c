@@ -44,8 +44,8 @@ rtg_named_function_default_constructor()
 rtg_named_function *
 rtg_named_function_exhaustive_constructor(
 		unsigned char type, const amara_string * name,
-		const rtg_operations_simple_list * operations,
-		const rtg_where_value_bindings_simple_list * where_value_bindings)
+		const struct rtg_operations_simple_list * operations,
+		const struct rtg_where_value_bindings_simple_list * where_value_bindings)
 {
 	rtg_named_function * ret_;
 
@@ -209,32 +209,33 @@ rtg_named_function_destructor(rtg_named_function * named_function)
 }
 
 void
-rtg_named_function_out_of_stt_named_function_ret_destructor(
-	rtg_named_function_out_of_stt_named_function_ret * input_ret)
+rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list_ret_destructor(
+		rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list_ret * input_ret)
 {
 	if (input_ret->status ==
-			RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_SUCCESS) {
+			RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
 
 		forced_assertion(input_ret->error_messages == NULL);
 
-		forced_assertion(input_ret->named_function == NULL);
+		forced_assertion(input_ret->new_named_function == NULL);
 	} else {
 		forced_assertion(input_ret->status ==
-				RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION);
+				RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION);
 
 		forced_assertion(input_ret->error_messages == NULL);
 
-		forced_assertion(input_ret->named_function == NULL);
+		forced_assertion(input_ret->new_named_function == NULL);
 	}
 
 	free(input_ret);
 }
 
-rtg_named_function_out_of_stt_named_function_ret *
-rtg_named_function_out_of_stt_named_function(
-		const stt_named_function * named_function)
+rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list_ret *
+rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list(
+		const stt_named_function * stt_named_function,
+		const rtg_named_functions_simple_list * rtg_named_functions_directory)
 {
-	rtg_named_function_out_of_stt_named_function_ret * ret_;
+	rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list_ret * ret_;
 	rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * operations_sub_ret_;
 #ifndef NDEBUG
 	amara_boolean equality_;
@@ -247,28 +248,30 @@ rtg_named_function_out_of_stt_named_function(
 	fprintf(stderr, "----> %s:%u rtg_named_function_out_of_stt_named_function_ret * rtg_named_function_out_of_stt_named_function(const stt_named_function *)\n",
 			__FILE__, __LINE__);
 
-	ret_ = malloc(sizeof(rtg_named_function_out_of_stt_named_function_ret));
+	ret_ = malloc(sizeof(rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list_ret));
 	forced_assertion(ret_ != NULL);
 
-	ret_->status = RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_INVALID;
+	ret_->status = RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID;
 
 	ret_->error_messages = NULL;
 
-	ret_->named_function = rtg_named_function_default_constructor();
-	forced_assertion(ret_->named_function != NULL);
+	ret_->new_named_function = rtg_named_function_default_constructor();
+	forced_assertion(ret_->new_named_function != NULL);
 
 	/*
 	where_value_bindings_sub_ret_ =
 	*/
 	where_value_bindings_sub_ret_sub_ =
 			rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list(
-					named_function->where_value_bindings_);
+					stt_named_function->where_value_bindings_,
+					rtg_named_functions_directory);
 	forced_assertion(where_value_bindings_sub_ret_sub_ != NULL);
 
 	operations_sub_ret_ =
 			rtg_operations_simple_list_out_of_stt_operations_simple_list(
-					named_function->operations_,
-					named_function->where_value_bindings_);
+					stt_named_function->operations_,
+					stt_named_function->where_value_bindings_,
+					rtg_named_functions_directory);
 	forced_assertion(operations_sub_ret_ != NULL);
 
 	if (operations_sub_ret_->status !=
@@ -281,7 +284,10 @@ rtg_named_function_out_of_stt_named_function(
 
 		forced_assertion(operations_sub_ret_->operations == NULL);
 
-		ret_->named_function = NULL;
+		ret_->new_named_function = NULL;
+        
+        ret_->new_named_functions_directory =
+              (rtg_named_functions_simple_list *) rtg_named_functions_directory;
 
 		ret_->error_messages = operations_sub_ret_->error_messages;
 		operations_sub_ret_->error_messages = NULL;
@@ -289,7 +295,7 @@ rtg_named_function_out_of_stt_named_function(
 		rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_destructor(
 				operations_sub_ret_);
 
-		ret_->status = RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION;
+		ret_->status = RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION;
 
 		return ret_;
 	}
@@ -299,18 +305,18 @@ rtg_named_function_out_of_stt_named_function(
 
 #ifndef NDEBUG
 	/*   Subsidiary. */
-	forced_assertion(named_function->where_value_bindings_ != NULL);
+	forced_assertion(stt_named_function->where_value_bindings_ != NULL);
 
 	/*   Subsidiary. */
 	/*
 	if (where_value_bindings_sub_ret_sub_->first == NULL) {
 
-		forced_assertion(named_function->where_value_bindings_ == NULL ||
-				named_function->where_value_bindings_->first == NULL);
+		forced_assertion(stt_named_function->where_value_bindings_ == NULL ||
+				stt_named_function->where_value_bindings_->first == NULL);
 
-		if (named_function->where_value_bindings_ != NULL) {
+		if (stt_named_function->where_value_bindings_ != NULL) {
 
-			forced_assertion(named_function->where_value_bindings_->first ==
+			forced_assertion(stt_named_function->where_value_bindings_->first ==
 					NULL);
 		}
 	}
@@ -318,57 +324,80 @@ rtg_named_function_out_of_stt_named_function(
 
 	/*   Subsidiary. */
 	/*
-	forced_assertion(named_function->where_value_bindings_->first == NULL);
+	forced_assertion(stt_named_function->where_value_bindings_->first == NULL);
 	*/
 
 	/*
 	forced_assertion(where_value_bindings_sub_ret_sub_->first != NULL ||
-			named_function->where_value_bindings_ == NULL ||
-			named_function->where_value_bindings_->first == NULL);
+			stt_named_function->where_value_bindings_ == NULL ||
+			stt_named_function->where_value_bindings_->first == NULL);
 	*/
 
 	if (where_value_bindings_sub_ret_sub_->first == NULL) {
 
-		forced_assertion_two(named_function->where_value_bindings_ != NULL,
+		forced_assertion_two(
+				stt_named_function->where_value_bindings_ !=
+						NULL,
 				"rtg_named_function.c: 330");
-		forced_assertion_two(named_function->where_value_bindings_->first == NULL,
+		forced_assertion_two(
+				stt_named_function->where_value_bindings_->first ==
+						NULL,
 				"rtg_named_function.c: 332");
 	} else {
-		forced_assertion_two(where_value_bindings_sub_ret_sub_->first != NULL,
+		forced_assertion_two(
+				where_value_bindings_sub_ret_sub_->first !=
+						NULL,
 				"rtg_named_function.c: 334");
 	}
 #endif
 
-	ret_->named_function->where_value_bindings_ =
+	ret_->new_named_function->where_value_bindings_ =
 			where_value_bindings_sub_ret_sub_;
 
-	ret_->named_function->operations_ = operations_sub_ret_->operations;
+	ret_->new_named_function->operations_ = operations_sub_ret_->operations;
 	operations_sub_ret_->operations = NULL;
 	rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_destructor(
 			operations_sub_ret_);
 
-	ret_->named_function->name_ =
-			amara_string_copy_constructor(named_function->name_);
+	ret_->new_named_function->name_ = amara_string_copy_constructor(
+			stt_named_function->name_);
 
-	forced_assertion(ret_->named_function->name_ != NULL);
-	forced_assertion(ret_->named_function->name_->value_ != NULL);
+	forced_assertion(ret_->new_named_function->name_ != NULL);
+	forced_assertion(ret_->new_named_function->name_->value_ != NULL);
 #ifndef NDEBUG
 	equality_ = amara_string_equality(
-			ret_->named_function->name_, named_function->name_);
+			ret_->new_named_function->name_,
+			stt_named_function->name_);
 	assertion(equality_ == AMARA_BOOLEAN_TRUE);
 #endif
 
 #ifndef NDEBUG
-	assertion(named_function->type_ ==
+	assertion(stt_named_function->type_ ==
 			STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION);
 #endif
 
-	ret_->named_function->type_ = RTG_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION;
+	ret_->new_named_function->type_ = RTG_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION;
+    
+    if (rtg_named_functions_directory == NULL || rtg_named_functions_directory->first == NULL) {
+        ret_->new_named_functions_directory =
+            malloc(sizeof(rtg_named_functions_simple_list));  /* XXX */
+        ret_->new_named_functions_directory->first = ret_->new_named_function;
+        ret_->new_named_functions_directory->next = NULL;
 
-	ret_->status = RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_SUCCESS;
+        ret_->status = RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
 
-	fprintf(stderr, "<---- %s:%u rtg_named_function_out_of_stt_named_function_ret * rtg_named_function_out_of_stt_named_function(const stt_named_function *)\n",
+        fprintf(stderr, "<---- %s:%u rtg_named_function_out_of_stt_named_function_ret * rtg_named_function_out_of_stt_named_function(const stt_named_function *)\n",
 			__FILE__, __LINE__);
 
-	return ret_;
+        return ret_;
+    }
+    ret_->new_named_functions_directory = malloc(sizeof(rtg_named_functions_simple_list));  /* XXX */
+    ret_->new_named_functions_directory->first = ret_->new_named_function;
+    ret_->new_named_functions_directory->next = (rtg_named_functions_simple_list *) rtg_named_functions_directory;
+    ret_->status = RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
+    
+    fprintf(stderr, "<---- %s:%u rtg_named_function_out_of_stt_named_function_ret * rtg_named_function_out_of_stt_named_function(const stt_named_function *)\n",
+            __FILE__, __LINE__);
+    
+    return ret_;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ typedef struct rtg_where_value_binding {
 	amara_string * value_name_;
 
 	/**  Run time graph _where_ value: expression bound. */
-	rtg_expression * value_expression_;
+	struct rtg_expression * value_expression_;
 } rtg_where_value_binding
 ;
 
@@ -66,7 +66,8 @@ rtg_where_value_binding_assert_healthy(
 /**  Transformation constructor. */
 rtg_where_value_binding *
 rtg_where_value_binding_out_of_stt_where_value_binding(
-		const stt_where_value_binding * where_value_binding_)
+		const stt_where_value_binding * where_value_binding,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 __attribute__((warn_unused_result))
 ;
 

@@ -81,7 +81,7 @@ typedef struct rtg_operation_arg {
 
 	/* rtg_variable * variable_; */
 
-	rtg_expression * expression_;
+	struct rtg_expression * expression_;
 
 	struct rtg_operation * operation_;
 } rtg_operation_arg
@@ -124,6 +124,12 @@ rtg_operation_arg_set_identifier(
 		const amara_string * identifier)
 ;
 
+void
+rtg_operation_arg_set_expression(
+		rtg_operation_arg * operation_arg,
+		const rtg_expression * expression)
+;
+
 #define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_INVALID 0x00
 #define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_IDENTIFIER 0x0E
 #define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_ERROR_UNSPECIFIC 0x0F
@@ -144,11 +150,19 @@ rtg_operation_arg_out_of_stt_operation_arg_ret_destructor(
 		rtg_operation_arg_out_of_stt_operation_arg_ret * rtg_operation_arg_out_of_stt_operation_arg_ret_)
 ;
 
+/**  @param operation_arg Operation arg to transform to syntax tree
+ * form into run time graph form.
+ *   @param operation_type .......?
+ *   @param function_where_bindings Syntax tree where value bindings
+ * applicable to this operation arg (in the scope of this function..?).
+ *   @param rtg_named_functions Run time graph named functions callable
+ * under the scope of this operation arg. */
 rtg_operation_arg_out_of_stt_operation_arg_ret *
 rtg_operation_arg_out_of_stt_operation_arg(
 		const stt_operation_arg * operation_arg,
 		const stt_operation_type operation_type,
-		const stt_where_value_bindings_simple_list * function_where_bindings)
+		const stt_where_value_bindings_simple_list * function_where_bindings,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 __attribute__((warn_unused_result))
 ;
 

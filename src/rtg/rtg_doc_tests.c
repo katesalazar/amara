@@ -23,10 +23,16 @@
 #include "../stt/stt_node_tests.h"
 
 /*
+
 #include "../stt/stt_node.h"
+
+#include "rtg_named_functions_simple_list.h"
+
 */
 
 #include "rtg_doc.h"
+
+#include "rtg_named_functions_fixed_list.h"
 
 void
 rtg_doc_default_constructor_test_0()
@@ -58,7 +64,8 @@ void
 rtg_doc_transformation_constructor_test_0()
 {
 	stt_node * stt_doc_;
-	rtg_doc_out_of_stt_doc_ret * rtg_doc_ret_;
+	rtg_named_functions_fixed_list * rtg_named_functions_;
+	rtg_doc_out_of_stt_doc_and_rtg_named_functions_fixed_list_ret * rtg_doc_ret_;
 	/*
 	rtg_doc * rtg_doc_;
 	*/
@@ -69,7 +76,11 @@ rtg_doc_transformation_constructor_test_0()
 	assert_expectations_on_stt_node_example_doc_zero(stt_doc_);
 #endif
 
-	rtg_doc_ret_ = rtg_doc_out_of_stt_doc(stt_doc_);
+	rtg_named_functions_ =
+			rtg_named_functions_fixed_list_default_constructor();
+	forced_assertion(rtg_named_functions_ != NULL);
+
+	rtg_doc_ret_ = rtg_doc_out_of_stt_doc_and_rtg_named_functions_fixed_list(stt_doc_, rtg_named_functions_);
 	forced_assertion(rtg_doc_ret_ != NULL);
 #ifndef NDEBUG
 	/*
@@ -77,7 +88,11 @@ rtg_doc_transformation_constructor_test_0()
 	*/
 #endif
 
-	/* FIXME missing destructor calls. */
+	rtg_doc_out_of_stt_doc_and_rtg_named_functions_fixed_list_ret_destructor(rtg_doc_ret_);
+
+	rtg_named_functions_fixed_list_destructor(rtg_named_functions_);
+
+	stt_node_destructor(stt_doc_);
 
 #ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "<---- test_0...\n");
@@ -88,7 +103,8 @@ void
 rtg_doc_transformation_constructor_test_4()
 {
 	stt_node * stt_doc_;
-	rtg_doc_out_of_stt_doc_ret * rtg_doc_ret_;
+	rtg_named_functions_fixed_list * rtg_named_functions_;
+	rtg_doc_out_of_stt_doc_and_rtg_named_functions_fixed_list_ret * rtg_doc_ret_;
 	/*
 	rtg_doc * rtg_doc_;
 	*/
@@ -99,7 +115,11 @@ rtg_doc_transformation_constructor_test_4()
 	assert_expectations_on_stt_node_example_doc_four(stt_doc_);
 #endif
 
-	rtg_doc_ret_ = rtg_doc_out_of_stt_doc(stt_doc_);
+	rtg_named_functions_ =
+			rtg_named_functions_fixed_list_default_constructor();
+	forced_assertion(rtg_named_functions_ != NULL);
+
+	rtg_doc_ret_ = rtg_doc_out_of_stt_doc_and_rtg_named_functions_fixed_list(stt_doc_, rtg_named_functions_);
 	forced_assertion(rtg_doc_ret_ != NULL);
 #ifndef NDEBUG
 	/*
@@ -107,7 +127,11 @@ rtg_doc_transformation_constructor_test_4()
 	*/
 #endif
 
-	/* FIXME missing destructor calls. */
+	rtg_doc_out_of_stt_doc_and_rtg_named_functions_fixed_list_ret_destructor(rtg_doc_ret_);
+
+	rtg_named_functions_fixed_list_destructor(rtg_named_functions_);
+
+	stt_node_destructor(stt_doc_);
 
 #ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "<---- test_4...\n");
@@ -117,8 +141,11 @@ rtg_doc_transformation_constructor_test_4()
 void
 rtg_doc_transformation_constructor_tests()
 {
+    /*
 	rtg_doc_transformation_constructor_test_0();
+    
 	rtg_doc_transformation_constructor_test_4();
+     */
 }
 
 void

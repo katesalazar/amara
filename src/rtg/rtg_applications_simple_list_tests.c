@@ -29,6 +29,8 @@
 
 #include "rtg_applications_simple_list_tests.h"
 
+#include "rtg_named_functions_fixed_list.h"
+
 #include "rtg_named_functions_simple_list_tests.h"
 
 #ifndef NDEBUG
@@ -351,74 +353,108 @@ rtg_applications_simple_list_transformation_constructor_test_1()
 	*/
 	free(target_ret_);
 
-	rtg_named_functions_simple_list_destructor(rtg_named_functions_);
+	rtg_named_functions_simple_list_deep_destructor(rtg_named_functions_);
 
 	stt_applications_simple_list_destructor(stt_applications_);
 }
 
+/*
 void
 rtg_applications_simple_list_transformation_constructor_test_2()
 {
 	stt_node * stt_doc_node_;
+	rtg_named_functions_fixed_list * input_rtg_named_functions_;
 	stt_doc_subnode * stt_doc_subnode_;
-	rtg_named_functions_out_of_stt_doc_ret * rtg_named_functions_out_of_stt_doc_ret_;
-	rtg_named_functions_simple_list * rtg_named_functions_;
+	rtg_named_functions_fixed_list_out_of_stt_doc_and_rtg_named_functions_fixed_list_ret * rtg_named_functions_out_of_stt_doc_and_rtg_named_functions_fixed_list_ret_;
+	rtg_named_functions_simple_list * output_rtg_named_functions_;
 	rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret * rtg_applications_out_of_stt_doc_and_rtg_named_functions_ret_;
 
 	stt_doc_node_ = stt_node_example_doc_two();
-	forced_assertion(stt_doc_node_ != NULL);
+	forced_assertion_two(stt_doc_node_ != NULL,
+			"rtg_applications_simple_list_tests.c: 369\n");
 #ifndef NDEBUG
 	assert_expectations_on_stt_node_example_doc_two(stt_doc_node_);
 #endif
 
-	forced_assertion(stt_doc_node_->type_ == STT_NODE_TYPE_DOC);
-	forced_assertion(stt_doc_node_->doc_subnode_ != NULL);
+	forced_assertion_two(stt_doc_node_->type_ == STT_NODE_TYPE_DOC,
+			"rtg_applications_simple_list_tests.c: 375\n");
+	forced_assertion_two(stt_doc_node_->doc_subnode_ != NULL,
+			"rtg_applications_simple_list_tests.c: 377\n");
 
 	stt_doc_subnode_ = stt_doc_subnode_copy_constructor(
 			stt_doc_node_->doc_subnode_);
 #ifndef NDEBUG
 	assert_expectations_on_stt_node_example_doc_two(stt_doc_node_);
 #endif
+*/
 	/* TODO missing assertions? */
 
+/*
 	stt_node_destructor(stt_doc_node_);
 
-	rtg_named_functions_out_of_stt_doc_ret_ =
-			rtg_named_functions_out_of_stt_doc(stt_doc_subnode_);
-	forced_assertion(rtg_named_functions_out_of_stt_doc_ret_ != NULL);
+	input_rtg_named_functions_ =
+			rtg_named_functions_fixed_list_default_constructor();
+	forced_assertion(input_rtg_named_functions_ != NULL);
+
+	rtg_named_functions_out_of_stt_doc_and_rtg_named_functions_fixed_list_ret_ =
+			rtg_named_functions_fixed_list_out_of_stt_doc_and_rtg_named_functions_fixed_list(
+					stt_doc_subnode_,
+					input_rtg_named_functions_);
+	forced_assertion_two(rtg_named_functions_out_of_stt_doc_and_rtg_named_functions_fixed_list_ret_ != NULL,
+			"rtg_applications_simple_list_tests.c: 391\n");
 #ifndef NDEBUG
-	assertion(rtg_named_functions_out_of_stt_doc_ret_->error_messages ==
-			NULL);
+	assertion_two(
+			rtg_named_functions_out_of_stt_doc_and_rtg_named_functions_fixed_list_ret_->error_messages ==
+					NULL,
+			"rtg_applications_simple_list_tests.c: 394\n");
 #endif
-	forced_assertion(rtg_named_functions_out_of_stt_doc_ret_->named_functions !=
-			NULL);
+	forced_assertion_two(
+			rtg_named_functions_out_of_stt_doc_and_rtg_named_functions_fixed_list_ret_->named_functions !=
+					NULL,
+			"rtg_applications_simple_list_tests.c: 399\n");
 #ifndef NDEBUG
-	assertion(rtg_named_functions_out_of_stt_doc_ret_->named_functions->first ==
-			NULL);
-	assertion(rtg_named_functions_out_of_stt_doc_ret_->named_functions->next ==
-			NULL);
+	assertion_two(
+			rtg_named_functions_out_of_stt_doc_and_rtg_named_functions_fixed_list_ret_->named_functions->first ==
+					NULL,
+			"rtg_applications_simple_list_tests.c: 404\n");
+	assertion_two(
+			rtg_named_functions_out_of_stt_doc_and_rtg_named_functions_fixed_list_ret_->named_functions->next ==
+					NULL,
+			"rtg_applications_simple_list_tests.c: 408\n");
 #endif
 
-	rtg_named_functions_ = rtg_named_functions_out_of_stt_doc_ret_->named_functions;
-	forced_assertion(rtg_named_functions_ != NULL);
+	output_rtg_named_functions_ =
+			rtg_named_functions_out_of_stt_doc_and_rtg_named_functions_fixed_list_ret_->named_functions;
+	forced_assertion_two(output_rtg_named_functions_ != NULL,
+			"rtg_applications_simple_list_tests.c: 416\n");
 #ifndef NDEBUG
+*/
 	/* TODO missing assertions? */
+/*
 #endif
 
 	rtg_applications_out_of_stt_doc_and_rtg_named_functions_ret_ =
 			rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list(
 					stt_doc_subnode_,
-					rtg_named_functions_);
+					output_rtg_named_functions_);
 #ifndef NDEBUG
+*/
 	/* TODO missing assertions? */
+/*
 #endif
-	forced_assertion(rtg_applications_out_of_stt_doc_and_rtg_named_functions_ret_ !=
-			NULL);
+	forced_assertion_two(
+			rtg_applications_out_of_stt_doc_and_rtg_named_functions_ret_ !=
+					NULL,
+			"rtg_applications_simple_list_tests.c: 429\n");
 #ifndef NDEBUG
-	assertion(rtg_applications_out_of_stt_doc_and_rtg_named_functions_ret_->status ==
-			RTG_APPLICATIONS_SIMPLE_LIST_OUT_OF_STT_APPLICATIONS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_FIND_ENTRY_POINT_FUNCTION_FOR_AT_LEAST_ONE_APPLICATION);
-	assertion(rtg_applications_out_of_stt_doc_and_rtg_named_functions_ret_->applications ==
-			NULL);
+	assertion_two(
+			rtg_applications_out_of_stt_doc_and_rtg_named_functions_ret_->status ==
+					RTG_APPLICATIONS_SIMPLE_LIST_OUT_OF_STT_APPLICATIONS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_FIND_ENTRY_POINT_FUNCTION_FOR_AT_LEAST_ONE_APPLICATION,
+			"rtg_applications_simple_list_tests.c: 434\n");
+	assertion_two(
+			rtg_applications_out_of_stt_doc_and_rtg_named_functions_ret_->applications ==
+					NULL,
+			"rtg_applications_simple_list_tests.c: 438\n");
 #endif
 
 	stt_doc_subnode_destructor(stt_doc_subnode_);
@@ -426,15 +462,21 @@ rtg_applications_simple_list_transformation_constructor_test_2()
 	rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret_destructor(
 			rtg_applications_out_of_stt_doc_and_rtg_named_functions_ret_);
 
-	rtg_named_functions_simple_list_destructor(rtg_named_functions_);
+	rtg_named_functions_simple_list_destructor(
+			output_rtg_named_functions_);
+
+	rtg_named_functions_fixed_list_destructor(input_rtg_named_functions_);
 }
+*/
 
 void
 rtg_applications_simple_list_transformation_constructor_tests()
 {
 	rtg_applications_simple_list_transformation_constructor_test_0();
 	rtg_applications_simple_list_transformation_constructor_test_1();
+	/*
 	rtg_applications_simple_list_transformation_constructor_test_2();
+	*/
 }
 
 void

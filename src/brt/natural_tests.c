@@ -218,27 +218,32 @@ stt_node_natural_substraction_test_0()
 
 	stt_node_destructor(stt_node_zero_);
 
-	assertion(stt_node_substraction_ != NULL);
-	assertion(stt_node_substraction_->type_ ==
-			STT_NODE_TYPE_NATURAL_LITERAL);
-	assertion(stt_node_substraction_->natural_literal_subnode_ != NULL);
+	assertion_two(stt_node_substraction_ != NULL,
+			"natural_tests.c: 221\n");
+	assertion_two(
+			stt_node_substraction_->type_ ==
+					STT_NODE_TYPE_NATURAL_LITERAL,
+			"natural_tests.c: 223\n");
+	assertion_two(stt_node_substraction_->natural_literal_subnode_ != NULL,
+			"natural_tests.c: 227\n");
 	/*
-	assertion(stt_node_substraction_->operation_subnode_->args_ != NULL);
+	assertion_two(stt_node_substraction_->operation_subnode_->args_ != NULL);
 	*/
 	/*
-	assertion(
+	assertion_two(
 			stt_operation_args_simple_list_length(
 					stt_node_substraction_->operation_subnode_->args_
 			) == 2
 	);
 	*/
-	assertion(
+	assertion_two(
 			amara_string_equality(
 					stt_node_substraction_->natural_literal_subnode_->raw_,
 					amara_string_exhaustive_constructor(
 							"2"
 					)
-			) == AMARA_BOOLEAN_TRUE
+			) == AMARA_BOOLEAN_TRUE,
+			"natural_tests.c: 239\n"
 	);
 
 	stt_node_destructor(stt_node_substraction_);

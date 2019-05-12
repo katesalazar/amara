@@ -28,6 +28,8 @@
 /*   For `rtg_expression_sub_dice`. */
 #include "rtg_expression_sub_dice.h"
 
+#include "rtg_expression_sub_function_call.h"
+
 /*   For `rtg_expression_sub_identifier`. */
 #include "rtg_expression_sub_identifier.h"
 
@@ -52,6 +54,7 @@
 /* #define RTG_EXPRESSION_TYPE_MULTIPLICATION   0x0A */
 /* #define RTG_EXPRESSION_TYPE_DIVISION         0x0B */
 /* #define RTG_EXPRESSION_TYPE_EXPONENTIATION   0x0C */
+#define RTG_EXPRESSION_TYPE_FUNCTION_CALL       0x0E
 #define RTG_EXPRESSION_TYPE_DICE                0x0D  /* A.K.A. CR, ^M, '\r', Carriage Return. */
 
 typedef struct rtg_expression {
@@ -65,6 +68,8 @@ typedef struct rtg_expression {
 	rtg_expression_sub_identifier * sub_identifier_;
 
 	struct rtg_expression_sub_conditional * sub_conditional_;
+
+	struct rtg_expression_sub_function_call * sub_function_call_;
 
 	rtg_expression_sub_dice * sub_dice_;
 } rtg_expression
@@ -85,6 +90,12 @@ __attribute__((warn_unused_result))
 /**  Destructor. */
 void
 rtg_expression_destructor(rtg_expression * expression)
+;
+
+/**  Setter. */
+void
+rtg_expression_set_identifier(
+		rtg_expression * expression, const amara_string * identifier)
 ;
 
 #ifndef NDEBUG
@@ -122,7 +133,9 @@ rtg_expression_out_of_stt_expression_ret_destructor(
 
 /**  Transformation constructor with rich return type. */
 rtg_expression_out_of_stt_expression_ret *
-rtg_expression_out_of_stt_expression(const stt_expression * expression)
+rtg_expression_out_of_stt_expression(
+		const stt_expression * expression,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 __attribute__((warn_unused_result))
 ;
 

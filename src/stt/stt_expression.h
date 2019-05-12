@@ -43,6 +43,8 @@
  * stt_expression_sub_string_literal`. */
 #include "stt_expression_sub_string_literal.h"
 
+#include "stt_expression_sub_function_call.h"
+
 #define STT_EXPRESSION_TYPE_INVALID             0x00
 #define STT_EXPRESSION_TYPE_STRING_LITERAL      0x01
 /* #define STT_EXPRESSION_TYPE_BOOLEAN_LITERAL  0x02 */
@@ -57,6 +59,7 @@
 /* #define STT_EXPRESSION_TYPE_DIVISION         0x0B */
 /* #define STT_EXPRESSION_TYPE_EXPONENTIATION   0x0C */
 #define STT_EXPRESSION_TYPE_DICE                0x0D
+#define STT_EXPRESSION_TYPE_FUNCTION_CALL       0x0E
 
 typedef struct stt_expression {
 
@@ -71,6 +74,8 @@ typedef struct stt_expression {
 	struct stt_expression_sub_conditional * sub_conditional_;
 
 	stt_expression_sub_dice * sub_dice_;
+
+	struct stt_expression_sub_function_call * sub_function_call_;
 } stt_expression
 ;
 
@@ -110,6 +115,12 @@ stt_expression_set_conditional(
 		const struct stt_expression_sub_conditional * expression_sub_conditional)
 ;
 
+void
+stt_expression_set_function_call(
+		stt_expression * expression,
+		const struct stt_expression_sub_function_call * sub_function_call)
+;
+
 /**  FIXME MUST CHANGE IN ORDER TO RECEIVE AN stt_expression_sub_dice */
 void
 stt_expression_set_dice(stt_expression * expression,
@@ -118,6 +129,11 @@ stt_expression_set_dice(stt_expression * expression,
 
 amara_boolean
 stt_expression_equality(const stt_expression * e0, const stt_expression * e1)
+__attribute__((warn_unused_result))
+;
+
+amara_boolean
+stt_expressions_equality(const stt_expression * e0, const stt_expression * e1)
 __attribute__((warn_unused_result))
 ;
 
@@ -137,6 +153,10 @@ stt_expression_assert_clean_identifier(const stt_expression * this)
 
 void
 stt_expression_assert_clean_conditional(const stt_expression * this)
+;
+
+void
+stt_expression_assert_clean_function_call(const stt_expression * this)
 ;
 
 void

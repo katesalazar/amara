@@ -211,13 +211,15 @@ rtg_expression_sub_conditional_destructor(
 
 rtg_expression_sub_conditional_if *
 rtg_expression_sub_conditional_if_out_of_stt_expression_sub_conditional_if(
-		const stt_expression_sub_conditional_if * expression_sub_conditional_if)
+		const stt_expression_sub_conditional_if * expression_sub_conditional_if,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 __attribute__((warn_unused_result))
 ;
 
 rtg_expression_sub_conditional_if *
 rtg_expression_sub_conditional_if_out_of_stt_expression_sub_conditional_if(
-		const stt_expression_sub_conditional_if * expression_sub_conditional_if)
+		const stt_expression_sub_conditional_if * expression_sub_conditional_if,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 {
 	rtg_expression_out_of_stt_expression_ret * rtg_exp_ret_then_;
 	rtg_expression_out_of_stt_expression_ret * rtg_exp_ret_else_;
@@ -252,13 +254,17 @@ rtg_expression_sub_conditional_if_out_of_stt_expression_sub_conditional_if(
 #endif
 
 	returning_ = malloc(sizeof(rtg_expression_sub_conditional_if));
+	forced_assertion(returning_ != NULL);
 
 	returning_->condition_ = rtg_condition_out_of_stt_condition(
-			expression_sub_conditional_if->condition_);
-
+			expression_sub_conditional_if->condition_,
+			rtg_named_functions);
+	forced_assertion(returning_->condition_ != NULL);
 
 	rtg_exp_ret_then_ = rtg_expression_out_of_stt_expression(
-			expression_sub_conditional_if->expression_then_);
+			expression_sub_conditional_if->expression_then_,
+			rtg_named_functions);
+	forced_assertion(rtg_exp_ret_then_ != NULL);
 #ifndef NDEBUG
 	assertion(rtg_exp_ret_then_->status ==
 			RTG_EXPRESSION_OUT_OF_STT_EXPRESSION_RET_STATUS_SUCCESS);
@@ -278,7 +284,9 @@ rtg_expression_sub_conditional_if_out_of_stt_expression_sub_conditional_if(
 	*/
 
 		rtg_exp_ret_else_ = rtg_expression_out_of_stt_expression(
-				expression_sub_conditional_if->expression_else_);
+				expression_sub_conditional_if->expression_else_,
+				rtg_named_functions);
+		forced_assertion(rtg_exp_ret_else_ != NULL);
 #ifndef NDEBUG
 		assertion(rtg_exp_ret_else_->status ==
 				RTG_EXPRESSION_OUT_OF_STT_EXPRESSION_RET_STATUS_SUCCESS);
@@ -317,7 +325,8 @@ rtg_expression_sub_conditional_if_out_of_stt_expression_sub_conditional_if(
 
 rtg_expression_sub_conditional *
 rtg_expression_sub_conditional_out_of_stt_expression_sub_conditional(
-		const stt_expression_sub_conditional * expression_sub_conditional)
+		const stt_expression_sub_conditional * expression_sub_conditional,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 {
 	rtg_expression_sub_conditional * returning_;
 
@@ -353,16 +362,13 @@ rtg_expression_sub_conditional_out_of_stt_expression_sub_conditional(
 #endif
 
 	returning_ = malloc(sizeof(rtg_expression_sub_conditional));
-#ifndef NDEBUG
-	assertion(returning_ != NULL);
-#endif
+	forced_assertion(returning_ != NULL);
 
 	returning_->if_ =
 			rtg_expression_sub_conditional_if_out_of_stt_expression_sub_conditional_if(
-					expression_sub_conditional->if_);
-#ifndef NDEBUG
-	assertion(returning_->if_ != NULL);
-#endif
+					expression_sub_conditional->if_,
+					rtg_named_functions);
+	forced_assertion(returning_->if_ != NULL);
 
 	return returning_;
 }

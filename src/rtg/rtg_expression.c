@@ -153,6 +153,7 @@ rtg_expression_default_constructor()
 	returning_->sub_natural_literal_ = NULL;
 	returning_->sub_identifier_ = NULL;
 	returning_->sub_conditional_ = NULL;
+	returning_->sub_function_call_ = NULL;
 	returning_->sub_dice_ = NULL;
 
 	return returning_;
@@ -346,6 +347,26 @@ rtg_expression_destructor(rtg_expression * expression)
 	free(expression);
 }
 
+void
+rtg_expression_set_identifier(
+		rtg_expression * expression, const amara_string * identifier)
+{
+#ifndef NDEBUG
+	located_assertion(expression != NULL);
+	located_assertion(expression->type_ == RTG_EXPRESSION_TYPE_INVALID);
+	located_assertion(expression->sub_identifier_ == NULL);
+	located_assertion(identifier != NULL);
+	located_assertion(identifier->value_ != NULL);
+#endif
+
+	expression->sub_identifier_ =
+			rtg_expression_sub_identifier_exhaustive_constructor(
+					identifier);
+	forced_assertion(expression->sub_identifier_ != NULL);
+
+	expression->type_ = RTG_EXPRESSION_TYPE_IDENTIFIER;
+}
+
 #ifndef NDEBUG
 
 void
@@ -412,14 +433,18 @@ rtg_expression_out_of_stt_expression_ret_destructor(
 }
 
 rtg_expression_out_of_stt_expression_ret *
-rtg_expression_out_of_stt_expression(const stt_expression * expression)
+rtg_expression_out_of_stt_expression(
+		const stt_expression * expression,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 {
 	rtg_expression_out_of_stt_expression_ret * returning_;
 	rtg_expression * returning_sub_;
+	rtg_expression_sub_function_call_out_of_stt_expression_sub_function_call_ret * function_call_ret_;
 
 #ifndef NDEBUG
-	assertion(expression != NULL);
-	assertion(expression->type_ != STT_EXPRESSION_TYPE_INVALID);
+	located_assertion_one(expression != NULL);
+	located_assertion_one(
+			expression->type_ != STT_EXPRESSION_TYPE_INVALID);
 #endif
 
 	if (expression->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL) {
@@ -466,8 +491,22 @@ rtg_expression_out_of_stt_expression(const stt_expression * expression)
 					NULL);
 		}
 		*/
+	} else if (expression->type_ == STT_EXPRESSION_TYPE_FUNCTION_CALL) {
+
+#ifndef NDEBUG
+		stt_expression_assert_clean_function_call(expression);
+#endif
+
+		assertion(expression->sub_function_call_ != NULL);
+		assertion(expression->sub_function_call_->builtin_function_ !=
+				NULL);
+		assertion(expression->sub_function_call_->function_name_ !=
+				NULL);
+		assertion(expression->sub_function_call_->call_arguments_ !=
+				NULL);
 	} else {
-		assertion(expression->type_ == STT_EXPRESSION_TYPE_DICE);
+		located_forced_unsigned_char_equality_assertion_two(
+				expression->type_, STT_EXPRESSION_TYPE_DICE);
 
 #ifndef NDEBUG
 		stt_expression_assert_clean_dice(expression);
@@ -521,14 +560,29 @@ rtg_expression_out_of_stt_expression(const stt_expression * expression)
 
 		returning_sub_->sub_conditional_ =
 				rtg_expression_sub_conditional_out_of_stt_expression_sub_conditional(
-						expression->sub_conditional_);
+						expression->sub_conditional_,
+						NULL);
 #ifndef NDEBUG
 		assertion(returning_sub_->sub_conditional_ != NULL);
 #endif
 
 		returning_sub_->type_ = RTG_EXPRESSION_TYPE_CONDITIONAL;
+	} else if (expression->type_ == STT_EXPRESSION_TYPE_FUNCTION_CALL) {
+
+		function_call_ret_ =
+				rtg_expression_sub_function_call_out_of_stt_expression_sub_function_call(
+						expression->sub_function_call_,
+						rtg_named_functions);
+		located_forced_assertion(function_call_ret_ != NULL);
+		located_forced_assertion(function_call_ret_->status ==
+				RTG_EXPRESSION_SUB_FUNCTION_CALL_OUT_OF_STT_EXPRESSION_SUB_FUNCTION_CALL_RET_STATUS_SUCCESS);
+		located_forced_assertion(function_call_ret_->ret != NULL);
+		returning_sub_->sub_function_call_ = function_call_ret_->ret;
+
+		returning_sub_->type_ = RTG_EXPRESSION_TYPE_FUNCTION_CALL;
 	} else {
-		assertion(expression->type_ == STT_EXPRESSION_TYPE_DICE);
+		located_assertion(
+				expression->type_ == STT_EXPRESSION_TYPE_DICE);
 
 		returning_sub_->sub_dice_ =
 				rtg_expression_sub_dice_out_of_stt_expression_sub_dice(

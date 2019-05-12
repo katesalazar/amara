@@ -1,11 +1,12 @@
-function identifier main identifier ends
+function
+	identifier main identifier ends
 	is a command line interface application function
-	and receives nothing at all
-	and returns nothing at all
+	receiving nothing at all
+	returning nothing at all
 	so it causes side effects
 	and does
 	print
 		extension shiny unimplemented extension will be ignored extension ends
 		extension roll 3 6 sided dice extension ends
-	and then new line
-end function identifier main identifier ends
+	sequentially before new line
+function ends

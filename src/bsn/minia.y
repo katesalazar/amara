@@ -42,6 +42,24 @@
 
 %{
 
+/*
+ * Copyright 2018-2019 Mercedes Catherine Salazar
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * src/bsn/minia.y: Amara Minia scripts Bison parser.
+ */
+
 /*   For the `FILE` struct. */
 #include <stdio.h>
 
@@ -57,8 +75,14 @@
 /*   For most basic arithmetic. */
 #include "../brt/natural.h"
 
+#include "../stt/stt_expression_sub_function_call.h"
+
 /*   For the syntax tree nodes and node types. */
 #include "../stt/stt_node.h"
+
+#include "../stt/stt_node_sub_call_options.h"
+
+#include "../stt/stt_node_sub_expressions_list.h"
 
 extern int yylex(void);
 
@@ -116,16 +140,21 @@ b_trace_unsigned_char(unsigned char value)
 %token<node> T_INTEGER_LITERAL
 %token<node> T_RATIONAL_LITERAL
 
-%token T_A T_ALL T_AN T_AND T_APPLICATION T_ARGS T_AT T_AWESOME T_BOUND
+%token T_SEQUENTIALLY
+%token T_A T_ALL T_AN T_AND T_APPLICATION T_ARGS T_AT T_AWESOME T_BEFORE
+%token T_BOUND T_BUILTIN T_CALL
 %token T_CARRIAGE
-%token T_CAUSES T_CHAIN T_COMMAND T_COMMANDS T_DIVISION
-%token T_DOES T_EASE T_EFFECTS T_ELSE T_END
-%token T_ENTRY T_FEED T_FORMULA T_FUNCTION T_GREATER T_IF T_INTEGER T_INTERFACE
+%token T_CAUSES T_CAUSING T_CHAIN T_COMMAND T_COMMANDS T_CONCATENATE
+%token T_CONCURRENTLY T_CONDITIONAL T_DIVISION
+%token T_DOES T_EASE T_EFFECTS T_ELSE T_END T_ENDS
+%token T_ENTRY T_FEED T_FILLER_REMOVE_ME T_FORMULA T_FUNCTION T_GREATER T_IF T_INTEGER T_INTERFACE
 %token T_IS T_IT T_LESS T_LINE T_NATURAL T_NEW
 %token T_NO T_NOR
-%token T_NOTHING T_OPERATOR T_POINT T_PRINT T_RATIONAL T_READ T_RECEIVES
-%token T_RETURN T_RETURNS T_RUN T_SET T_SIDE T_SIMPLE T_SMALL T_SO
-%token T_SUBSTRACTION
+%token T_NOTHING T_OPERATOR T_PASSING T_POINT T_PRINT T_PURE T_RATIONAL T_READ
+%token T_RECEIVES T_RECEIVING T_RETURN T_RETURNING T_RETURNS T_RUN
+%token T_SET T_SIDE T_SIMPLE T_SMALL
+%token T_SO T_STRING
+%token T_SUBSTRACTION T_TEXTS
 %token T_THAN T_THAT T_THE T_THEN T_THREAD T_TO
 %token T_WHERE T_WITH T_WITHOUT
 
@@ -143,6 +172,9 @@ b_trace_unsigned_char(unsigned char value)
 %token T_RIGHT_PARENS
 
 %type<node> condition
+%type<node> expressions_list_continuation
+%type<node> expressions_list
+%type<node> call_options
 %type<node> expression
 %type<node> function_where_clause
 %type<node> function_where_clauses
@@ -150,7 +182,7 @@ b_trace_unsigned_char(unsigned char value)
 %type<node> function_statements
 %type<node> function_returns_clause
 %type<node> function_receives_clause
-%type<node> cli_named_function
+%type<node> function_characterization_clause
 %type<node> named_function
 %type<node> cli_application
 %type<node> application
@@ -282,14 +314,14 @@ application :
 
 cli_application :
   T_APPLICATION T_IDENTIFIER T_IS T_A T_COMMAND T_LINE T_INTERFACE
-  T_APPLICATION T_AND T_THE T_ENTRY T_POINT T_IS T_FUNCTION T_IDENTIFIER T_END
-  T_APPLICATION T_IDENTIFIER
+  T_APPLICATION T_AND T_THE T_ENTRY T_POINT T_IS T_FUNCTION T_IDENTIFIER
+  T_APPLICATION T_ENDS
 {
     b_trace_chars_array("cli_application : T_APPLICATION T_IDENTIFIER T_IS T_A ");
     b_trace_chars_array("T_COMMAND T_LINE T_INTERFACE ");
     b_trace_chars_array("T_APPLICATION ");
     b_trace_chars_array("T_AND T_THE T_ENTRY T_POINT T_IS T_FUNCTION ");
-    b_trace_chars_array("T_IDENTIFIER T_END T_APPLICATION T_IDENTIFIER\n");
+    b_trace_chars_array("T_IDENTIFIER T_APPLICATION T_ENDS\n");
 
   /*   Abort with error if application names do not match. */
 
@@ -302,14 +334,6 @@ cli_application :
   }
   assertion($2->type_ == STT_NODE_TYPE_IDENTIFIER);
   assertion($2->identifier_subnode_ != NULL);
-  assertion($18 != NULL);
-  assertion($18->type_ == STT_NODE_TYPE_IDENTIFIER);
-  assertion($18->identifier_subnode_ != NULL);
-  if (!amara_string_equality(
-      $2->identifier_subnode_->value_, $18->identifier_subnode_->value_)) {
-    yyerror(NULL, "application names do not match");
-    YYERROR;
-  }
 
   assertion($15->type_ == STT_NODE_TYPE_IDENTIFIER);
   assertion($15->identifier_subnode_ != NULL);
@@ -327,33 +351,21 @@ cli_application :
   free($2);
   free($15->identifier_subnode_);
   free($15);
-  free($18->identifier_subnode_->value_);
-  free($18->identifier_subnode_);
-  free($18);
 }
 ;
 
 named_function :
-  cli_named_function
+  T_FUNCTION T_IDENTIFIER function_characterization_clause
+  function_receives_clause function_returns_clause
+  function_side_effects_clause T_AND T_DOES function_statements
+  function_where_clauses T_FUNCTION T_ENDS
 {
-  b_trace_chars_array("fn_def : cli_fn_def\n");
-  $$ = $1;
-}
-;
-
-cli_named_function :
-  T_FUNCTION T_IDENTIFIER T_IS T_A T_COMMAND T_LINE T_INTERFACE
-  T_APPLICATION T_FUNCTION T_AND function_receives_clause T_AND
-  function_returns_clause function_side_effects_clause T_AND T_DOES
-  function_statements function_where_clauses T_END T_FUNCTION T_IDENTIFIER
-{
-  b_trace_chars_array("cli_fn_def : T_FUNCTION T_IDENTIFIER T_IS T_A ");
-  b_trace_chars_array("T_COMMAND T_LINE T_INTERFACE T_APPLICATION ");
-  b_trace_chars_array("T_FUNCTION T_AND function_receives_clause T_AND ");
+  b_trace_chars_array("named_function : T_FUNCTION T_IDENTIFIER ");
+  b_trace_chars_array("function_characterization_clause ");
+  b_trace_chars_array("function_receives_clause ");
   b_trace_chars_array("function_returns_clause function_side_effects_clause ");
   b_trace_chars_array("T_AND T_DOES function_statements ");
-  b_trace_chars_array("function_where_clauses T_END T_FUNCTION ");
-  b_trace_chars_array("T_IDENTIFIER\n");
+  b_trace_chars_array("function_where_clauses T_FUNCTION T_ENDS\n");
 
   /*   Abort with error if function names do not match. */
 
@@ -366,46 +378,38 @@ cli_named_function :
   }
   assertion($2->type_ == STT_NODE_TYPE_IDENTIFIER);
   assertion($2->identifier_subnode_ != NULL);
-  assertion($21 != NULL);
-  assertion($21->type_ == STT_NODE_TYPE_IDENTIFIER);
-  assertion($21->identifier_subnode_ != NULL);
-  if (!amara_string_equality(
-      $2->identifier_subnode_->value_, $21->identifier_subnode_->value_)) {
-    yyerror(NULL, "function names do not match");
-    YYERROR;
-  }
 
   /*   Set node type. */
   $$ = stt_node_default_constructor();
 
   /*   Attach the function operations to this node. */
-  /*   Those are hanging from $17 */
-  assertion_two($17 != NULL, "`$17` unexpectedly NULL");
-  if ($17->type_ != STT_NODE_TYPE_CLI_OPERATIONS_LIST) {
+  /*   Those are hanging from $9 */
+  assertion_two($9 != NULL, "`$9` unexpectedly NULL");
+  if ($9->type_ != STT_NODE_TYPE_CLI_OPERATIONS_LIST) {
 
 #ifdef DUMP_FLOW_TO_STDERR
-    fprintf(stderr, "$17->type_: %u\n", $17->type_);
+    fprintf(stderr, "$9->type_: %u\n", $9->type_);
 #endif
   }
-  assertion_two($17->type_ == STT_NODE_TYPE_CLI_OPERATIONS_LIST,
-      "unexpected value for `$17->type_`");
-  assertion_two($17->operations_list_subnode_ != NULL,
-      "`$17->operations_list_subnode_` unexpectedly NULL");
+  assertion_two($9->type_ == STT_NODE_TYPE_CLI_OPERATIONS_LIST,
+      "unexpected value for `$9->type_`");
+  assertion_two($9->operations_list_subnode_ != NULL,
+      "`$9->operations_list_subnode_` unexpectedly NULL");
   assertion_two(
-      $17->operations_list_subnode_->operations_ != NULL,
-      "`$17->operations_list_subnode_->operations_` unexpectedly NULL");
+      $9->operations_list_subnode_->operations_ != NULL,
+      "`$9->operations_list_subnode_->operations_` unexpectedly NULL");
   assertion_two(
-      $17->operations_list_subnode_->operations_->first != NULL,
-      "`$17->operations_list_subnode_->operations_->first` unexpectedly NULL");
+      $9->operations_list_subnode_->operations_->first != NULL,
+      "`$9->operations_list_subnode_->operations_->first` unexpectedly NULL");
   assertion_two(
-      $17->operations_list_subnode_->operations_->first->type_ !=
+      $9->operations_list_subnode_->operations_->first->type_ !=
           STT_OPERATION_TYPE_INVALID,
-      "`$17->operations_list_subnode_->operations_->first->type_` is invalid");
+      "`$9->operations_list_subnode_->operations_->first->type_` is invalid");
 
-  assertion($18 != NULL);
-  assertion($18->type_ == STT_NODE_TYPE_WHERE_BINDINGS);
-  assertion($18->where_value_bindings_subnode_ != NULL);
-  assertion($18->where_value_bindings_subnode_->where_value_bindings_ != NULL);
+  assertion($10 != NULL);
+  assertion($10->type_ == STT_NODE_TYPE_WHERE_BINDINGS);
+  assertion($10->where_value_bindings_subnode_ != NULL);
+  assertion($10->where_value_bindings_subnode_->where_value_bindings_ != NULL);
 
   /*
   TODO CHARACTERIZE THE FUNCTION AS A CLI FUNCTION */
@@ -413,9 +417,9 @@ cli_named_function :
       stt_named_function_subnode_default_constructor();
   $$->named_function_subnode_->name_ = $2->identifier_subnode_->value_;
   $$->named_function_subnode_->operations_ =
-      $17->operations_list_subnode_->operations_;
+      $9->operations_list_subnode_->operations_;
   $$->named_function_subnode_->where_value_bindings_ =
-      $18->where_value_bindings_subnode_->where_value_bindings_;
+      $10->where_value_bindings_subnode_->where_value_bindings_;
   $$->named_function_subnode_->type_ =
       STT_NAMED_FUNCTION_SUBNODE_TYPE_CLI_APP_NAMED_FUNCTION;
 
@@ -423,35 +427,76 @@ cli_named_function :
 
   free($2->identifier_subnode_);
   free($2);
-  free($17->operations_list_subnode_);
-  free($17);
-  free($18->where_value_bindings_subnode_);
-  free($18);
-  free($21->identifier_subnode_->value_);
-  free($21->identifier_subnode_);
-  free($21);
+  free($9->operations_list_subnode_);
+  free($9);
+  free($10->where_value_bindings_subnode_);
+  free($10);
+}
+;
+
+function_characterization_clause :
+  T_IS T_A T_PURE T_FUNCTION
+{
+  b_trace_chars_array("function_characterization_clause : T_IS T_A T_PURE ");
+  b_trace_chars_array("T_FUNCTION\n");
+  /* FIXME Must return a node holding the relevant informatin. */
+}
+| T_IS T_A T_COMMAND T_LINE T_INTERFACE
+  T_APPLICATION T_FUNCTION
+{
+  b_trace_chars_array("function_characterization_clause : T_IS T_A ");
+  b_trace_chars_array("T_COMMAND T_LINE T_INTERFACE T_APPLICATION ");
+  b_trace_chars_array("T_FUNCTION\n");
+  /* FIXME Must return a node holding the relevant informatin. */
 }
 ;
 
 function_receives_clause :
-  T_RECEIVES function_receives_clause_inner
+  T_RECEIVING function_receives_clause_inner
 {
-  b_trace_chars_array("cli_fn_receives_def : T_RECEIVES cli_fn_receives_def_inner\n");
+  b_trace_chars_array("function_receives_clause : T_RECEIVING ");
+  b_trace_chars_array("function_receives_clause_inner\n");
+  /* FIXME Must return a node holding the relevant informatin. */
 }
 ;
 
 function_receives_clause_inner :
-  T_NOTHING T_AT T_ALL
+  T_NOTHING
 {
-  b_trace_chars_array("cli_fn_receives_def_inner : T_NOTHING T_AT T_ALL\n");
+  b_trace_chars_array("function_receives_def_inner : T_NOTHING\n");
+  /* FIXME Must return a node holding the relevant information. */
+}
+| T_NOTHING T_AT T_ALL
+{
+  b_trace_chars_array("function_receives_def_inner : T_NOTHING T_AT T_ALL\n");
+  /* FIXME Must return a node holding the relevant information. */
+}
+| T_A T_STRING T_IDENTIFIER function_receives_clause_inner_continuation
+{
+  b_trace_chars_array("function_receives_clause_inner : T_A T_STRING ");
+  b_trace_chars_array("T_IDENTIFIER ");
+  b_trace_chars_array("function_receives_clause_inner_continuation\n");
+  /* FIXME Must return a node holding the relevant informatin. */
+}
+| T_A T_NATURAL T_IDENTIFIER
+{
+  b_trace_chars_array("function_receives_clause_inner : T_A T_NATURAL ");
+  b_trace_chars_array("T_IDENTIFIER\n");
+  /* FIXME Must return a node holding the relevant informatin. */
 }
 ;
 
+function_receives_clause_inner_continuation :
+  T_AND function_receives_clause_inner
+|
+;
+
 function_returns_clause :
-  T_RETURNS function_returns_clause_inner
+  T_RETURNING function_returns_clause_inner
 {
-  b_trace_chars_array("function_returns_clause : T_RETURNS ");
+  b_trace_chars_array("function_returns_clause : T_RETURNING ");
   b_trace_chars_array("function_returns_clause_inner\n");
+  /* FIXME Must return a node holding the relevant informatin. */
 }
 ;
 
@@ -460,11 +505,32 @@ function_returns_clause_inner :
 {
   b_trace_chars_array("function_returns_clause_inner : T_NOTHING T_AT ");
   b_trace_chars_array("T_ALL\n");
+  /* FIXME Must return a node holding the relevant informatin. */
+}
+| T_NOTHING
+{
+  b_trace_chars_array("function_returns_clause_inner : T_NOTHING\n");
+  /* FIXME Must return a node holding the relevant informatin. */
+}
+| T_A T_STRING
+{
+  b_trace_chars_array("function_returns_clause_inner : T_A T_STRING\n");
+  /* FIXME Must return a node holding the relevant informatin. */
+}
+| T_A T_NATURAL
+{
+  b_trace_chars_array("function_returns_clause_inner : T_A T_NATURAL\n");
+  /* FIXME Must return a node holding the relevant informatin. */
 }
 ;
 
 function_side_effects_clause :
-  T_SO T_IT T_CAUSES T_SIDE T_EFFECTS
+  T_WITHOUT T_CAUSING T_SIDE T_EFFECTS
+{
+  b_trace_chars_array("function_side_effects_clause : T_WITHOUT T_CAUSING ");
+  b_trace_chars_array("T_SIDE T_EFFECTS\n");
+}
+| T_SO T_IT T_CAUSES T_SIDE T_EFFECTS
 {
   b_trace_chars_array("function_side_effects_clause : T_SO T_IT T_CAUSES ");
   b_trace_chars_array("T_SIDE T_EFFECTS\n");
@@ -548,25 +614,42 @@ function_where_clause :
   assertion_two($1->identifier_subnode_->value_->value_ != NULL, "547");
   assertion_two($5 != NULL, "548");
 
+  assertion_two($5->type_ == STT_NODE_TYPE_EXPRESSION, "minia.y: 588\n");
+
   /*
   if ($5->type_ == STT_NODE_TYPE_EXPRESSION) {
   */
 
-    assertion_two($5->type_ == STT_NODE_TYPE_EXPRESSION, "549");
-    assertion_two($5->expression_subnode_ != NULL, "550");
-    assertion_two($5->expression_subnode_->expression_ != NULL, "551");
-  /*
-  } else {
-    forced_assertion_two($5->type_ == STT_NODE_TYPE_IDENTIFIER, "556");
+    assertion_two($5->expression_subnode_ != NULL, "minia.y: 589\n");
+    assertion_two($5->expression_subnode_->expression_ != NULL,
+        "minia.y: 590\n");
 
-    FIXME
-  }
-  */
+  $$ = stt_node_default_constructor();
 
   where_value_binding_ = stt_where_value_binding_exhaustive_constructor(
       $1->identifier_subnode_->value_, $5->expression_subnode_->expression_);
-  $$ = stt_node_default_constructor();
   stt_node_set_where_value_binding($$, where_value_binding_);
+  /*
+  } else {
+    forced_assertion_two($5->type_ == STT_NODE_TYPE_IDENTIFIER,
+        "minia.y: 593\n");
+
+#ifndef NDEBUG
+    assertion_two($5->identifier_subnode_ != NULL, "minia.y: 599\n");
+    assertion_two($5->identifier_subnode_->identifier_ != NULL,
+        "minia.y: 600\n");
+    assertion_two($5->identifier_subnode_->identifier_->value_ != NULL,
+        "minia.y: 602\n");
+#endif
+
+    $$ = stt_node_default_constructor();
+
+    where_value_binding_ = stt_where_value_binding_exhaustive_constructor(
+        $1->identifier_subnode_->value_, $5->expression_subnode_->expression_);
+    stt_node_set_where_value_binding($$, where_value_binding_);
+  }
+  */
+
   stt_node_destructor($1);
   stt_node_destructor($5);
 }
@@ -601,10 +684,11 @@ execution_request :
 ;
 
 function_statements :
-  function_statement T_AND T_THEN function_statements
+  function_statement T_SEQUENTIALLY T_BEFORE function_statements
 {
   stt_operations_simple_list * new_node_;
-  b_trace_chars_array("cli_fn_ops : cli_fn_op T_AND T_THEN cli_fn_ops\n");
+  b_trace_chars_array("function_statements : function_statement ");
+  b_trace_chars_array("T_SEQUENTIALLY T_BEFORE function_statements\n");
   assertion($1 != NULL);
   assertion($1->type_ == STT_NODE_TYPE_OPERATION);
   assertion($1->operation_subnode_ != NULL);
@@ -620,13 +704,18 @@ function_statements :
   free($1->operation_subnode_);
   free($1);
 }
+| function_statement T_CONCURRENTLY T_WITH function_statements
+{
+  b_trace_chars_array("function_statements : function_statement T_CONCURRENTLY T_WITH ");
+  b_trace_chars_array("function_statements\n");
+}
 | function_statement
 {
-  b_trace_chars_array("cli_fn_ops : cli_fn_op\n");
-  assertion($1 != NULL);
-  assertion($1->type_ == STT_NODE_TYPE_OPERATION);
-  assertion($1->operation_subnode_ != NULL);
-  assertion($1->operation_subnode_->operation_ != NULL);
+  b_trace_chars_array("function_statements : function_statement\n");
+  assertion_two($1 != NULL, "minia.y: 648\n");
+  assertion_two($1->type_ == STT_NODE_TYPE_OPERATION, "minia.y: 649\n");
+  assertion_two($1->operation_subnode_ != NULL, "minia.y: 650\n");
+  assertion_two($1->operation_subnode_->operation_ != NULL, "minia.y: 651\n");
   $$ = stt_node_default_constructor();
   $$->operations_list_subnode_ =
       stt_operations_list_subnode_default_constructor();
@@ -642,9 +731,98 @@ function_statements :
 ;
 
 function_statement :
-  T_PRINT expression
+  T_RUN expression
 {
-  b_trace_chars_array("cli_fn_op : T_PRINT value\n");
+  stt_operation_arg * operation_arg_;
+  stt_operation_args_simple_list * operation_args_;
+  stt_operation * operation_;
+
+  b_trace_chars_array("function_statement : expression\n");
+
+  forced_assertion_two($2 != NULL, "minia.y: 671\n");
+  forced_assertion_two(
+      $2->type_ == STT_NODE_TYPE_EXPRESSION, "minia.y: 672\n");
+  forced_assertion_two($2->expression_subnode_ != NULL, "minia.y: 674\n");
+  forced_assertion_two(
+      $2->expression_subnode_->expression_ != NULL, "minia.y: 675\n");
+
+  operation_arg_ = stt_operation_arg_default_constructor();
+  forced_assertion_two(operation_arg_ != NULL, "minia.y: 683\n");
+  stt_operation_arg_set_node(operation_arg_, $2);
+
+  stt_node_destructor($2);
+
+  operation_args_ = stt_operation_args_simple_list_default_constructor();
+  forced_assertion_two(operation_args_ != NULL, "minia.y: 687\n");
+  operation_args_ = stt_operation_args_simple_list_push_front(
+      operation_args_, operation_arg_);
+  forced_assertion_two(operation_args_ != NULL, "minia.y: 690\n");
+
+  stt_operation_arg_destructor(operation_arg_);
+
+  operation_ = stt_operation_default_constructor();
+  forced_assertion_two(operation_ != NULL, "minia.y: 681\n");
+  stt_operation_set_args(operation_, operation_args_);
+  forced_assertion_two(operation_->args_ != NULL, "minia.y: 696\n");
+  /* XXX missing assertions */
+
+  stt_operation_set_type(operation_, STT_OPERATION_TYPE_RUN);
+  /* XXX missing assertions */
+
+  stt_operation_args_simple_list_destructor(operation_args_);
+
+  $$ = stt_node_default_constructor();
+  forced_assertion_two($$ != NULL, "minia.y: 675\n");
+  stt_node_set_operation($$, operation_);
+}
+| T_RETURN expression
+{
+  stt_operation_arg * operation_arg_;
+  stt_operation_args_simple_list * operation_args_;
+  stt_operation * operation_;
+
+  b_trace_chars_array("function_statement : T_RETURN expression\n");
+
+  forced_assertion_two($2 != NULL, "minia.y: 671\n");
+  forced_assertion_two(
+      $2->type_ == STT_NODE_TYPE_EXPRESSION, "minia.y: 672\n");
+  forced_assertion_two($2->expression_subnode_ != NULL, "minia.y: 674\n");
+  forced_assertion_two(
+      $2->expression_subnode_->expression_ != NULL, "minia.y: 675\n");
+
+  operation_arg_ = stt_operation_arg_default_constructor();
+  forced_assertion_two(operation_arg_ != NULL, "minia.y: 683\n");
+  stt_operation_arg_set_node(operation_arg_, $2);
+
+  stt_node_destructor($2);
+
+  operation_args_ = stt_operation_args_simple_list_default_constructor();
+  forced_assertion_two(operation_args_ != NULL, "minia.y: 687\n");
+  operation_args_ = stt_operation_args_simple_list_push_front(
+      operation_args_, operation_arg_);
+  forced_assertion_two(operation_args_ != NULL, "minia.y: 690\n");
+
+  stt_operation_arg_destructor(operation_arg_);
+
+  operation_ = stt_operation_default_constructor();
+  forced_assertion_two(operation_ != NULL, "minia.y: 681\n");
+  stt_operation_set_args(operation_, operation_args_);
+  forced_assertion_two(operation_->args_ != NULL, "minia.y: 696\n");
+  /* XXX missing assertions */
+
+  stt_operation_set_type(operation_, STT_OPERATION_TYPE_RETURN);
+  /* XXX missing assertions */
+
+  stt_operation_args_simple_list_destructor(operation_args_);
+
+  $$ = stt_node_default_constructor();
+  forced_assertion_two($$ != NULL, "minia.y: 675\n");
+  stt_node_set_operation($$, operation_);
+}
+| T_PRINT expression
+{
+  /*   This **has to be restricted** to CLI app named functions. */
+  b_trace_chars_array("function_statement : T_PRINT value\n");
   b_trace_chars_array("type of value: ");
   b_trace_unsigned_char($2->type_);
   b_trace_chars_array("\n");
@@ -683,7 +861,8 @@ function_statement :
 }
 | T_NEW T_LINE
 {
-  b_trace_chars_array("cli_fn_op : T_NEW T_LINE\n");
+  /*   This **has to be restricted** to CLI app named functions. */
+  b_trace_chars_array("function_statement : T_NEW T_LINE\n");
   $$ = stt_node_default_constructor();
   $$->operation_subnode_ = stt_operation_subnode_default_constructor();
   $$->operation_subnode_->operation_ = stt_operation_default_constructor();
@@ -694,7 +873,8 @@ function_statement :
 }
 | T_READ T_NATURAL T_IDENTIFIER
 {
-  b_trace_chars_array("cli_fn_op : T_READ T_NATURAL T_IDENTIFIER\n");
+  /*   This **has to be restricted** to CLI app named functions. */
+  b_trace_chars_array("function_statement : T_READ T_NATURAL T_IDENTIFIER\n");
   assertion($3 != NULL);
   assertion($3->type_ == STT_NODE_TYPE_IDENTIFIER);
   $$ = stt_node_default_constructor();
@@ -712,8 +892,287 @@ function_statement :
 }
 ;
 
+call_options :
+  T_BUILTIN
+{
+  stt_node_sub_call_options * sub_call_options_;
+
+  b_trace_chars_array("call_options : T_BUILTIN\n");
+
+  sub_call_options_ =
+      stt_node_sub_call_options_default_constructor();
+  forced_assertion_two(sub_call_options_ != NULL, "minia.y: 824\n");
+
+  stt_node_sub_call_options_set_builtin_function_true(sub_call_options_);
+
+  $$ = stt_node_default_constructor();
+#ifndef NDEBUG
+  assertion_two($$->type_ == STT_NODE_TYPE_INVALID, "minia.y: 830\n");
+#endif
+  stt_node_set_sub_call_options($$, sub_call_options_);
+#ifndef NDEBUG
+  assertion_two($$->type_ == STT_NODE_TYPE_CALL_OPTIONS, "minia.y: 834\n");
+#endif
+
+  stt_node_sub_call_options_destructor(sub_call_options_);
+}
+|
+{
+  stt_node_sub_call_options * sub_call_options_;
+
+  b_trace_chars_array("call_options : NOTHING\n");
+
+  sub_call_options_ =
+      stt_node_sub_call_options_default_constructor();
+  forced_assertion_two(sub_call_options_ != NULL, "minia.y: 847\n");
+
+  $$ = stt_node_default_constructor();
+#ifndef NDEBUG
+  assertion_two($$->type_ == STT_NODE_TYPE_INVALID, "minia.y: 851\n");
+#endif
+  stt_node_set_sub_call_options($$, sub_call_options_);
+#ifndef NDEBUG
+  assertion_two($$->type_ == STT_NODE_TYPE_CALL_OPTIONS, "minia.y: 855\n");
+#endif
+
+  stt_node_sub_call_options_destructor(sub_call_options_);
+}
+;
+
+expressions_list :
+  expression expressions_list_continuation
+{
+  /* expressions_list : expression expressions_list_continuation */
+
+  stt_node_sub_expressions_list * sub_expressions_list_;
+#ifndef NDEBUG
+  signed short old_node_length_;
+  signed short new_node_length_;
+#endif
+
+  b_trace_chars_array("expressions_list : expression ");
+  b_trace_chars_array("expressions_list_continuation\n");
+
+  forced_assertion_two($1 != NULL, "minia.y: 867\n");
+  forced_assertion_two($1->type_ == STT_NODE_TYPE_EXPRESSION,
+      "minia.y: 868\n");
+  forced_assertion_two($1->expression_subnode_ != NULL, "minia.y: 870\n");
+  forced_assertion_two($2 != NULL, "minia.y: 871\n");
+  forced_assertion_two($2->type_ == STT_NODE_TYPE_EXPRESSIONS_LIST,
+      "minia.y: 872\n");
+  forced_assertion_two($2->sub_expressions_list_ != NULL, "minia.y: 874\n");
+
+  sub_expressions_list_ = stt_node_sub_expressions_list_copy_constructor(
+      $2->sub_expressions_list_);
+  forced_assertion(sub_expressions_list_ != NULL);
+  forced_assertion(sub_expressions_list_->expressions_list_ != NULL);
+#ifndef NDEBUG
+  if (sub_expressions_list_->expressions_list_->first == NULL) {
+    assertion(sub_expressions_list_->expressions_list_->next == NULL);
+  }
+#endif
+
+#ifndef NDEBUG
+  assertion($1->expression_subnode_->expression_ != NULL);
+#endif
+
+  /*
+  at this point `expressions_list_` is already non well formed
+  */
+
+  sub_expressions_list_->expressions_list_ =
+      stt_expressions_simple_list_push_front(
+          sub_expressions_list_->expressions_list_,
+          $1->expression_subnode_->expression_);
+  forced_assertion(sub_expressions_list_ != NULL);
+
+  $$ = stt_node_default_constructor();
+  forced_assertion($$ != NULL);
+#ifndef NDEBUG
+  assertion($$->type_ == STT_NODE_TYPE_INVALID);
+#endif
+
+  stt_node_set_sub_expressions_list($$, sub_expressions_list_);
+#ifndef NDEBUG
+  assertion($$->type_ == STT_NODE_TYPE_EXPRESSIONS_LIST);
+  assertion($$->sub_expressions_list_ != NULL);
+  assertion($$->sub_expressions_list_->expressions_list_ != NULL);
+  assertion($$->sub_expressions_list_->expressions_list_->first != NULL);
+  /* assertion($$->sub_expressions_list_->expressions_list_->next == NULL); */
+#endif
+
+  stt_node_sub_expressions_list_destructor(sub_expressions_list_);
+
+#ifndef NDEBUG
+  /* assert that the new node has length of the child node plus one. */
+
+  assertion($2->sub_expressions_list_ != NULL);
+  assertion($2->sub_expressions_list_->expressions_list_ != NULL);
+  old_node_length_ = stt_expressions_simple_list_length(
+      $2->sub_expressions_list_->expressions_list_);
+  assertion(old_node_length_ >= 0);
+  assertion($$->sub_expressions_list_ != NULL);
+  assertion($$->sub_expressions_list_->expressions_list_ != NULL);
+  new_node_length_ = stt_expressions_simple_list_length(
+      $$->sub_expressions_list_->expressions_list_);
+  assertion(new_node_length_ > 0);
+  assertion(new_node_length_ == old_node_length_ + 1);
+#endif
+
+  stt_node_destructor($1);
+  stt_node_destructor($2);
+}
+| T_NOTHING
+{
+  stt_node_sub_expressions_list * sub_expressions_list_;
+
+  b_trace_chars_array("expressions_list : T_NOTHING\n");
+
+  sub_expressions_list_ = stt_node_sub_expressions_list_default_constructor();
+  forced_assertion(sub_expressions_list_ != NULL);
+  forced_assertion(sub_expressions_list_->expressions_list_ != NULL);
+#ifndef NDEBUG
+  assertion(sub_expressions_list_->expressions_list_->first == NULL);
+  assertion(sub_expressions_list_->expressions_list_->next == NULL);
+#endif
+
+  $$ = stt_node_default_constructor();
+  forced_assertion($$ != NULL);
+#ifndef NDEBUG
+  assertion($$->type_ == STT_NODE_TYPE_INVALID);
+#endif
+
+  stt_node_set_sub_expressions_list($$, sub_expressions_list_);
+#ifndef NDEBUG
+  assertion($$->type_ == STT_NODE_TYPE_EXPRESSIONS_LIST);
+  assertion($$->sub_expressions_list_ != NULL);
+  assertion($$->sub_expressions_list_->expressions_list_ != NULL);
+  assertion($$->sub_expressions_list_->expressions_list_->first == NULL);
+  assertion($$->sub_expressions_list_->expressions_list_->next == NULL);
+#endif
+
+  stt_node_sub_expressions_list_destructor(sub_expressions_list_);
+}
+;
+
+expressions_list_continuation :
+  T_AND expression expressions_list_continuation
+{
+  /* expressions_list_continuation : T_AND expression expressions_list_continuation */
+
+  stt_node_sub_expressions_list * sub_expressions_list_;
+#ifndef NDEBUG
+  signed short old_node_length_;
+  signed short new_node_length_;
+#endif
+
+  b_trace_chars_array("expressions_list_continuation : T_AND expression ");
+  b_trace_chars_array("expressions_list_continuation\n");
+
+  forced_assertion_two($2 != NULL, "minia.y: 867\n");
+  forced_assertion_two($2->type_ == STT_NODE_TYPE_EXPRESSION,
+      "minia.y: 868\n");
+  forced_assertion_two($2->expression_subnode_ != NULL, "minia.y: 870\n");
+  forced_assertion_two($3 != NULL, "minia.y: 871\n");
+  forced_assertion_two($3->type_ == STT_NODE_TYPE_EXPRESSIONS_LIST,
+      "minia.y: 872\n");
+  forced_assertion_two($3->sub_expressions_list_ != NULL, "minia.y: 874\n");
+
+  sub_expressions_list_ = stt_node_sub_expressions_list_copy_constructor(
+      $3->sub_expressions_list_);
+  forced_assertion(sub_expressions_list_ != NULL);
+  forced_assertion(sub_expressions_list_->expressions_list_ != NULL);
+#ifndef NDEBUG
+  if (sub_expressions_list_->expressions_list_->first == NULL) {
+    assertion(sub_expressions_list_->expressions_list_->next == NULL);
+  }
+#endif
+
+  sub_expressions_list_->expressions_list_ =
+      stt_expressions_simple_list_push_front(
+          sub_expressions_list_->expressions_list_,
+          $2->expression_subnode_->expression_);
+  forced_assertion(sub_expressions_list_ != NULL);
+
+  $$ = stt_node_default_constructor();
+  forced_assertion_two($$ != NULL, "minia.y: 966\n");
+#ifndef NDEBUG
+  assertion($$->type_ == STT_NODE_TYPE_INVALID);
+#endif
+
+  stt_node_set_sub_expressions_list($$, sub_expressions_list_);
+#ifndef NDEBUG
+  assertion($$->type_ == STT_NODE_TYPE_EXPRESSIONS_LIST);
+  assertion($$->sub_expressions_list_ != NULL);
+  assertion($$->sub_expressions_list_->expressions_list_ != NULL);
+  assertion($$->sub_expressions_list_->expressions_list_->first != NULL);
+  /* assertion($$->sub_expressions_list_->expressions_list_->next == NULL); */  /* XXX */
+#endif
+
+  stt_node_sub_expressions_list_destructor(sub_expressions_list_);
+
+#ifndef NDEBUG
+  /* assert that the new node has length of the child node plus one. */
+
+  assertion($3->sub_expressions_list_ != NULL);
+  assertion($3->sub_expressions_list_->expressions_list_ != NULL);
+  old_node_length_ = stt_expressions_simple_list_length(
+      $3->sub_expressions_list_->expressions_list_);
+  assertion(old_node_length_ >= 0);
+  assertion($$->sub_expressions_list_ != NULL);
+  assertion($$->sub_expressions_list_->expressions_list_ != NULL);
+  new_node_length_ = stt_expressions_simple_list_length(
+      $$->sub_expressions_list_->expressions_list_);
+  assertion(new_node_length_ > 0);
+  assertion(new_node_length_ == old_node_length_ + 1);
+#endif
+
+  stt_node_destructor($2);
+  stt_node_destructor($3);
+}
+|
+{
+  stt_node_sub_expressions_list * sub_expressions_list_;
+
+  b_trace_chars_array("expressions_list_continuation : NOTHING\n");
+
+  sub_expressions_list_ = stt_node_sub_expressions_list_default_constructor();
+  forced_assertion_two(sub_expressions_list_ != NULL, "minia.y: 996\n");
+  forced_assertion_two(sub_expressions_list_->expressions_list_ != NULL,
+      "minia.y: 997\n");
+#ifndef NDEBUG
+  assertion_two(sub_expressions_list_->expressions_list_->first == NULL,
+      "minia.y: 999\n");
+  assertion_two(sub_expressions_list_->expressions_list_->next == NULL,
+      "minia.y: 1000\n");
+#endif
+
+  $$ = stt_node_default_constructor();
+  forced_assertion_two($$ != NULL, "minia.y: 1004\n");
+#ifndef NDEBUG
+  assertion_two($$->type_ == STT_NODE_TYPE_INVALID, "minia.y: 1006\n");
+#endif
+
+  stt_node_set_sub_expressions_list($$, sub_expressions_list_);
+#ifndef NDEBUG
+  assertion_two($$->type_ == STT_NODE_TYPE_EXPRESSIONS_LIST,
+      "minia.y: 1011\n");
+  assertion_two($$->sub_expressions_list_ != NULL, "minia.y: 1012\n");
+  assertion_two($$->sub_expressions_list_->expressions_list_ != NULL,
+      "minia.y: 1013\n");
+  assertion_two($$->sub_expressions_list_->expressions_list_->first == NULL,
+      "minia.y: 1014\n");
+  assertion_two($$->sub_expressions_list_->expressions_list_->next == NULL,
+      "minia.y: 1015\n");
+#endif
+
+  stt_node_sub_expressions_list_destructor(sub_expressions_list_);
+}
+;
+
 expression :
-  T_IF condition T_THEN expression T_ELSE expression T_END T_IF
+  T_CONDITIONAL condition T_THEN expression T_ELSE expression T_CONDITIONAL
+  T_ENDS
 {
   stt_expression_sub_conditional * expression_sub_conditional_;
   stt_expression * expression_;
@@ -1207,7 +1666,163 @@ expression :
       "unexpected node type at %s:%d\n");
   $$ = $1;
 }
+/*
+| T_CONCATENATE T_NATURAL_LITERAL T_TEXTS list_of_arguments
+{
+  b_trace_chars_array("expression : T_CONCATENATE T_NATURAL_LITERAL T_TEXTS list_of_identifiers\n");
+*/
+  /* XXX */
+/*
+  $$ = stt_node_default_constructor();
+  forced_assertion_two($$ != NULL, "minia.y: 1324\n");
+#ifndef NDEBUG
+  assertion_two($$->type_ == STT_NODE_TYPE_INVALID, "minia.y: 1326\n");
+#endif
+*/
+  /*
+  stt_node_set_...
+
+  MUST CREATE A VALID EXPRESSION NODE HERE
+  */
+/*
+}
+*/
+| T_CALL call_options T_FUNCTION T_IDENTIFIER T_PASSING expressions_list T_CALL T_ENDS
+{
+#ifndef NDEBUG
+  amara_string * concatenate_as_amara_string_;
+  amara_boolean amara_identifiers_are_equal_;
+  stt_node * expressions_list_dollar_six_node_;
+#endif
+  stt_expression * expression_;
+  stt_expression_sub_function_call * expression_sub_function_call_;
+
+  b_trace_chars_array("function_statement : T_CALL call_options T_FUNCTION T_IDENTIFIER ");
+  b_trace_chars_array("T_PASSING expressions_list T_CALL T_ENDS\n");
+
+  forced_assertion_two($2 != NULL, "minia.y: 1403\n");
+  forced_assertion_two($2->type_ == STT_NODE_TYPE_CALL_OPTIONS,
+      "minia.y: 1404\n");
+  forced_assertion_two($2->sub_call_options_ != NULL, "minia.y: 1566\n");
+  /*
+  forced_assertion_two($2->sub_call_options_->builtin_function_ == NULL,
+      "minia.y: 1568\n");
+  forced_assertion_two($2->sub_call_options_->builtin_function_ != NULL,
+      "minia.y: 1570\n");
+  */
+
+  forced_assertion_two($4 != NULL, "minia.y: 1570\n");
+  forced_assertion_two($4->type_ == STT_NODE_TYPE_IDENTIFIER,
+      "minia.y: 1571\n");
+  forced_assertion_two($4->identifier_subnode_ != NULL, "minia.y: 1573\n");
+  forced_assertion_two($4->identifier_subnode_->value_ != NULL,
+      "minia.y: 1574\n");
+  forced_assertion_two($4->identifier_subnode_->value_->value_ != NULL,
+      "minia.y: 1576\n");
+
+  forced_assertion_two($6 != NULL, "minia.y: 1406\n");
+  forced_assertion_two($6->type_ == STT_NODE_TYPE_EXPRESSIONS_LIST,
+      "minia.y: 1407\n");
+  forced_assertion_two($6->sub_expressions_list_ != NULL, "minia.y: 1582\n");
+  forced_assertion_two($6->sub_expressions_list_->expressions_list_ != NULL,
+      "minia.y: 1583\n");
+
+  expression_ = stt_expression_default_constructor();
+  forced_assertion(expression_ != NULL);
+#ifndef NDEBUG
+  assertion(expression_->type_ == STT_EXPRESSION_TYPE_INVALID);
+#endif
+
+#ifndef NDEBUG
+  /*   If it's a builtin, do some validity checks. */
+  concatenate_as_amara_string_ =
+      amara_string_exhaustive_constructor("concatenate");
+  forced_assertion(concatenate_as_amara_string_ != NULL);
+  amara_identifiers_are_equal_ = amara_identifiers_equality(
+      $4->identifier_subnode_->value_,
+      concatenate_as_amara_string_);
+  if (amara_identifiers_are_equal_ == AMARA_BOOLEAN_TRUE) {
+    expressions_list_dollar_six_node_ = $6;
+    located_assertion_one(
+        expressions_list_dollar_six_node_->sub_expressions_list_->expressions_list_->first !=
+            NULL);
+    located_assertion_one(
+        expressions_list_dollar_six_node_->sub_expressions_list_->expressions_list_->next !=
+            NULL);
+    located_assertion_one(
+        expressions_list_dollar_six_node_->sub_expressions_list_->expressions_list_->next->first !=
+            NULL);
+    located_assertion_one(
+        expressions_list_dollar_six_node_->sub_expressions_list_->expressions_list_->next->next ==
+            NULL);
+  }
+#endif
+
+  expression_sub_function_call_ =
+      stt_expression_sub_function_call_exhaustive_constructor(
+          $4->identifier_subnode_->value_,
+          $6->sub_expressions_list_->expressions_list_,
+          $2->sub_call_options_->builtin_function_);
+  forced_assertion_two(expression_sub_function_call_ != NULL,
+      "minia.y: 1597\n");
+
+  stt_expression_set_function_call(
+      expression_, expression_sub_function_call_);
+
+  $$ = stt_node_default_constructor();
+  forced_assertion($$ != NULL);
+
+  stt_node_set_expression($$, expression_);
+#ifndef NDEBUG
+  assertion($$->type_ == STT_NODE_TYPE_EXPRESSION);
+#endif
+  forced_assertion($$->expression_subnode_ != NULL);
+  forced_assertion($$->expression_subnode_->expression_ != NULL);
+
+  stt_expression_destructor(expression_);
+}
 ;
+
+/*
+CANT HAS 'AND' PARTICLE HERE AS SEPARATOR, AS IT'S ALREADY THE OPERATIONS SEPARATOR, WOULD CREATE SR CONFLICT
+*/
+/*
+list_of_arguments :
+  list_of_arguments T_AND T_STRING_LITERAL
+{
+  b_trace_chars_array("list_of_identifiers : list_of_identifiers T_STRING_LITERAL\n");
+*/
+  /* XXX */
+
+/*
+  MUST CREATE A VALID LIST OF IDENTIFIERS AND STRINGS NODE HERE
+  */
+/*
+}
+| list_of_arguments T_AND T_IDENTIFIER
+{
+  b_trace_chars_array("list_of_identifiers : list_of_identifiers T_IDENTIFIER\n");
+*/
+  /* XXX */
+
+/*
+  MUST CREATE A VALID LIST OF IDENTIFIERS AND STRINGS NODE HERE
+  */
+/*
+}
+|
+{
+  b_trace_chars_array("list_of_identifiers : NOTHING\n");
+*/
+  /* XXX */
+
+/*
+  MUST CREATE A VALID LIST OF IDENTIFIERS AND STRINGS NODE HERE
+  */
+/*
+}
+;
+*/
 
 condition :
   expression T_IS T_LESS T_THAN expression

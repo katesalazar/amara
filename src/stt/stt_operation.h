@@ -28,20 +28,49 @@
 typedef unsigned char stt_operation_type;
 
 #define STT_OPERATION_TYPE_INVALID       0x00
+
+/*   Cease running operations, and return from the function call. */
+/*   Must be the last operation/statement of the function. */
+#define STT_OPERATION_TYPE_RETURN                  0x01
+
+/*   Can be used instead of `return` when in a function which does not
+ * return any value. */
+#define STT_OPERATION_TYPE_RUN                     0x02
+
+/*   Allowed only in CLI application functions. */
 #define STT_OPERATION_TYPE_PRINT      0x03
+
+/*   Allowed only in CLI application functions. */
 #define STT_OPERATION_TYPE_PRINT_CRLF 0x0C
+
+/*   Alias. */
+#define STT_OPERATION_TYPE_NEW_LINE \
+		STT_OPERATION_TYPE_PRINT_CRLF
+
+/*   Allowed only in CLI application functions. */
 #define STT_OPERATION_TYPE_READ_NATURAL_TO_VALUE 0x2F
+
+/*   Alias. */
 #define STT_OPERATION_TYPE_READ_NATURAL_INTO_VALUE \
 		STT_OPERATION_TYPE_READ_NATURAL_TO_VALUE
+
+/*   Allowed only in CLI application functions. */
 #define STT_OPERATION_TYPE_READ_INTEGER_INTO_VALUE 0x30
+
 /* #define STT_OPERATION_TYPE_READ_NATURAL_TO_VARIABLE 0x30  *//* TODO remove it temporarily */
+
 /* XXX mutate this into expression only
 #define STT_OPERATION_TYPE_RESOLVE_TYPE_OF_EXPRESSION 0x31
 */
+
 /* #define STT_OPERATION_TYPE_MULTIPLICATION           0x32 *//* XXX will mutate this into an expression only */
+
 /* #define STT_OPERATION_TYPE_DIVISION                 0x33 *//* XXX will mutate this into an expression only */
+
 /* #define STT_OPERATION_TYPE_ADDITION                 0x34 *//* XXX will mutate this into an expression only */
+
 /* #define STT_OPERATION_TYPE_SUBSTRACTION             0x35 *//* XXX will mutate this into an expression only */
+
 /* #define STT_OPERATION_TYPE_PRINT_NO_CRLF            0xFF *//* TODO obsolete, must remove */
 
 typedef struct stt_operation {
@@ -75,6 +104,11 @@ void
 stt_operation_set_args(
 		stt_operation * operation,
 		const stt_operation_args_simple_list * args)
+;
+
+amara_boolean
+stt_operation_is_cli_operation(const stt_operation * operation)
+__attribute__((warn_unused_result))
 ;
 
 #endif

@@ -19,8 +19,12 @@ minia.tab.h
 minia.tab.c
 
 #   Bison 2.3 reporting stuff (macOS High Sierra - no Homebrew use).
+# TODO this one right below is deprecated.
 src/bsn/minia.vcg
+build/src/bsn/minia.vcg
+# TODO this one right below is deprecated.
 src/bsn/minia.output
+build/src/bsn/minia.output
 
 #   Bison 3.1 reporting stuff.
 src/bsn/minia.report
@@ -37,11 +41,28 @@ minia.tab.c
 src/bsn/minia.report
 src/bsn/minia.dot
 
+#   Source docs copied over to the build directory, in order to build them
+# from corresponding source extensions (*.c for C docs, *.cpp for C++ docs).
+build/src/bsn/minia.y
+build/src/bsn/minia.l
+build/src/*.h
+build/src/*/*.h
+build/src/*.c
+build/src/*/*.c
+build/src/*.cpp
+build/src/*/*.cpp
+
 #   Object docs.
 build/debug/*.o
 build/release/*.o
 build/debug/amara_g
+# TODO this one below is deprecated.
+build/debug/stripped_amara_g
+build/debug/amara_g_not_stripped
 build/release/amara
+# TODO this one below is deprecated.
+build/release/stripped_amara
+build/release/amara_not_stripped
 
 #   macOS debugging symbols.
 amara_g.dSYM/

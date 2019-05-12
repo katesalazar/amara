@@ -22,6 +22,8 @@
 /*   For `rtg_expression`. */
 #include "rtg_expression.h"
 
+#include "rtg_forward_declarations.h"
+
 typedef unsigned char rtg_condition_type;
 
 #define RTG_CONDITION_TYPE_INVALID                     0x00
@@ -89,7 +91,9 @@ __attribute__((warn_unused_result))
 
 /**  Transformation constructor. */
 rtg_condition *
-rtg_condition_out_of_stt_condition(const stt_condition * condition)
+rtg_condition_out_of_stt_condition(
+		const stt_condition * condition,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 __attribute__((warn_unused_result))
 ;
 

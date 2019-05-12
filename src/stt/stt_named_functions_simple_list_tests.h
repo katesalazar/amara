@@ -22,6 +22,7 @@
 
 #include "stt_named_functions_simple_list.h"
 
+/**  Print the string literal 'foo' and then print the string literal 'bar' . */
 stt_named_functions_simple_list *
 stt_named_functions_simple_list_example_two_named_functions(void)
 __attribute__((warn_unused_result))

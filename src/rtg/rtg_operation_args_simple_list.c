@@ -178,7 +178,8 @@ rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret *
 rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list(
 		const stt_operation_args_simple_list * operation_args,
 		const stt_operation_type operation_type,
-		const stt_where_value_bindings_simple_list * function_where_bindings)
+		const stt_where_value_bindings_simple_list * function_where_bindings,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 {
 	rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret * ret_;
 	rtg_operation_args_simple_list * sub_ret_;
@@ -212,7 +213,8 @@ rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list(
 				rtg_operation_arg_out_of_stt_operation_arg(
 						operation_args_ptr_->first,
 						operation_type,
-						function_where_bindings);
+						function_where_bindings,
+						rtg_named_functions);
 		assertion(sub_ret_ptr_element_ret_->status ==
 				RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS);
 		sub_ret_ptr_element_ = sub_ret_ptr_element_ret_->operation_arg;
@@ -228,9 +230,8 @@ rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list(
 	}
 	assertion(operation_args_ptr_->first != NULL);
 	sub_ret_ptr_element_ret_ = rtg_operation_arg_out_of_stt_operation_arg(
-			operation_args_ptr_->first,
-			operation_type,
-			function_where_bindings);
+			operation_args_ptr_->first, operation_type,
+			function_where_bindings, rtg_named_functions);
 	forced_assertion(sub_ret_ptr_element_ret_ != NULL);
 
 	if (sub_ret_ptr_element_ret_->status !=

@@ -234,3 +234,138 @@ amara_strings_equality(const amara_string * a1, const amara_string * a2)
 {
 	return amara_string_equality(a1, a2);
 }
+
+signed short  /* XXX move this elsewhere */
+signed_shorts_min(signed short s0, signed short s1)  /* XXX move this elsewhere */
+{
+	if (s0 < s1) {
+		return s0;
+	}
+	return s1;
+}
+
+/* pre: i1 [strictly] larger than i0. */
+amara_boolean
+amara_identifiers_equality_inner(
+                                 const amara_string * i0, const amara_string * i1,
+                                 const size_t i0_len, const size_t i1_len)
+__attribute__((warn_unused_result))
+;
+
+amara_boolean
+amara_identifiers_equality_inner(
+		const amara_string * i0, const amara_string * i1,
+		const size_t i0_len, const size_t i1_len)
+{
+	const signed short max_ident_inner_content_len_ = 128;
+	signed short size_;
+	signed short i_;
+	char * i1_inner_content_;
+	amara_string * reduced_i1_;
+	amara_boolean sub_ret_;
+
+	forced_assertion(i0_len > 0);
+	forced_assertion(
+			i1_len >
+					2 + 1 /* 'id ' */
+					+ 2 + 1 + 4 /* 'id ends' */
+	);
+	forced_assertion(i0->value_ != NULL);
+	forced_assertion(i0->value_[0] != 'i');
+	forced_assertion(i1->value_ != NULL);
+    if (i1->value_[0] == 'i') {
+	forced_assertion(i1->value_[0] == 'i');
+	forced_assertion(i1->value_[1] == 'd');
+	if (i1->value_[2] == ' ') {
+		forced_assertion(0 /* FIXME */);
+	}
+	forced_assertion(
+			i1_len >
+					5 + 1 /* 'ident ' */
+					+ 5 + 1 + 4 /* 'ident ends' */
+	);
+	forced_assertion(i1->value_[2] == 'e');
+	forced_assertion(i1->value_[3] == 'n');
+	forced_assertion(i1->value_[4] == 't');
+	if (i1->value_[5] == ' ') {
+		forced_assertion(0 /* FIXME */);
+	}
+	forced_assertion(
+			i1_len >
+					10 + 1 /* 'identifier ' */
+					+ 10 + 1 + 4 /* 'identifier ends' */
+	);
+	forced_assertion(i1->value_[5] == 'i');
+	forced_assertion(i1->value_[6] == 'f');
+	forced_assertion(i1->value_[7] == 'i');
+	forced_assertion(i1->value_[8] == 'e');
+	forced_assertion(i1->value_[9] == 'r');
+	forced_assertion(i1->value_[10] == ' ');
+	forced_assertion(i1_len - 16 /* XXX */ > 11 /* XXX */); /* else i1 is "identifier identifier ends", which is nonsense and unuseful */
+	forced_assertion(i1->value_[i1_len - 16] == ' ');
+	forced_assertion(i1->value_[i1_len - 15] == 'i');
+	forced_assertion(i1->value_[i1_len - 14] == 'd');
+	forced_assertion(i1->value_[i1_len - 13] == 'e');
+	forced_assertion(i1->value_[i1_len - 12] == 'n');
+	forced_assertion(i1->value_[i1_len - 11] == 't');
+	forced_assertion(i1->value_[i1_len - 10] == 'i');
+	forced_assertion(i1->value_[i1_len - 9] == 'f');
+	forced_assertion(i1->value_[i1_len - 8] == 'i');
+	forced_assertion(i1->value_[i1_len - 7] == 'e');
+	forced_assertion(i1->value_[i1_len - 6] == 'r');
+	forced_assertion(i1->value_[i1_len - 5] == ' ');
+	forced_assertion(i1->value_[i1_len - 4] == 'e');
+	forced_assertion(i1->value_[i1_len - 3] == 'n');
+	forced_assertion(i1->value_[i1_len - 2] == 'd');
+	forced_assertion(i1->value_[i1_len - 1] == 's');
+	i1_inner_content_ = malloc(
+			/* XXX allocate only the strictly necessary, not this max */
+			max_ident_inner_content_len_
+			+ 1);
+	size_ = signed_shorts_min(
+			max_ident_inner_content_len_,
+			i1_len
+					- 16 /* XXX */
+					- 10 /* XXX */
+					- 1 /* XXX */);
+	for (i_ = 0; i_ < size_; i_++) {
+		i1_inner_content_[i_] =
+				i1->value_[
+						i_
+						+ 10 /* XXX */
+						+ 1 /* XXX */
+				];
+	}
+    i1_inner_content_[i_] = '\0';
+	reduced_i1_ = amara_string_exhaustive_constructor(i1_inner_content_);
+	free(i1_inner_content_);
+	sub_ret_ = amara_identifiers_equality(i0, reduced_i1_);
+	amara_string_destructor(reduced_i1_);
+        return sub_ret_;
+        
+    }
+    
+    /* none of the strings is in the form of id[ent[ifier]] blahblah id[ent[ifier]] ends */
+    return amara_strings_equality(i0, i1);
+}
+
+amara_boolean
+amara_identifiers_equality(
+		const amara_string * i0, const amara_string * i1)
+{
+	size_t i0_len_ = amara_string_length(i0);
+	size_t i1_len_ = amara_string_length(i1);
+
+	if (i0_len_ == i1_len_) {
+		return amara_strings_equality(i0, i1);
+	}
+
+	if (i0_len_ < i1_len_) {
+		return amara_identifiers_equality_inner(
+				i0, i1, i0_len_, i1_len_);
+	}
+
+	/* i0_len_ > i1_len_ */
+	return amara_identifiers_equality_inner(i1, i0, i1_len_, i0_len_);
+}
+

@@ -288,7 +288,9 @@ rtg_condition_flip(const rtg_condition * condition)
 }
 
 rtg_condition *
-rtg_condition_out_of_stt_condition(const stt_condition * condition)
+rtg_condition_out_of_stt_condition(
+		const stt_condition * condition,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 {
 	rtg_expression_out_of_stt_expression_ret * left_hand_side_exp_ret_;
 	rtg_expression_out_of_stt_expression_ret * right_hand_side_exp_ret_;
@@ -313,7 +315,8 @@ rtg_condition_out_of_stt_condition(const stt_condition * condition)
 
 	left_hand_side_exp_ret_ =
 			rtg_expression_out_of_stt_expression(
-					condition->left_hand_side_expression_);
+					condition->left_hand_side_expression_,
+					rtg_named_functions);
 #ifndef NDEBUG
 	assertion(left_hand_side_exp_ret_->status ==
 			RTG_EXPRESSION_OUT_OF_STT_EXPRESSION_RET_STATUS_SUCCESS);
@@ -328,7 +331,8 @@ rtg_condition_out_of_stt_condition(const stt_condition * condition)
 
 	right_hand_side_exp_ret_ =
 			rtg_expression_out_of_stt_expression(
-					condition->right_hand_side_expression_);
+					condition->right_hand_side_expression_,
+					rtg_named_functions);
 #ifndef NDEBUG
 	assertion(right_hand_side_exp_ret_->status ==
 			RTG_EXPRESSION_OUT_OF_STT_EXPRESSION_RET_STATUS_SUCCESS);

@@ -19,6 +19,8 @@
 
 #include "../asr/assertion.h"
 
+#include "rtg_named_functions_simple_list.h"
+
 #include "rtg_operation_tests.h"
 
 #include "rtg_operations_simple_list.h"
@@ -297,6 +299,7 @@ void
 rtg_operations_simple_list_transformation_constructor_test_0()
 {
 	stt_operations_simple_list * stt_operations_;
+	rtg_named_functions_simple_list * rtg_named_functions_;
 	rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * transformation_ret_;
 	rtg_operations_simple_list * rtg_operations_;
 
@@ -307,9 +310,14 @@ rtg_operations_simple_list_transformation_constructor_test_0()
 	assertion(stt_operations_->next == NULL);
 #endif
 
+	rtg_named_functions_ =
+			rtg_named_functions_simple_list_default_constructor();
+	forced_assertion(rtg_named_functions_ != NULL);
+
 	transformation_ret_ =
 			rtg_operations_simple_list_out_of_stt_operations_simple_list(
-					stt_operations_, NULL);
+					stt_operations_, NULL,
+					rtg_named_functions_);
 #ifndef NDEBUG
 	assertion(stt_operations_->first == NULL);
 	assertion(stt_operations_->next == NULL);
@@ -335,12 +343,17 @@ rtg_operations_simple_list_transformation_constructor_test_0()
 void
 rtg_operations_simple_list_transformation_constructor_test_1()
 {
+	rtg_named_functions_simple_list * rtg_named_functions_;
 	rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * transformation_ret_;
 	rtg_operations_simple_list * rtg_operations_;
 
+	rtg_named_functions_ =
+			rtg_named_functions_simple_list_default_constructor();
+	forced_assertion(rtg_named_functions_ != NULL);
+
 	transformation_ret_ =
 			rtg_operations_simple_list_out_of_stt_operations_simple_list(
-					NULL, NULL);
+					NULL, NULL, rtg_named_functions_);
 	forced_assertion(transformation_ret_ != NULL);
 	forced_assertion(transformation_ret_->status ==
 			RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
@@ -355,6 +368,8 @@ rtg_operations_simple_list_transformation_constructor_test_1()
 
 	free(transformation_ret_);
 	rtg_operations_simple_list_destructor(rtg_operations_);
+
+	rtg_named_functions_simple_list_deep_destructor(rtg_named_functions_);
 }
 
 void

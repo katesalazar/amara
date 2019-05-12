@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,9 @@
 
 /**  List of run time _where_ values names and value bindings. */
 typedef struct rtg_where_value_bindings_simple_list {
-	rtg_where_value_binding * first;
+
+	struct rtg_where_value_binding * first;
+
 	struct rtg_where_value_bindings_simple_list * next;
 } rtg_where_value_bindings_simple_list
 ;
@@ -57,7 +59,7 @@ rtg_where_value_bindings_simple_list_destructor(
 /**  Health check. */
 void
 rtg_where_value_bindings_simple_list_assert_healthy(
-		const rtg_where_value_bindings_simple_list * list)
+		const struct rtg_where_value_bindings_simple_list * list)
 ;
 
 #endif
@@ -66,14 +68,15 @@ rtg_where_value_bindings_simple_list_assert_healthy(
 rtg_where_value_bindings_simple_list *
 rtg_where_value_bindings_simple_list_push_front(
 		rtg_where_value_bindings_simple_list * list,
-		const rtg_where_value_binding * element)
+		const struct rtg_where_value_binding * element)
 __attribute__((warn_unused_result))
 ;
 
 /**  Transformation constructor. */
 rtg_where_value_bindings_simple_list *
 rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list(
-		stt_where_value_bindings_simple_list * list)
+		const stt_where_value_bindings_simple_list * list,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 __attribute__((warn_unused_result))
 ;
 

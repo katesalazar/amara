@@ -102,4 +102,10 @@ amara_strings_equality(const amara_string * a1, const amara_string * a2)
 __attribute__((warn_unused_result))
 ;
 
+amara_boolean
+amara_identifiers_equality(
+		const amara_string * i0, const amara_string * i1)
+__attribute__((warn_unused_result))
+;
+
 #endif

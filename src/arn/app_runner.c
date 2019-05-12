@@ -51,6 +51,9 @@
 /*   For `rtg_named_function`. */
 #include "../rtg/rtg_named_function.h"
 
+/*   For `rtg_named_functions_fixed_list`. */
+#include "../rtg/rtg_named_functions_fixed_list.h"
+
 /*   For `rtg_operation`. */
 #include "../rtg/rtg_operation.h"
 
@@ -186,6 +189,250 @@ minia_bison_main(FILE * file)
 __attribute__((warn_unused_result))
 ;
 
+rtg_expression *
+rtg_expression_builtin_concatenate_expression(void)
+__attribute__((warn_unused_result))
+;
+
+rtg_expression *
+rtg_expression_builtin_concatenate_expression()
+{
+	amara_string * identifier_;
+	/*
+	rtg_expression_sub_identifier * sub_identifier_;
+	*/
+	rtg_expression * ret_;
+
+	identifier_ = amara_string_exhaustive_constructor("concatenation");
+
+	/*
+	sub_identifier_ = rtg_expression_sub_identifier_exhaustive_constructor(
+			identifier_);
+	forced_assertion(sub_identifier_ != NULL);
+	*/
+
+	ret_ = rtg_expression_default_constructor();
+	forced_assertion(ret_ != NULL);
+
+	rtg_expression_set_identifier(
+			ret_,
+			/*
+			sub_identifier_
+			*/
+			identifier_
+			/*
+			"concatenation"
+			*/
+	);
+
+	/*
+	rtg_expression_sub_identifier_destructor(sub_identifier_);
+	*/
+	amara_string_destructor(identifier_);
+
+	return ret_;
+}
+
+rtg_operation_arg *
+rtg_operation_arg_builtin_concatenate_expression(void)
+__attribute__((warn_unused_result))
+;
+
+rtg_operation_arg *
+rtg_operation_arg_builtin_concatenate_expression()
+{
+	rtg_expression * rtg_expression_builtin_concatenate_expression_;
+	rtg_operation_arg * ret_;
+
+	rtg_expression_builtin_concatenate_expression_ =
+			rtg_expression_builtin_concatenate_expression();
+	forced_assertion(rtg_expression_builtin_concatenate_expression_ !=
+			NULL);
+
+	ret_ = rtg_operation_arg_default_constructor();
+	forced_assertion(ret_ != NULL);
+
+	rtg_operation_arg_set_expression(
+			ret_, rtg_expression_builtin_concatenate_expression_);
+
+	rtg_expression_destructor(
+			rtg_expression_builtin_concatenate_expression_);
+
+	return ret_;
+}
+
+rtg_operation_args_simple_list *
+rtg_operation_args_simple_list_builtin_concatenate(void)
+__attribute__((warn_unused_result))
+;
+
+rtg_operation_args_simple_list *
+rtg_operation_args_simple_list_builtin_concatenate()
+{
+	rtg_operation_arg * concatenation_expression_identifier_operation_arg_;
+	rtg_operation_args_simple_list * ret_;
+
+	concatenation_expression_identifier_operation_arg_ =
+			rtg_operation_arg_builtin_concatenate_expression();
+	forced_assertion(concatenation_expression_identifier_operation_arg_ !=
+			NULL);
+
+	ret_ = rtg_operation_args_simple_list_default_constructor();
+	forced_assertion(ret_ != NULL);
+
+	ret_ = rtg_operation_args_simple_list_push_front(
+			ret_,
+			concatenation_expression_identifier_operation_arg_);
+	forced_assertion(ret_ != NULL);
+
+	return ret_;
+}
+
+rtg_operation *
+rtg_operation_builtin_concatenate(void)
+__attribute__((warn_unused_result))
+;
+
+rtg_operation *
+rtg_operation_builtin_concatenate()
+{
+	rtg_operation_args_simple_list * args_;
+	rtg_operation * ret_;
+
+	args_ = rtg_operation_args_simple_list_builtin_concatenate();
+	forced_assertion(args_ != NULL);
+
+	ret_ = rtg_operation_exhaustive_constructor(
+			RTG_OPERATION_TYPE_RETURN, args_);
+	forced_assertion(ret_ != NULL);
+
+	rtg_operation_args_simple_list_destructor(args_);
+
+	return ret_;
+}
+
+rtg_operations_simple_list *
+rtg_operations_simple_list_builtin_concatenate(void)
+__attribute__((warn_unused_result))
+;
+
+rtg_operations_simple_list *
+rtg_operations_simple_list_builtin_concatenate()
+{
+	rtg_operation * operation_;
+	rtg_operations_simple_list * ret_;
+
+	operation_ = rtg_operation_builtin_concatenate();
+	forced_assertion(operation_ != NULL);
+
+	ret_ = rtg_operations_simple_list_default_constructor();
+	forced_assertion(ret_ != NULL);
+
+	ret_ = rtg_operations_simple_list_push_front(ret_, operation_);
+	forced_assertion(ret_ != NULL);
+
+	rtg_operation_destructor(operation_);
+
+	return ret_;
+}
+
+rtg_named_function *
+rtg_named_function_builtin_concatenate(void)
+__attribute__((warn_unused_result))
+;
+
+rtg_named_function *
+rtg_named_function_builtin_concatenate()
+{
+	amara_string * name_;
+	/*
+	rtg_parameters * parameters_;
+	*/
+	rtg_operations_simple_list * operations_;
+	rtg_where_value_bindings_simple_list * where_value_bindings_;
+	rtg_named_function * ret_;
+
+	name_ = amara_string_exhaustive_constructor("concatenate");
+	forced_assertion(name_ != NULL);
+
+	/*
+	parameters_ = rtg_parameters_simple_list_builtin_concatentate();
+	forced_assertion(parameters_ != NULL);
+	*/
+
+	operations_ = rtg_operations_simple_list_builtin_concatenate();
+	forced_assertion(operations_ != NULL);
+
+	where_value_bindings_ =
+			rtg_where_value_bindings_simple_list_default_constructor();
+	forced_assertion(where_value_bindings_ != NULL);
+	/* FIXME this where_value_bindings_ should bind "concatenation" to "the concatenation of params string s0 and string s1" */
+
+	ret_ = rtg_named_function_exhaustive_constructor(
+			RTG_NAMED_FUNCTION_TYPE_PURE_FUNCTION, name_,
+			/*
+			parameters,
+			*/
+			operations_, where_value_bindings_);
+
+	rtg_where_value_bindings_simple_list_destructor(where_value_bindings_);
+	rtg_operations_simple_list_destructor(operations_);
+	/*
+	rtg_parameters_simple_list_destructor(parameters_);
+	*/
+	amara_string_destructor(name_);
+
+	return ret_;
+}
+
+rtg_named_functions_simple_list *
+add_builtin_functions_to_rtg_named_functions_simple_list(
+		rtg_named_functions_simple_list * list)
+__attribute__((warn_unused_result))
+;
+
+rtg_named_functions_simple_list *
+add_builtin_functions_to_rtg_named_functions_simple_list(
+		rtg_named_functions_simple_list * list)
+{
+	rtg_named_functions_simple_list * ret_;
+	rtg_named_function * concatenate_builtin_function_;
+
+	concatenate_builtin_function_ =
+			rtg_named_function_builtin_concatenate();
+	forced_assertion(concatenate_builtin_function_ != NULL);
+
+	ret_ = rtg_named_functions_simple_list_push_front(
+			list, concatenate_builtin_function_);
+	forced_assertion(ret_ != NULL);
+
+	/* XXX missing destructor call? */
+
+	return ret_;
+}
+
+void
+add_builtin_functions_to_rtg_named_functions_fixed_list(
+		rtg_named_functions_fixed_list * list)
+;
+
+void
+add_builtin_functions_to_rtg_named_functions_fixed_list(
+		rtg_named_functions_fixed_list * list)
+{
+	rtg_named_function * concatenate_builtin_function_;
+
+	concatenate_builtin_function_ =
+			rtg_named_function_builtin_concatenate();
+	forced_assertion(concatenate_builtin_function_ != NULL);
+
+	rtg_named_functions_fixed_list_push_reference_back(
+			list, concatenate_builtin_function_);
+
+	/*   XXX must not destroy `concatenate_builtin_function_`, as it
+	 * is a reference what has been pushed back. */
+}
+
 unsigned char
 run_app_main_doc_exists(
 		const char * app_name, const FILE * main_doc_descriptor)
@@ -194,7 +441,8 @@ run_app_main_doc_exists(
 	look_for_undefined_labels_ret * look_for_undefined_labels_ret_;
 	process_rtg_doc_execution_requests_ret * process_rtg_doc_execution_requests_ret_;
 	char_arrays_simple_list * ptr_;
-	rtg_doc_out_of_stt_doc_ret * rtg_doc_out_of_stt_doc_ret_;
+	rtg_named_functions_fixed_list * rtg_named_functions_inventory_;
+	rtg_doc_out_of_stt_doc_and_rtg_named_functions_fixed_list_ret * rtg_doc_out_of_stt_doc_ret_;
 	assertion(main_doc_descriptor != NULL);
 	assertion(app_name != NULL);
 
@@ -234,24 +482,39 @@ run_app_main_doc_exists(
 			look_for_undefined_labels_ret_);
 	look_for_undefined_labels_ret_ = NULL;
 
+	rtg_named_functions_inventory_ =
+			rtg_named_functions_fixed_list_default_constructor();
+	forced_assertion(rtg_named_functions_inventory_ != NULL);
+
+	/*   Inject builtin named functions to the RTG named functions inventory. */
+	add_builtin_functions_to_rtg_named_functions_fixed_list(
+			rtg_named_functions_inventory_);
+	forced_assertion(rtg_named_functions_inventory_ != NULL);
+
 	/*   Now it is known there are no missing labels, ask for a run
 	 * time ready graph where all labels (currently, only function
 	 * names and application names, but not yet variable identifiers
 	 * or type analysis) have been turned to entity pointers. */
 	rtg_doc_out_of_stt_doc_ret_ =
-			rtg_doc_out_of_stt_doc(minia_bison_main_ret_);
+			rtg_doc_out_of_stt_doc_and_rtg_named_functions_fixed_list(
+					minia_bison_main_ret_,
+					rtg_named_functions_inventory_);
+
+	/*rtg_named_functions_simple_list_destructor(*/  /* XXX */
+			/*rtg_named_functions_inventory_);*/  /* XXX */
 
 #ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "app_runner:225\n");
 #endif
 
 	forced_assertion(rtg_doc_out_of_stt_doc_ret_->status ==
-			RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_SUCCESS);
+			RTG_DOC_OUT_OF_STT_DOC_AND_RTG_NAMED_FUNCTIONS_FIXED_LIST_RET_STATUS_SUCCESS);
 
 #ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "app_runner:230\n");
 #endif
 
+	/* XXX should pass the rtg named functions directory, shouldnt it? */
 	process_rtg_doc_execution_requests_ret_ =
 			process_rtg_doc_execution_requests(
 					rtg_doc_out_of_stt_doc_ret_->doc);
@@ -275,7 +538,7 @@ run_app_main_doc_exists(
 	fprintf(stderr, "app_runner:247\n");
 #endif
 
-	rtg_doc_out_of_stt_doc_ret_destructor(rtg_doc_out_of_stt_doc_ret_);
+	rtg_doc_out_of_stt_doc_and_rtg_named_functions_fixed_list_ret_destructor(rtg_doc_out_of_stt_doc_ret_);
 
 #ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "app_runner:251\n");

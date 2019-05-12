@@ -586,6 +586,24 @@ stt_node_destructor(stt_node const * node)
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
 		break;
+	case STT_NODE_TYPE_EXPRESSIONS_LIST:
+            assert_clean_expressions_list_node(node);
+            assertion(node->string_literal_subnode_ == NULL);
+            assertion(node->natural_literal_subnode_ == NULL);
+            assertion(node->integer_literal_subnode_ == NULL);
+            assertion(node->rational_literal_subnode_ == NULL);
+            assertion(node->expression_subnode_ == NULL);
+            assertion(node->sub_expressions_list_ != NULL);
+		stt_node_sub_expressions_list_destructor(
+				node->sub_expressions_list_);
+            assertion(node->operation_subnode_ == NULL);
+            assertion(node->named_function_subnode_ == NULL);
+            assertion(node->application_subnode_ == NULL);
+            assertion(node->identifier_subnode_ == NULL);
+            assertion(node->operations_list_subnode_ == NULL);
+            assertion(node->doc_subnode_ == NULL);
+            assertion(node->execution_request_subnode_ == NULL);
+		break;
 	case STT_NODE_TYPE_WHERE_BINDING:
 		assert_clean_where_value_binding_node(node);
 		stt_where_value_binding_subnode_destructor(
@@ -641,6 +659,7 @@ stt_node_destructor(stt_node const * node)
 		assertion(node->execution_request_subnode_ == NULL);
 		break;
 	case STT_NODE_TYPE_OPERATIONS_LIST:
+        case STT_NODE_TYPE_CLI_OPERATIONS_LIST:
 		assertion(node->string_literal_subnode_ == NULL);
 		assertion(node->natural_literal_subnode_ == NULL);
 		assertion(node->integer_literal_subnode_ == NULL);
@@ -870,7 +889,9 @@ stt_node_set_dice_expression(
 }
 
 void
-stt_node_set_expression(stt_node * node, const stt_expression * expression)
+stt_node_set_sub_call_options(
+		stt_node * node,
+		const stt_node_sub_call_options * sub_call_options)
 {
 #ifndef NDEBUG
 	assertion(node != NULL);
@@ -879,44 +900,95 @@ stt_node_set_expression(stt_node * node, const stt_expression * expression)
 #endif
 
 #ifndef NDEBUG
-	assertion(expression != NULL);
-	assertion(expression->type_ != STT_EXPRESSION_TYPE_INVALID);
+	assertion_two(sub_call_options != NULL, "stt_node.c: 884\n");
+#endif
+
+	node->sub_call_options_ = stt_node_sub_call_options_copy_constructor(
+			sub_call_options);
+	forced_assertion_two(node->sub_call_options_ != NULL,
+			"stt_node.c: 889\n");
+
+	node->type_ = STT_NODE_TYPE_CALL_OPTIONS;
+}
+
+void
+stt_node_set_sub_expressions_list(
+		stt_node * node,
+		const stt_node_sub_expressions_list * sub_expressions_list)
+{
+#ifndef NDEBUG
+	assertion(node != NULL);
+	assertion(node->type_ == STT_NODE_TYPE_INVALID);
+	assert_all_subnodes_are_null(node);
+#endif
+
+#ifndef NDEBUG
+	assertion(sub_expressions_list != NULL);
+#endif
+
+	node->sub_expressions_list_ =
+			stt_node_sub_expressions_list_copy_constructor(
+					sub_expressions_list);
+	forced_assertion_two(node->sub_expressions_list_ != NULL,
+			"stt_node.c: 914\n");
+
+	node->type_ = STT_NODE_TYPE_EXPRESSIONS_LIST;
+}
+
+void
+stt_node_set_expression(stt_node * node, const stt_expression * expression)
+{
+#ifndef NDEBUG
+	assertion_two(node != NULL, "stt_node.c: 923\n");
+	assertion_two(node->type_ == STT_NODE_TYPE_INVALID,
+			"stt_node.c: 924\n");
+	assert_all_subnodes_are_null(node);
+#endif
+
+#ifndef NDEBUG
+	assertion_two(expression != NULL, "stt_node.c: 930\n");
+	assertion_two(expression->type_ != STT_EXPRESSION_TYPE_INVALID, "stt_node.c: 932\n");
 #endif
 
 #ifndef NDEBUG
 	if (expression->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL) {
 
-		assertion(expression->sub_string_literal_ != NULL);
-		assertion(expression->sub_natural_literal_ == NULL);
-		assertion(expression->sub_conditional_ == NULL);
-		assertion(expression->sub_dice_ == NULL);
+		assertion_two(expression->sub_string_literal_ != NULL, "stt_node.c: 938\n");
+		assertion_two(expression->sub_natural_literal_ == NULL, "stt_node.c: 939\n");
+		assertion_two(expression->sub_conditional_ == NULL, "stt_node.c: 940\n");
+		assertion_two(expression->sub_dice_ == NULL, "stt_node.c: 941\n");
 	} else if (expression->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL) {
 
-		assertion(expression->sub_string_literal_ == NULL);
-		assertion(expression->sub_natural_literal_ != NULL);
-		assertion(expression->sub_conditional_ == NULL);
-		assertion(expression->sub_dice_ == NULL);
+		assertion_two(expression->sub_string_literal_ == NULL, "stt_node.c: 943\n");
+		assertion_two(expression->sub_natural_literal_ != NULL, "stt_node.c: 944\n");
+		assertion_two(expression->sub_conditional_ == NULL, "stt_node.c: 945\n");
+		assertion_two(expression->sub_dice_ == NULL, "stt_node.c: 946\n");
 	} else if (expression->type_ == STT_EXPRESSION_TYPE_CONDITIONAL) {
 
-		assertion(expression->sub_string_literal_ == NULL);
-		assertion(expression->sub_natural_literal_ == NULL);
-		assertion(expression->sub_conditional_ != NULL);
-		assertion(expression->sub_dice_ == NULL);
+		assertion_two(expression->sub_string_literal_ == NULL, "stt_node.c: 950\n");
+		assertion_two(expression->sub_natural_literal_ == NULL, "stt_node.c: 951\n");
+		assertion_two(expression->sub_conditional_ != NULL, "stt_node.c: 952\n");
+		assertion_two(expression->sub_dice_ == NULL, "stt_node.c: 953\n");
+	} else if (expression->type_ == STT_EXPRESSION_TYPE_FUNCTION_CALL) {
+
+#ifndef NDEBUG
+		assertion_two(expression->sub_function_call_ != NULL, "stt_node.c: 956\n");
+#endif
 	} else if (expression->type_ == STT_EXPRESSION_TYPE_IDENTIFIER) {
 
-		assertion(expression->sub_string_literal_ == NULL);
-		assertion(expression->sub_natural_literal_ == NULL);
-		assertion(expression->sub_conditional_ == NULL);
-		assertion(expression->sub_identifier_ != NULL);
-		assertion(expression->sub_dice_ == NULL);
+		assertion_two(expression->sub_string_literal_ == NULL, "stt_node.c: 955\n");
+		assertion_two(expression->sub_natural_literal_ == NULL, "stt_node.c: 961\n");
+		assertion_two(expression->sub_conditional_ == NULL, "stt_node.c: 957\n");
+		assertion_two(expression->sub_identifier_ != NULL, "stt_node.c: 958\n");
+		assertion_two(expression->sub_dice_ == NULL, "stt_node.c: 959\n");
 	} else {
 		assertion_two(expression->type_ == STT_EXPRESSION_TYPE_DICE,
 				"unidentifiable expression type");
 
-		assertion(expression->sub_string_literal_ == NULL);
-		assertion(expression->sub_natural_literal_ == NULL);
-		assertion(expression->sub_conditional_ == NULL);
-		assertion(expression->sub_dice_ != NULL);
+		assertion_two(expression->sub_string_literal_ == NULL, "stt_node.c: 964\n");
+		assertion_two(expression->sub_natural_literal_ == NULL, "stt_node.c: 965\n");
+		assertion_two(expression->sub_conditional_ == NULL, "stt_node.c: 966\n");
+		assertion_two(expression->sub_dice_ != NULL, "stt_node.c: 967\n");
 	}
 #endif
 
@@ -982,12 +1054,16 @@ stt_node_set_where_value_bindings(
 void
 stt_node_set_operation(stt_node * node, const stt_operation * operation)
 {
-	assertion(node != NULL);
-	assertion(node->type_ == STT_NODE_TYPE_INVALID);
+#ifndef NDEBUG
+	assertion_two(node != NULL, "stt_node.c: 986\n");
+	assertion_two(node->type_ == STT_NODE_TYPE_INVALID,
+			"stt_node.c: 987\n");
 	assert_all_subnodes_are_null(node);
 
-	assertion(operation != NULL);
-	assertion(operation->type_ != STT_OPERATION_TYPE_INVALID);
+	assertion_two(operation != NULL, "stt_node.c: 991\n");
+	assertion_two(operation->type_ != STT_OPERATION_TYPE_INVALID,
+			"stt_node.c: 992\n");
+#endif
 
 	node->operation_subnode_ =
 			stt_operation_subnode_exhaustive_constructor(
@@ -1072,18 +1148,56 @@ stt_node_equality(const stt_node * n0, const stt_node * n1)
 {
 	amara_boolean equality_;
 
-	forced_assertion(n0->type_ == STT_NODE_TYPE_IDENTIFIER);
-	forced_assertion(n0->identifier_subnode_ != NULL);
-	forced_assertion(n0->identifier_subnode_->value_ != NULL);
-	forced_assertion(n1->type_ == STT_NODE_TYPE_IDENTIFIER);
-	forced_assertion(n1->identifier_subnode_ != NULL);
-	forced_assertion(n1->identifier_subnode_->value_ != NULL);
+	if (n0->type_ == STT_NODE_TYPE_IDENTIFIER) {
 
-	equality_ = amara_string_equality(
-			n0->identifier_subnode_->value_,
-			n1->identifier_subnode_->value_);
+		forced_assertion_two(
+				n0->identifier_subnode_ != NULL,
+				"stt_node.c: 1077\n");
+		forced_assertion_two(
+				n0->identifier_subnode_->value_ != NULL,
+				"stt_node.c: 1080\n");
+		forced_assertion_two(
+				n1->type_ == STT_NODE_TYPE_IDENTIFIER,
+				"stt_node.c: 1083\n");
+		forced_assertion_two(
+				n1->identifier_subnode_ != NULL,
+				"stt_node.c: 1086\n");
+		forced_assertion_two(
+				n1->identifier_subnode_->value_ != NULL,
+				"stt_node.c: 1089\n");
 
-	forced_assertion(equality_ == AMARA_BOOLEAN_TRUE);
+		equality_ = amara_string_equality(
+				n0->identifier_subnode_->value_,
+				n1->identifier_subnode_->value_);
+
+	} else {
+		forced_assertion_two(
+				n0->type_ == STT_NODE_TYPE_EXPRESSION,
+				"stt_node.c: 1098\n");
+
+		forced_assertion_two(
+				n0->expression_subnode_ != NULL,
+				"stt_node.c: 1102\n");
+		forced_assertion_two(
+				n0->expression_subnode_->expression_ != NULL,
+				"stt_node.c: 1105\n");
+		forced_assertion_two(
+				n1->type_ == STT_NODE_TYPE_EXPRESSION,
+				"stt_node.c: 1108\n");
+		forced_assertion_two(
+				n1->expression_subnode_ != NULL,
+				"stt_node.c: 1111\n");
+		forced_assertion_two(
+				n1->expression_subnode_->expression_ != NULL,
+				"stt_node.c: 1114\n");
+
+		equality_ = stt_expression_equality(
+				n0->expression_subnode_->expression_,
+				n1->expression_subnode_->expression_);
+	}
+
+	forced_assertion_two(
+			equality_ == AMARA_BOOLEAN_TRUE, "stt_node.c: 1096\n");
 
 	return AMARA_BOOLEAN_TRUE;
 }
@@ -1963,24 +2077,24 @@ assert_clean_rational_literal_node(const stt_node * node)
 void
 assert_clean_identifier_node(const stt_node * node)
 {
-	assertion(node != NULL);
-	assertion(node->type_ == STT_NODE_TYPE_IDENTIFIER);
-	assertion(node->string_literal_subnode_ == NULL);
-	assertion(node->natural_literal_subnode_ == NULL);
-	assertion(node->integer_literal_subnode_ == NULL);
-	assertion(node->rational_literal_subnode_ == NULL);
-	assertion(node->identifier_subnode_ != NULL);
-	assertion(node->identifier_subnode_->value_ != NULL);
-	assertion(node->condition_subnode_ == NULL);
-	assertion(node->expression_subnode_ == NULL);
-	assertion(node->where_value_binding_subnode_ == NULL);
-	assertion(node->where_value_bindings_subnode_ == NULL);
-	assertion(node->operation_subnode_ == NULL);
-	assertion(node->operations_list_subnode_ == NULL);
-	assertion(node->named_function_subnode_ == NULL);
-	assertion(node->application_subnode_ == NULL);
-	assertion(node->execution_request_subnode_ == NULL);
-	assertion(node->doc_subnode_ == NULL);
+	assertion_two(node != NULL, "stt_node.c: 2008\n");
+	assertion_two(node->type_ == STT_NODE_TYPE_IDENTIFIER, "stt_node.c: 2009\n");
+	assertion_two(node->string_literal_subnode_ == NULL, "stt_node.c: 2010\n");
+	assertion_two(node->natural_literal_subnode_ == NULL, "stt_node.c: 2011\n");
+	assertion_two(node->integer_literal_subnode_ == NULL, "stt_node.c: 2012\n");
+	assertion_two(node->rational_literal_subnode_ == NULL, "stt_node.c: 2013\n");
+	assertion_two(node->identifier_subnode_ != NULL, "stt_node.c: 2014\n");
+	assertion_two(node->identifier_subnode_->value_ != NULL, "stt_node.c: 2015\n");
+	assertion_two(node->condition_subnode_ == NULL, "stt_node.c: 2016\n");
+	assertion_two(node->expression_subnode_ == NULL, "stt_node.c: 2017\n");
+	assertion_two(node->where_value_binding_subnode_ == NULL, "stt_node.c: 2018\n");
+	assertion_two(node->where_value_bindings_subnode_ == NULL, "stt_node.c: 2019\n");
+	assertion_two(node->operation_subnode_ == NULL, "stt_node.c: 2020\n");
+	assertion_two(node->operations_list_subnode_ == NULL, "stt_node.c: 2021\n");
+	assertion_two(node->named_function_subnode_ == NULL, "stt_node.c: 2022\n");
+	assertion_two(node->application_subnode_ == NULL, "stt_node.c: 2023\n");
+	assertion_two(node->execution_request_subnode_ == NULL, "stt_node.c: 2024\n");
+	assertion_two(node->doc_subnode_ == NULL, "stt_node.c: 2025\n");
 }
 
 void
@@ -2018,6 +2132,30 @@ assert_clean_expression_node(const stt_node * node)
 	assertion(node->identifier_subnode_ == NULL);
 	assertion(node->condition_subnode_ == NULL);
 	assertion(node->expression_subnode_ != NULL);
+	/* TODO missing assertions here. */
+	assertion(node->where_value_binding_subnode_ == NULL);
+	assertion(node->where_value_bindings_subnode_ == NULL);
+	assertion(node->operation_subnode_ == NULL);
+	assertion(node->operations_list_subnode_ == NULL);
+	assertion(node->named_function_subnode_ == NULL);
+	assertion(node->application_subnode_ == NULL);
+	assertion(node->execution_request_subnode_ == NULL);
+	assertion(node->doc_subnode_ == NULL);
+}
+
+void
+assert_clean_expressions_list_node(const stt_node * node)
+{
+	assertion(node != NULL);
+	assertion(node->type_ == STT_NODE_TYPE_EXPRESSIONS_LIST);
+	assertion(node->string_literal_subnode_ == NULL);
+	assertion(node->natural_literal_subnode_ == NULL);
+	assertion(node->integer_literal_subnode_ == NULL);
+	assertion(node->rational_literal_subnode_ == NULL);
+	assertion(node->identifier_subnode_ == NULL);
+	assertion(node->condition_subnode_ == NULL);
+	assertion(node->expression_subnode_ == NULL);
+	assertion(node->sub_expressions_list_ != NULL);
 	/* TODO missing assertions here. */
 	assertion(node->where_value_binding_subnode_ == NULL);
 	assertion(node->where_value_bindings_subnode_ == NULL);

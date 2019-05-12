@@ -128,37 +128,38 @@ rtg_where_value_binding_assert_healthy(
 
 rtg_where_value_binding *
 rtg_where_value_binding_out_of_stt_where_value_binding(
-		const stt_where_value_binding * where_value_binding_)
+		const stt_where_value_binding * where_value_binding,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 {
 	rtg_expression_out_of_stt_expression_ret * rtg_exp_ret_;
 	rtg_where_value_binding * returning_;
 
-	assertion(where_value_binding_ != NULL);
-	assertion(where_value_binding_->value_name_ != NULL);
-	assertion(where_value_binding_->value_name_->value_ != NULL);
-	assertion(where_value_binding_->value_expression_ != NULL);
-	assertion(where_value_binding_->value_expression_->type_ !=
+	assertion(where_value_binding != NULL);
+	assertion(where_value_binding->value_name_ != NULL);
+	assertion(where_value_binding->value_name_->value_ != NULL);
+	assertion(where_value_binding->value_expression_ != NULL);
+	assertion(where_value_binding->value_expression_->type_ !=
 			STT_EXPRESSION_TYPE_INVALID);
 
 	returning_ = malloc(sizeof(rtg_where_value_binding));
 
 	returning_->value_name_ = amara_string_copy_constructor(
-			where_value_binding_->value_name_);
+			where_value_binding->value_name_);
 
 	/*
 
 	returning_->value_expression_ = rtg_expression_default_constructor();
 
-	if (where_value_binding_->value_expression_->type_ ==
+	if (where_value_binding->value_expression_->type_ ==
 			STT_EXPRESSION_TYPE_DICE) {
 
 		stt_expression_assert_clean_dice(
-				where_value_binding_->value_expression_*//*->sub_dice_*//*);*/
+				where_value_binding->value_expression_*//*->sub_dice_*//*);*/
 
 		/*
 		returning_->value_expression_->sub_dice_ =
 				rtg_expression_sub_dice_out_of_stt_expression_sub_dice(
-						where_value_binding_->value_expression_->sub_dice_);
+						where_value_binding->value_expression_->sub_dice_);
 
 		returning_->value_expression_->type_ =
 				RTG_EXPRESSION_TYPE_DICE;
@@ -169,18 +170,18 @@ rtg_where_value_binding_out_of_stt_where_value_binding(
 		fixme
 		rtg_expression_set_dice(;
 	} else {
-		assertion(where_value_binding_->value_expression_->type_ ==
+		assertion(where_value_binding->value_expression_->type_ ==
 				STT_EXPRESSION_TYPE_CONDITIONAL);
 
 		stt_expression_assert_clean_conditional(
-				where_value_binding_->value_expression_*//*->sub_conditional_*//*);
+				where_value_binding->value_expression_*//*->sub_conditional_*//*);
 
 	*/
 
 		/*
 		returning_->value_expression_->sub_conditional_ =
 				rtg_expression_sub_conditional_out_of_stt_expression_sub_conditional(
-						where_value_binding_->value_expression_->sub_conditional_);
+						where_value_binding->value_expression_->sub_conditional_);
 
 		returning_->value_expression_->type_ =
 				RTG_EXPRESSION_TYPE_CONDITIONAL;
@@ -195,7 +196,8 @@ rtg_where_value_binding_out_of_stt_where_value_binding(
 	*/
 
 	rtg_exp_ret_ = rtg_expression_out_of_stt_expression(
-			where_value_binding_->value_expression_);
+			where_value_binding->value_expression_,
+			rtg_named_functions);
 #ifndef NDEBUG
 	assertion(rtg_exp_ret_->status ==
 			RTG_EXPRESSION_OUT_OF_STT_EXPRESSION_RET_STATUS_SUCCESS);

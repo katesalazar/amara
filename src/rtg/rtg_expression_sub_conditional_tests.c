@@ -31,6 +31,8 @@
  * const rtg_expression * expression);`. */
 #include "rtg_expression_tests.h"
 
+#include "rtg_named_functions_simple_list.h"
+
 /*   For own prototypes. */
 #include "rtg_expression_sub_conditional_tests.h"
 
@@ -38,6 +40,7 @@ rtg_expression_sub_conditional *
 rtg_expression_sub_conditional_example_simple_conditional()
 {
 	stt_expression_sub_conditional * stt_expression_sub_conditional_;
+	rtg_named_functions_simple_list * rtg_named_functions_;
 	rtg_expression_sub_conditional * returning_;
 
 	stt_expression_sub_conditional_ =
@@ -48,13 +51,23 @@ rtg_expression_sub_conditional_example_simple_conditional()
 			stt_expression_sub_conditional_);
 #endif
 
+	rtg_named_functions_ =
+			rtg_named_functions_simple_list_default_constructor();
+	forced_assertion(rtg_named_functions_ != NULL);
+#ifndef NDEBUG
+	assertion(rtg_named_functions_->first == NULL);
+	assertion(rtg_named_functions_->next == NULL);
+#endif
+
 	returning_ = rtg_expression_sub_conditional_out_of_stt_expression_sub_conditional(
-			stt_expression_sub_conditional_);
+			stt_expression_sub_conditional_, rtg_named_functions_);
 	forced_assertion(returning_ != NULL);
 #ifndef NDEBUG
 	assert_expectations_on_rtg_expression_sub_conditional_example_simple_conditional(
 			returning_);
 #endif
+
+	rtg_named_functions_simple_list_deep_destructor(rtg_named_functions_);
 
 	return returning_;
 }

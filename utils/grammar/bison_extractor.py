@@ -111,16 +111,16 @@ def do():
         if filtered_line[0].islower() and filtered_line[-1:] == ':':
             #   Grammar rule root non terminal node.
             selected_lines.append(filtered_line)
-        elif (filtered_line[0:2] == '  ' and (filtered_line[2].isupper()
-                or filtered_line[2].islower())):
+        elif (filtered_line[0:2] == '  ' and len(filtered_line) > 2 and
+                (filtered_line[2].isupper() or filtered_line[2].islower())):
             #   First production rule for one non terminal node.
             if not discarding_c_block:
                 selected_lines.append(filtered_line)
         elif filtered_line[0] == ';':
             #   End of a grammar rule.
             selected_lines.append(filtered_line)
-        elif (filtered_line[0:2] == '| ' and (filtered_line[2].isupper()
-                or filtered_line[2].islower())):
+        elif (filtered_line[0:2] == '| ' and len(filtered_line) > 2 and
+                (filtered_line[2].isupper() or filtered_line[2].islower())):
             #   Alternative production rule for a same non terminal node.
             selected_lines.append(filtered_line)
         elif filtered_line[0] == '{':
