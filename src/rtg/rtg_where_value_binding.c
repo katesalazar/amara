@@ -47,10 +47,12 @@ rtg_where_value_binding_copy_constructor(
 			RTG_EXPRESSION_TYPE_INVALID);
 #endif
 
-	returning_ = malloc(sizeof(rtg_where_value_binding));
-#ifndef NDEBUG
-	assertion(returning_ != NULL);
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_where_value_binding *)
 #endif
+			malloc(sizeof(rtg_where_value_binding));
+	forced_assertion(returning_ != NULL);
 
 	returning_->value_name_ = amara_string_copy_constructor(
 			where_value_binding_->value_name_);
@@ -140,7 +142,12 @@ rtg_where_value_binding_out_of_stt_where_value_binding(
 	assertion(where_value_binding_->value_expression_->type_ !=
 			STT_EXPRESSION_TYPE_INVALID);
 
-	returning_ = malloc(sizeof(rtg_where_value_binding));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_where_value_binding *)
+#endif
+			malloc(sizeof(rtg_where_value_binding));
+	forced_assertion(returning_ != NULL);
 
 	returning_->value_name_ = amara_string_copy_constructor(
 			where_value_binding_->value_name_);

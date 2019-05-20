@@ -152,10 +152,15 @@ bison_tests(void)
 	char * getcwd_return;
 	char * getcwd_buffer;
 	char * strstr_return;
-	char * needle = "/Library/Developer/Xcode/DerivedData/";
+	const char * needle = "/Library/Developer/Xcode/DerivedData/";
 
-	getcwd_buffer = malloc(4096);
-	forced_assertion(getcwd_buffer != NULL);
+	getcwd_buffer =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(4096);
+	forced_assertion_two(getcwd_buffer != NULL,
+			"malloc failed: bison_tests.c: 158\n");
 	getcwd_return = getcwd(getcwd_buffer, 4096);
 	forced_assertion_two(getcwd_return != NULL, "`getcwd` returned NULL");
 	forced_assertion_two(getcwd_return == getcwd_buffer,

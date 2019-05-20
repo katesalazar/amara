@@ -35,8 +35,13 @@ stt_operations_simple_list_default_constructor()
 {
 	stt_operations_simple_list * ret_;
 
-	ret_ = malloc(sizeof(stt_operations_simple_list));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_operations_simple_list *)
+#endif
+			malloc(sizeof(stt_operations_simple_list));
 	forced_assertion(ret_ != NULL);
+
 	ret_->first = NULL;
 	ret_->next = NULL;
 
@@ -50,8 +55,14 @@ stt_operations_simple_list_copy_constructor_inner(
 	stt_operations_simple_list * ret_;
 
 	forced_assertion(operations != NULL);
-	ret_ = malloc(sizeof(stt_operations_simple_list));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_operations_simple_list *)
+#endif
+			malloc(sizeof(stt_operations_simple_list));
 	forced_assertion(ret_ != NULL);
+
 	forced_assertion(operations->first != NULL);
 	ret_->first = stt_operation_copy_constructor(operations->first);
 	forced_assertion(ret_->first != NULL);
@@ -78,7 +89,12 @@ stt_operations_simple_list_copy_constructor(
 	stt_operations_simple_list * ret_;
 
 	assertion(operations != NULL);
-	ret_ = malloc(sizeof(stt_operations_simple_list));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_operations_simple_list *)
+#endif
+			malloc(sizeof(stt_operations_simple_list));
 	forced_assertion(ret_ != NULL);
 
 	if (operations->first == NULL) {
@@ -136,11 +152,20 @@ stt_operations_simple_list_push_front(
 		operations->first = stt_operation_copy_constructor(operation);
 		return operations;
 	}
-	new_operations_list_node_ = malloc(sizeof(stt_operations_simple_list));
+
+	new_operations_list_node_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_operations_simple_list *)
+#endif
+			malloc(sizeof(stt_operations_simple_list));
 	forced_assertion(new_operations_list_node_ != NULL);
+
 	new_operations_list_node_->first =
 			stt_operation_copy_constructor(operation);
+	forced_assertion(new_operations_list_node_->first != NULL);
+
 	new_operations_list_node_->next = operations;
+
 	return new_operations_list_node_;
 }
 

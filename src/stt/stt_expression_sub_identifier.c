@@ -38,10 +38,12 @@ stt_expression_sub_identifier_exhaustive_constructor(
 	assertion(identifier->value_ != NULL);
 #endif
 
-	returning_ = malloc(sizeof(stt_expression_sub_identifier));
-#ifndef NDEBUG
-	assertion(returning_ != NULL);
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_expression_sub_identifier *)
 #endif
+			malloc(sizeof(stt_expression_sub_identifier));
+	forced_assertion(returning_ != NULL);
 
 	returning_->identifier_ = amara_string_copy_constructor(identifier);
 #ifndef NDEBUG
@@ -63,10 +65,12 @@ stt_expression_sub_identifier_copy_constructor(
 	assertion(expression_sub_identifier->identifier_->value_ != NULL);
 #endif
 
-	returning_ = malloc(sizeof(stt_expression_sub_identifier));
-#ifndef NDEBUG
-	assertion(returning_ != NULL);
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_expression_sub_identifier *)
 #endif
+			malloc(sizeof(stt_expression_sub_identifier));
+	forced_assertion(returning_ != NULL);
 
 	returning_->identifier_ = amara_string_copy_constructor(
 			expression_sub_identifier->identifier_);

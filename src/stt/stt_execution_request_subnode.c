@@ -26,10 +26,18 @@
 stt_execution_request_subnode *
 stt_execution_request_subnode_default_constructor()
 {
-	stt_execution_request_subnode * returning_ =
+	stt_execution_request_subnode * returning_;
+
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_execution_request_subnode *)
+#endif
 			malloc(sizeof(stt_execution_request_subnode));
+	forced_assertion(returning_ != NULL);
+
 	returning_->type_ = STT_EXECUTION_REQUEST_SUBNODE_TYPE_INVALID;
 	returning_->application_name_ = NULL;
+
 	return returning_;
 }
 
@@ -38,14 +46,23 @@ stt_execution_request_subnode_copy_constructor(
 		const stt_execution_request_subnode * subnode)
 {
 	stt_execution_request_subnode * ret_;
+
 	assertion(subnode != NULL);
 	assertion(subnode->type_ != STT_EXECUTION_REQUEST_SUBNODE_TYPE_INVALID);
 	assertion(subnode->application_name_ != NULL);
 	assertion(subnode->application_name_->value_ != NULL);
-	ret_ = malloc(sizeof(stt_execution_request_subnode));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_execution_request_subnode *)
+#endif
+			malloc(sizeof(stt_execution_request_subnode));
+	forced_assertion(ret_ != NULL);
+
 	ret_->application_name_ = amara_string_copy_constructor(
 			subnode->application_name_);
 	ret_->type_ = subnode->type_;
+
 	return ret_;
 }
 
@@ -61,7 +78,12 @@ stt_execution_request_subnode_exhaustive_constructor(
 	assertion(execution_request->application_name_ != NULL);
 	assertion(execution_request->application_name_->value_ != NULL);
 
-	ret_ = malloc(sizeof(stt_execution_request_subnode));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_execution_request_subnode *)
+#endif
+			malloc(sizeof(stt_execution_request_subnode));
+	forced_assertion(ret_ != NULL);
 
 	ret_->application_name_ = amara_string_copy_constructor(
 			execution_request->application_name_);

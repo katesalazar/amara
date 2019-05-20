@@ -32,7 +32,11 @@ rtg_named_function_default_constructor()
 {
 	rtg_named_function * ret_;
 
-	ret_ = malloc(sizeof(rtg_named_function));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_named_function *)
+#endif
+			malloc(sizeof(rtg_named_function));
 	forced_assertion(ret_ != NULL);
 	ret_->operations_ = NULL;
 	ret_->name_ = NULL;
@@ -57,7 +61,11 @@ rtg_named_function_exhaustive_constructor(
 		assertion(type != RTG_NAMED_FUNCTION_TYPE_INVALID);
 	}
 
-	ret_ = malloc(sizeof(rtg_named_function));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_named_function *)
+#endif
+			malloc(sizeof(rtg_named_function));
 	forced_assertion(ret_ != NULL);
 
 #ifndef NDEBUG
@@ -162,7 +170,11 @@ rtg_named_function_copy_constructor(const rtg_named_function * original)
 	assertion(original->where_value_bindings_ != NULL);
 #endif
 
-	ret_ = malloc(sizeof(rtg_named_function));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_named_function *)
+#endif
+			malloc(sizeof(rtg_named_function));
 	forced_assertion(ret_ != NULL);
 
 	ret_->where_value_bindings_ =
@@ -247,7 +259,11 @@ rtg_named_function_out_of_stt_named_function(
 	fprintf(stderr, "----> %s:%u rtg_named_function_out_of_stt_named_function_ret * rtg_named_function_out_of_stt_named_function(const stt_named_function *)\n",
 			__FILE__, __LINE__);
 
-	ret_ = malloc(sizeof(rtg_named_function_out_of_stt_named_function_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_named_function_out_of_stt_named_function_ret *)
+#endif
+			malloc(sizeof(rtg_named_function_out_of_stt_named_function_ret));
 	forced_assertion(ret_ != NULL);
 
 	ret_->status = RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_INVALID;

@@ -35,7 +35,12 @@ stt_dice_expression_exhaustive_constructor(
 {
 	stt_dice_expression * returning_;
 
-	returning_ = malloc(sizeof(stt_dice_expression));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_dice_expression *)
+#endif
+			malloc(sizeof(stt_dice_expression));
+	forced_assertion(returning_ != NULL);
 
 	returning_->left_hand_side_natural_ =
 			natural_copy_constructor(left_hand_side);

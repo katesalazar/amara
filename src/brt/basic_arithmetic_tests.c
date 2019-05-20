@@ -393,9 +393,16 @@ raw_naturals_substraction_as_raw_natural_zero_is_larger_than_one_test_0()
 			raw_naturals_substraction_as_raw_natural_zero_is_larger_than_one(
 					raw_natural_zero_, raw_natural_one_);
 	const char * expected_ret_chars_array_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
 			malloc(strlen(MACHINE_NUMERIC_OVERFLOW) + 1);
 	const amara_string * expected_ret_;
 	amara_boolean expectation_matches_;
+
+	forced_assertion_two(expected_ret_chars_array_ != NULL,
+			"malloc failed, basic_arithmetic_tests.c: 400\n");
+
 	strcpy((char *) expected_ret_chars_array_, MACHINE_NUMERIC_OVERFLOW);
 	expected_ret_ = amara_string_exhaustive_constructor(
 			expected_ret_chars_array_);
@@ -430,9 +437,16 @@ raw_naturals_substraction_as_raw_natural_zero_is_larger_than_one_test_1()
 			raw_naturals_substraction_as_raw_natural_zero_is_larger_than_one(
 					raw_natural_zero_, raw_natural_one_);
 	const char * expected_ret_chars_array_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
 			malloc(strlen(MACHINE_NUMERIC_OVERFLOW) + 1);
 	const amara_string * expected_ret_;
 	amara_boolean expectation_matches_;
+
+	forced_assertion_two(expected_ret_chars_array_ != NULL,
+			"malloc failed, basic_arithmetic_tests.c: 447\n");
+
 	strcpy((char *) expected_ret_chars_array_, MACHINE_NUMERIC_OVERFLOW);
 	expected_ret_ = amara_string_exhaustive_constructor(
 			expected_ret_chars_array_);

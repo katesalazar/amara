@@ -35,10 +35,12 @@ rtg_expression_sub_natural_literal_copy_constructor(
 			NULL);
 #endif
 
-	returning_ = malloc(sizeof(rtg_expression_sub_natural_literal));
-#ifndef NDEBUG
-	assertion(returning_ != NULL);
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_expression_sub_natural_literal *)
 #endif
+			malloc(sizeof(rtg_expression_sub_natural_literal));
+	forced_assertion(returning_ != NULL);
 
 	returning_->natural_literal_ = natural_copy_constructor(
 			expression_sub_natural_literal->natural_literal_);
@@ -90,10 +92,12 @@ rtg_expression_sub_natural_literal_out_of_stt_expression_sub_natural_literal(
 	assertion(expression_sub_natural_literal->natural_literal_ != NULL);
 #endif
 
-	returning_ = malloc(sizeof(rtg_expression_sub_natural_literal));
-#ifndef NDEBUG
-	assertion(returning_ != NULL);
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_expression_sub_natural_literal *)
 #endif
+			malloc(sizeof(rtg_expression_sub_natural_literal));
+	forced_assertion(returning_ != NULL);
 
 	returning_->natural_literal_ = natural_copy_constructor(
 			expression_sub_natural_literal->natural_literal_);

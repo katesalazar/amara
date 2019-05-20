@@ -21,7 +21,7 @@
 #define __AMARA__APPLICATIONS_RUNNER__APP_RUNNER_TESTS_H__
 
 void
-app_runner_tests()
+app_runner_tests(void)
 ;
 
 #endif

@@ -23,7 +23,9 @@
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
+/**/
 #include "stt_node.h"
+/**/
 
 /*   For own definitions. */
 #include "stt_operation_args_simple_list.h"
@@ -33,8 +35,13 @@ stt_operation_args_simple_list_default_constructor()
 {
 	stt_operation_args_simple_list * ret_;
 
-	ret_ = malloc(sizeof(stt_operation_args_simple_list));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_operation_args_simple_list *)
+#endif
+			malloc(sizeof(stt_operation_args_simple_list));
 	forced_assertion(ret_ != NULL);
+
 	ret_->first = NULL;
 	ret_->next = NULL;
 
@@ -58,13 +65,21 @@ stt_operation_args_simple_list_copy_constructor_inner(
 		return ret_;
 	}
 	forced_assertion(operation_args->first != NULL);
-	ret_ = malloc(sizeof(stt_operation_args_simple_list));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_operation_args_simple_list *)
+#endif
+			malloc(sizeof(stt_operation_args_simple_list));
 	forced_assertion(ret_ != NULL);
+
 	ret_->first = stt_operation_arg_copy_constructor(
 			operation_args->first);
 	forced_assertion(ret_->first != NULL);
+
 	ret_->next = stt_operation_args_simple_list_copy_constructor_inner(
 			operation_args->next);
+
 	return ret_;
 }
 
@@ -73,8 +88,16 @@ stt_operation_args_simple_list_copy_constructor(
 		const stt_operation_args_simple_list * operation_args)
 {
 	stt_operation_args_simple_list * ret_;
+
 	assertion(operation_args != NULL);
-	ret_ = malloc(sizeof(stt_operation_args_simple_list));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_operation_args_simple_list *)
+#endif
+			malloc(sizeof(stt_operation_args_simple_list));
+	forced_assertion(ret_ != NULL);
+
 	if (operation_args->first == NULL) {
 		ret_->first = NULL;
 		assertion(operation_args->next == NULL);
@@ -83,6 +106,7 @@ stt_operation_args_simple_list_copy_constructor(
 	}
 	ret_->first = stt_operation_arg_copy_constructor(
 			operation_args->first);
+	forced_assertion(ret_->first != NULL);
 
 	/*
 	assertion(operation_args->next == NULL);
@@ -140,12 +164,20 @@ stt_operation_args_simple_list_push_front(
 		forced_assertion(operation_args->first != NULL);
 		return operation_args;
 	}
-	new_list_node_ = malloc(sizeof(stt_operation_args_simple_list));
+
+	new_list_node_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_operation_args_simple_list *)
+#endif
+			malloc(sizeof(stt_operation_args_simple_list));
 	forced_assertion(new_list_node_ != NULL);
+
 	new_list_node_->first = stt_operation_arg_copy_constructor(
 			operation_arg);
 	forced_assertion(new_list_node_->first != NULL);
+
 	new_list_node_->next = operation_args;
+
 	return new_list_node_;
 }
 

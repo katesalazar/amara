@@ -40,7 +40,11 @@ arn_value_default_constructor(void)
 {
 	arn_value * ret_;
 
-	ret_ = malloc(sizeof(arn_value));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(arn_value *)
+#endif
+			malloc(sizeof(arn_value));
 
 	ret_->type_ = ARN_VALUE_TYPE_INVALID;
 	ret_->name_ = NULL;
@@ -61,7 +65,11 @@ arn_value_copy_constructor(const arn_value * value)
 
 	assertion(value->type_ != ARN_VALUE_TYPE_INVALID);
 
-	ret_ = malloc(sizeof(arn_value));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(arn_value *)
+#endif
+			malloc(sizeof(arn_value));
 
 	ret_->type_ = ARN_VALUE_TYPE_INVALID;
 
@@ -535,9 +543,14 @@ arn_value_set_boolean(arn_value * value, const amara_boolean boolean)
 	forced_assertion(value->type_ ==
 			ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_BOOLEAN);
 	forced_assertion(value->boolean_ == NULL);
-	value->boolean_ = malloc(sizeof(amara_boolean));
+	value->boolean_ =
+#ifdef AMARA_USE_STD_CXX98
+			(amara_boolean *)
+#endif
+			malloc(sizeof(amara_boolean));
+	forced_assertion_two(value->boolean_ != NULL, "arn_value.c: 547\n");
 	(* value->boolean_) = boolean;
-    value->type_ = ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_BOOLEAN;
+	value->type_ = ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_BOOLEAN;
 }
 
 void
@@ -598,8 +611,11 @@ arn_value_assign_natural_out_of_unsigned_short(
 	arn_value_assign_natural_out_of_unsigned_short_ret * ret_;
 	natural * natural_;
 
-	ret_ = malloc(sizeof(
-			arn_value_assign_natural_out_of_unsigned_short_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(arn_value_assign_natural_out_of_unsigned_short_ret *)
+#endif
+			malloc(sizeof(arn_value_assign_natural_out_of_unsigned_short_ret));
 
 	ret_->status = ARN_VALUE_ASSIGN_NATURAL_OUT_OF_UNSIGNED_INT_RET_STATUS_INVALID;
 	assertion(value->type_ != ARN_VALUE_TYPE_INVALID);

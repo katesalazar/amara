@@ -34,7 +34,12 @@ arn_values_fixed_list *
 arn_values_fixed_list_default_constructor(void)
 {
 	arn_values_fixed_list * values;
-	values = malloc(sizeof(arn_values_fixed_list));
+	values =
+#ifdef AMARA_USE_STD_CXX98
+			(arn_values_fixed_list *)
+#endif
+			malloc(sizeof(arn_values_fixed_list));
+	forced_assertion_two(values != NULL, "arn_values_fixed_list.c: 37\n");
 	values->first = NULL;
 	values->next = NULL;
 	return values;
@@ -84,7 +89,13 @@ arn_values_fixed_list_out_of_rtg_where_value_bindings_simple_list_inner(
 
 	assertion(where_bindings_->first != NULL);
 
-	returning_ = malloc(sizeof(arn_values_fixed_list));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(arn_values_fixed_list *)
+#endif
+			malloc(sizeof(arn_values_fixed_list));
+	forced_assertion_two(
+			returning_ != NULL, "arn_values_fixed_list.c: 92\n");
 
 	where_binding_ = where_bindings_->first;
 
@@ -143,7 +154,14 @@ arn_values_fixed_list_push_front(
 		return;
 	}
 
-	new_list_node_ = malloc(sizeof(arn_values_fixed_list));
+	new_list_node_ =
+#ifdef AMARA_USE_STD_CXX98
+			(arn_values_fixed_list *)
+#endif
+			malloc(sizeof(arn_values_fixed_list));
+	forced_assertion_two(new_list_node_ != NULL,
+			"arn_values_fixed_list.c: 157\n");
+
 	new_list_node_->first = values->first;
 	new_list_node_->next = values->next;
 	values->first = arn_value_copy_constructor(value);

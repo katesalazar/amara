@@ -250,11 +250,22 @@ char_arrays_simple_list_concatenation_test_1()
 	zero_one_equality_ = char_arrays_simple_list_equality(zero_, one_);
 	assertion(zero_one_equality_ == AMARA_BOOLEAN_TRUE);
 
-	zero_->first = malloc(2);
+	zero_->first =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(2);
+	forced_assertion_two(zero_->first != NULL, "malloc failed\n");
 	strcpy(zero_->first, "a");
 	assertion(zero_->next == NULL);
 
-	expectation_->first = malloc(2);
+	expectation_->first =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(2);
+	forced_assertion_two(expectation_->first != NULL, "malloc failed\n");
+
 	strcpy(expectation_->first, "a");
 	assertion(expectation_->next == NULL);
 
@@ -286,11 +297,21 @@ char_arrays_simple_list_concatenation_test_2()
 	zero_one_equality_ = char_arrays_simple_list_equality(zero_, one_);
 	assertion(zero_one_equality_ == AMARA_BOOLEAN_TRUE);
 
-	one_->first = malloc(2);
+	one_->first =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(2);
+	forced_assertion_two(one_->first != NULL, "malloc failed\n");
 	strcpy(one_->first, "a");
 	assertion(one_->next == NULL);
 
-	expectation_->first = malloc(2);
+	expectation_->first =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(2);
+	forced_assertion_two(expectation_->first != NULL, "malloc failed\n");
 	strcpy(expectation_->first, "a");
 	assertion(expectation_->next == NULL);
 
@@ -322,18 +343,39 @@ char_arrays_simple_list_concatenation_test_3()
 	zero_one_equality_ = char_arrays_simple_list_equality(zero_, one_);
 	assertion(zero_one_equality_ == AMARA_BOOLEAN_TRUE);
 
-	zero_->first = malloc(2);
+	zero_->first =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(2);
+	forced_assertion_two(zero_->first != NULL, "malloc failed\n");
 	strcpy(zero_->first, "a");
 	assertion(zero_->next == NULL);
 
-	one_->first = malloc(2);
+	one_->first =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(2);
+	forced_assertion_two(one_->first != NULL, "malloc failed\n");
 	strcpy(one_->first, "b");
 	assertion(one_->next == NULL);
 
-	expectation_->first = malloc(2);
+	expectation_->first =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(2);
+	forced_assertion_two(expectation_->first != NULL, "malloc failed\n");
 	strcpy(expectation_->first, "a");
 	expectation_->next = char_arrays_simple_list_default_constructor();
-	expectation_->next->first = malloc(2);
+	expectation_->next->first =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(2);
+	forced_assertion_two(expectation_->next->first != NULL,
+			"malloc failed\n");
 	strcpy(expectation_->next->first, "b");
 	assertion(expectation_->next->next == NULL);
 
@@ -365,32 +407,75 @@ char_arrays_simple_list_concatenation_test_4()
 	zero_one_equality_ = char_arrays_simple_list_equality(zero_, one_);
 	assertion(zero_one_equality_ == AMARA_BOOLEAN_TRUE);
 
-	zero_->first = malloc(2);
+	zero_->first =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(2);
+	forced_assertion_two(zero_->first != NULL, "malloc failed\n");
 	strcpy(zero_->first, "a");
 	zero_->next = char_arrays_simple_list_default_constructor();
-	zero_->next->first = malloc(2);
+	zero_->next->first =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(2);
+	forced_assertion_two(zero_->next->first != NULL, "malloc failed\n");
 	strcpy(zero_->next->first, "b");
 	assertion(zero_->next->next == NULL);
 
-	one_->first = malloc(2);
+	one_->first =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(2);
+	forced_assertion_two(one_->first != NULL, "malloc failed\n");
 	strcpy(one_->first, "c");
 	one_->next = char_arrays_simple_list_default_constructor();
-	one_->next->first = malloc(2);
+	one_->next->first =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(2);
+	forced_assertion_two(one_->next->first != NULL, "malloc failed\n");
 	strcpy(one_->next->first, "d");
 	assertion(one_->next->next == NULL);
 
-	expectation_->first = malloc(2);
+	expectation_->first =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(2);
+	forced_assertion_two(expectation_->first != NULL, "malloc failed\n");
 	strcpy(expectation_->first, "a");
 	expectation_->next = char_arrays_simple_list_default_constructor();
-	expectation_->next->first = malloc(2);
+	expectation_->next->first =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(2);
+	forced_assertion_two(expectation_->next->first != NULL,
+			"malloc failed\n");
 	strcpy(expectation_->next->first, "b");
 	expectation_->next->next =
 			char_arrays_simple_list_default_constructor();
-	expectation_->next->next->first = malloc(2);
+	expectation_->next->next->first =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(2);
+	forced_assertion_two(expectation_->next->next->first != NULL,
+			"malloc failed\n");
 	strcpy(expectation_->next->next->first, "c");
 	expectation_->next->next->next =
 			char_arrays_simple_list_default_constructor();
-	expectation_->next->next->next->first = malloc(2);
+	expectation_->next->next->next->first =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(2);
+	forced_assertion_two(expectation_->next->next->next->first != NULL,
+			"malloc failed\n");
 	strcpy(expectation_->next->next->next->first, "d");
 	assertion(expectation_->next->next->next->next == NULL);
 

@@ -124,27 +124,27 @@ __attribute__((warn_unused_result))
 #ifndef NDEBUG
 
 void
-stt_expression_assert_clean_string_literal(const stt_expression * this)
+stt_expression_assert_clean_string_literal(const stt_expression * expression)
 ;
 
 void
-stt_expression_assert_clean_natural_literal(const stt_expression * this)
+stt_expression_assert_clean_natural_literal(const stt_expression * expression)
 ;
 
 void
-stt_expression_assert_clean_identifier(const stt_expression * this)
+stt_expression_assert_clean_identifier(const stt_expression * expression)
 ;
 
 void
-stt_expression_assert_clean_conditional(const stt_expression * this)
+stt_expression_assert_clean_conditional(const stt_expression * expression)
 ;
 
 void
-stt_expression_assert_clean_dice(const stt_expression * this)
+stt_expression_assert_clean_dice(const stt_expression * expression)
 ;
 
 void
-stt_expression_assert_cleanliness(const stt_expression * this)
+stt_expression_assert_cleanliness(const stt_expression * expression)
 ;
 
 #endif  /* NDEBUG */

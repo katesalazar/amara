@@ -31,9 +31,17 @@ stt_named_functions_simple_list *
 stt_named_functions_simple_list_default_constructor(void)
 {
 	stt_named_functions_simple_list * ret_;
-	ret_ = malloc(sizeof(stt_named_functions_simple_list));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_named_functions_simple_list *)
+#endif
+			malloc(sizeof(stt_named_functions_simple_list));
+	forced_assertion(ret_ != NULL);
+
 	ret_->first = NULL;
 	ret_->next = NULL;
+
 	return ret_;
 }
 
@@ -42,17 +50,27 @@ stt_named_functions_simple_list_copy_constructor_inner(
 		const stt_named_functions_simple_list * named_functions)
 {
 	stt_named_functions_simple_list * ret_;
+
 	assertion(named_functions != NULL);
 	assertion(named_functions->first != NULL);
-	ret_ = malloc(sizeof(stt_named_functions_simple_list));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_named_functions_simple_list *)
+#endif
+			malloc(sizeof(stt_named_functions_simple_list));
+	forced_assertion(ret_ != NULL);
+
 	ret_->first = stt_named_function_copy_constructor(
 			named_functions->first);
+	forced_assertion(ret_->first != NULL);
 	if (named_functions->next == NULL) {
 		ret_->next = NULL;
 		return ret_;
 	}
 	ret_->next = stt_named_functions_simple_list_copy_constructor(
 			named_functions->next);
+
 	return ret_;
 }
 
@@ -61,8 +79,16 @@ stt_named_functions_simple_list_copy_constructor(
 		const stt_named_functions_simple_list * named_functions)
 {
 	stt_named_functions_simple_list * ret_;
+
 	assertion(named_functions != NULL);
-	ret_ = malloc(sizeof(stt_named_functions_simple_list));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_named_functions_simple_list *)
+#endif
+			malloc(sizeof(stt_named_functions_simple_list));
+	forced_assertion(ret_ != NULL);
+
 	if (named_functions->first == NULL) {
 		ret_->first = NULL;
 		assertion(named_functions->next == NULL);
@@ -154,8 +180,14 @@ stt_named_functions_simple_list_push_front(
 				named_function);
 		return named_functions;
 	}
+
 	new_named_functions_simple_list_node_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_named_functions_simple_list *)
+#endif
 			malloc(sizeof(stt_named_functions_simple_list));
+	forced_assertion(new_named_functions_simple_list_node_ != NULL);
+
 	new_named_functions_simple_list_node_->first =
 			stt_named_function_copy_constructor(named_function);
 	new_named_functions_simple_list_node_->next = named_functions;

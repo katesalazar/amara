@@ -41,10 +41,12 @@ rtg_expression_sub_conditional_if_copy_constructor(
 			RTG_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_INVALID);
 #endif
 
-	returning_ = malloc(sizeof(rtg_expression_sub_conditional_if));
-#ifndef NDEBUG
-	assertion(returning_ != NULL);
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_expression_sub_conditional_if *)
 #endif
+			malloc(sizeof(rtg_expression_sub_conditional_if));
+	forced_assertion(returning_ != NULL);
 
 #ifndef NDEBUG
 	assertion(expression_sub_conditional_if->condition_ != NULL);
@@ -139,10 +141,12 @@ rtg_expression_sub_conditional_copy_constructor(
 	assertion(expression_sub_conditional->if_ != NULL);
 #endif
 
-	returning_ = malloc(sizeof(rtg_expression_sub_conditional));
-#ifndef NDEBUG
-	assertion(returning_ != NULL);
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_expression_sub_conditional *)
 #endif
+			malloc(sizeof(rtg_expression_sub_conditional));
+	forced_assertion(returning_ != NULL);
 
 	returning_->if_ = rtg_expression_sub_conditional_if_copy_constructor(
 			expression_sub_conditional->if_);
@@ -251,7 +255,12 @@ rtg_expression_sub_conditional_if_out_of_stt_expression_sub_conditional_if(
 	*/
 #endif
 
-	returning_ = malloc(sizeof(rtg_expression_sub_conditional_if));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_expression_sub_conditional_if *)
+#endif
+			malloc(sizeof(rtg_expression_sub_conditional_if));
+	forced_assertion(returning_ != NULL);
 
 	returning_->condition_ = rtg_condition_out_of_stt_condition(
 			expression_sub_conditional_if->condition_);
@@ -352,10 +361,12 @@ rtg_expression_sub_conditional_out_of_stt_expression_sub_conditional(
 	*/
 #endif
 
-	returning_ = malloc(sizeof(rtg_expression_sub_conditional));
-#ifndef NDEBUG
-	assertion(returning_ != NULL);
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_expression_sub_conditional *)
 #endif
+			malloc(sizeof(rtg_expression_sub_conditional));
+	forced_assertion(returning_ != NULL);
 
 	returning_->if_ =
 			rtg_expression_sub_conditional_if_out_of_stt_expression_sub_conditional_if(

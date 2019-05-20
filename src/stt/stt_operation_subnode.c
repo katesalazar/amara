@@ -29,8 +29,17 @@
 stt_operation_subnode *
 stt_operation_subnode_default_constructor()
 {
-	stt_operation_subnode * ret_ = malloc(sizeof(stt_operation_subnode));
+	stt_operation_subnode * ret_;
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_operation_subnode *)
+#endif
+			malloc(sizeof(stt_operation_subnode));
+	forced_assertion(ret_ != NULL);
+
 	ret_->operation_ = NULL;
+
 	return ret_;
 }
 
@@ -38,11 +47,21 @@ stt_operation_subnode *
 stt_operation_subnode_copy_constructor(const stt_operation_subnode * subnode)
 {
 	stt_operation_subnode * ret_;
+
 	assertion(subnode != NULL);
 	assertion(subnode->operation_ != NULL);
 	assertion(subnode->operation_->type_ != STT_OPERATION_TYPE_INVALID);
-	ret_ = malloc(sizeof(stt_operation_subnode));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_operation_subnode *)
+#endif
+			malloc(sizeof(stt_operation_subnode));
+	forced_assertion(ret_ != NULL);
+
 	ret_->operation_ = stt_operation_copy_constructor(subnode->operation_);
+	forced_assertion(ret_->operation_ != NULL);
+
 	return ret_;
 }
 
@@ -51,10 +70,20 @@ stt_operation_subnode_exhaustive_constructor(
 		const stt_operation * operation)
 {
 	stt_operation_subnode * ret_;
+
 	assertion(operation != NULL);
 	assertion(operation->type_ != STT_OPERATION_TYPE_INVALID);
-	ret_ = malloc(sizeof(stt_operation_subnode));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_operation_subnode *)
+#endif
+			malloc(sizeof(stt_operation_subnode));
+	forced_assertion(ret_ != NULL);
+
 	ret_->operation_ = stt_operation_copy_constructor(operation);
+	forced_assertion(ret_->operation_ != NULL);
+
 	return ret_;
 }
 

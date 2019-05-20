@@ -47,7 +47,12 @@ stt_expression_sub_dice_exhaustive_constructor(
 	assertion(right_hand_side->raw_->value_ != NULL);
 #endif
 
-	returning_ = malloc(sizeof(stt_expression_sub_dice));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_expression_sub_dice *)
+#endif
+			malloc(sizeof(stt_expression_sub_dice));
+	forced_assertion(returning_ != NULL);
 
 	returning_->left_hand_side_natural_ =
 			natural_copy_constructor(left_hand_side);
@@ -78,7 +83,12 @@ stt_expression_sub_dice_copy_constructor(
 			NULL);
 #endif
 
-	returning_ = malloc(sizeof(stt_expression_sub_dice));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_expression_sub_dice *)
+#endif
+			malloc(sizeof(stt_expression_sub_dice));
+	forced_assertion(returning_ != NULL);
 
 	returning_->left_hand_side_natural_ = natural_copy_constructor(
 			expression_sub_dice->left_hand_side_natural_);

@@ -28,8 +28,16 @@ stt_identifier_subnode *
 stt_identifier_subnode_default_constructor()
 {
 	stt_identifier_subnode * ret_;
-	ret_ = malloc(sizeof(stt_identifier_subnode));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_identifier_subnode *)
+#endif
+			malloc(sizeof(stt_identifier_subnode));
+	forced_assertion(ret_ != NULL);
+
 	ret_->value_ = NULL;
+
 	return ret_;
 }
 
@@ -37,11 +45,20 @@ stt_identifier_subnode *
 stt_identifier_subnode_copy_constructor(const stt_identifier_subnode * subnode)
 {
 	stt_identifier_subnode * ret_;
+
 	assertion(subnode != NULL);
 	assertion(subnode->value_ != NULL);
 	assertion(subnode->value_->value_ != NULL);
-	ret_ = malloc(sizeof(stt_identifier_subnode));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_identifier_subnode *)
+#endif
+			malloc(sizeof(stt_identifier_subnode));
+	forced_assertion(ret_ != NULL);
+
 	ret_->value_ = amara_string_copy_constructor(subnode->value_);
+
 	return ret_;
 }
 
@@ -50,10 +67,19 @@ stt_identifier_subnode_exhaustive_constructor(
 		const amara_string * identifier)
 {
 	stt_identifier_subnode * ret_;
+
 	assertion(identifier != NULL);
 	assertion(identifier->value_ != NULL);
-	ret_ = malloc(sizeof(stt_identifier_subnode));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_identifier_subnode *)
+#endif
+			malloc(sizeof(stt_identifier_subnode));
+	forced_assertion(ret_ != NULL);
+
 	ret_->value_ = amara_string_copy_constructor(identifier);
+
 	return ret_;
 }
 

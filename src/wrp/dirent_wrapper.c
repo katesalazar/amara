@@ -180,7 +180,13 @@ dirent_wrapper_reflect_add_flags(
 		assertion_two(!dirent_wrapper->manipulation_details,
 				"if you are requesting to remove flags from a dirent.h wrapper, then its manipulation details should not be NULL");
 		manipulation_details_ =
-				(void *) malloc(sizeof(manipulation_details));
+#ifdef AMARA_USE_STD_CXX98
+				(manipulation_details *)
+#endif
+#ifdef AMARA_USE_STD_C89
+				(void *)
+#endif
+				malloc(sizeof(manipulation_details));
 		dirent_wrapper->manipulation_details =
 				(manipulation_details *) manipulation_details_;
 		dirent_wrapper->manipulation_details->manipulation_values =

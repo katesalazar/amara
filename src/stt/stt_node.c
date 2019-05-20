@@ -41,7 +41,15 @@
 stt_node *
 stt_node_default_constructor()
 {
-	stt_node * returning_ = malloc(sizeof(stt_node));
+	stt_node * returning_;
+
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_node *)
+#endif
+			malloc(sizeof(stt_node));
+	forced_assertion(returning_ != NULL);
+
 	returning_->type_ = STT_NODE_TYPE_INVALID;
 	returning_->string_literal_subnode_ = NULL;
 	returning_->natural_literal_subnode_ = NULL;
@@ -58,6 +66,7 @@ stt_node_default_constructor()
 	returning_->operations_list_subnode_ = NULL;
 	returning_->doc_subnode_ = NULL;
 	returning_->execution_request_subnode_ = NULL;
+
 	return returning_;
 }
 
@@ -1386,7 +1395,11 @@ register_application(stt_node * node, const stt_node * application_node)
 	forced_assertion_two(application_node->type_ ==
 			STT_NODE_TYPE_APPLICATION,
 			"unexpected value at `application_node->type`");
-	new_application_ = malloc(sizeof(stt_application));
+	new_application_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_application *)
+#endif
+			malloc(sizeof(stt_application));
 	forced_assertion(new_application_ != NULL);
 	new_application_->name_ =
 			application_node->application_subnode_->name_;
@@ -1396,6 +1409,9 @@ register_application(stt_node * node, const stt_node * application_node)
 			application_node->application_subnode_
 					->entry_point_function_name_;
 	new_applications_list_node_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_applications_simple_list *)
+#endif
 			malloc(sizeof(stt_applications_simple_list));
 	forced_assertion(new_applications_list_node_ != NULL);
 	new_applications_list_node_->first = new_application_;
@@ -1452,13 +1468,20 @@ register_execution_request(
 	forced_assertion_two(execution_request_node->type_ ==
 			STT_NODE_TYPE_EXECUTION_REQUEST,
 			"unexpected value at `execution_request_node->type_`");
-	new_execution_request_ = malloc(sizeof(stt_execution_request));
+	new_execution_request_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_execution_request *)
+#endif
+			malloc(sizeof(stt_execution_request));
 	forced_assertion(new_execution_request_ != NULL);
 	new_execution_request_->type_ =
 			execution_request_node->execution_request_subnode_->type_;
 	new_execution_request_->application_name_ =
 			execution_request_node->execution_request_subnode_->application_name_;
 	new_execution_requests_list_node_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_execution_requests_simple_list *)
+#endif
 			malloc(sizeof(stt_execution_requests_simple_list));
 	forced_assertion(new_execution_requests_list_node_ != NULL);
 	new_execution_requests_list_node_->first = new_execution_request_;
@@ -1638,8 +1661,13 @@ look_for_undefined_labels_in_named_functions_(const stt_node * node)
 			__FILE__, __LINE__);
 #endif
 
-	ret_ = malloc(sizeof(look_for_undefined_labels_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(look_for_undefined_labels_ret *)
+#endif
+			malloc(sizeof(look_for_undefined_labels_ret));
 	forced_assertion(ret_ != NULL);
+
 	ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID;
 	ret_->messages = NULL;
 	assertion(node != NULL);
@@ -1672,7 +1700,13 @@ look_for_undefined_labels_in_applications_(const stt_node * node)
 	const char * target_entry_point_function_name_chars_array_;
 	const char * applications_ptr_first_name_chars_array_;
 
-	ret_ = malloc(sizeof(look_for_undefined_labels_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(look_for_undefined_labels_ret *)
+#endif
+			malloc(sizeof(look_for_undefined_labels_ret));
+	forced_assertion(ret_ != NULL);
+
 	ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID;
 	ret_->messages = NULL;
 	assertion(node != NULL);
@@ -1748,7 +1782,13 @@ look_for_undefined_labels_in_execution_requests_(const stt_node * node)
 	const char * target_application_requested_to_be_run_name_chars_array_;
 	char_arrays_simple_list * messages_ptr_;
 
-	ret_ = malloc(sizeof(look_for_undefined_labels_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(look_for_undefined_labels_ret *)
+#endif
+			malloc(sizeof(look_for_undefined_labels_ret));
+	forced_assertion(ret_ != NULL);
+
 	ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID;
 	ret_->messages = NULL;
 	assertion(node != NULL);
@@ -1811,7 +1851,13 @@ look_for_undefined_labels(const stt_node * node)
 	look_for_undefined_labels_ret * execution_requests_sub_ret_;
 	look_for_undefined_labels_ret * ret_;
 
-	ret_ = malloc(sizeof(look_for_undefined_labels_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(look_for_undefined_labels_ret *)
+#endif
+			malloc(sizeof(look_for_undefined_labels_ret));
+	forced_assertion(ret_ != NULL);
+
 	ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID;
 	ret_->messages = NULL;
 	assertion_two(node != NULL, "unexpected value NULL for `node`");

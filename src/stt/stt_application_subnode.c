@@ -28,7 +28,12 @@ stt_application_subnode_default_constructor()
 {
 	stt_application_subnode * returning_;
 
-	returning_ = malloc(sizeof(stt_application_subnode));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_application_subnode *)
+#endif
+			malloc(sizeof(stt_application_subnode));
+	forced_assertion(returning_ != NULL);
 
 	returning_->type_ = STT_APPLICATION_SUBNODE_TYPE_INVALID;
 	returning_->name_ = NULL;
@@ -50,7 +55,12 @@ stt_application_subnode_copy_constructor(
 	assertion(subnode->entry_point_function_name_ != NULL);
 	assertion(subnode->entry_point_function_name_->value_ != NULL);
 
-	ret_ = malloc(sizeof(stt_application_subnode));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_application_subnode *)
+#endif
+			malloc(sizeof(stt_application_subnode));
+	forced_assertion(ret_ != NULL);
 
 	ret_->entry_point_function_name_ = amara_string_copy_constructor(
 			subnode->entry_point_function_name_);
@@ -75,7 +85,12 @@ stt_application_subnode_exhaustive_constructor(
 	assertion(application->entry_point_function_name_ != NULL);
 	assertion(application->entry_point_function_name_->value_ != NULL);
 
-	ret_ = malloc(sizeof(stt_application_subnode));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_application_subnode *)
+#endif
+			malloc(sizeof(stt_application_subnode));
+	forced_assertion(ret_ != NULL);
 
 	ret_->entry_point_function_name_ = amara_string_copy_constructor(
 			application->entry_point_function_name_);

@@ -39,13 +39,21 @@ rtg_doc_default_constructor()
 {
 	rtg_doc * ret_;
 
-	ret_ = malloc(sizeof(rtg_doc));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_doc *)
+#endif
+			malloc(sizeof(rtg_doc));
 	forced_assertion(ret_ != NULL);
-	ret_->functions_ = rtg_named_functions_simple_list_default_constructor();
+	ret_->functions_ =
+			rtg_named_functions_simple_list_default_constructor();
+	forced_assertion(ret_->functions_ != NULL);
 	ret_->applications_ =
 			rtg_applications_simple_list_default_constructor();
+	forced_assertion(ret_->applications_ != NULL);
 	ret_->execution_requests_ =
 			rtg_execution_requests_simple_list_default_constructor();
+	forced_assertion(ret_->execution_requests_ != NULL);
 
 	return ret_;
 }
@@ -58,16 +66,23 @@ rtg_doc_exhaustive_constructor(
 {
 	rtg_doc * ret_;
 
-	ret_ = malloc(sizeof(rtg_doc));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_doc *)
+#endif
+			malloc(sizeof(rtg_doc));
 	forced_assertion(ret_ != NULL);
 	ret_->functions_ =
 			rtg_named_functions_simple_list_copy_constructor(
 					named_functions);
+	forced_assertion(ret_->functions_ != NULL);
 	ret_->applications_ = rtg_applications_simple_list_copy_constructor(
 			applications);
+	forced_assertion(ret_->applications_ != NULL);
 	ret_->execution_requests_ =
 			rtg_execution_requests_simple_list_copy_constructor(
 					execution_requests);
+	forced_assertion(ret_->execution_requests_ != NULL);
 
 	return ret_;
 }
@@ -117,10 +132,13 @@ rtg_doc_out_of_stt_doc(const stt_node * node)
 	fprintf(stderr, "%s:%u ----> rtg_doc_out_of_stt_doc_ret * rtg_doc_out_of_stt_doc(const stt_node *)\n",
 			__FILE__, __LINE__);
 
-	ret_ = malloc(sizeof(rtg_doc_out_of_stt_doc_ret));
-#ifndef NDEBUG
-	assertion(ret_ != NULL);
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_doc_out_of_stt_doc_ret *)
 #endif
+			malloc(sizeof(rtg_doc_out_of_stt_doc_ret));
+	forced_assertion(ret_ != NULL);
+
 	ret_->status = RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_INVALID;
 	ret_->doc = NULL;
 	ret_->error_messages = NULL;

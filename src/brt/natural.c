@@ -45,7 +45,12 @@ natural *
 natural_default_constructor(void)
 {
 	natural * returning_;
-	returning_ = malloc(sizeof(natural));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(natural *)
+#endif
+			malloc(sizeof(natural));
+	forced_assertion_two(returning_ != NULL, "natural.c: 49\n");
 	returning_->raw_ = NULL;
 	return returning_;
 }
@@ -56,7 +61,12 @@ natural_exhaustive_constructor(const amara_string * raw)
 	natural * returning_;
 	assertion(raw != NULL);
 	assert_valid_raw_natural(raw);
-	returning_ = malloc(sizeof(natural));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(natural *)
+#endif
+			malloc(sizeof(natural));
+	forced_assertion_two(returning_ != NULL, "natural.c: 69\n");
 	returning_->raw_ = amara_string_copy_constructor(raw);
 	return returning_;
 }
@@ -68,7 +78,12 @@ natural_copy_constructor(const natural * natural)
 	assertion(natural != NULL);
 	assertion(natural->raw_ != NULL);
 	natural_assert_validity(natural);
-	returning_ = malloc(sizeof(natural));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(struct natural *)
+#endif
+			malloc(sizeof(natural));
+	forced_assertion_two(returning_ != NULL, "natural.c: 86\n");
 	returning_->raw_ = amara_string_copy_constructor(natural->raw_);
 	return returning_;
 }
@@ -316,9 +331,15 @@ fit_raw_natural_in_unsigned_short_inner_trivially_fits(
 	const char * valid_raw_natural_chars_array_;
 	unsigned char current_digit_index_;
 	unsigned char current_digit_;
+
 	/* min_digits_ct_ = 1; */
 	max_digits_ct_ = 5;
-	ret_ = malloc(sizeof(fit_raw_natural_in_unsigned_short_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(fit_raw_natural_in_unsigned_short_ret *)
+#endif
+			malloc(sizeof(fit_raw_natural_in_unsigned_short_ret));
+	forced_assertion_two(ret_ != NULL, "natural.c: 339\n");
 	ret_->status = FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_INVALID;
 	valid_raw_natural_len_ = amara_string_length(valid_raw_natural);
 	valid_raw_natural_chars_array_ =
@@ -471,8 +492,12 @@ fit_raw_natural_in_unsigned_short_inner_might_fit_or_not(
 		} else if (valid_raw_natural_chars_array_[1] == '5') {
 			/* FIXME!!!!!!!!!! */
 
-			ret_ = malloc(sizeof(
-					fit_raw_natural_in_unsigned_short_ret));
+			ret_ =
+#ifdef AMARA_USE_STD_CXX98
+					(fit_raw_natural_in_unsigned_short_ret *)
+#endif
+					malloc(sizeof(fit_raw_natural_in_unsigned_short_ret));
+			forced_assertion_two(ret_ != NULL, "natural.c: 497\n");
 			ret_->status = FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_ERR_NOT_FITTING; /* even if it did */
 			return ret_;
 
@@ -501,7 +526,12 @@ fit_raw_natural_in_unsigned_short_inner_might_fit_or_not(
 		assertion_two(valid_raw_natural_chars_array_[0] > '6',
 				"programming error");
 		free((char *) valid_raw_natural_chars_array_);
-		ret_ = malloc(sizeof(fit_raw_natural_in_unsigned_short_ret));
+		ret_ =
+#ifdef AMARA_USE_STD_CXX98
+				(fit_raw_natural_in_unsigned_short_ret *)
+#endif
+				malloc(sizeof(fit_raw_natural_in_unsigned_short_ret));
+		forced_assertion_two(ret_ != NULL, "natural.c: 527\n");
 		ret_->status = FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_ERR_NOT_FITTING;
 		return ret_;
 	}
@@ -587,7 +617,13 @@ natural_copy_unsigned_short_into_raw_natural(const unsigned short input)
 	char * buffer_;
 	amara_string * returning_;
 	int snprintf_ret_;
-	buffer_ = malloc(5 + 1);
+
+	buffer_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(5 + 1);
+	forced_assertion_two(buffer_ != NULL, "natural.c: 612\n");
 	snprintf_ret_ = snprintf(
 			buffer_, (size_t) (/* 5 + 1 */ 6), "%hu", input);
 	assertion(snprintf_ret_ >= 0);
@@ -666,12 +702,18 @@ raw_naturals_substraction_as_raw_natural_zero_is_larger_than_one(
 	unsigned char substraction_result_;
 	char * returning_chars_array_;
 	amara_string * returning_;
+
 	zero_fit_ret_ = fit_raw_natural_in_unsigned_char(
 			raw_natural_zero);
 	if (zero_fit_ret_->status ==
 			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_NOT_FITTING) {
 		returning_chars_array_ =
+#ifdef AMARA_USE_STD_CXX98
+				(char *)
+#endif
 				malloc(strlen(machine_numeric_overflow) + 1);
+		forced_assertion_two(returning_chars_array_ != NULL,
+				"natural.c: 711\n");
 		strcpy(returning_chars_array_, machine_numeric_overflow);
 		returning_ = amara_string_exhaustive_constructor(
 				returning_chars_array_);
@@ -684,7 +726,12 @@ raw_naturals_substraction_as_raw_natural_zero_is_larger_than_one(
 	if (one_fit_ret_->status ==
 			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_NOT_FITTING) {
 		returning_chars_array_ =
+#ifdef AMARA_USE_STD_CXX98
+				(char *)
+#endif
 				malloc(strlen(machine_numeric_overflow) + 1);
+		forced_assertion_two(returning_chars_array_ != NULL,
+				"natural.c: 730\n");
 		strcpy(returning_chars_array_, machine_numeric_overflow);
 		returning_ = amara_string_exhaustive_constructor(
 				returning_chars_array_);
@@ -718,12 +765,18 @@ raw_naturals_multiplication_as_raw_natural(
 	unsigned short multiplication_result_16_;
 	char * returning_chars_array_;
 	amara_string * returning_;
+
 	zero_fit_ret_ = fit_raw_natural_in_unsigned_char(
 			raw_natural_zero);
 	if (zero_fit_ret_->status ==
 			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_NOT_FITTING) {
 		returning_chars_array_ =
+#ifdef AMARA_USE_STD_CXX98
+				(char *)
+#endif
 				malloc(strlen(machine_numeric_overflow) + 1);
+		forced_assertion_two(returning_chars_array_ != NULL,
+				"natural.c: 775\n");
 		strcpy(returning_chars_array_, machine_numeric_overflow);
 		returning_ = amara_string_exhaustive_constructor(
 				returning_chars_array_);
@@ -736,7 +789,12 @@ raw_naturals_multiplication_as_raw_natural(
 	if (one_fit_ret_->status ==
 			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_NOT_FITTING) {
 		returning_chars_array_ =
+#ifdef AMARA_USE_STD_CXX98
+				(char *)
+#endif
 				malloc(strlen(machine_numeric_overflow) + 1);
+		forced_assertion_two(returning_chars_array_ != NULL,
+				"natural.c: 793\n");
 		strcpy(returning_chars_array_, machine_numeric_overflow);
 		returning_ = amara_string_exhaustive_constructor(
 				returning_chars_array_);
@@ -815,8 +873,13 @@ raw_naturals_euclidean_quotient_as_raw_natural(
 				raw_natural_zero);
 		if (r_n_zero_fits_16_bits_ret_->status ==
 				FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_ERR_NOT_FITTING) {
-			returning_chars_array_ = malloc(
-					strlen(machine_numeric_overflow) + 1);
+			returning_chars_array_ =
+#ifdef AMARA_USE_STD_CXX98
+					(char *)
+#endif
+					malloc(strlen(machine_numeric_overflow) + 1);
+			forced_assertion_two(returning_chars_array_ != NULL,
+					"natural.c: 878\n");
 			strcpy(
 					returning_chars_array_,
 					machine_numeric_overflow);
@@ -859,7 +922,12 @@ raw_naturals_euclidean_quotient_as_raw_natural(
 	if (r_n_one_fits_8_bits_ret_->status ==
 			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_NOT_FITTING) {
 		returning_chars_array_ =
+#ifdef AMARA_USE_STD_CXX98
+				(char *)
+#endif
 				malloc(strlen(machine_numeric_overflow) + 1);
+		forced_assertion_two(returning_chars_array_ != NULL,
+				"natural.c: 926\n");
 		strcpy(returning_chars_array_, machine_numeric_overflow);
 		returning_ = amara_string_exhaustive_constructor(
 				returning_chars_array_);

@@ -39,10 +39,12 @@ rtg_where_value_bindings_simple_list_copy_constructor_inner(
 		return NULL;
 	}
 
-	returning_ = malloc(sizeof(rtg_where_value_bindings_simple_list));
-#ifndef NDEBUG
-	assertion(returning_ != NULL);
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_where_value_bindings_simple_list *)
 #endif
+			malloc(sizeof(rtg_where_value_bindings_simple_list));
+	forced_assertion(returning_ != NULL);
 
 	returning_->first = rtg_where_value_binding_copy_constructor(
 			list->first);
@@ -62,11 +64,19 @@ rtg_where_value_bindings_simple_list_copy_constructor_inner(
 rtg_where_value_bindings_simple_list *
 rtg_where_value_bindings_simple_list_default_constructor()
 {
-    rtg_where_value_bindings_simple_list * returning_;
-    returning_ = malloc(sizeof(rtg_where_value_bindings_simple_list));
-    returning_->first = NULL;
-    returning_->next = NULL;
-    return returning_;
+	rtg_where_value_bindings_simple_list * returning_;
+
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_where_value_bindings_simple_list *)
+#endif
+			malloc(sizeof(rtg_where_value_bindings_simple_list));
+	forced_assertion(returning_ != NULL);
+
+	returning_->first = NULL;
+	returning_->next = NULL;
+
+	return returning_;
 }
 
 rtg_where_value_bindings_simple_list *
@@ -83,10 +93,13 @@ rtg_where_value_bindings_simple_list_copy_constructor(
 #ifndef NDEBUG
         assertion(list->next == NULL);
 #endif
-        returning_ = malloc(sizeof(rtg_where_value_bindings_simple_list));
-#ifndef NDEBUG
-        assertion(returning_ != NULL);
+
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_where_value_bindings_simple_list *)
 #endif
+			malloc(sizeof(rtg_where_value_bindings_simple_list));
+	forced_assertion(returning_ != NULL);
 
         returning_->first = NULL;
         returning_->next = NULL;
@@ -198,10 +211,12 @@ rtg_where_value_bindings_simple_list_push_front_inner(
 			RTG_EXPRESSION_TYPE_INVALID);
 #endif
 
-	new_list_node_ = malloc(sizeof(rtg_where_value_bindings_simple_list));
-#ifndef NDEBUG
-	assertion(new_list_node_ != NULL);
+	new_list_node_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_where_value_bindings_simple_list *)
 #endif
+			malloc(sizeof(rtg_where_value_bindings_simple_list));
+	forced_assertion(new_list_node_ != NULL);
 
 	new_list_node_->first =
 			rtg_where_value_binding_copy_constructor(element);
@@ -292,7 +307,12 @@ rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list
 
 	assertion(list->first != NULL);
 
-	returning_ = malloc(sizeof(rtg_where_value_bindings_simple_list));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_where_value_bindings_simple_list *)
+#endif
+			malloc(sizeof(rtg_where_value_bindings_simple_list));
+	forced_assertion(returning_ != NULL);
 
 	returning_->first =
 			rtg_where_value_binding_out_of_stt_where_value_binding(
@@ -318,8 +338,12 @@ rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list
 	assertion(list != NULL);
 
 	if (list->first == NULL) {
-		returning_ = malloc(sizeof(
-				rtg_where_value_bindings_simple_list));
+		returning_ =
+#ifdef AMARA_USE_STD_CXX98
+				(rtg_where_value_bindings_simple_list *)
+#endif
+				malloc(sizeof(rtg_where_value_bindings_simple_list));
+		forced_assertion(returning_ != NULL);
 
 		returning_->first = NULL;
 		returning_->next = NULL;

@@ -35,8 +35,13 @@ amara_string_default_constructor()
 {
 	amara_string * ret_;
 
-	ret_ = malloc(sizeof(amara_string));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(amara_string *)
+#endif
+			malloc(sizeof(amara_string));
 	forced_assertion(ret_ != NULL);
+
 	ret_->value_ = NULL;
 
 	return ret_;
@@ -58,10 +63,20 @@ amara_string_exhaustive_constructor(const char * value)
 	new_string_len_ = value_len_;
 	forced_assertion(new_string_len_ <= new_string_max_len_);
 
-	ret_ = malloc(sizeof(amara_string));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(amara_string *)
+#endif
+			malloc(sizeof(amara_string));
 	forced_assertion(ret_ != NULL);
-	ret_->value_ = malloc(new_string_len_ + 1);
+
+	ret_->value_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(new_string_len_ + 1);
 	forced_assertion(ret_->value_ != NULL);
+
 	strcpy(ret_->value_, value);
 
 	return ret_;
@@ -88,10 +103,20 @@ amara_string_exhaustive_constructor_three(
 	new_string_len_ += ca2_len_;
 	forced_assertion(new_string_len_ <= new_string_max_len_);
 
-	ret_ = malloc(sizeof(amara_string));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(amara_string *)
+#endif
+			malloc(sizeof(amara_string));
 	forced_assertion(ret_ != NULL);
-	ret_->value_ = malloc(new_string_len_ + 1);
+
+	ret_->value_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(new_string_len_ + 1);
 	forced_assertion(ret_->value_ != NULL);
+
 	strcpy(ret_->value_, ca0);
 	strcat(ret_->value_, ca1);
 	strcat(ret_->value_, ca2);
@@ -105,13 +130,25 @@ amara_string_copy_constructor(const amara_string * as)
 	amara_string * ret_;
 	char * as_value_;
 
-	ret_ = malloc(sizeof(amara_string));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(amara_string *)
+#endif
+			malloc(sizeof(amara_string));
 	forced_assertion(ret_ != NULL);
+
 	as_value_ = amara_string_get_value(as);
 	forced_assertion(as_value_ != NULL);
-	ret_->value_ = malloc(strlen(as_value_) + 1);
+
+	ret_->value_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(strlen(as_value_) + 1);
 	forced_assertion(ret_->value_ != NULL);
+
 	strcpy(ret_->value_, as_value_);
+
 	free(as_value_);
 
 	return ret_;
@@ -145,11 +182,23 @@ amara_string_get_value(const amara_string * string)
 
 	if (string == NULL) {
 
-		value_copy_ = malloc(1);
+		value_copy_ =
+#ifdef AMARA_USE_STD_CXX98
+				(char *)
+#endif
+				malloc(1);
+		/* XXX missing assertion. */
+
 		value_copy_[0] = 0x00;  /* '\0'. */
 	} else {
 
-		value_copy_ = malloc(strlen(string->value_) + 1);
+		value_copy_ =
+#ifdef AMARA_USE_STD_CXX98
+				(char *)
+#endif
+				malloc(strlen(string->value_) + 1);
+		/* XXX missing assertion. */
+
 		strcpy(value_copy_, string->value_);
 	}
 
@@ -159,7 +208,13 @@ amara_string_get_value(const amara_string * string)
 void
 amara_string_set_value(amara_string * string, const char * value)
 {
-	string->value_ = malloc(strlen(value) + 1);
+	string->value_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(strlen(value) + 1);
+	/* XXX missing assertion. */
+
 	strcpy(string->value_, value);
 }
 

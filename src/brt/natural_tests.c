@@ -775,8 +775,13 @@ natural_copy_pointer_to_unsigned_short_into_raw_natural_test_0()
 	unsigned short * pointer_to_unsigned_short_;
 	amara_string * raw_natural_;
 
-	pointer_to_unsigned_short_ = malloc(sizeof(unsigned short));
-	assertion(pointer_to_unsigned_short_ != NULL);
+	pointer_to_unsigned_short_ =
+#ifdef AMARA_USE_STD_CXX98
+			(unsigned short *)
+#endif
+			malloc(sizeof(unsigned short));
+	forced_assertion_two(pointer_to_unsigned_short_ != NULL,
+			"malloc failed\n");
 
 	* pointer_to_unsigned_short_ = 0xFF;
 
@@ -799,8 +804,13 @@ natural_copy_pointer_to_unsigned_short_into_raw_natural_test_1()
 	unsigned short * pointer_to_unsigned_short_;
 	amara_string * raw_natural_;
 
-	pointer_to_unsigned_short_ = malloc(sizeof(unsigned short));
-	assertion(pointer_to_unsigned_short_ != NULL);
+	pointer_to_unsigned_short_ =
+#ifdef AMARA_USE_STD_CXX98
+			(unsigned short *)
+#endif
+			malloc(sizeof(unsigned short));
+	forced_assertion_two(pointer_to_unsigned_short_ != NULL,
+			"malloc failed\n");
 
 	* pointer_to_unsigned_short_ = 0xFF;
 
@@ -858,8 +868,12 @@ natural_copy_pointer_to_unsigned_long_into_raw_natural_test_0()
 	unsigned long * pointer_to_unsigned_long_;
 	amara_string * raw_natural_;
 
-	pointer_to_unsigned_long_ = malloc(sizeof(unsigned long));
-	assertion(pointer_to_unsigned_long_ != NULL);
+	pointer_to_unsigned_long_ =
+#ifdef AMARA_USE_STD_CXX98
+			(unsigned long *)
+#endif
+			malloc(sizeof(unsigned long));
+	forced_assertion_two(pointer_to_unsigned_long_ != NULL, "malloc failed\n");
 
 	* pointer_to_unsigned_long_ = 0xFF;
 

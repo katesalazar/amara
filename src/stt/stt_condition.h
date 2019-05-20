@@ -19,6 +19,8 @@
 #ifndef __AMARA__SYNTAX_TREE__CONDITION__H__
 #define __AMARA__SYNTAX_TREE__CONDITION__H__
 
+#include <stdlib.h>
+
 /*   For `typedef unsigned char amara_boolean`. */
 #include "../cmn/amara_boolean.h"
 

@@ -31,7 +31,12 @@ rtg_application_default_constructor()
 {
 	rtg_application * ret_;
 
-	ret_ = malloc(sizeof(rtg_application));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_application *)
+#endif
+			malloc(sizeof(rtg_application));
+	forced_assertion(ret_ != NULL);
 
 	ret_->entry_point_function_ = NULL;
 	ret_->name_ = NULL;
@@ -50,7 +55,12 @@ rtg_application_copy_constructor(const rtg_application * application)
 	assertion(application->name_->value_ != NULL);
 	assertion(application->entry_point_function_ != NULL);
 
-	ret_ = malloc(sizeof(rtg_application));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_application *)
+#endif
+			malloc(sizeof(rtg_application));
+	forced_assertion(ret_ != NULL);
 
 	ret_->entry_point_function_ = rtg_named_function_copy_constructor(
 			application->entry_point_function_);
@@ -119,8 +129,11 @@ rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list(
 	fprintf(stderr, "----> rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret * rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list(const stt_application *, const rtg_named_functions_simple_list *) (%s:%u)\n",
 			__FILE__, __LINE__);
 
-	ret_ = malloc(sizeof(
-			rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret *)
+#endif
+			malloc(sizeof(rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret));
 	forced_assertion(ret_ != NULL);
 	ret_->status = RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID;
 	ret_->error_messages = NULL;

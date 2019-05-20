@@ -31,7 +31,11 @@ rtg_operations_simple_list_default_constructor()
 {
 	rtg_operations_simple_list * ret_;
 
-	ret_ = malloc(sizeof(rtg_operations_simple_list));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_operations_simple_list *)
+#endif
+			malloc(sizeof(rtg_operations_simple_list));
 	forced_assertion(ret_ != NULL);
 	ret_->first = NULL;
 	ret_->next = NULL;
@@ -49,7 +53,11 @@ rtg_operations_simple_list_copy_constructor(
 	rtg_operation * operation_;
 
 	assertion(list != NULL);
-	ret_ = malloc(sizeof(rtg_operations_simple_list));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_operations_simple_list *)
+#endif
+			malloc(sizeof(rtg_operations_simple_list));
 	forced_assertion(ret_ != NULL);
 	if (list->first == NULL) {
 		ret_->first = NULL;
@@ -63,7 +71,11 @@ rtg_operations_simple_list_copy_constructor(
 		operation_ = rtg_operation_copy_constructor(list_ptr_->first);
 		assertion(operation_ != NULL);
 		ret_ptr_->first = operation_;
-		ret_ptr_->next = malloc(sizeof(rtg_operations_simple_list));
+		ret_ptr_->next =
+#ifdef AMARA_USE_STD_CXX98
+				(rtg_operations_simple_list *)
+#endif
+				malloc(sizeof(rtg_operations_simple_list));
 		forced_assertion(ret_ptr_->next != NULL);
 		list_ptr_ = list_ptr_->next;
 		ret_ptr_ = ret_ptr_->next;
@@ -104,7 +116,11 @@ rtg_operations_simple_list_push_front(
 		operations->first = rtg_operation_copy_constructor(operation);
 		return operations;
 	}
-	new_operations_list_node_ = malloc(sizeof(rtg_operations_simple_list));
+	new_operations_list_node_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_operations_simple_list *)
+#endif
+			malloc(sizeof(rtg_operations_simple_list));
 	forced_assertion(new_operations_list_node_ != NULL);
 	new_operations_list_node_->first =
 			rtg_operation_copy_constructor(operation);
@@ -167,8 +183,11 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list(
 			__FILE__, __LINE__);
 #endif
 
-	ret_ = malloc(sizeof(
-			rtg_operations_simple_list_out_of_stt_operations_simple_list_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret *)
+#endif
+			malloc(sizeof(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret));
 	forced_assertion(ret_ != NULL);
 	ret_->status = RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_INVALID;
 	ret_->error_messages = NULL;
@@ -191,7 +210,11 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list(
 		return ret_;
 	}
 	assertion(operations->first != NULL);
-	ret_list_ = malloc(sizeof(rtg_operations_simple_list));
+	ret_list_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_operations_simple_list *)
+#endif
+			malloc(sizeof(rtg_operations_simple_list));
 	forced_assertion(ret_list_ != NULL);
 	single_operation_transformation_ =
 			rtg_operation_out_of_stt_operation(
@@ -235,6 +258,9 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list(
 	ret_list_ptr_ = ret_list_;
 	while (operations_ptr_->next != NULL) {
 		ret_list_ptr_->next =
+#ifdef AMARA_USE_STD_CXX98
+				(rtg_operations_simple_list *)
+#endif
 				malloc(sizeof(rtg_operations_simple_list));
 		forced_assertion(ret_list_ptr_->next != NULL);
 		single_operation_transformation_ =

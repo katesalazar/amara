@@ -31,9 +31,17 @@ stt_execution_requests_simple_list *
 stt_execution_requests_simple_list_default_constructor()
 {
 	stt_execution_requests_simple_list * ret_;
-	ret_ = malloc(sizeof(stt_execution_requests_simple_list));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_execution_requests_simple_list *)
+#endif
+			malloc(sizeof(stt_execution_requests_simple_list));
+	forced_assertion(ret_ != NULL);
+
 	ret_->first = NULL;
 	ret_->next = NULL;
+
 	return ret_;
 }
 
@@ -42,8 +50,16 @@ stt_execution_requests_simple_list_copy_constructor_inner(
 		const stt_execution_requests_simple_list * execution_requests)
 {
 	stt_execution_requests_simple_list * ret_;
+
 	assertion(execution_requests != NULL);
-	ret_ = malloc(sizeof(stt_execution_requests_simple_list));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_execution_requests_simple_list *)
+#endif
+			malloc(sizeof(stt_execution_requests_simple_list));
+	forced_assertion(ret_ != NULL);
+
 	assertion(execution_requests->first != NULL);
 	ret_->first = stt_execution_request_copy_constructor(
 			execution_requests->first);
@@ -62,8 +78,16 @@ stt_execution_requests_simple_list_copy_constructor(
 		const stt_execution_requests_simple_list * execution_requests)
 {
 	stt_execution_requests_simple_list * ret_;
+
 	assertion(execution_requests != NULL);
-	ret_ = malloc(sizeof(stt_execution_requests_simple_list));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_execution_requests_simple_list *)
+#endif
+			malloc(sizeof(stt_execution_requests_simple_list));
+	forced_assertion(ret_ != NULL);
+
 	if (execution_requests->first == NULL) {
 		ret_->first = NULL;
 		assertion(execution_requests->next == NULL);
@@ -150,8 +174,14 @@ stt_execution_requests_simple_list_push_front(
 	assertion(execution_requests != NULL);
 	assertion(execution_request != NULL);
 	if (execution_requests->first != NULL) {
-		new_list_head_ = malloc(sizeof(
-				stt_execution_requests_simple_list));
+
+		new_list_head_ =
+#ifdef AMARA_USE_STD_CXX98
+				(stt_execution_requests_simple_list *)
+#endif
+				malloc(sizeof(stt_execution_requests_simple_list));
+		forced_assertion(new_list_head_ != NULL);
+
 		new_list_head_->first =
 				stt_execution_request_copy_constructor(
 						execution_request);

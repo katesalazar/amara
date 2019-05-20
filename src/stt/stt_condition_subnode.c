@@ -32,7 +32,12 @@ stt_condition_subnode_exhaustive_constructor(const stt_condition * condition)
 	/* TODO missing assertions. */
 #endif
 
-	returning_ = malloc(sizeof(stt_condition_subnode));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_condition_subnode *)
+#endif
+			malloc(sizeof(stt_condition_subnode));
+	forced_assertion(returning_ != NULL);
 
 	returning_->condition_ = stt_condition_copy_constructor(condition);
 
@@ -50,7 +55,12 @@ stt_condition_subnode_copy_constructor(const stt_condition_subnode * subnode)
 	/* TODO missing assertions. */
 #endif
 
-	returning_ = malloc(sizeof(stt_condition_subnode));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_condition_subnode *)
+#endif
+			malloc(sizeof(stt_condition_subnode));
+	forced_assertion(returning_ != NULL);
 
 	returning_->condition_ =
 			stt_condition_copy_constructor(subnode->condition_);

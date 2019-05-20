@@ -38,7 +38,12 @@ rtg_operation_exhaustive_constructor(
 		if (args != NULL) {
 			assertion(args->first == NULL);
 		}
-		ret_ = malloc(sizeof(rtg_operation));
+		ret_ =
+#ifdef AMARA_USE_STD_CXX98
+				(rtg_operation *)
+#endif
+				malloc(sizeof(rtg_operation));
+		forced_assertion(ret_ != NULL);
 		ret_->type_ = RTG_OPERATION_TYPE_INVALID;
 		if (args != NULL) {
 			ret_->args_ = rtg_operation_args_simple_list_copy_constructor(
@@ -49,7 +54,12 @@ rtg_operation_exhaustive_constructor(
 		return ret_;
 	}
 	assertion(args != NULL);
-	ret_ = malloc(sizeof(rtg_operation));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_operation *)
+#endif
+			malloc(sizeof(rtg_operation));
+	forced_assertion(ret_ != NULL);
 	ret_->args_ = rtg_operation_args_simple_list_copy_constructor(args);
 	assertion(type != RTG_OPERATION_TYPE_INVALID);
 	if (type == RTG_OPERATION_TYPE_PRINT) {
@@ -222,7 +232,12 @@ rtg_operation_copy_constructor(const rtg_operation * operation)
 		assertion(operation->args_->next == NULL);
 	}
 
-	ret_ = malloc(sizeof(rtg_operation));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_operation *)
+#endif
+			malloc(sizeof(rtg_operation));
+	forced_assertion(ret_ != NULL);
 	ret_->args_ = rtg_operation_args_simple_list_copy_constructor(
 			operation->args_);
 
@@ -388,7 +403,11 @@ rtg_operation_out_of_stt_operation(
 
 	forced_assertion(operation != NULL);
 	forced_assertion(operation->type_ != STT_OPERATION_TYPE_INVALID);
-	ret_ = malloc(sizeof(rtg_operation_out_of_stt_operation_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_operation_out_of_stt_operation_ret *)
+#endif
+			malloc(sizeof(rtg_operation_out_of_stt_operation_ret));
 	forced_assertion(ret_ != NULL);
 	ret_->status = RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_INVALID;
 	ret_->error_messages = NULL;
@@ -433,7 +452,11 @@ rtg_operation_out_of_stt_operation(
 			NULL;
 	rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_destructor(
 			rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_);
-	sub_ret_ = malloc(sizeof(rtg_operation));
+	sub_ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_operation *)
+#endif
+			malloc(sizeof(rtg_operation));
 	forced_assertion(sub_ret_ != NULL);
 	sub_ret_->args_ = sub_ret_args_;
 

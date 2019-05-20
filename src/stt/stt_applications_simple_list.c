@@ -31,9 +31,17 @@ stt_applications_simple_list *
 stt_applications_simple_list_default_constructor()
 {
 	stt_applications_simple_list * ret_;
-	ret_ = malloc(sizeof(stt_applications_simple_list));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_applications_simple_list *)
+#endif
+			malloc(sizeof(stt_applications_simple_list));
+	forced_assertion(ret_ != NULL);
+
 	ret_->first = NULL;
 	ret_->next = NULL;
+
 	return ret_;
 }
 
@@ -42,11 +50,19 @@ stt_applications_simple_list_copy_constructor_inner(
 		const stt_applications_simple_list * applications)
 {
 	stt_applications_simple_list * ret_;
+
 	if (applications == NULL) {
 		return NULL;
 	}
 	assertion(applications->first != NULL);
-	ret_ = malloc(sizeof(stt_applications_simple_list));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_applications_simple_list *)
+#endif
+			malloc(sizeof(stt_applications_simple_list));
+	forced_assertion(ret_ != NULL);
+
 	ret_->first = stt_application_copy_constructor(applications->first);
 	/*
 	if (applications->next == NULL) {
@@ -64,8 +80,16 @@ stt_applications_simple_list_copy_constructor(
 		const stt_applications_simple_list * applications)
 {
 	stt_applications_simple_list * ret_;
+
 	assertion(applications != NULL);
-	ret_ = malloc(sizeof(stt_applications_simple_list));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_applications_simple_list *)
+#endif
+			malloc(sizeof(stt_applications_simple_list));
+	forced_assertion(ret_ != NULL);
+
 	if (applications->first == NULL) {
 		ret_->first = NULL;
 		assertion(applications->next == NULL);
@@ -122,7 +146,14 @@ stt_applications_simple_list_push_front(
 				stt_application_copy_constructor(application);
 		return applications;
 	}
-	new_list_node_ = malloc(sizeof(stt_applications_simple_list));
+
+	new_list_node_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_applications_simple_list *)
+#endif
+			malloc(sizeof(stt_applications_simple_list));
+	forced_assertion(new_list_node_ != NULL);
+
 	new_list_node_->first = stt_application_copy_constructor(application);
 	new_list_node_->next = applications;
 	return new_list_node_;
@@ -134,7 +165,11 @@ stt_applications_simple_list_length(const stt_applications_simple_list * list)
 	stt_applications_simple_list_length_ret * ret_;
 	const stt_applications_simple_list * ptr_;
 
-	ret_ = malloc(sizeof(stt_applications_simple_list_length_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_applications_simple_list_length_ret *)
+#endif
+			malloc(sizeof(stt_applications_simple_list_length_ret));
 	forced_assertion(ret_ != NULL);
 
 	ret_->status = STT_APPLICATIONS_SIMPLE_LIST_LENGTH_RET_STATUS_INVALID;

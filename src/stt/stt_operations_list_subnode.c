@@ -31,7 +31,12 @@ stt_operations_list_subnode_default_constructor()
 {
 	stt_operations_list_subnode * returning_;
 
-	returning_ = malloc(sizeof(stt_operations_list_subnode));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_operations_list_subnode *)
+#endif
+			malloc(sizeof(stt_operations_list_subnode));
+	forced_assertion(returning_ != NULL);
 
 	returning_->operations_ = NULL;
 
@@ -47,10 +52,16 @@ stt_operations_list_subnode_copy_constructor(
 	assertion(subnode != NULL);
 	assertion(subnode->operations_ != NULL);
 
-	ret_ = malloc(sizeof(stt_operations_list_subnode));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_operations_list_subnode *)
+#endif
+			malloc(sizeof(stt_operations_list_subnode));
+	forced_assertion(ret_ != NULL);
 
 	ret_->operations_ = stt_operations_simple_list_copy_constructor(
 			subnode->operations_);
+	forced_assertion(ret_->operations_ != NULL);
 
 	return ret_;
 }
@@ -63,10 +74,16 @@ stt_operations_list_subnode_exhaustive_constructor(
 
 	assertion(operations != NULL);
 
-	ret_ = malloc(sizeof(stt_operations_list_subnode));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_operations_list_subnode *)
+#endif
+			malloc(sizeof(stt_operations_list_subnode));
+	forced_assertion(ret_ != NULL);
 
 	ret_->operations_ = stt_operations_simple_list_copy_constructor(
 			operations);
+	forced_assertion(ret_->operations_ != NULL);
 
 	return ret_;
 }

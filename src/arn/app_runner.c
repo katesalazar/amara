@@ -94,7 +94,11 @@ run_app(const char * app_name)
 #endif
 
 #ifdef __AMARA__POSIX
-	cwd_buffer_ = malloc(4096);
+	cwd_buffer_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(4096);
 	forced_assertion(cwd_buffer_ != NULL);
 	getcwd_return_ = getcwd(cwd_buffer_, 3072);
 
@@ -1166,7 +1170,11 @@ process_rtg_doc_execution_requests(const rtg_doc * doc)
 	process_rtg_doc_execution_requests_ret * ret_;
 	rtg_execution_requests_simple_list * execution_requests_ptr_;
 
-	ret_ = malloc(sizeof(process_rtg_doc_execution_requests_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(process_rtg_doc_execution_requests_ret *)
+#endif
+			malloc(sizeof(process_rtg_doc_execution_requests_ret));
 	forced_assertion(ret_ != NULL);
 	ret_->status = PROCESS_RTG_DOC_EXECUTION_REQUESTS_RET_STATUS_INVALID;
 	forced_assertion(doc != NULL);

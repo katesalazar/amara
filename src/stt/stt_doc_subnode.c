@@ -29,7 +29,13 @@
 stt_doc_subnode *
 stt_doc_subnode_default_constructor()
 {
-	stt_doc_subnode * returning_ = malloc(sizeof(stt_doc_subnode));
+	stt_doc_subnode * returning_;
+
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_doc_subnode *)
+#endif
+			malloc(sizeof(stt_doc_subnode));
 	forced_assertion(returning_ != NULL);
 
 	returning_->named_functions_ =
@@ -64,7 +70,14 @@ stt_doc_subnode_exhaustive_constructor(
 		assertion(applications == NULL);
 		assertion(execution_requests == NULL);
 	}
-	ret_ = malloc(sizeof(stt_doc_subnode));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_doc_subnode *)
+#endif
+			malloc(sizeof(stt_doc_subnode));
+	forced_assertion(ret_ != NULL);
+
 	if (named_functions != NULL /* && named_functions->first != NULL */) {
 		ret_->named_functions_ =
 				stt_named_functions_simple_list_copy_constructor(
@@ -109,7 +122,14 @@ stt_doc_subnode_copy_constructor(const stt_doc_subnode * subnode)
 		assertion(subnode->execution_requests_ == NULL);
 	}
 	*/
-	ret_ = malloc(sizeof(stt_doc_subnode));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_doc_subnode *)
+#endif
+			malloc(sizeof(stt_doc_subnode));
+	forced_assertion(ret_ != NULL);
+
 	assertion(subnode->named_functions_ != NULL);
 	/*
 	if (subnode->named_functions_ != NULL) {

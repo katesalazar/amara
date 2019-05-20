@@ -114,7 +114,11 @@ arn_type_default_constructor()
 {
 	arn_type * returning_;
 
-	returning_ = malloc(sizeof(arn_type));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(arn_type *)
+#endif
+			malloc(sizeof(arn_type));
 #ifndef NDEBUG
 	assertion(returning_ != NULL);
 #endif

@@ -26,10 +26,18 @@ stt_application *
 stt_application_default_constructor()
 {
 	stt_application * ret_;
-	ret_ = malloc(sizeof(stt_application));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_application *)
+#endif
+			malloc(sizeof(stt_application));
+	forced_assertion(ret_ != NULL);
+
 	ret_->entry_point_function_name_ = NULL;
 	ret_->name_ = NULL;
 	ret_->type_ = STT_APPLICATION_TYPE_INVALID;
+
 	return ret_;
 }
 
@@ -43,11 +51,19 @@ stt_application_copy_constructor(const stt_application * application)
 	assertion(application->name_->value_ != NULL);
 	assertion(application->entry_point_function_name_ != NULL);
 	assertion(application->entry_point_function_name_->value_ != NULL);
-	ret_ = malloc(sizeof(stt_application));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_application *)
+#endif
+			malloc(sizeof(stt_application));
+	forced_assertion(ret_ != NULL);
+
 	ret_->entry_point_function_name_ = amara_string_copy_constructor(
 			application->entry_point_function_name_);
 	ret_->name_ = amara_string_copy_constructor(application->name_);
 	ret_->type_ = application->type_;
+
 	return ret_;
 }
 
@@ -63,7 +79,14 @@ stt_application_exhaustive_constructor(
 	assertion(entry_point_function_name != NULL);
 	assertion(entry_point_function_name->value_ != NULL);
 	assertion(flags);
-	ret_ = malloc(sizeof(stt_application));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_application *)
+#endif
+			malloc(sizeof(stt_application));
+	forced_assertion(ret_ != NULL);
+
 	ret_->type_ = STT_APPLICATION_TYPE_INVALID;
 	ret_->name_ = NULL;
 	ret_->entry_point_function_name_ = NULL;
@@ -73,6 +96,7 @@ stt_application_exhaustive_constructor(
 	assertion(flags ==
 			STT_APPLICATION_EXHAUSTIVE_CONSTRUCTOR_FLAG_CLI_APPLICATION);
 	ret_->type_ = STT_APPLICATION_TYPE_CLI_APPLICATION;
+
 	return ret_;
 }
 

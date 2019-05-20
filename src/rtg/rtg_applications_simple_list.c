@@ -34,9 +34,17 @@ rtg_applications_simple_list *
 rtg_applications_simple_list_default_constructor()
 {
 	rtg_applications_simple_list * ret_;
-	ret_ = malloc(sizeof(rtg_applications_simple_list));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_applications_simple_list *)
+#endif
+			malloc(sizeof(rtg_applications_simple_list));
+	forced_assertion(ret_ != NULL);
+
 	ret_->first = NULL;
 	ret_->next = NULL;
+
 	return ret_;
 }
 
@@ -48,26 +56,46 @@ rtg_applications_simple_list_copy_constructor(
 	const rtg_applications_simple_list * list_ptr_;
 	rtg_applications_simple_list * ret_ptr_;
 	rtg_application * ret_app_;
-    if (list == NULL) {
-        return rtg_applications_simple_list_default_constructor();
-    }
-	ret_ = malloc(sizeof(rtg_applications_simple_list));
+
+	if (list == NULL) {
+		return rtg_applications_simple_list_default_constructor();
+	}
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_applications_simple_list *)
+#endif
+			malloc(sizeof(rtg_applications_simple_list));
+	forced_assertion(ret_ != NULL);
 	if (list->first == NULL) {
 		ret_->first = NULL;
 		assertion(list->next == NULL);
 		ret_->next = NULL;
 		return ret_;
 	}
-	ret_ = malloc(sizeof(rtg_applications_simple_list));
+	/*
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_applications_simple_list *)
+#endif
+			malloc(sizeof(rtg_applications_simple_list));
+	forced_assertion(ret_ != NULL);
+	*/
 	ret_app_ = rtg_application_copy_constructor(list->first);
+	forced_assertion(ret_app_ != NULL);
 	ret_->first = ret_app_;
 	list_ptr_ = list;
 	ret_ptr_ = ret_;
 	while (list_ptr_->next != NULL) {
-		ret_ptr_->next = malloc(sizeof(rtg_applications_simple_list));
+		ret_ptr_->next =
+#ifdef AMARA_USE_STD_CXX98
+				(rtg_applications_simple_list *)
+#endif
+				malloc(sizeof(rtg_applications_simple_list));
+		forced_assertion(ret_ptr_->next != NULL);
 		assertion(list_ptr_->next->first != NULL);
 		ret_app_ = rtg_application_copy_constructor(
 				list_ptr_->next->first);
+		forced_assertion(ret_app_ != NULL);
 		ret_ptr_->next->first = ret_app_;
 		list_ptr_ = list_ptr_->next;
 		ret_ptr_ = ret_ptr_->next;
@@ -80,9 +108,9 @@ void
 rtg_applications_simple_list_destructor(
 		rtg_applications_simple_list * list)
 {
-    if (list == NULL) {
-        return;
-    }
+	if (list == NULL) {
+		return;
+	}
 	assertion(list != NULL);
 	if (list->first == NULL) {
 		assertion(list->next == NULL);
@@ -92,6 +120,7 @@ rtg_applications_simple_list_destructor(
 	if (list->next != NULL) {
 		rtg_applications_simple_list_destructor(list->next);
 	}
+
 	free(list);
 }
 
@@ -110,7 +139,11 @@ rtg_applications_simple_list_push_front(
 		return applications;
 	}
 	applications_new_simple_list_node_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_applications_simple_list *)
+#endif
 			malloc(sizeof(rtg_applications_simple_list));
+	forced_assertion(applications_new_simple_list_node_ != NULL);
 	applications_new_simple_list_node_->first =
 			rtg_application_copy_constructor(application);
 	applications_new_simple_list_node_->next = applications;
@@ -150,7 +183,13 @@ rtg_applications_simple_list_find_by_name_inner(
 {
 	rtg_applications_simple_list_find_by_name_ret * ret_;
 	rtg_applications_simple_list_find_by_name_ret * rec_ret_;
-	ret_ = malloc(sizeof(rtg_applications_simple_list_find_by_name_ret));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_applications_simple_list_find_by_name_ret *)
+#endif
+			malloc(sizeof(rtg_applications_simple_list_find_by_name_ret));
+	forced_assertion(ret_ != NULL);
 	ret_->status = RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_INVALID;
 	ret_->application = NULL;
 	ret_->application_was_moved = AMARA_BOOLEAN_FALSE;
@@ -201,7 +240,13 @@ rtg_applications_simple_list_find_by_name(
 {
 	rtg_applications_simple_list_find_by_name_ret * ret_;
 	rtg_applications_simple_list_find_by_name_ret * rec_ret_;
-	ret_ = malloc(sizeof(rtg_applications_simple_list_find_by_name_ret));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_applications_simple_list_find_by_name_ret *)
+#endif
+			malloc(sizeof(rtg_applications_simple_list_find_by_name_ret));
+	forced_assertion(ret_ != NULL);
 	ret_->status = RTG_APPLICATIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_INVALID;
 	ret_->application = NULL;
 	ret_->application_was_moved = AMARA_BOOLEAN_FALSE;
@@ -250,8 +295,11 @@ rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_f
 			__FILE__, __LINE__);
 #endif
 
-	ret_ = malloc(sizeof(
-			rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret *)
+#endif
+			malloc(sizeof(rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret));
 	forced_assertion(ret_ != NULL);
 	ret_->status = RTG_APPLICATIONS_SIMPLE_LIST_OUT_OF_STT_APPLICATIONS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID;
 
@@ -305,7 +353,11 @@ rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_f
 #endif
 
 	forced_assertion(stt_applications->first != NULL);
-	sub_ret_ = malloc(sizeof(rtg_applications_simple_list));
+	sub_ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_applications_simple_list *)
+#endif
+			malloc(sizeof(rtg_applications_simple_list));
 	forced_assertion(sub_ret_ != NULL);
 	sub_ret_app_ret_ =
 			rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list(
@@ -357,7 +409,11 @@ rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_f
 	sub_ret_ptr_ = sub_ret_;
 	while (stt_applications_ptr_->next != NULL) {
 		forced_assertion(stt_applications_ptr_->next->first != NULL);
-		sub_ret_ptr_->next = malloc(sizeof(rtg_applications_simple_list));
+		sub_ret_ptr_->next =
+#ifdef AMARA_USE_STD_CXX98
+				(rtg_applications_simple_list *)
+#endif
+				malloc(sizeof(rtg_applications_simple_list));
 		forced_assertion(sub_ret_ptr_->next != NULL);
 		sub_ret_app_ret_ =
 				rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list(
@@ -431,8 +487,11 @@ rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list(
 			__FILE__, __LINE__);
 #endif
 
-	ret_ = malloc(sizeof(
-			rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret *)
+#endif
+			malloc(sizeof(rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret));
 	forced_assertion(ret_ != NULL);
 	ret_->status = RTG_APPLICATIONS_OUT_OF_STT_DOC_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID;
 	ret_->applications = NULL;

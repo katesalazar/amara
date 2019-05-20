@@ -25,7 +25,11 @@ amara_strings_simple_list_default_constructor(void)
 {
 	amara_strings_simple_list * ret_;
 
-	ret_ = malloc(sizeof(amara_strings_simple_list));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(amara_strings_simple_list *)
+#endif
+			malloc(sizeof(amara_strings_simple_list));
 	forced_assertion(ret_ != NULL);
 	ret_->first = NULL;
 	ret_->next = NULL;
@@ -108,7 +112,11 @@ amara_strings_simple_list_push_front(
 		return list;
 	} else {
 
-		new_list_node_ = malloc(sizeof(amara_strings_simple_list));
+		new_list_node_ =
+#ifdef AMARA_USE_STD_CXX98
+				(amara_strings_simple_list *)
+#endif
+				malloc(sizeof(amara_strings_simple_list));
 		forced_assertion(new_list_node_ != NULL);
 		new_list_node_->first = amara_string_copy_constructor(string);
 		new_list_node_->next = list;

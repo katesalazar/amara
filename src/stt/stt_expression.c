@@ -44,7 +44,13 @@ stt_expression_default_constructor(void)
 {
 	stt_expression * returning_;
 
-	returning_ = malloc(sizeof(stt_expression));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_expression *)
+#endif
+			malloc(sizeof(stt_expression));
+	forced_assertion_two(returning_ != NULL,
+			"malloc failed, stt_expression.c: 49\n");
 
 	returning_->sub_string_literal_ = NULL;
 	returning_->sub_natural_literal_ = NULL;
@@ -445,113 +451,118 @@ stt_expression_equality(const stt_expression * e0, const stt_expression * e1)
 #ifndef NDEBUG
 
 void
-stt_expression_assert_clean_string_literal(const stt_expression * this)
+stt_expression_assert_clean_string_literal(const stt_expression * expression)
 {
-	assertion(this != NULL);
-	assertion(this->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL);
-	assertion(this->sub_string_literal_ != NULL);
-	assertion(this->sub_string_literal_->string_literal_ != NULL);
-	assertion(this->sub_string_literal_->string_literal_->value_ != NULL);
-	assertion(this->sub_natural_literal_ == NULL);
-	assertion(this->sub_identifier_ == NULL);
-	assertion(this->sub_conditional_ == NULL);
-	assertion(this->sub_dice_ == NULL);
-}
-
-void
-stt_expression_assert_clean_natural_literal(const stt_expression * this)
-{
-	assertion(this != NULL);
-	assertion(this->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL);
-	assertion(this->sub_string_literal_ == NULL);
-	assertion(this->sub_natural_literal_ != NULL);
-	assertion(this->sub_natural_literal_->natural_literal_ != NULL);
-	assertion(this->sub_natural_literal_->natural_literal_->raw_ != NULL);
-	assertion(this->sub_natural_literal_->natural_literal_->raw_->value_ !=
+	assertion(expression != NULL);
+	assertion(expression->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL);
+	assertion(expression->sub_string_literal_ != NULL);
+	assertion(expression->sub_string_literal_->string_literal_ != NULL);
+	assertion(expression->sub_string_literal_->string_literal_->value_ !=
 			NULL);
-	assertion(this->sub_identifier_ == NULL);
-	assertion(this->sub_conditional_ == NULL);
-	assertion(this->sub_dice_ == NULL);
+	assertion(expression->sub_natural_literal_ == NULL);
+	assertion(expression->sub_identifier_ == NULL);
+	assertion(expression->sub_conditional_ == NULL);
+	assertion(expression->sub_dice_ == NULL);
 }
 
 void
-stt_expression_assert_clean_identifier(const stt_expression * this)
+stt_expression_assert_clean_natural_literal(const stt_expression * expression)
 {
-	assertion(this != NULL);
-	assertion(this->type_ == STT_EXPRESSION_TYPE_IDENTIFIER);
-	assertion(this->sub_string_literal_ == NULL);
-	assertion(this->sub_natural_literal_ == NULL);
-	assertion(this->sub_identifier_ != NULL);
-	assertion(this->sub_identifier_->identifier_ != NULL);
-	assertion(this->sub_identifier_->identifier_->value_ != NULL);
-	assertion(this->sub_conditional_ == NULL);
-	assertion(this->sub_dice_ == NULL);
+	assertion(expression != NULL);
+	assertion(expression->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL);
+	assertion(expression->sub_string_literal_ == NULL);
+	assertion(expression->sub_natural_literal_ != NULL);
+	assertion(expression->sub_natural_literal_->natural_literal_ != NULL);
+	assertion(expression->sub_natural_literal_->natural_literal_->raw_ !=
+			NULL);
+	assertion(expression->sub_natural_literal_->natural_literal_->raw_->value_ !=
+			NULL);
+	assertion(expression->sub_identifier_ == NULL);
+	assertion(expression->sub_conditional_ == NULL);
+	assertion(expression->sub_dice_ == NULL);
 }
 
 void
-stt_expression_assert_clean_conditional(const stt_expression * this)
+stt_expression_assert_clean_identifier(const stt_expression * expression)
 {
-	assertion(this != NULL);
-	assertion(this->type_ == STT_EXPRESSION_TYPE_CONDITIONAL);
-	assertion(this->sub_string_literal_ == NULL);
-	assertion(this->sub_natural_literal_ == NULL);
-	assertion(this->sub_identifier_ == NULL);
-	assertion(this->sub_conditional_ != NULL);
-	assertion(this->sub_conditional_->if_ != NULL);
-	assertion(this->sub_conditional_->if_->condition_ != NULL);
-	assertion(this->sub_conditional_->if_->expression_then_ != NULL);
-	forced_assertion(this->sub_conditional_->if_->next_if_ == NULL);
+	assertion(expression != NULL);
+	assertion(expression->type_ == STT_EXPRESSION_TYPE_IDENTIFIER);
+	assertion(expression->sub_string_literal_ == NULL);
+	assertion(expression->sub_natural_literal_ == NULL);
+	assertion(expression->sub_identifier_ != NULL);
+	assertion(expression->sub_identifier_->identifier_ != NULL);
+	assertion(expression->sub_identifier_->identifier_->value_ != NULL);
+	assertion(expression->sub_conditional_ == NULL);
+	assertion(expression->sub_dice_ == NULL);
+}
+
+void
+stt_expression_assert_clean_conditional(const stt_expression * expression)
+{
+	assertion(expression != NULL);
+	assertion(expression->type_ == STT_EXPRESSION_TYPE_CONDITIONAL);
+	assertion(expression->sub_string_literal_ == NULL);
+	assertion(expression->sub_natural_literal_ == NULL);
+	assertion(expression->sub_identifier_ == NULL);
+	assertion(expression->sub_conditional_ != NULL);
+	assertion(expression->sub_conditional_->if_ != NULL);
+	assertion(expression->sub_conditional_->if_->condition_ != NULL);
+	assertion(expression->sub_conditional_->if_->expression_then_ != NULL);
+	forced_assertion(expression->sub_conditional_->if_->next_if_ == NULL);
 	/*
-	if (this->sub_conditional_->if_->next_if_ == NULL) {
+	if (expression->sub_conditional_->if_->next_if_ == NULL) {
 	*/
-		assertion(this->sub_conditional_->if_->expression_else_ !=
+		assertion(expression->sub_conditional_->if_->expression_else_ !=
 				NULL);
 	/*
 	} else {
-		assertion(this->sub_conditional_->if_->expression_else_ ==
+		assertion(expression->sub_conditional_->if_->expression_else_ ==
 				NULL);
 	}
 	*/
-	assertion(this->sub_dice_ == NULL);
+	assertion(expression->sub_dice_ == NULL);
 }
 
 void
-stt_expression_assert_clean_dice(const stt_expression * this)
+stt_expression_assert_clean_dice(const stt_expression * expression)
 {
-	assertion(this != NULL);
-	assertion(this->type_ == STT_EXPRESSION_TYPE_DICE);
-	assertion(this->sub_string_literal_ == NULL);
-	assertion(this->sub_natural_literal_ == NULL);
-	assertion(this->sub_identifier_ == NULL);
-	assertion(this->sub_conditional_ == NULL);
-	assertion(this->sub_dice_ != NULL);
-	assertion(this->sub_dice_->left_hand_side_natural_ != NULL);
-	assertion(this->sub_dice_->left_hand_side_natural_->raw_ != NULL);
-	assertion(this->sub_dice_->left_hand_side_natural_->raw_->value_ !=
+	assertion(expression != NULL);
+	assertion(expression->type_ == STT_EXPRESSION_TYPE_DICE);
+	assertion(expression->sub_string_literal_ == NULL);
+	assertion(expression->sub_natural_literal_ == NULL);
+	assertion(expression->sub_identifier_ == NULL);
+	assertion(expression->sub_conditional_ == NULL);
+	assertion(expression->sub_dice_ != NULL);
+	assertion(expression->sub_dice_->left_hand_side_natural_ != NULL);
+	assertion(expression->sub_dice_->left_hand_side_natural_->raw_ !=
 			NULL);
-	assertion(this->sub_dice_->right_hand_side_natural_ != NULL);
-	assertion(this->sub_dice_->right_hand_side_natural_->raw_ != NULL);
-	assertion(this->sub_dice_->right_hand_side_natural_->raw_->value_ !=
+	assertion(expression->sub_dice_->left_hand_side_natural_->raw_->value_ !=
+			NULL);
+	assertion(expression->sub_dice_->right_hand_side_natural_ != NULL);
+	assertion(expression->sub_dice_->right_hand_side_natural_->raw_ !=
+			NULL);
+	assertion(expression->sub_dice_->right_hand_side_natural_->raw_->value_ !=
 			NULL);
 }
 
 void
-stt_expression_assert_cleanliness(const stt_expression * this)
+stt_expression_assert_cleanliness(const stt_expression * expression)
 {
-	assertion(this != NULL);
-	if (this->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL) {
+	assertion(expression != NULL);
+	if (expression->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL) {
 
-		stt_expression_assert_clean_string_literal(this);
-	} else if (this->type_ == STT_EXPRESSION_TYPE_IDENTIFIER) {
+		stt_expression_assert_clean_string_literal(expression);
+	} else if (expression->type_ == STT_EXPRESSION_TYPE_IDENTIFIER) {
 
-		stt_expression_assert_clean_identifier(this);
-	} else if (this->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL) {
+		stt_expression_assert_clean_identifier(expression);
+	} else if (expression->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL) {
 
-		stt_expression_assert_clean_natural_literal(this);
+		stt_expression_assert_clean_natural_literal(expression);
 	} else {
-		forced_assertion(this->type_ == STT_EXPRESSION_TYPE_DICE);
+		forced_assertion(expression->type_ ==
+				STT_EXPRESSION_TYPE_DICE);
 
-		stt_expression_assert_clean_dice(this);
+		stt_expression_assert_clean_dice(expression);
 	}
 }
 
