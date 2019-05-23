@@ -52,6 +52,12 @@ do
 			-o ${FORCE} -eq 1
 	then
 		rm -rfv build/
+		if test "${branch}" = 'experimental'
+		then
+			PATH_TO_BSN_SOURCES="../../src/"
+		else
+			PATH_TO_BSN_SOURCES="../src/"
+		fi
 		true &&
 				FORCE=0 &&
 				nice -n 19 rm -fv `find ./ | grep gcno$` &&
@@ -64,10 +70,10 @@ do
 				rm -fv lex.minia.c &&
 				rm -fv minia.tab.c &&
 				rm -fv minia.y &&
-				ln -s ../../src/bsn/minia.l &&
-				ln -s ../../src/bsn/lex.minia.c &&
-				ln -s ../../src/bsn/minia.tab.c &&
-				ln -s ../../src/bsn/minia.y &&
+				ln -s ${PATH_TO_BSN_SOURCES}/bsn/minia.l &&
+				ln -s ${PATH_TO_BSN_SOURCES}/bsn/lex.minia.c &&
+				ln -s ${PATH_TO_BSN_SOURCES}/bsn/minia.tab.c &&
+				ln -s ${PATH_TO_BSN_SOURCES}/bsn/minia.y &&
 				cd ../../ &&
 				nice -n 19 rm -fv `find ./ | grep gcda$` &&
 				echo 'nice -n 19 ./build/debug/amara_g' &&
