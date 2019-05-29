@@ -51,6 +51,7 @@ do
 			-o ! -d ${BASE}/amara/${branch}/ \
 			-o ${FORCE} -eq 1
 	then
+		rm -rfv build/
 		true &&
 				FORCE=0 &&
 				nice -n 19 rm -fv `find ./ | grep gcno$` &&
