@@ -59,8 +59,10 @@ build/src/*/*.cpp
 build/src/*/*.h
 build/debug/*.o
 build/release/*.o
-build/debug/amara_g
+build/release/amara_not_stripped
 build/release/amara
+build/debug/amara_g_not_stripped
+build/debug/amara_g
 
 #   macOS debugging symbols.
 amara_g.dSYM/
