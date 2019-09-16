@@ -22,7 +22,7 @@
 
 FORCE=0
 
-BASE='/var/www/html/lcov0/github/katesalazar'
+BASE='/var/www/html/lcov'
 
 ORIGINAL_BRANCH=`git branch | grep '*' | cut -d ' ' -f 2`
 
@@ -63,8 +63,14 @@ do
 				nice -n 19 rm -fv `find ./ | grep gcno$` &&
 				#   FIXME REMOVE THIS LATER. FIXME POSSIBLE DOT BAD ESCAPE.
 				rm -rfv `find ./ | grep '\.o$' | grep -v '.git'` &&
+# TODO the `clean` target is only guaranteed to exist if this script is called from the amara base directory.
 				nice -n 19 make clean &&
-				nice -n 19 make all &&
+				nice -n 19 make all
+                                if test $? -ne 0
+                                then
+echo 'build failed'
+break
+fi
 				cd build/debug/ &&
 				rm -fv minia.l &&
 				rm -fv lex.minia.c &&
@@ -274,7 +280,7 @@ do
 				sudo cp -rfv ./gcov_results/ \
 						${BASE}/amara/${branch}/ &&
 				(figlet -w `tput cols` succeeded ${branch} &&
-						sleep 1) ||
+						sleep 10) ||
 					(true &&
 							sudo rm -rfv ${BASE}/amara/${branch}/ &&
 							sudo mkdir ${BASE}/amara/${branch}/ &&
@@ -282,7 +288,7 @@ do
 							echo 'the build failed' >>./index.html &&
 							sudo mv ./index.html ${BASE}/amara/${branch}/index.html
 							figlet -w `tput cols` failed ${branch} &&
-							sleep 1)
+							sleep 10)
 
 		rm -fv build/debug/minia.l &&
 				rm -fv build/debug/lex.minia.c &&
@@ -292,6 +298,6 @@ do
 done
 nice -n 19 git checkout ${ORIGINAL_BRANCH}
 date
-echo 'sleep 600...'
-sleep 600
+echo 'sleep 3600...'
+sleep 3600
 done
