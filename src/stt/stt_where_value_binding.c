@@ -26,9 +26,14 @@ stt_where_value_binding_default_constructor()
 {
 	stt_where_value_binding * returning_;
 
-	returning_ = malloc(sizeof(stt_where_value_binding));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_where_value_binding *)
+#endif
+			malloc(sizeof(stt_where_value_binding));
 #ifndef NDEBUG
-	assertion(returning_ != NULL);
+	forced_assertion_two(returning_ != NULL,
+			"malloc failed, stt_where_value_binding.c: 32\n");
 #endif
 
 	returning_->value_name_ = NULL;
@@ -48,7 +53,13 @@ stt_where_value_binding_copy_constructor(
 	assertion(where_value_binding_->value_name_ != NULL);
 	assertion(where_value_binding_->value_expression_ != NULL);
 
-	returning_ = malloc(sizeof(stt_where_value_binding));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_where_value_binding *)
+#endif
+			malloc(sizeof(stt_where_value_binding));
+	forced_assertion_two(returning_ != NULL,
+			"malloc failed, stt_where_value_binding.c: 61\n");
 
 	returning_->value_name_ = amara_string_copy_constructor(
 			where_value_binding_->value_name_);
@@ -71,7 +82,13 @@ stt_where_value_binding_exhaustive_constructor(
 	assertion(value_expression_ != NULL);
 	assertion(value_expression_->type_ != STT_EXPRESSION_TYPE_INVALID);
 
-	returning_ = malloc(sizeof(stt_where_value_binding));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_where_value_binding *)
+#endif
+			malloc(sizeof(stt_where_value_binding));
+	forced_assertion_two(returning_ != NULL,
+			"malloc failed: stt_where_value_binding.c: 90\n");
 
 	returning_->value_name_ = amara_string_copy_constructor(value_name_);
 

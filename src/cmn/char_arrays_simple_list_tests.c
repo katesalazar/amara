@@ -116,8 +116,13 @@ char_arrays_simple_list_concat_destructive_test_3()
 	assertion(list_zero_->first == NULL);
 	assertion(list_zero_->next == NULL);
 
-	char_array_zero_ = malloc(1);
-	assertion(char_array_zero_ != NULL);
+	char_array_zero_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(1);
+	forced_assertion_two(char_array_zero_ != NULL,
+			"malloc failed, char_arrays_simple_list_tests.c: 124\n");
 	* char_array_zero_ = 0;
 
 	list_zero_ = char_arrays_simple_list_push_front(
@@ -166,8 +171,13 @@ char_arrays_simple_list_concat_destructive_test_4()
 	assertion(list_one_->first == NULL);
 	assertion(list_one_->next == NULL);
 
-	char_array_one_ = malloc(1);
-	assertion(char_array_one_ != NULL);
+	char_array_one_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(1);
+	forced_assertion_two(char_array_one_ != NULL,
+			"malloc failed: char_arrays_simple_list_tests.c: 179\n");
 	* char_array_one_ = 0;
 
 	list_one_ = char_arrays_simple_list_push_front(
@@ -207,8 +217,13 @@ char_arrays_simple_list_concat_destructive_test_5()
 	assertion(list_zero_->first == NULL);
 	assertion(list_zero_->next == NULL);
 
-	char_array_zero_ = malloc(1);
-	assertion(char_array_zero_ != NULL);
+	char_array_zero_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(1);
+	forced_assertion_two(char_array_zero_ != NULL,
+			"malloc failed: char_arrays_simple_list_tests.c: 225\n");
 	* char_array_zero_ = 0;
 
 	list_zero_ = char_arrays_simple_list_push_front(
@@ -219,8 +234,13 @@ char_arrays_simple_list_concat_destructive_test_5()
 	assertion(* list_zero_->first == '\0');
 	assertion(list_zero_->next == NULL);
 
-	char_array_one_ = malloc(2);
-	assertion(char_array_one_ != NULL);
+	char_array_one_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(2);
+	forced_assertion_two(char_array_one_ != NULL,
+			"malloc failed: char_arrays_simple_list_tests.c: 242\n");
 	* char_array_one_ = 0x30;  /* ASCII 48: '0'. */
 	* (char_array_one_ + 1) = 0x00;  /* ASCII 0: '\0'. */
 
@@ -276,8 +296,13 @@ char_arrays_simple_list_concat_destructive_test_6()
 	assertion(list_zero_->first == NULL);
 	assertion(list_zero_->next == NULL);
 
-	char_array_zero_ = malloc(2);
-	assertion(char_array_zero_ != NULL);
+	char_array_zero_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(2);
+	forced_assertion_two(char_array_zero_ != NULL,
+			"malloc failed, char_arrays_simple_list_tests.c: 304\n");
 	* char_array_zero_ = 0x30;  /* ASCII 48: '0'. */
 	* (char_array_zero_ + 1) = 0x00;  /* ASCII 0: '\0'. */
 
@@ -296,8 +321,13 @@ char_arrays_simple_list_concat_destructive_test_6()
 	assertion(list_one_->first == NULL);
 	assertion(list_one_->next == NULL);
 
-	char_array_two_ = malloc(2);
-	assertion(char_array_two_ != NULL);
+	char_array_two_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(2);
+	forced_assertion_two(char_array_two_ != NULL,
+			"malloc failed, char_arrays_simple_list_tests.c: 329\n");
 	* char_array_two_ = 0x32;  /* ASCII 50: '2'. */
 	* (char_array_two_ + 1) = 0x00;  /* ASCII 0: '\0'. */
 
@@ -311,8 +341,13 @@ char_arrays_simple_list_concat_destructive_test_6()
 	assertion(* (list_one_->first + 1) == 0x00);  /* ASCII 0: '\0'. */
 	assertion(list_one_->next == NULL);
 
-	char_array_one_ = malloc(2);
-	assertion(char_array_one_ != NULL);
+	char_array_one_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(2);
+	forced_assertion_two(char_array_one_ != NULL,
+			"malloc failed, char_arrays_simple_list_tests.c: 349\n");
 	* char_array_one_ = 0x31;  /* ASCII 49: '1'. */
 	* (char_array_one_ + 1) = 0x00;  /* ASCII 0: '\0'. */
 
@@ -375,10 +410,20 @@ char_arrays_simple_list_push_front_test_0()
 	char * char_array_zero_;
 	char * char_array_one_;
 
-	char_array_zero_ = malloc(1);
+	char_array_zero_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(1);
+	forced_assertion_two(char_array_zero_ != NULL, "malloc failed\n");
 	* char_array_zero_ = '\0';
 
-	char_array_one_ = malloc(1);
+	char_array_one_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(1);
+	forced_assertion_two(char_array_one_ != NULL, "malloc failed\n");
 	* char_array_one_ = '\0';
 
 	char_arrays_ = char_arrays_simple_list_default_constructor();
@@ -506,8 +551,12 @@ char_arrays_simple_list_equality_test_3()
 	assertion(list_zero_->first == NULL);
 	assertion(list_zero_->next == NULL);
 
-	foo_ = malloc(strlen("foo") + 1);
-	assertion(foo_ != NULL);
+	foo_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(strlen("foo") + 1);
+	forced_assertion_two(foo_ != NULL, "malloc failed\n");
 	strcpy(foo_, "foo");
 	assertion(foo_[0] == 0x66);  /* ASCII 102: 'f'. */
 	assertion(foo_[1] == 0x6F);  /* ASCII 111: 'o'. */
@@ -561,8 +610,12 @@ char_arrays_simple_list_equality_test_4()
 	assertion(list_one_->first == NULL);
 	assertion(list_one_->next == NULL);
 
-	foo_ = malloc(strlen("foo") + 1);
-	assertion(foo_ != NULL);
+	foo_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(strlen("foo") + 1);
+	forced_assertion_two(foo_ != NULL, "malloc failed\n");
 	strcpy(foo_, "foo");
 	assertion(foo_[0] == 0x66);  /* ASCII 102: 'f'. */
 	assertion(foo_[1] == 0x6F);  /* ASCII 111: 'o'. */
@@ -618,16 +671,24 @@ char_arrays_simple_list_equality_test_5()
 	assertion(list_one_->first == NULL);
 	assertion(list_one_->next == NULL);
 
-	foo_ = malloc(strlen("foo") + 1);
-	assertion(foo_ != NULL);
+	foo_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(strlen("foo") + 1);
+	forced_assertion_two(foo_ != NULL, "malloc failed\n");
 	strcpy(foo_, "foo");
 	assertion(foo_[0] == 0x66);  /* ASCII 102: 'f'. */
 	assertion(foo_[1] == 0x6F);  /* ASCII 111: 'o'. */
 	assertion(foo_[2] == 0x6F);  /* ASCII 111: 'o'. */
 	assertion(foo_[3] == 0x00);  /* ASCII 0: '\0'. */
 
-	bar_ = malloc(strlen("bar") + 1);
-	assertion(bar_ != NULL);
+	bar_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(strlen("bar") + 1);
+	forced_assertion_two(bar_ != NULL, "malloc failed\n");
 	strcpy(bar_, "bar");
 	assertion(bar_[0] == 0x62);  /* ASCII 98: 'b'. */
 	assertion(bar_[1] == 0x61);  /* ASCII 97: 'a'. */
@@ -729,15 +790,25 @@ char_arrays_simple_list_equality_test_6()
 	assertion(list_one_->first == NULL);
 	assertion(list_one_->next == NULL);
 
-	foo_ = malloc(strlen("foo") + 1);
-	assertion(foo_ != NULL);
+	foo_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(strlen("foo") + 1);
+	forced_assertion_two(foo_ != NULL, "malloc failed\n");
 	strcpy(foo_, "foo");
 	assertion(foo_[0] == 0x66);  /* ASCII 102: 'f'. */
 	assertion(foo_[1] == 0x6F);  /* ASCII 111: 'o'. */
 	assertion(foo_[2] == 0x6F);  /* ASCII 111: 'o'. */
 	assertion(foo_[3] == 0x00);  /* ASCII 0: '\0'. */
 
-	bar_ = malloc(strlen("bar") + 1);
+	bar_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(strlen("bar") + 1);
+	forced_assertion_two(bar_ != NULL,
+			"malloc failed, char_arrays_simple_list_tests.c: 810\n");
 	assertion(bar_ != NULL);
 	strcpy(bar_, "bar");
 	assertion(bar_[0] == 0x62);  /* ASCII 98: 'b'. */
@@ -840,15 +911,26 @@ char_arrays_simple_list_equality_test_7()
 	assertion(list_one_->first == NULL);
 	assertion(list_one_->next == NULL);
 
-	foo_ = malloc(strlen("foo") + 1);
-	assertion(foo_ != NULL);
+	foo_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(strlen("foo") + 1);
+	forced_assertion_two(foo_ != NULL,
+			"malloc failed, char_arrays_simple_list_tests.c: 848\n");
 	strcpy(foo_, "foo");
 	assertion(foo_[0] == 0x66);  /* ASCII 102: 'f'. */
 	assertion(foo_[1] == 0x6F);  /* ASCII 111: 'o'. */
 	assertion(foo_[2] == 0x6F);  /* ASCII 111: 'o'. */
 	assertion(foo_[3] == 0x00);  /* ASCII 0: '\0'. */
 
-	bar_ = malloc(strlen("bar") + 1);
+	bar_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(strlen("bar") + 1);
+	forced_assertion_two(bar_ != NULL,
+			"malloc failed, char_arrays_simple_list_tests.c: 862\n");
 	assertion(bar_ != NULL);
 	strcpy(bar_, "bar");
 	assertion(bar_[0] == 0x62);  /* ASCII 98: 'b'. */

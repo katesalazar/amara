@@ -31,7 +31,12 @@ stt_condition_default_constructor()
 {
 	stt_condition * returning_;
 
-	returning_ = malloc(sizeof(stt_condition));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_condition *)
+#endif
+			malloc(sizeof(stt_condition));
+	forced_assertion_two(returning_ != NULL, "stt_condition.c: 39\n");
 
 	returning_->left_hand_side_expression_ = NULL;
 
@@ -62,7 +67,13 @@ stt_condition_copy_constructor(const stt_condition * condition)
 			condition->right_hand_side_expression_);
 #endif
 
-	returning_ = malloc(sizeof(stt_condition));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_condition *)
+#endif
+			malloc(sizeof(stt_condition));
+	forced_assertion_two(returning_ != NULL,
+			"malloc failed, stt_condition.c: 75\n");
 
 	returning_->left_hand_side_expression_ =
 			stt_expression_copy_constructor(

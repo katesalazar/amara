@@ -33,12 +33,22 @@ stt_operation_arg *
 stt_operation_arg_default_constructor()
 {
 	stt_operation_arg * ret_;
-	ret_ = malloc(sizeof(stt_operation_arg));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_operation_arg *)
+#endif
+			malloc(sizeof(stt_operation_arg));
+	forced_assertion(ret_ != NULL);
+
 	ret_->type_ = STT_OPERATION_ARG_TYPE_INVALID;
+
 	/*
 	ret_->raw_ = NULL;
 	*/
+
 	ret_->node_ = NULL;
+
 	return ret_;
 }
 
@@ -59,19 +69,33 @@ stt_operation_arg *
 stt_operation_arg_copy_constructor(const stt_operation_arg * operation_arg)
 {
 	stt_operation_arg * ret_;
+
 	assertion(operation_arg->type_ != STT_OPERATION_ARG_TYPE_INVALID);
-	ret_ = malloc(sizeof(stt_operation_arg));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_operation_arg *)
+#endif
+			malloc(sizeof(stt_operation_arg));
+	forced_assertion(ret_ != NULL);
+
 	/*
 	assertion(operation_arg->raw_ != NULL);
 	assertion(operation_arg->raw_->value_ != NULL);
 	*/
 	assertion(operation_arg->node_ != NULL);
+
 	assert_stt_node_is_valid(operation_arg->node_);
+
 	ret_->node_ = stt_node_copy_constructor(operation_arg->node_);
+	forced_assertion(ret_->node_ != NULL);
+
 	/*
 	ret_->raw_ = amara_string_copy_constructor(operation_arg->raw_);
 	*/
+
 	ret_->type_ = operation_arg->type_;
+
 	return ret_;
 }
 

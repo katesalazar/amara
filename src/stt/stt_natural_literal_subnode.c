@@ -31,8 +31,16 @@ stt_natural_literal_subnode *
 stt_natural_literal_subnode_default_constructor()
 {
 	stt_natural_literal_subnode * ret_;
-	ret_ = malloc(sizeof(stt_natural_literal_subnode));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_natural_literal_subnode *)
+#endif
+			malloc(sizeof(stt_natural_literal_subnode));
+	forced_assertion(ret_ != NULL);
+
 	ret_->raw_ = NULL;
+
 	return ret_;
 }
 
@@ -41,10 +49,19 @@ stt_natural_literal_subnode_copy_constructor(
 		const stt_natural_literal_subnode * subnode)
 {
 	stt_natural_literal_subnode * ret_;
-	ret_ = malloc(sizeof(stt_natural_literal_subnode));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_natural_literal_subnode *)
+#endif
+			malloc(sizeof(stt_natural_literal_subnode));
+	forced_assertion(ret_ != NULL);
+
 	assertion(subnode != NULL);
 	assertion(subnode->raw_ != NULL);
+
 	ret_->raw_ = amara_string_copy_constructor(subnode->raw_);
+
 	return ret_;
 }
 
@@ -58,9 +75,19 @@ stt_natural_literal_subnode *
 stt_natural_literal_subnode_exhaustive_constructor(const amara_string * raw)
 {
 	stt_natural_literal_subnode * ret_;
+
 	validate_amara_string_as_natural(raw);
-	ret_ = malloc(sizeof(stt_natural_literal_subnode));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_natural_literal_subnode *)
+#endif
+			malloc(sizeof(stt_natural_literal_subnode));
+	forced_assertion(ret_ != NULL);
+
 	ret_->raw_ = amara_string_copy_constructor(raw);
+	forced_assertion(ret_->raw_ != NULL);
+
 	return ret_;
 }
 

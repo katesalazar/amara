@@ -30,7 +30,13 @@ stt_expression_subnode_exhaustive_constructor(
 	assertion(expression != NULL);
 	assertion(expression->type_ != STT_EXPRESSION_TYPE_INVALID);
 
-	returning_ = malloc(sizeof(stt_expression_subnode));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_expression_subnode *)
+#endif
+			malloc(sizeof(stt_expression_subnode));
+	forced_assertion_two(returning_ != NULL,
+			"malloc failed: stt_expression_subnode.c: 38\n");
 
 	returning_->expression_ = stt_expression_copy_constructor(expression);
 	assertion(returning_->expression_ != NULL);
@@ -49,7 +55,13 @@ stt_expression_subnode_copy_constructor(
 	assertion(expression_subnode->expression_->type_ !=
 			STT_EXPRESSION_TYPE_INVALID);
 
-	returning_ = malloc(sizeof(stt_expression_subnode));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_expression_subnode *)
+#endif
+			malloc(sizeof(stt_expression_subnode));
+	forced_assertion_two(returning_ != NULL,
+			"malloc failed, stt_expression_subnoce.c: 63\n");
 
 	returning_->expression_ = stt_expression_copy_constructor(
 			expression_subnode->expression_);

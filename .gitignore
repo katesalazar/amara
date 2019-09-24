@@ -26,21 +26,42 @@ src/bsn/minia.output
 src/bsn/minia.report
 src/bsn/minia.dot
 
+# TODO    Document this. */
+build/src/bsn/minia.l
+build/src/bsn/minia.y
+build/src/bsn/minia.dot
+build/src/bsn/minia.output
+
 #   Flex object docs.
-lex.minia.c
+build/src/bsn/lex.minia.c
+# TODO     Make it so this doc appear only in `BASE/build/src/` and
+# TODO   never in `BASE/src/`.
+src/bsn/lex.minia.c
 
 #   Bison object docs.
-minia.tab.h
-minia.tab.c
+build/src/bsn/minia.tab.h
+build/src/bsn/minia.tab.c
+# TODO     Make it so these docs appear only in `BASE/build/src/` and
+# TODO   never in `BASE/src/`.
+src/bsn/minia.tab.h
+src/bsn/minia.tab.c
 
 #   Bison reporting.
 src/bsn/minia.report
 src/bsn/minia.dot
 
 #   Object docs.
+build/src/*.c
+build/src/*.cpp
+build/src/*.h
+build/src/*/*.c
+build/src/*/*.cpp
+build/src/*/*.h
 build/debug/*.o
-build/release/*.o
+build/debug/amara_g_not_stripped
 build/debug/amara_g
+build/release/*.o
+build/release/amara_not_stripped
 build/release/amara
 
 #   macOS debugging symbols.
@@ -80,3 +101,6 @@ build/debug/minia.y
 
 #   Doxygen stuff.
 doxygen_reports/
+
+#   WIP cellar.
+valgrind_report

@@ -37,8 +37,12 @@ stt_expression_sub_conditional_if_default_constructor()
 {
 	stt_expression_sub_conditional_if * returning_;
 
-	returning_ = malloc(sizeof(stt_expression_sub_conditional_if));
-	assertion(returning_ != NULL);
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_expression_sub_conditional_if *)
+#endif
+			malloc(sizeof(stt_expression_sub_conditional_if));
+	forced_assertion(returning_ != NULL);
 
 	returning_->type_ = STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_INVALID;
 	returning_->condition_ = NULL;
@@ -54,8 +58,12 @@ stt_expression_sub_conditional_default_constructor()
 {
 	stt_expression_sub_conditional * returning_;
 
-	returning_ = malloc(sizeof(stt_expression_sub_conditional));
-	assertion(returning_ != NULL);
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+				(stt_expression_sub_conditional *)
+#endif
+			malloc(sizeof(stt_expression_sub_conditional));
+	forced_assertion(returning_ != NULL);
 
 	returning_->if_ = NULL;
 
@@ -103,7 +111,12 @@ stt_expression_sub_conditional_if_copy_constructor(
 	}
 	*/
 
-	returning_ = malloc(sizeof(stt_expression_sub_conditional_if));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_expression_sub_conditional_if *)
+#endif
+			malloc(sizeof(stt_expression_sub_conditional_if));
+	forced_assertion(returning_ != NULL);
 
 	returning_->condition_ = stt_condition_copy_constructor(
 			expression_sub_conditional_if->condition_);
@@ -151,8 +164,12 @@ stt_expression_sub_conditional_copy_constructor(
 	assertion(expression_sub_conditional != NULL);
 	assertion(expression_sub_conditional->if_ != NULL);
 
-	returning_ = malloc(sizeof(stt_expression_sub_conditional));
-	assertion(returning_ != NULL);
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_expression_sub_conditional *)
+#endif
+			malloc(sizeof(stt_expression_sub_conditional));
+	forced_assertion(returning_ != NULL);
 
 	returning_->if_ = stt_expression_sub_conditional_if_copy_constructor(
 			expression_sub_conditional->if_);

@@ -143,10 +143,12 @@ rtg_expression_default_constructor()
 {
 	rtg_expression * returning_;
 
-	returning_ = malloc(sizeof(rtg_expression));
-#ifndef NDEBUG
-	assertion(returning_ != NULL);
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_expression *)
 #endif
+			malloc(sizeof(rtg_expression));
+	forced_assertion(returning_ != NULL);
 
 	returning_->type_ = RTG_EXPRESSION_TYPE_INVALID;
 	returning_->sub_string_literal_ = NULL;
@@ -540,10 +542,12 @@ rtg_expression_out_of_stt_expression(const stt_expression * expression)
 		returning_sub_->type_ = RTG_EXPRESSION_TYPE_DICE;
 	}
 
-	returning_ = malloc(sizeof(rtg_expression_out_of_stt_expression_ret));
-#ifndef NDEBUG
-	assertion(returning_ != NULL);
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_expression_out_of_stt_expression_ret *)
 #endif
+			malloc(sizeof(rtg_expression_out_of_stt_expression_ret));
+	forced_assertion(returning_ != NULL);
 
 	returning_->expression = returning_sub_;
 	returning_->status =

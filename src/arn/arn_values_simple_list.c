@@ -24,7 +24,11 @@ arn_values_simple_list_default_constructor(void)
 {
 	arn_values_simple_list * values_;
 
-	values_ = malloc(sizeof(arn_values_simple_list));
+	values_ =
+#ifdef AMARA_USE_STD_CXX98
+			(arn_values_simple_list *)
+#endif
+			malloc(sizeof(arn_values_simple_list));
 	forced_assertion(values_ != NULL);
 	values_->first = NULL;
 	values_->next = NULL;
@@ -44,7 +48,11 @@ arn_values_simple_list_copy_constructor(
 
 	forced_assertion(list->next == NULL);
 
-	returning_ = malloc(sizeof(arn_values_simple_list));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(arn_values_simple_list *)
+#endif
+			malloc(sizeof(arn_values_simple_list));
 	forced_assertion(returning_ != NULL);
 
 	returning_->first = NULL;
@@ -75,7 +83,11 @@ arn_values_simple_list_out_of_arn_values_fixed_list_inner(
 	assertion(list->first != NULL);
 #endif
 
-	returning_ = malloc(sizeof(arn_values_simple_list));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(arn_values_simple_list *)
+#endif
+			malloc(sizeof(arn_values_simple_list));
 	forced_assertion(returning_ != NULL);
 
 	returning_->first = arn_value_copy_constructor(list->first);
@@ -108,7 +120,11 @@ arn_values_simple_list_out_of_arn_values_fixed_list(
 #ifndef NDEBUG
 		assertion(list->next == NULL);
 #endif
-		returning_ = malloc(sizeof(arn_values_simple_list));
+		returning_ =
+#ifdef AMARA_USE_STD_CXX98
+				(arn_values_simple_list *)
+#endif
+				malloc(sizeof(arn_values_simple_list));
 		forced_assertion(returning_ != NULL);
 		returning_->first = NULL;
 		returning_->next = NULL;
@@ -151,6 +167,7 @@ arn_values_simple_list_push_front(
 		arn_values_simple_list * values, const arn_value * value)
 {
 	arn_values_simple_list * new_list_node_;
+
 	assertion(values != NULL);
 	assertion(value != NULL);
 	if (values->first == NULL) {
@@ -158,7 +175,13 @@ arn_values_simple_list_push_front(
 		values->first = arn_value_copy_constructor(value);
 		return values;
 	}
-	new_list_node_ = malloc(sizeof(arn_values_simple_list));
+	new_list_node_ =
+#ifdef AMARA_USE_STD_CXX98
+			(arn_values_simple_list *)
+#endif
+			malloc(sizeof(arn_values_simple_list));
+	forced_assertion_two(new_list_node_ != NULL,
+			"arn_values_simple_list.c: 180\n");
 	new_list_node_->first = arn_value_copy_constructor(value);
 	new_list_node_->next = values;
 	return new_list_node_;
@@ -186,7 +209,13 @@ arn_values_simple_list_push_front_as_references_all_elements_of_arn_values_fixed
 		return destination;
 	}
 
-	returning_ = malloc(sizeof(arn_values_simple_list));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(arn_values_simple_list *)
+#endif
+			malloc(sizeof(arn_values_simple_list));
+	forced_assertion_two(returning_ != NULL,
+			"arn_values_simple_list.c: 217\n");
 
 	returning_->first = source->first;
 

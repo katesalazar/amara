@@ -32,7 +32,11 @@ rtg_named_functions_simple_list_default_constructor()
 {
 	rtg_named_functions_simple_list * ret_;
 
-	ret_ = malloc(sizeof(rtg_named_functions_simple_list));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_named_functions_simple_list *)
+#endif
+			malloc(sizeof(rtg_named_functions_simple_list));
 	forced_assertion(ret_ != NULL);
 	ret_->first = NULL;
 	ret_->next = NULL;
@@ -48,8 +52,14 @@ rtg_named_functions_simple_list_copy_constructor(
 	rtg_named_functions_simple_list * list_ptr_;
 	rtg_named_functions_simple_list * ret_ptr_;
 	rtg_named_function * named_function_;
+
 	assertion(list != NULL);
-	ret_ = malloc(sizeof(rtg_named_functions_simple_list));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_named_functions_simple_list *)
+#endif
+			malloc(sizeof(rtg_named_functions_simple_list));
+	forced_assertion(ret_ != NULL);
 	if (list->first == NULL) {
 		ret_->first = NULL;
 		assertion(list->next == NULL);
@@ -63,8 +73,12 @@ rtg_named_functions_simple_list_copy_constructor(
 				list_ptr_->first);
 		assertion(named_function_ != NULL);
 		ret_ptr_->first = named_function_;
-		ret_ptr_->next = malloc(sizeof(
-				rtg_named_functions_simple_list));
+		ret_ptr_->next =
+#ifdef AMARA_USE_STD_CXX98
+				(rtg_named_functions_simple_list *)
+#endif
+				malloc(sizeof(rtg_named_functions_simple_list));
+		forced_assertion(ret_ptr_->next != NULL);
 		list_ptr_ = list_ptr_->next;
 		ret_ptr_ = ret_ptr_->next;
 	}
@@ -106,7 +120,12 @@ rtg_named_functions_simple_list_push_front(
 				named_function);
 		return named_functions;
 	}
-	new_list_node_ = malloc(sizeof(rtg_named_functions_simple_list));
+	new_list_node_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_named_functions_simple_list *)
+#endif
+			malloc(sizeof(rtg_named_functions_simple_list));
+	forced_assertion(new_list_node_ != NULL);
 	new_list_node_->first =
 			rtg_named_function_copy_constructor(named_function);
 	new_list_node_->next = named_functions;
@@ -144,8 +163,11 @@ rtg_named_functions_simple_list_find_by_name(
 	rtg_named_functions_simple_list_find_by_name_ret * rec_ret_;
 	rtg_named_function * named_function_;
 
-	ret_ = malloc(sizeof(
-			rtg_named_functions_simple_list_find_by_name_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_named_functions_simple_list_find_by_name_ret *)
+#endif
+			malloc(sizeof(rtg_named_functions_simple_list_find_by_name_ret));
 	forced_assertion(ret_ != NULL);
 
 #ifdef DUMP_FLOW_TO_STDERR
@@ -233,8 +255,11 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 			__FILE__, __LINE__);
 #endif
 
-	ret_ = malloc(sizeof(
-			rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list_ret *)
+#endif
+			malloc(sizeof(rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list_ret));
 	forced_assertion(ret_ != NULL);
 
 	ret_->error_messages = NULL;
@@ -269,7 +294,11 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 
 	assertion(list->first != NULL);
 
-	sub_ret_ = malloc(sizeof(rtg_named_functions_simple_list));
+	sub_ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_named_functions_simple_list *)
+#endif
+			malloc(sizeof(rtg_named_functions_simple_list));
 	forced_assertion(sub_ret_ != NULL);
 
 	sub_ret_fun_ret_ = rtg_named_function_out_of_stt_named_function(list->first);
@@ -311,8 +340,11 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 
 		forced_assertion(list_ptr_->next->first != NULL);
 
-		sub_ret_ptr_->next = malloc(
-				sizeof(rtg_named_functions_simple_list));
+		sub_ret_ptr_->next =
+#ifdef AMARA_USE_STD_CXX98
+				(rtg_named_functions_simple_list *)
+#endif
+				malloc(sizeof(rtg_named_functions_simple_list));
 		forced_assertion(sub_ret_ptr_->next != NULL);
 
 		sub_ret_fun_ret_ =
@@ -390,7 +422,11 @@ rtg_named_functions_out_of_stt_doc(const stt_doc_subnode * subnode)
 			__FILE__, __LINE__);
 #endif
 
-	ret_ = malloc(sizeof(rtg_named_functions_out_of_stt_doc_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_named_functions_out_of_stt_doc_ret *)
+#endif
+			malloc(sizeof(rtg_named_functions_out_of_stt_doc_ret));
 	forced_assertion(ret_ != NULL);
 
 	ret_->status = RTG_NAMED_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_INVALID;

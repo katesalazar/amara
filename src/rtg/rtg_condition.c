@@ -100,10 +100,12 @@ rtg_condition_default_constructor()
 {
 	rtg_condition * returning_;
 
-	returning_ = malloc(sizeof(rtg_condition));
-#ifndef NDEBUG
-	assertion(returning_ != NULL);
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_condition *)
 #endif
+			malloc(sizeof(rtg_condition));
+	forced_assertion(returning_ != NULL);
 
 	returning_->type_ = RTG_CONDITION_TYPE_INVALID;
 	returning_->left_hand_side_expression_ = NULL;
@@ -130,10 +132,12 @@ rtg_condition_copy_constructor(const rtg_condition * condition)
 	assertion(condition->left_hand_side_expression_ != NULL);
 #endif
 
-	returning_ = malloc(sizeof(rtg_condition));
-#ifndef NDEBUG
-	assertion(returning_ != NULL);
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_condition *)
 #endif
+			malloc(sizeof(rtg_condition));
+	forced_assertion(returning_ != NULL);
 
 	returning_->left_hand_side_expression_ =
 			rtg_expression_copy_constructor(

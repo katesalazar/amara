@@ -26,7 +26,12 @@ stt_where_value_bindings_simple_list_default_constructor()
 {
 	stt_where_value_bindings_simple_list * returning_;
 
-	returning_ = malloc(sizeof(stt_where_value_bindings_simple_list));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_where_value_bindings_simple_list *)
+#endif
+			malloc(sizeof(stt_where_value_bindings_simple_list));
+	forced_assertion(returning_ != NULL);
 
 	returning_->first = NULL;
 	returning_->next = NULL;

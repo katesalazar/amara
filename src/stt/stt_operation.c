@@ -33,7 +33,13 @@ stt_operation_default_constructor()
 {
 	stt_operation * returning_;
 
-	returning_ = malloc(sizeof(stt_operation));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_operation *)
+#endif
+			malloc(sizeof(stt_operation));
+	forced_assertion(returning_ != NULL);
+
 	returning_->type_ = STT_OPERATION_TYPE_INVALID;
 	returning_->args_ = NULL;
 
@@ -44,12 +50,23 @@ stt_operation *
 stt_operation_copy_constructor(const stt_operation * operation)
 {
 	stt_operation * ret_;
+
 	assertion(operation != NULL);
 	assertion(operation->type_ != STT_OPERATION_TYPE_INVALID);
-	ret_ = malloc(sizeof(stt_operation));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_operation *)
+#endif
+			malloc(sizeof(stt_operation));
+	forced_assertion(ret_ != NULL);
+
 	ret_->args_ = stt_operation_args_simple_list_copy_constructor(
 			operation->args_);
+	forced_assertion(ret_->args_ != NULL);
+
 	ret_->type_ = operation->type_;
+
 	return ret_;
 }
 

@@ -24,7 +24,12 @@ arn_variable *
 arn_variable_default_constructor(void)
 {
 	arn_variable * variable_;
-	variable_ = malloc(sizeof(arn_variable));
+	variable_ =
+#ifdef AMARA_USE_STD_CXX98
+			(arn_variable *)
+#endif
+			malloc(sizeof(arn_variable));
+	forced_assertion_two(variable_ != NULL, "arn_variable.c: 28\n");
 	variable_->type_ = ARN_VARIABLE_TYPE_INVALID;
 	variable_->name_ = NULL;
 	variable_->natural_ = NULL;

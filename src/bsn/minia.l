@@ -286,7 +286,13 @@ _ {
       forced_assertion(yytext[14] == ' ');
 
       assertion(yytext[15] > 48 && yytext[15] < 58);
-      dice_left_hand_side_char_array_ = malloc(1 + 1);
+      dice_left_hand_side_char_array_ =
+#ifdef AMARA_USE_STD_CXX98
+          (char *)
+#endif
+          malloc(1 + 1);
+      forced_assertion_two(dice_left_hand_side_char_array_ != NULL,
+          "malloc failed\n");
       dice_left_hand_side_char_array_[0] = yytext[15];
       dice_left_hand_side_char_array_[1] = '\0';
       dice_left_hand_side_raw_natural_ =
@@ -297,7 +303,13 @@ _ {
       assertion(yytext[16] == ' ');
 
       if (yytext[17] == '4' || yytext[17] == '6' || yytext[17] == '8') {
-        dice_right_hand_side_char_array_ = malloc(1 + 1);
+        dice_right_hand_side_char_array_ =
+#ifdef AMARA_USE_STD_CXX98
+            (char *)
+#endif
+            malloc(1 + 1);
+        forced_assertion_two(dice_right_hand_side_char_array_ != NULL,
+            "malloc failed\n");
         dice_right_hand_side_char_array_[0] = yytext[17];
         dice_right_hand_side_char_array_[1] = '\0';
         forced_assertion(yytext[18] == ' ');
@@ -328,7 +340,13 @@ _ {
         forced_assertion(yytext[43] == 's');
       } else {
         assertion(yytext[17] == '1' || yytext[17] == '2');
-        dice_right_hand_side_char_array_ = malloc(2 + 1);
+        dice_right_hand_side_char_array_ =
+#ifdef AMARA_USE_STD_CXX98
+            (char *)
+#endif
+            malloc(2 + 1);
+        forced_assertion_two(dice_right_hand_side_char_array_ != NULL,
+            "malloc failed\n");
         dice_right_hand_side_char_array_[0] = yytext[17];
         if (yytext[17] == '1') {
           assertion(yytext[18] == '2');

@@ -30,7 +30,9 @@ A bunch of WIP utilities aimed at applications custom fast prototyping.
   * [debian stretch][11]
   * [macOS Mojave (the Xcode way)][33]
   * [macOS Mojave (the Homebrew way)][12]
+  * macOS Mojave (the vanilla way)
   * [any other][13]
+* features
 * [development tasks][14]
   * [active][15]
   * [stalled][16]
@@ -183,6 +185,27 @@ $ _
 ```
 
 
+### macOS Mojave (the vanilla way)
+
+1. Run `make`:
+
+```
+$ make
+[...]
+$ echo $?
+0
+$ _
+```
+
+2. Run `/PATH/TO/AMARA/build/release/amara`:
+
+```
+$ ./build/release/amara greet --no-banner
+Wish you have a wonderful day!
+$ _
+```
+
+
 ### any other
 
 Check out [`INSTALL_LEGACY.md`][5].
@@ -197,6 +220,10 @@ Check out [`INSTALL_LEGACY.md`][5].
 * Gcov instrumentation.
 
 * Lcov reporting.
+
+* Source compatibility with either C89 and C++98. Can build with C++ compilers
+  instead of only with C compilers, in order to ease embedding not only in C
+  programs but C++ programs too.
 
 
 ## coming ~~soon~~
@@ -307,6 +334,8 @@ Check out [`INSTALL_LEGACY.md`][5].
     Also parser reentrancy of Bison 2.3 is now arcane technology, considering
     the 3.1 era online documentation.
 
+    * Feature branch `reentrant-bison-parser`.
+
     * Alternatively, access the parsing and tokens scanning facilities by means
       of a queue of jobs to be parsed by a single proxy thread. This should
       allow to stick in Yacc mode as a means to be Bison 2.3 compatible and
@@ -320,9 +349,6 @@ Check out [`INSTALL_LEGACY.md`][5].
   devices_.
 
   * Proper use of `yyerror(...)` and similar facilities?
-
-* Can build with the C++ compilers instead of only with the C compilers,
-  in order to be embeddable in C++ programs.
 
 
 ## roadmap

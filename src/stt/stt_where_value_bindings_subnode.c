@@ -31,10 +31,12 @@ stt_where_value_bindings_subnode_default_constructor()
 {
 	stt_where_value_bindings_subnode * returning_;
 
-	returning_ = malloc(sizeof(stt_where_value_bindings_subnode));
-#ifndef NDEBUG
-	assertion(returning_ != NULL);
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_where_value_bindings_subnode *)
 #endif
+			malloc(sizeof(stt_where_value_bindings_subnode));
+	forced_assertion(returning_ != NULL);
 
 	returning_->where_value_bindings_ = NULL;
 
@@ -49,16 +51,23 @@ stt_where_value_bindings_subnode_exhaustive_constructor(
 
 	assertion(list != NULL);
 
-	returning_ = malloc(sizeof(stt_where_value_bindings_subnode));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_where_value_bindings_subnode *)
+#endif
+			malloc(sizeof(stt_where_value_bindings_subnode));
+	forced_assertion(returning_ != NULL);
 
 	returning_->where_value_bindings_ =
 			stt_where_value_bindings_simple_list_copy_constructor(
 					list);
-	assertion(returning_->where_value_bindings_ != NULL);
+	forced_assertion(returning_->where_value_bindings_ != NULL);
 	if (list->first == NULL) {
+#ifndef NDEBUG
 		assertion(returning_->where_value_bindings_->first == NULL);
+#endif
 	} else {
-		assertion(returning_->where_value_bindings_->first != NULL);
+		forced_assertion(returning_->where_value_bindings_->first != NULL);
 	}
 
 	return returning_;
@@ -74,11 +83,17 @@ stt_where_value_bindings_subnode_copy_constructor(
 	assertion(stt_where_value_bindings_subnode_->where_value_bindings_ !=
 			NULL);
 
-	returning_ = malloc(sizeof(stt_where_value_bindings_subnode));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_where_value_bindings_subnode *)
+#endif
+			malloc(sizeof(stt_where_value_bindings_subnode));
+	forced_assertion(returning_ != NULL);
 
 	returning_->where_value_bindings_ =
 			stt_where_value_bindings_simple_list_copy_constructor(
 					stt_where_value_bindings_subnode_->where_value_bindings_);
+	forced_assertion(returning_->where_value_bindings_ != NULL);
 
 	return returning_;
 }

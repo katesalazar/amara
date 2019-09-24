@@ -34,7 +34,12 @@ rtg_operation_arg_default_constructor()
 {
 	rtg_operation_arg * ret_;
 
-	ret_ = malloc(sizeof(rtg_operation_arg));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_operation_arg *)
+#endif
+			malloc(sizeof(rtg_operation_arg));
+	forced_assertion(ret_ != NULL);
 
 	ret_->string_literal_ = NULL;
 	ret_->natural_literal_ = NULL;
@@ -414,7 +419,11 @@ rtg_operation_arg_out_of_stt_operation_arg(
 	rtg_operation_arg * sub_ret_;
 	rtg_operation_arg_out_of_stt_operation_arg_ret * ret_;
 
-	ret_ = malloc(sizeof(rtg_operation_arg_out_of_stt_operation_arg_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_operation_arg_out_of_stt_operation_arg_ret *)
+#endif
+			malloc(sizeof(rtg_operation_arg_out_of_stt_operation_arg_ret));
 	forced_assertion(ret_ != NULL);
 	ret_->status = RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_INVALID;
 	ret_->operation_arg = NULL;
@@ -429,7 +438,11 @@ rtg_operation_arg_out_of_stt_operation_arg(
 				NULL);
 		assertion(operation_arg->node_->string_literal_subnode_->string_literal_->value_ !=
 				NULL);
-		sub_ret_ = malloc(sizeof(rtg_operation_arg));
+		sub_ret_ =
+#ifdef AMARA_USE_STD_CXX98
+				(rtg_operation_arg *)
+#endif
+				malloc(sizeof(rtg_operation_arg));
 		forced_assertion(sub_ret_ != NULL);
 		sub_ret_->string_literal_ = amara_string_copy_constructor(
 				operation_arg->node_->string_literal_subnode_->string_literal_);
@@ -448,7 +461,11 @@ rtg_operation_arg_out_of_stt_operation_arg(
 				NULL);
 		assertion(operation_arg->node_->natural_literal_subnode_->raw_ !=
 				NULL);
-		sub_ret_ = malloc(sizeof(rtg_operation_arg));
+		sub_ret_ =
+#ifdef AMARA_USE_STD_CXX98
+				(rtg_operation_arg *)
+#endif
+				malloc(sizeof(rtg_operation_arg));
 		forced_assertion(sub_ret_ != NULL);
 		sub_ret_->string_literal_ = NULL;
 		sub_ret_->natural_literal_ = amara_string_copy_constructor(
@@ -470,7 +487,12 @@ rtg_operation_arg_out_of_stt_operation_arg(
 				NULL);
 		assertion(operation_arg->node_->integer_literal_subnode_->raw_->value_ !=
 				NULL);
-		sub_ret_ = malloc(sizeof(rtg_operation_arg));
+		sub_ret_ =
+#ifdef AMARA_USE_STD_CXX98
+				(rtg_operation_arg *)
+#endif
+				malloc(sizeof(rtg_operation_arg));
+		forced_assertion(sub_ret_ != NULL);
 		sub_ret_->string_literal_ = NULL;
 		sub_ret_->natural_literal_ = NULL;
 		sub_ret_->integer_literal_ = amara_string_copy_constructor(
@@ -549,7 +571,11 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		} else {
 			/*   Found identifier in the function's scope. */
 
-		sub_ret_ = malloc(sizeof(rtg_operation_arg));
+		sub_ret_ =
+#ifdef AMARA_USE_STD_CXX98
+				(rtg_operation_arg *)
+#endif
+				malloc(sizeof(rtg_operation_arg));
 		forced_assertion(sub_ret_ != NULL);
 		sub_ret_->string_literal_ = NULL;
 		sub_ret_->natural_literal_ = NULL;
@@ -571,7 +597,11 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		assertion(operation_arg->node_->operation_subnode_ != NULL);
 		assertion(operation_arg->node_->operation_subnode_->operation_ !=
 				NULL);
-		sub_ret_ = malloc(sizeof(rtg_operation_arg));
+		sub_ret_ =
+#ifdef AMARA_USE_STD_CXX98
+				(rtg_operation_arg *)
+#endif
+				malloc(sizeof(rtg_operation_arg));
 		forced_assertion(sub_ret_ != NULL);
 		rtg_operation_out_of_stt_operation_ret_ =
 				rtg_operation_out_of_stt_operation(
@@ -601,7 +631,11 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		assertion(operation_arg->node_->expression_subnode_ != NULL);
 		assertion(operation_arg->node_->expression_subnode_->expression_ !=
 				NULL);
-		sub_ret_ = malloc(sizeof(rtg_operation_arg));
+		sub_ret_ =
+#ifdef AMARA_USE_STD_CXX98
+				(rtg_operation_arg *)
+#endif
+				malloc(sizeof(rtg_operation_arg));
 		forced_assertion(sub_ret_ != NULL);
 		rtg_expression_out_of_stt_expression_ret_ =
 				rtg_expression_out_of_stt_expression(

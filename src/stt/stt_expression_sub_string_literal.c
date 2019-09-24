@@ -40,10 +40,12 @@ stt_expression_sub_string_literal_copy_constructor(
 			NULL);
 #endif
 
-	returning_ = malloc(sizeof(stt_expression_sub_string_literal));
-#ifndef NDEBUG
-	assertion(returning_ != NULL);
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_expression_sub_string_literal *)
 #endif
+			malloc(sizeof(stt_expression_sub_string_literal));
+	forced_assertion(returning_ != NULL);
 
 	returning_->string_literal_ = amara_string_copy_constructor(
 			expression_sub_string_literal->string_literal_);
@@ -66,10 +68,12 @@ stt_expression_sub_string_literal_exhaustive_constructor(
 	assertion(string_literal->value_ != NULL);
 #endif
 
-	returning_ = malloc(sizeof(stt_expression_sub_string_literal));
-#ifndef NDEBUG
-	assertion(returning_ != NULL);
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_expression_sub_string_literal *)
 #endif
+			malloc(sizeof(stt_expression_sub_string_literal));
+	forced_assertion(returning_ != NULL);
 
 	returning_->string_literal_ =
 			amara_string_copy_constructor(string_literal);

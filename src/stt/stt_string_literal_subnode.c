@@ -30,8 +30,16 @@ stt_string_literal_subnode *
 stt_string_literal_subnode_default_constructor()
 {
 	stt_string_literal_subnode * ret_;
-	ret_ = malloc(sizeof(stt_string_literal_subnode));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_string_literal_subnode *)
+#endif
+			malloc(sizeof(stt_string_literal_subnode));
+	forced_assertion(ret_ != NULL);
+
 	ret_->string_literal_ = NULL;
+
 	return ret_;
 }
 
@@ -40,12 +48,22 @@ stt_string_literal_subnode_copy_constructor(
 		const stt_string_literal_subnode * subnode)
 {
 	stt_string_literal_subnode * ret_;
+
 	assertion(subnode != NULL);
 	assertion(subnode->string_literal_ != NULL);
 	assertion(subnode->string_literal_->value_ != NULL);
-	ret_ = malloc(sizeof(stt_string_literal_subnode));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_string_literal_subnode *)
+#endif
+			malloc(sizeof(stt_string_literal_subnode));
+	forced_assertion(ret_ != NULL);
+
 	ret_->string_literal_ = amara_string_copy_constructor(
 			subnode->string_literal_);
+	forced_assertion(ret_->string_literal_ != NULL);
+
 	return ret_;
 }
 
@@ -54,8 +72,17 @@ stt_string_literal_subnode_exhaustive_constructor(
 		const amara_string * string_literal)
 {
 	stt_string_literal_subnode * ret_;
-	ret_ = malloc(sizeof(stt_string_literal_subnode));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_string_literal_subnode *)
+#endif
+			malloc(sizeof(stt_string_literal_subnode));
+	forced_assertion(ret_ != NULL);
+
 	ret_->string_literal_ = amara_string_copy_constructor(string_literal);
+	forced_assertion(ret_->string_literal_ != NULL);
+
 	return ret_;
 }
 

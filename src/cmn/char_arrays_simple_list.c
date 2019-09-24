@@ -44,24 +44,55 @@ char_arrays_simple_list_copy_constructor(const char_arrays_simple_list * list)
 	char_arrays_simple_list * ret_;
 	char_arrays_simple_list * ret_ptr_;
 	const char_arrays_simple_list * list_ptr_;
+
 	assertion(list != NULL);
 	if (list->first == NULL) {
 		assertion(list->next == NULL);
-		ret_ = malloc(sizeof(char_arrays_simple_list));
+		ret_ =
+#ifdef AMARA_USE_STD_CXX98
+				(char_arrays_simple_list *)
+#endif
+				malloc(sizeof(char_arrays_simple_list));
+		forced_assertion_two(ret_ != NULL,
+				"malloc failed: char_arrays_simple_list.c: 56\n");
 		ret_->first = NULL;
 		ret_->next = NULL;
 		return ret_;
 	}
-	ret_ = malloc(sizeof(char_arrays_simple_list));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char_arrays_simple_list *)
+#endif
+			malloc(sizeof(char_arrays_simple_list));
+	forced_assertion_two(ret_ != NULL,
+			"malloc failed: char_arrays_simple_list.c: 67\n");
 	assertion(list->first != NULL);
-	ret_->first = malloc(strlen(list->first) + 1);
+	ret_->first =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(strlen(list->first) + 1);
+	forced_assertion_two(ret_->first != NULL,
+			"malloc failed: char_arrays_simple_list.c: 72\n");
 	strcpy(ret_->first, list->first);
 	ret_ptr_ = ret_;
 	list_ptr_ = list->next;
 	while (list_ptr_ != NULL) {
-		ret_ptr_->next = malloc(sizeof(char_arrays_simple_list));
+		ret_ptr_->next =
+#ifdef AMARA_USE_STD_CXX98
+				(char_arrays_simple_list *)
+#endif
+				malloc(sizeof(char_arrays_simple_list));
+		forced_assertion_two(ret_ptr_->next != NULL,
+				"malloc failed: char_arrays_simple_list.c: 74\n");
 		assertion(list_ptr_->first != NULL);
-		ret_ptr_->next->first = malloc(strlen(list_ptr_->first) + 1);
+		ret_ptr_->next->first =
+#ifdef AMARA_USE_STD_CXX98
+				(char *)
+#endif
+				malloc(strlen(list_ptr_->first) + 1);
+		forced_assertion_two(ret_ptr_->next->first != NULL,
+				"malloc failed: char_arrays_simple_list.c: 94\n");
 		strcpy(ret_ptr_->next->first, list_ptr_->first);
 		ret_ptr_ = ret_ptr_->next;
 		list_ptr_ = list_ptr_->next;
@@ -86,16 +117,35 @@ char_arrays_simple_list_push_front(
 		char_arrays_simple_list * list, char * char_array)
 {
 	char_arrays_simple_list * new_node_;
+
 	assertion(list != NULL);
 	assertion(char_array != NULL);
 	if (list->first == NULL) {
 		assertion(list->next == NULL);
-		list->first = malloc(strlen(char_array) + 1);
+		list->first =
+#ifdef AMARA_USE_STD_CXX98
+				(char *)
+#endif
+				malloc(strlen(char_array) + 1);
+		forced_assertion_two(list->first != NULL,
+				"malloc failed: char_arrays_simple_list.c: 126\n");
 		strcpy(list->first, char_array);
 		return list;
 	}
-	new_node_ = malloc(sizeof(char_arrays_simple_list));
-	new_node_->first = malloc(strlen(char_array) + 1);
+	new_node_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char_arrays_simple_list *)
+#endif
+			malloc(sizeof(char_arrays_simple_list));
+	forced_assertion_two(new_node_ != NULL,
+			"malloc failed: char_arrays_simple_list.c: 140\n");
+	new_node_->first =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(strlen(char_array) + 1);
+	forced_assertion_two(new_node_->first != NULL,
+			"malloc failed: char_arrays_simple_list.c: 147\n");
 	strcpy(new_node_->first, char_array);
 	new_node_->next = list;
 	return new_node_;
@@ -144,7 +194,13 @@ char_arrays_simple_list_concat(
 	while (ptr_in_ != NULL) {
 		ptr_out_->next = char_arrays_simple_list_default_constructor();
 		assertion(ptr_in_->first != NULL);
-		ptr_out_->next->first = malloc(strlen(ptr_in_->first) + 1);
+		ptr_out_->next->first =
+#ifdef AMARA_USE_STD_CXX98
+				(char *)
+#endif
+				malloc(strlen(ptr_in_->first) + 1);
+		forced_assertion_two(ptr_out_->next->first != NULL,
+				"malloc failed, char_arrays_simple_list.c: 202\n");
 		strcpy(ptr_out_->next->first, ptr_in_->first);
 		ptr_out_ = ptr_out_->next;
 		ptr_in_ = ptr_in_->next;

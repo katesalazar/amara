@@ -25,7 +25,11 @@ arn_variables_simple_list *
 arn_variables_simple_list_default_constructor(void)
 {
 	arn_variables_simple_list * variables;
-	variables = malloc(sizeof(arn_variables_simple_list));
+	variables =
+#ifdef AMARA_USE_STD_CXX98
+			(arn_variables_simple_list *)
+#endif
+			malloc(sizeof(arn_variables_simple_list));
 	variables->first = NULL;
 	variables->next = NULL;
 	return variables;

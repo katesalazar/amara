@@ -30,9 +30,17 @@ rtg_execution_request *
 rtg_execution_request_default_constructor()
 {
 	rtg_execution_request * ret_;
-	ret_ = malloc(sizeof(rtg_execution_request));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_execution_request *)
+#endif
+			malloc(sizeof(rtg_execution_request));
+	forced_assertion(ret_ != NULL);
+
 	ret_->type_ = RTG_EXECUTION_REQUEST_TYPE_INVALID;
 	ret_->application_ = NULL;
+
 	return ret_;
 }
 
@@ -43,13 +51,25 @@ rtg_execution_request_exhaustive_constructor(
 {
 	rtg_execution_request * ret_;
 	rtg_application * application_;
-	ret_ = malloc(sizeof(rtg_execution_request));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_execution_request *)
+#endif
+			malloc(sizeof(rtg_execution_request));
+	forced_assertion(ret_ != NULL);
+
+#ifndef NDEBUG
 	assertion(requested_type != RTG_APPLICATION_TYPE_INVALID);
 	assertion(application != NULL);
+#endif
+
 	ret_->type_ = requested_type;
+
 	application_ = rtg_application_copy_constructor(application);
-	assertion(application_ != NULL);
+	forced_assertion(application_ != NULL);
 	ret_->application_ = application_;
+
 	return ret_;
 }
 
@@ -59,13 +79,22 @@ rtg_execution_request_copy_constructor(
 {
 	rtg_execution_request * ret_;
 	rtg_application * application_;
-	ret_ = malloc(sizeof(rtg_execution_request));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_execution_request *)
+#endif
+			malloc(sizeof(rtg_execution_request));
+	forced_assertion(ret_ != NULL);
+
 	assertion(execution_request != NULL);
 	ret_->type_ = execution_request->type_;
+
 	application_ = rtg_application_copy_constructor(
 			execution_request->application_);
-	assertion(application_ != NULL);
+	forced_assertion(application_ != NULL);
 	ret_->application_ = application_;
+
 	return ret_;
 }
 
@@ -117,8 +146,11 @@ rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_l
 	rtg_application * application_requested_to_be_executed_;
 	rtg_applications_simple_list_find_by_name_ret * find_rtg_application_requested_to_be_executed_ret_;
 
-	ret_ = malloc(sizeof(
-			rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret *)
+#endif
+			malloc(sizeof(rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret));
 	forced_assertion(ret_ != NULL);
 
 	ret_->status = RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_INVALID;

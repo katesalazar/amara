@@ -28,7 +28,13 @@ stt_execution_request_default_constructor()
 {
 	stt_execution_request * ret_;
 
-	ret_ = malloc(sizeof(stt_execution_request));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_execution_request *)
+#endif
+			malloc(sizeof(stt_execution_request));
+	forced_assertion(ret_ != NULL);
+
 	ret_->application_name_ = NULL;
 	ret_->type_ = STT_EXECUTION_REQUEST_TYPE_INVALID;
 
@@ -47,7 +53,12 @@ stt_execution_request_copy_constructor(
 	assertion(execution_request->application_name_ != NULL);
 	assertion(execution_request->application_name_->value_ != NULL);
 
-	ret_ = malloc(sizeof(stt_execution_request));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_execution_request *)
+#endif
+			malloc(sizeof(stt_execution_request));
+	forced_assertion(ret_ != NULL);
 
 	ret_->application_name_ = amara_string_copy_constructor(
 			execution_request->application_name_);

@@ -34,11 +34,19 @@ stt_named_function *
 stt_named_function_default_constructor()
 {
 	stt_named_function * ret_;
-	ret_ = malloc(sizeof(stt_named_function));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_named_function *)
+#endif
+			malloc(sizeof(stt_named_function));
+	forced_assertion(ret_ != NULL);
+
 	ret_->type_ = STT_NAMED_FUNCTION_TYPE_INVALID;
 	ret_->name_ = NULL;
 	ret_->operations_ = NULL;
 	ret_->where_value_bindings_ = NULL;
+
 	return ret_;
 }
 
@@ -53,7 +61,14 @@ stt_named_function_exhaustive_constructor(
 		assertion(name == NULL);
 		assertion(operations == NULL);
 		assertion(where_value_bindings_ == NULL);
-		ret_ = malloc(sizeof(stt_named_function));
+
+		ret_ =
+#ifdef AMARA_USE_STD_CXX98
+				(stt_named_function *)
+#endif
+				malloc(sizeof(stt_named_function));
+		forced_assertion(ret_ != NULL);
+
 		ret_->type_ = STT_NAMED_FUNCTION_TYPE_INVALID;
 		ret_->name_ = NULL;
 		ret_->operations_ = NULL;
@@ -76,8 +91,13 @@ stt_named_function_exhaustive_constructor(
 	assertion(operations->next == NULL);
 	*/
 
-	ret_ = malloc(sizeof(stt_named_function));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_named_function *)
+#endif
+			malloc(sizeof(stt_named_function));
 	forced_assertion(ret_ != NULL);
+
 	ret_->type_ = STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION;
 	ret_->name_ = amara_string_copy_constructor(name);
 	ret_->operations_ = stt_operations_simple_list_copy_constructor(
@@ -100,13 +120,21 @@ stt_named_function *
 stt_named_function_copy_constructor(const stt_named_function * named_function)
 {
 	stt_named_function * ret_;
+
 	assertion(named_function != NULL);
 	assertion(named_function->type_ != STT_NAMED_FUNCTION_TYPE_INVALID);
 	assertion(named_function->name_ != NULL);
 	assertion(named_function->name_->value_ != NULL);
 	assertion(named_function->operations_ != NULL);
 	assertion(named_function->where_value_bindings_ != NULL);
-	ret_ = malloc(sizeof(stt_named_function));
+
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(stt_named_function *)
+#endif
+			malloc(sizeof(stt_named_function));
+	forced_assertion(ret_ != NULL);
+
 	ret_->operations_ = stt_operations_simple_list_copy_constructor(
 			named_function->operations_);
 	ret_->where_value_bindings_ =
@@ -114,6 +142,7 @@ stt_named_function_copy_constructor(const stt_named_function * named_function)
 					named_function->where_value_bindings_);
 	ret_->name_ = amara_string_copy_constructor(named_function->name_);
 	ret_->type_ = named_function->type_;
+
 	return ret_;
 }
 

@@ -28,8 +28,13 @@ rtg_execution_requests_simple_list_default_constructor()
 {
 	rtg_execution_requests_simple_list * ret_;
 
-	ret_ = malloc(sizeof(rtg_execution_requests_simple_list));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_execution_requests_simple_list *)
+#endif
+			malloc(sizeof(rtg_execution_requests_simple_list));
 	forced_assertion(ret_ != NULL);
+
 	ret_->first = NULL;
 	ret_->next = NULL;
 
@@ -49,7 +54,11 @@ rtg_execution_requests_simple_list_copy_constructor(
 		return rtg_execution_requests_simple_list_default_constructor();
 	}
 
-	ret_ = malloc(sizeof(rtg_execution_requests_simple_list));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_execution_requests_simple_list *)
+#endif
+			malloc(sizeof(rtg_execution_requests_simple_list));
 	forced_assertion(ret_ != NULL);
 	if (list->first == NULL) {
 		assertion(list->next == NULL);
@@ -64,8 +73,12 @@ rtg_execution_requests_simple_list_copy_constructor(
 				list_ptr_->first);
 		assertion(execution_request_ != NULL);
 		ret_ptr_->first = execution_request_;
-		ret_ptr_->next = malloc(sizeof(
-				rtg_execution_requests_simple_list));
+		ret_ptr_->next =
+#ifdef AMARA_USE_STD_CXX98
+				(rtg_execution_requests_simple_list *)
+#endif
+				malloc(sizeof(rtg_execution_requests_simple_list));
+		forced_assertion(ret_ptr_->next != NULL);
 		list_ptr_ = list_ptr_->next;
 		ret_ptr_ = ret_ptr_->next;
 	}
@@ -93,6 +106,7 @@ rtg_execution_requests_simple_list_destructor(
 	if (list->next != NULL) {
 		rtg_execution_requests_simple_list_destructor(list->next);
 	}
+
 	free(list);
 }
 
@@ -102,7 +116,8 @@ rtg_execution_requests_simple_list_push_front(
 		const rtg_execution_request * execution_request)
 {
 	rtg_execution_requests_simple_list * new_node_;
-	assertion(execution_requests != NULL);
+
+	forced_assertion(execution_requests != NULL);
 	if (execution_requests->first == NULL) {
 		assertion(execution_requests->next == NULL);
 		execution_requests->first =
@@ -110,7 +125,12 @@ rtg_execution_requests_simple_list_push_front(
 						execution_request);
 		return execution_requests;
 	}
-	new_node_ = malloc(sizeof(rtg_execution_requests_simple_list));
+	new_node_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_execution_requests_simple_list *)
+#endif
+			malloc(sizeof(rtg_execution_requests_simple_list));
+	forced_assertion(new_node_ != NULL);
 	new_node_->first = rtg_execution_request_copy_constructor(
 			execution_request);
 	new_node_->next = execution_requests;
@@ -128,8 +148,11 @@ rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and
 	const stt_execution_requests_simple_list * stt_execution_requests_ptr_;
 	rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret * sub_ret_execution_request_ret_;
 
-	ret_ = malloc(sizeof(
-			rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list_ret *)
+#endif
+			malloc(sizeof(rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list_ret));
 	forced_assertion(ret_ != NULL);
 
 	ret_->error_messages = NULL;
@@ -152,7 +175,11 @@ rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and
 		return ret_;
 	}
 	forced_assertion(stt_execution_requests->first != NULL);
-	sub_ret_ = malloc(sizeof(rtg_execution_requests_simple_list));
+	sub_ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_execution_requests_simple_list *)
+#endif
+			malloc(sizeof(rtg_execution_requests_simple_list));
 	forced_assertion(sub_ret_ != NULL);
 	sub_ret_execution_request_ret_ =
 			rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list(
@@ -182,7 +209,11 @@ rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and
 	sub_ret_ptr_ = sub_ret_;
 	while (stt_execution_requests_ptr_->next != NULL) {
 		assertion(stt_execution_requests_ptr_->next->first != NULL);
-		sub_ret_ptr_->next = malloc(sizeof(rtg_execution_requests_simple_list));
+		sub_ret_ptr_->next =
+#ifdef AMARA_USE_STD_CXX98
+				(rtg_execution_requests_simple_list *)
+#endif
+				malloc(sizeof(rtg_execution_requests_simple_list));
 		forced_assertion(sub_ret_ptr_->next != NULL);
 		sub_ret_execution_request_ret_ =
 				rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list(
@@ -264,8 +295,12 @@ rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list(
 {
 	rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret * ret_;
 	rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list_ret * sub_ret_;
-	ret_ = malloc(sizeof(
-			rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret *)
+#endif
+			malloc(sizeof(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret));
+	forced_assertion(ret_ != NULL);
 	ret_->status = RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_INVALID;
 	ret_->execution_requests = NULL;
 	sub_ret_ = rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list(

@@ -37,7 +37,11 @@ rtg_expression_sub_dice_copy_constructor(
 	forced_assertion(expression_sub_dice->right_hand_side_natural_ !=
 			NULL);
 
-	returning_ = malloc(sizeof(rtg_expression_sub_dice));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_expression_sub_dice *)
+#endif
+			malloc(sizeof(rtg_expression_sub_dice));
 	forced_assertion(returning_ != NULL);
 
 	returning_->left_hand_side_natural_ = natural_copy_constructor(
@@ -61,7 +65,11 @@ rtg_expression_sub_dice_out_of_stt_expression_sub_dice(
 	assertion(expression_sub_dice->left_hand_side_natural_ != NULL);
 	assertion(expression_sub_dice->right_hand_side_natural_ != NULL);
 
-	returning_ = malloc(sizeof(rtg_expression_sub_dice));
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_expression_sub_dice *)
+#endif
+			malloc(sizeof(rtg_expression_sub_dice));
 	forced_assertion(returning_ != NULL);
 
 	returning_->left_hand_side_natural_ = natural_copy_constructor(
