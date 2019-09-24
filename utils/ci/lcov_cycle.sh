@@ -103,20 +103,23 @@ fi
 		echo 'nice -n 19 ./build/debug/amara_g run app examples/0_hello_world'
 		nice -n 19 ./build/debug/amara_g \
 				run app examples/0_hello_world
+		echo 'nice -n 19 ./build/debug/amara_g run app examples/0_hello_world --no-banner'
+		nice -n 19 ./build/debug/amara_g \
+				run app examples/0_hello_world --no-banner
 		# echo 'nice -n 19 ./build/debug/amara_g run app examples/1_operations_sequencing/'
 		# nice -n 19 ./build/debug/amara_g \
 		# 		run app examples/1_operations_sequencing/
 # 		if test "${branch}" = 'integration' -o "${branch}" = 'master'
 # 		then
-			echo "nice -n 19 ./build/debug/amara_g run app 'examples/'"
-			nice -n 19 ./build/debug/amara_g \
-					run app 'examples/'
-			echo "nice -n 19 ./build/debug/amara_g run app 'examples/2_naturals_substraction'"
-			nice -n 19 ./build/debug/amara_g \
-					run app 'examples/2_naturals_substraction'
-			echo "nice -n 19 ./build/debug/amara_g run app 'examples/3_naturals_division/'"
-			nice -n 19 ./build/debug/amara_g \
-					run app 'examples/3_naturals_division/'
+# 			echo "nice -n 19 ./build/debug/amara_g run app 'examples/'"
+# 			nice -n 19 ./build/debug/amara_g \
+# 					run app 'examples/'
+# 			echo "nice -n 19 ./build/debug/amara_g run app 'examples/2_naturals_substraction'"
+# 			nice -n 19 ./build/debug/amara_g \
+# 					run app 'examples/2_naturals_substraction'
+# 			echo "nice -n 19 ./build/debug/amara_g run app 'examples/3_naturals_division/'"
+# 			nice -n 19 ./build/debug/amara_g \
+# 					run app 'examples/3_naturals_division/'
 # 		fi
 # 		if test "${branch}" = 'integration' -o "${branch}" = 'master'
 # 		then
@@ -134,14 +137,14 @@ fi
 				says
 # 		if test "${branch}" = 'integration' -o "${branch}" = 'master'
 # 		then
-			echo 'nice -n 19 ./build/debug/amara_g run app examples/0_hello_world/'
-			nice -n 19 ./build/debug/amara_g run app examples/0_hello_world/
+# 			echo 'nice -n 19 ./build/debug/amara_g run app examples/0_hello_world/'
+# 			nice -n 19 ./build/debug/amara_g run app examples/0_hello_world/
 			# echo 'nice -n 19 ./build/debug/amara_g run app examples/1_operations_sequencing'
 			# nice -n 19 ./build/debug/amara_g run app examples/1_operations_sequencing
 # 		if test "${branch}" = 'integration' -o "${branch}" = 'master'
 # 		then
-			echo "nice -n 19 ./build/debug/amara_g run app 'examples/2_naturals_substraction/'"
-			nice -n 19 ./build/debug/amara_g run app 'examples/2_naturals_substraction/'
+# 			echo "nice -n 19 ./build/debug/amara_g run app 'examples/2_naturals_substraction/'"
+# 			nice -n 19 ./build/debug/amara_g run app 'examples/2_naturals_substraction/'
 # 		fi
 			echo 'nice -n 19 ./build/debug/amara_g greet --no-banner'
 			nice -n 19 ./build/debug/amara_g greet --no-banner
@@ -178,6 +181,11 @@ fi
 		echo 'nice -n 19 ./build/debug/amara_g run app examples/foo_is_not_any_existing_dir/'
 		nice -n 19 ./build/debug/amara_g \
 				run app examples/foo_is_not_any_existing_dir/
+		mkdir examples/foo_is_an_existing_dir/
+		echo 'nice -n 19 ./build/debug/amara_g run app examples/foo_is_an_existing_dir/'
+		nice -n 19 ./build/debug/amara_g \
+				run app examples/foo_is_an_existing_dir/
+		rmdir examples/foo_is_an_existing_dir/
 		echo 'nice -n 19 ./build/debug/amara_g says hello to the world'
 		nice -n 19 ./build/debug/amara_g \
 				says hello to the world
@@ -221,7 +229,7 @@ fi
 		./utils/qa/run_examples.py
 		echo 'runned examples...'
 
-		echo 99 | ./build/debug/amara_g run app ./examples/7_fahrenheit_to_celsius_stdin/ --no-banner
+# 		echo 99 | ./build/debug/amara_g run app ./examples/7_fahrenheit_to_celsius_stdin/ --no-banner
 
 		true &&
 				#   Removed the `gcov` call because it seemed
