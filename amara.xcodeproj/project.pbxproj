@@ -52,6 +52,7 @@
 		CF5D0E102167E1FB00C73CA2 /* stt_rational_literal_subnode_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CF5D0E0C2167E1FB00C73CA2 /* stt_rational_literal_subnode_tests.c */; };
 		CF66A059217A558F004D0B09 /* arn_values_simple_list.c in Sources */ = {isa = PBXBuildFile; fileRef = CF66A058217A558F004D0B09 /* arn_values_simple_list.c */; };
 		CF66A05B217A55B7004D0B09 /* arn_value.c in Sources */ = {isa = PBXBuildFile; fileRef = CF66A05A217A55B7004D0B09 /* arn_value.c */; };
+		CF705D54232253AE0029126F /* minia.tab.c in Sources */ = {isa = PBXBuildFile; fileRef = CF705D53232253AE0029126F /* minia.tab.c */; };
 		CF7AA87A22539669004CBEA1 /* amara_strings_simple_list_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CF7AA87922539669004CBEA1 /* amara_strings_simple_list_tests.c */; };
 		CF7B83CD21A709E800E82390 /* stt_expression_sub_identifier_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CF7B83C921A709E700E82390 /* stt_expression_sub_identifier_tests.c */; };
 		CF7B83CE21A709E800E82390 /* stt_where_value_bindings_simple_list_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CF7B83CA21A709E700E82390 /* stt_where_value_bindings_simple_list_tests.c */; };
@@ -123,7 +124,6 @@
 		CF9518312157D39D004D3F16 /* common_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CF95182C2157D39D004D3F16 /* common_tests.c */; };
 		CF9518322157D39D004D3F16 /* amara_string.c in Sources */ = {isa = PBXBuildFile; fileRef = CF95182D2157D39D004D3F16 /* amara_string.c */; };
 		CF9518352157D3AD004D3F16 /* lex.minia.c in Sources */ = {isa = PBXBuildFile; fileRef = CF9518332157D3AD004D3F16 /* lex.minia.c */; };
-		CF9518362157D3AD004D3F16 /* minia.tab.c in Sources */ = {isa = PBXBuildFile; fileRef = CF9518342157D3AD004D3F16 /* minia.tab.c */; };
 		CF95183B2157D3B9004D3F16 /* natural.c in Sources */ = {isa = PBXBuildFile; fileRef = CF9518372157D3B8004D3F16 /* natural.c */; };
 		CF95183C2157D3B9004D3F16 /* basic_arithmetic_tests.c in Sources */ = {isa = PBXBuildFile; fileRef = CF9518382157D3B8004D3F16 /* basic_arithmetic_tests.c */; };
 		CF95183D2157D3B9004D3F16 /* rational.c in Sources */ = {isa = PBXBuildFile; fileRef = CF9518392157D3B8004D3F16 /* rational.c */; };
@@ -221,6 +221,7 @@
 		CF5D0E0C2167E1FB00C73CA2 /* stt_rational_literal_subnode_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = stt_rational_literal_subnode_tests.c; path = src/stt/stt_rational_literal_subnode_tests.c; sourceTree = "<group>"; };
 		CF66A058217A558F004D0B09 /* arn_values_simple_list.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = arn_values_simple_list.c; path = src/arn/arn_values_simple_list.c; sourceTree = "<group>"; };
 		CF66A05A217A55B7004D0B09 /* arn_value.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = arn_value.c; path = src/arn/arn_value.c; sourceTree = "<group>"; };
+		CF705D53232253AE0029126F /* minia.tab.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = minia.tab.c; path = src/bsn/minia.tab.c; sourceTree = "<group>"; };
 		CF7AA87922539669004CBEA1 /* amara_strings_simple_list_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = amara_strings_simple_list_tests.c; path = src/cmn/amara_strings_simple_list_tests.c; sourceTree = "<group>"; };
 		CF7B83C921A709E700E82390 /* stt_expression_sub_identifier_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = stt_expression_sub_identifier_tests.c; path = src/stt/stt_expression_sub_identifier_tests.c; sourceTree = "<group>"; };
 		CF7B83CA21A709E700E82390 /* stt_where_value_bindings_simple_list_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = stt_where_value_bindings_simple_list_tests.c; path = src/stt/stt_where_value_bindings_simple_list_tests.c; sourceTree = "<group>"; };
@@ -292,7 +293,6 @@
 		CF95182C2157D39D004D3F16 /* common_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = common_tests.c; path = src/cmn/common_tests.c; sourceTree = "<group>"; };
 		CF95182D2157D39D004D3F16 /* amara_string.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = amara_string.c; path = src/cmn/amara_string.c; sourceTree = "<group>"; };
 		CF9518332157D3AD004D3F16 /* lex.minia.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = lex.minia.c; path = src/bsn/lex.minia.c; sourceTree = "<group>"; };
-		CF9518342157D3AD004D3F16 /* minia.tab.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = minia.tab.c; path = src/bsn/minia.tab.c; sourceTree = "<group>"; };
 		CF9518372157D3B8004D3F16 /* natural.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = natural.c; path = src/brt/natural.c; sourceTree = "<group>"; };
 		CF9518382157D3B8004D3F16 /* basic_arithmetic_tests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = basic_arithmetic_tests.c; path = src/brt/basic_arithmetic_tests.c; sourceTree = "<group>"; };
 		CF9518392157D3B8004D3F16 /* rational.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = rational.c; path = src/brt/rational.c; sourceTree = "<group>"; };
@@ -362,6 +362,7 @@
 				CF10B9B9222698F50030F34E /* rtg */,
 			);
 			name = src;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		CF10B9B9222698F50030F34E /* rtg */ = {
@@ -552,10 +553,10 @@
 		CF10B9C022269A400030F34E /* bsn */ = {
 			isa = PBXGroup;
 			children = (
+				CF705D53232253AE0029126F /* minia.tab.c */,
 				CF0CF2882263273B00D8CE3E /* bison_tests.c */,
 				CF0CF2892263273B00D8CE3E /* flex_tests.c */,
 				CF9518332157D3AD004D3F16 /* lex.minia.c */,
-				CF9518342157D3AD004D3F16 /* minia.tab.c */,
 			);
 			name = bsn;
 			sourceTree = "<group>";
@@ -593,10 +594,19 @@
 			name = ftr;
 			sourceTree = "<group>";
 		};
-		CFFEB3232157CD2F00527450 = {
+		CF705D4E2322530B0029126F /* build */ = {
 			isa = PBXGroup;
 			children = (
 				CF10B9B8222698F10030F34E /* src */,
+			);
+			name = build;
+			path = buiold/build;
+			sourceTree = "<group>";
+		};
+		CFFEB3232157CD2F00527450 = {
+			isa = PBXGroup;
+			children = (
+				CF705D4E2322530B0029126F /* build */,
 				CFFEB32D2157CD2F00527450 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -635,7 +645,7 @@
 		CFFEB3242157CD2F00527450 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = gs;
 				TargetAttributes = {
 					CFFEB32B2157CD2F00527450 = {
@@ -690,7 +700,6 @@
 				CF376D7321654022000736E5 /* natural_tests.c in Sources */,
 				CF95181B2157D357004D3F16 /* rtg_applications_simple_list.c in Sources */,
 				CF7FB86B219587A20063D890 /* stt_expression_sub_dice.c in Sources */,
-				CF9518362157D3AD004D3F16 /* minia.tab.c in Sources */,
 				CF7FB865219587A20063D890 /* stt_where_value_binding_subnode.c in Sources */,
 				CF376D5921653F7B000736E5 /* stt_string_literal_subnode_tests.c in Sources */,
 				CFD55539227AFE0A00A44D9B /* app_runner_tests.c in Sources */,
@@ -758,6 +767,7 @@
 				CF7B83CF21A709E800E82390 /* stt_dice_expression_tests.c in Sources */,
 				CFFFACBC21DFC93000B45764 /* rtg_where_value_bindings_simple_list_tests.c in Sources */,
 				CF7FB866219587A20063D890 /* stt_dice_expression.c in Sources */,
+				CF705D54232253AE0029126F /* minia.tab.c in Sources */,
 				CFA5DC2E2188E84B00D16B4B /* arn_values_fixed_list_tests.c in Sources */,
 				CF376D6C21653F96000736E5 /* rtg_applications_simple_list_tests.c in Sources */,
 				CFA37D7C21979BB500055191 /* stt_expression_tests.c in Sources */,
@@ -840,6 +850,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -847,6 +858,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -895,6 +907,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -902,6 +915,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

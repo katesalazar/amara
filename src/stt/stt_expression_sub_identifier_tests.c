@@ -31,8 +31,8 @@ stt_expression_sub_identifier_example_foo()
 	stt_expression_sub_identifier * expression_sub_;
 
 	identifier_ = amara_string_exhaustive_constructor("foo");
+	forced_assertion(identifier_ != NULL);
 #ifndef NDEBUG
-	assertion(identifier_ != NULL);
 	assertion(identifier_->value_ != NULL);
 	assertion(identifier_->value_[0] == 0x66);  /* 102: 'f'. */
 	assertion(identifier_->value_[1] == 0x6F);  /* 111: 'o'. */
@@ -42,8 +42,8 @@ stt_expression_sub_identifier_example_foo()
 
 	expression_sub_ = stt_expression_sub_identifier_exhaustive_constructor(
 			identifier_);
+	forced_assertion(expression_sub_ != NULL);
 #ifndef NDEBUG
-	assertion(expression_sub_ != NULL);
 	assertion(expression_sub_->identifier_ != NULL);
 	assertion(expression_sub_->identifier_->value_ != NULL);
 	assertion(expression_sub_->identifier_->value_[0] == 0x66);  /* 102: 'f'. */
@@ -75,14 +75,14 @@ assert_expectations_on_stt_expression_sub_identifier_example_foo(
 #endif
 
 void
-stt_expression_sub_identifier_constructors_test_0()
+stt_expression_sub_identifier_exhaustive_constructor_test_0()
 {
 	amara_string * identifier_;
 	stt_expression_sub_identifier * expression_sub_;
 
 	identifier_ = amara_string_exhaustive_constructor("foo");
+	forced_assertion(identifier_ != NULL);
 #ifndef NDEBUG
-	assertion(identifier_ != NULL);
 	assertion(identifier_->value_ != NULL);
 	assertion(identifier_->value_[0] == 0x66);  /* 102: 'f'. */
 	assertion(identifier_->value_[1] == 0x6F);  /* 111: 'o'. */
@@ -92,8 +92,8 @@ stt_expression_sub_identifier_constructors_test_0()
 
 	expression_sub_ = stt_expression_sub_identifier_exhaustive_constructor(
 			identifier_);
+	forced_assertion(expression_sub_ != NULL);
 #ifndef NDEBUG
-	assertion(expression_sub_ != NULL);
 	assertion(expression_sub_->identifier_ != NULL);
 	assertion(expression_sub_->identifier_->value_ != NULL);
 	assertion(expression_sub_->identifier_->value_[0] == 0x66);  /* 102: 'f'. */
@@ -107,9 +107,31 @@ stt_expression_sub_identifier_constructors_test_0()
 }
 
 void
+stt_expression_sub_identifier_exhaustive_constructor_test_1()
+{
+	stt_expression_sub_identifier * expression_sub_;
+
+	expression_sub_ = stt_expression_sub_identifier_example_foo();
+	forced_assertion(expression_sub_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_expression_sub_identifier_example_foo(
+			expression_sub_);
+#endif
+
+	stt_expression_sub_identifier_destructor(expression_sub_);
+}
+
+void
+stt_expression_sub_identifier_exhaustive_constructor_tests()
+{
+	stt_expression_sub_identifier_exhaustive_constructor_test_0();
+	stt_expression_sub_identifier_exhaustive_constructor_test_1();
+}
+
+void
 stt_expression_sub_identifier_constructors_tests()
 {
-	stt_expression_sub_identifier_constructors_test_0();
+	stt_expression_sub_identifier_exhaustive_constructor_tests();
 }
 
 void

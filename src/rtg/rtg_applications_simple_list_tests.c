@@ -345,6 +345,10 @@ rtg_applications_simple_list_transformation_constructor_test_1()
 			target_ret_->applications);
 #endif
 
+#ifndef NDEBUG
+	assertion(target_ret_->error_messages == NULL);
+#endif
+	rtg_applications_simple_list_destructor(target_ret_->applications);
 	/*
 	rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret_destructor(
 			target_ret_);

@@ -222,15 +222,16 @@ arn_type_out_of_rtg_expression_test_0()
 	arn_type * type_;
 
 	expression_ = rtg_expression_example_simple_conditional();
+	forced_assertion(expression_ != NULL);
 #ifndef NDEBUG
 	assert_expectations_on_rtg_expression_example_simple_conditional(
 			expression_);
 #endif
 
 	type_ = arn_type_out_of_rtg_expression(expression_);
+	forced_assertion(type_ != NULL);
 	fprintf(stderr, "%u\n", type_->type_);
 #ifndef NDEBUG
-	assertion(type_ != NULL);
 	assertion(type_->type_ != ARN_TYPE_TYPE_INVALID);
 	assertion(type_->type_ != ARN_TYPE_TYPE_TYPE_ERROR_HAPPENED);
 	assertion(type_->type_ == ARN_TYPE_TYPE_STRING);

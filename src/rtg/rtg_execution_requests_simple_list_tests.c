@@ -79,41 +79,81 @@ rtg_execution_requests_simple_list_construct_and_destruct_test_1()
 	rtg_execution_request * execution_request_one_;
 
 	list_zero_ = rtg_execution_requests_simple_list_default_constructor();
-	assertion(list_zero_ != NULL);
+	forced_assertion(list_zero_ != NULL);
+#ifndef NDEBUG
 	assertion(list_zero_->first == NULL);
 	assertion(list_zero_->next == NULL);
+#endif
 
 	execution_request_zero_ = rtg_execution_request_example_execute_foo();
-	assertion(execution_request_zero_ != NULL);
-	assertion(execution_request_zero_->application_ != NULL);
+	forced_assertion(execution_request_zero_ != NULL);
+	forced_assertion(execution_request_zero_->application_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_execution_request_example_execute_foo(
+			execution_request_zero_);
+#endif
 
 	execution_request_one_ = rtg_execution_request_example_execute_bar();
-	assertion(execution_request_one_ != NULL);
-	assertion(execution_request_one_->application_ != NULL);
+	forced_assertion(execution_request_one_ != NULL);
+	forced_assertion(execution_request_one_->application_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_execution_request_example_execute_bar(
+			execution_request_one_);
+#endif
 
 	list_zero_ = rtg_execution_requests_simple_list_push_front(
 			list_zero_, execution_request_zero_);
-	assertion(list_zero_->first != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_execution_request_example_execute_foo(
+			execution_request_zero_);
+#endif
+	forced_assertion(list_zero_->first != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_execution_request_example_execute_foo(
+			list_zero_->first);
 	assertion(list_zero_->next == NULL);
+#endif
+
+	rtg_execution_request_destructor(execution_request_zero_);
 
 	list_zero_ = rtg_execution_requests_simple_list_push_front(
 			list_zero_, execution_request_one_);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_execution_request_example_execute_bar(
+			execution_request_one_);
 	assertion(list_zero_->first != NULL);
+	assert_expectations_on_rtg_execution_request_example_execute_bar(
+			list_zero_->first);
 	assertion(list_zero_->next != NULL);
 	assertion(list_zero_->next->first != NULL);
+	assert_expectations_on_rtg_execution_request_example_execute_foo(
+			list_zero_->next->first);
 	assertion(list_zero_->next->next == NULL);
+#endif
+
+	rtg_execution_request_destructor(execution_request_one_);
 
 	list_one_ = rtg_execution_requests_simple_list_copy_constructor(
 			list_zero_);
+#ifndef NDEBUG
 	assertion(list_zero_->first != NULL);
+	assert_expectations_on_rtg_execution_request_example_execute_bar(
+			list_zero_->first);
 	assertion(list_zero_->next != NULL);
 	assertion(list_zero_->next->first != NULL);
+	assert_expectations_on_rtg_execution_request_example_execute_foo(
+			list_zero_->next->first);
 	assertion(list_zero_->next->next == NULL);
 	assertion(list_one_ != NULL);
 	assertion(list_one_->first != NULL);
+	assert_expectations_on_rtg_execution_request_example_execute_bar(
+			list_one_->first);
 	assertion(list_one_->next != NULL);
 	assertion(list_one_->next->first != NULL);
+	assert_expectations_on_rtg_execution_request_example_execute_foo(
+			list_one_->next->first);
 	assertion(list_one_->next->next == NULL);
+#endif
 
 	rtg_execution_requests_simple_list_destructor(list_one_);
 	rtg_execution_requests_simple_list_destructor(list_zero_);
@@ -288,6 +328,8 @@ rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and
 			RTG_EXECUTION_REQUESTS_SIMPLE_LIST_OUT_OF_STT_EXECUTION_REQUESTS_SIMPLE_LIST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
 	assertion(target_ret_->execution_requests != NULL);
 
+	rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list_ret_destructor(
+			target_ret_);
 	rtg_applications_simple_list_destructor(rtg_applications_);
 	rtg_application_destructor(rtg_application_);
 	stt_execution_requests_simple_list_destructor(stt_execution_requests_);

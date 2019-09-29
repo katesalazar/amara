@@ -25,8 +25,10 @@ UNAME_S = $(shell uname -s)
 # $(info Platform: $(UNAME_S))
 
 ifeq ($(UNAME_S), Darwin)
-BISON ?= /usr/local/Cellar/bison/3.1/bin/bison
-FLEX ?= /usr/local/Cellar/flex/2.6.4/bin/flex
+# BISON ?= /usr/local/Cellar/bison/3.4.1/bin/bison
+BISON ?= bison
+# FLEX ?= /usr/local/Cellar/flex/2.6.4/bin/flex
+FLEX ?= flex
 XCODE ?= 1
 else
 BISON ?= bison
@@ -43,6 +45,9 @@ CFLAGS_GENERAL += -ansi
 # $(info $(CFLAGS_GENERAL))
 CFLAGS_PARTICULAR_FLEX += -ansi
 # $(info $(CFLAGS_PARTICULAR_FLEX))
+else
+CFLAGS_GENERAL += -D__APPLE__
+CFLAGS_PARTICULAR_FLEX += -D__APPLE__
 endif
 
 CFLAGS_GENERAL += -pedantic -Wall -Wextra
@@ -393,6 +398,7 @@ BUILD_SRC = \
 	$(BUILD_DIR_SRC)/brt/integer.$(CEXT) \
 	$(BUILD_DIR_SRC)/brt/integer_tests.$(CEXT) \
 	$(BUILD_DIR_SRC)/main.$(CEXT) \
+	$(BUILD_DIR_SRC)/bsn/bison_annex.$(CEXT) \
 	$(BUILD_DIR_SRC)/bsn/lex.minia.$(CEXT) \
 	$(BUILD_DIR_SRC)/bsn/minia.tab.$(CEXT) \
 	$(BUILD_DIR_SRC)/brt/natural.$(CEXT) \
@@ -535,6 +541,7 @@ OBJ_DEBUG = \
 		$(BUILD_DIR_DEBUG)/arg.o \
 		$(BUILD_DIR_DEBUG)/assertion.o \
 		$(BUILD_DIR_DEBUG)/basic_arithmetic_tests.o \
+		$(BUILD_DIR_DEBUG)/bison_annex.o \
 		$(BUILD_DIR_DEBUG)/bison_tests.o \
 		$(BUILD_DIR_DEBUG)/char_array.o \
 		$(BUILD_DIR_DEBUG)/char_array_tests.o \
@@ -688,6 +695,7 @@ OBJ_RELEASE = \
 		$(BUILD_DIR_RELEASE)/arg.o \
 		$(BUILD_DIR_RELEASE)/assertion.o \
 		$(BUILD_DIR_RELEASE)/basic_arithmetic_tests.o \
+		$(BUILD_DIR_RELEASE)/bison_annex.o \
 		$(BUILD_DIR_RELEASE)/bison_tests.o \
 		$(BUILD_DIR_RELEASE)/char_array.o \
 		$(BUILD_DIR_RELEASE)/char_array_tests.o \
@@ -1085,6 +1093,10 @@ $(BUILD_DIR_RELEASE)/arg.o: \
 		$(BUILD_DIR_SRC)/asr/assertion.$(HEXT)
 	$(C) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
+$(BUILD_DIR_SRC)/definitions.$(HEXT): \
+		$(SRC_DIR)/definitions.h
+	$(CP) $< $@
+
 $(BUILD_DIR_SRC)/cmn/amara_boolean.$(HEXT): \
 		$(SRC_DIR)/cmn/amara_boolean.h
 	$(CP) $< $@
@@ -1134,6 +1146,26 @@ $(BUILD_DIR_RELEASE)/basic_arithmetic_tests.o: \
 		$(BUILD_DIR_SRC)/brt/integer_tests.$(HEXT) \
 		$(BUILD_DIR_SRC)/brt/natural_tests.$(HEXT) \
 		$(BUILD_DIR_SRC)/brt/rational_tests.$(HEXT)
+	$(C) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_SRC)/bsn/bison_annex.$(HEXT): \
+		$(SRC_DIR)/bsn/bison_annex.h
+	$(CP) $< $@
+
+$(BUILD_DIR_SRC)/bsn/bison_annex.$(CEXT): \
+		$(SRC_DIR)/bsn/bison_annex.c
+	$(CP) $< $@
+
+$(BUILD_DIR_DEBUG)/bison_annex.o: \
+		$(BUILD_DIR_SRC)/bsn/bison_annex.$(CEXT) \
+		$(BUILD_DIR_SRC)/bsn/bison_annex.$(HEXT) \
+		$(BUILD_DIR_SRC)/stt/stt_node.$(HEXT)
+	$(C) $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/bison_annex.o: \
+		$(BUILD_DIR_SRC)/bsn/bison_annex.$(CEXT) \
+		$(BUILD_DIR_SRC)/bsn/bison_annex.$(HEXT) \
+		$(BUILD_DIR_SRC)/stt/stt_node.$(HEXT)
 	$(C) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_SRC)/bsn/bison_tests.$(HEXT): \
@@ -1312,6 +1344,7 @@ $(BUILD_DIR_DEBUG)/minia.tab.o: \
 		$(BUILD_DIR_SRC)/bsn/minia.tab.$(CEXT) \
 		$(BUILD_DIR_SRC)/bsn/minia.tab.$(HEXT) \
 		$(BUILD_DIR_SRC)/bsn/minia.y \
+		$(BUILD_DIR_SRC)/bsn/bison_annex.$(HEXT) \
 		$(BUILD_DIR_SRC)/asr/assertion.$(HEXT) \
 		$(BUILD_DIR_SRC)/brt/natural.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_node.$(HEXT)
@@ -1321,6 +1354,7 @@ $(BUILD_DIR_RELEASE)/minia.tab.o: \
 		$(BUILD_DIR_SRC)/bsn/minia.tab.$(CEXT) \
 		$(BUILD_DIR_SRC)/bsn/minia.tab.$(HEXT) \
 		$(BUILD_DIR_SRC)/bsn/minia.y \
+		$(BUILD_DIR_SRC)/bsn/bison_annex.$(HEXT) \
 		$(BUILD_DIR_SRC)/asr/assertion.$(HEXT) \
 		$(BUILD_DIR_SRC)/brt/natural.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_node.$(HEXT)
@@ -1631,6 +1665,7 @@ $(BUILD_DIR_DEBUG)/arn_value_tests.o: \
 		$(BUILD_DIR_SRC)/arn/arn_value_tests.$(HEXT) \
 		$(BUILD_DIR_SRC)/arn/arn_value.$(HEXT) \
 		$(BUILD_DIR_SRC)/brt/natural.$(HEXT) \
+		$(BUILD_DIR_SRC)/rtg/rtg_expression_sub_dice_tests.$(HEXT) \
 		$(BUILD_DIR_SRC)/rtg/rtg_where_value_binding.$(HEXT)
 	$(C) $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
@@ -1639,6 +1674,7 @@ $(BUILD_DIR_RELEASE)/arn_value_tests.o: \
 		$(BUILD_DIR_SRC)/arn/arn_value_tests.$(HEXT) \
 		$(BUILD_DIR_SRC)/arn/arn_value.$(HEXT) \
 		$(BUILD_DIR_SRC)/brt/natural.$(HEXT) \
+		$(BUILD_DIR_SRC)/rtg/rtg_expression_sub_dice_tests.$(HEXT) \
 		$(BUILD_DIR_SRC)/rtg/rtg_where_value_binding.$(HEXT)
 	$(C) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
@@ -3365,12 +3401,14 @@ $(BUILD_DIR_SRC)/stt/stt_expression_sub_conditional.$(CEXT): \
 $(BUILD_DIR_DEBUG)/stt_expression_sub_conditional.o: \
 		$(BUILD_DIR_SRC)/stt/stt_expression_sub_conditional.$(CEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_expression_sub_conditional.$(HEXT) \
+		$(BUILD_DIR_SRC)/definitions.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_expression.$(HEXT)
 	$(C) $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
 $(BUILD_DIR_RELEASE)/stt_expression_sub_conditional.o: \
 		$(BUILD_DIR_SRC)/stt/stt_expression_sub_conditional.$(CEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_expression_sub_conditional.$(HEXT) \
+		$(BUILD_DIR_SRC)/definitions.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_expression.$(HEXT)
 	$(C) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
@@ -3943,6 +3981,7 @@ $(BUILD_DIR_DEBUG)/stt_node_tests.o: \
 		$(BUILD_DIR_SRC)/stt/stt_doc_subnode.$(HEXT) \
 		$(BUILD_DIR_SRC)/cmn/char_array.$(HEXT) \
 		$(BUILD_DIR_SRC)/cmn/char_arrays_simple_list.$(HEXT) \
+		$(BUILD_DIR_SRC)/stt/stt_application_subnode_tests.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_named_function_tests.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_named_function_subnode_tests.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_doc_subnode_tests.$(HEXT) \
@@ -3956,6 +3995,7 @@ $(BUILD_DIR_RELEASE)/stt_node_tests.o: \
 		$(BUILD_DIR_SRC)/stt/stt_doc_subnode.$(HEXT) \
 		$(BUILD_DIR_SRC)/cmn/char_array.$(HEXT) \
 		$(BUILD_DIR_SRC)/cmn/char_arrays_simple_list.$(HEXT) \
+		$(BUILD_DIR_SRC)/stt/stt_application_subnode_tests.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_named_function_tests.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_named_function_subnode_tests.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_doc_subnode_tests.$(HEXT) \
@@ -4194,7 +4234,8 @@ $(BUILD_DIR_RELEASE)/stt_operations_list_subnode_tests.o: \
 
 $(BUILD_DIR_SRC)/stt/stt_operations_simple_list.$(HEXT): \
 		$(SRC_DIR)/stt/stt_operations_simple_list.h \
-		$(BUILD_DIR_SRC)/stt/stt_operation.$(HEXT)
+		$(BUILD_DIR_SRC)/stt/stt_operation.$(HEXT) \
+		$(BUILD_DIR_SRC)/definitions.$(HEXT)
 	$(CP) $< $@
 
 $(BUILD_DIR_SRC)/stt/stt_operations_simple_list.$(CEXT): \

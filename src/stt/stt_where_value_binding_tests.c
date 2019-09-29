@@ -259,9 +259,66 @@ stt_where_value_binding_default_constructor_test()
 }
 
 void
+stt_where_value_binding_exhaustive_constructor_test_0()
+{
+	stt_where_value_binding * where_value_binding_;
+
+	where_value_binding_ =
+			stt_where_value_binding_example_simple_value_bind_foo_to_zero();
+	forced_assertion(where_value_binding_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_binding_example_simple_value_bind_foo_to_zero(
+			where_value_binding_);
+#endif
+
+	stt_where_value_binding_destructor(where_value_binding_);
+}
+
+void
+stt_where_value_binding_exhaustive_constructor_test_1()
+{
+	stt_where_value_binding * where_value_binding_;
+
+	where_value_binding_ =
+			stt_where_value_binding_example_simple_value_bind_bar_to_one();
+	forced_assertion(where_value_binding_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_binding_example_simple_value_bind_bar_to_one(
+			where_value_binding_);
+#endif
+
+	stt_where_value_binding_destructor(where_value_binding_);
+}
+
+void
+stt_where_value_binding_exhaustive_constructor_test_2()
+{
+	stt_where_value_binding * where_value_binding_;
+
+	where_value_binding_ =
+			stt_where_value_binding_example_identifier_foo_is_bound_to_string_literal_foo();
+	forced_assertion(where_value_binding_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_binding_example_identifier_foo_is_bound_to_string_literal_foo(
+			where_value_binding_);
+#endif
+
+	stt_where_value_binding_destructor(where_value_binding_);
+}
+
+void
+stt_where_value_binding_exhaustive_constructor_tests()
+{
+	stt_where_value_binding_exhaustive_constructor_test_0();
+	stt_where_value_binding_exhaustive_constructor_test_1();
+	stt_where_value_binding_exhaustive_constructor_test_2();
+}
+
+void
 stt_where_value_binding_constructors_tests()
 {
 	stt_where_value_binding_default_constructor_test();
+	stt_where_value_binding_exhaustive_constructor_tests();
 }
 
 void

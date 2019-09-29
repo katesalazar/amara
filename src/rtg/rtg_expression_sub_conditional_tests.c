@@ -50,11 +50,18 @@ rtg_expression_sub_conditional_example_simple_conditional()
 
 	returning_ = rtg_expression_sub_conditional_out_of_stt_expression_sub_conditional(
 			stt_expression_sub_conditional_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_expression_sub_conditional_example_simple_conditional(
+			stt_expression_sub_conditional_);
+#endif
 	forced_assertion(returning_ != NULL);
 #ifndef NDEBUG
 	assert_expectations_on_rtg_expression_sub_conditional_example_simple_conditional(
 			returning_);
 #endif
+
+	stt_expression_sub_conditional_destructor(
+			stt_expression_sub_conditional_);
 
 	return returning_;
 }

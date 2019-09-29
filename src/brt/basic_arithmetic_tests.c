@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -274,6 +274,9 @@ fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_test_0()
 					raw_natural_);
 	assertion(ret_->status ==
 			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_OK);
+	amara_string_destructor((amara_string *) raw_natural_);
+	fit_raw_natural_in_unsigned_char_ret_destructor(
+			(fit_raw_natural_in_unsigned_char_ret *) ret_);
 }
 
 void
@@ -288,6 +291,9 @@ fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_test_1()
 					raw_natural_);
 	assertion(ret_->status ==
 			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_OK);
+	amara_string_destructor((amara_string *) raw_natural_);
+	fit_raw_natural_in_unsigned_char_ret_destructor(
+			(fit_raw_natural_in_unsigned_char_ret *) ret_);
 }
 
 void
@@ -302,6 +308,9 @@ fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_test_2()
 					raw_natural_);
 	assertion(ret_->status ==
 			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_OK);
+	amara_string_destructor((amara_string *) raw_natural_);
+	fit_raw_natural_in_unsigned_char_ret_destructor(
+			(fit_raw_natural_in_unsigned_char_ret *) ret_);
 }
 
 void
@@ -316,6 +325,9 @@ fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_test_3()
 					raw_natural_);
 	assertion(ret_->status ==
 			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_DOES_NOT_FIT);
+	amara_string_destructor((amara_string *) raw_natural_);
+	fit_raw_natural_in_unsigned_char_ret_destructor(
+			(fit_raw_natural_in_unsigned_char_ret *) ret_);
 }
 
 void
@@ -330,6 +342,9 @@ fit_raw_natural_in_unsigned_char_inner_might_fit_or_not_test_4()
 					raw_natural_);
 	assertion(ret_->status ==
 			FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_DOES_NOT_FIT);
+	amara_string_destructor((amara_string *) raw_natural_);
+	fit_raw_natural_in_unsigned_char_ret_destructor(
+			(fit_raw_natural_in_unsigned_char_ret *) ret_);
 }
 
 void
@@ -490,9 +505,10 @@ raw_naturals_euclidean_quotient_as_raw_natural_test__0()
 			amara_string_exhaustive_constructor(
 					expected_raw_natural_chars_array_);
 	assertion(amara_string_equality(ret_, expected_raw_natural_));
-	amara_string_destructor((amara_string *) ret_);
-	amara_string_destructor((amara_string *) raw_natural_one_);
 	amara_string_destructor((amara_string *) raw_natural_zero_);
+	amara_string_destructor((amara_string *) raw_natural_one_);
+	amara_string_destructor((amara_string *) ret_);
+	amara_string_destructor((amara_string *) expected_raw_natural_);
 	/* FIXME attempt to free a non heap object */
 	/*
 	free((char *) raw_natural_one_chars_array_);
@@ -552,17 +568,32 @@ simplify_natural_literal_nodes_substraction_test_0()
 	const stt_node * natural_literal_stt_node_zero_ =
 			stt_node_wrapping_raw_natural(raw_natural_zero_);
 	const char * raw_natural_one_chars_array_ = "23";
-	const amara_string * raw_natural_one_ =
-			amara_string_exhaustive_constructor(
-					raw_natural_one_chars_array_);
-	const stt_node * natural_literal_stt_node_one_ =
+	const amara_string * raw_natural_one_;
+	const stt_node * natural_literal_stt_node_one_;
+	const stt_node * result_;
+	const char * expectation_raw_chars_array_;
+	const amara_string * expectation_raw_;
+
+	raw_natural_one_ = amara_string_exhaustive_constructor(
+			raw_natural_one_chars_array_);
+	forced_assertion(raw_natural_one_ != NULL);
+	natural_literal_stt_node_one_ =
 			stt_node_wrapping_raw_natural(raw_natural_one_);
-	const stt_node * result_ = simplify_natural_literal_nodes_substraction(
+	forced_assertion(natural_literal_stt_node_one_ != NULL);
+	result_ = simplify_natural_literal_nodes_substraction(
 			natural_literal_stt_node_zero_,
 			natural_literal_stt_node_one_);
-	const char * expectation_raw_chars_array_ = "0";
-	const amara_string * expectation_raw_ =
-			amara_string_default_constructor();
+	forced_assertion(result_ != NULL);
+	expectation_raw_chars_array_ = "0";
+	forced_assertion(expectation_raw_chars_array_ != NULL);
+	expectation_raw_ = amara_string_default_constructor();
+	forced_assertion(expectation_raw_ != NULL);
+
+	forced_assertion(raw_natural_zero_chars_array_ != NULL);
+	forced_assertion(raw_natural_zero_ != NULL);
+	forced_assertion(natural_literal_stt_node_zero_ != NULL);
+	forced_assertion(raw_natural_one_chars_array_ != NULL);
+
 	amara_string_set_value(
 			(amara_string *) expectation_raw_,
 			expectation_raw_chars_array_);
@@ -572,6 +603,8 @@ simplify_natural_literal_nodes_substraction_test_0()
 				result_->natural_literal_subnode_->raw_,
 				expectation_raw_) ==
 			AMARA_BOOLEAN_TRUE);
+
+	amara_string_destructor((amara_string *) expectation_raw_);
 	/* FIXME attempt to free a non heap object */
 	/*
 	free((char *) expectation_raw_chars_array_);

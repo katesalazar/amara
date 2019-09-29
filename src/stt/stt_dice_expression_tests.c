@@ -78,6 +78,9 @@ stt_dice_expression_example_single_vanilla_dice()
 			ret_);
 #endif
 
+	natural_destructor(left_hand_side_natural_);
+	natural_destructor(right_hand_side_natural_);
+
 	return ret_;
 }
 

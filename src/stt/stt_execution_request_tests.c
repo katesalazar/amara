@@ -29,12 +29,15 @@ stt_execution_request_example_print_foo()
 	stt_execution_request * ret_;
 
 	ret_ = stt_execution_request_default_constructor();
-	assertion(ret_ != NULL);
+	forced_assertion(ret_ != NULL);
 
 	ret_->application_name_ = amara_string_exhaustive_constructor(
 			"cli_app_print_foo");
-	assertion(ret_->application_name_ != NULL);
+	forced_assertion(ret_->application_name_ != NULL);
+#ifndef NDEBUG
 	assertion(ret_->application_name_->value_ != NULL);
+#endif
+
 	ret_->type_ = STT_EXECUTION_REQUEST_TYPE_CLI_APPLICATION;
 
 	return ret_;

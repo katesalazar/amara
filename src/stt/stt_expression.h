@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,20 +43,20 @@
  * stt_expression_sub_string_literal`. */
 #include "stt_expression_sub_string_literal.h"
 
-#define STT_EXPRESSION_TYPE_INVALID             0x00
-#define STT_EXPRESSION_TYPE_STRING_LITERAL      0x01
+#define STT_EXPRESSION_TYPE_INVALID             0x21  /* 33: '!'. */
+#define STT_EXPRESSION_TYPE_STRING_LITERAL      0x22  /* 34: '"'. */
 /* #define STT_EXPRESSION_TYPE_BOOLEAN_LITERAL  0x02 */
-#define STT_EXPRESSION_TYPE_NATURAL_LITERAL     0x03
+#define STT_EXPRESSION_TYPE_NATURAL_LITERAL     0x23  /* 35: '#'. */
 /* #define STT_EXPRESSION_TYPE_INTEGER_LITERAL  0x04 */
 /* #define STT_EXPRESSION_TYPE_RATIONAL_LITERAL 0x05 */
-#define STT_EXPRESSION_TYPE_IDENTIFIER          0x06
-#define STT_EXPRESSION_TYPE_CONDITIONAL         0x07
+#define STT_EXPRESSION_TYPE_IDENTIFIER          0x24  /* 36: '$'. */
+#define STT_EXPRESSION_TYPE_CONDITIONAL         0x25  /* 37: '%'. */
 /* #define STT_EXPRESSION_TYPE_ADDITION         0x08 */
 /* #define STT_EXPRESSION_TYPE_SUBSTRACTION     0x09 */
 /* #define STT_EXPRESSION_TYPE_MULTIPLICATION   0x0A */
 /* #define STT_EXPRESSION_TYPE_DIVISION         0x0B */
 /* #define STT_EXPRESSION_TYPE_EXPONENTIATION   0x0C */
-#define STT_EXPRESSION_TYPE_DICE                0x0D
+#define STT_EXPRESSION_TYPE_DICE                0x26  /* 38: '&'. */
 
 typedef struct stt_expression {
 
@@ -148,5 +148,15 @@ stt_expression_assert_cleanliness(const stt_expression * expression)
 ;
 
 #endif  /* NDEBUG */
+
+amara_boolean
+stt_expression_equality(const stt_expression * e0, const stt_expression * e1)
+__attribute__((warn_unused_result))
+;
+
+amara_boolean
+stt_expressions_equality(const stt_expression * e0, const stt_expression * e1)
+__attribute__((warn_unused_result))
+;
 
 #endif  /* __AMARA__SYNTAX_TREE__EXPRESSION__H__ */

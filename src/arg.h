@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,9 @@
  *
  * src/arg.h: Amara arguments parser.
  */
+
+#ifndef __AMARA__ARG__H__
+#define __AMARA__ARG__H__
 
 typedef struct {
 
@@ -46,3 +49,5 @@ __attribute__((warn_unused_result));
 
 void
 destroy_arg_ret(arg_ret * arg_ret);
+
+#endif

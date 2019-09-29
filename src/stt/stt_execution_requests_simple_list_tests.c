@@ -31,10 +31,14 @@ void
 stt_execution_requests_simple_list_construct_and_destruct_test_0()
 {
 	stt_execution_requests_simple_list * list_;
+
 	list_ = stt_execution_requests_simple_list_default_constructor();
-	assertion(list_ != NULL);
+	forced_assertion(list_ != NULL);
+#ifndef NDEBUG
 	assertion(list_->first == NULL);
 	assertion(list_->next == NULL);
+#endif
+
 	stt_execution_requests_simple_list_destructor(list_);
 }
 
@@ -43,9 +47,14 @@ stt_execution_requests_simple_list_construct_and_destruct_test_1()
 {
 	stt_execution_requests_simple_list * list_zero_;
 	stt_execution_requests_simple_list * list_one_;
+
 	list_zero_ = stt_execution_requests_simple_list_default_constructor();
+	forced_assertion(list_zero_ != NULL);
+
 	list_one_ = stt_execution_requests_simple_list_copy_constructor(
 			list_zero_);
+	forced_assertion(list_one_ != NULL);
+
 	stt_execution_requests_simple_list_destructor(list_one_);
 	stt_execution_requests_simple_list_destructor(list_zero_);
 }
@@ -57,21 +66,48 @@ stt_execution_requests_simple_list_construct_and_destruct_test_2()
 	stt_execution_requests_simple_list * list_one_;
 	stt_execution_request * execution_request_;
 	amara_string * execution_request_name_;
+
 	list_zero_ = stt_execution_requests_simple_list_default_constructor();
+	forced_assertion(list_zero_ != NULL);
+#ifndef NDEBUG
+	assertion(list_zero_->first == NULL);
+	assertion(list_zero_->next == NULL);
+#endif
+
 	execution_request_ = stt_execution_request_default_constructor();
-	assertion(execution_request_ != NULL);
+	forced_assertion(execution_request_ != NULL);
+#ifndef NDEBUG
 	assertion(execution_request_->type_ ==
 			STT_EXECUTION_REQUEST_TYPE_INVALID);
+#endif
+
 	execution_request_name_ = amara_string_exhaustive_constructor("foo");
+	forced_assertion(execution_request_name_ != NULL);
+#ifndef NDEBUG
+	assertion(execution_request_name_->value_ != NULL);
+#endif
+
 	stt_execution_request_set_application_name(
 			execution_request_, execution_request_name_);
+	/* XXX missing assertions here. */
+
+	amara_string_destructor(execution_request_name_);
+
 	stt_execution_request_set_type(
 			execution_request_,
 			STT_EXECUTION_REQUEST_TYPE_CLI_APPLICATION);
+	/* XXX missing assertions here? */
+
 	list_zero_ = stt_execution_requests_simple_list_push_front(
 			list_zero_, execution_request_);
+	/* XXX missing assertions here. */
+
+	stt_execution_request_destructor(execution_request_);
+
 	list_one_ = stt_execution_requests_simple_list_copy_constructor(
 			list_zero_);
+	/* XXX missing assertions here. */
+
 	stt_execution_requests_simple_list_destructor(list_one_);
 	stt_execution_requests_simple_list_destructor(list_zero_);
 }
@@ -109,6 +145,8 @@ stt_execution_requests_simple_list_construct_and_destruct_test_3()
 	assertion(execution_request_zero_->application_name_ != NULL);
 	assertion(execution_request_zero_->application_name_->value_ != NULL);
 
+	amara_string_destructor(execution_request_zero_application_name_);
+
 	stt_execution_request_set_type(
 			execution_request_zero_,
 			STT_EXECUTION_REQUEST_TYPE_CLI_APPLICATION);
@@ -133,27 +171,31 @@ stt_execution_requests_simple_list_construct_and_destruct_test_3()
 	assertion(execution_request_one_->application_name_ != NULL);
 	assertion(execution_request_one_->application_name_->value_ != NULL);
 
+	amara_string_destructor(execution_request_one_application_name_);
+
 	stt_execution_request_set_type(
 			execution_request_one_,
 			STT_EXECUTION_REQUEST_TYPE_CLI_APPLICATION);
 	assertion(execution_request_one_->type_ ==
 			STT_EXECUTION_REQUEST_TYPE_CLI_APPLICATION);
 
-	list_one_ = stt_execution_requests_simple_list_default_constructor();
-	assertion(list_one_ != NULL);
-	assertion(list_one_->first ==  NULL);
-	assertion(list_one_->next ==  NULL);
-
 	list_zero_ = stt_execution_requests_simple_list_push_front(
 			list_zero_, execution_request_zero_);
+#ifndef NDEBUG
+	assertion(list_zero_ != NULL);
+#endif
 	/* XXX add missing assertions. */
 
 	list_zero_ = stt_execution_requests_simple_list_push_front(
 			list_zero_, execution_request_one_);
+#ifndef NDEBUG
+	assertion(list_zero_ != NULL);
+#endif
 	/* XXX add missing assertions. */
 
 	list_one_ = stt_execution_requests_simple_list_copy_constructor(
 			list_zero_);
+	forced_assertion(list_one_ != NULL);
 	/* XXX add missing assertions. */
 
 	stt_execution_requests_simple_list_destructor(list_one_);
@@ -202,6 +244,8 @@ stt_execution_requests_simple_list_length_test_1()
 			execution_requests_);
 
 	forced_assertion(execution_requests_len_ == 0);
+
+	stt_execution_requests_simple_list_destructor(execution_requests_);
 }
 
 void
@@ -239,10 +283,14 @@ stt_execution_requests_simple_list_length_test_2()
 	forced_assertion(execution_requests_->next == NULL);
 #endif
 
+	stt_execution_request_destructor(execution_request_);
+
 	execution_requests_len_ = stt_execution_requests_simple_list_length(
 			execution_requests_);
 
 	forced_assertion(execution_requests_len_ == 1);
+
+	stt_execution_requests_simple_list_destructor(execution_requests_);
 }
 
 void

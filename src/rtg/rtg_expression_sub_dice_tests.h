@@ -20,9 +20,16 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__EXPRESSION_SUB_DICE_TESTS__H__
 #define __AMARA__RUN_TIME_GRAPH__EXPRESSION_SUB_DICE_TESTS__H__
 
+#include "../definitions.h"
+
 /*   For `typedef struct rtg_expression_sub_dice { ... }
  * rtg_expression_sub_dice;`. */
 #include "rtg_expression_sub_dice.h"
+
+rtg_expression_sub_dice *
+rtg_expression_sub_dice_example_single_vanilla_dice(void)
+__amara__warn_unused_result__
+;
 
 #ifndef NDEBUG
 

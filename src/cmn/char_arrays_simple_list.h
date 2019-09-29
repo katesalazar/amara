@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,8 +55,10 @@ char_arrays_simple_list_concat(
 __attribute__((warn_unused_result))
 ;
 
-/*   This operations is **destructive** towards both `list_zero` and
- * `list_one`. */
+/*   This operation is **destructive** towards both `list_zero` and
+ * `list_one`. Structures pointed to by `list_zero` and `list_one`, if
+ * any (i.e. passing not NULL), get invalidated and must be set to NULL
+ * by/in the calling scope. */
 char_arrays_simple_list *
 char_arrays_simple_list_concat_destructive(
 		char_arrays_simple_list * list_zero,

@@ -52,6 +52,21 @@ assert_expectations_on_stt_condition_example_simple_true_condition(
 
 #endif
 
+/**  A simple true condition. */
+stt_condition *
+stt_condition_example_simple_false_condition(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_condition_example_simple_false_condition(
+		const stt_condition * condition)
+;
+
+#endif
+
 /**  A simple _less than_ true condition. */
 stt_condition *
 stt_condition_example_simple_lt_true_condition(void)

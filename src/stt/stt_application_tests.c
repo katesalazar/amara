@@ -26,11 +26,16 @@ stt_application *
 stt_application_example_print_foo()
 {
 	stt_application * application_;
+
 	application_ = stt_application_default_constructor();
+	forced_assertion(application_ != NULL);
+
 	application_->name_ = amara_string_exhaustive_constructor(
 			"cli_app_print_foo");
+
 	application_->entry_point_function_name_ =
 			amara_string_exhaustive_constructor("print_foo");
+
 	application_->type_ = STT_APPLICATION_TYPE_CLI_APPLICATION;
 	return application_;
 }
@@ -39,11 +44,16 @@ stt_application *
 stt_application_example_print_bar()
 {
 	stt_application * application_;
+
 	application_ = stt_application_default_constructor();
+	forced_assertion(application_ != NULL);
+
 	application_->name_ = amara_string_exhaustive_constructor(
 			"cli_app_print_bar");
+
 	application_->entry_point_function_name_ =
 			amara_string_exhaustive_constructor("print_bar");
+
 	application_->type_ = STT_APPLICATION_TYPE_CLI_APPLICATION;
 	return application_;
 }
@@ -52,11 +62,16 @@ stt_application *
 stt_application_example_print_baz()
 {
 	stt_application * application_;
+
 	application_ = stt_application_default_constructor();
+	forced_assertion(application_ != NULL);
+
 	application_->name_ = amara_string_exhaustive_constructor(
 			"cli_app_print_baz");
+
 	application_->entry_point_function_name_ =
 			amara_string_exhaustive_constructor("print_baz");
+
 	application_->type_ = STT_APPLICATION_TYPE_CLI_APPLICATION;
 	return application_;
 }

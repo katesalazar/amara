@@ -301,6 +301,7 @@ rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_f
 #endif
 			malloc(sizeof(rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret));
 	forced_assertion(ret_ != NULL);
+	ret_->error_messages = NULL;
 	ret_->status = RTG_APPLICATIONS_SIMPLE_LIST_OUT_OF_STT_APPLICATIONS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID;
 
 	/*
@@ -338,6 +339,9 @@ rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_f
 
 		ret_->status = RTG_APPLICATIONS_SIMPLE_LIST_OUT_OF_STT_APPLICATIONS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
 		ret_->applications = NULL;
+#ifndef NDEBUG
+		assertion(ret_->error_messages == NULL);
+#endif
 
 #ifdef DUMP_FLOW_TO_STDERR
 		fprintf(stderr, "<---- rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list_ret * rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_functions_simple_list(const stt_applications_simple_list *, const rtg_named_functions_simple_list *) (%s:%u)\n",
@@ -431,6 +435,9 @@ rtg_applications_simple_list_out_of_stt_applications_simple_list_and_rtg_named_f
 	}
 	sub_ret_ptr_->next = NULL;
 	ret_->applications = sub_ret_;
+#ifndef NDEBUG
+	assertion(ret_->error_messages == NULL);
+#endif
 	ret_->status = RTG_APPLICATIONS_SIMPLE_LIST_OUT_OF_STT_APPLICATIONS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
 
 #ifdef DUMP_FLOW_TO_STDERR

@@ -107,6 +107,7 @@ stt_operation_arg_destructor(const stt_operation_arg * operation_arg)
 	assertion(operation_arg->type_ == STT_OPERATION_ARG_TYPE_VALID);
 #endif
 	stt_node_destructor(operation_arg->node_);
+	free((stt_operation_arg *) operation_arg);
 }
 
 void
@@ -167,4 +168,33 @@ stt_operation_arg_set_identifier(
 	stt_node_set_type(operation_arg->node_, STT_NODE_TYPE_IDENTIFIER);
 	*/
 	operation_arg->type_ = STT_OPERATION_ARG_TYPE_VALID;
+}
+
+amara_boolean
+stt_operation_arg_equality(
+		const stt_operation_arg * oa0, const stt_operation_arg * oa1)
+{
+#ifndef NDEBUG
+	assertion(oa0 != NULL);
+	assertion(oa1 != NULL);
+#endif
+
+#ifndef NDEBUG
+	assertion(oa0->type_ == STT_OPERATION_ARG_TYPE_VALID);
+	assertion(oa1->type_ == STT_OPERATION_ARG_TYPE_VALID);
+#endif
+
+#ifndef NDEBUG
+	assertion(oa0->node_ != NULL);
+	assertion(oa1->node_ != NULL);
+#endif
+
+	return stt_nodes_equality(oa0->node_, oa1->node_);
+}
+
+amara_boolean
+stt_operation_args_equality(
+		const stt_operation_arg * oa0, const stt_operation_arg * oa1)
+{
+	return stt_operation_arg_equality(oa0, oa1);
 }

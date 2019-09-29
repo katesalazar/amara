@@ -43,21 +43,31 @@ stt_expression_example_natural_zero()
 	stt_expression * returning_;
 
 	natural_ = natural_example_zero();
+	forced_assertion(natural_ != NULL);
 #ifndef NDEBUG
 	assert_expectations_on_natural_example_zero(natural_);
 #endif
 
 	returning_ = stt_expression_default_constructor();
-	assertion(returning_ != NULL);
+	forced_assertion(returning_ != NULL);
+#ifndef NDEBUG
 	assertion(returning_->type_ == STT_EXPRESSION_TYPE_INVALID);
+#endif
 
 	stt_expression_set_natural_literal(returning_, natural_);
-	assertion(returning_->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL);
 #ifndef NDEBUG
-	assert_expectations_on_stt_expression_example_natural_zero(returning_);
+	assert_expectations_on_natural_example_zero(natural_);
+	assertion(returning_->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL);
+#endif
+	forced_assertion(returning_->sub_natural_literal_ != NULL);
+	forced_assertion(returning_->sub_natural_literal_->natural_literal_ != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_natural_example_zero(
 			returning_->sub_natural_literal_->natural_literal_);
+	assert_expectations_on_stt_expression_example_natural_zero(returning_);
 #endif
+
+	natural_destructor(natural_);
 
 	return returning_;
 }
@@ -91,23 +101,31 @@ stt_expression_example_natural_one()
 	stt_expression * returning_;
 
 	natural_ = natural_example_one();
+	forced_assertion(natural_ != NULL);
 #ifndef NDEBUG
 	assert_expectations_on_natural_example_one(natural_);
 #endif
 
 	returning_ = stt_expression_default_constructor();
+	forced_assertion(returning_ != NULL);
 #ifndef NDEBUG
-	assertion(returning_ != NULL);
 	assertion(returning_->type_ == STT_EXPRESSION_TYPE_INVALID);
 #endif
 
 	stt_expression_set_natural_literal(returning_, natural_);
 #ifndef NDEBUG
+	assert_expectations_on_natural_example_one(natural_);
 	assertion(returning_->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL);
-	assert_expectations_on_stt_expression_example_natural_one(returning_);
+#endif
+	forced_assertion(returning_->sub_natural_literal_ != NULL);
+	forced_assertion(returning_->sub_natural_literal_->natural_literal_ != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_natural_example_one(
 			returning_->sub_natural_literal_->natural_literal_);
+	assert_expectations_on_stt_expression_example_natural_one(returning_);
 #endif
+
+	natural_destructor(natural_);
 
 	return returning_;
 }
@@ -161,6 +179,8 @@ stt_expression_example_string_literal_foo()
 			NULL);
 	assertion(string_literal_->value_ != NULL);
 #endif
+
+	amara_string_destructor(string_literal_);
 
 	return returning_;
 }
@@ -218,6 +238,8 @@ stt_expression_example_string_literal_bar()
 	assertion(string_literal_->value_ != NULL);
 #endif
 
+	amara_string_destructor(string_literal_);
+
 	return returning_;
 }
 
@@ -272,6 +294,8 @@ stt_expression_example_identifier_foo()
 	assertion(identifier_->value_ != NULL);
 #endif
 
+	amara_string_destructor(identifier_);
+
 	return returning_;
 }
 
@@ -312,26 +336,32 @@ stt_expression_example_single_vanilla_dice()
 #endif
 
 	returning_ = stt_expression_default_constructor();
+	forced_assertion(returning_ != NULL);
 #ifndef NDEBUG
-	assertion(returning_ != NULL);
 	assertion(returning_->type_ == STT_EXPRESSION_TYPE_INVALID);
 #endif
 
 	stt_expression_set_dice(returning_, dice_expression_);
 #ifndef NDEBUG
-	assertion(returning_->type_ == STT_EXPRESSION_TYPE_DICE);
-	assertion(returning_->sub_dice_ != NULL);
-	assertion(returning_->sub_dice_->left_hand_side_natural_ != NULL);
-	assertion(returning_->sub_dice_->left_hand_side_natural_->raw_ !=
-			NULL);
-	assertion(returning_->sub_dice_->right_hand_side_natural_ != NULL);
-	assertion(returning_->sub_dice_->right_hand_side_natural_->raw_ !=
-			NULL);
-	assert_expectations_on_stt_expression_sub_dice_example_single_vanilla_dice(
-			returning_->sub_dice_);
 	assert_expectations_on_stt_dice_expression_example_single_vanilla_dice(
 			dice_expression_);
+	assertion(returning_->type_ == STT_EXPRESSION_TYPE_DICE);
 #endif
+	forced_assertion(returning_->sub_dice_ != NULL);
+	forced_assertion(returning_->sub_dice_->left_hand_side_natural_ !=
+			NULL);
+	forced_assertion(returning_->sub_dice_->left_hand_side_natural_->raw_ !=
+			NULL);
+	forced_assertion(returning_->sub_dice_->right_hand_side_natural_ !=
+			NULL);
+	forced_assertion(returning_->sub_dice_->right_hand_side_natural_->raw_ !=
+			NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_expression_sub_dice_example_single_vanilla_dice(
+			returning_->sub_dice_);
+#endif
+
+	stt_dice_expression_destructor(dice_expression_);
 
 	return returning_;
 }
@@ -377,27 +407,32 @@ stt_expression_example_simple_conditional()
 
 	expression_sub_conditional_ =
 			stt_expression_sub_conditional_example_simple_conditional();
+	forced_assertion(expression_sub_conditional_ != NULL);
 #ifndef NDEBUG
 	assert_expectations_on_stt_expression_sub_conditional_example_simple_conditional(
 			expression_sub_conditional_);
 #endif
 
 	returning_ = stt_expression_default_constructor();
+	forced_assertion(returning_ != NULL);
 #ifndef NDEBUG
-	assertion(returning_ != NULL);
 	assertion(returning_->type_ == STT_EXPRESSION_TYPE_INVALID);
 #endif
 
 	stt_expression_set_conditional(
 			returning_, expression_sub_conditional_);
 #ifndef NDEBUG
-	assertion(returning_->type_ == STT_EXPRESSION_TYPE_CONDITIONAL);
-	assertion(returning_->sub_conditional_ != NULL);
-	assert_expectations_on_stt_expression_sub_conditional_example_simple_conditional(
-			returning_->sub_conditional_);
 	assert_expectations_on_stt_expression_sub_conditional_example_simple_conditional(
 			expression_sub_conditional_);
+	assertion(returning_->type_ == STT_EXPRESSION_TYPE_CONDITIONAL);
 #endif
+	forced_assertion(returning_->sub_conditional_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_expression_sub_conditional_example_simple_conditional(
+			returning_->sub_conditional_);
+#endif
+
+	stt_expression_sub_conditional_destructor(expression_sub_conditional_);
 
 	return returning_;
 }
@@ -676,6 +711,9 @@ stt_expression_equality_test_0()
 
 	equality_ = stt_expression_equality(e0_, e1_);
 	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_expression_destructor(e0_);
+	stt_expression_destructor(e1_);
 }
 
 void
@@ -693,6 +731,9 @@ stt_expression_equality_test_1()
 
 	equality_ = stt_expression_equality(e0_, e1_);
 	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_expression_destructor(e0_);
+	stt_expression_destructor(e1_);
 }
 
 void
@@ -711,8 +752,10 @@ stt_expression_cleanliness_test_10_string_literal()
 
 	expression_ = stt_expression_example_string_literal_foo();
 	forced_assertion(expression_ != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_stt_expression_example_string_literal_foo(
 			expression_);
+#endif
 
 	stt_expression_assert_cleanliness(expression_);
 
@@ -726,8 +769,27 @@ stt_expression_cleanliness_test_20_identifier()
 
 	expression_ = stt_expression_example_identifier_foo();
 	forced_assertion(expression_ != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_stt_expression_example_identifier_foo(
 			expression_);
+#endif
+
+	stt_expression_assert_cleanliness(expression_);
+
+	stt_expression_destructor(expression_);
+}
+
+void
+stt_expression_cleanliness_test_25_conditional()
+{
+	stt_expression * expression_;
+
+	expression_ = stt_expression_example_simple_conditional();
+	forced_assertion(expression_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_expression_example_simple_conditional(
+			expression_);
+#endif
 
 	stt_expression_assert_cleanliness(expression_);
 
@@ -741,8 +803,10 @@ stt_expression_cleanliness_test_30_dice()
 
 	expression_ = stt_expression_example_single_vanilla_dice();
 	forced_assertion(expression_ != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_stt_expression_example_single_vanilla_dice(
 			expression_);
+#endif
 
 	stt_expression_assert_cleanliness(expression_);
 
@@ -754,6 +818,7 @@ stt_expression_cleanliness_tests()
 {
 	stt_expression_cleanliness_test_10_string_literal();
 	stt_expression_cleanliness_test_20_identifier();
+	stt_expression_cleanliness_test_25_conditional();
 	stt_expression_cleanliness_test_30_dice();
 }
 

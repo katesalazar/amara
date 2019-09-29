@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -99,13 +99,18 @@ void
 stt_execution_request_subnode_destructor(
 		stt_execution_request_subnode * subnode)
 {
+#ifndef NDEBUG
 	assertion(subnode != NULL);
+#endif
 	if (subnode->type_ == STT_EXECUTION_REQUEST_SUBNODE_TYPE_INVALID) {
+#ifndef NDEBUG
 		assertion(subnode->application_name_ == NULL);
+#endif
 	} else {
+#ifndef NDEBUG
 		assertion(subnode->application_name_ != NULL);
-		free((char *) subnode->application_name_);
-		subnode->application_name_ = NULL;
+#endif
+		amara_string_destructor(subnode->application_name_);
 	}
 	free(subnode);
 }

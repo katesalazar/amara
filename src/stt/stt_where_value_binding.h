@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,6 +54,18 @@ __attribute__((warn_unused_result))
 void
 stt_where_value_binding_destructor(
 		stt_where_value_binding * stt_where_value_binding_)
+;
+
+amara_boolean
+stt_where_value_binding_equality(
+		const stt_where_value_binding * wvb0,
+		const stt_where_value_binding * wvb1)
+;
+
+amara_boolean
+stt_where_value_bindings_equality(
+		const stt_where_value_binding * wvb0,
+		const stt_where_value_binding * wvb1)
 ;
 
 #endif

@@ -36,24 +36,49 @@ stt_operation_example_print_string_literal_foo()
 	amara_string * string_literal_;
 
 	string_literal_ = amara_string_exhaustive_constructor("foo");
+	forced_assertion(string_literal_ != NULL);
+	forced_assertion(string_literal_->value_ != NULL);
+
 	operation_arg_node_string_literal_subnode_ =
 			stt_string_literal_subnode_exhaustive_constructor(
 					string_literal_);
 	assertion(operation_arg_node_string_literal_subnode_ != NULL);
+
+	amara_string_destructor(string_literal_);
+
 	operation_arg_node_ = stt_node_default_constructor();
 	assertion(operation_arg_node_ != NULL);
+
 	operation_arg_node_->string_literal_subnode_ =
 			operation_arg_node_string_literal_subnode_;
 	operation_arg_node_->type_ = STT_NODE_TYPE_STRING_LITERAL;
+
 	operation_arg_ = stt_operation_arg_default_constructor();
+	forced_assertion(operation_arg_ != NULL);
+
 	operation_arg_->node_ = operation_arg_node_;
 	operation_arg_->type_ = STT_OPERATION_ARG_TYPE_VALID;
+
 	operation_args_ = stt_operation_args_simple_list_default_constructor();
+	forced_assertion(operation_args_ != NULL);
+
 	operation_args_ = stt_operation_args_simple_list_push_front(
 			operation_args_, operation_arg_);
+#ifndef NDEBUG
+	assertion(operation_args_ != NULL);
+#endif
+	forced_assertion(operation_args_->first != NULL);
+
+	stt_operation_arg_destructor(operation_arg_);
+
 	operation_ = stt_operation_default_constructor();
+	forced_assertion(operation_ != NULL);
+
+	/* XXX */
 	operation_->args_ = operation_args_;
+	/* XXX */
 	operation_->type_ = STT_OPERATION_TYPE_PRINT;
+
 	return operation_;
 }
 
@@ -111,24 +136,48 @@ stt_operation_example_print_string_literal_bar()
 	amara_string * string_literal_;
 
 	string_literal_ = amara_string_exhaustive_constructor("bar");
+	forced_assertion(string_literal_ != NULL);
+#ifndef NDEBUG
+	assertion(string_literal_->value_ != NULL);
+#endif
+
 	operation_arg_node_string_literal_subnode_ =
 			stt_string_literal_subnode_exhaustive_constructor(
 					string_literal_);
-	assertion(operation_arg_node_string_literal_subnode_ != NULL);
+	forced_assertion(operation_arg_node_string_literal_subnode_ != NULL);
+	/* XXX missing assertions */
+
+	amara_string_destructor(string_literal_);
+
 	operation_arg_node_ = stt_node_default_constructor();
-	assertion(operation_arg_node_ != NULL);
+	forced_assertion(operation_arg_node_ != NULL);
+	/* XXX missing assertions ? */
+
 	operation_arg_node_->string_literal_subnode_ =
 			operation_arg_node_string_literal_subnode_;
 	operation_arg_node_->type_ = STT_NODE_TYPE_STRING_LITERAL;
+
 	operation_arg_ = stt_operation_arg_default_constructor();
+	/* XXX missing assertions */
+
 	operation_arg_->node_ = operation_arg_node_;
 	operation_arg_->type_ = STT_OPERATION_ARG_TYPE_VALID;
+
 	operation_args_ = stt_operation_args_simple_list_default_constructor();
+	/* XXX missing assertions */
+
 	operation_args_ = stt_operation_args_simple_list_push_front(
 			operation_args_, operation_arg_);
+	/* XXX missing assertions */
+
+	stt_operation_arg_destructor(operation_arg_);
+
 	operation_ = stt_operation_default_constructor();
+	/* XXX missing assertions */
+
 	operation_->args_ = operation_args_;
 	operation_->type_ = STT_OPERATION_TYPE_PRINT;
+
 	return operation_;
 }
 
@@ -338,6 +387,8 @@ stt_operation_example_read_natural_into_foo(void)
 
 	stt_operation_set_args(ret_, operation_args_);
 
+	stt_operation_args_simple_list_destructor(operation_args_);
+
 	stt_operation_set_type(ret_,
 	                       STT_OPERATION_TYPE_READ_NATURAL_INTO_VALUE);
 
@@ -409,6 +460,8 @@ stt_operation_example_read_integer_into_foo(void)
 
 	stt_operation_set_args(ret_, operation_args_);
 
+	stt_operation_args_simple_list_destructor(operation_args_);
+
 	stt_operation_set_type(ret_,
 	                       STT_OPERATION_TYPE_READ_INTEGER_INTO_VALUE);
 
@@ -436,7 +489,7 @@ assert_expectations_on_stt_operation_example_read_integer_into_foo(
 #endif
 
 void
-stt_operation_construct_and_destruct_test_0()
+stt_operation_default_constructor_test_0()
 {
 	stt_operation * operation_;
 
@@ -489,16 +542,60 @@ stt_operation_construct_and_destruct_test_1()
 */
 
 void
-stt_operation_construct_and_destruct_tests()
+stt_operation_default_constructor_tests()
 {
-	stt_operation_construct_and_destruct_test_0();
-    /*
+	stt_operation_default_constructor_test_0();
+}
+
+void
+stt_operation_destructor_test_0()
+{
+	stt_operation * operation_;
+
+	operation_ = stt_operation_example_read_natural_into_foo();
+	forced_assertion(operation_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_example_read_natural_into_foo(
+			operation_);
+#endif
+
+	stt_operation_destructor(operation_);
+}
+
+void
+stt_operation_destructor_test_1()
+{
+	stt_operation * operation_;
+
+	operation_ = stt_operation_example_read_integer_into_foo();
+	forced_assertion(operation_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_example_read_integer_into_foo(
+			operation_);
+#endif
+
+	stt_operation_destructor(operation_);
+}
+
+void
+stt_operation_destructor_tests()
+{
+	stt_operation_destructor_test_0();
+	stt_operation_destructor_test_1();
+}
+
+void
+stt_operation_constructors_tests()
+{
+	stt_operation_default_constructor_tests();
+	/*
 	stt_operation_construct_and_destruct_test_1();
-    */
+	*/
+	stt_operation_destructor_tests();
 }
 
 void
 stt_operation_tests()
 {
-	stt_operation_construct_and_destruct_tests();
+	stt_operation_constructors_tests();
 }

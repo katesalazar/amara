@@ -31,7 +31,9 @@ amara_strings_simple_list_default_constructor(void)
 #endif
 			malloc(sizeof(amara_strings_simple_list));
 	forced_assertion(ret_ != NULL);
+
 	ret_->first = NULL;
+
 	ret_->next = NULL;
 
 	return ret_;

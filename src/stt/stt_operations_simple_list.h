@@ -20,6 +20,8 @@
 #ifndef __AMARA__SYNTAX_TREE__OPERATIONS_SIMPLE_LIST__H__
 #define __AMARA__SYNTAX_TREE__OPERATIONS_SIMPLE_LIST__H__
 
+#include "../definitions.h"
+
 /*   For `stt_operation`. */
 #include "stt_operation.h"
 
@@ -54,6 +56,20 @@ void
 stt_operations_simple_list_push_back(
 		stt_operations_simple_list * operations,
 		const stt_operation * operation)
+;
+
+amara_boolean
+stt_operations_simple_list_equality(
+		const stt_operations_simple_list * l0,
+		const stt_operations_simple_list * l1)
+__attribute__((warn_unused_result))
+;
+
+amara_boolean
+stt_operations_simple_lists_equality(
+		const stt_operations_simple_list * l0,
+		const stt_operations_simple_list * l1)
+__amara__warn_unused_result__
 ;
 
 #endif

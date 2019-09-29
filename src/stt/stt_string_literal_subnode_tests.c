@@ -138,11 +138,43 @@ stt_string_literal_subnode_set_string_literal_test_2()
 }
 
 void
+stt_string_literal_subnode_set_string_literal_test_3()
+{
+	stt_string_literal_subnode * subnode_;
+	amara_string * foo_;
+#ifndef NDEBUG
+	amara_boolean equality_;
+#endif
+
+	subnode_ = stt_string_literal_subnode_default_constructor();
+	forced_assertion(subnode_ != NULL);
+#ifndef NDEBUG
+	assertion(subnode_->string_literal_ == NULL);
+#endif
+
+	foo_ = amara_string_exhaustive_constructor("foo");
+	forced_assertion(foo_ != NULL);
+	forced_assertion(foo_->value_ != NULL);
+
+	stt_string_literal_subnode_set_string_literal(subnode_, foo_);
+#ifndef NDEBUG
+	assertion(subnode_->string_literal_ != NULL);
+	assertion(subnode_->string_literal_->value_ != NULL);
+	equality_ = amara_string_equality(foo_, subnode_->string_literal_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+#endif
+
+	amara_string_destructor(foo_);
+	stt_string_literal_subnode_destructor(subnode_);
+}
+
+void
 stt_string_literal_subnode_set_string_literal_tests()
 {
 	stt_string_literal_subnode_set_string_literal_test_0();
 	stt_string_literal_subnode_set_string_literal_test_1();
 	stt_string_literal_subnode_set_string_literal_test_2();
+	stt_string_literal_subnode_set_string_literal_test_3();
 }
 
 void

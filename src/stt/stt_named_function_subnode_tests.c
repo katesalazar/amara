@@ -79,6 +79,7 @@ stt_named_function_subnode_construct_and_destruct_test_1()
 {
 	stt_named_function_subnode * named_function_subnode_zero_;
 	stt_named_function_subnode * named_function_subnode_one_;
+	amara_string * expectation_;
 
 	named_function_subnode_zero_ =
 			stt_named_function_subnode_default_constructor();
@@ -103,6 +104,10 @@ stt_named_function_subnode_construct_and_destruct_test_1()
 	named_function_subnode_zero_->type_ =
 			STT_NAMED_FUNCTION_SUBNODE_TYPE_CLI_APP_NAMED_FUNCTION;
 
+	expectation_ = amara_string_exhaustive_constructor("foo");
+	forced_assertion(expectation_ != NULL);
+	forced_assertion(expectation_->value_ != NULL);
+
 	named_function_subnode_one_ = stt_named_function_subnode_copy_constructor(
 			named_function_subnode_zero_);
 #ifndef NDEBUG
@@ -112,11 +117,12 @@ stt_named_function_subnode_construct_and_destruct_test_1()
 	assertion(named_function_subnode_one_->name_ != NULL);
 	assertion(named_function_subnode_one_->name_->value_ != NULL);
 	assertion(amara_string_equality(
-			named_function_subnode_one_->name_,
-			amara_string_exhaustive_constructor("foo")));
+			named_function_subnode_one_->name_, expectation_
+	));
 	assertion(named_function_subnode_one_->operations_ != NULL);
 #endif
 
+	amara_string_destructor(expectation_);
 	stt_named_function_subnode_destructor(named_function_subnode_one_);
 	stt_named_function_subnode_destructor(named_function_subnode_zero_);
 }

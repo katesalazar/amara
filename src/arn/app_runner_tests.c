@@ -58,6 +58,9 @@ assert_types_compatible_for_condition_type_less_than_test_0()
 	result_ = assert_types_compatible_for_condition_type_less_than(
 			left_hand_side_value_, right_hand_side_value_);
 	forced_assertion(result_ == AMARA_BOOLEAN_TRUE);
+
+	arn_value_destructor(left_hand_side_value_);
+	arn_value_destructor(right_hand_side_value_);
 }
 
 #endif

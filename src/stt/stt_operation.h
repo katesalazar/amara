@@ -27,13 +27,13 @@
 
 typedef unsigned char stt_operation_type;
 
-#define STT_OPERATION_TYPE_INVALID       0x00
-#define STT_OPERATION_TYPE_PRINT      0x03
-#define STT_OPERATION_TYPE_PRINT_CRLF 0x0C
-#define STT_OPERATION_TYPE_READ_NATURAL_TO_VALUE 0x2F
+#define STT_OPERATION_TYPE_INVALID                 0x20  /* 32: ' '. */
+#define STT_OPERATION_TYPE_PRINT                   0x21  /* 33: '!'. */
+#define STT_OPERATION_TYPE_PRINT_CRLF              0x22  /* 34: '"'. */
+#define STT_OPERATION_TYPE_READ_NATURAL_TO_VALUE   0x2F  /* 47: '/'. */
 #define STT_OPERATION_TYPE_READ_NATURAL_INTO_VALUE \
 		STT_OPERATION_TYPE_READ_NATURAL_TO_VALUE
-#define STT_OPERATION_TYPE_READ_INTEGER_INTO_VALUE 0x30
+#define STT_OPERATION_TYPE_READ_INTEGER_INTO_VALUE 0x30  /* 48: '0'. */
 /* #define STT_OPERATION_TYPE_READ_NATURAL_TO_VARIABLE 0x30  *//* TODO remove it temporarily */
 /* XXX mutate this into expression only
 #define STT_OPERATION_TYPE_RESOLVE_TYPE_OF_EXPRESSION 0x31
@@ -75,6 +75,16 @@ void
 stt_operation_set_args(
 		stt_operation * operation,
 		const stt_operation_args_simple_list * args)
+;
+
+amara_boolean
+stt_operation_equality(const stt_operation * o0, const stt_operation * o1)
+__attribute__((warn_unused_result))
+;
+
+amara_boolean
+stt_operations_equality(const stt_operation * o0, const stt_operation * o1)
+__attribute__((warn_unused_result))
 ;
 
 #endif

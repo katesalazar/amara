@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,9 +49,11 @@ stt_where_value_binding_copy_constructor(
 {
 	stt_where_value_binding * returning_;
 
+#ifndef NDEBUG
 	assertion(where_value_binding_ != NULL);
 	assertion(where_value_binding_->value_name_ != NULL);
 	assertion(where_value_binding_->value_expression_ != NULL);
+#endif
 
 	returning_ =
 #ifdef AMARA_USE_STD_CXX98
@@ -120,7 +122,48 @@ stt_where_value_binding_destructor(
 
 		stt_expression_destructor(
 				stt_where_value_binding_->value_expression_);
+	} else {
+#ifndef NDEBUG
+		assertion(stt_where_value_binding_->value_expression_ == NULL);
+#endif
 	}
 
 	free(stt_where_value_binding_);
+}
+
+amara_boolean
+stt_where_value_binding_equality(
+		const stt_where_value_binding * wvb0,
+		const stt_where_value_binding * wvb1)
+{
+	amara_boolean equal_strings_;
+
+#ifndef NDEBUG
+	assertion(wvb0 != NULL);
+	assertion(wvb1 != NULL);
+#endif
+
+#ifndef NDEBUG
+	assertion(wvb0->value_name_ != NULL);
+	assertion(wvb1->value_name_ != NULL);
+	assertion(wvb0->value_expression_ != NULL);
+	assertion(wvb1->value_expression_ != NULL);
+#endif
+
+	equal_strings_ = amara_strings_equality(
+			wvb0->value_name_, wvb1->value_name_);
+	if (equal_strings_ == AMARA_BOOLEAN_FALSE) {
+		return AMARA_BOOLEAN_FALSE;
+	}
+
+	return stt_expressions_equality(
+			wvb0->value_expression_, wvb1->value_expression_);
+}
+
+amara_boolean
+stt_where_value_bindings_equality(
+		const stt_where_value_binding * wvb0,
+		const stt_where_value_binding * wvb1)
+{
+	return stt_where_value_binding_equality(wvb0, wvb1);
 }

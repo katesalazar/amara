@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -115,7 +115,7 @@ stt_application_subnode_destructor(stt_application_subnode * subnode)
 				STT_APPLICATION_SUBNODE_TYPE_CLI_APPLICATION);
 		amara_string_destructor(subnode->name_);
 		subnode->name_ = NULL;
-		free(subnode->entry_point_function_name_);
+		amara_string_destructor(subnode->entry_point_function_name_);
 		subnode->entry_point_function_name_ = NULL;
 	}
 	free(subnode);

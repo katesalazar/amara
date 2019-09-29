@@ -123,6 +123,26 @@ stt_operation_args_simple_list_copy_constructor(
 }
 
 void
+stt_operation_args_simple_list_destructor_inner(
+		stt_operation_args_simple_list * list)
+;
+
+void
+stt_operation_args_simple_list_destructor_inner(
+		stt_operation_args_simple_list * list)
+{
+	if (list != NULL) {
+
+		stt_operation_args_simple_list_destructor_inner(list->next);
+#ifndef NDEBUG
+		assertion(list->first != NULL);
+#endif
+		stt_operation_arg_destructor(list->first);
+		free(list);
+	}
+}
+
+void
 stt_operation_args_simple_list_destructor(
 		stt_operation_args_simple_list * list)
 {
@@ -133,14 +153,11 @@ stt_operation_args_simple_list_destructor(
 #ifndef NDEBUG
 		assertion(list->next == NULL);
 #endif
+		free(list);
+	} else {
+
+		stt_operation_args_simple_list_destructor_inner(list);
 	}
-
-	if (list->next != NULL) {
-
-		stt_operation_args_simple_list_destructor(list->next);
-	}
-
-	free(list);
 }
 
 stt_operation_args_simple_list *
@@ -182,36 +199,115 @@ stt_operation_args_simple_list_push_front(
 }
 
 amara_boolean
-stt_operation_args_simple_list_equality(
+stt_operation_args_simple_list_equality_inner(
+		const stt_operation_args_simple_list * l0,
+		const stt_operation_args_simple_list * l1)
+__attribute__((warn_unused_result))
+;
+
+amara_boolean
+stt_operation_args_simple_list_equality_inner(
 		const stt_operation_args_simple_list * l0,
 		const stt_operation_args_simple_list * l1)
 {
 	amara_boolean equality_;
 
+	if (l0 == NULL) {
+
+		if (l1 == NULL) {
+
+			return AMARA_BOOLEAN_TRUE;
+		} else {
+#ifndef NDEBUG
+			assertion(l1->first != NULL);
+#endif
+			return AMARA_BOOLEAN_FALSE;
+		}
+	} else {
+#ifndef NDEBUG
+			assertion(l0->first != NULL);
+#endif
+		if (l1 == NULL) {
+			return AMARA_BOOLEAN_FALSE;
+		} else {
+#ifndef NDEBUG
+			assertion(l1->first != NULL);
+#endif
+			equality_ = stt_operation_args_equality(
+					l0->first, l1->first);
+			if (equality_ == AMARA_BOOLEAN_FALSE) {
+				return AMARA_BOOLEAN_FALSE;
+			}
+			return stt_operation_args_simple_list_equality_inner(
+					l0->next, l1->next);
+		}
+	}
+}
+
+amara_boolean
+stt_operation_args_simple_list_equality(
+		const stt_operation_args_simple_list * l0,
+		const stt_operation_args_simple_list * l1)
+{
+	/*
+	amara_boolean equality_;
+	*/
+
+#ifndef NDEBUG
+	assertion(l0 != NULL);
+	assertion(l1 != NULL);
+#endif
+
+	if (l0->first == NULL) {
+
+#ifndef NDEBUG
+		assertion(l0->next == NULL);
+#endif
+		if (l1->first == NULL) {
+
+#ifndef NDEBUG
+			assertion(l1->next == NULL);
+#endif
+			return AMARA_BOOLEAN_TRUE;
+		} else {
+			return AMARA_BOOLEAN_FALSE;
+		}
+	} else {
+		if (l1->first == NULL) {
+
+#ifndef NDEBUG
+			assertion(l1->next == NULL);
+#endif
+			return AMARA_BOOLEAN_FALSE;
+		} else {
+			return stt_operation_args_simple_list_equality_inner(
+					l0, l1);
+		}
+	}
+
+
+	/*
 	forced_assertion(l0 != NULL);
 	forced_assertion(l0->first != NULL);
 	forced_assertion(l0->first->type_ ==
 			STT_OPERATION_ARG_TYPE_VALID);
 	forced_assertion(l0->first->node_ != NULL);
-	/*
 	forced_assertion(l0->first->node_->type_ == STT_NODE_TYPE_IDENTIFIER);
 	forced_assertion(l0->first->node_->identifier_subnode_ != NULL);
 	forced_assertion(l0->first->node_->identifier_subnode_->value_ !=
 			NULL);
-	*/
 	forced_assertion(l0->next == NULL);
 	forced_assertion(l1 != NULL);
 	forced_assertion(l1->first != NULL);
 	forced_assertion(l1->first->type_ ==
 			STT_OPERATION_ARG_TYPE_VALID);
 	forced_assertion(l1->first->node_ != NULL);
-	/*
 	forced_assertion(l1->first->node_->type_ == STT_NODE_TYPE_IDENTIFIER);
 	forced_assertion(l1->first->node_->identifier_subnode_ != NULL);
 	forced_assertion(l1->first->node_->identifier_subnode_->value_ !=
 			NULL);
-	*/
 	forced_assertion(l1->next == NULL);
+	*/
 
 	/*
 	equality_ = amara_string_equality(
@@ -219,9 +315,11 @@ stt_operation_args_simple_list_equality(
 			l1->first->node_->identifier_subnode_->value_);
 	*/
 
+	/*
 	equality_ = stt_node_equality(l0->first->node_, l1->first->node_);
 
 	forced_assertion(equality_ == AMARA_BOOLEAN_TRUE);
 
 	return AMARA_BOOLEAN_TRUE;
+	*/
 }

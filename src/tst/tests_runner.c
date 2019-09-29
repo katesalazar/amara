@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -140,9 +140,9 @@ run_tests(amara_boolean double_end_of_line_char)
 
 	assertion_tests();
 
-	basic_arithmetic_tests();
-
 	common_tests();
+
+	basic_arithmetic_tests();
 
 	persistence_tests();
 

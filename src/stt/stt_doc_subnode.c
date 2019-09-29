@@ -41,9 +41,11 @@ stt_doc_subnode_default_constructor()
 	returning_->named_functions_ =
 			stt_named_functions_simple_list_default_constructor();
 	forced_assertion(returning_->named_functions_ != NULL);
+
 	returning_->applications_ =
 			stt_applications_simple_list_default_constructor();
 	forced_assertion(returning_->applications_ != NULL);
+
 	returning_->execution_requests_ =
 			stt_execution_requests_simple_list_default_constructor();
 	forced_assertion(returning_->execution_requests_ != NULL);
@@ -82,25 +84,31 @@ stt_doc_subnode_exhaustive_constructor(
 		ret_->named_functions_ =
 				stt_named_functions_simple_list_copy_constructor(
 						named_functions);
+		forced_assertion(ret_->named_functions_ != NULL);
 	} else {
 		ret_->named_functions_ =
 				stt_named_functions_simple_list_default_constructor();
+		forced_assertion(ret_->named_functions_ != NULL);
 	}
 	if (applications != NULL /* && applications->first != NULL */) {
 		ret_->applications_ =
 				stt_applications_simple_list_copy_constructor(
 						applications);
+		forced_assertion(ret_->applications_ != NULL);
 	} else {
 		ret_->applications_ =
 				stt_applications_simple_list_default_constructor();
+		forced_assertion(ret_->applications_ != NULL);
 	}
 	if (execution_requests != NULL /* && execution_requests->first != NULL */) {
 		ret_->execution_requests_ =
 				stt_execution_requests_simple_list_copy_constructor(
 						execution_requests);
+		forced_assertion(ret_->execution_requests_ != NULL);
 	} else {
 		ret_->execution_requests_ =
 				stt_execution_requests_simple_list_default_constructor();
+		forced_assertion(ret_->execution_requests_ != NULL);
 	}
 	return ret_;
 }

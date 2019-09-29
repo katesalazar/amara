@@ -269,7 +269,12 @@ _ {
     forced_assertion(miniatext[8] == 'n');
     forced_assertion(yytext[9] == ' ');
 
+/*   XXX Actually the difference here is not the OS but the compiler. */
+#ifdef __APPLE__
+    fprintf(stderr, "minialeng: %lu\n", minialeng);
+#else
     fprintf(stderr, "minialeng: %u\n", minialeng);
+#endif
     for (
         miniatext_index_ = 0; miniatext_index_ < minialeng;
         miniatext_index_++)

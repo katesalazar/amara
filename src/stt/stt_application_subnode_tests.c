@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,6 +44,8 @@ stt_application_subnode_example_print_foo()
 
 */
 
+#ifndef NDEBUG
+
 void
 assert_expectations_on_stt_application_subnode_example_print_foo(
 		const stt_application_subnode * subnode)
@@ -77,7 +79,13 @@ assert_expectations_on_stt_application_subnode_example_print_foo(
 			expected_application_entry_point_function_name_,
 			subnode->entry_point_function_name_);
 	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
+	amara_string_destructor(expected_application_name_);
+	amara_string_destructor(
+			expected_application_entry_point_function_name_);
 }
+
+#endif
 
 void
 stt_application_subnode_construct_and_destruct_test_0()
@@ -101,28 +109,44 @@ stt_application_subnode_construct_and_destruct_test_1()
 	stt_application_subnode * application_subnode_one_;
 	amara_string * application_name_;
 	amara_string * application_entry_point_function_name_;
+
 	application_subnode_zero_ =
 			stt_application_subnode_default_constructor();
-	assertion(application_subnode_zero_ != NULL);
+	forced_assertion(application_subnode_zero_ != NULL);
+#ifndef NDEBUG
 	assertion(application_subnode_zero_->type_ ==
 			STT_APPLICATION_SUBNODE_TYPE_INVALID);
 	assertion(application_subnode_zero_->name_ == NULL);
 	assertion(application_subnode_zero_->entry_point_function_name_ ==
 			NULL);
+#endif
+
 	application_name_ = amara_string_exhaustive_constructor("foo");
+	forced_assertion(application_name_ != NULL);
+
 	application_entry_point_function_name_ =
 			amara_string_exhaustive_constructor("bar");
+	forced_assertion(application_entry_point_function_name_ != NULL);
+
 	stt_application_subnode_set_name(
 			application_subnode_zero_, application_name_);
+	forced_assertion(application_subnode_zero_->name_ != NULL);
+
 	stt_application_subnode_set_entry_point_function_name(
 			application_subnode_zero_,
 			application_entry_point_function_name_);
+	forced_assertion(application_subnode_zero_->entry_point_function_name_ !=
+			NULL);
+
 	stt_application_subnode_set_type(
 			application_subnode_zero_,
 			STT_APPLICATION_SUBNODE_TYPE_CLI_APPLICATION);
+
 	application_subnode_one_ =
 			stt_application_subnode_copy_constructor(
 					application_subnode_zero_);
+	forced_assertion(application_subnode_one_ != NULL);
+
 	amara_string_destructor(application_entry_point_function_name_);
 	amara_string_destructor(application_name_);
 	stt_application_subnode_destructor(application_subnode_one_);

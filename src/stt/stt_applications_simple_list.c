@@ -109,11 +109,18 @@ stt_applications_simple_list_copy_constructor(
 void
 stt_applications_simple_list_destructor_inner(
 		stt_applications_simple_list * list)
+;
+
+void
+stt_applications_simple_list_destructor_inner(
+		stt_applications_simple_list * list)
 {
 	if (list != NULL) {
+#ifndef NDEBUG
 		assertion(list->first != NULL);
-		stt_application_destructor(list->first);
+#endif
 		stt_applications_simple_list_destructor_inner(list->next);
+		stt_application_destructor(list->first);
 		free(list);
 	}
 }
@@ -122,14 +129,17 @@ void
 stt_applications_simple_list_destructor(
 		stt_applications_simple_list * list)
 {
+#ifndef NDEBUG
 	assertion(list != NULL);
+#endif
 	if (list->first == NULL) {
+#ifndef NDEBUG
 		assertion(list->next == NULL);
+#endif
+		free(list);
 	} else {
-		stt_application_destructor(list->first);
-		stt_applications_simple_list_destructor_inner(list->next);
+		stt_applications_simple_list_destructor_inner(list);
 	}
-	free(list);
 }
 
 stt_applications_simple_list *

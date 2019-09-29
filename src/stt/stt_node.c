@@ -437,8 +437,7 @@ stt_node_copy_constructor(const stt_node * node)
 		ret_->type_ = STT_NODE_TYPE_EXECUTION_REQUEST;
 		return ret_;
 	}
-	/* TODO this assertion must perform even if running the no assertions mode... */
-	assertion(node->type_ == STT_NODE_TYPE_DOC);
+	forced_assertion(node->type_ == STT_NODE_TYPE_DOC);
 	assert_clean_doc_node(node);
 	ret_->doc_subnode_ = stt_doc_subnode_copy_constructor(
 			node->doc_subnode_);
@@ -665,6 +664,7 @@ stt_node_destructor(stt_node const * node)
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
 		break;
+	case STT_NODE_TYPE_DOC_FRAGMENT:
 	case STT_NODE_TYPE_DOC:
 		assertion(node->string_literal_subnode_ == NULL);
 		assertion(node->natural_literal_subnode_ == NULL);
@@ -875,6 +875,8 @@ stt_node_set_dice_expression(
 			stt_expression_subnode_exhaustive_constructor(
 					expression_);
 
+	stt_expression_destructor(expression_);
+
 	node->type_ = STT_NODE_TYPE_EXPRESSION;
 }
 
@@ -1021,6 +1023,7 @@ stt_node_set_operations_list(
 	node->operations_list_subnode_ =
 			stt_operations_list_subnode_exhaustive_constructor(
 					operations);
+	forced_assertion(node->operations_list_subnode_ != NULL);
 
 	node->type_ = STT_NODE_TYPE_OPERATIONS_LIST;
 }
@@ -1036,6 +1039,8 @@ stt_node_set_named_function(
 	node->named_function_subnode_ =
 			stt_named_function_subnode_exhaustive_constructor(
 					named_function);
+	forced_assertion(node->named_function_subnode_ != NULL);
+
 	node->type_ = STT_NODE_TYPE_NAMED_FUNCTION;
 }
 
@@ -1044,9 +1049,12 @@ stt_node_set_application(stt_node * node, const stt_application * application)
 {
 	assertion(node->type_ == STT_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
+
 	node->application_subnode_ =
 			stt_application_subnode_exhaustive_constructor(
 					application);
+	forced_assertion(node->application_subnode_ != NULL);
+
 	node->type_ = STT_NODE_TYPE_APPLICATION;
 }
 
@@ -1054,11 +1062,15 @@ void
 stt_node_set_execution_request(stt_node * node,
                                const stt_execution_request * execution_request)
 {
+#ifndef NDEBUG
 	assertion(node->type_ == STT_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
+#endif
 	node->execution_request_subnode_ =
 			stt_execution_request_subnode_exhaustive_constructor(
 					execution_request);
+	forced_assertion(node->execution_request_subnode_ != NULL);
+
 	node->type_ = STT_NODE_TYPE_EXECUTION_REQUEST;
 }
 
@@ -1071,8 +1083,11 @@ stt_node_set_doc(
 {
 	assertion(node->type_ == STT_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
+
 	node->doc_subnode_ = stt_doc_subnode_exhaustive_constructor(
 			named_functions, applications, execution_requests);
+	forced_assertion(node->doc_subnode_ != NULL);
+
 	node->type_ = STT_NODE_TYPE_DOC;
 }
 
@@ -1080,6 +1095,46 @@ amara_boolean
 stt_node_equality(const stt_node * n0, const stt_node * n1)
 {
 	amara_boolean equality_;
+
+#ifndef NDEBUG
+	assertion(n0 != NULL);
+	assertion(n1 != NULL);
+#endif
+
+	if (n0->type_ != n1->type_) {
+
+		return AMARA_BOOLEAN_FALSE;
+	}
+
+	if (n0->type_ == STT_NODE_TYPE_STRING_LITERAL) {
+
+#ifndef NDEBUG
+		assertion(n0->string_literal_subnode_ != NULL);
+		assertion(n0->string_literal_subnode_->string_literal_ != NULL);
+		assertion(n1->string_literal_subnode_ != NULL);
+		assertion(n1->string_literal_subnode_->string_literal_ != NULL);
+#endif
+
+		equality_ = amara_strings_equality(
+				n0->string_literal_subnode_->string_literal_,
+				n1->string_literal_subnode_->string_literal_);
+
+		return equality_;
+	} else if (n0->type_ == STT_NODE_TYPE_EXPRESSION) {
+
+#ifndef NDEBUG
+		assertion(n0->expression_subnode_ != NULL);
+		assertion(n0->expression_subnode_->expression_ != NULL);
+		assertion(n1->expression_subnode_ != NULL);
+		assertion(n1->expression_subnode_->expression_ != NULL);
+#endif
+
+		equality_ = stt_expressions_equality(
+				n0->expression_subnode_->expression_,
+				n1->expression_subnode_->expression_);
+
+		return equality_;
+	} else {
 
 	forced_assertion(n0->type_ == STT_NODE_TYPE_IDENTIFIER);
 	forced_assertion(n0->identifier_subnode_ != NULL);
@@ -1094,7 +1149,15 @@ stt_node_equality(const stt_node * n0, const stt_node * n1)
 
 	forced_assertion(equality_ == AMARA_BOOLEAN_TRUE);
 
+	}
+
 	return AMARA_BOOLEAN_TRUE;
+}
+
+amara_boolean
+stt_nodes_equality(const stt_node * n0, const stt_node * n1)
+{
+	return stt_node_equality(n0, n1);
 }
 
 amara_string *
@@ -1147,11 +1210,13 @@ stt_nodes_substraction(const stt_node * node_0, const stt_node * node_1)
 	assertion(node_1->expression_subnode_->expression_ != NULL);
 #endif
 
+	/*
 	ret_ = stt_node_default_constructor();
 	forced_assertion(ret_ != NULL);
 #ifndef NDEBUG
 	assertion(ret_->type_ == STT_NODE_TYPE_INVALID);
 #endif
+	*/
 
 	assertion(node_0->expression_subnode_->expression_->type_ ==  /* XXX */
 			STT_EXPRESSION_TYPE_NATURAL_LITERAL);  /* XXX */
@@ -1205,11 +1270,13 @@ stt_nodes_multiplication(const stt_node * node_0, const stt_node * node_1)
 	assertion(node_1->expression_subnode_->expression_ != NULL);
 #endif
 
+	/*
 	ret_ = stt_node_default_constructor();
 	forced_assertion(ret_ != NULL);
 #ifndef NDEBUG
 	assertion(ret_->type_ == STT_NODE_TYPE_INVALID);
 #endif
+	*/
 
 	assertion(node_0->expression_subnode_->expression_->type_ ==  /* XXX */
 			STT_EXPRESSION_TYPE_NATURAL_LITERAL);  /* XXX */
@@ -1263,11 +1330,13 @@ stt_nodes_division(const stt_node * node_0, const stt_node * node_1)
 	assertion(node_1->expression_subnode_->expression_ != NULL);
 #endif
 
+	/* XXX Must bring this back at some point
 	ret_ = stt_node_default_constructor();
 	forced_assertion(ret_ != NULL);
 #ifndef NDEBUG
 	assertion(ret_->type_ == STT_NODE_TYPE_INVALID);
 #endif
+	*/
 
 	assertion(node_0->expression_subnode_->expression_->type_ ==  /* XXX */
 			STT_EXPRESSION_TYPE_NATURAL_LITERAL);  /* XXX */
@@ -1369,6 +1438,12 @@ register_named_function(stt_node * node, const stt_node * named_function_node)
 			stt_named_functions_simple_list_push_front(
 					new_named_functions_list_node_,
 					new_named_function_);
+	forced_assertion(new_named_functions_list_node_ != NULL);
+
+	stt_named_function_destructor(new_named_function_);
+
+	stt_named_functions_simple_list_destructor(
+			node->doc_subnode_->named_functions_);
 
 	node->doc_subnode_->named_functions_ = new_named_functions_list_node_;
 	return node;
@@ -1401,13 +1476,13 @@ register_application(stt_node * node, const stt_node * application_node)
 #endif
 			malloc(sizeof(stt_application));
 	forced_assertion(new_application_ != NULL);
-	new_application_->name_ =
-			application_node->application_subnode_->name_;
+	new_application_->name_ = amara_string_copy_constructor(
+			application_node->application_subnode_->name_);
 	new_application_->type_ =
 			application_node->application_subnode_->type_;
 	new_application_->entry_point_function_name_ =
-			application_node->application_subnode_
-					->entry_point_function_name_;
+			amara_string_copy_constructor(
+					application_node->application_subnode_->entry_point_function_name_);
 	new_applications_list_node_ =
 #ifdef AMARA_USE_STD_CXX98
 			(stt_applications_simple_list *)
@@ -1436,6 +1511,11 @@ register_application(stt_node * node, const stt_node * application_node)
 				node->doc_subnode_->applications_;
 		}
 		*/
+		/*
+		free(node->doc-subnode_->applications_);
+		*/
+		stt_applications_simple_list_destructor(
+				node->doc_subnode_->applications_);
 	/*
 	} else {
 		new_applications_list_node_->next =
@@ -1477,7 +1557,8 @@ register_execution_request(
 	new_execution_request_->type_ =
 			execution_request_node->execution_request_subnode_->type_;
 	new_execution_request_->application_name_ =
-			execution_request_node->execution_request_subnode_->application_name_;
+			amara_string_copy_constructor(
+					execution_request_node->execution_request_subnode_->application_name_);
 	new_execution_requests_list_node_ =
 #ifdef AMARA_USE_STD_CXX98
 			(stt_execution_requests_simple_list *)
@@ -1512,6 +1593,7 @@ register_execution_request(
 				node->doc_subnode_->execution_requests_;
 	}
 	*/
+	free(node->doc_subnode_->execution_requests_);
 	node->doc_subnode_->execution_requests_ =
 			new_execution_requests_list_node_;
 	return node;

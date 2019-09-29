@@ -94,9 +94,14 @@ stt_operation_destructor(stt_operation * operation)
 
 		assertion(operation->args_ != NULL);
 		stt_operation_args_simple_list_destructor(operation->args_);
+	} else if (operation->type_ ==
+				STT_OPERATION_TYPE_PRINT) {
+
+		assertion(operation->args_ != NULL);
+		stt_operation_args_simple_list_destructor(operation->args_);
 	} else {
 		assertion(operation->type_ ==
-				STT_OPERATION_TYPE_PRINT);
+				STT_OPERATION_TYPE_PRINT_CRLF);
 
 		assertion(operation->args_ != NULL);
 		stt_operation_args_simple_list_destructor(operation->args_);
@@ -177,4 +182,35 @@ stt_operation_set_args(
 			operation->args_, args);
 	assertion(equality_ == AMARA_BOOLEAN_TRUE);
 #endif
+}
+
+amara_boolean
+stt_operation_equality(const stt_operation * o0, const stt_operation * o1)
+{
+	/*
+	amara_boolean equality_;
+	*/
+
+#ifndef NDEBUG
+	assertion(o0 != NULL);
+	assertion(o1 != NULL);
+#endif
+
+	if (o0->type_ != o1->type_) {
+
+		return AMARA_BOOLEAN_FALSE;
+	}
+
+#ifndef NDEBUG
+	assertion(o0->args_ != NULL);
+	assertion(o1->args_ != NULL);
+#endif
+
+	return stt_operation_args_simple_list_equality(o0->args_, o1->args_);
+}
+
+amara_boolean
+stt_operations_equality(const stt_operation * o0, const stt_operation * o1)
+{
+	return stt_operation_equality(o0, o1);
 }

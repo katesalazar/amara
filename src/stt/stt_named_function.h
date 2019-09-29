@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,9 +39,9 @@
 
 typedef unsigned char stt_named_function_type;
 
-#define STT_NAMED_FUNCTION_TYPE_INVALID      0x00
-#define STT_NAMED_FUNCTION_TYPE_PURE_FUNCTION 0x0F
-#define STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION 0xF0
+#define STT_NAMED_FUNCTION_TYPE_INVALID                0x49  /* '73': 'I'. */
+#define STT_NAMED_FUNCTION_TYPE_PURE_FUNCTION          0x50  /* '80': 'P'. */
+#define STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION       0x43  /* '67': 'C'. */
 #define STT_NAMED_FUNCTION_TYPE_CLI_APP_NAMED_FUNCTION \
 		STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,9 +26,9 @@
 /*   For `stt_expression`. */
 /* #include "stt_expression.h" */
 
-#define STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_INVALID         0x00
-#define STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE    0x0F
-#define STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE_IF 0xF0
+#define STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_INVALID         0x21  /* 33: '!'. */
+#define STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE    0x22  /* 34: '"'. */
+#define STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE_IF 0x23  /* 35: '#'. */
 
 /**  This `struct` is the soul of the conditional expression. It is a
  * linked list of _if_ type of conditions, and _then_ expressions,
@@ -92,6 +92,20 @@ void
 stt_expression_sub_conditional_set_expression_else(
 		stt_expression_sub_conditional * sub_conditional,
 		const struct stt_expression * expression_else)
+;
+
+amara_boolean
+stt_expression_sub_conditional_equality(
+		const stt_expression_sub_conditional * esc0,
+		const stt_expression_sub_conditional * esc1)
+__attribute__((warn_unused_result))
+;
+
+amara_boolean
+stt_expression_sub_conditionals_equality(
+		const stt_expression_sub_conditional * esc0,
+		const stt_expression_sub_conditional * esc1)
+__attribute__((warn_unused_result))
 ;
 
 #endif

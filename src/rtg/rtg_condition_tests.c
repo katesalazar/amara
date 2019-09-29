@@ -46,6 +46,8 @@ rtg_condition_example_simple_less_than_condition()
 			ret_);
 #endif
 
+	stt_condition_destructor(stt_condition_);
+
 	return ret_;
 }
 
@@ -308,6 +310,7 @@ rtg_condition_flip_test_0()
 #endif
 
 	rtg_condition_destructor(condition_);
+	rtg_condition_destructor(flipped_condition_);
 }
 
 void

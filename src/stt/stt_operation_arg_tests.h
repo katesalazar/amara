@@ -65,4 +65,8 @@ assert_expectations_on_stt_operation_arg_example_identifier_foo(
 
 #endif
 
+void
+stt_operation_arg_tests(void)
+;
+
 #endif

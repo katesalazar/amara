@@ -81,6 +81,8 @@ stt_execution_requests_simple_list_copy_constructor(
 
 	assertion(execution_requests != NULL);
 
+	if (execution_requests->first == NULL) {
+
 	ret_ =
 #ifdef AMARA_USE_STD_CXX98
 			(stt_execution_requests_simple_list *)
@@ -88,12 +90,12 @@ stt_execution_requests_simple_list_copy_constructor(
 			malloc(sizeof(stt_execution_requests_simple_list));
 	forced_assertion(ret_ != NULL);
 
-	if (execution_requests->first == NULL) {
 		ret_->first = NULL;
 		assertion(execution_requests->next == NULL);
 		ret_->next = NULL;
 		return ret_;
 	}
+
 	ret_ = stt_execution_requests_simple_list_copy_constructor_inner(
 			execution_requests);
 	return ret_;
@@ -102,11 +104,18 @@ stt_execution_requests_simple_list_copy_constructor(
 void
 stt_execution_requests_simple_list_destructor_inner(
 		stt_execution_requests_simple_list * list)
+;
+
+void
+stt_execution_requests_simple_list_destructor_inner(
+		stt_execution_requests_simple_list * list)
 {
 	if (list != NULL) {
-		assertion(list->first != NULL);
 		stt_execution_requests_simple_list_destructor_inner(
 				list->next);
+#ifndef NDEBUG
+		assertion(list->first != NULL);
+#endif
 		stt_execution_request_destructor(list->first);
 		free(list);
 	}
@@ -116,15 +125,18 @@ void
 stt_execution_requests_simple_list_destructor(
 		stt_execution_requests_simple_list * list)
 {
+#ifndef NDEBUG
 	assertion(list != NULL);
+#endif
 	if (list->first == NULL) {
+#ifndef NDEBUG
 		assertion(list->next == NULL);
+		free(list);
+#endif
 	} else {
 		stt_execution_requests_simple_list_destructor_inner(
-				list->next);
-		stt_execution_request_destructor(list->first);
+				list);
 	}
-	free(list);
 }
 
 unsigned char

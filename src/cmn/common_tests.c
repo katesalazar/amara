@@ -52,6 +52,7 @@ char_arrays_concatenation_test_0()
 	const char * one_ = "";
 	const char * concat_ = concatenate_two_char_arrays(zero_, one_);
 	assertion(!strcmp(concat_, ""));
+	free((char *) concat_);
 }
 
 void
@@ -61,6 +62,7 @@ char_arrays_concatenation_test_1()
 	const char * one_ = "";
 	const char * concat_ = concatenate_two_char_arrays(zero_, one_);
 	assertion(!strcmp(concat_, zero_));
+	free((char *) concat_);
 }
 
 void
@@ -70,6 +72,7 @@ char_arrays_concatenation_test_2()
 	const char * one_ = "bar";
 	const char * concat_ = concatenate_two_char_arrays(zero_, one_);
 	assertion(!strcmp(concat_, one_));
+	free((char *) concat_);
 }
 
 void
@@ -81,6 +84,7 @@ char_arrays_concatenation_test_3()
 	const int strcmp_ret_ = strcmp(concat_, "foobar");
 	fprintf(stderr, "%s\n", concat_);
 	assertion(!strcmp_ret_);
+	free((char *) concat_);
 }
 
 void
@@ -109,6 +113,7 @@ char_arrays_concatenation_test_4()
 	fprintf(stderr, "%s\n", one_);
 	fprintf(stderr, "%s\n", concat_);
 	assertion(!strcmp_ret_);
+	free((char *) concat_);
 }
 
 void
@@ -137,6 +142,7 @@ char_arrays_concatenation_test_5()
 	fprintf(stderr, "%s\n", one_);
 	fprintf(stderr, "%s\n", concat_);
 	assertion(!strcmp_ret_);
+	free((char *) concat_);
 }
 
 void
@@ -149,6 +155,7 @@ char_arrays_concatenation_test_6()
 			concatenate_three_char_arrays(zero_, one_, two_);
 	const int strcmp_ret_ = strcmp(concat_, zero_);
 	assertion(!strcmp_ret_);
+	free((char *) concat_);
 }
 
 void
@@ -162,6 +169,7 @@ char_arrays_concatenation_test_7()
 			zero_, one_, two_, three_);
 	const int strcmp_ret_ = strcmp(concat_, zero_);
 	assertion(!strcmp_ret_);
+	free((char *) concat_);
 }
 
 void
@@ -203,6 +211,8 @@ char_arrays_simple_list_equality_test_1_()
 	unsigned char equality_ =
 			char_arrays_simple_list_equality(zero_, one_);
 	assertion(equality_);
+	char_arrays_simple_list_destructor(zero_);
+	char_arrays_simple_list_destructor(one_);
 }
 
 void

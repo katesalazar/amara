@@ -50,8 +50,8 @@ arn_value_default_constructor(void)
 	ret_->name_ = NULL;
 	ret_->string_ = NULL;
 	ret_->string_was_moved = AMARA_BOOLEAN_FALSE;
-    ret_->boolean_ = NULL;
-    ret_->boolean_was_moved = AMARA_BOOLEAN_FALSE;
+	ret_->boolean_ = NULL;
+	ret_->boolean_was_moved = AMARA_BOOLEAN_FALSE;
 	ret_->natural_ = NULL;
 	ret_->natural_was_moved = AMARA_BOOLEAN_FALSE;
 
@@ -217,6 +217,15 @@ arn_value_destructor(arn_value * value)
 		assertion(value->string_->value_ != NULL);
 		amara_string_destructor(value->string_);
 		assertion(value->natural_ == NULL);
+	} else if (value->type_ == ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_BOOLEAN) {
+		assertion(value->name_ == NULL);
+		assertion(value->boolean_ == NULL);
+	} else if (value->type_ == ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_BOOLEAN) {
+		assertion(value->name_ == NULL);
+		assertion(value->boolean_ != NULL);
+		assertion(* value->boolean_ == AMARA_BOOLEAN_FALSE ||
+				* value->boolean_ == AMARA_BOOLEAN_TRUE);
+		free(value->boolean_);
 	} else if (value->type_ == ARN_VALUE_TYPE_NAMED_UNASSIGNED_NATURAL) {
 		assertion(value->name_ != NULL);
 		assertion(value->name_->value_ != NULL);
@@ -275,6 +284,7 @@ run_dice(const rtg_expression_sub_dice * expression_sub_dice)
 	arn_value * returning_;
 	unsigned char random_;
 	unsigned char uc_;
+	unsigned char rolls_;
 
 	/*   `expression_sub_dice` already checked not `NULL`. */
 #ifndef NDEBUG
@@ -290,7 +300,15 @@ run_dice(const rtg_expression_sub_dice * expression_sub_dice)
 
 	forced_assertion(expression_sub_dice->left_hand_side_natural_->raw_ != NULL);
 	forced_assertion(expression_sub_dice->left_hand_side_natural_->raw_->value_ != NULL);
-	forced_assertion(expression_sub_dice->left_hand_side_natural_->raw_->value_[0] == '3');
+	if (expression_sub_dice->left_hand_side_natural_->raw_->value_[0] == '1') {
+
+		rolls_ = 1;
+	} else {
+		forced_assertion(expression_sub_dice->left_hand_side_natural_->raw_->value_[0] ==
+				'3');
+
+		rolls_ = 3;
+	}
 	forced_assertion(expression_sub_dice->left_hand_side_natural_->raw_->value_[1] == '\0');
 	forced_assertion(expression_sub_dice->right_hand_side_natural_->raw_ != NULL);
 	forced_assertion(expression_sub_dice->right_hand_side_natural_->raw_->value_ != NULL);
@@ -298,7 +316,7 @@ run_dice(const rtg_expression_sub_dice * expression_sub_dice)
 	forced_assertion(expression_sub_dice->right_hand_side_natural_->raw_->value_[1] == '\0');
 
 	random_ = 0;
-	for (uc_ = 0; uc_ < 3; uc_++) {
+	for (uc_ = 0; uc_ < rolls_; uc_++) {
 		random_ += rand() % 6 + 1;
 	}
 
@@ -633,10 +651,14 @@ arn_value_assign_natural_out_of_unsigned_short(
 	assertion(value->natural_ == NULL);
 
 	natural_ = natural_default_constructor();
+	forced_assertion(natural_ != NULL);
 
 	natural_copy_from_unsigned_short(natural_, unsigned_short);
 
 	arn_value_set_natural(value, natural_);
+	forced_assertion(value->natural_ != NULL);
+
+	natural_destructor(natural_);
 
 	ret_->status = ARN_VALUE_ASSIGN_NATURAL_OUT_OF_UNSIGNED_INT_RET_STATUS_SUCCESS;
 

@@ -49,4 +49,18 @@ stt_expression_sub_dice_destructor(
 		stt_expression_sub_dice * stt_expression_sub_dice_)
 ;
 
+amara_boolean
+stt_expression_sub_dice_equality(
+		const stt_expression_sub_dice * esd0,
+		const stt_expression_sub_dice * esd1)
+__attribute__((warn_unused_result))
+;
+
+amara_boolean
+stt_expression_sub_dices_equality(
+		const stt_expression_sub_dice * esd0,
+		const stt_expression_sub_dice * esd1)
+__attribute__((warn_unused_result))
+;
+
 #endif

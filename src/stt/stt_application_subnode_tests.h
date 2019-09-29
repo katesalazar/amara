@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,10 +27,14 @@ stt_application_subnode_example_print_foo(void)
 __attribute__((warn_unused_result))
 ;
 
+#ifndef NDEBUG
+
 void
 assert_expectations_on_stt_application_subnode_example_print_foo(
 		const stt_application_subnode * subnode)
 ;
+
+#endif
 
 void
 stt_application_subnode_tests(void)

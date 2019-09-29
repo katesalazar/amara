@@ -77,7 +77,8 @@ rtg_doc_transformation_constructor_test_0()
 	*/
 #endif
 
-	/* FIXME missing destructor calls. */
+	stt_node_destructor(stt_doc_);
+	rtg_doc_out_of_stt_doc_ret_destructor(rtg_doc_ret_);
 
 #ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "<---- test_0...\n");
@@ -107,7 +108,8 @@ rtg_doc_transformation_constructor_test_4()
 	*/
 #endif
 
-	/* FIXME missing destructor calls. */
+	stt_node_destructor(stt_doc_);
+	rtg_doc_out_of_stt_doc_ret_destructor(rtg_doc_ret_);
 
 #ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "<---- test_4...\n");

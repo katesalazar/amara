@@ -57,6 +57,8 @@ stt_operation_arg_example_natural_literal_zero(void)
 			ret_->node_);
 #endif
 
+	stt_node_destructor(node_);
+
 	return ret_;
 }
 
@@ -196,3 +198,36 @@ assert_expectations_on_stt_operation_arg_example_identifier_foo(
 }
 
 #endif
+
+void
+stt_operation_arg_default_constructor_test_0()
+{
+	stt_operation_arg * example_zero_;
+
+	example_zero_ = stt_operation_arg_example_natural_literal_zero();
+	forced_assertion(example_zero_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_arg_example_natural_literal_zero(
+			example_zero_);
+#endif
+
+	stt_operation_arg_destructor(example_zero_);
+}
+
+void
+stt_operation_arg_default_constructor_tests()
+{
+	stt_operation_arg_default_constructor_test_0();
+}
+
+void
+stt_operation_arg_constructors_tests()
+{
+	stt_operation_arg_default_constructor_tests();
+}
+
+void
+stt_operation_arg_tests()
+{
+	stt_operation_arg_constructors_tests();
+}

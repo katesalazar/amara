@@ -66,4 +66,10 @@ stt_operation_args_simple_list_equality(
 		const stt_operation_args_simple_list * l1)
 ;
 
+amara_boolean
+stt_operation_args_simple_lists_equality(
+		const stt_operation_args_simple_list * l0,
+		const stt_operation_args_simple_list * l1)
+;
+
 #endif

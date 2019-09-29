@@ -45,6 +45,7 @@ natural *
 natural_default_constructor(void)
 {
 	natural * returning_;
+
 	returning_ =
 #ifdef AMARA_USE_STD_CXX98
 			(natural *)
@@ -59,8 +60,11 @@ natural *
 natural_exhaustive_constructor(const amara_string * raw)
 {
 	natural * returning_;
+
+#ifndef NDEBUG
 	assertion(raw != NULL);
 	assert_valid_raw_natural(raw);
+#endif
 	returning_ =
 #ifdef AMARA_USE_STD_CXX98
 			(natural *)
@@ -72,27 +76,30 @@ natural_exhaustive_constructor(const amara_string * raw)
 }
 
 natural *
-natural_copy_constructor(const natural * natural)
+natural_copy_constructor(const natural * input)
 {
-	struct natural * returning_;
-	assertion(natural != NULL);
-	assertion(natural->raw_ != NULL);
-	natural_assert_validity(natural);
+	natural * returning_;
+
+	assertion(input != NULL);
+	assertion(input->raw_ != NULL);
+	natural_assert_validity(input);
 	returning_ =
 #ifdef AMARA_USE_STD_CXX98
-			(struct natural *)
+			(natural *)
 #endif
-			malloc(sizeof(natural));
+			malloc(sizeof(input));
 	forced_assertion_two(returning_ != NULL, "natural.c: 86\n");
-	returning_->raw_ = amara_string_copy_constructor(natural->raw_);
+	returning_->raw_ = amara_string_copy_constructor(input->raw_);
 	return returning_;
 }
 
 void
 natural_destructor(natural * natural)
 {
+#ifndef NDEBUG
 	assertion(natural != NULL);
 	assertion(natural->raw_ != NULL);
+#endif
 	amara_string_destructor(natural->raw_);
 	free(natural);
 }
@@ -146,6 +153,7 @@ assert_valid_raw_natural(const amara_string * raw_natural)
 	unsigned char indexer_;
 	raw_natural_char_array_ = amara_string_get_value(raw_natural);
 	raw_natural_char_array_len_ = strlen(raw_natural_char_array_);
+
 	assertion_two(raw_natural_char_array_len_ > 0,
 			"found an illegal natural number length (number of digits), natural numbers can not have no digits at all, at least one is necessary");
 	assertion_two(raw_natural_char_array_len_ < 4,
@@ -170,6 +178,7 @@ assert_valid_raw_natural(const amara_string * raw_natural)
 			assertion(raw_natural_char_array_[indexer_] < 58);
 		}
 	}
+	free((char *) raw_natural_char_array_);
 }
 
 amara_boolean
@@ -213,12 +222,18 @@ safe_arguments_natural_raw_comparison_inner(
 	for (indexer_ = 0; indexer_ < raw_naturals_len; indexer_++) {
 		if (raw_natural_zero_chars_array_[indexer_] <
 				raw_natural_one_chars_array_[indexer_]) {
+	free((char *) raw_natural_zero_chars_array_);
+	free((char *) raw_natural_one_chars_array_);
 			return ~0x7F;
 		} else if (raw_natural_zero_chars_array_[indexer_] >
 				raw_natural_one_chars_array_[indexer_]) {
+	free((char *) raw_natural_zero_chars_array_);
+	free((char *) raw_natural_one_chars_array_);
 			return 0x7F;
 		}
 	}
+	free((char *) raw_natural_zero_chars_array_);
+	free((char *) raw_natural_one_chars_array_);
 	return 0;
 }
 
@@ -277,10 +292,15 @@ fit_raw_natural_in_unsigned_char_inner_trivially_fits(
 	const char * valid_raw_natural_chars_array_;
 	unsigned char current_digit_index_;
 	unsigned char current_digit_;
+
 	/* min_digits_ct_ = 1; */
 	max_digits_ct_ = 3;
-	ret_ = (fit_raw_natural_in_unsigned_char_ret *) malloc(
-			sizeof(fit_raw_natural_in_unsigned_char_ret));
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(fit_raw_natural_in_unsigned_char_ret *)
+#endif
+			malloc(sizeof(fit_raw_natural_in_unsigned_char_ret));
+	forced_assertion(ret_ != NULL);
 	ret_->status = FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_INVALID;
 	valid_raw_natural_len_ = amara_string_length(valid_raw_natural);
 	valid_raw_natural_chars_array_ =
@@ -309,6 +329,7 @@ fit_raw_natural_in_unsigned_char_inner_trivially_fits(
 		*/
 	}
 	ret_->status = FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_OK;
+	free((char *) valid_raw_natural_chars_array_);
 	return ret_;
 }
 
@@ -368,6 +389,7 @@ fit_raw_natural_in_unsigned_short_inner_trivially_fits(
 		*/
 	}
 	ret_->status = FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_OK;
+	free((char *) valid_raw_natural_chars_array_);
 	return ret_;
 }
 
@@ -499,6 +521,7 @@ fit_raw_natural_in_unsigned_short_inner_might_fit_or_not(
 					malloc(sizeof(fit_raw_natural_in_unsigned_short_ret));
 			forced_assertion_two(ret_ != NULL, "natural.c: 497\n");
 			ret_->status = FIT_RAW_NATURAL_IN_UNSIGNED_SHORT_RET_STATUS_ERR_NOT_FITTING; /* even if it did */
+			free((char *) valid_raw_natural_chars_array_);
 			return ret_;
 
 			/*
@@ -554,8 +577,10 @@ fit_raw_natural_in_unsigned_char(const amara_string * valid_raw_natural)
 				valid_raw_natural);
 	} else {
 		assertion(valid_raw_natural_len_ > 3);
-		ret_ = (fit_raw_natural_in_unsigned_char_ret *) malloc(
-				sizeof(fit_raw_natural_in_unsigned_char_ret));
+		ret_ =
+				(fit_raw_natural_in_unsigned_char_ret *)
+				malloc(sizeof(fit_raw_natural_in_unsigned_char_ret));
+		forced_assertion(ret_ != NULL);
 		ret_->status = FIT_RAW_NATURAL_IN_UNSIGNED_CHAR_RET_STATUS_ERR_NOT_FITTING;
 	}
 	return ret_;
@@ -607,6 +632,7 @@ natural_copy_unsigned_char_into_raw_natural(const unsigned char input)
 			buffer_, (size_t) (/* 3 + 1 */ 4), "%u", input);
 	assertion(snprintf_ret_ >= 0);
 	returning_ = amara_string_exhaustive_constructor(buffer_);
+	forced_assertion(returning_ != NULL);
 	free(buffer_);
 	return returning_;
 }
@@ -1001,7 +1027,10 @@ numeric_natural_nodes_multiplication_types_checked_both_are_valid_raw_naturals(
 	stt_node * returning_;
 	raw_natural_ = raw_naturals_multiplication_as_raw_natural(
 			raw_natural_zero, raw_natural_one);
+	forced_assertion(raw_natural_ != NULL);
 	returning_ = stt_node_wrapping_raw_natural(raw_natural_);
+	forced_assertion(returning_ != NULL);
+	amara_string_destructor(raw_natural_);
 	return returning_;
 }
 
@@ -1022,7 +1051,10 @@ numeric_natural_nodes_euclidean_quotient_types_checked_both_are_valid_raw_natura
 
 	raw_natural_ = raw_naturals_euclidean_quotient_as_raw_natural(
 			raw_natural_zero, raw_natural_one);
+	forced_assertion(raw_natural_ != NULL);
 	returning_ = stt_node_wrapping_raw_natural(raw_natural_);
+	forced_assertion(returning_ != NULL);
+	amara_string_destructor(raw_natural_);
 	return returning_;
 }
 
@@ -1057,16 +1089,17 @@ numeric_natural_nodes_substraction_types_checked_both_are_valid_raw_naturals(
 		*/
 		returning_ = stt_node_default_constructor();
 		return returning_;
-	} else if (comparison_result_ == 0) {
-		return stt_node_wrapping_raw_natural(
-				amara_string_exhaustive_constructor("0"));
+	}
+	if (comparison_result_ == 0) {
+		raw_natural_ = amara_string_exhaustive_constructor("0");
 	} else {
 		assertion(comparison_result_ > 0);
 		raw_natural_ = raw_naturals_substraction_as_raw_natural_zero_is_larger_than_one(
 				raw_natural_zero, raw_natural_one);
-		returning_ = stt_node_wrapping_raw_natural(raw_natural_);
-		return returning_;
 	}
+	returning_ = stt_node_wrapping_raw_natural(raw_natural_);
+	amara_string_destructor(raw_natural_);
+	return returning_;
 }
 
 /*   This is non destructive towards its arguments. */
@@ -1122,6 +1155,8 @@ simplify_natural_literal_nodes_substraction(
 		const stt_node * node_zero, const stt_node * node_one)
 {
 	stt_node * returning_;
+
+#ifndef NDEBUG
 	assertion(node_zero->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
 	assertion(node_zero->natural_literal_subnode_ != NULL);
 	assertion(node_zero->natural_literal_subnode_->raw_ != NULL);
@@ -1130,9 +1165,11 @@ simplify_natural_literal_nodes_substraction(
 	assertion(node_one->natural_literal_subnode_ != NULL);
 	assertion(node_one->natural_literal_subnode_->raw_ != NULL);
 	assert_valid_raw_natural(node_one->natural_literal_subnode_->raw_);
+#endif
 	returning_ = numeric_natural_nodes_substraction_types_checked_both_are_valid_raw_naturals(
 			node_zero->natural_literal_subnode_->raw_,
 			node_one->natural_literal_subnode_->raw_);
+	forced_assertion(returning_ != NULL);
 	return returning_;
 }
 
@@ -1198,4 +1235,26 @@ naturals_greater_than(const natural * n0, const natural * n1)
 	}
 
 	return AMARA_BOOLEAN_FALSE;
+}
+
+amara_boolean
+natural_equality(const natural * n0, const natural * n1)
+{
+#ifndef NDEBUG
+	assertion(n0 != NULL);
+	assertion(n1 != NULL);
+#endif
+
+#ifndef NDEBUG
+	assertion(n0->raw_ != NULL);
+	assertion(n1->raw_ != NULL);
+#endif
+
+	return amara_strings_equality(n0->raw_, n1->raw_);
+}
+
+amara_boolean
+naturals_equality(const natural * n0, const natural * n1)
+{
+	return natural_equality(n0, n1);
 }

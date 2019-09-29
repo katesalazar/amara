@@ -70,16 +70,16 @@ typedef unsigned char stt_node_type;
 
 /*   This is an enumeration. */
 #define STT_NODE_TYPE_INVALID             0x00
-#define STT_NODE_TYPE_STRING_LITERAL      0x01
+#define STT_NODE_TYPE_STRING_LITERAL      0x21  /* 33: '!'. */
 #define STT_NODE_TYPE_NATURAL_LITERAL     0x02
 #define STT_NODE_TYPE_INTEGER_LITERAL     0x03
 #define STT_NODE_TYPE_RATIONAL_LITERAL    0x04
 #define STT_NODE_TYPE_IDENTIFIER          0x05
-#define STT_NODE_TYPE_CONDITION           0x06
-#define STT_NODE_TYPE_EXPRESSION          0x07
+#define STT_NODE_TYPE_CONDITION           0x22  /* 34: '"'. */
+#define STT_NODE_TYPE_EXPRESSION          0x23  /* 35: '#'. */
 #define STT_NODE_TYPE_OPERATION           0x08
 #define STT_NODE_TYPE_OPERATIONS_LIST     0x09
-#define STT_NODE_TYPE_WHERE_BINDING       0x0A
+#define STT_NODE_TYPE_WHERE_BINDING       0x24  /* 36: '$'. */
 #define STT_NODE_TYPE_WHERE_BINDINGS      0x0B
 #define STT_NODE_TYPE_NAMED_FUNCTION      0x0C
 #define STT_NODE_TYPE_APPLICATION         0x0D
@@ -241,6 +241,11 @@ stt_node_set_doc(
 
 amara_boolean
 stt_node_equality(const stt_node * n0, const stt_node * n1)
+__attribute__((warn_unused_result))
+;
+
+amara_boolean
+stt_nodes_equality(const stt_node * n0, const stt_node * n1)
 __attribute__((warn_unused_result))
 ;
 

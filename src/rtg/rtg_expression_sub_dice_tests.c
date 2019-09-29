@@ -27,6 +27,34 @@
 /*   For own prototypes. */
 #include "rtg_expression_sub_dice_tests.h"
 
+rtg_expression_sub_dice *
+rtg_expression_sub_dice_example_single_vanilla_dice(void)
+{
+	stt_expression_sub_dice * stt_expression_sub_dice_;
+	rtg_expression_sub_dice * rtg_expression_sub_dice_;
+
+	stt_expression_sub_dice_ =
+			stt_expression_sub_dice_example_single_vanilla_dice();
+	forced_assertion(stt_expression_sub_dice_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_expression_sub_dice_example_single_vanilla_dice(
+			stt_expression_sub_dice_);
+#endif
+
+	rtg_expression_sub_dice_ =
+			rtg_expression_sub_dice_out_of_stt_expression_sub_dice(
+					stt_expression_sub_dice_);
+	forced_assertion(rtg_expression_sub_dice_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_expression_sub_dice_example_single_vanilla_dice(
+			rtg_expression_sub_dice_);
+#endif
+
+	stt_expression_sub_dice_destructor(stt_expression_sub_dice_);
+
+	return rtg_expression_sub_dice_;
+}
+
 #ifndef NDEBUG
 
 void

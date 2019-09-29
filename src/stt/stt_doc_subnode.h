@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,10 +38,14 @@
 #include "stt_execution_requests_simple_list.h"
 
 typedef struct stt_doc_subnode {
+
 	stt_named_functions_simple_list * named_functions_;
+
 	stt_applications_simple_list * applications_;
+
 	stt_execution_requests_simple_list * execution_requests_;
-} stt_doc_subnode;
+} stt_doc_subnode
+;
 
 stt_doc_subnode *
 stt_doc_subnode_default_constructor(void)

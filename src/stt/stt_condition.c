@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -189,9 +189,13 @@ stt_condition_equality(const stt_condition * c0, const stt_condition * c1)
 	equality_ = stt_expression_equality(
 			c0->right_hand_side_expression_,
 			c1->right_hand_side_expression_);
-	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+	if (equality_ == AMARA_BOOLEAN_FALSE) {
+		returning_ = AMARA_BOOLEAN_FALSE;
+	} else {
+		assertion(equality_ == AMARA_BOOLEAN_TRUE);
 
-	returning_ = AMARA_BOOLEAN_TRUE;
+		returning_ = AMARA_BOOLEAN_TRUE;
+	}
 
 	/*
 
@@ -225,4 +229,10 @@ stt_condition_equality(const stt_condition * c0, const stt_condition * c1)
 	*/
 
 	return returning_;
+}
+
+amara_boolean
+stt_conditions_equality(const stt_condition * c0, const stt_condition * c1)
+{
+	return stt_condition_equality(c0, c1);
 }

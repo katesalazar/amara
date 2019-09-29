@@ -69,6 +69,9 @@ stt_condition_example_simple_condition()
 			returning_);
 #endif
 
+	stt_expression_destructor(left_hand_side_expression_);
+	stt_expression_destructor(right_hand_side_expression_);
+
 	return returning_;
 }
 
@@ -107,6 +110,74 @@ assert_expectations_on_stt_condition_example_simple_true_condition(
 	/*   TODO: Must reverse. */
 	assert_expectations_on_stt_condition_example_simple_condition(
 			condition);
+}
+
+#endif
+
+/** `0 < 0`, which is a false condition. */
+stt_condition *
+stt_condition_example_simple_false_condition(void)
+{
+	stt_expression * left_hand_side_expression_;
+	stt_expression * right_hand_side_expression_;
+	stt_condition * returning_;
+
+	left_hand_side_expression_ = stt_expression_example_natural_zero();
+#ifndef NDEBUG
+	assertion(left_hand_side_expression_ != NULL);
+	assert_expectations_on_stt_expression_example_natural_zero(
+			left_hand_side_expression_);
+#endif
+
+	right_hand_side_expression_ = stt_expression_example_natural_zero();
+#ifndef NDEBUG
+	assertion(right_hand_side_expression_ != NULL);
+	assert_expectations_on_stt_expression_example_natural_zero(
+			right_hand_side_expression_);
+#endif
+
+	returning_ = stt_condition_default_constructor();
+#ifndef NDEBUG
+	assertion(returning_ != NULL);
+	assertion(returning_->type_ == STT_CONDITION_TYPE_INVALID);
+#endif
+
+	stt_condition_initialize_less_than(
+			returning_, left_hand_side_expression_,
+			right_hand_side_expression_);
+#ifndef NDEBUG
+	assertion(returning_->type_ == STT_CONDITION_TYPE_LESS_THAN);
+	assert_expectations_on_stt_expression_example_natural_zero(
+			returning_->left_hand_side_expression_);
+	assert_expectations_on_stt_expression_example_natural_zero(
+			returning_->right_hand_side_expression_);
+#endif
+
+#ifndef NDEBUG
+	assert_expectations_on_stt_condition_example_simple_false_condition(
+			returning_);
+#endif
+
+	stt_expression_destructor(left_hand_side_expression_);
+	stt_expression_destructor(right_hand_side_expression_);
+
+	return returning_;
+}
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_condition_example_simple_false_condition(
+		const stt_condition * condition)
+{
+	assertion(condition != NULL);
+	assertion(condition->type_ == STT_CONDITION_TYPE_LESS_THAN);
+	assertion(condition->left_hand_side_expression_ != NULL);
+	assert_expectations_on_stt_expression_example_natural_zero(
+			condition->left_hand_side_expression_);
+	assertion(condition->right_hand_side_expression_ != NULL);
+	assert_expectations_on_stt_expression_example_natural_zero(
+			condition->right_hand_side_expression_);
 }
 
 #endif
@@ -169,6 +240,9 @@ stt_condition_example_simple_gt_true_condition(void)
 			returning_->right_hand_side_expression_);
 #endif
 
+	stt_expression_destructor(left_hand_side_expression_);
+	stt_expression_destructor(right_hand_side_expression_);
+
 #ifndef NDEBUG
 	assert_expectations_on_stt_condition_example_simple_gt_true_condition(
 			returning_);
@@ -229,17 +303,40 @@ stt_condition_create_and_destroy_less_than_examples()
 }
 
 void
-stt_condition_create_and_destroy_greater_than_examples()
+stt_condition_create_and_destroy_greater_than_example_0()
 {
 	stt_condition * condition_;
 
 	condition_ = stt_condition_example_simple_gt_true_condition();
+	forced_assertion(condition_ != NULL);
 #ifndef NDEBUG
 	assert_expectations_on_stt_condition_example_simple_gt_true_condition(
 			condition_);
 #endif
 
 	stt_condition_destructor(condition_);
+}
+
+void
+stt_condition_create_and_destroy_greater_than_example_1()
+{
+	stt_condition * condition_;
+
+	condition_ = stt_condition_example_simple_greater_than_condition();
+	forced_assertion(condition_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_condition_example_simple_greater_than_condition(
+			condition_);
+#endif
+
+	stt_condition_destructor(condition_);
+}
+
+void
+stt_condition_create_and_destroy_greater_than_examples()
+{
+	stt_condition_create_and_destroy_greater_than_example_0();
+	stt_condition_create_and_destroy_greater_than_example_1();
 }
 
 void

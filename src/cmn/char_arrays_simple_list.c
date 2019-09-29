@@ -33,8 +33,11 @@ char_arrays_simple_list_default_constructor()
 {
 	char_arrays_simple_list * ret_ = (char_arrays_simple_list *)
 			malloc(sizeof(char_arrays_simple_list));
+	forced_assertion(ret_ != NULL);
+
 	ret_->first = NULL;
 	ret_->next = NULL;
+
 	return ret_;
 }
 
@@ -102,13 +105,35 @@ char_arrays_simple_list_copy_constructor(const char_arrays_simple_list * list)
 }
 
 void
+char_arrays_simple_list_destructor_inner(char_arrays_simple_list * list)
+;
+
+void
+char_arrays_simple_list_destructor_inner(char_arrays_simple_list * list)
+{
+	if (list != NULL) {
+#ifndef NDEBUG
+		assertion(list->first != NULL);
+#endif
+		free(list->first);
+		char_arrays_simple_list_destructor_inner(list->next);
+		free(list);
+	}
+}
+
+void
 char_arrays_simple_list_destructor(char_arrays_simple_list * list)
 {
-	char_arrays_simple_list * ptr_;
-	while (list != NULL) {
-		ptr_ = list->next;
+#ifndef NDEBUG
+	assertion(list != NULL);
+#endif
+	if (list->first == NULL) {
+#ifndef NDEBUG
+		assertion(list->next == NULL);
 		free(list);
-		list = ptr_;
+#endif
+	} else {
+		char_arrays_simple_list_destructor_inner(list);
 	}
 }
 
@@ -121,7 +146,9 @@ char_arrays_simple_list_push_front(
 	assertion(list != NULL);
 	assertion(char_array != NULL);
 	if (list->first == NULL) {
+#ifndef NDEBUG
 		assertion(list->next == NULL);
+#endif
 		list->first =
 #ifdef AMARA_USE_STD_CXX98
 				(char *)
@@ -231,11 +258,20 @@ char_arrays_simple_list_concat_destructive(
 		assertion(list_zero->next == NULL);
 		if (list_one->first == NULL) {
 			assertion(list_one->next == NULL);
+			free(list_one);  /* XXX */
 			return list_zero;
 		}
+
+		/*   Will set up `list_one` and `list_zero` so that,
+		 * `list_zero` is at least one element long, that
+		 * element is stolen from `list_one`. So `list_one_`
+		 * starts from `list_one->next` (could be NULL, or not)
+		 * and the first list node of `list_one` can so be
+		 * destroyed already. */
 		list_zero_ = list_zero;
 		list_one_ = list_one->next;
 		list_zero_->first = list_one->first;
+		free(list_one);
 	} else {
 		list_zero_ = list_zero;
 		list_one_ = list_one;
@@ -250,6 +286,7 @@ char_arrays_simple_list_concat_destructive(
 		ptr_->next = NULL;
 	} else if (list_one_->first == NULL) {
 		assertion(list_one_->next == NULL);
+		free(list_one_);  /* XXX */
 		ptr_->next = NULL;
 	} else {
 		ptr_->next = list_one_;

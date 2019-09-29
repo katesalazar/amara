@@ -49,7 +49,11 @@ concatenate_two_char_arrays(const char * zero, const char * one)
 	int snprintf_ret_;
 	zero_length_ = strlen(zero);
 	if (zero_length_ >= max_concatenation_length_in_chars) {
-		ret_ = (char *) malloc(max_concatenation_length_in_bytes);
+		ret_ =
+#ifdef AMARA_USE_STD_CXX98
+				(char *)
+#endif
+				malloc(max_concatenation_length_in_bytes);
 		snprintf_ret_ = snprintf(
 				ret_, max_concatenation_length_in_chars + 1,
 				"%s", zero);
@@ -68,7 +72,11 @@ concatenate_two_char_arrays(const char * zero, const char * one)
 	assertion(zero_length_ < max_concatenation_length_in_chars);
 	one_length_ = strlen(one);
 	if (zero_length_ + one_length_ >= max_concatenation_length_in_chars) {
-		ret_ = (char *) malloc(max_concatenation_length_in_bytes);
+		ret_ =
+#ifdef AMARA_USE_STD_CXX98
+				(char *)
+#endif
+				malloc(max_concatenation_length_in_bytes);
 		snprintf_ret_ = snprintf(
 				ret_, max_concatenation_length_in_chars + 1,
 				"%s%s", zero, one);
@@ -86,7 +94,11 @@ concatenate_two_char_arrays(const char * zero, const char * one)
 	}
 	combined_length_ = zero_length_ + one_length_;
 	assertion(combined_length_ < max_concatenation_length_in_chars);
-	ret_ = (char *) malloc(combined_length_ + 1);
+	ret_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(combined_length_ + 1);
 	snprintf_ret_ = snprintf(
 			ret_, combined_length_ + 1, "%s%s", zero, one);
 	assertion(snprintf_ret_ < max_concatenation_length_in_bytes);
@@ -118,6 +130,7 @@ concatenate_three_char_arrays(
 	const char * inner_ret_;
 	inner_ret_ = concatenate_two_char_arrays(zero, one);
 	ret_ = concatenate_two_char_arrays(inner_ret_, two);
+	free((char *) inner_ret_);
 	return ret_;
 }
 
@@ -130,6 +143,7 @@ concatenate_four_char_arrays(
 	const char * inner_ret_;
 	inner_ret_ = concatenate_three_char_arrays(zero, one, two);
 	ret_ = concatenate_two_char_arrays(inner_ret_, three);
+	free((char *) inner_ret_);
 	return ret_;
 }
 
@@ -142,5 +156,6 @@ concatenate_five_char_arrays(
 	const char * inner_ret_;
 	inner_ret_ = concatenate_four_char_arrays(zero, one, two, three);
 	ret_ = concatenate_two_char_arrays(inner_ret_, four);
+	free((char *) inner_ret_);
 	return ret_;
 }

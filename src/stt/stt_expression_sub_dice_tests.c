@@ -140,11 +140,65 @@ stt_expression_sub_dice_copy_constructor_tests()
 	stt_expression_sub_dice_copy_constructor_test_0();
 }
 
+/**  If the left part is different, then the E.S.D. as a whole is
+ * different. */
+void
+stt_expression_sub_dice_equality_test_0()
+{
+	stt_expression_sub_dice * esd0_;
+	stt_expression_sub_dice * esd1_;
+	amara_string * zero_;
+	amara_boolean equality_;
+
+	esd0_ = stt_expression_sub_dice_example_single_vanilla_dice();
+	forced_assertion(esd0_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_expression_sub_dice_example_single_vanilla_dice(
+			esd0_);
+#endif
+
+	esd1_ = stt_expression_sub_dice_example_single_vanilla_dice();
+	forced_assertion(esd1_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_expression_sub_dice_example_single_vanilla_dice(
+			esd1_);
+#endif
+
+#ifndef NDEBUG
+	assertion(esd1_->left_hand_side_natural_ != NULL);
+	assertion(esd1_->left_hand_side_natural_->raw_ != NULL);
+	assertion(esd1_->left_hand_side_natural_->raw_->value_ != NULL);
+	assertion(esd1_->left_hand_side_natural_->raw_->value_[0] == 0x31);  /* 49: '1'. */
+	assertion(esd1_->left_hand_side_natural_->raw_->value_[1] == 0x00);  /* 0: '\0'. */
+#endif
+	natural_destructor(esd1_->left_hand_side_natural_);
+	zero_ = amara_string_exhaustive_constructor("0");
+	forced_assertion(zero_ != NULL);
+	esd1_->left_hand_side_natural_ = natural_exhaustive_constructor(zero_);
+	forced_assertion(esd1_->left_hand_side_natural_ != NULL);
+	/* XXX missed an integrity assertion at this point */
+
+	amara_string_destructor(zero_);
+
+	equality_ = stt_expression_sub_dices_equality(esd0_, esd1_);
+	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_expression_sub_dice_destructor(esd0_);
+	stt_expression_sub_dice_destructor(esd1_);
+}
+
+void
+stt_expression_sub_dice_equality_tests()
+{
+	stt_expression_sub_dice_equality_test_0();
+}
+
 void
 stt_expression_sub_dice_constructors_tests()
 {
 	stt_expression_sub_dice_exhaustive_constructor_tests();
 	stt_expression_sub_dice_copy_constructor_tests();
+	stt_expression_sub_dice_equality_tests();
 }
 
 void

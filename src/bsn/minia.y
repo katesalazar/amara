@@ -60,6 +60,8 @@
 /*   For the syntax tree nodes and node types. */
 #include "../stt/stt_node.h"
 
+#include "bison_annex.h"
+
 extern int yylex(void);
 
 extern int yyparse(stt_node * syntax_tree);
@@ -202,24 +204,10 @@ named_functions_and_applications_and_execution_requests :
   named_function named_functions_and_applications_and_execution_requests
 {
   b_trace_chars_array(
-      "fns_and_apps_defs_and_exectn_reqs : fn_def fns_and_apps_defs_and_exectn_reqs\n");
-  if ($2 == NULL) {
-    $$ = stt_node_default_constructor();
-    $$->type_ = STT_NODE_TYPE_DOC_FRAGMENT;
-    $$->doc_subnode_ = stt_doc_subnode_default_constructor();
-    $$ = register_named_function($$, $1);
-    assertion($$->doc_subnode_ != NULL);
-    free($1->named_function_subnode_);
-    free($1);
-  } else {
-    assertion_two($2->type_ = STT_NODE_TYPE_DOC_FRAGMENT,
-        "unexpected type of `fns_and_apps_defs_and_exectn_reqs`");
-    assertion($2->doc_subnode_ != NULL);
-    $$ = register_named_function($2, $1);
-    assertion($$->doc_subnode_ != NULL);
-    free($1->named_function_subnode_);
-    free($1);
-  }
+      "named_functions_and_applications_and_execution_requests : named_function named_functions_and_applicationss_and_execution_requests\n");
+  $$ = named_functions_and_applications_and_execution_requests_out_of_named_function_and_named_functions_and_applications_and_execution_requests(
+      $1, $2);
+  forced_assertion($$ != NULL);
 }
 | application named_functions_and_applications_and_execution_requests
 {
@@ -644,53 +632,15 @@ function_statements :
 function_statement :
   T_PRINT expression
 {
-  b_trace_chars_array("cli_fn_op : T_PRINT value\n");
-  b_trace_chars_array("type of value: ");
-  b_trace_unsigned_char($2->type_);
-  b_trace_chars_array("\n");
-
-#ifdef DUMP_FLOW_TO_STDERR
-  fprintf(stderr, "%u\n", $2->type_);
-#endif
-  if ($2->type_ == STT_NODE_TYPE_STRING_LITERAL) {
-    assert_clean_string_literal_node($2);
-  } else if ($2->type_ == STT_NODE_TYPE_NATURAL_LITERAL) {
-    assert_clean_natural_literal_node($2);
-  } else if ($2->type_ == STT_NODE_TYPE_OPERATION) {
-    assert_clean_operation_node($2);
-    assertion($2->operation_subnode_ != NULL);
-    assertion($2->operation_subnode_->operation_ != NULL);
-    assertion($2->operation_subnode_->operation_->type_ !=
-        STT_OPERATION_TYPE_INVALID);
-  } else if ($2->type_ == STT_NODE_TYPE_EXPRESSION) {
-    assert_clean_expression_node($2);
-  } else {
-    assertion($2->type_ == STT_NODE_TYPE_IDENTIFIER);
-    assert_clean_identifier_node($2);
-  }
-  $$ = stt_node_default_constructor();
-  $$->operation_subnode_ = stt_operation_subnode_default_constructor();
-  $$->operation_subnode_->operation_ = stt_operation_default_constructor();
-  $$->operation_subnode_->operation_->type_ = STT_OPERATION_TYPE_PRINT;
-  $$->operation_subnode_->operation_->args_ =
-      stt_operation_args_simple_list_default_constructor();
-  $$->operation_subnode_->operation_->args_->first =
-      stt_operation_arg_default_constructor();
-  $$->operation_subnode_->operation_->args_->first->type_ = $2->type_;
-  $$->operation_subnode_->operation_->args_->first->node_ = $2;
-  $$->operation_subnode_->operation_->args_->next = NULL;
-  $$->type_ = STT_NODE_TYPE_OPERATION;
+  b_trace_chars_array("function_statement : T_PRINT expression\n");
+  $$ = function_statement_out_of_token_print_and_expression($2);
+  forced_assertion($$ != NULL);
 }
 | T_NEW T_LINE
 {
-  b_trace_chars_array("cli_fn_op : T_NEW T_LINE\n");
-  $$ = stt_node_default_constructor();
-  $$->operation_subnode_ = stt_operation_subnode_default_constructor();
-  $$->operation_subnode_->operation_ = stt_operation_default_constructor();
-  $$->operation_subnode_->operation_->type_ = STT_OPERATION_TYPE_PRINT_CRLF;
-  $$->operation_subnode_->operation_->args_ =
-      stt_operation_args_simple_list_default_constructor();
-  $$->type_ = STT_NODE_TYPE_OPERATION;
+  b_trace_chars_array("function_statement : T_NEW T_LINE\n");
+  $$ = function_statement_out_of_token_new_and_token_line();
+  forced_assertion($$ != NULL);
 }
 | T_READ T_NATURAL T_IDENTIFIER
 {

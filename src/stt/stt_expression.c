@@ -259,9 +259,11 @@ stt_expression_set_natural_literal(
 {
 #ifndef NDEBUG
 	assertion(expression != NULL);
-	assertion(expression->type_ == STT_EXPRESSION_TYPE_INVALID);
 	assertion(expression->sub_string_literal_ == NULL);
-	assertion(expression->sub_natural_literal_ == NULL);
+#endif
+	forced_assertion(expression->type_ == STT_EXPRESSION_TYPE_INVALID);
+	forced_assertion(expression->sub_natural_literal_ == NULL);
+#ifndef NDEBUG
 	assertion(expression->sub_conditional_ == NULL);
 	assertion(expression->sub_dice_ == NULL);
 #endif
@@ -374,80 +376,6 @@ stt_expression_set_dice(stt_expression * expression,
 	expression->type_ = STT_EXPRESSION_TYPE_DICE;
 }
 
-amara_boolean
-stt_expression_equality(const stt_expression * e0, const stt_expression * e1)
-{
-	amara_boolean equality_;
-
-#ifndef NDEBUG
-	assertion(e0 != NULL);
-	assertion(e0->type_ != STT_EXPRESSION_TYPE_INVALID);
-	assertion(e1 != NULL);
-	assertion(e1->type_ != STT_EXPRESSION_TYPE_INVALID);
-#endif
-
-	if (e0->type_ != e1->type_) {
-
-		/*   XXX Potentially not? Revaluate identity, equality,
-		 * and equivalence considerations..? */
-		return AMARA_BOOLEAN_FALSE;
-	}
-
-	fprintf(stderr, "%u\n", e0->type_);
-	fprintf(stderr, "%u\n", e1->type_);
-
-	if (e0->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL) {
-
-#ifndef NDEBUG
-		assertion(e0->sub_string_literal_ != NULL);
-		assertion(e0->sub_string_literal_->string_literal_ != NULL);
-		assertion(e0->sub_string_literal_->string_literal_->value_ !=
-				NULL);
-		assertion(e1->sub_string_literal_ != NULL);
-		assertion(e1->sub_string_literal_->string_literal_ != NULL);
-		assertion(e1->sub_string_literal_->string_literal_->value_ !=
-				NULL);
-#endif
-
-		equality_ = amara_string_equality(
-				e0->sub_string_literal_->string_literal_,
-				e1->sub_string_literal_->string_literal_);
-	} else {
-#ifndef NDEBUG
-		assertion(e0->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL);
-#endif
-
-#ifndef NDEBUG
-		assertion(e0->sub_natural_literal_ != NULL);
-		assertion(e0->sub_natural_literal_->natural_literal_ != NULL);
-		assertion(e0->sub_natural_literal_->natural_literal_->raw_ !=
-				NULL);
-		assertion(e0->sub_natural_literal_->natural_literal_->raw_->value_ !=
-				NULL);
-		assertion(e1->sub_natural_literal_ != NULL);
-		assertion(e1->sub_natural_literal_->natural_literal_ != NULL);
-		assertion(e1->sub_natural_literal_->natural_literal_->raw_ !=
-				NULL);
-		assertion(e1->sub_natural_literal_->natural_literal_->raw_->value_ !=
-				NULL);
-#endif
-
-		/*
-
-		equality_ = natural_equality(
-				e0->sub_natural_literal_->natural_literal_,
-				e1->sub_natural_literal_->natural_literal_);
-
-		*/
-
-		equality_ = amara_string_equality(
-				e0->sub_natural_literal_->natural_literal_->raw_,
-				e1->sub_natural_literal_->natural_literal_->raw_);
-	}
-
-	return equality_;
-}
-
 #ifndef NDEBUG
 
 void
@@ -558,6 +486,9 @@ stt_expression_assert_cleanliness(const stt_expression * expression)
 	} else if (expression->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL) {
 
 		stt_expression_assert_clean_natural_literal(expression);
+	} else if (expression->type_ == STT_EXPRESSION_TYPE_CONDITIONAL) {
+
+		stt_expression_assert_clean_conditional(expression);
 	} else {
 		forced_assertion(expression->type_ ==
 				STT_EXPRESSION_TYPE_DICE);
@@ -567,3 +498,158 @@ stt_expression_assert_cleanliness(const stt_expression * expression)
 }
 
 #endif
+
+amara_boolean
+stt_expression_equality(const stt_expression * e0, const stt_expression * e1)
+{
+	amara_boolean equality_;
+
+#ifndef NDEBUG
+	assertion(e0 != NULL);
+	assertion(e0->type_ != STT_EXPRESSION_TYPE_INVALID);
+	assertion(e1 != NULL);
+	assertion(e1->type_ != STT_EXPRESSION_TYPE_INVALID);
+#endif
+
+	if (e0->type_ != e1->type_) {
+
+		/*   XXX Potentially not? Revaluate identity, equality,
+		 * and equivalence considerations..? */
+		return AMARA_BOOLEAN_FALSE;
+	}
+
+	fprintf(stderr, "%u\n", e0->type_);
+	fprintf(stderr, "%u\n", e1->type_);
+
+	if (e0->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL) {
+
+#ifndef NDEBUG
+		assertion(e0->sub_string_literal_ != NULL);
+		assertion(e0->sub_string_literal_->string_literal_ != NULL);
+		assertion(e0->sub_string_literal_->string_literal_->value_ !=
+				NULL);
+		assertion(e1->sub_string_literal_ != NULL);
+		assertion(e1->sub_string_literal_->string_literal_ != NULL);
+		assertion(e1->sub_string_literal_->string_literal_->value_ !=
+				NULL);
+#endif
+
+		equality_ = amara_string_equality(
+				e0->sub_string_literal_->string_literal_,
+				e1->sub_string_literal_->string_literal_);
+	} else if (e0->type_ == STT_EXPRESSION_TYPE_NATURAL_LITERAL) {
+
+#ifndef NDEBUG
+		assertion(e0->sub_natural_literal_ != NULL);
+		assertion(e0->sub_natural_literal_->natural_literal_ != NULL);
+		assertion(e0->sub_natural_literal_->natural_literal_->raw_ !=
+				NULL);
+		assertion(e0->sub_natural_literal_->natural_literal_->raw_->value_ !=
+				NULL);
+		assertion(e1->sub_natural_literal_ != NULL);
+		assertion(e1->sub_natural_literal_->natural_literal_ != NULL);
+		assertion(e1->sub_natural_literal_->natural_literal_->raw_ !=
+				NULL);
+		assertion(e1->sub_natural_literal_->natural_literal_->raw_->value_ !=
+				NULL);
+#endif
+
+		/*
+
+		equality_ = natural_equality(
+				e0->sub_natural_literal_->natural_literal_,
+				e1->sub_natural_literal_->natural_literal_);
+
+		*/
+
+		equality_ = amara_string_equality(
+				e0->sub_natural_literal_->natural_literal_->raw_,
+				e1->sub_natural_literal_->natural_literal_->raw_);
+	} else if (e0->type_ == STT_EXPRESSION_TYPE_IDENTIFIER) {
+
+#ifndef NDEBUG
+		assertion(e0->sub_identifier_ != NULL);
+		assertion(e0->sub_identifier_->identifier_ != NULL);
+		assertion(e0->sub_identifier_->identifier_->value_ != NULL);
+		assertion(e1->sub_identifier_ != NULL);
+		assertion(e1->sub_identifier_->identifier_ != NULL);
+		assertion(e1->sub_identifier_->identifier_->value_ != NULL);
+#endif
+
+		equality_ = amara_strings_equality(
+				e0->sub_identifier_->identifier_,
+				e1->sub_identifier_->identifier_);
+	} else if (e0->type_ == STT_EXPRESSION_TYPE_CONDITIONAL) {
+
+#ifndef NDEBUG
+		assertion(e0->sub_conditional_ != NULL);
+		assertion(e1->sub_conditional_ != NULL);
+#endif
+
+		equality_ = stt_expression_sub_conditionals_equality(
+				e0->sub_conditional_, e1->sub_conditional_);
+	} else {
+#ifndef NDEBUG
+		assertion(e0->type_ == STT_EXPRESSION_TYPE_DICE);
+#endif
+
+#ifndef NDEBUG
+		assertion(e0->sub_dice_ != NULL);
+		assertion(e1->sub_dice_ != NULL);
+#endif
+
+		equality_ = stt_expression_sub_dices_equality(
+				e0->sub_dice_, e1->sub_dice_);
+	}
+
+	return equality_;
+}
+
+/*
+
+amara_boolean
+stt_expression_equality(const stt_expression * e0, const stt_expression * e1)
+{
+#ifndef NDEBUG
+	assertion(e0 != NULL);
+	assertion(e1 != NULL);
+#endif
+
+	if (e0->type_ != e1->type_) {
+		return AMARA_BOOLEAN_FALSE;
+	}
+
+	if (e0->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL) {
+
+#ifndef NDEBUG
+		assertion(e0->sub_string_literal_ != NULL);
+		assertion(e0->sub_string_literal_->string_literal_ != NULL);
+		assertion(e1->sub_string_literal_ != NULL);
+		assertion(e1->sub_string_literal_->string_literal_ != NULL);
+#endif
+		return amara_strings_equality(
+				e0->sub_string_literal_->string_literal_,
+				e1->sub_string_literal_->string_literal_);
+	} else {
+		forced_assertion(expression->type_ ==
+				STT_EXPRESSION_TYPE_NATURAL_LITERAL);
+
+#ifndef NDEBUG
+		assertion(e0->sub_natural_literal_ != NULL);
+		assertion(e0->sub_natural_literal_->natural_literal_ != NULL);
+		assertion(e1->sub_natural_literal_ != NULL);
+		assertion(e1->sub_natural_literal_->natural_literal_ != NULL);
+#endif
+		return naturals_equality(
+				e0->sub_natural_literal_->natural_literal_,
+				e1->sub_natural_literal_->natural_literal_);
+	}
+}
+
+*/
+
+amara_boolean
+stt_expressions_equality(const stt_expression * e0, const stt_expression * e1)
+{
+	return stt_expression_equality(e0, e1);
+}

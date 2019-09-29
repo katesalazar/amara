@@ -112,3 +112,48 @@ stt_expression_sub_dice_destructor(
 	natural_destructor(stt_expression_sub_dice_->right_hand_side_natural_);
 	free(stt_expression_sub_dice_);
 }
+
+amara_boolean
+stt_expression_sub_dice_equality(
+		const stt_expression_sub_dice * esd0,
+		const stt_expression_sub_dice * esd1)
+{
+	amara_boolean returning_;
+
+#ifndef NDEBUG
+	assertion(esd0 != NULL);
+	assertion(esd1 != NULL);
+#endif
+
+#ifndef NDEBUG
+	assertion(esd0->left_hand_side_natural_ != NULL);
+	assertion(esd1->left_hand_side_natural_ != NULL);
+#endif
+
+	returning_ = naturals_equality(
+			esd0->left_hand_side_natural_,
+			esd1->left_hand_side_natural_);
+
+	if (returning_ == AMARA_BOOLEAN_FALSE) {
+		return AMARA_BOOLEAN_FALSE;
+	}
+
+#ifndef NDEBUG
+	assertion(esd0->right_hand_side_natural_ != NULL);
+	assertion(esd1->right_hand_side_natural_ != NULL);
+#endif
+
+	returning_ = naturals_equality(
+			esd0->right_hand_side_natural_,
+			esd1->right_hand_side_natural_);
+
+	return returning_;
+}
+
+amara_boolean
+stt_expression_sub_dices_equality(
+		const stt_expression_sub_dice * esd0,
+		const stt_expression_sub_dice * esd1)
+{
+	return stt_expression_sub_dice_equality(esd0, esd1);
+}

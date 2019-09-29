@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,34 @@ __attribute__((warn_unused_result))
 
 void
 assert_expectations_on_stt_expression_sub_conditional_example_simple_conditional(
+		const stt_expression_sub_conditional * expression_sub_conditional)
+;
+
+#endif
+
+stt_expression_sub_conditional *
+stt_expression_sub_conditional_example_simple_true_conditional(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_expression_sub_conditional_example_simple_true_conditional(
+		const stt_expression_sub_conditional * expression_sub_conditional)
+;
+
+#endif
+
+stt_expression_sub_conditional *
+stt_expression_sub_conditional_example_simple_false_conditional(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_expression_sub_conditional_example_simple_false_conditional(
 		const stt_expression_sub_conditional * expression_sub_conditional)
 ;
 

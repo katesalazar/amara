@@ -387,3 +387,112 @@ stt_expression_sub_conditional_set_expression_else(
 	stt_expression_sub_conditional_if_set_expression_else(
 			sub_conditional->if_, expression_else);
 }
+
+amara_boolean
+stt_expression_sub_conditional_if_equality(
+		const stt_expression_sub_conditional_if * esci0,
+		const stt_expression_sub_conditional_if * esci1)
+__attribute__((warn_unused_result))
+;
+
+amara_boolean
+stt_expression_sub_conditional_if_equality(
+		const stt_expression_sub_conditional_if * esci0,
+		const stt_expression_sub_conditional_if * esci1)
+{
+	amara_boolean returning_;
+
+#ifndef NDEBUG
+	assertion(esci0 != NULL);
+	assertion(esci1 != NULL);
+#endif
+
+#ifndef NDEBUG
+	assertion(esci0->type_ !=
+			STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_INVALID);
+	assertion(esci1->type_ !=
+			STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_INVALID);
+#endif
+
+	forced_assertion(esci0->type_ == esci1->type_); /* XXX interim while if-then-elseif is not implemented */
+	/*
+	if (esci0->type_ != esci1->type_) {
+		return AMARA_BOOLEAN_FALSE;
+	}
+	*/
+
+	forced_assertion(esci0->type_ == STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE);
+
+	/*
+	if (esci0->type_ == STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE) {
+	*/
+
+#ifndef NDEBUG
+		assertion(esci0->condition_ != NULL);
+		assertion(esci1->condition_ != NULL);
+#endif
+
+		returning_ = stt_conditions_equality(
+				esci0->condition_, esci1->condition_);
+		if (returning_ == AMARA_BOOLEAN_FALSE) {
+			return AMARA_BOOLEAN_FALSE;
+		}
+		returning_ = stt_expressions_equality(
+				esci0->expression_then_,
+				esci1->expression_then_);
+		if (returning_ == AMARA_BOOLEAN_FALSE) {
+			return AMARA_BOOLEAN_FALSE;
+		}
+		return stt_expressions_equality(
+				esci0->expression_else_,
+				esci1->expression_else_);
+
+	/*
+	} else {
+		assertion(esci0->type_ == STT_EXPRESSION_SUB_CONDITIONAL_IF_TYPE_IF_THEN_ELSE_IF);
+		todo
+	}
+	*/
+}
+
+amara_boolean
+stt_expression_sub_conditional_ifs_equality(
+		const stt_expression_sub_conditional_if * esci0,
+		const stt_expression_sub_conditional_if * esci1)
+__attribute__((warn_unused_result))
+;
+
+amara_boolean
+stt_expression_sub_conditional_ifs_equality(
+		const stt_expression_sub_conditional_if * esci0,
+		const stt_expression_sub_conditional_if * esci1)
+{
+	return stt_expression_sub_conditional_if_equality(esci0, esci1);
+}
+
+amara_boolean
+stt_expression_sub_conditional_equality(
+		const stt_expression_sub_conditional * esc0,
+		const stt_expression_sub_conditional * esc1)
+{
+#ifndef NDEBUG
+	assertion(esc0 != NULL);
+	assertion(esc1 != NULL);
+#endif
+
+#ifndef NDEBUG
+	assertion(esc0->if_ != NULL);
+	assertion(esc1->if_ != NULL);
+#endif
+
+	return stt_expression_sub_conditional_ifs_equality(
+			esc0->if_, esc1->if_);
+}
+
+amara_boolean
+stt_expression_sub_conditionals_equality(
+		const stt_expression_sub_conditional * esc0,
+		const stt_expression_sub_conditional * esc1)
+{
+	return stt_expression_sub_conditional_equality(esc0, esc1);
+}

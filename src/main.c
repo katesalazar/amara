@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -148,7 +148,10 @@ int
 main(int argc, const char * * argv)
 {
 	unsigned char amara_main_ret_;
+
 	amara_main_ret_ = amara_main(argc, argv);
+
 	assertion(amara_main_ret_ <= 0x7F);
+
 	return amara_main_ret_;
 }

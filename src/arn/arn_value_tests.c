@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,8 @@
  * src/arn/arn_value_tests.c: Test the Amara application run time value.
  * A value is basically a constant.
  */
+
+#include "../rtg/rtg_expression_sub_dice_tests.h"
 
 #include "arn_value_tests.h"
 
@@ -448,32 +450,42 @@ arn_value_assign_natural_out_of_unsigned_short_test_0()
 	unsigned short unsigned_short_;
 	amara_string * expected_value_raw_natural_;
 	arn_value_assign_natural_out_of_unsigned_short_ret * ret_;
+#ifndef NDEBUG
 	amara_boolean equality_;
+#endif
 
 	value_ = arn_value_default_constructor();
-	assertion(value_ != NULL);
+	forced_assertion(value_ != NULL);
+#ifndef NDEBUG
 	assertion(value_->type_ == ARN_VALUE_TYPE_INVALID);
+#endif
 
 	unsigned_short_ = 0;
 
 	expected_value_raw_natural_ = amara_string_exhaustive_constructor("0");
-	assertion(expected_value_raw_natural_ != NULL);
-	assertion(expected_value_raw_natural_->value_ != NULL);
+	forced_assertion(expected_value_raw_natural_ != NULL);
+	forced_assertion(expected_value_raw_natural_->value_ != NULL);
 
 	value_->type_ = ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_NATURAL; /* XXX */
 
 	ret_ = arn_value_assign_natural_out_of_unsigned_short(
 			value_, unsigned_short_);
+#ifndef NDEBUG
 	assertion(value_->type_ == ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
-	assertion(value_->natural_ != NULL);
-	assertion(value_->natural_->raw_ != NULL);
-	assertion(value_->natural_->raw_->value_ != NULL);
+#endif
+	forced_assertion(value_->natural_ != NULL);
+	forced_assertion(value_->natural_->raw_ != NULL);
+	forced_assertion(value_->natural_->raw_->value_ != NULL);
+#ifndef NDEBUG
 	equality_ = amara_string_equality(
 			value_->natural_->raw_, expected_value_raw_natural_);
 	assertion(equality_ == AMARA_BOOLEAN_TRUE);
-	assertion(ret_ != NULL);
+#endif
+	forced_assertion(ret_ != NULL);
+#ifndef NDEBUG
 	assertion(ret_->status ==
 			ARN_VALUE_ASSIGN_NATURAL_OUT_OF_UNSIGNED_INT_RET_STATUS_SUCCESS);
+#endif
 
 	/*
 	arn_value_assign_natural_out_of_unsigned_short_ret_destructor(ret_);
@@ -490,8 +502,137 @@ arn_value_assign_natural_out_of_unsigned_short_tests()
 }
 
 void
+arn_value_out_of_amara_boolean_test_0()
+{
+	amara_boolean bool_;
+	arn_value * arn_value_;
+
+	bool_ = AMARA_BOOLEAN_FALSE;
+
+	arn_value_ = arn_value_out_of_amara_boolean(bool_);
+	forced_assertion(arn_value_ != NULL);
+	forced_assertion(arn_value_->type_ ==
+			ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_BOOLEAN);
+	forced_assertion(* arn_value_->boolean_ == AMARA_BOOLEAN_FALSE);
+
+	arn_value_destructor(arn_value_);
+}
+
+void
+arn_value_out_of_amara_boolean_tests()
+{
+	arn_value_out_of_amara_boolean_test_0();
+}
+
+/**  Friend declaration of otherwise private function. */
+arn_value *
+run_dice(const rtg_expression_sub_dice * expression_sub_dice)
+__amara__warn_unused_result__
+;
+
+void
+run_dice_test_0()
+{
+	rtg_expression_sub_dice * dice_;
+	arn_value * dice_rolls_results_;
+
+	dice_ = rtg_expression_sub_dice_example_single_vanilla_dice();
+	forced_assertion(dice_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_expression_sub_dice_example_single_vanilla_dice(
+			dice_);
+#endif
+
+	dice_rolls_results_ = run_dice(dice_);
+	forced_assertion(dice_rolls_results_ != NULL);
+	forced_assertion(dice_rolls_results_->type_ ==
+			ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
+	forced_assertion(48 < * dice_rolls_results_->natural_->raw_->value_);  /* XXX */
+	forced_assertion(56 > * dice_rolls_results_->natural_->raw_->value_);  /* XXX */
+
+	rtg_expression_sub_dice_destructor(dice_);
+	arn_value_destructor(dice_rolls_results_);
+}
+
+void
+run_dice_tests()
+{
+	run_dice_test_0();
+}
+
+/**  Friendly declaration of an otherwise private function. */
+arn_value *
+arn_value_out_of_rtg_expression(const rtg_expression * expression)
+__amara__warn_unused_result__
+;
+
+/*
+
+void
+arn_value_out_of_rtg_expression_test_0()
+{
+	rtg_expression_sub_dice * dice_;
+	arn_value * dice_rolls_results_;
+
+	dice_ = rtg_expression_sub_dice_example_single_vanilla_dice();
+	forced_assertion(dice_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_expression_sub_dice_example_single_vanilla_dice(
+			dice_);
+#endif
+
+	dice_rolls_results_ = arn_value_out_of_rtg_expression(dice_);
+	forced_assertion(dice_rolls_results_ != NULL);
+	forced_assertion(dice_rolls_results_->type_ ==
+			ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_BOOLEAN);
+	forced_assertion(48 < * dice_rolls_results_->natural_->raw_->value_);*/  /* XXX */
+	/*forced_assertion(56 > * dice_rolls_results_->natural_->raw_->value_);*/  /* XXX */
+
+	/*rtg_expression_sub_dice_destructor(dice_);
+	arn_value_destructor(dice_rolls_results_);
+}
+
+*/
+
+void
+arn_value_out_of_rtg_expression_tests()
+{
+	/*
+	arn_value_out_of_rtg_expression_test_0();
+	*/
+}
+
+void
+arn_value_characterize_as_boolean_test_0()
+{
+	arn_value * arn_value_;
+
+	arn_value_ = arn_value_default_constructor();
+	forced_assertion(arn_value_ != NULL);
+#ifndef NDEBUG
+	assertion(arn_value_->type_ == ARN_VALUE_TYPE_INVALID);
+#endif
+
+	arn_value_characterize_as_boolean(arn_value_);
+	forced_assertion(arn_value_->type_ ==
+			ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_BOOLEAN);
+
+	arn_value_destructor(arn_value_);
+}
+
+void
+arn_value_characterize_as_boolean_tests()
+{
+	arn_value_characterize_as_boolean_test_0();
+}
+
+void
 arn_value_tests()
 {
 	arn_value_construct_and_destruct_tests();
 	arn_value_assign_natural_out_of_unsigned_short_tests();
+	arn_value_out_of_amara_boolean_tests();
+	run_dice_tests();
+	arn_value_out_of_rtg_expression_tests();
+	arn_value_characterize_as_boolean_tests();
 }

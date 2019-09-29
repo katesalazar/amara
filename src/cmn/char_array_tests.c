@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,9 @@
 
 /*   For `int fprintf(FILE * stream, const char * format, ...)`. */
 #include <stdio.h>
+
+/*   For `void free(void * ptr)`. */
+#include <stdlib.h>
 
 /*   For `int strcmp(const char * s1, const char * s2)`. */
 #include <string.h>
@@ -46,6 +49,7 @@ the implemented maximum";
 	fprintf(stderr, "%s\n", one_);
 	fprintf(stderr, "%s\n", concat_);
 	assertion(!strcmp_ret_);
+	free((char *) concat_);
 }
 
 void
@@ -68,6 +72,7 @@ concatenate_two_char_arrays_test_1()
 	fprintf(stderr, "%s\n", one_);
 	fprintf(stderr, "%s\n", concat_);
 	assertion(!strcmp_ret_);
+	free((char *) concat_);
 }
 
 void

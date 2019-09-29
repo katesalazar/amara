@@ -258,6 +258,7 @@ rtg_expression_example_simple_conditional()
 	rtg_expression * returning_;
 
 	expression_ = stt_expression_example_simple_conditional();
+	forced_assertion(expression_ != NULL);
 #ifndef NDEBUG
 	assert_expectations_on_stt_expression_example_simple_conditional(
 			expression_);
@@ -265,12 +266,18 @@ rtg_expression_example_simple_conditional()
 
 	mid_ret_ = rtg_expression_out_of_stt_expression(expression_);
 #ifndef NDEBUG
-	assertion(mid_ret_ != NULL);
+	assert_expectations_on_stt_expression_example_simple_conditional(
+			expression_);
+#endif
+	forced_assertion(mid_ret_ != NULL);
+#ifndef NDEBUG
 	assertion(mid_ret_->status ==
 			RTG_EXPRESSION_OUT_OF_STT_EXPRESSION_RET_STATUS_SUCCESS);
 	assert_expectations_on_rtg_expression_example_simple_conditional(
 			mid_ret_->expression);
 #endif
+
+	stt_expression_destructor(expression_);
 
 	returning_ = mid_ret_->expression;
 

@@ -72,6 +72,7 @@ stt_execution_request_subnode_construct_and_destruct_test_1()
 {
 	stt_execution_request_subnode * execution_request_subnode_zero_;
 	stt_execution_request_subnode * execution_request_subnode_one_;
+	amara_string * expectation_;
 
 	execution_request_subnode_zero_ =
 			stt_execution_request_subnode_default_constructor();
@@ -84,9 +85,17 @@ stt_execution_request_subnode_construct_and_destruct_test_1()
 
 	execution_request_subnode_zero_->application_name_ =
 			amara_string_exhaustive_constructor("foo");
+	forced_assertion(execution_request_subnode_zero_->application_name_ !=
+			NULL);
 
 	execution_request_subnode_zero_->type_ =
 			STT_EXECUTION_REQUEST_SUBNODE_TYPE_RUN_CLI_APPLICATION;
+
+	expectation_ = amara_string_exhaustive_constructor("foo");
+	forced_assertion(expectation_ != NULL);
+#ifndef NDEBUG
+	assertion(expectation_->value_ != NULL);
+#endif
 
 	execution_request_subnode_one_ =
 			stt_execution_request_subnode_copy_constructor(
@@ -98,11 +107,12 @@ stt_execution_request_subnode_construct_and_destruct_test_1()
 	assertion(execution_request_subnode_one_->application_name_ != NULL);
 	assertion(execution_request_subnode_one_->application_name_->value_ !=
 			NULL);
-	assertion(amara_string_equality(
+	assertion(AMARA_BOOLEAN_TRUE == amara_string_equality(
 			execution_request_subnode_one_->application_name_,
-			amara_string_exhaustive_constructor("foo")));
+			expectation_));
 #endif
 
+	amara_string_destructor(expectation_);
 	stt_execution_request_subnode_destructor(
 			execution_request_subnode_one_);
 	stt_execution_request_subnode_destructor(

@@ -398,9 +398,10 @@ stt_applications_simple_list_length_test_2()
 
 	i_++;
 
+	free(len_ret_ptr_);
+
 	} while (i_ < 0x0100);  /* 256. */
 
-	free(len_ret_ptr_);
 	stt_application_destructor(application_);
 	stt_applications_simple_list_destructor(list_);
 }
@@ -414,8 +415,30 @@ stt_applications_simple_list_length_tests()
 }
 
 void
+stt_applications_simple_list_push_front_test_0()
+{
+	stt_applications_simple_list * list_;
+
+	list_ = stt_applications_simple_list_example_two_applications();
+	forced_assertion(list_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_applications_simple_list_example_two_applications(
+			list_);
+#endif
+
+	stt_applications_simple_list_destructor(list_);
+}
+
+void
+stt_applications_simple_list_push_front_tests()
+{
+	stt_applications_simple_list_push_front_test_0();
+}
+
+void
 stt_applications_simple_list_tests()
 {
 	stt_applications_simple_list_construct_and_destruct_tests();
 	stt_applications_simple_list_length_tests();
+	stt_applications_simple_list_push_front_tests();
 }

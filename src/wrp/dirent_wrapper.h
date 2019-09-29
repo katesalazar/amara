@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,38 +54,51 @@
 #define DIRENT_WRAPPER_MANIPULATION_VALUES_CLOSEDIR_FORCE_EMIT_EBADF  0x04
 #define DIRENT_WRAPPER_MANIPULATION_VALUES_OPENDIR_FORCE_EMIT_ENOENT  0x08
 
-typedef struct {
+typedef struct manipulation_details {
+
 	unsigned char manipulation_values;
-} manipulation_details;
+} manipulation_details
+;
 
-typedef struct {
+typedef struct dirent_wrapper {
+
 	unsigned char manipulation;
-	manipulation_details * manipulation_details;
-} dirent_wrapper;
 
-typedef struct {
+	struct manipulation_details * manipulation_details;
+} dirent_wrapper
+;
+
+typedef struct dirent_wrapper_opendir_ret {
+
 	/*   This is the interface to the return type of the wrapped syscall
 	 * itself. */
 	DIR * dir;
+
 	/*   This is used to signal potential errors (`<error.h>` `errno`) like
 	 * e.g. the directory does not exist. */
 	unsigned char error_status_code;
+
 	/*   This is used to mark that the result is affected of
 	 * manipulation. */
 	unsigned char dyed;
-} dirent_wrapper_opendir_ret;
+} dirent_wrapper_opendir_ret
+;
 
-typedef struct {
+typedef struct dirent_wrapper_closedir_ret {
+
 	/*   This is the interface to the return type of the wrapped syscall
 	 * itself. */
 	int value;
+
 	/*   This is used to signal potential errors (`<error.h>` `errno`) like
 	 * e.g. the input directory stream descriptor is invalid. */
 	unsigned char error_status_code;
+
 	/*   This is used to mark that the result is affected of
 	 * manipulation. */
 	unsigned char dyed;
-} dirent_wrapper_closedir_ret;
+} dirent_wrapper_closedir_ret
+;
 
 dirent_wrapper *
 construct_dirent_wrapper(void)

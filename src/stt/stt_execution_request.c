@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -71,13 +71,19 @@ stt_execution_request_copy_constructor(
 void
 stt_execution_request_destructor(stt_execution_request * execution_request_)
 {
+#ifndef NDEBUG
 	assertion(execution_request_ != NULL);
+#endif
 	if (execution_request_->type_ == STT_EXECUTION_REQUEST_TYPE_INVALID) {
+#ifndef NDEBUG
 		assertion(execution_request_->application_name_ == NULL);
+#endif
 	} else {
+#ifndef NDEBUG
 		assertion(execution_request_->type_ ==
 				STT_EXECUTION_REQUEST_TYPE_CLI_APPLICATION);
 		assertion(execution_request_->application_name_ != NULL);
+#endif
 		amara_string_destructor(execution_request_->application_name_);
 	}
 	free(execution_request_);
@@ -104,5 +110,6 @@ stt_execution_request_set_application_name(
 			STT_EXECUTION_REQUEST_TYPE_INVALID);
 	assertion(execution_request->application_name_ == NULL);
 	execution_request->application_name_ =
-			(amara_string *) application_name;
+			amara_string_copy_constructor(application_name);
+	forced_assertion(execution_request->application_name_ != NULL);
 }

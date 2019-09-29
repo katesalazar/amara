@@ -302,11 +302,117 @@ stt_where_value_bindings_simple_list_find_by_value_name_test_2()
 }
 
 void
+stt_where_value_bindings_simple_list_find_by_value_name_test_3()
+{
+	stt_where_value_bindings_simple_list * haystack_;
+	amara_string * needle_;
+	stt_where_value_binding * result_;
+
+	haystack_ = stt_where_value_bindings_simple_list_default_constructor();
+	forced_assertion(haystack_ != NULL);
+#ifndef NDEBUG
+	assertion(haystack_->first == NULL);
+	assertion(haystack_->next == NULL);
+#endif
+
+	needle_ = amara_string_exhaustive_constructor("something");
+	forced_assertion(needle_ != NULL);
+
+	result_ = stt_where_value_bindings_simple_list_find_by_value_name(
+			haystack_, needle_);
+#ifndef NDEBUG
+	assertion(haystack_->first == NULL);
+	assertion(haystack_->next == NULL);
+#endif
+	forced_assertion(result_ == NULL);
+
+	stt_where_value_bindings_simple_list_destructor(haystack_);
+
+	amara_string_destructor(needle_);
+}
+
+void
 stt_where_value_bindings_simple_list_find_by_value_name_tests()
 {
 	stt_where_value_bindings_simple_list_find_by_value_name_test_0();
 	stt_where_value_bindings_simple_list_find_by_value_name_test_1();
 	stt_where_value_bindings_simple_list_find_by_value_name_test_2();
+	stt_where_value_bindings_simple_list_find_by_value_name_test_3();
+}
+
+void
+stt_where_value_bindings_simple_list_push_front_test_0()
+{
+	stt_where_value_binding * where_value_binding_zero_;
+	stt_where_value_binding * where_value_binding_one_;
+	stt_where_value_bindings_simple_list * list_;
+
+	where_value_binding_zero_ = stt_where_value_binding_example_simple_value_bind_foo_to_zero();
+	forced_assertion(where_value_binding_zero_ != NULL);
+	/* XXX missing assertions */
+
+	where_value_binding_one_ = stt_where_value_binding_example_simple_value_bind_bar_to_one();
+	forced_assertion(where_value_binding_one_ != NULL);
+	/* XXX missing assertions */
+
+	list_ = stt_where_value_bindings_simple_list_default_constructor();
+	forced_assertion(list_ != NULL);
+	/* XXX missing assertions */
+
+	list_ = stt_where_value_bindings_simple_list_push_front(
+			list_, where_value_binding_zero_);
+	/* XXX missing assertions */
+	forced_assertion(list_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_binding_example_simple_value_bind_foo_to_zero(
+			list_->first);
+	/* XXX missing assertions */
+#endif
+
+	stt_where_value_binding_destructor(where_value_binding_zero_);
+
+	list_ = stt_where_value_bindings_simple_list_push_front(
+			list_, where_value_binding_one_);
+	forced_assertion(list_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_binding_example_simple_value_bind_bar_to_one(
+			list_->first);
+	/* XXX missing assertions */
+	assert_expectations_on_stt_where_value_binding_example_simple_value_bind_foo_to_zero(
+			list_->next->first);
+	/* XXX missing assertions */
+#endif
+
+	stt_where_value_binding_destructor(where_value_binding_one_);
+
+	stt_where_value_bindings_simple_list_destructor(list_);
+}
+
+void
+stt_where_value_bindings_simple_list_push_front_tests()
+{
+	stt_where_value_bindings_simple_list_push_front_test_0();
+}
+
+void
+stt_where_value_bindings_simple_list_push_back_test_0()
+{
+	stt_where_value_bindings_simple_list * list_;
+
+	list_ = stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo();
+	forced_assertion(list_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo(
+			list_);
+#endif
+
+	stt_where_value_bindings_simple_list_destructor(list_);
+}
+
+void
+stt_where_value_bindings_simple_list_push_back_tests()
+{
+	stt_where_value_bindings_simple_list_push_back_test_0();
 }
 
 void
@@ -314,4 +420,6 @@ stt_where_value_bindings_simple_list_tests()
 {
 	stt_where_value_bindings_simple_list_constructors_tests();
 	stt_where_value_bindings_simple_list_find_by_value_name_tests();
+	stt_where_value_bindings_simple_list_push_front_tests();
+	stt_where_value_bindings_simple_list_push_back_tests();
 }

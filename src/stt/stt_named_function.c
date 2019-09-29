@@ -57,10 +57,13 @@ stt_named_function_exhaustive_constructor(
 		const stt_where_value_bindings_simple_list * where_value_bindings_)
 {
 	stt_named_function * ret_;
+
 	if (type == STT_NAMED_FUNCTION_TYPE_INVALID) {
+#ifndef NDEBUG
 		assertion(name == NULL);
 		assertion(operations == NULL);
 		assertion(where_value_bindings_ == NULL);
+#endif
 
 		ret_ =
 #ifdef AMARA_USE_STD_CXX98
@@ -75,6 +78,7 @@ stt_named_function_exhaustive_constructor(
 		ret_->where_value_bindings_ = NULL;
 		return ret_;
 	}
+#ifndef NDEBUG
 	assertion(type == STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION);
 	assertion(name != NULL);
 	assertion(name->value_ != NULL);
@@ -90,6 +94,10 @@ stt_named_function_exhaustive_constructor(
 	assertion(operations->first->args_->next == NULL);
 	assertion(operations->next == NULL);
 	*/
+	/*
+	assertion(where_value_bindings_ != NULL);
+	*/
+#endif
 
 	ret_ =
 #ifdef AMARA_USE_STD_CXX98
@@ -121,12 +129,14 @@ stt_named_function_copy_constructor(const stt_named_function * named_function)
 {
 	stt_named_function * ret_;
 
+#ifndef NDEBUG
 	assertion(named_function != NULL);
 	assertion(named_function->type_ != STT_NAMED_FUNCTION_TYPE_INVALID);
 	assertion(named_function->name_ != NULL);
 	assertion(named_function->name_->value_ != NULL);
 	assertion(named_function->operations_ != NULL);
 	assertion(named_function->where_value_bindings_ != NULL);
+#endif
 
 	ret_ =
 #ifdef AMARA_USE_STD_CXX98
@@ -149,18 +159,31 @@ stt_named_function_copy_constructor(const stt_named_function * named_function)
 void
 stt_named_function_destructor(stt_named_function * named_function)
 {
+#ifndef NDEBUG
 	assertion(named_function != NULL);
+#endif
 	if (named_function->type_ == STT_NAMED_FUNCTION_TYPE_INVALID) {
+#ifndef NDEBUG
 		assertion(named_function->name_ == NULL);
 		assertion(named_function->operations_ == NULL);
+		assertion(named_function->where_value_bindings_ == NULL);
+#endif
 	} else {
+#ifndef NDEBUG
 		assertion(named_function->type_ ==
 				STT_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION);
 		assertion(named_function->name_ != NULL);
+#endif
 		amara_string_destructor(named_function->name_);
+#ifndef NDEBUG
 		assertion(named_function->operations_ != NULL);
+#endif
 		stt_operations_simple_list_destructor(
 				named_function->operations_);
+		if (named_function->where_value_bindings_ != NULL) {
+			stt_where_value_bindings_simple_list_destructor(
+					named_function->where_value_bindings_);
+		}
 	}
 	free(named_function);
 }
@@ -207,8 +230,11 @@ stt_named_function_out_of_stt_named_function_subnode(
 		const stt_named_function_subnode * named_function_subnode)
 {
 	stt_named_function * returning_;
+#ifndef NDEBUG
 	amara_boolean equality_;
+#endif
 
+#ifndef NDEBUG
 	assertion(named_function_subnode != NULL);
 	assertion(named_function_subnode->type_ !=
 			STT_NAMED_FUNCTION_SUBNODE_TYPE_INVALID);
@@ -219,13 +245,15 @@ stt_named_function_out_of_stt_named_function_subnode(
 
 	assertion(named_function_subnode->type_ ==
 			STT_NAMED_FUNCTION_SUBNODE_TYPE_CLI_APP_NAMED_FUNCTION);
+#endif
 
 	returning_ = stt_named_function_exhaustive_constructor(
 			STT_NAMED_FUNCTION_TYPE_CLI_APP_NAMED_FUNCTION,
 			named_function_subnode->name_,
 			named_function_subnode->operations_,
 			named_function_subnode->where_value_bindings_);
-	assertion(returning_ != NULL);
+	forced_assertion(returning_ != NULL);
+#ifndef NDEBUG
 	assertion(returning_->type_ ==
 			STT_NAMED_FUNCTION_TYPE_CLI_APP_NAMED_FUNCTION);
 	assertion(returning_->name_ != NULL);
@@ -234,7 +262,16 @@ stt_named_function_out_of_stt_named_function_subnode(
 			named_function_subnode->name_, returning_->name_);
 	assertion(equality_ == AMARA_BOOLEAN_TRUE);
 	assertion(returning_->operations_ != NULL);
+	equality_ = stt_operations_simple_list_equality(
+			named_function_subnode->operations_,
+			returning_->operations_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
 	assertion(returning_->where_value_bindings_ != NULL);
+	equality_ = stt_where_value_bindings_simple_list_equality(
+			named_function_subnode->where_value_bindings_,
+			returning_->where_value_bindings_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+#endif
 
 	return returning_;
 }

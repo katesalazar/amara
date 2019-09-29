@@ -150,25 +150,149 @@ assert_expectations_on_stt_operations_simple_list_example_print_identifier_foo(
 
 #endif
 
+stt_operations_simple_list *
+stt_operations_simple_list_example_one_operation_list(void)
+{
+	return stt_operations_simple_list_example_print_identifier_foo();
+}
+
+#ifndef NDEBUG
+
 void
-stt_operations_simple_list_construct_and_destruct_test_0()
+assert_expectations_on_stt_operations_simple_list_example_one_operation_list(
+		const stt_operations_simple_list * operations)
+{
+	assert_expectations_on_stt_operations_simple_list_example_print_identifier_foo(
+			operations);
+}
+
+#endif
+
+void
+stt_operations_simple_list_default_constructor_test_0()
 {
 	stt_operations_simple_list * list_;
+
 	list_ = stt_operations_simple_list_default_constructor();
-	assertion(list_ != NULL);
+	forced_assertion(list_ != NULL);
+#ifndef NDEBUG
 	assertion(list_->first == NULL);
 	assertion(list_->next == NULL);
+#endif
+
 	stt_operations_simple_list_destructor(list_);
 }
 
 void
-stt_operations_simple_list_construct_and_destruct_tests()
+stt_operations_simple_list_default_constructor_test_1()
 {
-	stt_operations_simple_list_construct_and_destruct_test_0();
+	stt_operations_simple_list * list_;
+
+	list_ = stt_operations_simple_list_example_print_identifier_foo();
+	forced_assertion(list_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operations_simple_list_example_print_identifier_foo(
+			list_);
+#endif
+
+	stt_operations_simple_list_destructor(list_);
+}
+
+void
+stt_operations_simple_list_default_constructor_tests()
+{
+	stt_operations_simple_list_default_constructor_test_0();
+	stt_operations_simple_list_default_constructor_test_1();
+}
+
+void
+stt_operations_simple_list_constructors_tests()
+{
+	stt_operations_simple_list_default_constructor_tests();
+}
+
+/**  An empty list can not be equal to a non empty list. */
+void
+stt_operations_simple_list_equality_test_0()
+{
+	stt_operations_simple_list * l0_;
+	stt_operations_simple_list * l1_;
+	amara_boolean equality_;
+
+	l0_ = stt_operations_simple_list_default_constructor();
+	forced_assertion(l0_ != NULL);
+
+	l1_ = stt_operations_simple_list_example_one_operation_list();
+	forced_assertion(l1_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operations_simple_list_example_one_operation_list(
+			l1_);
+#endif
+
+	equality_ = stt_operations_simple_lists_equality(l0_, l1_);
+	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_operations_simple_list_destructor(l0_);
+	stt_operations_simple_list_destructor(l1_);
+}
+
+/**  A non empty list can not be equal to an empty list. */
+void
+stt_operations_simple_list_equality_test_1()
+{
+	stt_operations_simple_list * l0_;
+	stt_operations_simple_list * l1_;
+	amara_boolean equality_;
+
+	l0_ = stt_operations_simple_list_example_one_operation_list();
+	forced_assertion(l0_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operations_simple_list_example_one_operation_list(
+			l0_);
+#endif
+
+	l1_ = stt_operations_simple_list_default_constructor();
+	forced_assertion(l1_ != NULL);
+
+	equality_ = stt_operations_simple_lists_equality(l0_, l1_);
+	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_operations_simple_list_destructor(l0_);
+	stt_operations_simple_list_destructor(l1_);
+}
+
+/**  An empty list is equal to another empty list. */
+void
+stt_operations_simple_list_equality_test_2()
+{
+	stt_operations_simple_list * l0_;
+	stt_operations_simple_list * l1_;
+	amara_boolean equality_;
+
+	l0_ = stt_operations_simple_list_default_constructor();
+	forced_assertion(l0_ != NULL);
+
+	l1_ = stt_operations_simple_list_default_constructor();
+	forced_assertion(l1_ != NULL);
+
+	equality_ = stt_operations_simple_lists_equality(l0_, l1_);
+	forced_assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
+	stt_operations_simple_list_destructor(l0_);
+	stt_operations_simple_list_destructor(l1_);
+}
+
+void
+stt_operations_simple_list_equality_tests()
+{
+	stt_operations_simple_list_equality_test_0();
+	stt_operations_simple_list_equality_test_1();
+	stt_operations_simple_list_equality_test_2();
 }
 
 void
 stt_operations_simple_list_tests()
 {
-	stt_operations_simple_list_construct_and_destruct_tests();
+	stt_operations_simple_list_constructors_tests();
+	stt_operations_simple_list_equality_tests();
 }

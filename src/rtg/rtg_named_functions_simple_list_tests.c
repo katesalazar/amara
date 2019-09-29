@@ -348,6 +348,8 @@ rtg_named_functions_simple_list_transformation_constructor_test_1()
 			transformation_ret_->named_functions);
 #endif
 
+	stt_named_functions_simple_list_destructor(stt_named_functions_);
+
 	rtg_named_functions_ = transformation_ret_->named_functions;
 
 	free(transformation_ret_);

@@ -20,6 +20,8 @@
 #ifndef __AMARA__SYNTAX_TREE__OPERATIONS_SIMPLE_LIST_TESTS__H__
 #define __AMARA__SYNTAX_TREE__OPERATIONS_SIMPLE_LIST_TESTS__H__
 
+#include "../definitions.h"
+
 stt_operations_simple_list *
 stt_operations_simple_list_example_print_foo(void)
 __attribute__((warn_unused_result))
@@ -57,6 +59,20 @@ __attribute__((warn_unused_result))
 
 void
 assert_expectations_on_stt_operations_simple_list_example_print_identifier_foo(
+		const stt_operations_simple_list * operations)
+;
+
+#endif
+
+stt_operations_simple_list *
+stt_operations_simple_list_example_one_operation_list(void)
+__amara__warn_unused_result__
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_operations_simple_list_example_one_operation_list(
 		const stt_operations_simple_list * operations)
 ;
 

@@ -101,19 +101,42 @@ void
 rtg_doc_out_of_stt_doc_ret_destructor(
 		rtg_doc_out_of_stt_doc_ret * rtg_doc_out_of_stt_doc_ret_)
 {
+#ifndef NDEBUG
 	assertion(rtg_doc_out_of_stt_doc_ret_ != NULL);
+#endif
 
+	/*
 	assertion(rtg_doc_out_of_stt_doc_ret_->status == RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_SUCCESS);
+	*/
 
-	/* if (rtg_doc_out_of_stt_doc_ret_->status == RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_SUCCESS) { */
+	if (rtg_doc_out_of_stt_doc_ret_->status ==
+			RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_SUCCESS) {
 
+#ifndef NDEBUG
+		assertion(rtg_doc_out_of_stt_doc_ret_->error_messages == NULL);
 		assertion(rtg_doc_out_of_stt_doc_ret_->doc != NULL);
 		rtg_doc_destructor(rtg_doc_out_of_stt_doc_ret_->doc);
+#endif
+	} else if (rtg_doc_out_of_stt_doc_ret_->status ==
+			RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_ERROR_ONE_OR_MORE_APPLICATIONS_REQUESTED_TO_BE_EXECUTED_NOT_FOUND) {
 
-	/* } else {
-		assertion(rtg_doc_out_of_stt_doc_ret_->status == RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_INVALID);
+#ifndef NDEBUG
+		assertion(rtg_doc_out_of_stt_doc_ret_->error_messages != NULL);
+#endif
+		amara_strings_simple_list_destructor(
+				rtg_doc_out_of_stt_doc_ret_->error_messages);
+#ifndef NDEBUG
 		assertion(rtg_doc_out_of_stt_doc_ret_->doc == NULL);
-	} */
+#endif
+	} else {
+		forced_assertion(rtg_doc_out_of_stt_doc_ret_->status ==
+				RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_INVALID);
+
+#ifndef NDEBUG
+		assertion(rtg_doc_out_of_stt_doc_ret_->error_messages == NULL);
+		assertion(rtg_doc_out_of_stt_doc_ret_->doc == NULL);
+#endif
+	}
 
 	free(rtg_doc_out_of_stt_doc_ret_);
 }

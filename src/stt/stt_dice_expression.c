@@ -1,6 +1,5 @@
-
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,8 +43,10 @@ stt_dice_expression_exhaustive_constructor(
 
 	returning_->left_hand_side_natural_ =
 			natural_copy_constructor(left_hand_side);
+	forced_assertion(returning_->left_hand_side_natural_ != NULL);
 	returning_->right_hand_side_natural_ =
 			natural_copy_constructor(right_hand_side);
+	forced_assertion(returning_->right_hand_side_natural_ != NULL);
 	return returning_;
 }
 

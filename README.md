@@ -29,7 +29,6 @@ A bunch of WIP utilities aimed at applications custom fast prototyping.
 * [how to run on...][10]
   * [debian stretch][11]
   * [macOS Mojave (the Xcode way)][33]
-  * [macOS Mojave (the Homebrew way)][12]
   * macOS Mojave (the vanilla way)
   * [any other][13]
 * features
@@ -135,11 +134,14 @@ $ _
 
 This was written for Xcode `9.0`.
 
-1. Open `amara.xcodeproj/` from Xcode.
+1. Follow _the vanilla way_ first, in order to have Bison and Flex create the
+   parser and lexer.
 
-2. Edit the _Scheme_ -&gt; Run<sub>Debug</sub> -&gt; Arguments Passed On Launch -&gt; `+` -&gt; `greet --no-banner`.
+2. Open `amara.xcodeproj/` from Xcode.
 
-3. Click the _play_ (build and run) button.
+3. Edit the _Scheme_ -&gt; Run<sub>Debug</sub> -&gt; Arguments Passed On Launch -&gt; `+` -&gt; `greet --no-banner`.
+
+4. Click the _play_ (build and run) button.
 
 ```
 Wish you have a wonderful day!
@@ -147,47 +149,16 @@ Program ended with exit code: 0
 ```
 
 
-### macOS Mojave (the Homebrew way)
-
-1. **Optionally** [install Homebrew][8] (for updated `bison` and `flex`
-   packages, not required):
-
-```
-$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
-
-2. If you have Homebrew, **optionally** select the `bison` and `flex` packages
-   (it should just work using the default `bison` and `flex` programs shipped
-   in macOS):
-
-```
-$ brew install bison flex
-[...]
-$ _
-```
-
-3. Run `make`:
-
-```
-$ make
-[...]
-$ echo $?
-0
-$ _
-```
-
-4. Run `/PATH/TO/AMARA/build/release/amara`:
-
-```
-$ ./build/release/amara greet --no-banner
-Wish you have a wonderful day!
-$ _
-```
-
-
 ### macOS Mojave (the vanilla way)
 
-1. Run `make`:
+1. Change directory to `/PATH/TO/AMARA/`:
+
+```
+$ cd /PATH/TO/AMARA/
+$ _
+```
+
+2. Run `make`:
 
 ```
 $ make
@@ -197,7 +168,7 @@ $ echo $?
 $ _
 ```
 
-2. Run `/PATH/TO/AMARA/build/release/amara`:
+3. Run `/PATH/TO/AMARA/build/release/amara`:
 
 ```
 $ ./build/release/amara greet --no-banner
@@ -466,15 +437,11 @@ Licensed to you under the terms of [the Apache License, version 2.0][29].
 
 [5]: http://github.com/katesalazar/amara/tree/master/INSTALL_LEGACY.md
 
-[8]: http://brew.sh/
-
 [9]: http://github.com/katesalazar/amara/tree/master#dependencies
 
 [10]: http://github.com/katesalazar/amara/tree/master#how-to-run-on
 
 [11]: http://github.com/katesalazar/amara/tree/master#debian-stretch
-
-[12]: http://github.com/katesalazar/amara/tree/master#macos-high-sierra-the-homebrew-way
 
 [13]: http://github.com/katesalazar/amara/tree/master#any-other
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -374,37 +374,48 @@ arn_values_simple_list_assign_natural_out_of_unsigned_short_test_0()
 	arn_values_simple_list * values_;
 	amara_string * value_name_;
 	unsigned short unsigned_short_;
+#ifndef NDEBUG
 	amara_boolean equality_;
+#endif
 	amara_string * expected_value_raw_natural_;
 
 	value_ = arn_value_default_constructor();
-	assertion(value_ != NULL);
+	forced_assertion(value_ != NULL);
+#ifndef NDEBUG
 	assertion(value_->type_ == ARN_VALUE_TYPE_INVALID);
 	assertion(value_->name_ == NULL);
 	assertion(value_->string_ == NULL);
 	assertion(value_->natural_ == NULL);
+#endif
 
 	values_ = arn_values_simple_list_default_constructor();
-	assertion(values_ != NULL);
+	forced_assertion(values_ != NULL);
+#ifndef NDEBUG
 	assertion(values_->first == NULL);
 	assertion(values_->next == NULL);
+#endif
 
 	value_name_ = amara_string_exhaustive_constructor("foo");
-	assertion(value_name_ != NULL);
-	assertion(value_name_->value_ != NULL);
+	forced_assertion(value_name_ != NULL);
+	forced_assertion(value_name_->value_ != NULL);
 
 	arn_value_set_name(value_, value_name_);
+#ifndef NDEBUG
 	assertion(value_->type_ ==
 			ARN_VALUE_TYPE_NAMED_VALUE_OF_UNDEFINED_TYPE);
-	assertion(value_->name_ != NULL);
-	assertion(value_->name_->value_ != NULL);
+#endif
+	forced_assertion(value_->name_ != NULL);
+	forced_assertion(value_->name_->value_ != NULL);
+#ifndef NDEBUG
 	equality_ = amara_string_equality(value_->name_, value_name_);
 	assertion(equality_ == AMARA_BOOLEAN_TRUE);
 	assertion(value_->string_ == NULL);
 	assertion(value_->natural_ == NULL);
 	assertion(value_name_->value_ != NULL);
+#endif
 
 	arn_value_characterize_as_natural(value_);
+#ifndef NDEBUG
 	assertion(value_->type_ == ARN_VALUE_TYPE_NAMED_UNASSIGNED_NATURAL);
 	assertion(value_->name_ != NULL);
 	assertion(value_->name_->value_ != NULL);
@@ -412,14 +423,18 @@ arn_values_simple_list_assign_natural_out_of_unsigned_short_test_0()
 	assertion(equality_ == AMARA_BOOLEAN_TRUE);
 	assertion(value_->string_ == NULL);
 	assertion(value_->natural_ == NULL);
+#endif
 
 	values_ = arn_values_simple_list_push_front(values_, value_);
-	assertion(values_ != NULL);
-	assertion(values_->first != NULL);
+	forced_assertion(values_ != NULL);
+	forced_assertion(values_->first != NULL);
+#ifndef NDEBUG
 	assertion(values_->first->type_ ==
 			ARN_VALUE_TYPE_NAMED_UNASSIGNED_NATURAL);
-	assertion(values_->first->name_ != NULL);
-	assertion(values_->first->name_->value_ != NULL);
+#endif
+	forced_assertion(values_->first->name_ != NULL);
+	forced_assertion(values_->first->name_->value_ != NULL);
+#ifndef NDEBUG
 	equality_ = amara_string_equality(values_->first->name_, value_name_);
 	assertion(equality_ == AMARA_BOOLEAN_TRUE);
 	assertion(values_->first->string_ == NULL);
@@ -432,41 +447,50 @@ arn_values_simple_list_assign_natural_out_of_unsigned_short_test_0()
 	assertion(equality_ == AMARA_BOOLEAN_TRUE);
 	assertion(value_->string_ == NULL);
 	assertion(value_->natural_ == NULL);
+#endif
 
 	unsigned_short_ = 7;
 
 	expected_value_raw_natural_ = amara_string_exhaustive_constructor("7");
-	assertion(expected_value_raw_natural_ != NULL);
-	assertion(expected_value_raw_natural_->value_ != NULL);
+	forced_assertion(expected_value_raw_natural_ != NULL);
+	forced_assertion(expected_value_raw_natural_->value_ != NULL);
 
 	values_ = arn_values_simple_list_assign_natural_out_of_unsigned_short(
 			values_, value_name_, unsigned_short_);
 	/* if (values_ == NULL) { */ /* XXX */
 	/* } else { */ /* XXX*/
-	assertion(values_ != NULL);
+	forced_assertion(values_ != NULL);
+#ifndef NDEBUG
 	assertion(values_->first->type_ ==
 			ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL);
-	assertion(values_->first != NULL);
-	assertion(values_->first->name_ != NULL);
-	assertion(values_->first->name_->value_ != NULL);
+#endif
+	forced_assertion(values_->first != NULL);
+	forced_assertion(values_->first->name_ != NULL);
+	forced_assertion(values_->first->name_->value_ != NULL);
+#ifndef NDEBUG
 	equality_ = amara_string_equality(values_->first->name_, value_name_);
 	assertion(equality_ == AMARA_BOOLEAN_TRUE);
 	assertion(values_->first->string_ == NULL);
-	assertion(values_->first->natural_ != NULL);
-	assertion(values_->first->natural_->raw_ != NULL);
-	assertion(values_->first->natural_->raw_->value_ != NULL);
+#endif
+	forced_assertion(values_->first->natural_ != NULL);
+	forced_assertion(values_->first->natural_->raw_ != NULL);
+	forced_assertion(values_->first->natural_->raw_->value_ != NULL);
+#ifndef NDEBUG
 	equality_ = amara_string_equality(
 			expected_value_raw_natural_,
 			values_->first->natural_->raw_);
 	assertion(equality_ == AMARA_BOOLEAN_TRUE);
 	assertion(values_->next == NULL);
 	assertion(value_name_->value_ != NULL);
+#endif
 	/* } */ /* XXX */
 
 	/* if (values_ == NULL) { */ /* XXX */
 	/* } else { */ /* XXX */
 	arn_values_simple_list_destructor(values_);
 	/* } */ /* XXX */
+
+	amara_string_destructor(expected_value_raw_natural_);
 	arn_value_destructor(value_);
 	amara_string_destructor(value_name_);
 }

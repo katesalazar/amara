@@ -116,4 +116,6 @@ assert_valid_raw_rational(const amara_string * raw_rational)
 		}
 		indexer_ += 1;
 	}
+
+	free((char *) raw_rational_chars_array_);
 }

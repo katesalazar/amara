@@ -46,6 +46,8 @@ rtg_where_value_binding_example_bind_value_foo_to_expression_natural_zero(void)
 			returning_);
 #endif
 
+	stt_where_value_binding_destructor(stt_where_value_binding_);
+
 	return returning_;
 }
 
@@ -100,6 +102,8 @@ rtg_where_value_binding_example_bind_value_bar_to_expression_natural_one(void)
 	assert_expectations_on_rtg_where_value_binding_example_bind_value_bar_to_expression_natural_one(
 			returning_);
 #endif
+
+	stt_where_value_binding_destructor(stt_where_value_binding_);
 
 	return returning_;
 }

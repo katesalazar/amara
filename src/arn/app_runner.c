@@ -245,6 +245,8 @@ run_app_main_doc_exists(
 	rtg_doc_out_of_stt_doc_ret_ =
 			rtg_doc_out_of_stt_doc(minia_bison_main_ret_);
 
+	stt_node_destructor(minia_bison_main_ret_);
+
 #ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "app_runner:225\n");
 #endif

@@ -137,6 +137,28 @@ rtg_execution_requests_simple_list_push_front(
 	return new_node_;
 }
 
+void
+rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list_ret_destructor(
+		rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list_ret * input_ret_)
+{
+#ifndef NDEBUG
+	assertion(input_ret_ != NULL);
+#endif
+	if (input_ret_->error_messages != NULL) {
+#ifndef NDEBUG
+		assertion(input_ret_->execution_requests == NULL);
+#endif
+		amara_strings_simple_list_destructor(
+				input_ret_->error_messages);
+	} else {
+#ifndef NDEBUG
+		assertion(input_ret_->execution_requests != NULL);
+#endif
+		rtg_execution_requests_simple_list_destructor(
+				input_ret_->execution_requests);
+	}
+}
+
 rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list_ret *
 rtg_execution_requests_simple_list_out_of_stt_execution_requests_simple_list_and_rtg_applications_simple_list(
 		const stt_execution_requests_simple_list * stt_execution_requests,

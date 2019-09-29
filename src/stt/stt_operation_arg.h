@@ -25,8 +25,8 @@
 
 typedef unsigned char stt_operation_arg_type;
 
-#define STT_OPERATION_ARG_TYPE_INVALID 0x00
-#define STT_OPERATION_ARG_TYPE_VALID   0xFF
+#define STT_OPERATION_ARG_TYPE_INVALID 0x21  /* 33: '!'. */
+#define STT_OPERATION_ARG_TYPE_VALID   0x3F  /* 63: '?'. */
 
 typedef struct stt_operation_arg {
 
@@ -76,6 +76,18 @@ void
 stt_operation_arg_set_identifier(
 		stt_operation_arg * operation_arg,
 		const amara_string * identifier)
+;
+
+amara_boolean
+stt_operation_arg_equality(
+		const stt_operation_arg * oa0, const stt_operation_arg * oa1)
+__attribute__((warn_unused_result))
+;
+
+amara_boolean
+stt_operation_args_equality(
+		const stt_operation_arg * oa0, const stt_operation_arg * oa1)
+__attribute__((warn_unused_result))
 ;
 
 #endif

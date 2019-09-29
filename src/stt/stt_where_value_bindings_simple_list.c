@@ -100,10 +100,13 @@ stt_where_value_bindings_simple_list_destructor_inner(
 		stt_where_value_bindings_simple_list * list)
 {
 	if (list != NULL) {
-		assertion(list->first != NULL);
-		stt_where_value_binding_destructor(list->first);
 		stt_where_value_bindings_simple_list_destructor_inner(
 				list->next);
+#ifndef NDEBUG
+		assertion(list->first != NULL);
+#endif
+		stt_where_value_binding_destructor(list->first);
+		free(list);
 	}
 }
 
@@ -275,4 +278,85 @@ stt_where_value_bindings_simple_list_find_by_value_name(
 
 	return stt_where_value_bindings_simple_list_find_by_value_name_inner(
 			value_bindings_haystack, needle_value_name);
+}
+
+amara_boolean
+stt_where_value_bindings_simple_list_equality_inner(
+		const stt_where_value_bindings_simple_list * l0,
+		const stt_where_value_bindings_simple_list * l1)
+__attribute__((warn_unused_result))
+;
+
+amara_boolean
+stt_where_value_bindings_simple_list_equality_inner(
+		const stt_where_value_bindings_simple_list * l0,
+		const stt_where_value_bindings_simple_list * l1)
+{
+	amara_boolean firsts_equal_;
+
+	if (l0 == NULL) {
+
+		if (l1 == NULL) {
+
+			return AMARA_BOOLEAN_TRUE;
+		} else {
+
+			return AMARA_BOOLEAN_FALSE;
+		}
+	} else {
+
+		if (l1 == NULL) {
+
+			return AMARA_BOOLEAN_FALSE;
+		} else {
+
+#ifndef NDEBUG
+			assertion(l0->first != NULL);
+			assertion(l1->first != NULL);
+#endif
+			firsts_equal_ = stt_where_value_bindings_equality(
+					l0->first, l1->first);
+			if (firsts_equal_ == AMARA_BOOLEAN_FALSE) {
+				return AMARA_BOOLEAN_FALSE;
+			} else {
+				return stt_where_value_bindings_simple_list_equality_inner(
+						l0->next, l1->next);
+			}
+		}
+	}
+}
+
+amara_boolean
+stt_where_value_bindings_simple_list_equality(
+		const stt_where_value_bindings_simple_list * l0,
+		const stt_where_value_bindings_simple_list * l1)
+{
+#ifndef NDEBUG
+	assertion(l0 != NULL);
+	assertion(l1 != NULL);
+#endif
+
+	if (l0->first == NULL) {
+
+#ifndef NDEBUG
+		assertion(l0->next == NULL);
+#endif
+		if (l1->first == NULL) {
+
+#ifndef NDEBUG
+			assertion(l1->next == NULL);
+#endif
+			return AMARA_BOOLEAN_TRUE;
+		}
+		return AMARA_BOOLEAN_FALSE;
+	} else if (l1->first == NULL) {
+
+#ifndef NDEBUG
+		assertion(l1->next == NULL);
+#endif
+		return AMARA_BOOLEAN_FALSE;
+	} else {
+		return stt_where_value_bindings_simple_list_equality_inner(
+				l0, l1);
+	}
 }

@@ -49,9 +49,11 @@ stt_string_literal_subnode_copy_constructor(
 {
 	stt_string_literal_subnode * ret_;
 
+#ifndef NDEBUG
 	assertion(subnode != NULL);
 	assertion(subnode->string_literal_ != NULL);
 	assertion(subnode->string_literal_->value_ != NULL);
+#endif
 
 	ret_ =
 #ifdef AMARA_USE_STD_CXX98

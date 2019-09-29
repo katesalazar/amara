@@ -82,6 +82,8 @@ stt_named_functions_simple_list_copy_constructor(
 
 	assertion(named_functions != NULL);
 
+	if (named_functions->first == NULL) {
+
 	ret_ =
 #ifdef AMARA_USE_STD_CXX98
 			(stt_named_functions_simple_list *)
@@ -89,7 +91,6 @@ stt_named_functions_simple_list_copy_constructor(
 			malloc(sizeof(stt_named_functions_simple_list));
 	forced_assertion(ret_ != NULL);
 
-	if (named_functions->first == NULL) {
 		ret_->first = NULL;
 		assertion(named_functions->next == NULL);
 		ret_->next = NULL;
@@ -116,6 +117,9 @@ stt_named_functions_simple_list_destructor_inner(
 {
 	if (list != NULL) {
 		stt_named_functions_simple_list_destructor_inner(list->next);
+#ifndef NDEBUG
+		assertion(list->first != NULL);
+#endif
 		stt_named_function_destructor(list->first);
 		free(list);
 	}
@@ -125,13 +129,17 @@ void
 stt_named_functions_simple_list_destructor(
 		stt_named_functions_simple_list * list)
 {
+#ifndef NDEBUG
 	assertion(list != NULL);
+#endif
 	if (list->first == NULL) {
+#ifndef NDEBUG
 		assertion(list->next == NULL);
+#endif
+		free(list);
 	} else {
-		stt_named_functions_simple_list_destructor_inner(list->next);
+		stt_named_functions_simple_list_destructor_inner(list);
 	}
-	free(list);
 }
 
 unsigned char

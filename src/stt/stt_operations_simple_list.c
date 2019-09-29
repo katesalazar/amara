@@ -54,7 +54,7 @@ stt_operations_simple_list_copy_constructor_inner(
 {
 	stt_operations_simple_list * ret_;
 
-	forced_assertion(operations != NULL);
+	if (operations != NULL) {
 
 	ret_ =
 #ifdef AMARA_USE_STD_CXX98
@@ -63,22 +63,17 @@ stt_operations_simple_list_copy_constructor_inner(
 			malloc(sizeof(stt_operations_simple_list));
 	forced_assertion(ret_ != NULL);
 
-	forced_assertion(operations->first != NULL);
+#ifndef NDEBUG
+	assertion(operations->first != NULL);
+#endif
 	ret_->first = stt_operation_copy_constructor(operations->first);
 	forced_assertion(ret_->first != NULL);
 
-	/*
-	not compatible with the example 1
-	forced_assertion(operations->next == NULL);
-	*/
-
-	if (operations->next == NULL) {
-
-		ret_->next = NULL;
-		return ret_;
-	}
 	ret_->next = stt_operations_simple_list_copy_constructor_inner(
 			operations->next);
+	} else {
+		ret_ = NULL;
+	}
 	return ret_;
 }
 
@@ -88,7 +83,11 @@ stt_operations_simple_list_copy_constructor(
 {
 	stt_operations_simple_list * ret_;
 
+#ifndef NDEBUG
 	assertion(operations != NULL);
+#endif
+
+	if (operations->first == NULL) {
 
 	ret_ =
 #ifdef AMARA_USE_STD_CXX98
@@ -97,38 +96,50 @@ stt_operations_simple_list_copy_constructor(
 			malloc(sizeof(stt_operations_simple_list));
 	forced_assertion(ret_ != NULL);
 
-	if (operations->first == NULL) {
-
 		ret_->first = NULL;
-		forced_assertion(operations->next == NULL);
+#ifndef NDEBUG
+		assertion(operations->next == NULL);
+#endif
 		ret_->next = NULL;
 		return ret_;
 	}
-	ret_->first = stt_operation_copy_constructor(operations->first);
-	forced_assertion(ret_->first != NULL);
-	if (operations->next == NULL) {
-		ret_->next = NULL;
-		return ret_;
+	return stt_operations_simple_list_copy_constructor_inner(
+			operations);
+}
+
+void
+stt_operations_simple_list_destructor_inner(stt_operations_simple_list * list)
+;
+
+void
+stt_operations_simple_list_destructor_inner(stt_operations_simple_list * list)
+{
+	if (list != NULL) {
+
+		stt_operations_simple_list_destructor_inner(list->next);
+#ifndef NDEBUG
+		assertion(list->first != NULL);
+#endif
+		stt_operation_destructor(list->first);
+		free(list);
 	}
-	ret_->next = stt_operations_simple_list_copy_constructor_inner(
-			operations->next);
-	return ret_;
 }
 
 void
 stt_operations_simple_list_destructor(stt_operations_simple_list * list)
 {
+#ifndef NDEBUG
 	assertion(list != NULL);
+#endif
 	if (list->first == NULL) {
+
+#ifndef NDEBUG
 		assertion(list->next == NULL);
+#endif
+		free(list);
 	} else {
-		stt_operation_destructor(list->first);
-		list->first = NULL;
-		if (list->next != NULL) {
-			stt_operations_simple_list_destructor(list->next);
-		}
+		stt_operations_simple_list_destructor_inner(list);
 	}
-	free(list);
 }
 
 stt_operations_simple_list *
@@ -180,4 +191,92 @@ stt_operations_simple_list_push_back(
 	operations->first = stt_operation_copy_constructor(operation);
 	forced_assertion(operations->first != NULL);
 	forced_assertion(operations->next == NULL); /* FIXME */
+}
+
+amara_boolean
+stt_operations_simple_list_equality_inner(
+		const stt_operations_simple_list * l0,
+		const stt_operations_simple_list * l1)
+__attribute__((warn_unused_result))
+;
+
+amara_boolean
+stt_operations_simple_list_equality_inner(
+		const stt_operations_simple_list * l0,
+		const stt_operations_simple_list * l1)
+{
+	amara_boolean firsts_equal_;
+
+	if (l0 == NULL) {
+
+		if (l1 == NULL) {
+
+			return AMARA_BOOLEAN_TRUE;
+		} else {
+
+			return AMARA_BOOLEAN_FALSE;
+		}
+	} else {
+
+		if (l1 == NULL) {
+
+			return AMARA_BOOLEAN_FALSE;
+		} else {
+
+#ifndef NDEBUG
+			assertion(l0->first != NULL);
+			assertion(l1->first != NULL);
+#endif
+			firsts_equal_ = stt_operations_equality(
+					l0->first, l1->first);
+			if (firsts_equal_ == AMARA_BOOLEAN_FALSE) {
+				return AMARA_BOOLEAN_FALSE;
+			} else {
+				return stt_operations_simple_list_equality_inner(
+						l0->next, l1->next);
+			}
+		}
+	}
+}
+
+amara_boolean
+stt_operations_simple_list_equality(
+		const stt_operations_simple_list * l0,
+		const stt_operations_simple_list * l1)
+{
+#ifndef NDEBUG
+	assertion(l0 != NULL);
+	assertion(l1 != NULL);
+#endif
+
+	if (l0->first == NULL) {
+
+#ifndef NDEBUG
+		assertion(l0->next == NULL);
+#endif
+		if (l1->first == NULL) {
+
+#ifndef NDEBUG
+			assertion(l1->next == NULL);
+#endif
+			return AMARA_BOOLEAN_TRUE;
+		}
+		return AMARA_BOOLEAN_FALSE;
+	} else if (l1->first == NULL) {
+
+#ifndef NDEBUG
+		assertion(l1->next == NULL);
+#endif
+		return AMARA_BOOLEAN_FALSE;
+	} else {
+		return stt_operations_simple_list_equality_inner(l0, l1);
+	}
+}
+
+amara_boolean
+stt_operations_simple_lists_equality(
+		const stt_operations_simple_list * l0,
+		const stt_operations_simple_list * l1)
+{
+	return stt_operations_simple_list_equality(l0, l1);
 }

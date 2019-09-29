@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,11 +57,9 @@ stt_expression_sub_natural_literal_copy_constructor(
 
 	returning_->natural_literal_ = natural_copy_constructor(
 			expression_sub_natural_literal->natural_literal_);
-#ifndef NDEBUG
-	assertion(returning_->natural_literal_ != NULL);
-	assertion(returning_->natural_literal_->raw_ != NULL);
-	assertion(returning_->natural_literal_->raw_->value_ != NULL);
-#endif
+	forced_assertion(returning_->natural_literal_ != NULL);
+	forced_assertion(returning_->natural_literal_->raw_ != NULL);
+	forced_assertion(returning_->natural_literal_->raw_->value_ != NULL);
 
 	return returning_;
 }

@@ -36,17 +36,28 @@ natural_example_zero()
 	natural * returning_;
 
 	raw_natural_ = amara_string_exhaustive_constructor("0");
-	assertion(raw_natural_ != NULL);
+	forced_assertion(raw_natural_ != NULL);
+	forced_assertion(raw_natural_->value_ != NULL);
+#ifndef NDEBUG
+	assertion(raw_natural_->value_[0] == 48);  /* 48: '0'. */
+	assertion(raw_natural_->value_[1] == 0);  /* 0: '\0'. */
+#endif
+
+	returning_ = natural_exhaustive_constructor(raw_natural_);
+#ifndef NDEBUG
 	assertion(raw_natural_->value_ != NULL);
 	assertion(raw_natural_->value_[0] == 48);  /* 48: '0'. */
 	assertion(raw_natural_->value_[1] == 0);  /* 0: '\0'. */
-
-	returning_ = natural_exhaustive_constructor(raw_natural_);
-	assertion(returning_ != NULL);
-	assertion(returning_->raw_ != NULL);
-	assertion(returning_->raw_->value_ != NULL);
+#endif
+	forced_assertion(returning_ != NULL);
+	forced_assertion(returning_->raw_ != NULL);
+	forced_assertion(returning_->raw_->value_ != NULL);
+#ifndef NDEBUG
 	assertion(returning_->raw_->value_[0] == 48);  /* 48: '0'. */
 	assertion(returning_->raw_->value_[1] == 0);  /* 0: '\0'. */
+#endif
+
+	amara_string_destructor(raw_natural_);
 
 	return returning_;
 }
@@ -57,7 +68,10 @@ void
 assert_expectations_on_natural_example_zero(const natural * zero)
 {
 	assertion(zero != NULL);
-	/* FIXME */
+	assertion(zero->raw_ != NULL);
+	assertion(zero->raw_->value_ != NULL);
+	assertion(zero->raw_->value_[0] == 48);  /* 48: '0'. */
+	assertion(zero->raw_->value_[1] == 0);  /* 0: '\0'. */
 }
 
 #endif
@@ -69,17 +83,28 @@ natural_example_one()
 	natural * returning_;
 
 	raw_natural_ = amara_string_exhaustive_constructor("1");
-	assertion(raw_natural_ != NULL);
+	forced_assertion(raw_natural_ != NULL);
+	forced_assertion(raw_natural_->value_ != NULL);
+#ifndef NDEBUG
+	assertion(raw_natural_->value_[0] == 49);  /* 49: '1'. */
+	assertion(raw_natural_->value_[1] == 0);  /* 0: '\0'. */
+#endif
+
+	returning_ = natural_exhaustive_constructor(raw_natural_);
+#ifndef NDEBUG
 	assertion(raw_natural_->value_ != NULL);
 	assertion(raw_natural_->value_[0] == 49);  /* 49: '1'. */
 	assertion(raw_natural_->value_[1] == 0);  /* 0: '\0'. */
-
-	returning_ = natural_exhaustive_constructor(raw_natural_);
-	assertion(returning_ != NULL);
-	assertion(returning_->raw_ != NULL);
-	assertion(returning_->raw_->value_ != NULL);
+#endif
+	forced_assertion(returning_ != NULL);
+	forced_assertion(returning_->raw_ != NULL);
+	forced_assertion(returning_->raw_->value_ != NULL);
+#ifndef NDEBUG
 	assertion(returning_->raw_->value_[0] == 49);  /* 49: '1'. */
 	assertion(returning_->raw_->value_[1] == 0);  /* 0: '\0'. */
+#endif
+
+	amara_string_destructor(raw_natural_);
 
 	return returning_;
 }
@@ -89,7 +114,10 @@ void
 assert_expectations_on_natural_example_one(const natural * one)
 {
 	assertion(one != NULL);
-	/* FIXME */
+	assertion(one->raw_ != NULL);
+	assertion(one->raw_->value_ != NULL);
+	assertion(one->raw_->value_[0] == 49);  /* 49: '1'. */
+	assertion(one->raw_->value_[1] == 0);  /* 0: '\0'. */
 }
 
 #endif
@@ -101,17 +129,28 @@ natural_example_six()
 	natural * returning_;
 
 	raw_natural_ = amara_string_exhaustive_constructor("6");
-	assertion(raw_natural_ != NULL);
+	forced_assertion(raw_natural_ != NULL);
+	forced_assertion(raw_natural_->value_ != NULL);
+#ifndef NDEBUG
+	assertion(raw_natural_->value_[0] == 54);  /* 54: '6'. */
+	assertion(raw_natural_->value_[1] == 0);  /* 0: '\0'. */
+#endif
+
+	returning_ = natural_exhaustive_constructor(raw_natural_);
+#ifndef NDEBUG
 	assertion(raw_natural_->value_ != NULL);
 	assertion(raw_natural_->value_[0] == 54);  /* 54: '6'. */
 	assertion(raw_natural_->value_[1] == 0);  /* 0: '\0'. */
-
-	returning_ = natural_exhaustive_constructor(raw_natural_);
-	assertion(returning_ != NULL);
-	assertion(returning_->raw_ != NULL);
-	assertion(returning_->raw_->value_ != NULL);
+#endif
+	forced_assertion(returning_ != NULL);
+	forced_assertion(returning_->raw_ != NULL);
+	forced_assertion(returning_->raw_->value_ != NULL);
+#ifndef NDEBUG
 	assertion(returning_->raw_->value_[0] == 54);  /* 54: '6'. */
 	assertion(returning_->raw_->value_[1] == 0);  /* 0: '\0'. */
+#endif
+
+	amara_string_destructor(raw_natural_);
 
 	return returning_;
 }
@@ -122,7 +161,10 @@ void
 assert_expectations_on_natural_example_six(const natural * six)
 {
 	assertion(six != NULL);
-	/* FIXME */
+	assertion(six->raw_ != NULL);
+	assertion(six->raw_->value_ != NULL);
+	assertion(six->raw_->value_[0] == 54);  /* 54: '6'. */
+	assertion(six->raw_->value_[1] == 0);  /* 0: '\0'. */
 }
 
 #endif
@@ -140,38 +182,44 @@ stt_node_natural_copy_test_0()
 	amara_boolean equality_;
 
 	natural_ = natural_default_constructor();
-	assertion(natural_ != NULL);
-	assertion(natural_->raw_ == NULL);
+	forced_assertion(natural_ != NULL);
+	forced_assertion(natural_->raw_ == NULL);
 
 	unsigned_short_zero_ = 0;
 
 	raw_natural_zero_ = amara_string_exhaustive_constructor("0");
+	forced_assertion(raw_natural_zero_ != NULL);
 
 	natural_zero_ = natural_exhaustive_constructor(raw_natural_zero_);
-	assertion(natural_zero_ != NULL);
+	forced_assertion(natural_zero_ != NULL);
+#ifndef NDEBUG
 	natural_assert_validity(natural_zero_);
+#endif
 
 	natural_copy_unsigned_short_into_natural(
 			natural_, unsigned_short_zero_);
-	assertion(natural_->raw_ != NULL);
-	assertion(natural_->raw_->value_ != NULL);
+	forced_assertion(natural_->raw_ != NULL);
+	forced_assertion(natural_->raw_->value_ != NULL);
 	equality_ = amara_string_equality(natural_->raw_, natural_zero_->raw_);
-	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+	forced_assertion(equality_ == AMARA_BOOLEAN_TRUE);
 
 	unsigned_short_one_ = 1;
 
 	raw_natural_one_ = amara_string_exhaustive_constructor("1");
+	forced_assertion(raw_natural_one_ != NULL);
 
 	natural_one_ = natural_exhaustive_constructor(raw_natural_one_);
-	assertion(natural_one_ != NULL);
+	forced_assertion(natural_one_ != NULL);
+#ifndef NDEBUG
 	natural_assert_validity(natural_one_);
+#endif
 
 	natural_copy_unsigned_short_into_natural(
 			natural_, unsigned_short_one_);
-	assertion(natural_->raw_ != NULL);
-	assertion(natural_->raw_->value_ != NULL);
+	forced_assertion(natural_->raw_ != NULL);
+	forced_assertion(natural_->raw_->value_ != NULL);
 	equality_ = amara_string_equality(natural_->raw_, natural_one_->raw_);
-	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+	forced_assertion(equality_ == AMARA_BOOLEAN_TRUE);
 
 	amara_string_destructor(raw_natural_one_);
 	amara_string_destructor(raw_natural_zero_);
@@ -193,35 +241,59 @@ stt_node_natural_substraction_test_0()
 	amara_string * raw_natural_one_;
 	stt_node * stt_node_zero_;
 	stt_node * stt_node_one_;
+	amara_string * expectation_;
 	stt_node * stt_node_substraction_;
 
 	raw_natural_zero_ = amara_string_exhaustive_constructor("3");
+	forced_assertion(raw_natural_zero_ != NULL);
 
 	raw_natural_one_ = amara_string_exhaustive_constructor("1");
+	forced_assertion(raw_natural_one_ != NULL);
 
 	stt_node_zero_ = stt_node_default_constructor();
+	forced_assertion(stt_node_zero_ != NULL);
 
 	stt_node_one_ = stt_node_default_constructor();
+	forced_assertion(stt_node_one_ != NULL);
 
 	stt_node_set_natural_literal(stt_node_zero_, raw_natural_zero_);
+	forced_assertion(stt_node_zero_->natural_literal_subnode_ != NULL);
+	forced_assertion(stt_node_zero_->natural_literal_subnode_->raw_ !=
+			NULL);
+	forced_assertion(stt_node_zero_->natural_literal_subnode_->raw_->value_ !=
+			NULL);
 
 	amara_string_destructor(raw_natural_zero_);
 
 	stt_node_set_natural_literal(stt_node_one_, raw_natural_one_);
+	forced_assertion(stt_node_one_->natural_literal_subnode_ != NULL);
+	forced_assertion(stt_node_one_->natural_literal_subnode_->raw_ !=
+			NULL);
+	forced_assertion(stt_node_one_->natural_literal_subnode_->raw_->value_ !=
+			NULL);
 
 	amara_string_destructor(raw_natural_one_);
 
+	expectation_ = amara_string_exhaustive_constructor("2");
+
 	stt_node_substraction_ = simplify_natural_literal_nodes_substraction(
 			stt_node_zero_, stt_node_one_);
-
-	stt_node_destructor(stt_node_one_);
-
-	stt_node_destructor(stt_node_zero_);
-
-	assertion(stt_node_substraction_ != NULL);
+#ifndef NDEBUG
+	assertion(stt_node_zero_->natural_literal_subnode_ != NULL);
+	assertion(stt_node_zero_->natural_literal_subnode_->raw_ != NULL);
+	assertion(stt_node_zero_->natural_literal_subnode_->raw_->value_ !=
+			NULL);
+	assertion(stt_node_one_->natural_literal_subnode_ != NULL);
+	assertion(stt_node_one_->natural_literal_subnode_->raw_ != NULL);
+	assertion(stt_node_one_->natural_literal_subnode_->raw_->value_ !=
+			NULL);
+#endif
+	forced_assertion(stt_node_substraction_ != NULL);
+#ifndef NDEBUG
 	assertion(stt_node_substraction_->type_ ==
 			STT_NODE_TYPE_NATURAL_LITERAL);
-	assertion(stt_node_substraction_->natural_literal_subnode_ != NULL);
+#endif
+	forced_assertion(stt_node_substraction_->natural_literal_subnode_ != NULL);
 	/*
 	assertion(stt_node_substraction_->operation_subnode_->args_ != NULL);
 	*/
@@ -232,14 +304,20 @@ stt_node_natural_substraction_test_0()
 			) == 2
 	);
 	*/
+#ifndef NDEBUG
 	assertion(
 			amara_string_equality(
 					stt_node_substraction_->natural_literal_subnode_->raw_,
-					amara_string_exhaustive_constructor(
-							"2"
-					)
+					expectation_
 			) == AMARA_BOOLEAN_TRUE
 	);
+#endif
+
+	amara_string_destructor(expectation_);
+
+	stt_node_destructor(stt_node_one_);
+
+	stt_node_destructor(stt_node_zero_);
 
 	stt_node_destructor(stt_node_substraction_);
 }
@@ -254,12 +332,16 @@ stt_node_natural_substraction_test_1()
 	stt_node * stt_node_substraction_;
 
 	raw_natural_zero_ = amara_string_exhaustive_constructor("1");
+	forced_assertion(raw_natural_zero_ != NULL);
 
 	raw_natural_one_ = amara_string_exhaustive_constructor("3");
+	forced_assertion(raw_natural_one_ != NULL);
 
 	stt_node_zero_ = stt_node_default_constructor();
+	forced_assertion(stt_node_zero_ != NULL);
 
 	stt_node_one_ = stt_node_default_constructor();
+	forced_assertion(stt_node_one_ != NULL);
 
 	stt_node_set_natural_literal(stt_node_zero_, raw_natural_zero_);
 
@@ -324,15 +406,20 @@ stt_node_natural_multiplication_test_0()
 	amara_string * raw_natural_one_;
 	stt_node * stt_node_zero_;
 	stt_node * stt_node_one_;
+	amara_string * expectation_;
 	stt_node * stt_node_multiplication_;
 
 	raw_natural_zero_ = amara_string_exhaustive_constructor("3");
+	forced_assertion(raw_natural_zero_ != NULL);
 
 	raw_natural_one_ = amara_string_exhaustive_constructor("1");
+	forced_assertion(raw_natural_one_ != NULL);
 
 	stt_node_zero_ = stt_node_default_constructor();
+	forced_assertion(stt_node_zero_ != NULL);
 
 	stt_node_one_ = stt_node_default_constructor();
+	forced_assertion(stt_node_one_ != NULL);
 
 	stt_node_set_natural_literal(stt_node_zero_, raw_natural_zero_);
 
@@ -342,13 +429,12 @@ stt_node_natural_multiplication_test_0()
 
 	amara_string_destructor(raw_natural_one_);
 
+	expectation_ = amara_string_exhaustive_constructor("3");
+	forced_assertion(expectation_ != NULL);
+
 	stt_node_multiplication_ =
 			simplify_natural_literal_nodes_multiplication(
 					stt_node_zero_, stt_node_one_);
-
-	stt_node_destructor(stt_node_one_);
-
-	stt_node_destructor(stt_node_zero_);
 
 	assertion(stt_node_multiplication_ != NULL);
 	assertion(stt_node_multiplication_->type_ ==
@@ -367,11 +453,15 @@ stt_node_natural_multiplication_test_0()
 	assertion(
 			amara_string_equality(
 					stt_node_multiplication_->natural_literal_subnode_->raw_,
-					amara_string_exhaustive_constructor(
-							"3"
-					)
+					expectation_
 			) == AMARA_BOOLEAN_TRUE
 	);
+
+	amara_string_destructor(expectation_);
+
+	stt_node_destructor(stt_node_one_);
+
+	stt_node_destructor(stt_node_zero_);
 
 	stt_node_destructor(stt_node_multiplication_);
 }
@@ -383,15 +473,20 @@ stt_node_natural_multiplication_test_1()
 	amara_string * raw_natural_one_;
 	stt_node * stt_node_zero_;
 	stt_node * stt_node_one_;
+	amara_string * expectation_;
 	stt_node * stt_node_multiplication_;
 
 	raw_natural_zero_ = amara_string_exhaustive_constructor("1");
+	forced_assertion(raw_natural_zero_ != NULL);
 
 	raw_natural_one_ = amara_string_exhaustive_constructor("3");
+	forced_assertion(raw_natural_one_ != NULL);
 
 	stt_node_zero_ = stt_node_default_constructor();
+	forced_assertion(stt_node_zero_ != NULL);
 
 	stt_node_one_ = stt_node_default_constructor();
+	forced_assertion(stt_node_one_ != NULL);
 
 	stt_node_set_natural_literal(stt_node_zero_, raw_natural_zero_);
 
@@ -401,13 +496,12 @@ stt_node_natural_multiplication_test_1()
 
 	amara_string_destructor(raw_natural_one_);
 
+	expectation_ = amara_string_exhaustive_constructor("3");
+	forced_assertion(expectation_ != NULL);
+
 	stt_node_multiplication_ =
 			simplify_natural_literal_nodes_multiplication(
 					stt_node_zero_, stt_node_one_);
-
-	stt_node_destructor(stt_node_one_);
-
-	stt_node_destructor(stt_node_zero_);
 
 	assertion(stt_node_multiplication_ != NULL);
 	assertion(stt_node_multiplication_->type_ ==
@@ -426,11 +520,15 @@ stt_node_natural_multiplication_test_1()
 	assertion(
 			amara_string_equality(
 					stt_node_multiplication_->natural_literal_subnode_->raw_,
-					amara_string_exhaustive_constructor(
-							"3"
-					)
+					expectation_
 			) == AMARA_BOOLEAN_TRUE
 	);
+
+	amara_string_destructor(expectation_);
+
+	stt_node_destructor(stt_node_one_);
+
+	stt_node_destructor(stt_node_zero_);
 
 	stt_node_destructor(stt_node_multiplication_);
 }
@@ -442,15 +540,20 @@ stt_node_natural_multiplication_test_2()
 	amara_string * raw_natural_one_;
 	stt_node * stt_node_zero_;
 	stt_node * stt_node_one_;
+	amara_string * expectation_;
 	stt_node * stt_node_multiplication_;
 
 	raw_natural_zero_ = amara_string_exhaustive_constructor("2");
+	forced_assertion(raw_natural_zero_ != NULL);
 
 	raw_natural_one_ = amara_string_exhaustive_constructor("3");
+	forced_assertion(raw_natural_one_ != NULL);
 
 	stt_node_zero_ = stt_node_default_constructor();
+	forced_assertion(stt_node_zero_ != NULL);
 
 	stt_node_one_ = stt_node_default_constructor();
+	forced_assertion(stt_node_one_ != NULL);
 
 	stt_node_set_natural_literal(stt_node_zero_, raw_natural_zero_);
 
@@ -460,13 +563,12 @@ stt_node_natural_multiplication_test_2()
 
 	amara_string_destructor(raw_natural_one_);
 
+	expectation_ = amara_string_exhaustive_constructor("6");
+	forced_assertion(expectation_ != NULL);
+
 	stt_node_multiplication_ =
 			simplify_natural_literal_nodes_multiplication(
 					stt_node_zero_, stt_node_one_);
-
-	stt_node_destructor(stt_node_one_);
-
-	stt_node_destructor(stt_node_zero_);
 
 	assertion(stt_node_multiplication_ != NULL);
 	assertion(stt_node_multiplication_->type_ ==
@@ -485,11 +587,15 @@ stt_node_natural_multiplication_test_2()
 	assertion(
 			amara_string_equality(
 					stt_node_multiplication_->natural_literal_subnode_->raw_,
-					amara_string_exhaustive_constructor(
-							"6"
-					)
+					expectation_
 			) == AMARA_BOOLEAN_TRUE
 	);
+
+	amara_string_destructor(expectation_);
+
+	stt_node_destructor(stt_node_one_);
+
+	stt_node_destructor(stt_node_zero_);
 
 	stt_node_destructor(stt_node_multiplication_);
 }
@@ -577,15 +683,20 @@ stt_node_natural_division_test_0()
 	amara_string * raw_natural_one_;
 	stt_node * stt_node_zero_;
 	stt_node * stt_node_one_;
+	amara_string * expectation_;
 	stt_node * stt_node_division_;
 
 	raw_natural_zero_ = amara_string_exhaustive_constructor("3");
+	forced_assertion(raw_natural_zero_ != NULL);
 
 	raw_natural_one_ = amara_string_exhaustive_constructor("2");
+	forced_assertion(raw_natural_one_ != NULL);
 
 	stt_node_zero_ = stt_node_default_constructor();
+	forced_assertion(stt_node_zero_ != NULL);
 
 	stt_node_one_ = stt_node_default_constructor();
+	forced_assertion(stt_node_one_ != NULL);
 
 	stt_node_set_natural_literal(stt_node_zero_, raw_natural_zero_);
 
@@ -595,12 +706,11 @@ stt_node_natural_division_test_0()
 
 	amara_string_destructor(raw_natural_one_);
 
+	expectation_ = amara_string_exhaustive_constructor("1");
+	forced_assertion(expectation_ != NULL);
+
 	stt_node_division_ = simplify_natural_literal_nodes_division(
 			stt_node_zero_, stt_node_one_);
-
-	stt_node_destructor(stt_node_one_);
-
-	stt_node_destructor(stt_node_zero_);
 
 	assertion(stt_node_division_ != NULL);
 	assertion(stt_node_division_->type_ ==
@@ -619,11 +729,15 @@ stt_node_natural_division_test_0()
 	assertion(
 			amara_string_equality(
 					stt_node_division_->natural_literal_subnode_->raw_,
-					amara_string_exhaustive_constructor(
-							"1"
-					)
+					expectation_
 			) == AMARA_BOOLEAN_TRUE
 	);
+
+	amara_string_destructor(expectation_);
+
+	stt_node_destructor(stt_node_one_);
+
+	stt_node_destructor(stt_node_zero_);
 
 	stt_node_destructor(stt_node_division_);
 }
@@ -925,11 +1039,14 @@ raw_naturals_multiplication_as_raw_natural_test_0()
 	amara_string * returned_;
 
 	raw_natural_zero_ = amara_string_exhaustive_constructor("256");
+	forced_assertion(raw_natural_zero_ != NULL);
 
 	raw_natural_one_ = amara_string_exhaustive_constructor("1");
+	forced_assertion(raw_natural_one_ != NULL);
 
 	returned_ = raw_naturals_multiplication_as_raw_natural(
 			raw_natural_zero_, raw_natural_one_);
+	forced_assertion(returned_ != NULL);
 
 	forced_assertion(returned_->value_[ 0] == 'M');
 	forced_assertion(returned_->value_[ 1] == 'A');
@@ -956,6 +1073,10 @@ raw_naturals_multiplication_as_raw_natural_test_0()
 	forced_assertion(returned_->value_[22] == 'O');
 	forced_assertion(returned_->value_[23] == 'W');
 	forced_assertion(returned_->value_[24] == 0x00);
+
+	amara_string_destructor(raw_natural_zero_);
+	amara_string_destructor(raw_natural_one_);
+	amara_string_destructor(returned_);
 }
 
 void
@@ -966,11 +1087,14 @@ raw_naturals_multiplication_as_raw_natural_test_1()
 	amara_string * returned_;
 
 	raw_natural_zero_ = amara_string_exhaustive_constructor("1");
+	forced_assertion(raw_natural_zero_ != NULL);
 
 	raw_natural_one_ = amara_string_exhaustive_constructor("256");
+	forced_assertion(raw_natural_one_ != NULL);
 
 	returned_ = raw_naturals_multiplication_as_raw_natural(
 			raw_natural_zero_, raw_natural_one_);
+	forced_assertion(returned_ != NULL);
 
 	forced_assertion(returned_->value_[ 0] == 'M');
 	forced_assertion(returned_->value_[ 1] == 'A');
@@ -997,6 +1121,10 @@ raw_naturals_multiplication_as_raw_natural_test_1()
 	forced_assertion(returned_->value_[22] == 'O');
 	forced_assertion(returned_->value_[23] == 'W');
 	forced_assertion(returned_->value_[24] == 0x00);
+
+	amara_string_destructor(raw_natural_zero_);
+	amara_string_destructor(raw_natural_one_);
+	amara_string_destructor(returned_);
 }
 
 void
@@ -1014,11 +1142,14 @@ raw_naturals_euclidean_quotient_as_raw_natural_test_0()
 	amara_string * returned_;
 
 	raw_natural_zero_ = amara_string_exhaustive_constructor("65536");
+	forced_assertion(raw_natural_zero_ != NULL);
 
 	raw_natural_one_ = amara_string_exhaustive_constructor("1");
+	forced_assertion(raw_natural_one_ != NULL);
 
 	returned_ = raw_naturals_euclidean_quotient_as_raw_natural(
 			raw_natural_zero_, raw_natural_one_);
+	forced_assertion(returned_ != NULL);
 
 	forced_assertion(returned_->value_[ 0] == 'M');
 	forced_assertion(returned_->value_[ 1] == 'A');
@@ -1045,6 +1176,10 @@ raw_naturals_euclidean_quotient_as_raw_natural_test_0()
 	forced_assertion(returned_->value_[22] == 'O');
 	forced_assertion(returned_->value_[23] == 'W');
 	forced_assertion(returned_->value_[24] == 0x00);
+
+	amara_string_destructor(raw_natural_zero_);
+	amara_string_destructor(raw_natural_one_);
+	amara_string_destructor(returned_);
 }
 
 void
@@ -1055,11 +1190,14 @@ raw_naturals_euclidean_quotient_as_raw_natural_test_1()
 	amara_string * returned_;
 
 	raw_natural_zero_ = amara_string_exhaustive_constructor("255");
+	forced_assertion(raw_natural_zero_ != NULL);
 
 	raw_natural_one_ = amara_string_exhaustive_constructor("255");
+	forced_assertion(raw_natural_one_ != NULL);
 
 	returned_ = raw_naturals_euclidean_quotient_as_raw_natural(
 			raw_natural_zero_, raw_natural_one_);
+	forced_assertion(returned_ != NULL);
 
 	/*
 	forced_assertion(returned_->value_[ 0] == 'M');
@@ -1096,6 +1234,10 @@ raw_naturals_euclidean_quotient_as_raw_natural_test_1()
 	forced_assertion(returned_->value_[23] == 'W');
 	forced_assertion(returned_->value_[24] == 0x00);
 	*/
+
+	amara_string_destructor(raw_natural_zero_);
+	amara_string_destructor(raw_natural_one_);
+	amara_string_destructor(returned_);
 }
 
 void
@@ -1106,11 +1248,14 @@ raw_naturals_euclidean_quotient_as_raw_natural_test_2()
 	amara_string * returned_;
 
 	raw_natural_zero_ = amara_string_exhaustive_constructor("255");
+	forced_assertion(raw_natural_zero_ != NULL);
 
 	raw_natural_one_ = amara_string_exhaustive_constructor("256");
+	forced_assertion(raw_natural_one_ != NULL);
 
 	returned_ = raw_naturals_euclidean_quotient_as_raw_natural(
 			raw_natural_zero_, raw_natural_one_);
+	forced_assertion(returned_ != NULL);
 
 	forced_assertion(returned_->value_[ 0] == 'M');
 	/*
@@ -1145,6 +1290,10 @@ raw_naturals_euclidean_quotient_as_raw_natural_test_2()
 	forced_assertion(returned_->value_[22] == 'O');
 	forced_assertion(returned_->value_[23] == 'W');
 	forced_assertion(returned_->value_[24] == 0x00);
+
+	amara_string_destructor(raw_natural_zero_);
+	amara_string_destructor(raw_natural_one_);
+	amara_string_destructor(returned_);
 }
 
 void
@@ -1155,11 +1304,14 @@ raw_naturals_euclidean_quotient_as_raw_natural_test_3()
 	amara_string * returned_;
 
 	raw_natural_zero_ = amara_string_exhaustive_constructor("256");
+	forced_assertion(raw_natural_zero_ != NULL);
 
 	raw_natural_one_ = amara_string_exhaustive_constructor("256");
+	forced_assertion(raw_natural_one_ != NULL);
 
 	returned_ = raw_naturals_euclidean_quotient_as_raw_natural(
 			raw_natural_zero_, raw_natural_one_);
+	forced_assertion(returned_ != NULL);
 
 	forced_assertion(returned_->value_[ 0] == 'M');
 	/*
@@ -1194,6 +1346,10 @@ raw_naturals_euclidean_quotient_as_raw_natural_test_3()
 	forced_assertion(returned_->value_[22] == 'O');
 	forced_assertion(returned_->value_[23] == 'W');
 	forced_assertion(returned_->value_[24] == 0x00);
+
+	amara_string_destructor(raw_natural_zero_);
+	amara_string_destructor(raw_natural_one_);
+	amara_string_destructor(returned_);
 }
 
 void

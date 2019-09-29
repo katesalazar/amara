@@ -127,23 +127,33 @@ char_arrays_simple_list_concat_destructive_test_3()
 
 	list_zero_ = char_arrays_simple_list_push_front(
 			list_zero_, char_array_zero_);
+#ifndef NDEBUG
 	assertion(* char_array_zero_ == 0);
-	assertion(list_zero_ != NULL);
-	assertion(list_zero_->first != NULL);
+#endif
+	forced_assertion(list_zero_ != NULL);
+	forced_assertion(list_zero_->first != NULL);
+#ifndef NDEBUG
 	assertion(* list_zero_->first == '\0');
 	assertion(list_zero_->next == NULL);
+#endif
+
+	free(char_array_zero_);
 
 	list_one_ = char_arrays_simple_list_default_constructor();
-	assertion(list_one_ != NULL);
+	forced_assertion(list_one_ != NULL);
+#ifndef NDEBUG
 	assertion(list_one_->first == NULL);
 	assertion(list_one_->next == NULL);
+#endif
 
 	concatenation_ = char_arrays_simple_list_concat_destructive(
 			list_zero_, list_one_);
-	assertion(concatenation_ != NULL);
-	assertion(concatenation_->first != NULL);
+	forced_assertion(concatenation_ != NULL);
+	forced_assertion(concatenation_->first != NULL);
+#ifndef NDEBUG
 	assertion(* concatenation_->first == '\0');
 	assertion(concatenation_->next == NULL);
+#endif
 
 	list_zero_ = NULL;
 	list_one_ = NULL;
@@ -187,6 +197,8 @@ char_arrays_simple_list_concat_destructive_test_4()
 	assertion(list_one_->first != NULL);
 	assertion(* list_one_->first == '\0');
 	assertion(list_one_->next == NULL);
+
+	free(char_array_one_);
 
 	concatenation_ = char_arrays_simple_list_concat_destructive(
 			list_zero_, list_one_);
@@ -234,6 +246,8 @@ char_arrays_simple_list_concat_destructive_test_5()
 	assertion(* list_zero_->first == '\0');
 	assertion(list_zero_->next == NULL);
 
+	free(char_array_zero_);
+
 	char_array_one_ =
 #ifdef AMARA_USE_STD_CXX98
 			(char *)
@@ -256,6 +270,8 @@ char_arrays_simple_list_concat_destructive_test_5()
 	assertion(list_zero_->next->first != NULL);
 	assertion(* list_zero_->next->first == 0x00);  /* ASCII 0: '\0'. */
 	assertion(list_zero_->next->next == NULL);
+
+	free(char_array_one_);
 
 	list_one_ = char_arrays_simple_list_default_constructor();
 	assertion(list_one_ != NULL);
@@ -316,6 +332,8 @@ char_arrays_simple_list_concat_destructive_test_6()
 	assertion(* (list_zero_->first + 1) == 0x00);  /* ASCII 0: '\0'. */
 	assertion(list_zero_->next == NULL);
 
+	free(char_array_zero_);
+
 	list_one_ = char_arrays_simple_list_default_constructor();
 	assertion(list_one_ != NULL);
 	assertion(list_one_->first == NULL);
@@ -341,6 +359,8 @@ char_arrays_simple_list_concat_destructive_test_6()
 	assertion(* (list_one_->first + 1) == 0x00);  /* ASCII 0: '\0'. */
 	assertion(list_one_->next == NULL);
 
+	free(char_array_two_);
+
 	char_array_one_ =
 #ifdef AMARA_USE_STD_CXX98
 			(char *)
@@ -365,6 +385,8 @@ char_arrays_simple_list_concat_destructive_test_6()
 	/* ASCII 0: '\0'. */
 	assertion(* (list_one_->next->first + 1) == 0x00);
 	assertion(list_one_->next->next == NULL);
+
+	free(char_array_one_);
 
 	concatenation_ = char_arrays_simple_list_concat_destructive(
 			list_zero_, list_one_);

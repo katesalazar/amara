@@ -62,6 +62,21 @@ rtg_execution_request_example_execute_foo()
 	return returning_;
 }
 
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_execution_request_example_execute_foo(
+		const rtg_execution_request * execution_request)
+{
+	assertion(execution_request->type_ ==
+			RTG_EXECUTION_REQUEST_TYPE_CLI_APPLICATION);
+	assertion(execution_request->application_ != NULL);
+	assert_expectations_on_rtg_application_example_cli_app_print_foo(
+			execution_request->application_);
+}
+
+#endif
+
 rtg_execution_request *
 rtg_execution_request_example_execute_bar()
 {
@@ -96,6 +111,21 @@ rtg_execution_request_example_execute_bar()
 
 	return returning_;
 }
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_rtg_execution_request_example_execute_bar(
+		const rtg_execution_request * execution_request)
+{
+	assertion(execution_request->type_ ==
+			RTG_EXECUTION_REQUEST_TYPE_CLI_APPLICATION);
+	assertion(execution_request->application_ != NULL);
+	assert_expectations_on_rtg_application_example_cli_app_print_bar(
+			execution_request->application_);
+}
+
+#endif
 
 void
 rtg_execution_request_default_constructor_test()
@@ -183,6 +213,8 @@ rtg_execution_request_transformation_constructor_test_0()
 	assertion(rtg_applications_->next == NULL);
 #endif
 
+	rtg_application_destructor(rtg_application_);
+
 	rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret_ =
 			rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list(
 					stt_execution_request_,
@@ -194,10 +226,10 @@ rtg_execution_request_transformation_constructor_test_0()
 			RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
 #endif
 
+	stt_execution_request_destructor(stt_execution_request_);
+	rtg_applications_simple_list_destructor(rtg_applications_);
 	rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret_destructor(
 			rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_list_ret_);
-	rtg_application_destructor(rtg_application_);
-	stt_execution_request_destructor(stt_execution_request_);
 }
 
 void

@@ -209,6 +209,9 @@ arn_type_out_of_rtg_condition_of_type_less_than(
 	assertion(left_hand_side_type_->type_ == ARN_TYPE_TYPE_NATURAL);  /* XXX */
 	assertion(right_hand_side_type_->type_ == ARN_TYPE_TYPE_NATURAL);  /* XXX */
 
+	arn_type_destructor(left_hand_side_type_);
+	arn_type_destructor(right_hand_side_type_);
+
 	returning_ = arn_type_default_constructor();
 
 	returning_->type_ = ARN_TYPE_TYPE_BOOLEAN;  /* XXX */
@@ -564,17 +567,28 @@ arn_type_out_of_rtg_expression_sub_conditional_if(
 	}
 	*/
 
+	arn_type_destructor(condition_type_);
+
 	if (next_if_is_null_ == AMARA_BOOLEAN_TRUE) {
 		assertion(else_is_null_ == AMARA_BOOLEAN_FALSE);
 		if (expression_then_type_->type_ == ARN_TYPE_TYPE_BOOLEAN) {
+
+			arn_type_destructor(expression_then_type_);
+
 			if (expression_else_type_->type_ ==
 					ARN_TYPE_TYPE_BOOLEAN) {
+
+				arn_type_destructor(expression_else_type_);
+
 				returning_ = arn_type_default_constructor();
 				returning_->type_ = ARN_TYPE_TYPE_BOOLEAN;
 				returning_->name_ = arn_type_type_name_out_of_type_type(ARN_TYPE_TYPE_BOOLEAN);
 				return returning_;
 			} else if (expression_else_type_->type_ ==
 					ARN_TYPE_TYPE_STRING) {
+
+				arn_type_destructor(expression_else_type_);
+
 				/* TODO Allow type erasure `string|natural`, `any`, etc., compound type erasures. */
 				returning_ = arn_type_default_constructor();
 				returning_->type_ =
@@ -583,6 +597,9 @@ arn_type_out_of_rtg_expression_sub_conditional_if(
 			} else {
 				assertion(expression_else_type_->type_ ==
 						ARN_TYPE_TYPE_NATURAL);
+
+				arn_type_destructor(expression_else_type_);
+
 				/* TODO Allow type erasure `string|natural`, `any`, etc., compound type erasures. */
 				returning_ = arn_type_default_constructor();
 				returning_->type_ =
@@ -591,8 +608,14 @@ arn_type_out_of_rtg_expression_sub_conditional_if(
 			}
 		} else if (expression_then_type_->type_ ==
 				ARN_TYPE_TYPE_STRING) {
+
+			arn_type_destructor(expression_then_type_);
+
 			if (expression_else_type_->type_ ==
 					ARN_TYPE_TYPE_BOOLEAN) {
+
+				arn_type_destructor(expression_else_type_);
+
 				/* TODO Allow type erasure `string|natural`, `any`, etc., compound type erasures. */
 				returning_ = arn_type_default_constructor();
 				returning_->type_ =
@@ -600,6 +623,9 @@ arn_type_out_of_rtg_expression_sub_conditional_if(
 				return returning_;
 			} else if (expression_else_type_->type_ ==
 					ARN_TYPE_TYPE_STRING) {
+
+				arn_type_destructor(expression_else_type_);
+
 				returning_ = arn_type_default_constructor();
 				returning_->type_ = ARN_TYPE_TYPE_STRING;
 				returning_->name_ = arn_type_type_name_out_of_type_type(ARN_TYPE_TYPE_STRING);
@@ -607,6 +633,9 @@ arn_type_out_of_rtg_expression_sub_conditional_if(
 			} else {
 				assertion(expression_else_type_->type_ ==
 						ARN_TYPE_TYPE_NATURAL);
+
+				arn_type_destructor(expression_else_type_);
+
 				/* TODO Allow type erasure `string|natural`, `any`, etc., compound type erasures. */
 				returning_ = arn_type_default_constructor();
 				returning_->type_ =
@@ -616,7 +645,13 @@ arn_type_out_of_rtg_expression_sub_conditional_if(
 		} else {
 			assertion(expression_then_type_->type_ ==
 					ARN_TYPE_TYPE_NATURAL);
+
+			arn_type_destructor(expression_then_type_);
+
 			if (expression_else_type_->type_ == ARN_TYPE_TYPE_BOOLEAN) {
+
+				arn_type_destructor(expression_else_type_);
+
 				/* TODO Allow type erasure `string|natural`, `any`, etc., compound type erasures. */
 				returning_ = arn_type_default_constructor();
 				returning_->type_ =
@@ -624,6 +659,9 @@ arn_type_out_of_rtg_expression_sub_conditional_if(
 				return returning_;
 			} else if (expression_else_type_->type_ ==
 					ARN_TYPE_TYPE_STRING) {
+
+				arn_type_destructor(expression_else_type_);
+
 				/* TODO Allow type erasure `string|natural`, `any`, etc., compound type erasures. */
 				returning_ = arn_type_default_constructor();
 				returning_->type_ =
@@ -632,6 +670,9 @@ arn_type_out_of_rtg_expression_sub_conditional_if(
 			} else {
 				assertion(expression_else_type_->type_ ==
 						ARN_TYPE_TYPE_NATURAL);
+
+				arn_type_destructor(expression_else_type_);
+
 				returning_ = arn_type_default_constructor();
 				returning_->type_ = ARN_TYPE_TYPE_NATURAL;
 				returning_->name_ = arn_type_type_name_out_of_type_type(ARN_TYPE_TYPE_NATURAL);
@@ -642,13 +683,22 @@ arn_type_out_of_rtg_expression_sub_conditional_if(
 		assertion(next_if_is_null_ == AMARA_BOOLEAN_FALSE);
 		assertion(else_is_null_ == AMARA_BOOLEAN_TRUE);
 		if (expression_then_type_->type_ == ARN_TYPE_TYPE_BOOLEAN) {
+
+			arn_type_destructor(expression_then_type_);
+
 			if (next_if_type_->type_ == ARN_TYPE_TYPE_BOOLEAN) {
+
+				arn_type_destructor(next_if_type_);
+
 				returning_ = arn_type_default_constructor();
 				returning_->type_ = ARN_TYPE_TYPE_BOOLEAN;
 				returning_->name_ = arn_type_type_name_out_of_type_type(ARN_TYPE_TYPE_BOOLEAN);
 				return returning_;
 			} else if (next_if_type_->type_ ==
 					ARN_TYPE_TYPE_STRING) {
+
+				arn_type_destructor(next_if_type_);
+
 				/* TODO Allow type erasure `string|natural`, `any`, etc., compound type erasures. */
 				returning_ = arn_type_default_constructor();
 				returning_->type_ =
@@ -657,6 +707,9 @@ arn_type_out_of_rtg_expression_sub_conditional_if(
 			} else {
 				assertion(next_if_type_->type_ ==
 						ARN_TYPE_TYPE_NATURAL);
+
+				arn_type_destructor(next_if_type_);
+
 				/* TODO Allow type erasure `string|natural`, `any`, etc., compound type erasures. */
 				returning_ = arn_type_default_constructor();
 				returning_->type_ =
@@ -665,7 +718,13 @@ arn_type_out_of_rtg_expression_sub_conditional_if(
 			}
 		} else if (expression_then_type_->type_ ==
 				ARN_TYPE_TYPE_STRING) {
+
+			arn_type_destructor(expression_then_type_);
+
 			if (next_if_type_->type_ == ARN_TYPE_TYPE_BOOLEAN) {
+
+				arn_type_destructor(next_if_type_);
+
 				/* TODO Allow type erasure `string|natural`, `any`, etc., compound type erasures. */
 				returning_ = arn_type_default_constructor();
 				returning_->type_ =
@@ -673,6 +732,9 @@ arn_type_out_of_rtg_expression_sub_conditional_if(
 				return returning_;
 			} else if (next_if_type_->type_ ==
 					ARN_TYPE_TYPE_STRING) {
+
+				arn_type_destructor(next_if_type_);
+
 				returning_ = arn_type_default_constructor();
 				returning_->type_ = ARN_TYPE_TYPE_STRING;
 				returning_->name_ = arn_type_type_name_out_of_type_type(ARN_TYPE_TYPE_STRING);
@@ -680,6 +742,9 @@ arn_type_out_of_rtg_expression_sub_conditional_if(
 			} else {
 				assertion(next_if_type_->type_ ==
 						ARN_TYPE_TYPE_NATURAL);
+
+				arn_type_destructor(next_if_type_);
+
 				/* TODO Allow type erasure `string|natural`, `any`, etc., compound type erasures. */
 				returning_ = arn_type_default_constructor();
 				returning_->type_ =
@@ -689,7 +754,13 @@ arn_type_out_of_rtg_expression_sub_conditional_if(
 		} else {
 			assertion(expression_then_type_->type_ ==
 					ARN_TYPE_TYPE_NATURAL);
+
+			arn_type_destructor(expression_then_type_);
+
 			if (next_if_type_->type_ == ARN_TYPE_TYPE_BOOLEAN) {
+
+				arn_type_destructor(next_if_type_);
+
 				/* TODO Allow type erasure `string|natural`, `any`, etc., compound type erasures. */
 				returning_ = arn_type_default_constructor();
 				returning_->type_ =
@@ -697,6 +768,9 @@ arn_type_out_of_rtg_expression_sub_conditional_if(
 				return returning_;
 			} else if (next_if_type_->type_ ==
 					ARN_TYPE_TYPE_STRING) {
+
+				arn_type_destructor(next_if_type_);
+
 				/* TODO Allow type erasure `string|natural`, `any`, etc., compound type erasures. */
 				returning_ = arn_type_default_constructor();
 				returning_->type_ =
@@ -705,6 +779,9 @@ arn_type_out_of_rtg_expression_sub_conditional_if(
 			} else {
 				assertion(next_if_type_->type_ ==
 						ARN_TYPE_TYPE_NATURAL);
+
+				arn_type_destructor(next_if_type_);
+
 				returning_ = arn_type_default_constructor();
 				returning_->type_ = ARN_TYPE_TYPE_NATURAL;
 				returning_->name_ = arn_type_type_name_out_of_type_type(ARN_TYPE_TYPE_NATURAL);
@@ -714,20 +791,6 @@ arn_type_out_of_rtg_expression_sub_conditional_if(
 	}
 
 	/*
-
-	arn_type_destructor(condition_type_);
-
-	arn_type_destructor(expression_then_type_);
-
-	if (else_is_null_ == AMARA_BOOLEAN_FALSE) {
-		assertion(next_if_is_null_ == AMARA_BOOLEAN_TRUE);
-		arn_type_destructor(expression_else_type_);
-	}
-
-	if (next_if_is_null_ == AMARA_BOOLEAN_FALSE) {
-		assertion(else_is_null_ == AMARA_BOOLEAN_TRUE);
-		arn_type_destructor(next_if_type_);
-	}
 
 	if (returning_ == NULL) {
 		returning_ = arn_type_default_constructor();
@@ -760,6 +823,11 @@ arn_type_out_of_rtg_expression_sub_conditional(
 	return returning_;
 }
 
+amara_string *
+arn_type_type_name_out_of_arn_type_type(arn_type_type type_type)
+__attribute__((warn_unused_result))
+;
+
 arn_type *
 arn_type_out_of_rtg_expression(const rtg_expression * expression)
 {
@@ -783,6 +851,9 @@ arn_type_out_of_rtg_expression(const rtg_expression * expression)
 
 		returning_->type_ = ARN_TYPE_TYPE_STRING;
 
+		returning_->name_ = arn_type_type_name_out_of_arn_type_type(
+				ARN_TYPE_TYPE_STRING);
+
 		return returning_;
 	} else if (expression->type_ == RTG_EXPRESSION_TYPE_NATURAL_LITERAL) {
 
@@ -797,6 +868,9 @@ arn_type_out_of_rtg_expression(const rtg_expression * expression)
 
 		returning_->type_ = ARN_TYPE_TYPE_NATURAL;
 
+		returning_->name_ = arn_type_type_name_out_of_arn_type_type(
+				ARN_TYPE_TYPE_NATURAL);
+
 		return returning_;
 	} else if (expression->type_ == RTG_EXPRESSION_TYPE_CONDITIONAL) {
 
@@ -808,6 +882,8 @@ arn_type_out_of_rtg_expression(const rtg_expression * expression)
 				expression->sub_conditional_);
 #ifndef NDEBUG
 		assertion(returning_ != NULL);
+		assertion(returning_->type_ != ARN_TYPE_TYPE_INVALID);
+		assertion(returning_->name_ != NULL);
 #endif
 
 		return returning_;
@@ -834,6 +910,12 @@ arn_type_out_of_rtg_expression(const rtg_expression * expression)
 }
 
 amara_string *
+arn_type_type_name_out_of_arn_type_type(arn_type_type type_type)
+{
+	return arn_type_type_name_out_of_type_type(type_type);
+}
+
+amara_string *
 arn_type_type_name_out_of_type_type(arn_type_type type_type)
 {
 	amara_string * returning_;
@@ -852,6 +934,17 @@ arn_type_type_name_out_of_type_type(arn_type_type type_type)
 	if (type_type == ARN_TYPE_TYPE_BOOLEAN) {
 
 		returning_ = amara_string_exhaustive_constructor("boolean");
+#ifndef NDEBUG
+		assertion(returning_ != NULL);
+		assertion(returning_->value_ != NULL);
+#endif
+
+		return returning_;
+	}
+
+	if (type_type == ARN_TYPE_TYPE_NATURAL) {
+
+		returning_ = amara_string_exhaustive_constructor("natural");
 #ifndef NDEBUG
 		assertion(returning_ != NULL);
 		assertion(returning_->value_ != NULL);

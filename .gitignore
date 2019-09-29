@@ -19,7 +19,10 @@ minia.tab.h
 minia.tab.c
 
 #   Bison 2.3 reporting stuff (macOS High Sierra - no Homebrew use).
+# XXX One of `src/bsn/minia.vcg` and `build/src/bsn/minia.vcg` should
+# XXX likely go out at some point.
 src/bsn/minia.vcg
+build/src/bsn/minia.vcg
 src/bsn/minia.output
 
 #   Bison 3.1 reporting stuff.
@@ -58,11 +61,15 @@ build/src/*/*.c
 build/src/*/*.cpp
 build/src/*/*.h
 build/debug/*.o
+build/debug/amara_g_not_stripped
+build/debug/amara_g
 build/release/*.o
 build/release/amara_not_stripped
 build/release/amara
-build/debug/amara_g_not_stripped
-build/debug/amara_g
+
+#   Transitional object docs (REMOVE ME).
+build/debug/stripped_amara_g
+build/release/stripped_amara
 
 #   macOS debugging symbols.
 amara_g.dSYM/

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,6 +49,9 @@ arn_values_fixed_list_out_of_rtg_where_value_bindings_simple_list(
 __attribute__((warn_unused_result))
 ;
 
+/**  FIXME should return at the very least a boolean representing that
+ * the system hasn't run out of memory (and so the operation was
+ * successful). */
 void
 arn_values_fixed_list_push_front(
 		arn_values_fixed_list * values, const arn_value * value)

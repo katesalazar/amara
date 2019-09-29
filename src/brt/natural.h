@@ -230,4 +230,14 @@ naturals_greater_than(const natural * n0, const natural * n1)
 __attribute__((warn_unused_result))
 ;
 
+amara_boolean
+natural_equality(const natural * n0, const natural * n1)
+__attribute__((warn_unused_result))
+;
+
+amara_boolean
+naturals_equality(const natural * n0, const natural * n1)
+__attribute__((warn_unused_result))
+;
+
 #endif

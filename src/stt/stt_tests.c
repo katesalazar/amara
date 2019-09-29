@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -85,6 +85,8 @@
 
 #include "stt_node_tests.h"
 
+#include "stt_operation_arg_tests.h"
+
 /*   For `stt_operation_args_simple_list_tests`. */
 #include "stt_operation_args_simple_list_tests.h"
 
@@ -125,9 +127,13 @@ node_name_from_type_test_0()
 	const amara_string * type_name_ = stt_node_type_name(node_);
 	const amara_string * expectation_ =
 			amara_string_exhaustive_constructor("invalid");
-	amara_boolean equality_ = amara_string_equality(
-			type_name_, expectation_);
-	assertion(equality_);
+	amara_boolean equality_;
+
+	forced_assertion(expectation_ != NULL);
+
+	equality_ = amara_string_equality(type_name_, expectation_);
+	forced_assertion(equality_);
+
 	amara_string_destructor((amara_string *) expectation_);
 	amara_string_destructor((amara_string *) type_name_);
 	stt_node_destructor(node_);
@@ -144,15 +150,34 @@ node_name_from_type_test_1()
 	const amara_string * expectation_;
 	const amara_string * string_literal_;
 	amara_boolean equality_;
+
+	forced_assertion(node_ != NULL);
+
 	string_literal_ = amara_string_exhaustive_constructor("foo");
+	forced_assertion(string_literal_ != NULL);
+
 	stt_node_set_string_literal(node_, string_literal_);
-	type_name_ = stt_node_type_name(node_);
-	expectation_ = amara_string_exhaustive_constructor("string_literal");
-	equality_ = amara_string_equality(type_name_, expectation_);
-#ifdef TRACE_STEPS_IN
-	fprintf(stderr, "----> %s:%u: equality_: %u\n", __FILE__, __LINE__, equality_);
+	forced_assertion(node_->string_literal_subnode_ != NULL);
+	forced_assertion(node_->string_literal_subnode_->string_literal_ !=
+			NULL);
+#ifndef NDEBUG
+	equality_ = amara_strings_equality(
+			string_literal_,
+			node_->string_literal_subnode_->string_literal_);
+	assertion(AMARA_BOOLEAN_TRUE == equality_);
 #endif
-	assertion(equality_);
+
+	amara_string_destructor((amara_string *) string_literal_);
+
+	type_name_ = stt_node_type_name(node_);
+	forced_assertion(type_name_ != NULL);
+
+	expectation_ = amara_string_exhaustive_constructor("string_literal");
+	forced_assertion(expectation_ != NULL);
+
+	equality_ = amara_string_equality(type_name_, expectation_);
+	forced_assertion(equality_);
+
 	amara_string_destructor((amara_string *) expectation_);
 	amara_string_destructor((amara_string *) type_name_);
 	stt_node_destructor(node_);
@@ -169,15 +194,36 @@ node_name_from_type_test_2()
 	const amara_string * expectation_;
 	const amara_string * raw_natural_;
 	amara_boolean equality_;
+
+	forced_assertion(node_ != NULL);
+
 	raw_natural_ = amara_string_exhaustive_constructor("15");
+	forced_assertion(raw_natural_ != NULL);
+
 	stt_node_set_natural_literal(node_, raw_natural_);
+	forced_assertion(node_->natural_literal_subnode_ != NULL);
+	forced_assertion(node_->natural_literal_subnode_->raw_ != NULL);
+#ifndef NDEBUG
+	equality_ = amara_strings_equality(
+			raw_natural_,
+			node_->natural_literal_subnode_->raw_);
+	assertion(AMARA_BOOLEAN_TRUE == equality_);
+#endif
+
+	amara_string_destructor((amara_string *) raw_natural_);
+
 	type_name_ = stt_node_type_name(node_);
+	forced_assertion(type_name_ != NULL);
+
 	expectation_ = amara_string_exhaustive_constructor("natural");
+	forced_assertion(expectation_ != NULL);
+
 	equality_ = amara_string_equality(type_name_, expectation_);
-	assertion(equality_);
-	amara_string_destructor((amara_string *) expectation_);
-	amara_string_destructor((amara_string *) type_name_);
+	forced_assertion(equality_);
+
 	stt_node_destructor(node_);
+	amara_string_destructor((amara_string *) type_name_);
+	amara_string_destructor((amara_string *) expectation_);
 }
 
 void
@@ -191,15 +237,28 @@ node_name_from_type_test_3()
 	const amara_string * expectation_;
 	const amara_string * raw_integer_;
 	amara_boolean equality_;
+
+	forced_assertion(node_ != NULL);
+
 	raw_integer_ = amara_string_exhaustive_constructor("-1");
+	forced_assertion(raw_integer_ != NULL);
+
 	stt_node_set_integer_literal(node_, raw_integer_);
+
+	amara_string_destructor((amara_string *) raw_integer_);
+
 	type_name_ = stt_node_type_name(node_);
+	forced_assertion(type_name_ != NULL);
+
 	expectation_ = amara_string_exhaustive_constructor("integer");
+	forced_assertion(expectation_ != NULL);
+
 	equality_ = amara_string_equality(type_name_, expectation_);
-	assertion(equality_);
-	amara_string_destructor((amara_string *) expectation_);
-	amara_string_destructor((amara_string *) type_name_);
+	forced_assertion(equality_);
+
 	stt_node_destructor(node_);
+	amara_string_destructor((amara_string *) type_name_);
+	amara_string_destructor((amara_string *) expectation_);
 }
 
 void
@@ -213,15 +272,28 @@ node_name_from_type_test_4()
 	const amara_string * expectation_;
 	const amara_string * raw_rational_literal_;
 	amara_boolean equality_;
+
+	forced_assertion(node_ != NULL);
+
 	raw_rational_literal_ = amara_string_exhaustive_constructor(".6");
+	forced_assertion(raw_rational_literal_ != NULL);
+
 	stt_node_set_rational_literal(node_, raw_rational_literal_);
+
+	amara_string_destructor((amara_string *) raw_rational_literal_);
+
 	type_name_ = stt_node_type_name(node_);
+	forced_assertion(type_name_ != NULL);
+
 	expectation_ = amara_string_exhaustive_constructor("rational");
+	forced_assertion(expectation_ != NULL);
+
 	equality_ = amara_string_equality(type_name_, expectation_);
-	assertion(equality_);
-	amara_string_destructor((amara_string *) expectation_);
-	amara_string_destructor((amara_string *) type_name_);
+	forced_assertion(equality_);
+
 	stt_node_destructor(node_);
+	amara_string_destructor((amara_string *) type_name_);
+	amara_string_destructor((amara_string *) expectation_);
 }
 
 /*
@@ -291,17 +363,32 @@ node_name_from_type_test_for_identifier_node()
 	const amara_string * expectation_;
 	const amara_string * identifier_;
 	amara_boolean equality_;
+
+	forced_assertion(node_ != NULL);
+
 	identifier_ = amara_string_exhaustive_constructor("foo");
+	forced_assertion(identifier_ != NULL);
+
 	stt_node_set_identifier(node_, identifier_);
-	node_->type_ = STT_NODE_TYPE_IDENTIFIER;
-	type_name_ = stt_node_type_name(node_);
-	expectation_ = amara_string_exhaustive_constructor("identifier");
-	equality_ = amara_string_equality(type_name_, expectation_);
-	assertion(equality_);
+
 	amara_string_destructor((amara_string *) identifier_);
-	amara_string_destructor((amara_string *) expectation_);
-	amara_string_destructor((amara_string *) type_name_);
+
+	/*
+	node_->type_ = STT_NODE_TYPE_IDENTIFIER;
+	*/
+
+	type_name_ = stt_node_type_name(node_);
+	forced_assertion(type_name_ != NULL);
+
+	expectation_ = amara_string_exhaustive_constructor("identifier");
+	forced_assertion(expectation_ != NULL);
+
+	equality_ = amara_string_equality(type_name_, expectation_);
+	forced_assertion(equality_);
+
 	stt_node_destructor(node_);
+	amara_string_destructor((amara_string *) type_name_);
+	amara_string_destructor((amara_string *) expectation_);
 }
 
 void
@@ -352,6 +439,7 @@ syntax_tree_tests_()
 	stt_where_value_bindings_simple_list_tests();
 	stt_where_value_bindings_subnode_tests();
 
+	stt_operation_arg_tests();
 	stt_operation_args_simple_list_tests();
 	stt_operation_tests();
 	stt_operation_subnode_tests();

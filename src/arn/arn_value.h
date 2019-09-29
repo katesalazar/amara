@@ -30,24 +30,24 @@
 #define ARN_VALUE_TYPE_INVALID                       0x20  /* 32: ' '. */
 /**  Likely just created and then just named but not typed as of any
  * particular type (!). */
-#define ARN_VALUE_TYPE_NAMED_VALUE_OF_UNDEFINED_TYPE 0x21
+#define ARN_VALUE_TYPE_NAMED_VALUE_OF_UNDEFINED_TYPE 0x21  /* 33: '!'. */
 /**  Likely named unassigned string value. */
-#define ARN_VALUE_TYPE_NAMED_UNASSIGNED_STRING       0x22
+#define ARN_VALUE_TYPE_NAMED_UNASSIGNED_STRING       0x22  /* 34: '"'. */
 #define ARN_VALUE_TYPE_NAMED_UNASSIGNED_BOOLEAN      0x71
 /**  Likely named unassigned natural value. */
-#define ARN_VALUE_TYPE_NAMED_UNASSIGNED_NATURAL      0x23
+#define ARN_VALUE_TYPE_NAMED_UNASSIGNED_NATURAL      0x23  /* 35: '#'. */
 /**  Named assigned string value. */
-#define ARN_VALUE_TYPE_NAMED_ASSIGNED_STRING         0x24
+#define ARN_VALUE_TYPE_NAMED_ASSIGNED_STRING         0x24  /* 35: '$'. */
 /**  Named assigned natural value. */
-#define ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL        0x25  /* 37: ..... */
+#define ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL        0x25  /* 37: '%'. */
 /**  Likely the result of running some [intermediate] operation, or some
  * named function, or... */
-#define ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING     0x26  /* XXX remove the _assigned_ part? */
-#define ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_BOOLEAN    0x27  /* 39: ..... */
+#define ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING     0x26  /* 38: '&'. */  /* XXX remove the _assigned_ part? */
+#define ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_BOOLEAN    0x27  /* 39: "'". */
 #define ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL    0x28  /* 40: '('. */  /* XXX remove the _assigned_ part? */
-#define ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_STRING   0x29  /* XXX ??? */
+#define ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_STRING   0x29  /* 41: ')'. */
 #define ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_BOOLEAN  0x72
-#define ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_NATURAL  0x2A  /* XXX ??? */
+#define ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_NATURAL  0x2A  /* 42: '*'. */
 
 /**  Application run time value. */
 typedef struct arn_value {

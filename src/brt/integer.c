@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2019 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,4 +63,6 @@ assert_valid_raw_integer(const amara_string * raw_integer)
 			assertion(raw_integer_chars_array_[indexer_] < 58);
 		}
 	}
+
+	free((char *) raw_integer_chars_array_);
 }
