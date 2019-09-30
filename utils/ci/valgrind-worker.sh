@@ -11,7 +11,7 @@ do
 		make clean || break
 		if test "${branch}" = 'master'
 		then
-			binary="./build/debug/amara_g"
+			binary="./build/debug/amara_g_not_stripped"
 		elif test "${branch}" = 'integration'
 		then
 			binary="./build/debug/amara_g_not_stripped"
