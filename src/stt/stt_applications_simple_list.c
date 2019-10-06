@@ -19,7 +19,9 @@
 
 /*   For `int fprintf(FILE * restrict stream,
  * const char * restrict format, ...)`. */
+/*
 #include <stdio.h>
+*/
 
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"

@@ -20,12 +20,14 @@
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
+/*   For `typedef struct stt_node { ... } stt_node`. */
+#include "stt_forward_declarations.h"
+
 /*   For `stt_operation * stt_operation_example_print_foo()`. */
 #include "stt_operation_tests.h"
 
-/*   For `typedef struct stt_operations_simple_list { ... }
- * stt_operations_simple_list`. */
-#include "stt_operations_simple_list.h"
+/*   For own definitions. */
+#include "stt_operations_simple_list_tests.h"
 
 stt_operations_simple_list *
 stt_operations_simple_list_example_print_foo(void)
@@ -168,6 +170,52 @@ assert_expectations_on_stt_operations_simple_list_example_one_operation_list(
 
 #endif
 
+stt_operations_simple_list *
+stt_operations_simple_list_example_two_operations_list(void)
+{
+	stt_operations_simple_list * returning_;
+	stt_operation * operation_;
+
+	returning_ = stt_operations_simple_list_example_print_identifier_foo();
+	forced_assertion(returning_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operations_simple_list_example_print_identifier_foo(
+			returning_);
+#endif
+
+	operation_ = returning_->first;
+	/* XXX missing assertions? */
+
+	stt_operations_simple_list_push_back(returning_, operation_);
+	/* XXX missing assertions? */
+
+#ifndef NDEBUG
+	assertion(returning_->next != NULL);
+	assertion(returning_->next->next == NULL);
+#endif
+
+	return returning_;
+}
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_operations_simple_list_example_two_operations_list(
+		const stt_operations_simple_list * operations)
+{
+	assertion(operations != NULL);
+	assertion(operations->first != NULL);
+	assert_expectations_on_stt_operation_example_print_identifier_foo(
+			operations->first);
+	assertion(operations->next != NULL);
+	assertion(operations->next->first != NULL);
+	assert_expectations_on_stt_operation_example_print_identifier_foo(
+			operations->next->first);
+	assertion(operations->next->next == NULL);
+}
+
+#endif
+
 void
 stt_operations_simple_list_default_constructor_test_0()
 {
@@ -282,12 +330,136 @@ stt_operations_simple_list_equality_test_2()
 	stt_operations_simple_list_destructor(l1_);
 }
 
+/**  A list with `n` elements is not equal to a list with `n + 1`
+ * elements. */
+void
+stt_operations_simple_list_equality_test_3()
+{
+	stt_operations_simple_list * l0_;
+	stt_operations_simple_list * l1_;
+	amara_boolean equality_;
+
+	l0_ = stt_operations_simple_list_example_one_operation_list();
+	forced_assertion(l0_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operations_simple_list_example_one_operation_list(
+			l0_);
+#endif
+
+	l1_ = stt_operations_simple_list_example_two_operations_list();
+	forced_assertion(l1_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operations_simple_list_example_two_operations_list(
+			l1_);
+#endif
+
+	equality_ = stt_operations_simple_lists_equality(l0_, l1_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operations_simple_list_example_one_operation_list(
+			l0_);
+	assert_expectations_on_stt_operations_simple_list_example_two_operations_list(
+			l1_);
+#endif
+	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_operations_simple_list_destructor(l0_);
+	stt_operations_simple_list_destructor(l1_);
+}
+
+/**  A list with `n + 1` elements is not equal to a list with `n`
+ * elements. */
+void
+stt_operations_simple_list_equality_test_4()
+{
+	stt_operations_simple_list * l0_;
+	stt_operations_simple_list * l1_;
+	amara_boolean equality_;
+
+	l0_ = stt_operations_simple_list_example_two_operations_list();
+	forced_assertion(l0_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operations_simple_list_example_two_operations_list(
+			l0_);
+#endif
+
+	l1_ = stt_operations_simple_list_example_one_operation_list();
+	forced_assertion(l1_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operations_simple_list_example_one_operation_list(
+			l1_);
+#endif
+
+	equality_ = stt_operations_simple_lists_equality(l0_, l1_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operations_simple_list_example_two_operations_list(
+			l0_);
+	assert_expectations_on_stt_operations_simple_list_example_one_operation_list(
+			l1_);
+#endif
+	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_operations_simple_list_destructor(l0_);
+	stt_operations_simple_list_destructor(l1_);
+}
+
+/**  If an element in a list is different from another element in the
+ * same index in another list, then the whole two such lists are
+ * different. */
+void
+stt_operations_simple_list_equality_test_5()
+{
+	stt_operations_simple_list * l0_;
+	stt_operations_simple_list * l1_;
+	amara_boolean equality_;
+
+	l0_ = stt_operations_simple_list_example_one_operation_list();
+	forced_assertion(l0_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operations_simple_list_example_one_operation_list(
+			l0_);
+#endif
+
+	l1_ = stt_operations_simple_list_example_one_operation_list();
+	forced_assertion(l1_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operations_simple_list_example_one_operation_list(
+			l1_);
+#endif
+
+	/*   Perform a tainting manipulation. */
+#ifndef NDEBUG
+	assertion(l1_->first != NULL);
+	assertion(l1_->first->type_ == STT_OPERATION_TYPE_PRINT);
+#endif
+	l1_->first->type_ = STT_OPERATION_TYPE_READ_NATURAL_INTO_VALUE;
+
+	equality_ = stt_operations_simple_lists_equality(l0_, l1_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operations_simple_list_example_one_operation_list(
+			l0_);
+	/*
+	assert_expectations_on_stt_operations_simple_list_example_one_operation_list(
+			l1_);
+	*/
+	assertion(l1_->first != NULL);
+	assertion(l1_->first->type_ ==
+			STT_OPERATION_TYPE_READ_NATURAL_INTO_VALUE);
+#endif
+	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_operations_simple_list_destructor(l0_);
+	stt_operations_simple_list_destructor(l1_);
+}
+
 void
 stt_operations_simple_list_equality_tests()
 {
 	stt_operations_simple_list_equality_test_0();
 	stt_operations_simple_list_equality_test_1();
 	stt_operations_simple_list_equality_test_2();
+	stt_operations_simple_list_equality_test_3();
+	stt_operations_simple_list_equality_test_4();
+	stt_operations_simple_list_equality_test_5();
 }
 
 void

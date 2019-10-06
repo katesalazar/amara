@@ -193,6 +193,43 @@ amara_string_equality_test_3()
 }
 
 #ifndef NDEBUG
+
+void
+amara_string_assert_healthy_test_0()
+{
+	amara_string * as_;
+
+	as_ = amara_string_exhaustive_constructor("foo");
+	forced_assertion(as_ != NULL);
+#ifndef NDEBUG
+	assertion(as_->value_ != NULL);
+	assertion(as_->value_[0] == 'f');
+	assertion(as_->value_[1] == 'o');
+	assertion(as_->value_[2] == 'o');
+	assertion(as_->value_[3] == '\0');
+#endif
+
+	amara_string_assert_healthy(as_);
+#ifndef NDEBUG
+	assertion(as_->value_ != NULL);
+	assertion(as_->value_[0] == 'f');
+	assertion(as_->value_[1] == 'o');
+	assertion(as_->value_[2] == 'o');
+	assertion(as_->value_[3] == '\0');
+#endif
+
+	amara_string_destructor(as_);
+}
+
+void
+amara_string_assert_healthy_tests()
+{
+	amara_string_assert_healthy_test_0();
+}
+
+#endif
+
+#ifndef NDEBUG
 #endif
 void
 amara_string_equality_tests()
@@ -211,5 +248,8 @@ void
 amara_string_tests()
 {
 	amara_string_construct_and_destruct_tests();
+#ifndef NDEBUG
+	amara_string_assert_healthy_tests();
+#endif
 	amara_string_equality_tests();
 }

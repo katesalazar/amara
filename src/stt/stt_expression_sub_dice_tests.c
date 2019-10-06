@@ -188,9 +188,55 @@ stt_expression_sub_dice_equality_test_0()
 }
 
 void
+stt_expression_sub_dice_equality_test_1()
+{
+	stt_expression_sub_dice * esd0_;
+	stt_expression_sub_dice * esd1_;
+	amara_string * four_;
+	amara_boolean equality_;
+
+	esd0_ = stt_expression_sub_dice_example_single_vanilla_dice();
+	forced_assertion(esd0_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_expression_sub_dice_example_single_vanilla_dice(
+			esd0_);
+#endif
+
+	esd1_ = stt_expression_sub_dice_example_single_vanilla_dice();
+	forced_assertion(esd1_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_expression_sub_dice_example_single_vanilla_dice(
+			esd1_);
+#endif
+
+#ifndef NDEBUG
+	assertion(esd1_->right_hand_side_natural_ != NULL);
+	assertion(esd1_->right_hand_side_natural_->raw_ != NULL);
+	assertion(esd1_->right_hand_side_natural_->raw_->value_ != NULL);
+	assertion(esd1_->right_hand_side_natural_->raw_->value_[0] == 0x36);  /* 49: '6'. */
+	assertion(esd1_->right_hand_side_natural_->raw_->value_[1] == 0x00);  /* 0: '\0'. */
+#endif
+	natural_destructor(esd1_->right_hand_side_natural_);
+	four_ = amara_string_exhaustive_constructor("4");
+	forced_assertion(four_ != NULL);
+	esd1_->right_hand_side_natural_ = natural_exhaustive_constructor(four_);
+	forced_assertion(esd1_->right_hand_side_natural_ != NULL);
+	/* XXX missed an integrity assertion at this point */
+
+	amara_string_destructor(four_);
+
+	equality_ = stt_expression_sub_dices_equality(esd0_, esd1_);
+	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_expression_sub_dice_destructor(esd0_);
+	stt_expression_sub_dice_destructor(esd1_);
+}
+
+void
 stt_expression_sub_dice_equality_tests()
 {
 	stt_expression_sub_dice_equality_test_0();
+	stt_expression_sub_dice_equality_test_1();
 }
 
 void

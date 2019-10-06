@@ -707,10 +707,10 @@ stt_expression_sub_conditional_equality_test_1()
 
 	different_simple_true_conditional_ =
 			stt_expression_sub_conditional_example_simple_true_conditional();
-	forced_assertion(simple_true_conditional_ != NULL);
+	forced_assertion(different_simple_true_conditional_ != NULL);
 #ifndef NDEBUG
 	assert_expectations_on_stt_expression_sub_conditional_example_simple_true_conditional(
-			simple_true_conditional_);
+			different_simple_true_conditional_);
 #endif
 
 	fooo_ = amara_string_exhaustive_constructor("fooo");
@@ -754,11 +754,55 @@ stt_expression_sub_conditional_equality_test_1()
 	stt_expression_sub_conditional_destructor(different_simple_true_conditional_);
 }
 
+/**  If the conditions are equal, and the expression then 's are equal,
+ * then the whole E.S.C. 's will be equal if the expression else 's are
+ * equal (whenever the E.S.C. is not of type `if-[elseif]+-else`. */
+void
+stt_expression_sub_conditional_equality_test_2()
+{
+	stt_expression_sub_conditional * simple_true_conditional_;
+	stt_expression_sub_conditional * another_simple_true_conditional_;
+	amara_boolean equality_;
+
+	simple_true_conditional_ =
+			stt_expression_sub_conditional_example_simple_true_conditional();
+	forced_assertion(simple_true_conditional_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_expression_sub_conditional_example_simple_true_conditional(
+			simple_true_conditional_);
+#endif
+
+	another_simple_true_conditional_ =
+			stt_expression_sub_conditional_example_simple_true_conditional();
+	forced_assertion(another_simple_true_conditional_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_expression_sub_conditional_example_simple_true_conditional(
+			another_simple_true_conditional_);
+#endif
+
+	equality_ = stt_expression_sub_conditionals_equality(
+			simple_true_conditional_,
+			another_simple_true_conditional_);
+	forced_assertion(equality_ == AMARA_BOOLEAN_TRUE);
+#ifndef NDEBUG
+	assert_expectations_on_stt_expression_sub_conditional_example_simple_true_conditional(
+			simple_true_conditional_);
+	assert_expectations_on_stt_expression_sub_conditional_example_simple_true_conditional(
+			another_simple_true_conditional_);
+	/* XXX missing assertions here? */
+#endif
+
+	stt_expression_sub_conditional_destructor(simple_true_conditional_);
+	stt_expression_sub_conditional_destructor(
+			another_simple_true_conditional_);
+}
+
 void
 stt_expression_sub_conditional_equality_tests()
 {
 	stt_expression_sub_conditional_equality_test_0();
 	stt_expression_sub_conditional_equality_test_1();
+	stt_expression_sub_conditional_equality_test_2();
 }
 
 void

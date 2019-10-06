@@ -45,9 +45,11 @@ concatenate_two_char_arrays_test_0()
 	const char * expectation_ = "ERROR the `zero` string is larger than \
 the implemented maximum";
 	const int strcmp_ret_ = strcmp(concat_, expectation_);
+	/*
 	fprintf(stderr, "%s\n", zero_);
 	fprintf(stderr, "%s\n", one_);
 	fprintf(stderr, "%s\n", concat_);
+	*/
 	assertion(!strcmp_ret_);
 	free((char *) concat_);
 }
@@ -68,9 +70,11 @@ concatenate_two_char_arrays_test_1()
 	const char * expectation_ = "ERROR the concatenation is clearly larger\
  than the implemented maximum";
 	const int strcmp_ret_ = strcmp(concat_, expectation_);
+	/*
 	fprintf(stderr, "%s\n", zero_);
 	fprintf(stderr, "%s\n", one_);
 	fprintf(stderr, "%s\n", concat_);
+	*/
 	assertion(!strcmp_ret_);
 	free((char *) concat_);
 }

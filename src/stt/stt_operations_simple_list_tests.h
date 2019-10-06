@@ -22,6 +22,8 @@
 
 #include "../definitions.h"
 
+#include "stt_operations_simple_list.h"
+
 stt_operations_simple_list *
 stt_operations_simple_list_example_print_foo(void)
 __attribute__((warn_unused_result))
@@ -73,6 +75,20 @@ __amara__warn_unused_result__
 
 void
 assert_expectations_on_stt_operations_simple_list_example_one_operation_list(
+		const stt_operations_simple_list * operations)
+;
+
+#endif
+
+stt_operations_simple_list *
+stt_operations_simple_list_example_two_operations_list(void)
+__amara__warn_unused_result__
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_operations_simple_list_example_two_operations_list(
 		const stt_operations_simple_list * operations)
 ;
 

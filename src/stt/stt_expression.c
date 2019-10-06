@@ -152,7 +152,9 @@ stt_expression_copy_constructor(const stt_expression * expression)
 #endif
 	} else {
 #ifndef NDEBUG
+		/*
 		fprintf(stderr, "%u\n", expression->type_);
+		*/
 		assertion(expression->type_ == STT_EXPRESSION_TYPE_DICE);
 #endif
 
@@ -518,8 +520,10 @@ stt_expression_equality(const stt_expression * e0, const stt_expression * e1)
 		return AMARA_BOOLEAN_FALSE;
 	}
 
+	/*
 	fprintf(stderr, "%u\n", e0->type_);
 	fprintf(stderr, "%u\n", e1->type_);
+	*/
 
 	if (e0->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL) {
 

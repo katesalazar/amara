@@ -748,6 +748,35 @@ stt_node_natural_division_tests()
 	stt_node_natural_division_test_0();
 }
 
+#ifndef NDEBUG
+
+void
+natural_assert_healthy_test_0()
+{
+	amara_string * raw_natural_;
+	natural * natural_;
+
+	raw_natural_ = amara_string_exhaustive_constructor("0");
+	forced_assertion(raw_natural_ != NULL);
+
+	natural_ = natural_exhaustive_constructor(raw_natural_);
+	forced_assertion(natural_ != NULL);
+
+	amara_string_destructor(raw_natural_);
+
+	natural_assert_healthy(natural_);
+
+	natural_destructor(natural_);
+}
+
+void
+natural_assert_healthy_tests()
+{
+	natural_assert_healthy_test_0();
+}
+
+#endif
+
 void
 natural_fit_raw_natural_in_unsigned_short_test_0()
 {
@@ -948,6 +977,42 @@ natural_copy_pointer_to_unsigned_short_into_raw_natural_tests()
 {
 	natural_copy_pointer_to_unsigned_short_into_raw_natural_test_0();
 	natural_copy_pointer_to_unsigned_short_into_raw_natural_test_1();
+}
+
+void
+natural_copy_unsigned_short_into_raw_natural_test_0()
+{
+	unsigned short unsigned_short_;
+	amara_string * raw_natural_;
+	natural * natural_;
+
+	raw_natural_ = amara_string_exhaustive_constructor("0");
+	forced_assertion(raw_natural_ != NULL);
+
+	natural_ = natural_exhaustive_constructor(raw_natural_);
+	forced_assertion(natural_ != NULL);
+
+	amara_string_destructor(raw_natural_);
+
+	unsigned_short_ = 0x0F;
+
+	natural_copy_from_unsigned_short(natural_, unsigned_short_);
+	assertion(natural_->raw_ != NULL);
+	assertion(natural_->raw_->value_ != NULL);
+	assertion(natural_->raw_->value_[0] == '1');
+	assertion(natural_->raw_->value_[1] == '5');
+	assertion(natural_->raw_->value_[2] == '\0');
+
+	natural_destructor(natural_);
+}
+
+void
+natural_copy_unsigned_short_into_raw_natural_tests()
+{
+	natural_copy_unsigned_short_into_raw_natural_test_0();
+	/*
+	natural_copy_unsigned_short_into_raw_natural_test_1();
+	*/
 }
 
 void
@@ -1569,8 +1634,12 @@ natural_tests()
 	natural_division_tests();
 	DESPUES 335 ENTRE 9 DEBE DAR 37
 	*/
+#ifndef NDEBUG
+	natural_assert_healthy_tests();
+#endif
 	natural_fit_raw_natural_in_unsigned_short_tests();
 	natural_copy_pointer_to_unsigned_short_into_raw_natural_tests();
+	natural_copy_unsigned_short_into_raw_natural_tests();
 	natural_copy_unsigned_long_into_raw_natural_tests();
 	natural_copy_pointer_to_unsigned_long_into_raw_natural_tests();
 	well_formed_raw_natural_tests();

@@ -58,7 +58,9 @@ bison_test_0()
 	forced_assertion(ret_ == 0);
 	*/
 #ifdef DUMP_FLOW_TO_STDERR
+	/*
 	fprintf(stderr, "<---- bison_tests...");
+	*/
 #endif
 }
 

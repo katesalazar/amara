@@ -230,7 +230,9 @@ arn_type_out_of_rtg_expression_test_0()
 
 	type_ = arn_type_out_of_rtg_expression(expression_);
 	forced_assertion(type_ != NULL);
+	/*
 	fprintf(stderr, "%u\n", type_->type_);
+	*/
 #ifndef NDEBUG
 	assertion(type_->type_ != ARN_TYPE_TYPE_INVALID);
 	assertion(type_->type_ != ARN_TYPE_TYPE_TYPE_ERROR_HAPPENED);

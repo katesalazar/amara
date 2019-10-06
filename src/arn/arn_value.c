@@ -95,7 +95,9 @@ arn_value_copy_constructor(const arn_value * value)
 
 				/* XXX */
 #ifdef DUMP_FLOW_TO_STDERR
+				/*
 				fprintf(stderr, "%u\n", value->type_);
+				*/
 #endif
 				assertion(value->type_ == ARN_VALUE_TYPE_NAMED_VALUE_OF_UNDEFINED_TYPE);
 			}
@@ -116,7 +118,9 @@ arn_value_copy_constructor(const arn_value * value)
 					ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING) {
 
 #ifdef DUMP_FLOW_TO_STDERR
+				/*
 				fprintf(stderr, "%u\n", value->type_);
+				*/
 #endif
 				assertion(value->type_ ==
 						ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_STRING);
@@ -135,7 +139,9 @@ arn_value_copy_constructor(const arn_value * value)
 		} else {
 
 #ifdef DUMP_FLOW_TO_STDERR
+			/*
 			fprintf(stderr, "%u\n", value->type_);
+			*/
 #endif
 			assertion(value->type_ ==
 					ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING);
@@ -166,7 +172,9 @@ arn_value_copy_constructor(const arn_value * value)
 	} else {
 
 #ifdef DUMP_FLOW_TO_STDERR
+		/*
 		fprintf(stderr, "%u\n", value->type_);
+		*/
 #endif
 
 		assertion(value->type_ ==
@@ -260,7 +268,9 @@ arn_value_destructor(arn_value * value)
 	} else {
 
 #ifdef DUMP_FLOW_TO_STDERR
+		/*
 		fprintf(stderr, "%u\n", value->type_);
+		*/
 #endif
 
 		assertion(value->type_ == ARN_VALUE_TYPE_INVALID);
@@ -534,7 +544,9 @@ arn_value_set_string(arn_value * value, const amara_string * string)
 	value->string_was_moved = AMARA_BOOLEAN_FALSE;
 
 #ifdef DUMP_FLOW_TO_STDERR
+	/*
 	fprintf(stderr, "%u\n", value->type_);
+	*/
 #endif
 
 	if (value->type_ == ARN_VALUE_TYPE_NAMED_UNASSIGNED_STRING) {
@@ -545,7 +557,9 @@ arn_value_set_string(arn_value * value, const amara_string * string)
 	} else {
 
 #ifdef DUMP_FLOW_TO_STDERR
+		/*
 		fprintf(stderr, "%u\n", value->type_);
+		*/
 #endif
 
 		assertion(value->type_ ==
@@ -599,7 +613,9 @@ arn_value_set_natural(arn_value * value, const natural * natural)
 	value->natural_was_moved = AMARA_BOOLEAN_FALSE;
 
 #ifdef DUMP_FLOW_TO_STDERR
+	/*
 	fprintf(stderr, "%u\n", value->type_);
+	*/
 #endif
 
 	if (value->type_ == ARN_VALUE_TYPE_NAMED_UNASSIGNED_NATURAL) {
@@ -614,7 +630,9 @@ arn_value_set_natural(arn_value * value, const natural * natural)
 				ARN_VALUE_TYPE_NAMED_VALUE_OF_UNDEFINED_TYPE);
 
 #ifdef DUMP_FLOW_TO_STDERR
+		/*
 		fprintf(stderr, "%u\n", value->type_);
+		*/
 #endif
 
 		value->type_ = ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL;

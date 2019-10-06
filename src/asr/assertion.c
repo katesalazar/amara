@@ -35,6 +35,17 @@
 /*   For own definitions. */
 #include "assertion.h"
 
+#ifdef INTERRUPT_INSTEAD_OF_FAIL_TO_ASSERT
+#undef INTERRUPT_INSTEAD_OF_FAIL_TO_ASSERT
+#endif
+/* #define INTERRUPT_INSTEAD_OF_FAIL_TO_ASSERT */
+
+#ifdef INTERRUPT_INSTEAD_OF_FAIL_TO_ASSERT
+#include <signals.h>  /* XXX it is <signal.h>, I just want it to fail on
+                             first time used in order to know I'm
+                             activating the stimulus correctly. */
+#endif
+
 void
 assertion(int expression)
 {
@@ -82,7 +93,13 @@ forced_assertion_two(int expression, const char * message)
 
 	}
 
+#ifdef INTERRUPT_INSTEAD_OF_FAIL_TO_ASSERT
+	if (!expression) {
+		raise(SIGINT);
+	}
+#else
 	assert(expression);
+#endif
 
 	if (!expression) {
 		exit(1); /* FIXME 1..? */

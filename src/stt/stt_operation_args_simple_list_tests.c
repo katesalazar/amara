@@ -20,10 +20,63 @@
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
-#include "../stt/stt_operation_arg_tests.h"
+#include "stt_operation_arg_tests.h"
 
-/*   For `stt_operation_args_simple_list`. */
-#include "stt_operation_args_simple_list.h"
+/*   For owned prototypes. */
+#include "stt_operation_args_simple_list_tests.h"
+
+stt_operation_args_simple_list *
+stt_operation_args_simple_list_example_one_arg_list()
+{
+	stt_operation_arg * operation_arg_;
+	stt_operation_args_simple_list * ret_;
+
+	operation_arg_ = stt_operation_arg_example_string_literal_foo();
+	forced_assertion(operation_arg_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_arg_example_string_literal_foo(
+			operation_arg_);
+#endif
+
+	ret_ = stt_operation_args_simple_list_default_constructor();
+	forced_assertion(ret_ != NULL);
+#ifndef NDEBUG
+	assertion(ret_->first == NULL);
+	assertion(ret_->next == NULL);
+#endif
+
+	ret_ = stt_operation_args_simple_list_push_front(ret_, operation_arg_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_arg_example_string_literal_foo(
+			operation_arg_);
+#endif
+	forced_assertion(ret_ != NULL);
+	forced_assertion(ret_->first != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_arg_example_string_literal_foo(
+			ret_->first);
+	assertion(ret_->next == NULL);
+#endif
+
+	stt_operation_arg_destructor(operation_arg_);
+
+	return ret_;
+}
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_operation_args_simple_list_example_one_arg_list(
+		const stt_operation_args_simple_list * list)
+{
+	assertion(list != NULL);
+	assertion(list->first != NULL);
+	assert_expectations_on_stt_operation_arg_example_string_literal_foo(
+			list->first);
+	assertion(list->next == NULL);
+}
+
+#endif
 
 stt_operation_args_simple_list *
 stt_operation_args_simple_list_example_two_args_list()
@@ -171,7 +224,143 @@ stt_operation_args_simple_list_copy_constructor_tests()
 }
 
 void
+stt_operation_args_simple_list_equality_test_0()
+{
+	stt_operation_args_simple_list * l0_;
+	stt_operation_args_simple_list * l1_;
+	amara_boolean equality_;
+
+	l0_ = stt_operation_args_simple_list_default_constructor();
+	forced_assertion(l0_ != NULL);
+#ifndef NDEBUG
+	assertion(l0_->first == NULL);
+	assertion(l0_->next == NULL);
+#endif
+
+	l1_ = stt_operation_args_simple_list_example_two_args_list();
+	forced_assertion(l1_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_args_simple_list_example_two_args_list(
+			l1_);
+#endif
+
+	equality_ = stt_operation_args_simple_lists_equality(l0_, l1_);
+	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_operation_args_simple_list_destructor(l0_);
+	stt_operation_args_simple_list_destructor(l1_);
+}
+
+void
+stt_operation_args_simple_list_equality_test_1()
+{
+	stt_operation_args_simple_list * l0_;
+	stt_operation_args_simple_list * l1_;
+	amara_boolean equality_;
+
+	l0_ = stt_operation_args_simple_list_example_two_args_list();
+	forced_assertion(l0_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_args_simple_list_example_two_args_list(
+			l0_);
+#endif
+
+	l1_ = stt_operation_args_simple_list_default_constructor();
+	forced_assertion(l1_ != NULL);
+#ifndef NDEBUG
+	assertion(l1_->first == NULL);
+	assertion(l1_->next == NULL);
+#endif
+
+	equality_ = stt_operation_args_simple_lists_equality(l0_, l1_);
+	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_operation_args_simple_list_destructor(l0_);
+	stt_operation_args_simple_list_destructor(l1_);
+}
+
+/**  List with `n` elements not equal to list with `n + 1` elements. */
+void
+stt_operation_args_simple_list_equality_test_2()
+{
+	stt_operation_args_simple_list * l0_;
+	stt_operation_args_simple_list * l1_;
+	amara_boolean equality_;
+
+	l0_ = stt_operation_args_simple_list_example_one_arg_list();
+	forced_assertion(l0_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_args_simple_list_example_one_arg_list(
+			l0_);
+#endif
+
+	l1_ = stt_operation_args_simple_list_example_two_args_list();
+	forced_assertion(l1_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_args_simple_list_example_two_args_list(
+			l1_);
+#endif
+
+	equality_ = stt_operation_args_simple_lists_equality(l0_, l1_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_args_simple_list_example_one_arg_list(
+			l0_);
+	assert_expectations_on_stt_operation_args_simple_list_example_two_args_list(
+			l1_);
+#endif
+	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_operation_args_simple_list_destructor(l0_);
+	stt_operation_args_simple_list_destructor(l1_);
+}
+
+/**  List with `n + 1` elements not equal to list with `n` elements. */
+void
+stt_operation_args_simple_list_equality_test_3()
+{
+	stt_operation_args_simple_list * l0_;
+	stt_operation_args_simple_list * l1_;
+	amara_boolean equality_;
+
+	l0_ = stt_operation_args_simple_list_example_two_args_list();
+	forced_assertion(l0_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_args_simple_list_example_two_args_list(
+			l0_);
+#endif
+
+	l1_ = stt_operation_args_simple_list_example_one_arg_list();
+	forced_assertion(l1_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_args_simple_list_example_one_arg_list(
+			l1_);
+#endif
+
+	equality_ = stt_operation_args_simple_lists_equality(l0_, l1_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_args_simple_list_example_two_args_list(
+			l0_);
+	assert_expectations_on_stt_operation_args_simple_list_example_one_arg_list(
+			l1_);
+#endif
+	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_operation_args_simple_list_destructor(l0_);
+	stt_operation_args_simple_list_destructor(l1_);
+}
+
+void
+stt_operation_args_simple_list_equality_tests()
+{
+	stt_operation_args_simple_list_equality_test_0();
+	stt_operation_args_simple_list_equality_test_1();
+	stt_operation_args_simple_list_equality_test_2();
+	stt_operation_args_simple_list_equality_test_3();
+}
+
+void
 stt_operation_args_simple_list_tests()
 {
 	stt_operation_args_simple_list_copy_constructor_tests();
+	stt_operation_args_simple_list_equality_tests();
 }

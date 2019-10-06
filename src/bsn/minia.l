@@ -43,6 +43,11 @@
 #include "minia.tab.h"
 
 #ifdef TRACE_FLEX
+#undef TRACE_FLEX
+#endif
+/* #define TRACE_FLEX */
+
+#ifdef TRACE_FLEX
 #define TRACE_FLEX_CONSTANT_VALUE 0xFF
 #else
 #define TRACE_FLEX_CONSTANT_VALUE 0x00
@@ -271,16 +276,22 @@ _ {
 
 /*   XXX Actually the difference here is not the OS but the compiler. */
 #ifdef __APPLE__
+    /*
     fprintf(stderr, "minialeng: %lu\n", minialeng);
+    */
 #else
+    /*
     fprintf(stderr, "minialeng: %u\n", minialeng);
+    */
 #endif
     for (
         miniatext_index_ = 0; miniatext_index_ < minialeng;
         miniatext_index_++)
     {
+      /*
       fprintf(stderr, "miniatext[miniatext_index_: %u]: %c\n",
               miniatext_index_, miniatext[miniatext_index_]);
+      */
     }
 
     if (miniatext[10] == 'r') {
@@ -913,7 +924,9 @@ an              {
         single_byte_indexer_ = 0; single_byte_indexer_ < minialeng - 15 - 20;
         single_byte_indexer_++)
                   {
+      /*
       fprintf(stderr, "parsing string literal: char '%c')\n", yytext[single_byte_indexer_ + 15]);
+      */
       value_char_array_[single_byte_indexer_] = yytext[single_byte_indexer_ + 15];
                   }
     value_char_array_[single_byte_indexer_] = '\0';
@@ -955,3 +968,34 @@ an              {
                 }
 
 %%
+
+/* TODO must depend on flex version, not on using macOS or not. */
+/*
+#ifndef __APPLE__
+extern static int yy_init;
+extern static int YY_CURRENT_BUFFER;
+extern static void yy_delete_buffer(size_t);
+#endif
+*/
+
+void amara_destroy_flex_buffer()
+{
+  int yylex_destroy_result_;
+
+  /*   Destroy the stack. */
+  yylex_destroy_result_ = yylex_destroy();
+  forced_assertion(yylex_destroy_result_ == 0);
+
+  /* TODO must depend on flex version, not on using macOS or not. */
+/*
+#ifndef __APPLE__
+*/
+  /*   For non-reentrant C scanner only. See:
+   * http://westes.github.io/flex/manual/Memory-leak-_002d-16386-bytes-allocated-by-malloc_002e.html#Memory-leak-_002d-16386-bytes-allocated-by-malloc_002e
+   */
+  yy_delete_buffer(YY_CURRENT_BUFFER);
+  yy_init = 1;
+/*
+#endif
+*/
+}

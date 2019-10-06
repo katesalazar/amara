@@ -797,7 +797,7 @@ stt_node_example_doc_zero()
 	assertion(ret_->type_ == STT_NODE_TYPE_INVALID);
 #endif
 
-	stt_node_set_doc(ret_, named_functions_, applications_,
+	stt_node_set_doc_by_components(ret_, named_functions_, applications_,
 	                 execution_requests_);
 #ifndef NDEBUG
 	assert_expectations_on_stt_named_function_example_print_string_literal_foo(
@@ -928,7 +928,7 @@ stt_node_example_doc_one()
 	assertion(ret_->type_ == STT_NODE_TYPE_INVALID);
 #endif
 
-	stt_node_set_doc(ret_, named_functions_, applications_,
+	stt_node_set_doc_by_components(ret_, named_functions_, applications_,
 	                 execution_requests_);
 #ifndef NDEBUG
 	assert_expectations_on_stt_named_function_example_print_string_literal_foo(
@@ -1039,7 +1039,7 @@ stt_node_example_doc_two()
 	assertion(ret_->type_ == STT_NODE_TYPE_INVALID);
 #endif
 
-	stt_node_set_doc(ret_, named_functions_, applications_,
+	stt_node_set_doc_by_components(ret_, named_functions_, applications_,
 	                 execution_requests_);
 #ifndef NDEBUG
 	assertion(named_functions_->first == NULL);
@@ -1193,7 +1193,7 @@ stt_node_example_doc_three()
 	assertion(ret_->type_ == STT_NODE_TYPE_INVALID);
 #endif
 
-	stt_node_set_doc(ret_, named_functions_, applications_,
+	stt_node_set_doc_by_components(ret_, named_functions_, applications_,
 	                 execution_requests_);
 #ifndef NDEBUG
 	assertion(named_functions_->first != NULL);
@@ -1329,7 +1329,7 @@ stt_node_example_doc_four()
 	assertion(ret_->type_ == STT_NODE_TYPE_INVALID);
 #endif
 
-	stt_node_set_doc(ret_, named_functions_, applications_,
+	stt_node_set_doc_by_components(ret_, named_functions_, applications_,
 	                 execution_requests_);
 #ifndef NDEBUG
 	assert_expectations_on_stt_execution_request_example_print_foo(
@@ -1545,7 +1545,7 @@ stt_node_example_doc_five()
 	assertion(ret_->type_ == STT_NODE_TYPE_INVALID);
 #endif
 
-	stt_node_set_doc(ret_, named_functions_, applications_,
+	stt_node_set_doc_by_components(ret_, named_functions_, applications_,
 	                 execution_requests_);
 #ifndef NDEBUG
 	assert_expectations_on_stt_execution_request_example_print_baz(
@@ -1717,7 +1717,7 @@ stt_node_example_doc_six()
 	assertion(ret_->type_ == STT_NODE_TYPE_INVALID);
 #endif
 
-	stt_node_set_doc(ret_, named_functions_, applications_,
+	stt_node_set_doc_by_components(ret_, named_functions_, applications_,
 	                 execution_requests_);
 #ifndef NDEBUG
 	assert_expectations_on_stt_named_function_example_print_string_literal_foo(
@@ -3552,7 +3552,7 @@ stt_node_validation_test_50_doc()
 	assertion(node_->type_ == STT_NODE_TYPE_INVALID);
 #endif
 
-	stt_node_set_doc(node_, named_functions_, applications_,
+	stt_node_set_doc_by_components(node_, named_functions_, applications_,
 	                 execution_requests_);
 #ifndef NDEBUG
 	assertion(node_->type_ == STT_NODE_TYPE_DOC);
