@@ -45,6 +45,9 @@
 
 #include "char_arrays_simple_list_tests.h"
 
+/*   For own definitions and definitions depended on by own prototypes. */
+#include "common_tests.h"
+
 void
 char_arrays_concatenation_test_0()
 {
@@ -185,10 +188,70 @@ char_arrays_concatenation_tests_()
 	char_arrays_concatenation_test_7();
 }
 
+tests_simple_list *
+register_char_arrays_concatenation_tests_(const tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_char_arrays_concatenation_tests_(const tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests_simple_list_copy_constructor(tests);
+	forced_assertion(returning_ != NULL);
+
+	forced_assertion(returning_->first == NULL);
+
+	tests_simple_list_push_back(
+			returning_, & char_arrays_concatenation_test_0);
+
+	forced_assertion(returning_->first != NULL);
+	forced_assertion(returning_->next == NULL);
+
+	tests_simple_list_push_back(
+			returning_, & char_arrays_concatenation_test_1);
+
+	forced_assertion(returning_->first != NULL);
+	forced_assertion(returning_->next != NULL);
+	forced_assertion(returning_->next->first != NULL);
+	forced_assertion(returning_->next->next == NULL);
+
+	tests_simple_list_push_back(
+			returning_, & char_arrays_concatenation_test_2);
+
+	forced_assertion(returning_->first != NULL);
+	forced_assertion(returning_->next != NULL);
+	forced_assertion(returning_->next->first != NULL);
+	forced_assertion(returning_->next->next != NULL);
+	forced_assertion(returning_->next->next->first != NULL);
+	forced_assertion(returning_->next->next->next == NULL);
+
+	/* FIXME */
+
+	return returning_;
+}
+
 void
 char_array_tests_()
 {
 	char_arrays_concatenation_tests_();
+}
+
+tests_simple_list *
+register_char_array_tests_(const tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_char_array_tests_(const tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_char_arrays_concatenation_tests_(tests);
+	forced_assertion(returning_ != NULL);
+
+	return returning_;
 }
 
 void
@@ -535,4 +598,15 @@ common_tests()
 	amara_string_tests();
 
 	amara_strings_simple_list_tests();
+}
+
+tests_simple_list *
+register_common_tests(const tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+	returning_ = register_char_array_tests_(tests);
+
+	/* FIXME */
+
+	return returning_;
 }

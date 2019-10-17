@@ -19,8 +19,15 @@
 #ifndef __AMARA__COMMON__COMMON_TESTS__H__
 #define __AMARA__COMMON__COMMON_TESTS__H__
 
+#include "../tst/tests_simple_list.h"
+
 void
 common_tests(void)
+;
+
+tests_simple_list *
+register_common_tests(const tests_simple_list * tests)
+__amara__warn_unused_result__
 ;
 
 #endif

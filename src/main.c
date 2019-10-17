@@ -121,9 +121,16 @@ amara_main(const int argc, const char * * argv)
 			interpret_and_assert(arg_->option_zero);
 		}
 		returning_ = AMARA_MAIN_RET_SUCCESS;
-	} else if (arg_->value & ARG_RET_RUN_TESTS) {
-		run_tests(print_banner_);
-		returning_ = AMARA_MAIN_RET_SUCCESS;
+	} else if (arg_->value & ARG_RET_RUN_TESTS ||
+			arg_->value & ARG_RET_RUN_SCRAMBLED_TESTS) {
+		if (arg_->value & ARG_RET_RUN_TESTS) {
+			run_tests(print_banner_);
+			returning_ = AMARA_MAIN_RET_SUCCESS;
+		}
+		if (arg_->value & ARG_RET_RUN_SCRAMBLED_TESTS) {
+			run_scrambled_tests(print_banner_);
+			returning_ = AMARA_MAIN_RET_SUCCESS;
+		}
 	} else {
 		assertion(arg_->value & ARG_RET_RUN_APP);
 		app_runner_ret_ = run_app(arg_->option_zero);
