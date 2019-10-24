@@ -22,9 +22,9 @@ do
 			binary="ERROR_18"
 		fi
 #		rm "${binary}" || break
-		make all || break
-		valgrind --leak-check=full --show-leak-kinds=all --num-callers=24 "${binary}" run tests 2>&1 | nl >valgrind_report || (echo 'valgrind returned bad' && break)
-		mv ./valgrind_report /var/www/html/valgrind/amara/${branch}/valgrind_report || (echo 'mv returned bad' && break)
+		make all || continue
+		valgrind --leak-check=full --show-leak-kinds=all --num-callers=24 "${binary}" run tests 2>&1 | nl >valgrind_report || (echo 'valgrind returned bad' && continue)
+		mv ./valgrind_report /var/www/html/valgrind/amara/${branch}/valgrind_report || (echo 'mv returned bad' && continue)
 		date
 		echo 'sleeping 10'
 		sleep 10
