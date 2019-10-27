@@ -17,7 +17,7 @@ do
 			binary="./build/debug/amara_g_not_stripped"
 		elif test "${branch}" = 'experimental'
 		then
-			binary="./build/debug/amara_g"
+			binary="./build/debug/amara_g_not_stripped"
 		else
 			binary="ERROR_18"
 		fi
