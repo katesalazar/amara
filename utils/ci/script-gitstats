@@ -1,0 +1,5 @@
+#!/bin/sh
+
+
+gitstats . ./gitstats/
+sudo cp -rfv ./gitstats/ /var/www/html/ci/gitstats_removeme/

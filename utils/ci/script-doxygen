@@ -1,0 +1,4 @@
+#!/bin/sh
+
+
+doxygen Doxyfile && rkac && sudo cp -rfv doxygen_reports/ /var/www/html/ci/doxy_removeme/

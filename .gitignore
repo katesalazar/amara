@@ -105,3 +105,6 @@ doxygen_reports/
 
 #   WIP cellar.
 valgrind_report
+
+#   Gitstats stuff.
+gitstats/
