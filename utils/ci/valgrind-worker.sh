@@ -4,7 +4,8 @@
 until false
 do
 	git fetch origin
-	for branch in master integration experimental
+	for branch in master integration experimental experimental0 \
+			experimental1
 	do
 		git checkout ${branch} || break
 		git reset --hard origin/${branch} || break
@@ -16,6 +17,12 @@ do
 		then
 			binary="./build/debug/amara_g_not_stripped"
 		elif test "${branch}" = 'experimental'
+		then
+			binary="./build/debug/amara_g_not_stripped"
+		elif test "${branch}" = 'experimental0'
+		then
+			binary="./build/debug/amara_g_not_stripped"
+		elif test "${branch}" = 'experimental1'
 		then
 			binary="./build/debug/amara_g_not_stripped"
 		else
