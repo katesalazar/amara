@@ -36,7 +36,7 @@ do
 		echo 'sleeping 10'
 		sleep 10
 	done
-	git checkout valgrind-worker
+	git checkout ci
 	date
 	echo 'sleeping 3600'
 	sleep 3600
