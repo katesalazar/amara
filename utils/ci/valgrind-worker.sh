@@ -63,6 +63,36 @@ do
 				./valgrind_report \
 				/var/www/html/valgrind/amara/${branch}/valgrind_report || ( \
 				echo 'mv returned bad' && continue)
+		valgrind \
+				--leak-check=full \
+				--show-leak-kinds=all \
+				--num-callers=24 \
+				--verbose \
+				"${binary}"\
+				run tests \
+				2>&1 | \
+				nl -b a >valgrind_verbose_report || ( \
+				echo 'valgrind returned bad' && \
+				continue)
+		mv \
+				./valgrind_verbose_report \
+				/var/www/html/valgrind/amara/${branch}/valgrind_verbose_report || ( \
+				echo 'mv returned bad' && continue)
+		valgrind \
+				--leak-check=full \
+				--show-leak-kinds=all \
+				--num-callers=24 \
+				--verbose --verbose \
+				"${binary}"\
+				run tests \
+				2>&1 | \
+				nl -b a >valgrind_doubly_verbose_report || ( \
+				echo 'valgrind returned bad' && \
+				continue)
+		mv \
+				./valgrind_doubly_verbose_report \
+				/var/www/html/valgrind/amara/${branch}/valgrind_doubly_verbose_report || ( \
+				echo 'mv returned bad' && continue)
 		date
 		echo 'sleeping 10'
 		sleep 10
