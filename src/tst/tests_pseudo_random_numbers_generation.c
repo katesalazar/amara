@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Mercedes Catherine Salazar
+ * Copyright 2019-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,11 +32,17 @@
 int
 tests_prng_next_integer_between_two(const int smallest, const int largest)
 {
-	/*   Use a random seed. */
-	return tests_prng_next_integer_between_three(
-			time(NULL), smallest, largest);
-}
+	static int seed_is_initialized_ = 0;
+	static int seed_;
 
+	if (!seed_is_initialized_) {
+		seed_ = time(NULL);
+		seed_is_initialized_ = 1;
+	}
+
+	/*   Use a random seed. */
+	return tests_prng_next_integer_between_three(seed_, smallest, largest);
+}
 
 int
 tests_prng_next_integer_between_three(
@@ -76,9 +82,22 @@ tests_prng_next_integer_between_three(
 	/* explicit paper assumption. */
 	forced_assertion(largest <= 32768 - 1);
 
+	/*   Will generate the next pseudo random number using an
+	 * algorithm seen in
+	 * `https://pubs.opengroup.org/onlinepubs/009695399/functions/rand.html`.
+	 *   See also: `https://stackoverflow.com/q/8569113`.
+	 *   See also: `http://citeseer.ist.psu.edu/viewdoc/download;jsessionid=4F8F207F726CB56B4630F8155F748256?doi=10.1.1.53.3686&rep=rep1&type=pdf`
+	 * linked from 8569113 at `stackoverflow.com`.
+	 */
+
 	next_ = next_ * 1103515245 + 12345;
 	do {
 		next_ = ((unsigned) (next_ / 65536)) % (largest + 1);
+
+		if (next_ == 0) {  /* XXX ??? */
+			next_++;  /* XXX ??? */
+		}  /* XXX ??? */
+
 	} while (next_ < smallest || next_ > largest);
 
 	forced_assertion(next_ >= smallest);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Mercedes Catherine Salazar
+ * Copyright 2019-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -199,9 +199,13 @@ tests_simple_list *
 tests_simple_list_scramble_tests(const tests_simple_list * tests)
 {
 	tests_simple_list * tests_copy_;
+	tests_simple_list * tests_copy_ptr_;
 	int tests_copy_len_;
+	int i_;
 	tests_simple_list * scrambled_tests_;
+	tests_simple_list * scrambled_tests_ptr_;
 	int prng_;
+	tests_simple_list * element_copy_;
 
 	/*   Two lists, one empty and the other has the elements in
 	 * order. */
@@ -236,12 +240,63 @@ tests_simple_list_scramble_tests(const tests_simple_list * tests)
 		prng_ = tests_prng_next_integer_between_two(
 				1, tests_copy_len_);
 
-		/* XXX */
+		/* Copy the element in that position. */
 
-		tests_copy_len_ = tests_simple_list_length(tests_copy_);
+		tests_copy_ptr_ = tests_copy_;
+		i_ = 1;
+		while (i_ < prng_) {
+#ifndef NDEBUG
+			assertion(tests_copy_ptr_->next != NULL);
+#endif
+			tests_copy_ptr_ = tests_copy_ptr_->next;
+			i_++;
+		}
+		element_copy_ = tests_copy_ptr_;
+
+		/* Remove the element in that position. */
+
+		if (tests_copy_ == element_copy_) {
+			tests_copy_ = tests_copy_->next;
+		} else {
+			tests_copy_ptr_ = tests_copy_;
+			while (tests_copy_ptr_->next != element_copy_) {
+#ifndef NDEBUG
+				assertion(tests_copy_ptr_->next != NULL);
+#endif
+				tests_copy_ptr_ = tests_copy_ptr_->next;
+			}
+			tests_copy_ptr_->next = tests_copy_ptr_->next->next;
+		}
+		element_copy_->next = NULL;
+
+		/* Add the element to the other list, at the back. */
+
+		if (scrambled_tests_->first == NULL) {
+#ifndef NDEBUG
+			assertion(scrambled_tests_->next == NULL);
+#endif
+			tests_simple_list_destructor(scrambled_tests_);
+			scrambled_tests_ = element_copy_;
+		} else {
+			scrambled_tests_ptr_ = scrambled_tests_;
+			while (scrambled_tests_ptr_->next != NULL) {
+				scrambled_tests_ptr_ =
+						scrambled_tests_ptr_->next;
+			}
+			scrambled_tests_ptr_->next = element_copy_;
+		}
+
+		if (tests_copy_ == NULL) {
+			tests_copy_len_ = 0;
+		} else {
+			tests_copy_len_ =
+					tests_simple_list_length(tests_copy_);
+		}
 	} while (tests_copy_len_ > 0);
 
-	tests_simple_list_destructor(tests_copy_);
+	if (tests_copy_ != NULL) {
+		tests_simple_list_destructor(tests_copy_);
+	}
 
 	return scrambled_tests_;
 }

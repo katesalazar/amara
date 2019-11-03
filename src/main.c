@@ -129,6 +129,9 @@ amara_main(const int argc, const char * * argv)
 		}
 		if (arg_->value & ARG_RET_RUN_SCRAMBLED_TESTS) {
 			run_scrambled_tests(print_banner_);
+			/*
+			run_tests(print_banner_);
+			*/
 			returning_ = AMARA_MAIN_RET_SUCCESS;
 		}
 	} else {
