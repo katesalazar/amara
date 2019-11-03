@@ -52,7 +52,7 @@ do
 			-o ${FORCE} -eq 1
 	then
 		rm -rfv build/
-		if test "${branch}" = 'experimental'
+		if test "${branch}" = 'not-used-any-more'
 		then
 			PATH_TO_BSN_SOURCES="../../src/"
 		else
