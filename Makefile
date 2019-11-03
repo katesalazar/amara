@@ -292,6 +292,7 @@ UTILS_DIR = utils
 	$(SRC_DIR)/rtg/rtg_where_value_binding_tests.c \
 	$(SRC_DIR)/rtg/rtg_where_value_bindings_simple_list.c \
 	$(SRC_DIR)/rtg/rtg_where_value_bindings_simple_list_tests.c \
+	$(SRC_DIR)/tst/tests_pseudo_random_numbers_generation.c \
 	$(SRC_DIR)/tst/tests_runner.c \
 	$(SRC_DIR)/tst/tests_simple_list.c \
 	$(SRC_DIR)/stt/stt_application.c \
@@ -447,6 +448,7 @@ BUILD_SRC = \
 	$(BUILD_DIR_SRC)/rtg/rtg_where_value_binding_tests.$(CEXT) \
 	$(BUILD_DIR_SRC)/rtg/rtg_where_value_bindings_simple_list.$(CEXT) \
 	$(BUILD_DIR_SRC)/rtg/rtg_where_value_bindings_simple_list_tests.$(CEXT) \
+	$(BUILD_DIR_SRC)/tst/tests_pseudo_random_numbers_generation.$(CEXT) \
 	$(BUILD_DIR_SRC)/tst/tests_runner.$(CEXT) \
 	$(BUILD_DIR_SRC)/tst/tests_simple_list.$(CEXT) \
 	$(BUILD_DIR_SRC)/stt/stt_application.$(CEXT) \
@@ -602,6 +604,7 @@ OBJ_DEBUG = \
 		$(BUILD_DIR_DEBUG)/rtg_where_value_bindings_simple_list.o \
 		$(BUILD_DIR_DEBUG)/rtg_where_value_bindings_simple_list_tests.o \
 		$(BUILD_DIR_DEBUG)/rtg_tests.o \
+		$(BUILD_DIR_DEBUG)/tests_pseudo_random_numbers_generation.o \
 		$(BUILD_DIR_DEBUG)/tests_runner.o \
 		$(BUILD_DIR_DEBUG)/tests_simple_list.o \
 		$(BUILD_DIR_DEBUG)/stt_application.o \
@@ -757,6 +760,7 @@ OBJ_RELEASE = \
 		$(BUILD_DIR_RELEASE)/rtg_where_value_binding_tests.o \
 		$(BUILD_DIR_RELEASE)/rtg_where_value_bindings_simple_list.o \
 		$(BUILD_DIR_RELEASE)/rtg_where_value_bindings_simple_list_tests.o \
+		$(BUILD_DIR_RELEASE)/tests_pseudo_random_numbers_generation.o \
 		$(BUILD_DIR_RELEASE)/tests_runner.o \
 		$(BUILD_DIR_RELEASE)/tests_simple_list.o \
 		$(BUILD_DIR_RELEASE)/stt_application.o \
@@ -1946,6 +1950,24 @@ $(BUILD_DIR_RELEASE)/persistence_tests.o: \
 		$(BUILD_DIR_SRC)/asr/assertion.$(HEXT)
 	$(C) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
+$(BUILD_DIR_SRC)/tst/tests_pseudo_random_numbers_generation.$(HEXT): \
+		$(SRC_DIR)/tst/tests_pseudo_random_numbers_generation.h
+	$(CP) $< $@
+
+$(BUILD_DIR_SRC)/tst/tests_pseudo_random_numbers_generation.$(CEXT): \
+		$(SRC_DIR)/tst/tests_pseudo_random_numbers_generation.c
+	$(CP) $< $@
+
+$(BUILD_DIR_DEBUG)/tests_pseudo_random_numbers_generation.o: \
+		$(BUILD_DIR_SRC)/tst/tests_pseudo_random_numbers_generation.$(CEXT) \
+		$(BUILD_DIR_SRC)/tst/tests_pseudo_random_numbers_generation.$(HEXT)
+	$(C) $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/tests_pseudo_random_numbers_generation.o: \
+		$(BUILD_DIR_SRC)/tst/tests_pseudo_random_numbers_generation.$(CEXT) \
+		$(BUILD_DIR_SRC)/tst/tests_pseudo_random_numbers_generation.$(HEXT)
+	$(C) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
 $(BUILD_DIR_SRC)/tst/tests_runner.$(HEXT): \
 		$(SRC_DIR)/tst/tests_runner.h
 	$(CP) $< $@
@@ -1980,12 +2002,14 @@ $(BUILD_DIR_SRC)/tst/tests_simple_list.$(CEXT): \
 
 $(BUILD_DIR_DEBUG)/tests_simple_list.o: \
 		$(BUILD_DIR_SRC)/tst/tests_simple_list.$(CEXT) \
-		$(BUILD_DIR_SRC)/tst/tests_simple_list.$(HEXT)
+		$(BUILD_DIR_SRC)/tst/tests_simple_list.$(HEXT) \
+		$(BUILD_DIR_SRC)/tst/tests_pseudo_random_numbers_generation.$(HEXT)
 	$(C) $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
 $(BUILD_DIR_RELEASE)/tests_simple_list.o: \
 		$(BUILD_DIR_SRC)/tst/tests_simple_list.$(CEXT) \
-		$(BUILD_DIR_SRC)/tst/tests_simple_list.$(HEXT)
+		$(BUILD_DIR_SRC)/tst/tests_simple_list.$(HEXT) \
+		$(BUILD_DIR_SRC)/tst/tests_pseudo_random_numbers_generation.$(HEXT)
 	$(C) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_SRC)/wrp/dirent_wrapper.$(HEXT): \

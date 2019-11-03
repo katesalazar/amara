@@ -21,6 +21,9 @@
 
 #include "../asr/assertion.h"
 
+/*   For `int tests_prng_next_integer_between(const int, const int)`. */
+#include "tests_pseudo_random_numbers_generation.h"
+
 /*   For own prototypes. */
 #include "tests_simple_list.h"
 
@@ -198,6 +201,7 @@ tests_simple_list_scramble_tests(const tests_simple_list * tests)
 	tests_simple_list * tests_copy_;
 	int tests_copy_len_;
 	tests_simple_list * scrambled_tests_;
+	int prng_;
 
 	/*   Two lists, one empty and the other has the elements in
 	 * order. */
@@ -208,22 +212,38 @@ tests_simple_list_scramble_tests(const tests_simple_list * tests)
 	scrambled_tests_ = tests_simple_list_default_constructor();
 	forced_assertion(scrambled_tests_ != NULL);
 
-	/*   While one of the lists holds elements... */
+	/*   While one of the lists holds elements, pick a random
+	 * element out of the list and append it to the list initially
+	 * empty.
+	 *   Loop that until the list from where elements are being
+	 * extracted becomes empty. I.e. all of the elements have been
+	 * moved from one of the lists to the other. */
 
 	tests_copy_len_ = tests_simple_list_length(tests_copy_);
+	forced_assertion(tests_copy_len_ > 0);
 
-	/*   Loop this: pick randomly an element out of the elements
-	 * list and append it at the end of the other list, which
-	 * initially was empty. */
+	do {
+		/*   Pick randomly an element out of the elements list
+		 * and append it in the other list, which initially was
+		 * empty. */
 
-	/* XXX */
+		/*   Pick a random number between 1 and
+		 * `tests_copy_len_` (both inclusive). That's going to
+		 * be the index of the element to be extracted, counted
+		 * from the first one - because of being the first
+		 * element, this is identifying it by the number 1,
+		 * instead of by the number/index 0. */
+		prng_ = tests_prng_next_integer_between_two(
+				1, tests_copy_len_);
 
-	/*   Repeat until all of the elements have been moved from one
-	 * of the lists to the other. */
+		/* XXX */
 
-	/* XXX */
+		tests_copy_len_ = tests_simple_list_length(tests_copy_);
+	} while (tests_copy_len_ > 0);
 
-	return NULL;  /* XXX */
+	tests_simple_list_destructor(tests_copy_);
+
+	return scrambled_tests_;
 }
 
 void
