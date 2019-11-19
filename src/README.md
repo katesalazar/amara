@@ -46,6 +46,9 @@ would not be fixing them... unless for some reason the amara scope decided to
 apply custom patches on top of upstream Bison (supposing legal stuff allows for
 that).
 
+* `brt`: <strong>B</strong>asic A<strong>r</strong>i<strong>t</strong>hmetic
+  source code tree. Contains classes such as the natural and rational numbers.
+
 * `cmn`: **C**o**m**mo**n** boiler plates. Everything inside must be under 100% coverage.
 
 * `ftr`: The **f**u**t**u**r**e system deals with providing the C99 `int

@@ -33,9 +33,12 @@ rtg_named_function_example_print_string_literal_foo()
 	rtg_where_value_bindings_simple_list * where_value_bindings_;
 	rtg_operation * operation_;
 	rtg_operations_simple_list * operations_;
+	amara_string * amara_string_foo_;
+	amara_string * amara_string_print_foo_;
 	rtg_named_function * named_function_;
 
-	where_value_bindings_ = rtg_where_value_bindings_simple_list_default_constructor();
+	where_value_bindings_ =
+			rtg_where_value_bindings_simple_list_default_constructor();
 	forced_assertion(where_value_bindings_ != NULL);
 #ifndef NDEBUG
 	assertion(where_value_bindings_->first == NULL);
@@ -66,17 +69,25 @@ rtg_named_function_example_print_string_literal_foo()
 	assertion(operations_->next == NULL);
 #endif
 
+	rtg_operation_destructor(operation_);
+
+	amara_string_foo_ = amara_string_exhaustive_constructor("foo");
+	forced_assertion(amara_string_foo_ != NULL);
+
+	amara_string_print_foo_ = amara_string_exhaustive_constructor(
+			"print_foo");
+	forced_assertion(amara_string_print_foo_ != NULL);
+
 	named_function_ = rtg_named_function_exhaustive_constructor(
 			RTG_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION,
-			amara_string_exhaustive_constructor("print_foo"),
-			operations_, where_value_bindings_);
+			amara_string_print_foo_, operations_,
+			where_value_bindings_);
 #ifndef NDEBUG
 	assertion(named_function_ != NULL);
 	assertion(named_function_->name_ != NULL);
 	assertion(named_function_->name_->value_ != NULL);
 	assertion(amara_string_equality(
-			named_function_->name_,
-			amara_string_exhaustive_constructor("print_foo")));
+			named_function_->name_, amara_string_print_foo_));
 	assertion(named_function_->operations_ != NULL);
 	assertion(named_function_->operations_->first != NULL);
 	assertion(named_function_->operations_->first->type_ ==
@@ -89,9 +100,14 @@ rtg_named_function_example_print_string_literal_foo()
 			NULL);
 	assertion(amara_string_equality(
 			named_function_->operations_->first->args_->first->string_literal_,
-			amara_string_exhaustive_constructor("foo")));
+			amara_string_foo_));
 	assertion(named_function_->operations_->next == NULL);
 #endif
+
+	rtg_where_value_bindings_simple_list_destructor(where_value_bindings_);
+	rtg_operations_simple_list_destructor(operations_);
+	amara_string_destructor(amara_string_foo_);
+	amara_string_destructor(amara_string_print_foo_);
 
 	return named_function_;
 }
@@ -133,10 +149,13 @@ rtg_named_function_example_print_string_literal_bar()
 	rtg_where_value_bindings_simple_list * where_value_bindings_;
 	rtg_operation * operation_;
 	rtg_operations_simple_list * operations_;
+	amara_string * amara_string_print_bar_;
 	rtg_named_function * named_function_;
+	amara_string * amara_string_bar_;
 
 	where_value_bindings_ =
 			rtg_where_value_bindings_simple_list_default_constructor();
+	forced_assertion(where_value_bindings_ != NULL);
 
 	operation_ = rtg_operation_example_print_string_literal_bar();
 	forced_assertion(operation_ != NULL);
@@ -148,17 +167,25 @@ rtg_named_function_example_print_string_literal_bar()
 			operations_, operation_);
 	forced_assertion(operations_ != NULL);
 
+	rtg_operation_destructor(operation_);
+
+	amara_string_print_bar_ =
+			amara_string_exhaustive_constructor("print_bar");
+	forced_assertion(amara_string_print_bar_ != NULL);
+
+	amara_string_bar_ = amara_string_exhaustive_constructor("bar");
+	forced_assertion(amara_string_bar_ != NULL);
+
 	named_function_ = rtg_named_function_exhaustive_constructor(
 			RTG_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION,
-			amara_string_exhaustive_constructor("print_bar"),
-			operations_, where_value_bindings_);
+			amara_string_print_bar_, operations_,
+			where_value_bindings_);
 	forced_assertion(named_function_ != NULL);
 	forced_assertion(named_function_->name_ != NULL);
 	forced_assertion(named_function_->name_->value_ != NULL);
 #ifndef NDEBUG
 	assertion(amara_string_equality(
-			named_function_->name_,
-			amara_string_exhaustive_constructor("print_bar")));
+			named_function_->name_, amara_string_print_bar_));
 #endif
 	forced_assertion(named_function_->operations_ != NULL);
 	forced_assertion(named_function_->operations_->first != NULL);
@@ -178,9 +205,14 @@ rtg_named_function_example_print_string_literal_bar()
 #ifndef NDEBUG
 	assertion(amara_string_equality(
 			named_function_->operations_->first->args_->first->string_literal_,
-			amara_string_exhaustive_constructor("bar")));
+			amara_string_bar_));
 	assertion(named_function_->operations_->next == NULL);
 #endif
+
+	rtg_where_value_bindings_simple_list_destructor(where_value_bindings_);
+	rtg_operations_simple_list_destructor(operations_);
+	amara_string_destructor(amara_string_print_bar_);
+	amara_string_destructor(amara_string_bar_);
 
 	return named_function_;
 }

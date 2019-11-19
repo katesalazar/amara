@@ -389,4 +389,33 @@ void
 assert_clean_doc_node(const stt_node * node)
 ;
 
+/*   Non destructive in its arguments.
+ *   `node_zero` minus `node_one`. */
+struct stt_node *
+simplify_natural_literal_nodes_substraction(
+		const struct stt_node * node_zero,
+		const struct stt_node * node_one)
+__attribute__((warn_unused_result))
+;
+
+/*   Non destructive in its arguments.
+ *   `node_zero` divided by `node_one`. */
+struct stt_node *
+simplify_natural_literal_nodes_multiplication(
+		const struct stt_node * node_zero,
+		const struct stt_node * node_one)
+__attribute__((warn_unused_result))
+;
+
+/*   Non destructive in its arguments.
+ *   `node_zero` divided by `node_one`.
+ *   Note that euclidean
+ * division is performed, if (because) arguments are naturals. */
+struct stt_node *
+simplify_natural_literal_nodes_division(
+		const struct stt_node * node_zero,
+		const struct stt_node * node_one)
+__attribute__((warn_unused_result))
+;
+
 #endif

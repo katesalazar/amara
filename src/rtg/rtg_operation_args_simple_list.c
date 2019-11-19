@@ -91,18 +91,34 @@ rtg_operation_args_simple_list_copy_constructor(
 }
 
 void
+rtg_operation_args_simple_list_destructor_inner(
+		rtg_operation_args_simple_list * operation_args)
+{
+	if (operation_args != NULL) {
+		rtg_operation_args_simple_list_destructor_inner(
+				operation_args->next);
+#ifndef NDEBUG
+		assertion(operation_args->first != NULL);
+#endif
+		rtg_operation_arg_destructor(operation_args->first);
+		free(operation_args);
+	}
+}
+
+void
 rtg_operation_args_simple_list_destructor(
 		rtg_operation_args_simple_list * operation_args)
 {
+#ifndef NDEBUG
 	assertion(operation_args != NULL);
+#endif
 	if (operation_args->first == NULL) {
+#ifndef NDEBUG
 		assertion(operation_args->next == NULL);
+#endif
+		free(operation_args);
 	} else {
-		rtg_operation_arg_destructor(operation_args->first);
-	}
-	if (operation_args->next != NULL) {
-		rtg_operation_args_simple_list_destructor(
-				operation_args->next);
+		rtg_operation_args_simple_list_destructor_inner(operation_args);
 	}
 }
 
@@ -196,7 +212,7 @@ rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret *
 rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list(
 		const stt_operation_args_simple_list * operation_args,
 		const stt_operation_type operation_type,
-		const stt_where_value_bindings_simple_list * function_where_bindings)
+		const struct stt_where_value_bindings_simple_list * function_where_bindings)
 {
 	rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret * ret_;
 	rtg_operation_args_simple_list * sub_ret_;
@@ -214,47 +230,71 @@ rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list(
 	ret_->status = RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_INVALID;
 	ret_->error_messages = NULL;
 	ret_->operation_args = NULL;
+
+#ifndef NDEBUG
 	assertion(operation_args != NULL);
-	sub_ret_ =
-#ifdef AMARA_USE_STD_CXX98
-			(rtg_operation_args_simple_list *)
 #endif
-			malloc(sizeof(rtg_operation_args_simple_list));
+
+	sub_ret_ = rtg_operation_args_simple_list_default_constructor();
 	forced_assertion(sub_ret_ != NULL);
+
 	if (operation_args->first == NULL) {
-		sub_ret_->first = NULL;
+
+#ifndef NDEBUG
 		assertion(operation_args->next == NULL);
-		sub_ret_->next = NULL;
+#endif
 		ret_->operation_args = sub_ret_;
 		ret_->status = RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_SUCCESS;
 		return ret_;
 	}
+
 	operation_args_ptr_ = operation_args;
 	sub_ret_ptr_ = sub_ret_;
 	while (operation_args_ptr_->next != NULL) {
+
+#ifndef NDEBUG
 		assertion(operation_args_ptr_->first != NULL);
+#endif
+
 		sub_ret_ptr_element_ret_ =
 				rtg_operation_arg_out_of_stt_operation_arg(
 						operation_args_ptr_->first,
 						operation_type,
 						function_where_bindings);
-		assertion(sub_ret_ptr_element_ret_->status ==
+		forced_assertion(sub_ret_ptr_element_ret_ != NULL);
+
+		forced_assertion(sub_ret_ptr_element_ret_->status ==
 				RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS);
+		forced_assertion(sub_ret_ptr_element_ret_->operation_arg !=
+				NULL);
+
 		sub_ret_ptr_element_ = sub_ret_ptr_element_ret_->operation_arg;
 		sub_ret_ptr_element_ret_->operation_arg = NULL;
+
 		rtg_operation_arg_out_of_stt_operation_arg_ret_destructor(
 				sub_ret_ptr_element_ret_);
+
 		sub_ret_ptr_->first = sub_ret_ptr_element_;
+
 		sub_ret_ptr_->next =
 #ifdef AMARA_USE_STD_CXX98
 				(rtg_operation_args_simple_list *)
 #endif
 				malloc(sizeof(rtg_operation_args_simple_list));
 		forced_assertion(sub_ret_ptr_->next != NULL);
+
 		operation_args_ptr_ = operation_args_ptr_->next;
 		sub_ret_ptr_ = sub_ret_ptr_->next;
 	}
+
+#ifndef NDEBUG
 	assertion(operation_args_ptr_->first != NULL);
+#endif
+
+	/*
+	sub_ret_ptr_->next = NULL;
+	*/
+
 	sub_ret_ptr_element_ret_ = rtg_operation_arg_out_of_stt_operation_arg(
 			operation_args_ptr_->first,
 			operation_type,
@@ -280,20 +320,28 @@ rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list(
 		free(sub_ret_ptr_element_ret_);
 		*/
 
+		rtg_operation_args_simple_list_destructor(sub_ret_);
+
 		ret_->status = RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER;
 
 		return ret_;
 	}
 
-	assertion(sub_ret_ptr_element_ret_->status ==
+	forced_assertion(sub_ret_ptr_element_ret_->status ==
 			RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS);
+
 	sub_ret_ptr_element_ = sub_ret_ptr_element_ret_->operation_arg;
 	sub_ret_ptr_element_ret_->operation_arg = NULL;
+
 	rtg_operation_arg_out_of_stt_operation_arg_ret_destructor(
 			sub_ret_ptr_element_ret_);
+
 	sub_ret_ptr_->first = sub_ret_ptr_element_;
+
 	sub_ret_ptr_->next = NULL;
+
 	ret_->operation_args = sub_ret_;
+
 	ret_->status = RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_SUCCESS;
 
 	return ret_;

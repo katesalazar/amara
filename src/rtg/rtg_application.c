@@ -102,6 +102,7 @@ rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret_d
 	if (input_ret->status ==
 			RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
 
+		forced_assertion(input_ret->error_messages == NULL);
 		if (input_ret->application != NULL) {
 			rtg_application_destructor(input_ret->application);
 		}
@@ -110,10 +111,8 @@ rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret_d
 				RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_FIND_ENTRY_POINT_FUNCTION_FOR_APPLICATION);
 
 		forced_assertion(input_ret->error_messages == NULL);
-
 		forced_assertion(input_ret->application == NULL);
 	}
-
 	free(input_ret);
 }
 

@@ -114,9 +114,13 @@ void
 stt_where_value_bindings_simple_list_destructor(
 		stt_where_value_bindings_simple_list * list)
 {
+#ifndef NDEBUG
 	assertion(list != NULL);
+#endif
 	if (list->first == NULL) {
+#ifndef NDEBUG
 		assertion(list->next == NULL);
+#endif
 		free(list);
 	} else {
 		stt_where_value_bindings_simple_list_destructor_inner(list);

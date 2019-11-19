@@ -178,8 +178,15 @@ stt_condition_equality(const stt_condition * c0, const stt_condition * c1)
 
 	assertion(c0->type_ == c1->type_);  /* XXX */
 
+	if (c0->type_ == STT_CONDITION_TYPE_LESS_THAN) {
+
 	assertion(c0->type_ == STT_CONDITION_TYPE_LESS_THAN);
 	assertion(c1->type_ == STT_CONDITION_TYPE_LESS_THAN);
+	} else {
+		forced_assertion(c0->type_ == STT_CONDITION_TYPE_GREATER_THAN);
+
+		forced_assertion(c1->type_ == STT_CONDITION_TYPE_GREATER_THAN);
+	}
 
 	equality_ = stt_expression_equality(
 			c0->left_hand_side_expression_,

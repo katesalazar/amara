@@ -81,7 +81,7 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_destructor(
 rtg_operations_simple_list_out_of_stt_operations_simple_list_ret *
 rtg_operations_simple_list_out_of_stt_operations_simple_list(
 		const stt_operations_simple_list * operations,
-		const stt_where_value_bindings_simple_list * function_where_bindings)
+		const struct stt_where_value_bindings_simple_list * function_where_bindings)
 __attribute__((warn_unused_result))
 ;
 

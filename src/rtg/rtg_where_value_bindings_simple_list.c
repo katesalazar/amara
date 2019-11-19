@@ -24,6 +24,24 @@
 #include "rtg_where_value_bindings_simple_list.h"
 
 rtg_where_value_bindings_simple_list *
+rtg_where_value_bindings_simple_list_default_constructor()
+{
+	rtg_where_value_bindings_simple_list * returning_;
+
+	returning_ =
+#ifdef AMARA_USE_STD_CXX98
+			(rtg_where_value_bindings_simple_list *)
+#endif
+			malloc(sizeof(rtg_where_value_bindings_simple_list));
+	forced_assertion(returning_ != NULL);
+
+	returning_->first = NULL;
+	returning_->next = NULL;
+
+	return returning_;
+}
+
+rtg_where_value_bindings_simple_list *
 rtg_where_value_bindings_simple_list_copy_constructor_inner(
         const rtg_where_value_bindings_simple_list * list)
 __attribute__((warn_unused_result))
@@ -57,24 +75,6 @@ rtg_where_value_bindings_simple_list_copy_constructor_inner(
 	returning_->next =
 			rtg_where_value_bindings_simple_list_copy_constructor_inner(
 					list->next);
-
-	return returning_;
-}
-
-rtg_where_value_bindings_simple_list *
-rtg_where_value_bindings_simple_list_default_constructor()
-{
-	rtg_where_value_bindings_simple_list * returning_;
-
-	returning_ =
-#ifdef AMARA_USE_STD_CXX98
-			(rtg_where_value_bindings_simple_list *)
-#endif
-			malloc(sizeof(rtg_where_value_bindings_simple_list));
-	forced_assertion(returning_ != NULL);
-
-	returning_->first = NULL;
-	returning_->next = NULL;
 
 	return returning_;
 }
@@ -338,15 +338,9 @@ rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list
 	assertion(list != NULL);
 
 	if (list->first == NULL) {
-		returning_ =
-#ifdef AMARA_USE_STD_CXX98
-				(rtg_where_value_bindings_simple_list *)
-#endif
-				malloc(sizeof(rtg_where_value_bindings_simple_list));
+		returning_ = rtg_where_value_bindings_simple_list_default_constructor();
 		forced_assertion(returning_ != NULL);
 
-		returning_->first = NULL;
-		returning_->next = NULL;
 		return returning_;
 	}
 

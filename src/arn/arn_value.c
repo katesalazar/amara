@@ -290,11 +290,12 @@ __attribute__((warn_unused_result))
 arn_value *
 run_dice(const rtg_expression_sub_dice * expression_sub_dice)
 {
-    time_t r_seed_;
+	time_t r_seed_;  /* XXX ??? */
 	arn_value * returning_;
 	unsigned char random_;
 	unsigned char uc_;
 	unsigned char rolls_;
+	arn_value_assign_natural_out_of_unsigned_short_ret * arn_value_assign_natural_out_of_unsigned_short_ret_;
 
 	/*   `expression_sub_dice` already checked not `NULL`. */
 #ifndef NDEBUG
@@ -305,8 +306,8 @@ run_dice(const rtg_expression_sub_dice * expression_sub_dice)
 	forced_assertion(expression_sub_dice->right_hand_side_natural_ !=
 			NULL);
 
-    r_seed_ = time(0L);
-	srand((unsigned int) r_seed_);
+	r_seed_ = time(0L);  /* XXX ??? */
+	srand((unsigned int) r_seed_);  /* XXX ??? */
 
 	forced_assertion(expression_sub_dice->left_hand_side_natural_->raw_ != NULL);
 	forced_assertion(expression_sub_dice->left_hand_side_natural_->raw_->value_ != NULL);
@@ -327,7 +328,10 @@ run_dice(const rtg_expression_sub_dice * expression_sub_dice)
 
 	random_ = 0;
 	for (uc_ = 0; uc_ < rolls_; uc_++) {
-		random_ += rand() % 6 + 1;
+		random_ +=
+				rand()  /* XXX ??? */
+				% 6
+				+ 1;
 	}
 
 	returning_ = arn_value_default_constructor();
@@ -337,8 +341,15 @@ run_dice(const rtg_expression_sub_dice * expression_sub_dice)
 	arn_value_characterize_as_natural(returning_);
 	/* XXX missing assertions */
 
-	arn_value_assign_natural_out_of_unsigned_short(returning_, random_);
-	/* XXX missing assertions */
+	arn_value_assign_natural_out_of_unsigned_short_ret_ =
+			arn_value_assign_natural_out_of_unsigned_short(
+					returning_, random_);
+	forced_assertion(arn_value_assign_natural_out_of_unsigned_short_ret_ !=
+			NULL);
+	forced_assertion(arn_value_assign_natural_out_of_unsigned_short_ret_->status ==
+		ARN_VALUE_ASSIGN_NATURAL_OUT_OF_UNSIGNED_INT_RET_STATUS_SUCCESS);
+
+	free(arn_value_assign_natural_out_of_unsigned_short_ret_);
 
 	return returning_;
 }
@@ -652,6 +663,7 @@ arn_value_assign_natural_out_of_unsigned_short(
 			(arn_value_assign_natural_out_of_unsigned_short_ret *)
 #endif
 			malloc(sizeof(arn_value_assign_natural_out_of_unsigned_short_ret));
+	forced_assertion(ret_ != NULL);
 
 	ret_->status = ARN_VALUE_ASSIGN_NATURAL_OUT_OF_UNSIGNED_INT_RET_STATUS_INVALID;
 	assertion(value->type_ != ARN_VALUE_TYPE_INVALID);

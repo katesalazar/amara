@@ -20,6 +20,9 @@
 #ifndef __AMARA__APPLICATIONS_RUNNER__VALUE__H__
 #define __AMARA__APPLICATIONS_RUNNER__VALUE__H__
 
+/*   For `__amara__warn_unused_result__`. */
+#include "../definitions.h"
+
 #include "../brt/natural.h"
 
 #include "../cmn/amara_string.h"
@@ -151,6 +154,7 @@ arn_value_assign_natural_out_of_unsigned_short_ret *
 arn_value_assign_natural_out_of_unsigned_short(
 		arn_value * value,
 		const unsigned short unsigned_short)
+__amara__warn_unused_result__
 ;
 
 #endif

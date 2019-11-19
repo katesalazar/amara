@@ -38,9 +38,11 @@ rtg_operation_example_print_string_literal_foo()
 	amara_string * string_literal_;
 
 	operation_arg_ = rtg_operation_arg_default_constructor();
-	assertion(operation_arg_ != NULL);
+	forced_assertion(operation_arg_ != NULL);
+#ifndef NDEBUG
 	assertion(operation_arg_->type_ == RTG_OPERATION_ARG_TYPE_INVALID);
 	assertion(operation_arg_->string_literal_ == NULL);
+#endif
 
 	string_literal_ = amara_string_example_foo();
 	forced_assertion(string_literal_ != NULL);
@@ -53,16 +55,27 @@ rtg_operation_example_print_string_literal_foo()
 			operation_arg_, RTG_OPERATION_ARG_TYPE_STRING_LITERAL);
 
 	operation_args_ = rtg_operation_args_simple_list_default_constructor();
-	assertion(operation_args_ != NULL);
+	forced_assertion(operation_args_ != NULL);
+#ifndef NDEBUG
 	assertion(rtg_operation_args_simple_list_length(operation_args_) == 0);
+#endif
+
+	amara_string_destructor(string_literal_);
 
 	operation_args_ = rtg_operation_args_simple_list_push_front(
 			operation_args_, operation_arg_);
+#ifndef NDEBUG
 	assertion(rtg_operation_args_simple_list_length(operation_args_) == 1);
+#endif
+
+	rtg_operation_arg_destructor(operation_arg_);
 
 	operation_ = rtg_operation_exhaustive_constructor(
 			RTG_OPERATION_TYPE_PRINT,
 			operation_args_);
+	forced_assertion(operation_ != NULL);
+
+	rtg_operation_args_simple_list_destructor(operation_args_);
 
 	return operation_;
 }
@@ -80,10 +93,8 @@ assert_expectations_on_rtg_operation_example_print_string_literal_foo(
 
 	expected_operation_arg_string_literal_ = amara_string_example_foo();
 	forced_assertion(expected_operation_arg_string_literal_ != NULL);
-#ifndef NDEBUG
 	assert_expectations_on_amara_string_example_foo(
 			expected_operation_arg_string_literal_);
-#endif
 
 	assertion(operation != NULL);
 	assertion(operation->type_ == RTG_OPERATION_TYPE_PRINT);
@@ -114,27 +125,41 @@ rtg_operation_example_print_string_literal_bar()
 	amara_string * string_literal_;
 
 	operation_arg_ = rtg_operation_arg_default_constructor();
-	assertion(operation_arg_ != NULL);
+	forced_assertion(operation_arg_ != NULL);
+#ifndef NDEBUG
 	assertion(operation_arg_->type_ == RTG_OPERATION_ARG_TYPE_INVALID);
 	assertion(operation_arg_->string_literal_ == NULL);
+#endif
 
 	string_literal_ = amara_string_exhaustive_constructor("bar");
+	forced_assertion(string_literal_ != NULL);
 
 	rtg_operation_arg_set_string_literal(operation_arg_, string_literal_);
 	rtg_operation_arg_set_type(
 			operation_arg_, RTG_OPERATION_ARG_TYPE_STRING_LITERAL);
 
+	amara_string_destructor(string_literal_);
+
 	operation_args_ = rtg_operation_args_simple_list_default_constructor();
-	assertion(operation_args_ != NULL);
+	forced_assertion(operation_args_ != NULL);
+#ifndef NDEBUG
 	assertion(rtg_operation_args_simple_list_length(operation_args_) == 0);
+#endif
 
 	operation_args_ = rtg_operation_args_simple_list_push_front(
 			operation_args_, operation_arg_);
+#ifndef NDEBUG
 	assertion(rtg_operation_args_simple_list_length(operation_args_) == 1);
+#endif
+
+	rtg_operation_arg_destructor(operation_arg_);
 
 	operation_ = rtg_operation_exhaustive_constructor(
 			RTG_OPERATION_TYPE_PRINT,
 			operation_args_);
+	forced_assertion(operation_ != NULL);
+
+	rtg_operation_args_simple_list_destructor(operation_args_);
 
 	return operation_;
 }
@@ -184,11 +209,14 @@ rtg_operation_example_read_natural_into_foo()
 	amara_string * identifier_;
 
 	operation_arg_ = rtg_operation_arg_default_constructor();
-	assertion(operation_arg_ != NULL);
+	forced_assertion(operation_arg_ != NULL);
+#ifndef NDEBUG
 	assertion(operation_arg_->type_ == RTG_OPERATION_ARG_TYPE_INVALID);
 	assertion(operation_arg_->string_literal_ == NULL);
+#endif
 
 	identifier_ = amara_string_exhaustive_constructor("i_foo");
+	forced_assertion(identifier_ != NULL);
 
 	rtg_operation_arg_set_identifier(operation_arg_, identifier_);
 	rtg_operation_arg_set_type(
@@ -197,17 +225,28 @@ rtg_operation_example_read_natural_into_foo()
 			 * like this... I think (but am not sure!). */
 			RTG_OPERATION_ARG_TYPE_IDENTIFIER_TO_BE_RESOLVED);
 
+	amara_string_destructor(identifier_);
+
 	operation_args_ = rtg_operation_args_simple_list_default_constructor();
-	assertion(operation_args_ != NULL);
+	forced_assertion(operation_args_ != NULL);
+#ifndef NDEBUG
 	assertion(rtg_operation_args_simple_list_length(operation_args_) == 0);
+#endif
 
 	operation_args_ = rtg_operation_args_simple_list_push_front(
 			operation_args_, operation_arg_);
+#ifndef NDEBUG
 	assertion(rtg_operation_args_simple_list_length(operation_args_) == 1);
+#endif
+
+	rtg_operation_arg_destructor(operation_arg_);
 
 	operation_ = rtg_operation_exhaustive_constructor(
 			RTG_OPERATION_TYPE_READ_NATURAL_INTO_VALUE,
 			operation_args_);
+	forced_assertion(operation_ != NULL);
+
+	rtg_operation_args_simple_list_destructor(operation_args_);
 
 	return operation_;
 }

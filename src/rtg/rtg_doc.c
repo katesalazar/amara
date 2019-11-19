@@ -117,8 +117,9 @@ rtg_doc_out_of_stt_doc_ret_destructor(
 		assertion(rtg_doc_out_of_stt_doc_ret_->doc != NULL);
 		rtg_doc_destructor(rtg_doc_out_of_stt_doc_ret_->doc);
 #endif
-	} else if (rtg_doc_out_of_stt_doc_ret_->status ==
-			RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_ERROR_ONE_OR_MORE_APPLICATIONS_REQUESTED_TO_BE_EXECUTED_NOT_FOUND) {
+	} else {
+		forced_assertion(rtg_doc_out_of_stt_doc_ret_->status ==
+			RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_ERROR_ONE_OR_MORE_APPLICATIONS_REQUESTED_TO_BE_EXECUTED_NOT_FOUND);
 
 #ifndef NDEBUG
 		assertion(rtg_doc_out_of_stt_doc_ret_->error_messages != NULL);
@@ -128,6 +129,7 @@ rtg_doc_out_of_stt_doc_ret_destructor(
 #ifndef NDEBUG
 		assertion(rtg_doc_out_of_stt_doc_ret_->doc == NULL);
 #endif
+	/*
 	} else {
 		forced_assertion(rtg_doc_out_of_stt_doc_ret_->status ==
 				RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_INVALID);
@@ -136,6 +138,7 @@ rtg_doc_out_of_stt_doc_ret_destructor(
 		assertion(rtg_doc_out_of_stt_doc_ret_->error_messages == NULL);
 		assertion(rtg_doc_out_of_stt_doc_ret_->doc == NULL);
 #endif
+	*/
 	}
 
 	free(rtg_doc_out_of_stt_doc_ret_);
@@ -212,21 +215,36 @@ rtg_doc_out_of_stt_doc(const stt_node * node)
 		ret_->error_messages = rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->error_messages;
 		rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->error_messages = NULL;
 
-		assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests !=
+		forced_assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests ==
 				NULL);
 
 		/*
 		if (rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests !=
 				NULL) {
+
+			rtg_execution_requests_simple_list_destructor(
+					rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests);
+			rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests = NULL;
+		}
 		*/
 
-			rtg_execution_requests_simple_list_destructor(  /* XXX */
-					rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests);  /* XXX */
-			rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests = NULL;  /* XXX */
+		forced_assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->error_messages ==
+				NULL);
 
-			free(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_);  /* XXX */
 		/*
+		if (rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->error_messages !=
+				NULL) {
+
+			amara_strings_simple_list_destructor(
+					rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->error_messages);
+			rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->error_messages = NULL;
 		}
+		*/
+
+		rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_destructor(
+				rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_);
+		/*
+		free(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_);
 		*/
 
 		rtg_named_functions_simple_list_destructor(
@@ -243,11 +261,13 @@ rtg_doc_out_of_stt_doc(const stt_node * node)
 	}
 
 #ifndef NDEBUG
-	assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->error_messages == NULL);
+	assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->error_messages ==
+			NULL);
 #endif
 	rtg_execution_requests_ =
 			rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests;
-	rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests = NULL;
+	rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->execution_requests =
+			NULL;
 
 	ret_->doc = rtg_doc_exhaustive_constructor(
 			rtg_named_functions_, rtg_applications_,
@@ -266,8 +286,10 @@ rtg_doc_out_of_stt_doc(const stt_node * node)
 
 	rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret_destructor(
 			rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret_);
+	/*
 	rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list_ret_ =
 			NULL;
+	*/
 
 	rtg_named_functions_out_of_stt_doc_ret_destructor(
 			rtg_named_functions_out_of_stt_doc_ret_);

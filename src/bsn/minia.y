@@ -86,9 +86,25 @@ const unsigned char bison_trace_constant = TRACE_BISON_CONSTANT_VALUE;
 void
 bison_trace_chars_array(const char * message)
 {
+#ifndef TRACE_BISON
+  const char * aux_;
+#endif
+#ifdef TRACE_BISON
+  /*
   if (bison_trace_constant) {
+  */
     fprintf(stderr, "%s", message);
+  /*
   }
+  */
+#else
+  /*   For avoiding an 'unused parameter' warning/error. */
+  aux_ = message;
+  message = NULL;
+  message = aux_;
+  aux_ = NULL;
+  message = NULL;
+#endif
 }
 
 void
@@ -97,6 +113,7 @@ b_trace_chars_array(const char * message)
   bison_trace_chars_array(message);
 }
 
+/*
 void
 bison_trace_unsigned_char(unsigned char value)
 {
@@ -110,6 +127,7 @@ b_trace_unsigned_char(unsigned char value)
 {
   bison_trace_unsigned_char(value);
 }
+*/
 
 %}
 
@@ -153,6 +171,7 @@ b_trace_unsigned_char(unsigned char value)
 %type<node> function_where_clauses
 %type<node> function_statement
 %type<node> function_statements
+%type<node> function_side_effects_clause
 %type<node> function_returns_clause
 %type<node> function_receives_clause
 %type<node> cli_named_function
@@ -183,7 +202,10 @@ named_functions_and_applications_and_execution_requests :
   named_function named_functions_and_applications_and_execution_requests
 {
   b_trace_chars_array(
-      "named_functions_and_applications_and_execution_requests : named_function named_functions_and_applicationss_and_execution_requests\n");
+      "named_functions_and_applications_and_execution_requests : ");
+  b_trace_chars_array("named_function ");
+  b_trace_chars_array(
+      "named_functions_and_applications_and_execution_requests\n");
   $$ = named_functions_and_applications_and_execution_requests_out_of_named_function_and_named_functions_and_applications_and_execution_requests(
       $1, $2);
   forced_assertion($$ != NULL);
@@ -191,46 +213,24 @@ named_functions_and_applications_and_execution_requests :
 | application named_functions_and_applications_and_execution_requests
 {
   b_trace_chars_array(
-      "fns_and_apps_defs_and_exectn_reqs : app_def fns_and_apps_defs_and_exectn_reqs\n");
-  if ($2 == NULL) {
-    $$ = stt_node_default_constructor();
-    $$->type_ = STT_NODE_TYPE_DOC_FRAGMENT;
-    $$->doc_subnode_ = stt_doc_subnode_default_constructor();
-    $$ = register_application($$, $1);
-    assertion($$->doc_subnode_ != NULL);
-    free($1->application_subnode_);
-    free($1);
-  } else {
-    assertion_two($2->type_ = STT_NODE_TYPE_DOC_FRAGMENT,
-        "unexpected type of `fns_and_apps_defs_and_exectn_reqs`");
-    assertion($2->doc_subnode_ != NULL);
-    $$ = register_application($2, $1);
-    assertion($$->doc_subnode_ != NULL);
-    free($1->application_subnode_);
-    free($1);
-  }
+      "named_functions_and_applications_and_execution_requests : ");
+  b_trace_chars_array("application ");
+  b_trace_chars_array(
+      "named_functions_and_applications_and_execution_requests\n");
+  $$ = bison_annex_named_functions_and_applications_and_execution_requests_out_of_application_and_named_functions_and_applications_and_execution_requests(
+      $1, $2);
+  forced_assertion($$ != NULL);
 }
 | execution_request named_functions_and_applications_and_execution_requests
 {
   b_trace_chars_array(
-      "fns_and_apps_defs_and_exectn_reqs : exectn fns_and_apps_defs_and_exectn_reqs\n");
-  if ($2 == NULL) {
-    $$ = stt_node_default_constructor();
-    $$->type_ = STT_NODE_TYPE_DOC_FRAGMENT;
-    $$->doc_subnode_ = stt_doc_subnode_default_constructor();
-    $$ = register_execution_request($$, $1);
-    assertion($$->doc_subnode_ != NULL);
-    free($1->execution_request_subnode_);
-    free($1);
-  } else {
-    assertion_two($2->type_ = STT_NODE_TYPE_DOC_FRAGMENT,
-        "unexpected type of `fns_and_apps_defs_and_exectn_reqs`");
-    assertion($2->doc_subnode_ != NULL);
-    $$ = register_execution_request($2, $1);
-    assertion($$->doc_subnode_ != NULL);
-    free($1->execution_request_subnode_);
-    free($1);
-  }
+      "named_functions_and_applications_and_execution_requests : ");
+  b_trace_chars_array("execution_request ");
+  b_trace_chars_array(
+      "named_functions_and_applications_and_execution_requests\n");
+  $$ = bison_annex_named_functions_and_applications_and_execution_requests_out_of_execution_request_and_named_functions_and_applications_and_execution_requests(
+      $1, $2);
+  forced_assertion($$ != NULL);
 }
 | ignored
 {
@@ -314,104 +314,65 @@ cli_application :
 named_function :
   cli_named_function
 {
-  b_trace_chars_array("fn_def : cli_fn_def\n");
+  b_trace_chars_array("named_function : cli_named_function\n");
   $$ = $1;
 }
 ;
 
 cli_named_function :
-  T_FUNCTION T_IDENTIFIER T_IS T_A T_COMMAND T_LINE T_INTERFACE
-  T_APPLICATION T_FUNCTION T_AND function_receives_clause T_AND
-  function_returns_clause function_side_effects_clause T_AND T_DOES
-  function_statements function_where_clauses T_END T_FUNCTION T_IDENTIFIER
+  T_FUNCTION T_IDENTIFIER T_IS T_A
+  T_COMMAND T_LINE T_INTERFACE T_APPLICATION T_FUNCTION
+  T_AND function_receives_clause
+  T_AND function_returns_clause
+  function_side_effects_clause
+  T_AND T_DOES function_statements
+  function_where_clauses T_END T_FUNCTION T_IDENTIFIER
 {
-  b_trace_chars_array("cli_fn_def : T_FUNCTION T_IDENTIFIER T_IS T_A ");
-  b_trace_chars_array("T_COMMAND T_LINE T_INTERFACE T_APPLICATION ");
+  unsigned char * must_call_YYERROR_;
+  stt_node * * node_for_yyerror_;
+  char * message_for_yyerror_;
+
+  b_trace_chars_array("cli_named_function : T_FUNCTION T_IDENTIFIER T_IS ");
+  b_trace_chars_array("T_A T_COMMAND T_LINE T_INTERFACE T_APPLICATION ");
   b_trace_chars_array("T_FUNCTION T_AND function_receives_clause T_AND ");
   b_trace_chars_array("function_returns_clause function_side_effects_clause ");
   b_trace_chars_array("T_AND T_DOES function_statements ");
   b_trace_chars_array("function_where_clauses T_END T_FUNCTION ");
   b_trace_chars_array("T_IDENTIFIER\n");
-
-  /*   Abort with error if function names do not match. */
-
-  assertion($2 != NULL);
-  if ($2->type_ != STT_NODE_TYPE_IDENTIFIER) {
-
-#ifdef DUMP_FLOW_TO_STDERR
-    /*
-    fprintf(stderr, "%s:%u - $2->type_: %u\n", __FILE__, __LINE__, $2->type_);
-    */
-#endif
-  }
-  assertion($2->type_ == STT_NODE_TYPE_IDENTIFIER);
-  assertion($2->identifier_subnode_ != NULL);
-  assertion($21 != NULL);
-  assertion($21->type_ == STT_NODE_TYPE_IDENTIFIER);
-  assertion($21->identifier_subnode_ != NULL);
-  if (!amara_string_equality(
-      $2->identifier_subnode_->value_, $21->identifier_subnode_->value_)) {
-    yyerror(NULL, "function names do not match");
+  must_call_YYERROR_ =
+      malloc(sizeof(unsigned char));
+  forced_assertion(must_call_YYERROR_ != NULL);
+  * must_call_YYERROR_ = 0;
+  node_for_yyerror_ =
+      malloc(sizeof(const stt_node *));
+  forced_assertion(node_for_yyerror_ != NULL);
+  * node_for_yyerror_=
+      malloc(sizeof(const stt_node));
+  forced_assertion(* node_for_yyerror_ != NULL);
+  message_for_yyerror_ =  /* XXX */
+      malloc(1024 * 4 + 1);  /* XXX */
+  forced_assertion(message_for_yyerror_ != NULL);
+  message_for_yyerror_[0] = '\0';
+  $$ = bison_annex_cli_named_function_out_of_token_function_and_token_identifier_and_token_is_and_token_a_and_token_command_and_token_line_and_token_interface_and_token_application_and_token_function_and_token_and_and_function_receives_clause_and_token_and_and_function_returns_clause_and_function_side_effects_clause_and_token_and_and_token_does_and_function_statements_and_function_where_clauses_and_token_end_and_token_function_and_token_identifier(
+      must_call_YYERROR_, node_for_yyerror_, message_for_yyerror_, $2,
+      /*
+      $11, $13, $14,
+      */
+      $17, $18, $21);
+  if (* must_call_YYERROR_) {
+    yyerror(* node_for_yyerror_, message_for_yyerror_);
+    free(must_call_YYERROR_);
+    free(* node_for_yyerror_);
+    free(node_for_yyerror_);
+    free(message_for_yyerror_);
     YYERROR;
+  } else {
+    free(must_call_YYERROR_);
+    free(* node_for_yyerror_);
+    free(node_for_yyerror_);
+    free(message_for_yyerror_);
+    forced_assertion($$ != NULL);
   }
-
-  /*   Set node type. */
-  $$ = stt_node_default_constructor();
-
-  /*   Attach the function operations to this node. */
-  /*   Those are hanging from $17 */
-  assertion_two($17 != NULL, "`$17` unexpectedly NULL");
-  if ($17->type_ != STT_NODE_TYPE_CLI_OPERATIONS_LIST) {
-
-#ifdef DUMP_FLOW_TO_STDERR
-    /*
-    fprintf(stderr, "$17->type_: %u\n", $17->type_);
-    */
-#endif
-  }
-  assertion_two($17->type_ == STT_NODE_TYPE_CLI_OPERATIONS_LIST,
-      "unexpected value for `$17->type_`");
-  assertion_two($17->operations_list_subnode_ != NULL,
-      "`$17->operations_list_subnode_` unexpectedly NULL");
-  assertion_two(
-      $17->operations_list_subnode_->operations_ != NULL,
-      "`$17->operations_list_subnode_->operations_` unexpectedly NULL");
-  assertion_two(
-      $17->operations_list_subnode_->operations_->first != NULL,
-      "`$17->operations_list_subnode_->operations_->first` unexpectedly NULL");
-  assertion_two(
-      $17->operations_list_subnode_->operations_->first->type_ !=
-          STT_OPERATION_TYPE_INVALID,
-      "`$17->operations_list_subnode_->operations_->first->type_` is invalid");
-
-  assertion($18 != NULL);
-  assertion($18->type_ == STT_NODE_TYPE_WHERE_BINDINGS);
-  assertion($18->where_value_bindings_subnode_ != NULL);
-  assertion($18->where_value_bindings_subnode_->where_value_bindings_ != NULL);
-
-  /*
-  TODO CHARACTERIZE THE FUNCTION AS A CLI FUNCTION */
-  $$->named_function_subnode_ =
-      stt_named_function_subnode_default_constructor();
-  $$->named_function_subnode_->name_ = $2->identifier_subnode_->value_;
-  $$->named_function_subnode_->operations_ =
-      $17->operations_list_subnode_->operations_;
-  $$->named_function_subnode_->where_value_bindings_ =
-      $18->where_value_bindings_subnode_->where_value_bindings_;
-  $$->named_function_subnode_->type_ =
-      STT_NAMED_FUNCTION_SUBNODE_TYPE_CLI_APP_NAMED_FUNCTION;
-
-  $$->type_ = STT_NODE_TYPE_NAMED_FUNCTION;
-
-  free($2->identifier_subnode_);
-  free($2);
-  free($17->operations_list_subnode_);
-  free($17);
-  free($18->where_value_bindings_subnode_);
-  free($18);
-  free($21->identifier_subnode_->value_);
-  free($21->identifier_subnode_);
-  free($21);
 }
 ;
 
@@ -456,101 +417,29 @@ function_side_effects_clause :
 function_where_clauses :
   T_WHERE function_where_clause function_where_clauses
 {
-  stt_where_value_bindings_simple_list * where_value_bindings_;
-  stt_where_value_binding * where_value_binding_;
-
   b_trace_chars_array("function_where_clauses : T_WHERE ");
   b_trace_chars_array("function_where_clause ");
   b_trace_chars_array("function_where_clauses\n");
-
-  assertion($2 != NULL);
-  assertion($2->type_ == STT_NODE_TYPE_WHERE_BINDING);
-  assertion($2->where_value_binding_subnode_ != NULL);
-  assertion($2->where_value_binding_subnode_->where_value_binding_ != NULL);
-
-  where_value_binding_ = stt_where_value_binding_copy_constructor(
-      $2->where_value_binding_subnode_->where_value_binding_);
-  $$ = stt_node_default_constructor();
-
-  assertion($3 != NULL);
-  assertion($3->type_ == STT_NODE_TYPE_WHERE_BINDINGS);
-  assertion($3->where_value_bindings_subnode_ != NULL);
-  assertion($3->where_value_bindings_subnode_->where_value_bindings_ != NULL);
-  /*
-  if ($3 == NULL) {
-    where_value_bindings_ =
-        stt_where_value_bindings_simple_list_default_constructor();
-  } else {
-  */
-    assertion($3->type_ == STT_NODE_TYPE_WHERE_BINDINGS);
-    assertion($3->where_value_bindings_subnode_ != NULL);
-    assertion($3->where_value_bindings_subnode_->where_value_bindings_ !=
-        NULL);
-    where_value_bindings_ =
-        stt_where_value_bindings_simple_list_copy_constructor(
-            $3->where_value_bindings_subnode_->where_value_bindings_);
-  /*
-  }
-  */
-  where_value_bindings_ = stt_where_value_bindings_simple_list_push_front(
-      where_value_bindings_, where_value_binding_);
-  stt_node_set_where_value_bindings($$, where_value_bindings_);
-  stt_node_destructor($2);
-  stt_node_destructor($3);
+  $$ = bison_annex_function_where_clauses_out_of_token_where_and_function_where_clause_and_function_where_clauses(
+      $2, $3);
+  forced_assertion($$ != NULL);
 }
 |
 {
-  stt_where_value_bindings_simple_list * where_value_bindings_;
-
-  b_trace_chars_array("cli_fn_where_clauses : NOTHING\n");
-
-  where_value_bindings_ =
-      stt_where_value_bindings_simple_list_default_constructor();
-  assertion(where_value_bindings_ != NULL);
-  assertion(where_value_bindings_->first == NULL);
-  assertion(where_value_bindings_->next == NULL);
-
-  $$ = stt_node_default_constructor();
-  stt_node_set_where_value_bindings($$, where_value_bindings_);
+  b_trace_chars_array("function_where_clauses : NOTHING\n");
+  $$ = bison_annex_function_where_clauses_out_of_nothing();
+  forced_assertion($$ != NULL);
 }
 ;
 
 function_where_clause :
   T_IDENTIFIER T_IS T_BOUND T_TO expression
 {
-  stt_where_value_binding * where_value_binding_;
-
-  b_trace_chars_array("function_where_clause : T_IDENTIFIER T_IS T_BOUND T_TO ");
-  b_trace_chars_array("expression\n");
-
-  assertion_two($1 != NULL, "543");
-  assertion_two($1->type_ == STT_NODE_TYPE_IDENTIFIER, "544");
-  assertion_two($1->identifier_subnode_ != NULL, "545");
-  assertion_two($1->identifier_subnode_->value_ != NULL, "546");
-  assertion_two($1->identifier_subnode_->value_->value_ != NULL, "547");
-  assertion_two($5 != NULL, "548");
-
-  /*
-  if ($5->type_ == STT_NODE_TYPE_EXPRESSION) {
-  */
-
-    assertion_two($5->type_ == STT_NODE_TYPE_EXPRESSION, "549");
-    assertion_two($5->expression_subnode_ != NULL, "550");
-    assertion_two($5->expression_subnode_->expression_ != NULL, "551");
-  /*
-  } else {
-    forced_assertion_two($5->type_ == STT_NODE_TYPE_IDENTIFIER, "556");
-
-    FIXME
-  }
-  */
-
-  where_value_binding_ = stt_where_value_binding_exhaustive_constructor(
-      $1->identifier_subnode_->value_, $5->expression_subnode_->expression_);
-  $$ = stt_node_default_constructor();
-  stt_node_set_where_value_binding($$, where_value_binding_);
-  stt_node_destructor($1);
-  stt_node_destructor($5);
+  b_trace_chars_array("function_where_clause : T_IDENTIFIER T_IS T_BOUND ");
+  b_trace_chars_array("T_TO expression\n");
+  $$ = function_where_clause_out_of_token_identifier_and_token_is_and_token_bound_and_token_to_and_expression(
+      $1, $5);
+  forced_assertion($$ != NULL);
 }
 ;
 
@@ -585,41 +474,17 @@ execution_request :
 function_statements :
   function_statement T_AND T_THEN function_statements
 {
-  stt_operations_simple_list * new_node_;
-  b_trace_chars_array("cli_fn_ops : cli_fn_op T_AND T_THEN cli_fn_ops\n");
-  assertion($1 != NULL);
-  assertion($1->type_ == STT_NODE_TYPE_OPERATION);
-  assertion($1->operation_subnode_ != NULL);
-  assertion($1->operation_subnode_->operation_ != NULL);
-  assertion($4 != NULL);
-  assertion($4->type_ == STT_NODE_TYPE_CLI_OPERATIONS_LIST);
-  assertion($4->operations_list_subnode_ != NULL);
-  new_node_ = stt_operations_simple_list_default_constructor();
-  new_node_->first = $1->operation_subnode_->operation_;
-  new_node_->next = $4->operations_list_subnode_->operations_;
-  $4->operations_list_subnode_->operations_ = new_node_;
-  $$ = $4;
-  free($1->operation_subnode_);
-  free($1);
+  b_trace_chars_array("function_statements : function_statement T_AND ");
+  b_trace_chars_array("T_THEN function_statements\n");
+  $$ = bison_annex_function_statements_out_of_function_statement_and_token_and_and_token_then_and_function_statements(
+      $1, $4);
+  forced_assertion($$ != NULL);
 }
 | function_statement
 {
-  b_trace_chars_array("cli_fn_ops : cli_fn_op\n");
-  assertion($1 != NULL);
-  assertion($1->type_ == STT_NODE_TYPE_OPERATION);
-  assertion($1->operation_subnode_ != NULL);
-  assertion($1->operation_subnode_->operation_ != NULL);
-  $$ = stt_node_default_constructor();
-  $$->operations_list_subnode_ =
-      stt_operations_list_subnode_default_constructor();
-  $$->operations_list_subnode_->operations_ =
-      stt_operations_simple_list_default_constructor();
-  $$->operations_list_subnode_->operations_->first =
-      $1->operation_subnode_->operation_;
-  $$->operations_list_subnode_->operations_->next = NULL;
-  $$->type_ = STT_NODE_TYPE_CLI_OPERATIONS_LIST;
-  free($1->operation_subnode_);
-  free($1);
+  b_trace_chars_array("function_statements : function_statement\n");
+  $$ = bison_annex_function_statements_out_of_function_statement($1);
+  forced_assertion($$ != NULL);
 }
 ;
 
@@ -659,124 +524,17 @@ function_statement :
 expression :
   T_IF condition T_THEN expression T_ELSE expression T_END T_IF
 {
-  stt_expression_sub_conditional * expression_sub_conditional_;
-  stt_expression * expression_;
-
   b_trace_chars_array("expression : T_IF condition T_THEN expression T_ELSE ");
   b_trace_chars_array("expression T_END T_IF\n");
-
-  assertion($2 != NULL);
-  assertion($2->type_ == STT_NODE_TYPE_CONDITION);
-  assertion($2->condition_subnode_ != NULL);
-  assertion($2->condition_subnode_->condition_ != NULL);
-  assertion($2->condition_subnode_->condition_->type_ !=
-      STT_CONDITION_TYPE_INVALID);
-  assertion($4 != NULL);
-  if ($4->type_ != STT_NODE_TYPE_EXPRESSION) {
-
-#ifdef DUMP_FLOW_TO_STDERR
-    /*
-    fprintf(stderr, "%u\n", $4->type_);
-    */
-#endif
-  }
-  assertion($4->type_ == STT_NODE_TYPE_EXPRESSION);
-  assertion($4->expression_subnode_ != NULL);
-  assertion($4->expression_subnode_->expression_ != NULL);
-  assertion($4->expression_subnode_->expression_->type_ !=
-      STT_EXPRESSION_TYPE_INVALID);
-  assertion($6 != NULL);
-  assertion($6->type_ == STT_NODE_TYPE_EXPRESSION);
-  assertion($6->expression_subnode_ != NULL);
-  assertion($6->expression_subnode_->expression_ != NULL);
-  assertion($6->expression_subnode_->expression_->type_ !=
-      STT_EXPRESSION_TYPE_INVALID);
-
-  $$ = stt_node_default_constructor();
-  assertion($$->type_ == STT_NODE_TYPE_INVALID);
-  /* assert_all_subnodes_are_null($$); */
-
-  expression_sub_conditional_ =
-      stt_expression_sub_conditional_default_constructor();
-
-  stt_expression_sub_conditional_set_condition(
-      expression_sub_conditional_, $2->condition_subnode_->condition_);
-  stt_expression_sub_conditional_set_expression_then(
-      expression_sub_conditional_, $4->expression_subnode_->expression_);
-  stt_expression_sub_conditional_set_expression_else(
-      expression_sub_conditional_, $6->expression_subnode_->expression_);
-
-  expression_ = stt_expression_default_constructor();
-  stt_expression_set_conditional(expression_, expression_sub_conditional_);
-
-  stt_node_set_expression($$, expression_);
+  $$ = bison_annex_expression_out_of_token_if_and_condition_and_token_then_and_expression_and_token_else_and_expression_and_token_end_and_token_if(
+      $2, $4, $6);
+  forced_assertion($$ != NULL);
 }
 | T_STRING_LITERAL
 {
-  stt_expression * expression_;
-#ifndef NDEBUG
-  amara_boolean equality_;
-#endif
-
   b_trace_chars_array("expression : T_STRING_LITERAL\n");
-
-#ifndef NDEBUG
-  assertion($1 != NULL);
-  assertion_two(
-      $1->type_ == STT_NODE_TYPE_STRING_LITERAL,
-      "unexpected node type at %s:%d\n");
-  assertion($1->string_literal_subnode_ != NULL);
-  assertion($1->string_literal_subnode_->string_literal_ != NULL);
-  assertion($1->string_literal_subnode_->string_literal_->value_ != NULL);
-  assert_clean_string_literal_node($1);
-#endif
-
-  $$ = stt_node_default_constructor();
-#ifndef NDEBUG
-  assertion($$ != NULL);
-  assertion($$->type_ == STT_NODE_TYPE_INVALID);
-#endif
-
-  expression_ = stt_expression_default_constructor();
-#ifndef NDEBUG
-  assertion(expression_ != NULL);
-  assertion(expression_->type_ == STT_EXPRESSION_TYPE_INVALID);
-#endif
-
-  stt_expression_set_string_literal(
-      expression_, $1->string_literal_subnode_->string_literal_);
-#ifndef NDEBUG
-  assertion(expression_->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL);
-  assertion(expression_->sub_string_literal_ != NULL);
-  assertion(expression_->sub_string_literal_->string_literal_ != NULL);
-  assertion(expression_->sub_string_literal_->string_literal_->value_ != NULL);
-  assertion_two(
-      $1->type_ == STT_NODE_TYPE_STRING_LITERAL, "unexpected node type...\n");
-  assertion($1->string_literal_subnode_ != NULL);
-  assertion($1->string_literal_subnode_->string_literal_ != NULL);
-  assertion($1->string_literal_subnode_->string_literal_->value_ != NULL);
-  equality_ = amara_string_equality(
-      expression_->sub_string_literal_->string_literal_,
-      $1->string_literal_subnode_->string_literal_);
-  assertion(equality_ == AMARA_BOOLEAN_TRUE);
-#endif
-
-  stt_node_set_expression($$, expression_);
-#ifndef NDEBUG
-  assertion($$->type_ == STT_NODE_TYPE_EXPRESSION);
-  assertion($$->expression_subnode_ != NULL);
-  assertion($$->expression_subnode_->expression_ != NULL);
-  assertion(expression_->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL);
-  assertion(expression_->sub_string_literal_ != NULL);
-  assertion(expression_->sub_string_literal_->string_literal_ != NULL);
-  assertion(expression_->sub_string_literal_->string_literal_->value_ != NULL);
-  equality_ = stt_expression_equality(
-      $$->expression_subnode_->expression_, expression_);
-  assertion(equality_ == AMARA_BOOLEAN_TRUE);
-#endif
-
-  stt_expression_destructor(expression_);
-  stt_node_destructor($1);
+  $$ = bison_annex_expression_out_of_token_string_literal($1);
+  forced_assertion($$ != NULL);
 }
 /*
 | T_TYPE T_OF expression
@@ -871,6 +629,8 @@ expression :
   /*
   fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
   */
+
+  stt_node_destructor($1);  /* XXX ??? */
 
   /*
   fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
@@ -1119,64 +879,20 @@ expression :
 }
 | T_NATURAL_LITERAL
 {
-  natural * natural_;
-  stt_expression * expression_;
-
-  b_trace_chars_array("number_literal : T_NATURAL_LITERAL\n");
-  assertion_two($1->type_ == STT_NODE_TYPE_NATURAL_LITERAL,
-      "unexpected node type at %s:%d\n");
-  assert_clean_natural_literal_node($1);
-  b_trace_chars_array("number_literal (");
-  b_trace_chars_array($$->natural_literal_subnode_->raw_->value_);
-  b_trace_chars_array(") : T_NATURAL_LITERAL (");
-  b_trace_chars_array($1->natural_literal_subnode_->raw_->value_);
-  b_trace_chars_array(")\n");
-
-  natural_ = natural_exhaustive_constructor(
-      $1->natural_literal_subnode_->raw_);
-  expression_ = stt_expression_default_constructor();
-  stt_expression_set_natural_literal(expression_, natural_);
-  $$ = stt_node_default_constructor();
-  stt_node_set_expression($$, expression_);
-#ifndef NDEBUG
-  assertion($$ != NULL);
-  assertion($$->type_ == STT_NODE_TYPE_EXPRESSION);
-  assertion($$->expression_subnode_ != NULL);
-  assertion($$->expression_subnode_->expression_ != NULL);
-  assertion($$->expression_subnode_->expression_->type_ ==
-      STT_EXPRESSION_TYPE_NATURAL_LITERAL);
-  assertion($$->expression_subnode_->expression_->sub_natural_literal_ != NULL);
-  assertion($$->expression_subnode_->expression_->sub_natural_literal_->natural_literal_ != NULL);
-  assertion($$->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_ != NULL);
-  assertion($$->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_->value_ != NULL);
-#endif
-
-  natural_destructor(natural_);
-  stt_expression_destructor(expression_);
-  stt_node_destructor($1);
-#ifndef NDEBUG
-  assertion($$ != NULL);
-  assertion($$->type_ == STT_NODE_TYPE_EXPRESSION);
-  assertion($$->expression_subnode_ != NULL);
-  assertion($$->expression_subnode_->expression_ != NULL);
-  assertion($$->expression_subnode_->expression_->type_ ==
-      STT_EXPRESSION_TYPE_NATURAL_LITERAL);
-  assertion($$->expression_subnode_->expression_->sub_natural_literal_ != NULL);
-  assertion($$->expression_subnode_->expression_->sub_natural_literal_->natural_literal_ != NULL);
-  assertion($$->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_ != NULL);
-  assertion($$->expression_subnode_->expression_->sub_natural_literal_->natural_literal_->raw_->value_ != NULL);
-#endif
+  b_trace_chars_array("expression : T_NATURAL_LITERAL\n");
+  $$ = bison_annex_expression_out_of_token_natural_literal($1);
+  forced_assertion($$ != NULL);
 }
 | T_INTEGER_LITERAL
 {
-  b_trace_chars_array("number_literal : T_INTEGER_LITERAL\n");
+  b_trace_chars_array("expression : T_INTEGER_LITERAL\n");
   assertion_two($1->type_ == STT_NODE_TYPE_INTEGER_LITERAL /* XXX */,
       "unexpected node type at %s:%d\n");
   $$ = $1;
 }
 | T_RATIONAL_LITERAL
 {
-  b_trace_chars_array("number_literal : T_RATIONAL_LITERAL\n");
+  b_trace_chars_array("expression : T_RATIONAL_LITERAL\n");
   assertion_two($1->type_ == STT_NODE_TYPE_RATIONAL_LITERAL /* XXX */,
       "unexpected node type at %s:%d\n");
   $$ = $1;
@@ -1186,187 +902,19 @@ expression :
 condition :
   expression T_IS T_LESS T_THAN expression
 {
-  natural * left_hand_expression_natural_;
-  stt_expression * left_hand_expression_;
-  natural * right_hand_expression_natural_;
-  stt_expression * right_hand_expression_;
-  stt_condition * condition_;
-
-  b_trace_chars_array("condition : expression T_IS T_LESS T_THAN expression\n");
-
-  assertion($1 != NULL);
-  if ($1->type_ == STT_NODE_TYPE_NATURAL_LITERAL) {
-    assertion($1->natural_literal_subnode_ != NULL);
-    assertion($1->natural_literal_subnode_->raw_ != NULL);
-    assertion($1->natural_literal_subnode_->raw_->value_ != NULL);
-    assert_valid_raw_natural($1->natural_literal_subnode_->raw_);
-  } else if ($1->type_ == STT_NODE_TYPE_IDENTIFIER) {
-    assertion($1->identifier_subnode_ != NULL);
-    assertion($1->identifier_subnode_->value_ != NULL);
-  } else {
-    if ($1->type_ != STT_NODE_TYPE_EXPRESSION) {
-
-#ifdef DUMP_FLOW_TO_STDERR
-      fprintf(stderr, "%u\n", $1->type_);
-#endif
-    }
-    assertion($1->type_ == STT_NODE_TYPE_EXPRESSION);
-    assertion($1->expression_subnode_ != NULL);
-    assertion($1->expression_subnode_->expression_ != NULL);
-  }
-
-  assertion($5 != NULL);
-  if ($5->type_ == STT_NODE_TYPE_NATURAL_LITERAL) {
-    assertion($5->natural_literal_subnode_ != NULL);
-    assertion($5->natural_literal_subnode_->raw_ != NULL);
-    assertion($5->natural_literal_subnode_->raw_->value_ != NULL);
-    assert_valid_raw_natural($5->natural_literal_subnode_->raw_);
-  } else if ($5->type_ == STT_NODE_TYPE_IDENTIFIER) {
-    assertion($5->identifier_subnode_ != NULL);
-    assertion($5->identifier_subnode_->value_ != NULL);
-  } else {
-    if ($5->type_ != STT_NODE_TYPE_EXPRESSION) {
-
-#ifdef DUMP_FLOW_TO_STDERR
-      fprintf(stderr, "%u\n", $5->type_);
-#endif
-    }
-    assertion($5->type_ == STT_NODE_TYPE_EXPRESSION);
-    assertion($5->expression_subnode_ != NULL);
-    assertion($5->expression_subnode_->expression_ != NULL);
-  }
-
-  left_hand_expression_ = NULL;
-  if ($1->type_ == STT_NODE_TYPE_NATURAL_LITERAL) {
-    left_hand_expression_ = stt_expression_default_constructor();
-    left_hand_expression_natural_ =
-        natural_exhaustive_constructor($1->natural_literal_subnode_->raw_);
-    stt_expression_set_natural_literal(
-        left_hand_expression_, left_hand_expression_natural_);
-  } else if ($1->type_ == STT_NODE_TYPE_IDENTIFIER) {
-    left_hand_expression_ = stt_expression_default_constructor();
-    stt_expression_set_identifier(
-        left_hand_expression_, $1->identifier_subnode_->value_);
-  } else {
-    assertion($1->type_ == STT_NODE_TYPE_EXPRESSION);
-    left_hand_expression_ = stt_expression_copy_constructor(
-        $1->expression_subnode_->expression_);
-  }
-
-  right_hand_expression_ = NULL;
-  if ($5->type_ == STT_NODE_TYPE_NATURAL_LITERAL) {
-    right_hand_expression_ = stt_expression_default_constructor();
-    right_hand_expression_natural_ =
-        natural_exhaustive_constructor($5->natural_literal_subnode_->raw_);
-    stt_expression_set_natural_literal(
-        right_hand_expression_, right_hand_expression_natural_);
-  } else {
-    assertion($5->type_ == STT_NODE_TYPE_EXPRESSION);
-    right_hand_expression_ = stt_expression_copy_constructor(
-        $5->expression_subnode_->expression_);
-  }
-
-  condition_ = stt_condition_default_constructor();
-  stt_condition_initialize_less_than(
-      condition_, left_hand_expression_, right_hand_expression_);
-
-  $$ = stt_node_default_constructor();
-  stt_node_set_condition($$, condition_);
-
-  stt_node_destructor($1);
-  stt_node_destructor($5);
+  b_trace_chars_array(
+      "condition : expression T_IS T_LESS T_THAN expression\n");
+  $$ = bison_annex_condition_out_of_expression_and_token_is_and_token_less_and_token_than_and_expression(
+      $1, $5);
+  forced_assertion($$ != NULL);
 }
 | expression T_IS T_GREATER T_THAN expression
 {
-  natural * left_hand_expression_natural_;
-  stt_expression * left_hand_expression_;
-  natural * right_hand_expression_natural_;
-  stt_expression * right_hand_expression_;
-  stt_condition * condition_;
-
-  b_trace_chars_array("condition : expression T_IS T_GREATER T_THAN expression\n");
-
-  assertion($1 != NULL);
-  if ($1->type_ == STT_NODE_TYPE_NATURAL_LITERAL) {
-    assertion($1->natural_literal_subnode_ != NULL);
-    assertion($1->natural_literal_subnode_->raw_ != NULL);
-    assertion($1->natural_literal_subnode_->raw_->value_ != NULL);
-    assert_valid_raw_natural($1->natural_literal_subnode_->raw_);
-  } else if ($1->type_ == STT_NODE_TYPE_IDENTIFIER) {
-    assertion($1->identifier_subnode_ != NULL);
-    assertion($1->identifier_subnode_->value_ != NULL);
-  } else {
-    if ($1->type_ != STT_NODE_TYPE_EXPRESSION) {
-
-#ifdef DUMP_FLOW_TO_STDERR
-      fprintf(stderr, "%u\n", $1->type_);
-#endif
-    }
-    assertion($1->type_ == STT_NODE_TYPE_EXPRESSION);
-    assertion($1->expression_subnode_ != NULL);
-    assertion($1->expression_subnode_->expression_ != NULL);
-  }
-
-  assertion($5 != NULL);
-  if ($5->type_ == STT_NODE_TYPE_NATURAL_LITERAL) {
-    assertion($5->natural_literal_subnode_ != NULL);
-    assertion($5->natural_literal_subnode_->raw_ != NULL);
-    assertion($5->natural_literal_subnode_->raw_->value_ != NULL);
-    assert_valid_raw_natural($5->natural_literal_subnode_->raw_);
-  } else if ($5->type_ == STT_NODE_TYPE_IDENTIFIER) {
-    assertion($5->identifier_subnode_ != NULL);
-    assertion($5->identifier_subnode_->value_ != NULL);
-  } else {
-    if ($5->type_ != STT_NODE_TYPE_EXPRESSION) {
-
-#ifdef DUMP_FLOW_TO_STDERR
-      fprintf(stderr, "%u\n", $5->type_);
-#endif
-    }
-    assertion($5->type_ == STT_NODE_TYPE_EXPRESSION);
-    assertion($5->expression_subnode_ != NULL);
-    assertion($5->expression_subnode_->expression_ != NULL);
-  }
-
-  left_hand_expression_ = NULL;
-  if ($1->type_ == STT_NODE_TYPE_NATURAL_LITERAL) {
-    left_hand_expression_ = stt_expression_default_constructor();
-    left_hand_expression_natural_ =
-        natural_exhaustive_constructor($1->natural_literal_subnode_->raw_);
-    stt_expression_set_natural_literal(
-        left_hand_expression_, left_hand_expression_natural_);
-  } else if ($1->type_ == STT_NODE_TYPE_IDENTIFIER) {
-    left_hand_expression_ = stt_expression_default_constructor();
-    stt_expression_set_identifier(
-        left_hand_expression_, $1->identifier_subnode_->value_);
-  } else {
-    assertion($1->type_ == STT_NODE_TYPE_EXPRESSION);
-    left_hand_expression_ = stt_expression_copy_constructor(
-        $1->expression_subnode_->expression_);
-  }
-
-  right_hand_expression_ = NULL;
-  if ($5->type_ == STT_NODE_TYPE_NATURAL_LITERAL) {
-    right_hand_expression_ = stt_expression_default_constructor();
-    right_hand_expression_natural_ =
-        natural_exhaustive_constructor($5->natural_literal_subnode_->raw_);
-    stt_expression_set_natural_literal(
-        right_hand_expression_, right_hand_expression_natural_);
-  } else {
-    assertion($5->type_ == STT_NODE_TYPE_EXPRESSION);
-    right_hand_expression_ = stt_expression_copy_constructor(
-        $5->expression_subnode_->expression_);
-  }
-
-  condition_ = stt_condition_default_constructor();
-  stt_condition_initialize_greater_than(
-      condition_, left_hand_expression_, right_hand_expression_);
-
-  $$ = stt_node_default_constructor();
-  stt_node_set_condition($$, condition_);
-
-  stt_node_destructor($1);
-  stt_node_destructor($5);
+  b_trace_chars_array(
+      "condition : expression T_IS T_GREATER T_THAN expression\n");
+  $$ = bison_annex_condition_out_of_expression_and_token_is_and_token_greater_and_token_than_and_expression(
+      $1, $5);
+  forced_assertion($$ != NULL);
 }
 ;
 

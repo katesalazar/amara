@@ -19,6 +19,8 @@
 
 #include "../asr/assertion.h"
 
+#include "../cmn/amara_string_tests.h"
+
 #include "rtg_operation_tests.h"
 
 #include "rtg_operations_simple_list.h"
@@ -45,57 +47,67 @@ rtg_operations_simple_list_copy_constructor_test_0()
 	rtg_operations_simple_list * operations_one_;
 
 	operations_zero_ = rtg_operations_simple_list_default_constructor();
-
-	assertion(operations_zero_ != NULL);
-	assertion(operations_zero_->first == NULL);
-	assertion(operations_zero_->next == NULL);
+	forced_assertion(operations_zero_ != NULL);
+	forced_assertion(operations_zero_->first == NULL);
+	forced_assertion(operations_zero_->next == NULL);
 
 	operations_one_ = rtg_operations_simple_list_copy_constructor(
 			operations_zero_);
-
-	assertion(operations_zero_->first == NULL);
-	assertion(operations_zero_->next == NULL);
-
-	assertion(operations_one_ != NULL);
-	assertion(operations_one_->first == NULL);
-	assertion(operations_one_->next == NULL);
-
-	rtg_operations_simple_list_destructor(operations_one_);
+	forced_assertion(operations_zero_->first == NULL);
+	forced_assertion(operations_zero_->next == NULL);
+	forced_assertion(operations_one_ != NULL);
+	forced_assertion(operations_one_->first == NULL);
+	forced_assertion(operations_one_->next == NULL);
 
 	rtg_operations_simple_list_destructor(operations_zero_);
+
+	rtg_operations_simple_list_destructor(operations_one_);
 }
 
 void
 rtg_operations_simple_list_copy_constructor_test_1()
 {
 	rtg_operations_simple_list * operations_zero_;
-	rtg_operations_simple_list * operations_one_;
+	amara_string * amara_string_foo_;
 	rtg_operation * operation_zero_;
+	rtg_operations_simple_list * operations_one_;
 
 	operations_zero_ = rtg_operations_simple_list_default_constructor();
+	forced_assertion(operations_zero_ != NULL);
+	forced_assertion(operations_zero_->first == NULL);
+	forced_assertion(operations_zero_->next == NULL);
 
-	assertion(operations_zero_ != NULL);
-	assertion(operations_zero_->first == NULL);
-	assertion(operations_zero_->next == NULL);
+	amara_string_foo_ = amara_string_example_foo();
+	forced_assertion(amara_string_foo_ != NULL);
+	forced_assertion(amara_string_foo_->value_ != NULL);
 
 	operation_zero_ = rtg_operation_example_print_string_literal_foo();
-
-	assertion(operation_zero_ != NULL);
+	forced_assertion(operation_zero_ != NULL);
+	/* XXX */
 	assertion(operation_zero_->type_ == RTG_OPERATION_TYPE_PRINT);
+	/* XXX */
 	assertion(operation_zero_->args_ != NULL);
+	/* XXX */
 	assertion(operation_zero_->args_->first != NULL);
+	/* XXX */
 	assertion(operation_zero_->args_->first->type_ ==
 			RTG_OPERATION_ARG_TYPE_STRING_LITERAL);
+	/* XXX */
 	assertion(operation_zero_->args_->first->string_literal_ != NULL);
+	/* XXX */
 	assertion(amara_string_equality(
 			operation_zero_->args_->first->string_literal_,
-			amara_string_exhaustive_constructor("foo")));
+			amara_string_foo_));
+	/* XXX */
 	assertion(operation_zero_->args_->next == NULL);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_operation_example_print_string_literal_foo(
+			operation_zero_);
+#endif
 
 	operations_zero_ = rtg_operations_simple_list_push_front(
 			operations_zero_, operation_zero_);
-
-	assertion(operations_zero_ != NULL);
+	forced_assertion(operations_zero_ != NULL);
 	assertion(operations_zero_->first != NULL);
 	assertion(operations_zero_->first->type_ == RTG_OPERATION_TYPE_PRINT);
 	assertion(operations_zero_->first->args_ != NULL);
@@ -106,26 +118,24 @@ rtg_operations_simple_list_copy_constructor_test_1()
 			NULL);
 	assertion(amara_string_equality(
 			operations_zero_->first->args_->first->string_literal_,
-			amara_string_exhaustive_constructor("foo")));
+			amara_string_foo_));
 	assertion(operations_zero_->next == NULL);
-
 	assertion(operation_zero_ != NULL);
 	assertion(operation_zero_->type_ == RTG_OPERATION_TYPE_PRINT);
-	assertion(operation_zero_->args_ != NULL);
-	assertion(operation_zero_->args_->first != NULL);
+	forced_assertion(operation_zero_->args_ != NULL);
+	forced_assertion(operation_zero_->args_->first != NULL);
 	assertion(operation_zero_->args_->first->type_ ==
 			RTG_OPERATION_ARG_TYPE_STRING_LITERAL);
-	assertion(operation_zero_->args_->first->string_literal_ != NULL);
+	forced_assertion(operation_zero_->args_->first->string_literal_ != NULL);
 	assertion(amara_string_equality(
 			operation_zero_->args_->first->string_literal_,
-			amara_string_exhaustive_constructor("foo")));
+			amara_string_foo_));
 	assertion(operation_zero_->args_->next == NULL);
 
 	rtg_operation_destructor(operation_zero_);
 
 	operations_one_ = rtg_operations_simple_list_copy_constructor(
 			operations_zero_);
-
 	assertion(operations_zero_ != NULL);
 	assertion(operations_zero_->first != NULL);
 	assertion(operations_zero_->first->type_ == RTG_OPERATION_TYPE_PRINT);
@@ -137,22 +147,23 @@ rtg_operations_simple_list_copy_constructor_test_1()
 			NULL);
 	assertion(amara_string_equality(
 			operations_zero_->first->args_->first->string_literal_,
-			amara_string_exhaustive_constructor("foo")));
+			amara_string_foo_));
 	assertion(operations_zero_->next == NULL);
-
-	assertion(operations_one_ != NULL);
-	assertion(operations_one_->first != NULL);
+	forced_assertion(operations_one_ != NULL);
+	forced_assertion(operations_one_->first != NULL);
 	assertion(operations_one_->first->type_ == RTG_OPERATION_TYPE_PRINT);
-	assertion(operations_one_->first->args_ != NULL);
-	assertion(operations_one_->first->args_->first != NULL);
+	forced_assertion(operations_one_->first->args_ != NULL);
+	forced_assertion(operations_one_->first->args_->first != NULL);
 	assertion(operations_one_->first->args_->first->type_ ==
 			RTG_OPERATION_ARG_TYPE_STRING_LITERAL);
-	assertion(operations_one_->first->args_->first->string_literal_ !=
+	forced_assertion(operations_one_->first->args_->first->string_literal_ !=
 			NULL);
 	assertion(amara_string_equality(
 			operations_one_->first->args_->first->string_literal_,
-			amara_string_exhaustive_constructor("foo")));
+			amara_string_foo_));
 	assertion(operations_one_->next == NULL);
+
+	amara_string_destructor(amara_string_foo_);
 
 	rtg_operations_simple_list_destructor(operations_one_);
 
@@ -163,28 +174,34 @@ void
 rtg_operations_simple_list_copy_constructor_test_2()
 {
 	rtg_operations_simple_list * operations_zero_;
-	rtg_operations_simple_list * operations_one_;
+	amara_string * amara_string_foo_;
 	rtg_operation * operation_zero_;
+	amara_string * amara_string_bar_;
 	rtg_operation * operation_one_;
+	rtg_operations_simple_list * operations_one_;
 
 	operations_zero_ = rtg_operations_simple_list_default_constructor();
-
-	assertion(operations_zero_ != NULL);
+	forced_assertion(operations_zero_ != NULL);
 	assertion(operations_zero_->first == NULL);
 	assertion(operations_zero_->next == NULL);
 
-	operation_zero_ = rtg_operation_example_print_string_literal_foo();
+	amara_string_foo_ = amara_string_example_foo();
+	forced_assertion(amara_string_foo_ != NULL);
+	/*
+	assert_expectations_on_amara_string_example_foo(amara_string_foo_);
+	*/
 
-	assertion(operation_zero_ != NULL);
+	operation_zero_ = rtg_operation_example_print_string_literal_foo();
+	forced_assertion(operation_zero_ != NULL);
 	assertion(operation_zero_->type_ == RTG_OPERATION_TYPE_PRINT);
-	assertion(operation_zero_->args_ != NULL);
-	assertion(operation_zero_->args_->first != NULL);
+	forced_assertion(operation_zero_->args_ != NULL);
+	forced_assertion(operation_zero_->args_->first != NULL);
 	assertion(operation_zero_->args_->first->type_ ==
 			RTG_OPERATION_ARG_TYPE_STRING_LITERAL);
-	assertion(operation_zero_->args_->first->string_literal_ != NULL);
+	forced_assertion(operation_zero_->args_->first->string_literal_ != NULL);
 	assertion(amara_string_equality(
 			operation_zero_->args_->first->string_literal_,
-			amara_string_exhaustive_constructor("foo")));
+			amara_string_foo_));
 	assertion(operation_zero_->args_->next == NULL);
 
 	operations_zero_ = rtg_operations_simple_list_push_front(
@@ -201,7 +218,7 @@ rtg_operations_simple_list_copy_constructor_test_2()
 			NULL);
 	assertion(amara_string_equality(
 			operations_zero_->first->args_->first->string_literal_,
-			amara_string_exhaustive_constructor("foo")));
+			amara_string_foo_));
 	assertion(operations_zero_->next == NULL);
 
 	assertion(operation_zero_ != NULL);
@@ -213,10 +230,18 @@ rtg_operations_simple_list_copy_constructor_test_2()
 	assertion(operation_zero_->args_->first->string_literal_ != NULL);
 	assertion(amara_string_equality(
 			operation_zero_->args_->first->string_literal_,
-			amara_string_exhaustive_constructor("foo")));
+			amara_string_foo_));
 	assertion(operation_zero_->args_->next == NULL);
 
+	amara_string_destructor(amara_string_foo_);
+
 	rtg_operation_destructor(operation_zero_);
+
+	amara_string_bar_ = amara_string_example_bar();
+	forced_assertion(amara_string_bar_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_amara_string_example_bar(amara_string_bar_);
+#endif
 
 	operation_one_ = rtg_operation_example_print_string_literal_bar();
 
@@ -229,7 +254,7 @@ rtg_operations_simple_list_copy_constructor_test_2()
 	assertion(operation_one_->args_->first->string_literal_ != NULL);
 	assertion(amara_string_equality(
 			operation_one_->args_->first->string_literal_,
-			amara_string_exhaustive_constructor("bar")));
+			amara_string_bar_));
 	assertion(operation_one_->args_->next == NULL);
 
 	operations_zero_ = rtg_operations_simple_list_push_front(
@@ -244,7 +269,7 @@ rtg_operations_simple_list_copy_constructor_test_2()
 	assertion(operation_one_->args_->first->string_literal_ != NULL);
 	assertion(amara_string_equality(
 			operation_one_->args_->first->string_literal_,
-			amara_string_exhaustive_constructor("bar")));
+			amara_string_bar_));
 	assertion(operation_one_->args_->next == NULL);
 
 	rtg_operation_destructor(operation_one_);
@@ -263,7 +288,7 @@ rtg_operations_simple_list_copy_constructor_test_2()
 			NULL);
 	assertion(amara_string_equality(
 			operations_zero_->first->args_->first->string_literal_,
-			amara_string_exhaustive_constructor("bar")));
+			amara_string_bar_));
 	assertion(operations_zero_->next != NULL);
 
 	assertion(operations_one_ != NULL);
@@ -277,8 +302,10 @@ rtg_operations_simple_list_copy_constructor_test_2()
 			NULL);
 	assertion(amara_string_equality(
 			operations_one_->first->args_->first->string_literal_,
-			amara_string_exhaustive_constructor("bar")));
+			amara_string_bar_));
 	assertion(operations_one_->next != NULL);
+
+	amara_string_destructor(amara_string_bar_);
 
 	rtg_operations_simple_list_destructor(operations_one_);
 

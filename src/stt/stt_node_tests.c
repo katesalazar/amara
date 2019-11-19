@@ -4864,6 +4864,78 @@ look_for_undefined_labels_tests()
 }
 
 void
+simplify_natural_literal_nodes_substraction_test_0()
+{
+	const char * raw_natural_zero_chars_array_ = "23";
+	const amara_string * raw_natural_zero_ =
+			amara_string_exhaustive_constructor(
+					raw_natural_zero_chars_array_);
+	const stt_node * natural_literal_stt_node_zero_ =
+			stt_node_wrapping_raw_natural(raw_natural_zero_);
+	const char * raw_natural_one_chars_array_ = "23";
+	const amara_string * raw_natural_one_;
+	const stt_node * natural_literal_stt_node_one_;
+	const stt_node * result_;
+	const char * expectation_raw_chars_array_;
+	const amara_string * expectation_raw_;
+
+	raw_natural_one_ = amara_string_exhaustive_constructor(
+			raw_natural_one_chars_array_);
+	forced_assertion(raw_natural_one_ != NULL);
+	natural_literal_stt_node_one_ =
+			stt_node_wrapping_raw_natural(raw_natural_one_);
+	forced_assertion(natural_literal_stt_node_one_ != NULL);
+	result_ = simplify_natural_literal_nodes_substraction(
+			natural_literal_stt_node_zero_,
+			natural_literal_stt_node_one_);
+	forced_assertion(result_ != NULL);
+	expectation_raw_chars_array_ = "0";
+	forced_assertion(expectation_raw_chars_array_ != NULL);
+	expectation_raw_ = amara_string_default_constructor();
+	forced_assertion(expectation_raw_ != NULL);
+
+	forced_assertion(raw_natural_zero_chars_array_ != NULL);
+	forced_assertion(raw_natural_zero_ != NULL);
+	forced_assertion(natural_literal_stt_node_zero_ != NULL);
+	forced_assertion(raw_natural_one_chars_array_ != NULL);
+
+	amara_string_set_value(
+			(amara_string *) expectation_raw_,
+			expectation_raw_chars_array_);
+	assert_clean_natural_literal_node(result_);
+	assertion(
+			amara_string_equality(
+				result_->natural_literal_subnode_->raw_,
+				expectation_raw_) ==
+			AMARA_BOOLEAN_TRUE);
+
+	amara_string_destructor((amara_string *) expectation_raw_);
+	/* FIXME attempt to free a non heap object */
+	/*
+	free((char *) expectation_raw_chars_array_);
+	*/
+	stt_node_destructor((stt_node *) result_);
+	stt_node_destructor((stt_node *) natural_literal_stt_node_one_);
+	amara_string_destructor((amara_string *) raw_natural_one_);
+	/* FIXME attempt to free a non heap object */
+	/*
+	free((char *) raw_natural_one_chars_array_);
+	*/
+	stt_node_destructor((stt_node *) natural_literal_stt_node_zero_);
+	amara_string_destructor((amara_string *) raw_natural_zero_);
+	/* FIXME attempt to free a non heap object */
+	/*
+	free((char *) raw_natural_zero_chars_array_);
+	*/
+}
+
+void
+simplify_natural_literal_nodes_substraction_tests()
+{
+	simplify_natural_literal_nodes_substraction_test_0();
+}
+
+void
 stt_node_tests()
 {
 	stt_node_copy_constructor_tests();
@@ -4878,4 +4950,5 @@ stt_node_tests()
 	register_execution_request_tests();
 	dump_syntax_tree_tests();
 	look_for_undefined_labels_tests();
+	simplify_natural_literal_nodes_substraction_tests();
 }

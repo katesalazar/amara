@@ -106,7 +106,7 @@ rtg_operation_out_of_stt_operation_ret_destructor(
 rtg_operation_out_of_stt_operation_ret *
 rtg_operation_out_of_stt_operation(
 		const stt_operation * operation,
-		const stt_where_value_bindings_simple_list * function_where_bindings)
+		const struct stt_where_value_bindings_simple_list * function_where_bindings)
 __attribute__((warn_unused_result))
 ;
 

@@ -17,6 +17,9 @@
  * expression.
  */
 
+/*   For `void forced_assertion(int expression)`. */
+#include "../asr/assertion.h"
+
 /*   For `natural * natural_example_zero()`. */
 #include "../brt/natural_tests.h"
 
