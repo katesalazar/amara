@@ -232,7 +232,12 @@ stt_node_set_execution_request(stt_node * node,
 ;
 
 void
-stt_node_set_doc(
+stt_node_set_doc_fragment(
+		stt_node * node, const stt_doc_subnode * doc_subnode)
+;
+
+void
+stt_node_set_doc_by_components(
 		stt_node * node,
 		const stt_named_functions_simple_list * named_functions,
 		const stt_applications_simple_list * applications,

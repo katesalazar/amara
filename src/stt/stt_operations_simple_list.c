@@ -19,7 +19,9 @@
 
 /*   For `int fprintf(FILE * restrict stream,
  * const char * restrict format, ...)`. */
+/*
 #include <stdio.h>
+*/
 
 /*   For `void * malloc(size_t size)`. */
 #include <stdlib.h>
@@ -187,10 +189,23 @@ stt_operations_simple_list_push_back(
 {
 	forced_assertion(operations != NULL);
 	forced_assertion(operation != NULL);
-	forced_assertion(operations->first == NULL); /* FIXME */
-	operations->first = stt_operation_copy_constructor(operation);
-	forced_assertion(operations->first != NULL);
-	forced_assertion(operations->next == NULL); /* FIXME */
+	if (operations->first == NULL) {
+		operations->first = stt_operation_copy_constructor(operation);
+		forced_assertion(operations->first != NULL);
+		forced_assertion(operations->next == NULL);
+	} else {
+		forced_assertion(operations->next == NULL);  /* XXX */
+		operations->next =  /* XXX */
+				stt_operations_simple_list_default_constructor();  /* XXX */
+		forced_assertion(operations->next != NULL);
+#ifndef NDEBUG
+		assertion(operations->next->first == NULL);
+		assertion(operations->next->next == NULL);
+#endif
+		operations->next->first =
+				stt_operation_copy_constructor(operation);
+		forced_assertion(operations->next->first != NULL);
+	}
 }
 
 amara_boolean

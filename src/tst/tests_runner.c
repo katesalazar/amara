@@ -136,8 +136,6 @@ run_tests(amara_boolean double_end_of_line_char)
 
 	/* printf("%d\n", running_tests_ctl(RUNNING_TESTS_HOLD)); */ /* XXX */
 
-	applications_runner_tests();
-
 	assertion_tests();
 
 	common_tests();
@@ -155,6 +153,8 @@ run_tests(amara_boolean double_end_of_line_char)
 	run_time_graph_tests();
 
 	app_runner_tests();
+
+	applications_runner_tests();
 
 	printf("... done\n");
 

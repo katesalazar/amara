@@ -87,6 +87,9 @@ print_help()
 	printf("banner.\n\n");
 }
 
+/* XXX friend declaration. */
+void amara_destroy_flex_buffer(void);
+
 unsigned char
 amara_main(const int argc, const char * * argv)
 {
@@ -123,6 +126,10 @@ amara_main(const int argc, const char * * argv)
 		returning_ = AMARA_MAIN_RET_SUCCESS;
 	} else if (arg_->value & ARG_RET_RUN_TESTS) {
 		run_tests(print_banner_);
+
+		/* XXX */
+		amara_destroy_flex_buffer();
+
 		returning_ = AMARA_MAIN_RET_SUCCESS;
 	} else {
 		assertion(arg_->value & ARG_RET_RUN_APP);

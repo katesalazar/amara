@@ -74,4 +74,11 @@ stt_where_value_bindings_simple_list_equality(
 __attribute__((warn_unused_result))
 ;
 
+amara_boolean
+stt_where_value_bindings_simple_lists_equality(
+		const stt_where_value_bindings_simple_list * l0,
+		const stt_where_value_bindings_simple_list * l1)
+__attribute__((warn_unused_result))
+;
+
 #endif

@@ -24,17 +24,21 @@ Misc documentation about the source code.
 
 ## explanation of the directories names.
 
-* `arn`: The **a**pplications **r**u**n**ner, currently separated from
+* `arn`: The <strong>a</strong>pplications
+  <strong>r</strong>u<strong>n</strong>ner, currently separated from
   the tests system. It also takes care of state vision on `rtg` data
   structures, e.g. variable named references are resolved to the corresponding
   values or to references to them, or any otherwise non constant name
   reference. Everything inside must be under 100% coverage.
 
-* `asr`: The **as**se**r**tions utilities are isolated because they tend to be
+* `asr`: The <strong>as</strong>e<strong>r</strong>tions utilities are isolated
+because they tend to be
 not fully coverable by tests, as the failure to assert something makes a debug
 program exit without generating `gcov` data.
 
-* `bsn`: **B**i**s**o**n** and Flex are external systems, so while ultimately
+* `bsn`: Amara builds on Bison (hence
+  <strong>b</strong>i<strong>s</strong>o<strong>n</strong> and Flex are 3rd
+  party software as external systems, so while ultimately
 the amara
 scope is responsible for the quality of any code it uses, many features of the
 generated Bison parser fall primarily in the Bison scope, so the amara scope

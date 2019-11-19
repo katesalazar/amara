@@ -17,7 +17,9 @@
  */
 
 /*   For `int printf(const char * format, ...)`. */
+/*
 #include <stdio.h>
+*/
 
 /*   For `uint_fast8_t acquire_dir(const char * path_to)`. */
 #include "persistence.h"

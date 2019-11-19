@@ -103,8 +103,10 @@ run_app(const char * app_name)
 	getcwd_return_ = getcwd(cwd_buffer_, 3072);
 
 #ifdef DUMP_FLOW_TO_STDERR
+	/*
 	printf("cwd: %s\n", getcwd_return_);
 	printf("cwd: %s\n", cwd_buffer_);
+	*/
 #endif
 
 	forced_assertion(getcwd_return_ == cwd_buffer_);
@@ -127,7 +129,12 @@ run_app(const char * app_name)
 	/*
 	}
 	*/
+	/*
 	printf("%s\n", app_name);
+	*/
+	free(cwd_buffer_);
+	cwd_buffer_ = NULL;
+	getcwd_return_ = NULL;
 #endif
 
 	acquire_dir_return_status_ = 0x00;
@@ -181,8 +188,12 @@ run_app_dir_exists(const char * app_name)
 			app_name, main_doc_descriptor_);
 	assertion(path_to_main_ != NULL);
 	free((char *) path_to_main_);
-	assertion(inner_status_ == 0x00);
-	return 0x00;
+	fclose(main_doc_descriptor_);
+	if (inner_status_ == APP_RUNNER_RUN_APP_RET_ERROR_MALFORMED_DOC) {
+		return inner_status_;
+	}
+	assertion(inner_status_ == APP_RUNNER_RUN_APP_RET_SUCCESS);
+	return inner_status_;
 }
 
 stt_node *
@@ -205,6 +216,13 @@ run_app_main_doc_exists(
 	minia_bison_main_ret_ = minia_bison_main((FILE *) main_doc_descriptor);
 	assertion(minia_bison_main_ret_ != NULL);
 
+	if (minia_bison_main_ret_->type_ == STT_NODE_TYPE_INVALID) {
+
+		;
+
+		return APP_RUNNER_RUN_APP_RET_ERROR_MALFORMED_DOC;
+	}
+
 	dump_syntax_tree(minia_bison_main_ret_);
 
 	look_for_undefined_labels_ret_ =
@@ -221,7 +239,9 @@ run_app_main_doc_exists(
 		ptr_ = look_for_undefined_labels_ret_->messages;
 		while (ptr_ != NULL) {
 #ifdef DUMP_FLOW_TO_STDERR
+			/*
 			fprintf(stderr, "%s\n", ptr_->first);
+			*/
 #endif
 			ptr_ = ptr_->next;
 		}
@@ -248,14 +268,18 @@ run_app_main_doc_exists(
 	stt_node_destructor(minia_bison_main_ret_);
 
 #ifdef DUMP_FLOW_TO_STDERR
+	/*
 	fprintf(stderr, "app_runner:225\n");
+	*/
 #endif
 
 	forced_assertion(rtg_doc_out_of_stt_doc_ret_->status ==
 			RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_SUCCESS);
 
 #ifdef DUMP_FLOW_TO_STDERR
+	/*
 	fprintf(stderr, "app_runner:230\n");
+	*/
 #endif
 
 	process_rtg_doc_execution_requests_ret_ =
@@ -263,14 +287,18 @@ run_app_main_doc_exists(
 					rtg_doc_out_of_stt_doc_ret_->doc);
 
 #ifdef DUMP_FLOW_TO_STDERR
+	/*
 	fprintf(stderr, "app_runner:236\n");
+	*/
 #endif
 
 	forced_assertion(process_rtg_doc_execution_requests_ret_->status ==
 			PROCESS_RTG_DOC_EXECUTION_REQUESTS_RET_STATUS_SUCCESS);
 
 #ifdef DUMP_FLOW_TO_STDERR
+	/*
 	fprintf(stderr, "app_runner:241\n");
+	*/
 #endif
 
 	process_rtg_doc_execution_requests_ret_destructor(
@@ -278,13 +306,17 @@ run_app_main_doc_exists(
 	process_rtg_doc_execution_requests_ret_ = NULL;
 
 #ifdef DUMP_FLOW_TO_STDERR
+	/*
 	fprintf(stderr, "app_runner:247\n");
+	*/
 #endif
 
 	rtg_doc_out_of_stt_doc_ret_destructor(rtg_doc_out_of_stt_doc_ret_);
 
 #ifdef DUMP_FLOW_TO_STDERR
+	/*
 	fprintf(stderr, "app_runner:251\n");
+	*/
 #endif
 
 	return APP_RUNNER_RUN_APP_RET_SUCCESS;
@@ -732,8 +764,10 @@ run_operation(const rtg_operation * operation,
 	amara_string * operation_type_as_string_;
 #endif
 
+	/*
 	fprintf(stderr, "----> %s:%u (%s)\n", __FILE__, __LINE__,
 			"void run_operation(const operation *)");
+	*/
 
 	values_ = (arn_values_simple_list *) values;
 
@@ -769,11 +803,15 @@ run_operation(const rtg_operation * operation,
 					values_,
 					operation->args_->first->identifier_);
 			if (value_ == NULL) {
+				/*
 				fprintf(stderr, "%s\n",
 				        operation->args_->first->identifier_->value_);
+				*/
 			}
 			assertion(value_ != NULL); /* XXX it might not be, and then must raise semantic error */
+			/*
 			fprintf(stderr, "%u\n", value_->type_);
+			*/
 			/******* FIXME this assertion below is failing...... */
 			assertion(value_->type_ ==
 						ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL 
@@ -781,7 +819,9 @@ run_operation(const rtg_operation * operation,
 							ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL); /* XXX might be string literal, other number class, etc. */
 			/******* FIXME this assertion above is failing...... */
 			natural_assert_validity(value_->natural_);
+			/*
 			printf("%s", value_->natural_->raw_->value_);
+			*/
 		/*
 		} else if (operation->args_->first->type_ ==
 					RTG_OPERATION_ARG_TYPE_OPERATION) {
@@ -841,8 +881,10 @@ run_operation(const rtg_operation * operation,
 			assertion(expression_evaluated_value_->string_->value_ !=
 					NULL);
 #endif
+			/*
 			printf("%s",
 			       expression_evaluated_value_->string_->value_);
+			*/
 			} else {
 				forced_assertion_two(expression_evaluated_value_->type_ == ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL,
 						"unexpected behavior, app_runner.c: 761");
@@ -855,8 +897,10 @@ run_operation(const rtg_operation * operation,
 				assertion_two(expression_evaluated_value_->natural_->raw_->value_ != NULL,
 						"app_runner.c: 766");
 #endif
+				/*
 				printf("%s",
 				       expression_evaluated_value_->natural_->raw_->value_);
+				*/
 			}
 		}
 		forced_assertion(operation->type_ == RTG_OPERATION_TYPE_PRINT);
@@ -1050,16 +1094,22 @@ run_operation(const rtg_operation * operation,
 
 	} else {
 		if (operation->type_ != RTG_OPERATION_TYPE_INVALID) {
+			/*
 			fprintf(stderr, "%u\n", operation->type_);
+			*/
 		}
 #ifndef NDEBUG
 		operation_type_as_string_ =
 				rtg_operation_type_as_string(operation->type_);
+		/*
 		fprintf(stderr, "%s\n", operation_type_as_string_->value_);
+		*/
 		amara_string_destructor(operation_type_as_string_);
 #endif
 		assertion(operation->type_ == RTG_OPERATION_TYPE_INVALID); /* XXX missing the operation types arithmetic addition, substraction, multiplication, division... */
+		/*
 		printf("!!!\n");
+		*/
 	}
 	return NULL; /* XXX */
 }
@@ -1091,8 +1141,10 @@ run_named_function(const rtg_named_function * function,
 	arn_values_simple_list * operation_scope_values_;
 	arn_operation_returned_value * operation_returned_value_;
 
+	/*
 	fprintf(stderr, "----> %s:%u (%s)\n", __FILE__, __LINE__,
 			"void run_function(const function *)");
+	*/
 
 	operation_returned_value_ = NULL;
 
@@ -1140,8 +1192,10 @@ run_application(const rtg_application * application)
 	/* arn_variables_simple_list * variables_; */
 
 #ifdef DUMP_FLOW_TO_STDERR
+	/*
 	fprintf(stderr, "----> %s:%u (%s)\n", __FILE__, __LINE__,
 			"void run_application(const application *)");
+	*/
 #endif
 
 	global_values_scope_ = arn_values_fixed_list_default_constructor();

@@ -23,10 +23,22 @@
 #include "../stt/stt_node.h"
 
 stt_node *
+document_out_of_named_functions_and_applications_and_execution_requests(
+		stt_node * syntax_tree,
+		stt_node * named_functions_and_applications_and_execution_requests)
+__amara__warn_unused_result__
+;
+
+stt_node *
 named_functions_and_applications_and_execution_requests_out_of_named_function_and_named_functions_and_applications_and_execution_requests(
 		stt_node * named_function,
 		stt_node * named_functions_and_applications_and_execution_requests)
 __attribute__((warn_unused_result))
+;
+
+stt_node *
+named_functions_and_applications_and_execution_requests_out_of_ignored()
+__amara__warn_unused_result__
 ;
 
 stt_node *

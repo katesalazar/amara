@@ -23,6 +23,20 @@
 #include "stt_operation_args_simple_list.h"
 
 stt_operation_args_simple_list *
+stt_operation_args_simple_list_example_one_arg_list(void)
+__attribute__((warn_unused_result))
+;
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_operation_args_simple_list_example_one_arg_list(
+		const stt_operation_args_simple_list * list)
+;
+
+#endif
+
+stt_operation_args_simple_list *
 stt_operation_args_simple_list_example_two_args_list(void)
 __attribute__((warn_unused_result))
 ;

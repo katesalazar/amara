@@ -121,7 +121,9 @@ void
 node_name_from_type_test_0()
 {
 #ifdef TRACE_STEPS_IN
+	/*
 	fprintf(stderr, "----> %s:%u: void node_name_from_type_test_0()\n", __FILE__, __LINE__);
+	*/
 #endif
 	const stt_node * node_ = stt_node_default_constructor();
 	const amara_string * type_name_ = stt_node_type_name(node_);
@@ -143,7 +145,9 @@ void
 node_name_from_type_test_1()
 {
 #ifdef TRACE_STEPS_IN
+	/*
 	fprintf(stderr, "----> %s:%u: void node_name_from_type_test_1()\n", __FILE__, __LINE__);
+	*/
 #endif
 	stt_node * node_ = stt_node_default_constructor();
 	const amara_string * type_name_;
@@ -187,7 +191,9 @@ void
 node_name_from_type_test_2()
 {
 #ifdef TRACE_STEPS_IN
+	/*
 	fprintf(stderr, "----> %s:%u: void node_name_from_type_test_2()\n", __FILE__, __LINE__);
+	*/
 #endif
 	stt_node * node_ = stt_node_default_constructor();
 	const amara_string * type_name_;
@@ -230,7 +236,9 @@ void
 node_name_from_type_test_3()
 {
 #ifdef TRACE_STEPS_IN
+	/*
 	fprintf(stderr, "----> %s:%u: void node_name_from_type_test_3()\n", __FILE__, __LINE__);
+	*/
 #endif
 	stt_node * node_ = stt_node_default_constructor();
 	const amara_string * type_name_;
@@ -265,7 +273,9 @@ void
 node_name_from_type_test_4()
 {
 #ifdef TRACE_STEPS_IN
+	/*
 	fprintf(stderr, "----> %s:%u: void node_name_from_type_test_4()\n", __FILE__, __LINE__);
+	*/
 #endif
 	stt_node * node_ = stt_node_default_constructor();
 	const amara_string * type_name_;
@@ -356,7 +366,9 @@ void
 node_name_from_type_test_for_identifier_node()
 {
 #ifdef TRACE_STEPS_IN
+	/*
 	fprintf(stderr, "----> %s:%u: void node_name_from_type_test_for_identifier_node()\n", __FILE__, __LINE__);
+	*/
 #endif
 	stt_node * node_ = stt_node_default_constructor();
 	const amara_string * type_name_;
@@ -395,7 +407,9 @@ void
 node_name_from_type_tests()
 {
 #ifdef TRACE_STEPS_IN
+	/*
 	fprintf(stderr, "----> %s:%u: void node_name_from_type_tests()\n", __FILE__, __LINE__);
+	*/
 #endif
 	node_name_from_type_test_0();
 	node_name_from_type_test_1();
@@ -469,7 +483,9 @@ void
 syntax_tree_tests()
 {
 #ifdef TRACE_STEPS_IN
+	/*
 	fprintf(stderr, "----> %s:%u: void syntax_tree_tests()\n", __FILE__, __LINE__);
+	*/
 #endif
 	syntax_tree_tests_();
 }

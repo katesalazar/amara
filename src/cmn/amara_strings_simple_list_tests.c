@@ -41,9 +41,81 @@ amara_strings_simple_list_default_constructor_test()
 }
 
 void
+amara_strings_simple_list_exhaustive_constructor_three_to_one_test_0()
+{
+	char * ca0_;
+	char * ca1_;
+	char * ca2_;
+	amara_strings_simple_list * returned_;
+
+	ca0_ = malloc(2);
+	forced_assertion(ca0_ != NULL);
+	ca0_[0] = '0';
+	ca0_[1] = '\0';
+
+	ca1_ = malloc(3);
+	forced_assertion(ca1_ != NULL);
+	ca1_[0] = '1';
+	ca1_[1] = '2';
+	ca1_[2] = '\0';
+
+	ca2_ = malloc(4);
+	forced_assertion(ca2_ != NULL);
+	ca2_[0] = '3';
+	ca2_[1] = '4';
+	ca2_[2] = '5';
+	ca2_[3] = '\0';
+
+	returned_ = amara_strings_simple_list_exhaustive_constructor_three_to_one(
+			ca0_, ca1_, ca2_);
+	forced_assertion(returned_ != NULL);
+#ifndef NDEBUG
+	assertion(ca0_[0] == '0');
+	assertion(ca0_[1] == '\0');
+	assertion(ca1_[0] == '1');
+	assertion(ca1_[1] == '2');
+	assertion(ca1_[2] == '\0');
+	assertion(ca2_[0] == '3');
+	assertion(ca2_[1] == '4');
+	assertion(ca2_[2] == '5');
+	assertion(ca2_[3] == '\0');
+#endif
+	forced_assertion(returned_->first != NULL);
+	forced_assertion(returned_->first->value_ != NULL);
+#ifndef NDEBUG
+	assertion(returned_->first->value_[0] == '0');
+	assertion(returned_->first->value_[1] == '1');
+	assertion(returned_->first->value_[2] == '2');
+	assertion(returned_->first->value_[3] == '3');
+	assertion(returned_->first->value_[4] == '4');
+	assertion(returned_->first->value_[5] == '5');
+	assertion(returned_->first->value_[6] == '\0');
+	assertion(returned_->next == NULL);
+#endif
+
+	free(ca0_);
+	free(ca1_);
+	free(ca2_);
+	amara_strings_simple_list_destructor(returned_);
+}
+
+void
+amara_strings_simple_list_exhaustive_constructor_three_to_one_tests()
+{
+	amara_strings_simple_list_exhaustive_constructor_three_to_one_test_0();
+}
+
+void
+amara_strings_simple_list_exhaustive_constructors_tests()
+{
+	amara_strings_simple_list_exhaustive_constructor_three_to_one_tests();
+}
+
+void
 amara_strings_simple_list_constructors_tests()
 {
 	amara_strings_simple_list_default_constructor_test();
+	amara_strings_simple_list_exhaustive_constructors_tests();
 }
 
 void

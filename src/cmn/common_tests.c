@@ -82,7 +82,9 @@ char_arrays_concatenation_test_3()
 	const char * one_ = "bar";
 	const char * concat_ = concatenate_two_char_arrays(zero_, one_);
 	const int strcmp_ret_ = strcmp(concat_, "foobar");
+	/*
 	fprintf(stderr, "%s\n", concat_);
+	*/
 	assertion(!strcmp_ret_);
 	free((char *) concat_);
 }
@@ -109,9 +111,11 @@ char_arrays_concatenation_test_4()
 0123456789012345678901234567890123456789\
 01234567890123"; /* FIXME ??? */
 	const int strcmp_ret_ = strcmp(concat_, expectation_);
+	/*
 	fprintf(stderr, "%s\n", zero_);
 	fprintf(stderr, "%s\n", one_);
 	fprintf(stderr, "%s\n", concat_);
+	*/
 	assertion(!strcmp_ret_);
 	free((char *) concat_);
 }
@@ -138,9 +142,11 @@ char_arrays_concatenation_test_5()
 0123456789012345678901234567890123456789\
 01234567890123"; /* FIXME ??? */
 	const int strcmp_ret_ = strcmp(concat_, expectation_);
+	/*
 	fprintf(stderr, "%s\n", zero_);
 	fprintf(stderr, "%s\n", one_);
 	fprintf(stderr, "%s\n", concat_);
+	*/
 	assertion(!strcmp_ret_);
 	free((char *) concat_);
 }
@@ -521,7 +527,9 @@ void
 common_tests()
 {
 #ifdef TRACE_STEPS_IN
+	/*
 	fprintf(stderr, "----> %s:%u: void common_tests()\n", __FILE__, __LINE__);
+	*/
 #endif
 
 	char_array_tests_();

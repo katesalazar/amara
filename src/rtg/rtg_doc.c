@@ -152,8 +152,10 @@ rtg_doc_out_of_stt_doc(const stt_node * node)
 	rtg_applications_simple_list * rtg_applications_;
 	rtg_execution_requests_simple_list * rtg_execution_requests_;
 
+	/*
 	fprintf(stderr, "%s:%u ----> rtg_doc_out_of_stt_doc_ret * rtg_doc_out_of_stt_doc(const stt_node *)\n",
 			__FILE__, __LINE__);
+	*/
 
 	ret_ =
 #ifdef AMARA_USE_STD_CXX98
@@ -271,8 +273,10 @@ rtg_doc_out_of_stt_doc(const stt_node * node)
 			rtg_named_functions_out_of_stt_doc_ret_);
 	rtg_named_functions_out_of_stt_doc_ret_ = NULL;
 
+	/*
 	fprintf(stderr, "%s:%u <---- rtg_doc_out_of_stt_doc_ret * rtg_doc_out_of_stt_doc(const stt_node *)\n",
 			__FILE__, __LINE__);
+	*/
 
 	return ret_;
 }

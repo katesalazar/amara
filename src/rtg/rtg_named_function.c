@@ -256,8 +256,10 @@ rtg_named_function_out_of_stt_named_function(
 	*/
 	rtg_where_value_bindings_simple_list * where_value_bindings_sub_ret_sub_;
 
+	/*
 	fprintf(stderr, "----> %s:%u rtg_named_function_out_of_stt_named_function_ret * rtg_named_function_out_of_stt_named_function(const stt_named_function *)\n",
 			__FILE__, __LINE__);
+	*/
 
 	ret_ =
 #ifdef AMARA_USE_STD_CXX98
@@ -383,8 +385,10 @@ rtg_named_function_out_of_stt_named_function(
 
 	ret_->status = RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_SUCCESS;
 
+	/*
 	fprintf(stderr, "<---- %s:%u rtg_named_function_out_of_stt_named_function_ret * rtg_named_function_out_of_stt_named_function(const stt_named_function *)\n",
 			__FILE__, __LINE__);
+	*/
 
 	return ret_;
 }

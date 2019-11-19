@@ -24,9 +24,8 @@
  * stt_where_value_binding_example_simple_value_bind()`. */
 #include "stt_where_value_binding_tests.h"
 
-/*   For `typedef struct stt_where_value_bindings_simple_list { ... }
- * stt_where_value_bindings_simple_list`. */
-#include "stt_where_value_bindings_simple_list.h"
+/*   For owned prototypes. */
+#include "stt_where_value_bindings_simple_list_tests.h"
 
 stt_where_value_bindings_simple_list *
 stt_where_value_bindings_simple_list_example_simple_value_bind_foo_to_zero(void)
@@ -137,6 +136,7 @@ stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_l
 	assertion(ret_->first != NULL);
 	assert_expectations_on_stt_where_value_binding_example_identifier_foo_is_bound_to_string_literal_foo(
 			ret_->first);
+	assertion(ret_->next == NULL);
 #endif
 
 	stt_where_value_binding_destructor(where_binding_);
@@ -155,6 +155,83 @@ assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_f
 	assert_expectations_on_stt_where_value_binding_example_identifier_foo_is_bound_to_string_literal_foo(
 			where_value_bindings_->first);
 	assertion(where_value_bindings_->next == NULL);
+}
+
+#endif
+
+stt_where_value_bindings_simple_list *
+stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo_and_identifier_bar_is_bound_to_string_literal_bar()
+{
+	stt_where_value_binding * where_binding_;
+	stt_where_value_bindings_simple_list * ret_;
+
+	where_binding_ = stt_where_value_binding_example_identifier_foo_is_bound_to_string_literal_foo();
+	forced_assertion(where_binding_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_binding_example_identifier_foo_is_bound_to_string_literal_foo(
+			where_binding_);
+#endif
+
+	ret_ = stt_where_value_bindings_simple_list_default_constructor();
+	forced_assertion(ret_ != NULL);
+#ifndef NDEBUG
+	assertion(ret_->first == NULL);
+	assertion(ret_->next == NULL);
+#endif
+
+	stt_where_value_bindings_simple_list_push_back(ret_, where_binding_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_binding_example_identifier_foo_is_bound_to_string_literal_foo(
+			where_binding_);
+	assertion(ret_->first != NULL);
+	assert_expectations_on_stt_where_value_binding_example_identifier_foo_is_bound_to_string_literal_foo(
+			ret_->first);
+	assertion(ret_->next == NULL);
+#endif
+
+	stt_where_value_binding_destructor(where_binding_);
+
+	where_binding_ = stt_where_value_binding_example_identifier_bar_is_bound_to_string_literal_bar();
+	forced_assertion(where_binding_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_binding_example_identifier_bar_is_bound_to_string_literal_bar(
+			where_binding_);
+#endif
+
+	stt_where_value_bindings_simple_list_push_back(ret_, where_binding_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_binding_example_identifier_bar_is_bound_to_string_literal_bar(
+			where_binding_);
+	assertion(ret_->first != NULL);
+	assert_expectations_on_stt_where_value_binding_example_identifier_foo_is_bound_to_string_literal_foo(
+			ret_->first);
+	assertion(ret_->next != NULL);
+	assertion(ret_->next->first != NULL);
+	assert_expectations_on_stt_where_value_binding_example_identifier_bar_is_bound_to_string_literal_bar(
+			ret_->next->first);
+	assertion(ret_->next->next == NULL);
+#endif
+
+	stt_where_value_binding_destructor(where_binding_);
+
+	return ret_;
+}
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo_and_identifier_bar_is_bound_to_string_literal_bar(
+		const stt_where_value_bindings_simple_list * where_value_bindings_)
+{
+	assertion(where_value_bindings_ != NULL);
+	assertion(where_value_bindings_->first != NULL);
+	assert_expectations_on_stt_where_value_binding_example_identifier_foo_is_bound_to_string_literal_foo(
+			where_value_bindings_->first);
+	assertion(where_value_bindings_->next != NULL);
+	assertion(where_value_bindings_->next->first != NULL);
+	assert_expectations_on_stt_where_value_binding_example_identifier_bar_is_bound_to_string_literal_bar(
+			where_value_bindings_->next->first);
+	assertion(where_value_bindings_->next->next == NULL);
 }
 
 #endif
@@ -410,16 +487,325 @@ stt_where_value_bindings_simple_list_push_back_test_0()
 }
 
 void
+stt_where_value_bindings_simple_list_push_back_test_1()
+{
+	stt_where_value_bindings_simple_list * list_;
+	stt_where_value_binding * wvb_;
+
+	list_ = stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo();
+	forced_assertion(list_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo(
+			list_);
+#endif
+
+	wvb_ = stt_where_value_binding_copy_constructor(list_->first);
+	forced_assertion(wvb_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_binding_example_identifier_foo_is_bound_to_string_literal_foo(
+			wvb_);
+#endif
+
+#ifndef NDEBUG
+	assertion(wvb_->value_name_ != NULL);
+	assertion(wvb_->value_name_->value_ != NULL);
+#endif
+	wvb_->value_name_->value_[0] = 'b';
+	wvb_->value_name_->value_[1] = 'a';
+	wvb_->value_name_->value_[2] = 'r';
+
+#ifndef NDEBUG
+	assertion(list_->first != NULL);
+	assertion(list_->next == NULL);
+#endif
+	stt_where_value_bindings_simple_list_push_back(list_, wvb_);
+	forced_assertion(list_->first != NULL);
+	forced_assertion(list_->next != NULL);
+	forced_assertion(list_->next->first != NULL);
+	forced_assertion(list_->next->next == NULL);
+
+	wvb_->value_name_->value_[2] = 'z';
+
+#ifndef NDEBUG
+	assertion(list_->first != NULL);
+	assertion(list_->next != NULL);
+	assertion(list_->next->first != NULL);
+	assertion(list_->next->next == NULL);
+#endif
+	stt_where_value_bindings_simple_list_push_back(list_, wvb_);
+	forced_assertion(list_->first != NULL);
+	forced_assertion(list_->next != NULL);
+	forced_assertion(list_->next->first != NULL);
+	forced_assertion(list_->next->next != NULL);
+	forced_assertion(list_->next->next->first != NULL);
+	forced_assertion(list_->next->next->next == NULL);
+
+	stt_where_value_binding_destructor(wvb_);
+	stt_where_value_bindings_simple_list_destructor(list_);
+}
+
+void
 stt_where_value_bindings_simple_list_push_back_tests()
 {
 	stt_where_value_bindings_simple_list_push_back_test_0();
+	stt_where_value_bindings_simple_list_push_back_test_1();
+}
+
+void
+stt_where_value_bindings_simple_list_equality_test_0()
+{
+	stt_where_value_bindings_simple_list * swvbl0_;
+	stt_where_value_bindings_simple_list * swvbl1_;
+	amara_boolean equality_;
+
+	swvbl0_ = stt_where_value_bindings_simple_list_example_simple_value_bind_foo_to_zero();
+	forced_assertion(swvbl0_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_simple_value_bind_foo_to_zero(
+			swvbl0_);
+#endif
+
+	swvbl1_ = stt_where_value_bindings_simple_list_example_simple_value_bind_foo_to_zero();
+	forced_assertion(swvbl1_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_simple_value_bind_foo_to_zero(
+			swvbl1_);
+#endif
+
+	equality_ = stt_where_value_bindings_simple_lists_equality(
+			swvbl0_, swvbl1_);
+	forced_assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
+	stt_where_value_bindings_simple_list_destructor(swvbl0_);
+	stt_where_value_bindings_simple_list_destructor(swvbl1_);
+}
+
+void
+stt_where_value_bindings_simple_list_equality_test_1()
+{
+	stt_where_value_bindings_simple_list * swvbl0_;
+	stt_where_value_bindings_simple_list * swvbl1_;
+	amara_boolean equality_;
+
+	swvbl0_ = stt_where_value_bindings_simple_list_default_constructor();
+	forced_assertion(swvbl0_ != NULL);
+#ifndef NDEBUG
+	assertion(swvbl0_->first == NULL);
+	assertion(swvbl0_->next == NULL);
+#endif
+
+	swvbl1_ = stt_where_value_bindings_simple_list_example_simple_value_bind_foo_to_zero();
+	forced_assertion(swvbl1_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_simple_value_bind_foo_to_zero(
+			swvbl1_);
+#endif
+
+	equality_ = stt_where_value_bindings_simple_lists_equality(
+			swvbl0_, swvbl1_);
+	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_where_value_bindings_simple_list_destructor(swvbl0_);
+	stt_where_value_bindings_simple_list_destructor(swvbl1_);
+}
+
+void
+stt_where_value_bindings_simple_list_equality_test_2()
+{
+	stt_where_value_bindings_simple_list * l0_;
+	stt_where_value_bindings_simple_list * l1_;
+	amara_boolean equality_;
+
+	l0_ = stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo();
+	forced_assertion(l0_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo(
+			l0_);
+#endif
+
+	l1_ = stt_where_value_bindings_simple_list_default_constructor();
+	forced_assertion(l1_ != NULL);
+#ifndef NDEBUG
+	assertion(l1_->first == NULL);
+	assertion(l1_->next == NULL);
+#endif
+
+	equality_ = stt_where_value_bindings_simple_lists_equality(l0_, l1_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo(
+			l0_);
+	assertion(l1_->first == NULL);
+	assertion(l1_->next == NULL);
+#endif
+	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_where_value_bindings_simple_list_destructor(l0_);
+	stt_where_value_bindings_simple_list_destructor(l1_);
+}
+
+/**  List with `n` elements not equal to list with `n + 1` elements. */
+void
+stt_where_value_bindings_simple_list_equality_test_3()
+{
+	stt_where_value_bindings_simple_list * l0_;
+	stt_where_value_bindings_simple_list * l1_;
+	amara_boolean equality_;
+
+	l0_ = stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo();
+	forced_assertion(l0_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo(
+			l0_);
+#endif
+
+	l1_ = stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo_and_identifier_bar_is_bound_to_string_literal_bar();
+	forced_assertion(l1_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo_and_identifier_bar_is_bound_to_string_literal_bar(
+			l1_);
+#endif
+
+	equality_ = stt_where_value_bindings_simple_lists_equality(l0_, l1_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo(
+			l0_);
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo_and_identifier_bar_is_bound_to_string_literal_bar(
+			l1_);
+#endif
+	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_where_value_bindings_simple_list_destructor(l0_);
+	stt_where_value_bindings_simple_list_destructor(l1_);
+}
+
+/**  List with `n + 1` elements not equal to list with `n` elements. */
+void
+stt_where_value_bindings_simple_list_equality_test_4()
+{
+	stt_where_value_bindings_simple_list * l0_;
+	stt_where_value_bindings_simple_list * l1_;
+	amara_boolean equality_;
+
+	l0_ = stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo_and_identifier_bar_is_bound_to_string_literal_bar();
+	forced_assertion(l0_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo_and_identifier_bar_is_bound_to_string_literal_bar(
+			l0_);
+#endif
+
+	l1_ = stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo();
+	forced_assertion(l1_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo(
+			l1_);
+#endif
+
+	equality_ = stt_where_value_bindings_simple_lists_equality(l0_, l1_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo_and_identifier_bar_is_bound_to_string_literal_bar(
+			l0_);
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo(
+			l1_);
+#endif
+	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_where_value_bindings_simple_list_destructor(l0_);
+	stt_where_value_bindings_simple_list_destructor(l1_);
+}
+
+/**  If an element in a list is different from another element in the
+ * same index in another list, then the whole two such lists are
+ * different. */
+void
+stt_where_value_bindings_simple_list_equality_test_5()
+{
+	stt_where_value_bindings_simple_list * l0_;
+	stt_where_value_bindings_simple_list * l1_;
+	amara_boolean equality_;
+
+	l0_ = stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo();
+	forced_assertion(l0_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo(
+			l0_);
+#endif
+
+	l1_ = stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo();
+	forced_assertion(l1_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo(
+			l1_);
+#endif
+
+	/*   Perform a manipulation. */
+#ifndef NDEBUG
+	assertion(l1_->first != NULL);
+	assertion(l1_->first->value_name_ != NULL);
+	assertion(l1_->first->value_name_->value_ != NULL);
+	assertion(l1_->first->value_name_->value_[0] == 'f');
+	assertion(l1_->first->value_name_->value_[1] == 'o');
+	assertion(l1_->first->value_name_->value_[2] == 'o');
+	assertion(l1_->first->value_name_->value_[3] == '\0');
+	assertion(l1_->first->value_expression_ != NULL);
+	assertion(l1_->first->value_expression_->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL);
+	assertion(l1_->first->value_expression_->sub_string_literal_ != NULL);
+	assertion(l1_->first->value_expression_->sub_string_literal_->string_literal_ != NULL);
+	assertion(l1_->first->value_expression_->sub_string_literal_->string_literal_->value_[0] == 'f');
+	assertion(l1_->first->value_expression_->sub_string_literal_->string_literal_->value_[1] == 'o');
+	assertion(l1_->first->value_expression_->sub_string_literal_->string_literal_->value_[2] == 'o');
+	assertion(l1_->first->value_expression_->sub_string_literal_->string_literal_->value_[3] == '\0');
+	assertion(l1_->next == NULL);
+#endif
+	l1_->first->value_expression_->sub_string_literal_->string_literal_->value_[2] = 'a';
+
+	equality_ = stt_where_value_bindings_simple_lists_equality(l0_, l1_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo(
+			l0_);
+	/*
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_identifier_foo_is_bound_to_string_literal_foo(
+			l1_);
+	*/
+	assertion(l1_->first != NULL);
+	assertion(l1_->first->value_name_ != NULL);
+	assertion(l1_->first->value_name_->value_ != NULL);
+	assertion(l1_->first->value_name_->value_[0] == 'f');
+	assertion(l1_->first->value_name_->value_[1] == 'o');
+	assertion(l1_->first->value_name_->value_[2] == 'o');
+	assertion(l1_->first->value_name_->value_[3] == '\0');
+	assertion(l1_->first->value_expression_ != NULL);
+	assertion(l1_->first->value_expression_->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL);
+	assertion(l1_->first->value_expression_->sub_string_literal_ != NULL);
+	assertion(l1_->first->value_expression_->sub_string_literal_->string_literal_ != NULL);
+	assertion(l1_->first->value_expression_->sub_string_literal_->string_literal_->value_[0] == 'f');
+	assertion(l1_->first->value_expression_->sub_string_literal_->string_literal_->value_[1] == 'o');
+	assertion(l1_->first->value_expression_->sub_string_literal_->string_literal_->value_[2] == 'a');
+	assertion(l1_->first->value_expression_->sub_string_literal_->string_literal_->value_[3] == '\0');
+	assertion(l1_->next == NULL);
+#endif
+	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_where_value_bindings_simple_list_destructor(l0_);
+	stt_where_value_bindings_simple_list_destructor(l1_);
+}
+
+void
+stt_where_value_bindings_simple_list_equality_tests()
+{
+	stt_where_value_bindings_simple_list_equality_test_0();
+	stt_where_value_bindings_simple_list_equality_test_1();
+	stt_where_value_bindings_simple_list_equality_test_2();
+	stt_where_value_bindings_simple_list_equality_test_3();
+	stt_where_value_bindings_simple_list_equality_test_4();
+	stt_where_value_bindings_simple_list_equality_test_5();
 }
 
 void
 stt_where_value_bindings_simple_list_tests()
 {
 	stt_where_value_bindings_simple_list_constructors_tests();
-	stt_where_value_bindings_simple_list_find_by_value_name_tests();
 	stt_where_value_bindings_simple_list_push_front_tests();
 	stt_where_value_bindings_simple_list_push_back_tests();
+	stt_where_value_bindings_simple_list_find_by_value_name_tests();
+	stt_where_value_bindings_simple_list_equality_tests();
 }

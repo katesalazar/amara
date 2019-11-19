@@ -455,7 +455,9 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		sub_ret_->type_ = RTG_OPERATION_ARG_TYPE_STRING_LITERAL;
 	} else if (operation_arg->node_->type_ == STT_NODE_TYPE_NATURAL_LITERAL) {
 		assert_clean_natural_literal_node(operation_arg->node_);
+		/*
 		fprintf(stderr, "%s:%u: %u\n", __FILE__, __LINE__, operation_arg->node_->type_);
+		*/
 		assertion(operation_arg->node_->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
 		assertion(operation_arg->node_->natural_literal_subnode_ !=
 				NULL);

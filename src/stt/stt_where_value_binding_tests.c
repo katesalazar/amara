@@ -243,6 +243,66 @@ assert_expectations_on_stt_where_value_binding_example_identifier_foo_is_bound_t
 
 #endif
 
+stt_where_value_binding *
+stt_where_value_binding_example_identifier_bar_is_bound_to_string_literal_bar()
+{
+	amara_string * bar_;
+	stt_expression * expression_;
+	stt_where_value_binding * where_binding_;
+#ifndef NDEBUG
+	amara_boolean equality_;
+#endif
+
+	bar_ = amara_string_exhaustive_constructor("bar");
+	forced_assertion(bar_ != NULL);
+	forced_assertion(bar_->value_ != NULL);
+
+	expression_ = stt_expression_example_string_literal_bar();
+	forced_assertion(expression_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_expression_example_string_literal_bar(
+			expression_);
+#endif
+
+	where_binding_ = stt_where_value_binding_exhaustive_constructor(
+			bar_, expression_);
+	forced_assertion(where_binding_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_expression_example_string_literal_bar(
+			expression_);
+	equality_ = amara_strings_equality(bar_, where_binding_->value_name_);
+	assertion(equality_ == AMARA_BOOLEAN_TRUE);
+	assert_expectations_on_stt_expression_example_string_literal_bar(
+			where_binding_->value_expression_);
+#endif
+
+	amara_string_destructor(bar_);
+
+	stt_expression_destructor(expression_);
+
+	return where_binding_;
+}
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_where_value_binding_example_identifier_bar_is_bound_to_string_literal_bar(
+		const stt_where_value_binding * where_value_binding_)
+{
+	assertion(where_value_binding_ != NULL);
+	assertion(where_value_binding_->value_name_ != NULL);
+	assertion(where_value_binding_->value_name_->value_ != NULL);
+	assertion(where_value_binding_->value_name_->value_[0] == 'b');
+	assertion(where_value_binding_->value_name_->value_[1] == 'a');
+	assertion(where_value_binding_->value_name_->value_[2] == 'r');
+	assertion(where_value_binding_->value_name_->value_[3] == '\0');
+	assertion(where_value_binding_->value_expression_ != NULL);
+	assert_expectations_on_stt_expression_example_string_literal_bar(
+			where_value_binding_->value_expression_);
+}
+
+#endif
+
 void
 stt_where_value_binding_default_constructor_test()
 {
@@ -322,7 +382,81 @@ stt_where_value_binding_constructors_tests()
 }
 
 void
+stt_where_value_binding_equality_test_0()
+{
+	stt_where_value_binding * wvb0_;
+	stt_where_value_binding * wvb1_;
+	amara_boolean equality_;
+
+	wvb0_ = stt_where_value_binding_example_simple_value_bind_foo_to_zero();
+	forced_assertion(wvb0_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_binding_example_simple_value_bind_foo_to_zero(
+			wvb0_);
+#endif
+
+	wvb1_ = stt_where_value_binding_example_simple_value_bind_foo_to_zero();
+	forced_assertion(wvb1_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_binding_example_simple_value_bind_foo_to_zero(
+			wvb1_);
+#endif
+
+	equality_ = stt_where_value_bindings_equality(wvb0_, wvb1_);
+	forced_assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
+	stt_where_value_binding_destructor(wvb0_);
+	stt_where_value_binding_destructor(wvb1_);
+}
+
+void
+stt_where_value_binding_equality_test_1()
+{
+	stt_where_value_binding * wvb0_;
+	stt_where_value_binding * wvb1_;
+	amara_boolean equality_;
+
+	wvb0_ = stt_where_value_binding_example_simple_value_bind_foo_to_zero();
+	forced_assertion(wvb0_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_binding_example_simple_value_bind_foo_to_zero(
+			wvb0_);
+#endif
+
+	wvb1_ = stt_where_value_binding_example_simple_value_bind_foo_to_zero();
+	forced_assertion(wvb1_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_where_value_binding_example_simple_value_bind_foo_to_zero(
+			wvb1_);
+#endif
+
+	forced_assertion(wvb1_->value_name_ != NULL);
+	forced_assertion(wvb1_->value_name_->value_ != NULL);
+	forced_assertion(wvb1_->value_name_->value_[0] == 'f');
+	forced_assertion(wvb1_->value_name_->value_[1] == 'o');
+	forced_assertion(wvb1_->value_name_->value_[2] == 'o');
+	forced_assertion(wvb1_->value_name_->value_[3] == '\0');
+	wvb1_->value_name_->value_[0] = 'b';
+	wvb1_->value_name_->value_[1] = 'a';
+	wvb1_->value_name_->value_[2] = 'r';
+
+	equality_ = stt_where_value_bindings_equality(wvb0_, wvb1_);
+	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_where_value_binding_destructor(wvb0_);
+	stt_where_value_binding_destructor(wvb1_);
+}
+
+void
+stt_where_value_binding_equality_tests()
+{
+	stt_where_value_binding_equality_test_0();
+	stt_where_value_binding_equality_test_1();
+}
+
+void
 stt_where_value_binding_tests()
 {
 	stt_where_value_binding_constructors_tests();
+	stt_where_value_binding_equality_tests();
 }

@@ -181,23 +181,16 @@ stt_where_value_bindings_simple_list_push_back(
 		stt_where_value_bindings_simple_list * list,
 		const stt_where_value_binding * addition)
 {
-	/*
 	stt_where_value_bindings_simple_list * ptr_;
-	*/
 
 	assertion(list != NULL);
 	assertion(addition != NULL);
 
-	forced_assertion(list->first == NULL);
-
-	/*
 	if (list->first == NULL) {
-	*/
 
 		assertion(list->next == NULL);
 		list->first = stt_where_value_binding_copy_constructor(
 				addition);
-	/*
 	} else {
 
 		ptr_ = list;
@@ -210,7 +203,6 @@ stt_where_value_bindings_simple_list_push_back(
 				addition);
 		ptr_->next->next = NULL;
 	}
-	*/
 }
 
 /**  Returns a pointer **without** ownership, or `NULL` if not found. */
@@ -359,4 +351,12 @@ stt_where_value_bindings_simple_list_equality(
 		return stt_where_value_bindings_simple_list_equality_inner(
 				l0, l1);
 	}
+}
+
+amara_boolean
+stt_where_value_bindings_simple_lists_equality(
+		const stt_where_value_bindings_simple_list * l0,
+		const stt_where_value_bindings_simple_list * l1)
+{
+	return stt_where_value_bindings_simple_list_equality(l0, l1);
 }

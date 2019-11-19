@@ -126,8 +126,10 @@ rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list(
 	rtg_named_function * application_entry_point_function_;
 	rtg_named_functions_simple_list_find_by_name_ret * find_entry_point_rtg_named_function_ret_;
 
+	/*
 	fprintf(stderr, "----> rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret * rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list(const stt_application *, const rtg_named_functions_simple_list *) (%s:%u)\n",
 			__FILE__, __LINE__);
+	*/
 
 	ret_ =
 #ifdef AMARA_USE_STD_CXX98
@@ -196,8 +198,10 @@ rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list(
 	ret_->application->type_ = application->type_;
 	ret_->status = RTG_APPLICATION_OUT_OF_STT_APPLICATION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
 
+	/*
 	fprintf(stderr, "<---- rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_ret * rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list(const stt_application *, const rtg_named_functions_simple_list *) (%s:%u)\n",
 			__FILE__, __LINE__);
+	*/
 
 	return ret_;
 }

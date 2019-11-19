@@ -591,11 +591,86 @@ stt_operation_constructors_tests()
 	/*
 	stt_operation_construct_and_destruct_test_1();
 	*/
-	stt_operation_destructor_tests();
+}
+
+/**  If operation type is the same, but arguments are different, then
+ * the operations are different. */
+void
+stt_operation_equality_test_0()
+{
+	stt_operation * o0_;
+	stt_operation * o1_;
+	amara_boolean equality_;
+
+	o0_ = stt_operation_example_print_string_literal_foo();
+	forced_assertion(o0_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_example_print_string_literal_foo(
+			o0_);
+#endif
+
+	o1_ = stt_operation_example_print_identifier_foo();
+	forced_assertion(o1_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_example_print_identifier_foo(o1_);
+#endif
+
+	equality_ = stt_operations_equality(o0_, o1_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_example_print_string_literal_foo(
+			o0_);
+	assert_expectations_on_stt_operation_example_print_identifier_foo(o1_);
+#endif
+	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_operation_destructor(o0_);
+	stt_operation_destructor(o1_);
+}
+
+/**  If operation type is different, then the operations are different. */
+void
+stt_operation_equality_test_1()
+{
+	stt_operation * o0_;
+	stt_operation * o1_;
+	amara_boolean equality_;
+
+	o0_ = stt_operation_example_read_natural_into_foo();
+	forced_assertion(o0_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_example_read_natural_into_foo(
+			o0_);
+#endif
+
+	o1_ = stt_operation_example_print_identifier_foo();
+	forced_assertion(o1_ != NULL);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_example_print_identifier_foo(o1_);
+#endif
+
+	equality_ = stt_operations_equality(o0_, o1_);
+#ifndef NDEBUG
+	assert_expectations_on_stt_operation_example_read_natural_into_foo(
+			o0_);
+	assert_expectations_on_stt_operation_example_print_identifier_foo(o1_);
+#endif
+	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_operation_destructor(o0_);
+	stt_operation_destructor(o1_);
+}
+
+void
+stt_operation_equality_tests()
+{
+	stt_operation_equality_test_0();
+	stt_operation_equality_test_1();
 }
 
 void
 stt_operation_tests()
 {
 	stt_operation_constructors_tests();
+	stt_operation_destructor_tests();
+	stt_operation_equality_tests();
 }

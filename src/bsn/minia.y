@@ -71,6 +71,11 @@ extern FILE * miniain;
 void yyerror(stt_node * syntax_tree, const char * s);
 
 #ifdef TRACE_BISON
+#undef TRACE_BISON
+#endif
+/* #define TRACE_BISON */
+
+#ifdef TRACE_BISON
 #define TRACE_BISON_CONSTANT_VALUE 0xFF
 #else
 #define TRACE_BISON_CONSTANT_VALUE 0x00
@@ -141,9 +146,7 @@ b_trace_unsigned_char(unsigned char value)
 %left T_MINUS
 %left T_TIMES T_DIVIDED T_BY
 
-%token T_LEFT_PARENS
-%token T_RIGHT_PARENS
-
+%type<node> ignored
 %type<node> condition
 %type<node> expression
 %type<node> function_where_clause
@@ -169,34 +172,10 @@ b_trace_unsigned_char(unsigned char value)
 document :
   named_functions_and_applications_and_execution_requests
 {
-  b_trace_chars_array("doc : fns_and_apps_defs_and_exectn_reqs\n");
-  assertion_two($1 != NULL, "`fns_and_apps_defs_and_exectn_reqs` unexpectedly NULL");
-  assertion_two($1->type_ == STT_NODE_TYPE_DOC_FRAGMENT,
-      "unexpected type of `fns_and_apps_defs_and_exectn_reqs`");
-  assertion_two($1->doc_subnode_ != NULL,
-      "`fns_and_apps_defs_and_exectn_reqs->doc` unexpectedly NULL");
-  syntax_tree->type_ = STT_NODE_TYPE_DOC;
-  syntax_tree->doc_subnode_ = $1->doc_subnode_;
-
-  if (syntax_tree->doc_subnode_->named_functions_ == NULL) {
-
-    syntax_tree->doc_subnode_->named_functions_ =
-        stt_named_functions_simple_list_default_constructor();
-  }
-
-  if (syntax_tree->doc_subnode_->applications_ == NULL) {
-
-    syntax_tree->doc_subnode_->applications_ =
-        stt_applications_simple_list_default_constructor();
-  }
-
-  if (syntax_tree->doc_subnode_->execution_requests_ == NULL) {
-
-    syntax_tree->doc_subnode_->execution_requests_ =
-        stt_execution_requests_simple_list_default_constructor();
-  }
-
-  free($1);
+  b_trace_chars_array("document : named_functions_and_applications_and_execution_requests\n");
+  syntax_tree = document_out_of_named_functions_and_applications_and_execution_requests(
+      syntax_tree, $1);
+  forced_assertion(syntax_tree != NULL);
 }
 ;
 
@@ -253,9 +232,18 @@ named_functions_and_applications_and_execution_requests :
     free($1);
   }
 }
-|
+| ignored
 {
-  b_trace_chars_array("fns_and_apps_defs_and_exectn_reqs : NOTHING\n");
+  b_trace_chars_array("fns_and_apps_defs_and_exectn_reqs : ignored\n");
+  $$ = named_functions_and_applications_and_execution_requests_out_of_ignored();
+  forced_assertion($$ != NULL);
+}
+;
+
+ignored :
+
+{
+  b_trace_chars_array("ignored : NOTHING\n");
   $$ = NULL;
 }
 ;
@@ -285,7 +273,9 @@ cli_application :
   if ($2->type_ != STT_NODE_TYPE_IDENTIFIER) {
 
 #ifdef DUMP_FLOW_TO_STDERR
+    /*
     fprintf(stderr, "%s:%u - $2->type: %u\n", __FILE__, __LINE__, $2->type_);
+    */
 #endif
   }
   assertion($2->type_ == STT_NODE_TYPE_IDENTIFIER);
@@ -349,7 +339,9 @@ cli_named_function :
   if ($2->type_ != STT_NODE_TYPE_IDENTIFIER) {
 
 #ifdef DUMP_FLOW_TO_STDERR
+    /*
     fprintf(stderr, "%s:%u - $2->type_: %u\n", __FILE__, __LINE__, $2->type_);
+    */
 #endif
   }
   assertion($2->type_ == STT_NODE_TYPE_IDENTIFIER);
@@ -372,7 +364,9 @@ cli_named_function :
   if ($17->type_ != STT_NODE_TYPE_CLI_OPERATIONS_LIST) {
 
 #ifdef DUMP_FLOW_TO_STDERR
+    /*
     fprintf(stderr, "$17->type_: %u\n", $17->type_);
+    */
 #endif
   }
   assertion_two($17->type_ == STT_NODE_TYPE_CLI_OPERATIONS_LIST,
@@ -681,7 +675,9 @@ expression :
   if ($4->type_ != STT_NODE_TYPE_EXPRESSION) {
 
 #ifdef DUMP_FLOW_TO_STDERR
+    /*
     fprintf(stderr, "%u\n", $4->type_);
+    */
 #endif
   }
   assertion($4->type_ == STT_NODE_TYPE_EXPRESSION);
@@ -837,41 +833,69 @@ expression :
 
   b_trace_chars_array("expression : T_IDENTIFIER\n");
   assertion_two($1->type_ == STT_NODE_TYPE_IDENTIFIER, "888");
+  /*
   fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+  */
   assert_clean_identifier_node($1);
+  /*
   fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+  */
 
+  /*
   fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+  */
   expression_ = stt_expression_default_constructor();
   forced_assertion_two(expression_ != NULL, "892");
   forced_assertion_two(expression_->type_ == STT_EXPRESSION_TYPE_INVALID,
                        "896");
+  /*
   fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+  */
 
+  /*
   fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+  */
   assertion_two($1->identifier_subnode_ != NULL, "894");
+  /*
   fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+  */
   assertion_two($1->identifier_subnode_->value_ != NULL, "895");
+  /*
   fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+  */
   stt_expression_set_identifier(expression_, $1->identifier_subnode_->value_);
   forced_assertion_two(expression_->type_ == STT_EXPRESSION_TYPE_IDENTIFIER,
                        "907");
   forced_assertion_two(expression_->sub_identifier_ != NULL,
                        "909");
+  /*
   fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+  */
 
+  /*
   fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+  */
   $$ = stt_node_default_constructor();
   forced_assertion_two($$ != NULL, "899");
+  /*
   fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+  */
 
+  /*
   fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+  */
   stt_node_set_expression($$, expression_);
+  /*
   fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+  */
 
+  /*
   fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+  */
   stt_expression_destructor(expression_);
+  /*
   fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
+  */
 }
 /*
 | T_LEFT_PARENS expression T_RIGHT_PARENS
@@ -1348,6 +1372,11 @@ condition :
 
 %%
 
+#ifdef NO_LOOPED_MINIAPARSE
+#undef NO_LOOPED_MINIAPARSE
+#endif
+/* #define NO_LOOPED_MINIAPARSE */
+
 stt_node *
 minia_bison_main(FILE * file)
 {
@@ -1359,9 +1388,15 @@ minia_bison_main(FILE * file)
   stt_node * returning_; /* XXX */
   miniain = file;
   shared_with_miniaparse_ = stt_node_default_constructor();
+
+#ifdef NO_LOOPED_YYPARSE
+  miniaparse_ret_ = miniaparse(shared_with_miniaparse_);
+#else
         do {
     miniaparse_ret_ = miniaparse(shared_with_miniaparse_);
         } while (!feof(miniain));
+#endif
+
   if (miniaparse_ret_ == miniaparse_ret_success_) {
     if (shared_with_miniaparse_->type_ != STT_NODE_TYPE_DOC) {
 
@@ -1370,14 +1405,20 @@ minia_bison_main(FILE * file)
           shared_with_miniaparse_->type_);
 #endif
     }
+    returning_ = stt_node_default_constructor();  /* XXX */
+    returning_->type_ = shared_with_miniaparse_->type_; /* XXX */
+    /*
+    if (shared_with_miniaparse_->type_ == STT_NODE_TYPE_DOC) {
+    */
     assertion_two(
         shared_with_miniaparse_->type_ == STT_NODE_TYPE_DOC,
         "unexpected type of `shared_with_miniaparse_->type_`");
     assertion_two(shared_with_miniaparse_->doc_subnode_ != NULL,
         "`shared_with_miniaparse_->doc_subnode_` unexpectedly set `NULL`");
-    returning_ = stt_node_default_constructor();  /* XXX */
-    returning_->type_ = shared_with_miniaparse_->type_; /* XXX */
     returning_->doc_subnode_ = shared_with_miniaparse_->doc_subnode_; /* XXX */
+    /*
+    }
+    */
     free(shared_with_miniaparse_); /* XXX */
     return returning_; /* XXX */
   } else if (miniaparse_ret_ ==
@@ -1401,3 +1442,27 @@ yyerror(stt_node * syntax_tree, const char * msg)
   }
         exit(1);
 }
+
+/*
+void amara_destroy_flex_buffer();
+*/
+
+/*
+int
+miniawrap()
+{
+*/
+  /* reset lines counter to zero? */
+
+  /*   Mainly because of a need of the non-reentrant C scanner. See:
+   * http://westes.github.io/flex/manual/Memory-leak-_002d-16386-bytes-allocated-by-malloc_002e.html#Memory-leak-_002d-16386-bytes-allocated-by-malloc_002e
+   */
+  /*   FIXME Maybe this has to be run once before exiting. */
+  /*
+  amara_destroy_flex_buffer();
+  */
+
+/*
+  return 1;
+}
+*/

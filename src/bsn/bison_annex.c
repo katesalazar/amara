@@ -20,6 +20,68 @@
 #include "bison_annex.h"
 
 stt_node *
+document_out_of_named_functions_and_applications_and_execution_requests(
+		stt_node * syntax_tree,
+		stt_node * named_functions_and_applications_and_execution_requests)
+{
+	stt_node * returning_;
+
+#ifndef NDEBUG
+	assertion(syntax_tree != NULL);
+	assertion(named_functions_and_applications_and_execution_requests !=
+			NULL);
+#endif
+
+	returning_ = syntax_tree;
+
+  /*
+  if ($1 == NULL) {
+
+    returning_->type_ = STT_NODE_TYPE_INVALID;
+  } else {
+  */
+
+  assertion_two(named_functions_and_applications_and_execution_requests != NULL,
+			"`fns_and_apps_defs_and_exectn_reqs` unexpectedly NULL");
+  assertion_two(
+			named_functions_and_applications_and_execution_requests->type_ ==
+					STT_NODE_TYPE_DOC_FRAGMENT,
+      "unexpected type of `fns_and_apps_defs_and_exectn_reqs`");
+  assertion_two(
+			named_functions_and_applications_and_execution_requests->doc_subnode_ !=
+					NULL,
+      "`fns_and_apps_defs_and_exectn_reqs->doc` unexpectedly NULL");
+  returning_->type_ = STT_NODE_TYPE_DOC;
+  returning_->doc_subnode_ = named_functions_and_applications_and_execution_requests->doc_subnode_;
+
+  if (returning_->doc_subnode_->named_functions_ == NULL) {
+
+    returning_->doc_subnode_->named_functions_ =
+        stt_named_functions_simple_list_default_constructor();
+  }
+
+  if (returning_->doc_subnode_->applications_ == NULL) {
+
+    returning_->doc_subnode_->applications_ =
+        stt_applications_simple_list_default_constructor();
+  }
+
+  if (returning_->doc_subnode_->execution_requests_ == NULL) {
+
+    returning_->doc_subnode_->execution_requests_ =
+        stt_execution_requests_simple_list_default_constructor();
+  }
+
+  free(named_functions_and_applications_and_execution_requests);
+
+  /*
+  }
+  */
+
+  return returning_;
+}
+
+stt_node *
 named_functions_and_applications_and_execution_requests_out_of_named_function_and_named_functions_and_applications_and_execution_requests(
 		stt_node * named_function,
 		stt_node * named_functions_and_applications_and_execution_requests)
@@ -72,12 +134,37 @@ named_functions_and_applications_and_execution_requests_out_of_named_function_an
 }
 
 stt_node *
+named_functions_and_applications_and_execution_requests_out_of_ignored()
+{
+	stt_node * returning_;
+	stt_doc_subnode * doc_subnode_;
+
+	returning_ = stt_node_default_constructor();
+	forced_assertion(returning_ != NULL);
+
+	doc_subnode_ = stt_doc_subnode_default_constructor();
+	forced_assertion(doc_subnode_ != NULL);
+
+	stt_node_set_doc_fragment(returning_, doc_subnode_);
+#ifndef NDEBUG
+	assertion(returning_->type_ == STT_NODE_TYPE_DOC_FRAGMENT);
+	assertion(returning_->doc_subnode_ != NULL);
+#endif
+
+	stt_doc_subnode_destructor(doc_subnode_);
+
+	return returning_;
+}
+
+stt_node *
 function_statement_out_of_token_print_and_expression(stt_node * expression)
 {
 	stt_node * returning_;
 
 #ifdef DUMP_FLOW_TO_STDERR
+	/*
 	fprintf(stderr, "%u\n", $2->type_);
+	*/
 #endif
 
 #ifndef NDEBUG

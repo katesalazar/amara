@@ -323,3 +323,11 @@ stt_operation_args_simple_list_equality(
 	return AMARA_BOOLEAN_TRUE;
 	*/
 }
+
+amara_boolean
+stt_operation_args_simple_lists_equality(
+		const stt_operation_args_simple_list * l0,
+		const stt_operation_args_simple_list * l1)
+{
+	return stt_operation_args_simple_list_equality(l0, l1);
+}

@@ -709,7 +709,7 @@ stt_expression_equality_test_0()
 	e1_ = stt_expression_example_natural_zero();
 	forced_assertion(e1_ != NULL);
 
-	equality_ = stt_expression_equality(e0_, e1_);
+	equality_ = stt_expressions_equality(e0_, e1_);
 	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
 
 	stt_expression_destructor(e0_);
@@ -729,8 +729,68 @@ stt_expression_equality_test_1()
 	e1_ = stt_expression_example_string_literal_bar();
 	forced_assertion(e1_ != NULL);
 
-	equality_ = stt_expression_equality(e0_, e1_);
+	equality_ = stt_expressions_equality(e0_, e1_);
 	forced_assertion(equality_ == AMARA_BOOLEAN_FALSE);
+
+	stt_expression_destructor(e0_);
+	stt_expression_destructor(e1_);
+}
+
+void
+stt_expression_equality_test_2()
+{
+	stt_expression * e0_;
+	stt_expression * e1_;
+	amara_boolean equality_;
+
+	e0_ = stt_expression_example_identifier_foo();
+	forced_assertion(e0_ != NULL);
+
+	e1_ = stt_expression_example_identifier_foo();
+	forced_assertion(e1_ != NULL);
+
+	equality_ = stt_expressions_equality(e0_, e1_);
+	forced_assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
+	stt_expression_destructor(e0_);
+	stt_expression_destructor(e1_);
+}
+
+void
+stt_expression_equality_test_3()
+{
+	stt_expression * e0_;
+	stt_expression * e1_;
+	amara_boolean equality_;
+
+	e0_ = stt_expression_example_simple_conditional();
+	forced_assertion(e0_ != NULL);
+
+	e1_ = stt_expression_example_simple_conditional();
+	forced_assertion(e1_ != NULL);
+
+	equality_ = stt_expressions_equality(e0_, e1_);
+	forced_assertion(equality_ == AMARA_BOOLEAN_TRUE);
+
+	stt_expression_destructor(e0_);
+	stt_expression_destructor(e1_);
+}
+
+void
+stt_expression_equality_test_4()
+{
+	stt_expression * e0_;
+	stt_expression * e1_;
+	amara_boolean equality_;
+
+	e0_ = stt_expression_example_single_vanilla_dice();
+	forced_assertion(e0_ != NULL);
+
+	e1_ = stt_expression_example_single_vanilla_dice();
+	forced_assertion(e1_ != NULL);
+
+	equality_ = stt_expressions_equality(e0_, e1_);
+	forced_assertion(equality_ == AMARA_BOOLEAN_TRUE);
 
 	stt_expression_destructor(e0_);
 	stt_expression_destructor(e1_);
@@ -741,6 +801,9 @@ stt_expression_equality_tests()
 {
 	stt_expression_equality_test_0();
 	stt_expression_equality_test_1();
+	stt_expression_equality_test_2();
+	stt_expression_equality_test_3();
+	stt_expression_equality_test_4();
 }
 
 #ifndef NDEBUG
