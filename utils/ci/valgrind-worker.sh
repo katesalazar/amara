@@ -99,6 +99,6 @@ do
 	done
 	git checkout ci
 	date
-	echo 'sleeping 3600'
-	sleep 3600
+	echo 'sleeping 7200'
+	sleep 7200
 done
