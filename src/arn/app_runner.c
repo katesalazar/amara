@@ -881,10 +881,8 @@ run_operation(const rtg_operation * operation,
 			assertion(expression_evaluated_value_->string_->value_ !=
 					NULL);
 #endif
-			/*
 			printf("%s",
 			       expression_evaluated_value_->string_->value_);
-			*/
 			} else {
 				forced_assertion_two(expression_evaluated_value_->type_ == ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL,
 						"unexpected behavior, app_runner.c: 761");
@@ -897,10 +895,8 @@ run_operation(const rtg_operation * operation,
 				assertion_two(expression_evaluated_value_->natural_->raw_->value_ != NULL,
 						"app_runner.c: 766");
 #endif
-				/*
 				printf("%s",
 				       expression_evaluated_value_->natural_->raw_->value_);
-				*/
 			}
 		}
 		forced_assertion(operation->type_ == RTG_OPERATION_TYPE_PRINT);

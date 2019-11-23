@@ -19,19 +19,22 @@
 #ifndef __AMARA__SYNTAX_TREE__CONDITION_TESTS__H__
 #define __AMARA__SYNTAX_TREE__CONDITION_TESTS__H__
 
+#include "../definitions.h"
+
 /*   For `stt_condition`. */
 #include "stt_condition.h"
 
-/**  `0 less than 1`. */
+/**  `0 < 1` (zero less than one), which is a simple true _less than_
+ * condition. */
 stt_condition *
-stt_condition_example_simple_condition(void)
+stt_condition_example_simple_lt_true_condition(void)
 __attribute__((warn_unused_result))
 ;
 
 #ifndef NDEBUG
 
 void
-assert_expectations_on_stt_condition_example_simple_condition(
+assert_expectations_on_stt_condition_example_simple_lt_true_condition(
 		const stt_condition * condition)
 ;
 
@@ -52,7 +55,23 @@ assert_expectations_on_stt_condition_example_simple_true_condition(
 
 #endif
 
-/**  A simple true condition. */
+/**  A simple condition. */
+stt_condition *
+stt_condition_example_simple_condition(void)
+__amara__warn_unused_result__
+;
+
+#ifndef NDEBUG
+
+/**  A simple condition. */
+void
+assert_expectations_on_stt_condition_example_simple_condition(
+		const stt_condition * condition)
+;
+
+#endif
+
+/** `0 < 0`, which is a false condition. */
 stt_condition *
 stt_condition_example_simple_false_condition(void)
 __attribute__((warn_unused_result))
@@ -62,21 +81,6 @@ __attribute__((warn_unused_result))
 
 void
 assert_expectations_on_stt_condition_example_simple_false_condition(
-		const stt_condition * condition)
-;
-
-#endif
-
-/**  A simple _less than_ true condition. */
-stt_condition *
-stt_condition_example_simple_lt_true_condition(void)
-__attribute__((warn_unused_result))
-;
-
-#ifndef NDEBUG
-
-void
-assert_expectations_on_stt_condition_example_simple_lt_true_condition(
 		const stt_condition * condition)
 ;
 
