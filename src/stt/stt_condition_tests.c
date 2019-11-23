@@ -25,9 +25,8 @@
 /*   For owned functions prototypes. */
 #include "stt_condition_tests.h"
 
-/** `0 < 1`, which is a true condition. */
 stt_condition *
-stt_condition_example_simple_condition()
+stt_condition_example_simple_lt_true_condition(void)
 {
 	stt_expression * left_hand_side_expression_;
 	stt_expression * right_hand_side_expression_;
@@ -78,7 +77,7 @@ stt_condition_example_simple_condition()
 #ifndef NDEBUG
 
 void
-assert_expectations_on_stt_condition_example_simple_condition(
+assert_expectations_on_stt_condition_example_simple_lt_true_condition(
 		const stt_condition * condition)
 {
 	assertion(condition != NULL);
@@ -93,12 +92,10 @@ assert_expectations_on_stt_condition_example_simple_condition(
 
 #endif
 
-/**  A simple true condition. */
 stt_condition *
 stt_condition_example_simple_true_condition(void)
 {
-	/*   TODO: Must reverse. */
-	return stt_condition_example_simple_condition();
+	return stt_condition_example_simple_lt_true_condition();
 }
 
 #ifndef NDEBUG
@@ -107,14 +104,30 @@ void
 assert_expectations_on_stt_condition_example_simple_true_condition(
 		const stt_condition * condition)
 {
-	/*   TODO: Must reverse. */
-	assert_expectations_on_stt_condition_example_simple_condition(
+	assert_expectations_on_stt_condition_example_simple_lt_true_condition(
 			condition);
 }
 
 #endif
 
-/** `0 < 0`, which is a false condition. */
+stt_condition *
+stt_condition_example_simple_condition(void)
+{
+	return stt_condition_example_simple_true_condition();
+}
+
+#ifndef NDEBUG
+
+void
+assert_expectations_on_stt_condition_example_simple_condition(
+		const stt_condition * condition)
+{
+	assert_expectations_on_stt_condition_example_simple_true_condition(
+			condition);
+}
+
+#endif
+
 stt_condition *
 stt_condition_example_simple_false_condition(void)
 {
@@ -178,26 +191,6 @@ assert_expectations_on_stt_condition_example_simple_false_condition(
 	assertion(condition->right_hand_side_expression_ != NULL);
 	assert_expectations_on_stt_expression_example_natural_zero(
 			condition->right_hand_side_expression_);
-}
-
-#endif
-
-stt_condition *
-stt_condition_example_simple_lt_true_condition(void)
-{
-	/*   TODO: Must reverse. */
-	return stt_condition_example_simple_true_condition();
-}
-
-#ifndef NDEBUG
-
-void
-assert_expectations_on_stt_condition_example_simple_lt_true_condition(
-		const stt_condition * condition)
-{
-	/*   TODO: Must reverse. */
-	assert_expectations_on_stt_condition_example_simple_true_condition(
-			condition);
 }
 
 #endif
@@ -347,7 +340,34 @@ stt_condition_create_and_destroy_examples()
 }
 
 void
+stt_condition_equality_test_0()
+{
+	stt_condition * condition_zero_;
+	stt_condition * condition_one_;
+	amara_boolean result_;
+
+	condition_zero_ = stt_condition_example_simple_gt_true_condition();
+	forced_assertion(condition_zero_ != NULL);
+
+	condition_one_ = stt_condition_example_simple_gt_true_condition();
+	forced_assertion(condition_one_ != NULL);
+
+	result_ = stt_conditions_equality(condition_zero_, condition_one_);
+	forced_assertion(result_ == AMARA_BOOLEAN_TRUE);
+
+	stt_condition_destructor(condition_zero_);
+	stt_condition_destructor(condition_one_);
+}
+
+void
+stt_condition_equality_tests()
+{
+	stt_condition_equality_test_0();
+}
+
+void
 stt_condition_tests()
 {
 	stt_condition_create_and_destroy_examples();
+	stt_condition_equality_tests();
 }
