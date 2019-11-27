@@ -49,6 +49,8 @@ do
 		fi
 #		rm "${binary}" || break
 		make all || continue
+		echo '' >valgrind_report
+		date 2>&1 >>valgrind_report
 		valgrind \
 				--leak-check=full \
 				--show-leak-kinds=all \
@@ -56,13 +58,16 @@ do
 				"${binary}"\
 				run tests \
 				2>&1 | \
-				nl -b a >valgrind_report || ( \
+				nl -b a >>valgrind_report || ( \
 				echo 'valgrind returned bad' && \
 				continue)
+		date 2>&1 >>valgrind_report
 		mv \
 				./valgrind_report \
 				/var/www/html/valgrind/amara/${branch}/valgrind_report || ( \
 				echo 'mv returned bad' && continue)
+		echo '' >valgrind_verbose_report
+		date 2>&1 >>valgrind_verbose_report
 		valgrind \
 				--leak-check=full \
 				--show-leak-kinds=all \
@@ -71,13 +76,16 @@ do
 				"${binary}"\
 				run tests \
 				2>&1 | \
-				nl -b a >valgrind_verbose_report || ( \
+				nl -b a >>valgrind_verbose_report || ( \
 				echo 'valgrind returned bad' && \
 				continue)
+		date 2>&1 >>valgrind_verbose_report
 		mv \
 				./valgrind_verbose_report \
 				/var/www/html/valgrind/amara/${branch}/valgrind_verbose_report || ( \
 				echo 'mv returned bad' && continue)
+		echo '' >valgrind_doubly_verbose_report
+		date 2>&1 >>valgrind_doubly_verbose_report
 		valgrind \
 				--leak-check=full \
 				--show-leak-kinds=all \
@@ -86,9 +94,10 @@ do
 				"${binary}"\
 				run tests \
 				2>&1 | \
-				nl -b a >valgrind_doubly_verbose_report || ( \
+				nl -b a >>valgrind_doubly_verbose_report || ( \
 				echo 'valgrind returned bad' && \
 				continue)
+		date 2>&1 >>valgrind_doubly_verbose_report
 		mv \
 				./valgrind_doubly_verbose_report \
 				/var/www/html/valgrind/amara/${branch}/valgrind_doubly_verbose_report || ( \
