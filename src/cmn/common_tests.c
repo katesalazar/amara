@@ -53,9 +53,13 @@ char_arrays_concatenation_test_0()
 {
 	const char * zero_ = "";
 	const char * one_ = "";
-	const char * concat_ = concatenate_two_char_arrays(zero_, one_);
+	const char * concat_;
+
+	fprintf(stderr, "will run test 0..."),
+	concat_ = concatenate_two_char_arrays(zero_, one_);
 	assertion(!strcmp(concat_, ""));
 	free((char *) concat_);
+	fprintf(stderr, " done\n");
 }
 
 void
@@ -63,9 +67,13 @@ char_arrays_concatenation_test_1()
 {
 	const char * zero_ = "foo";
 	const char * one_ = "";
-	const char * concat_ = concatenate_two_char_arrays(zero_, one_);
+	const char * concat_;
+
+	fprintf(stderr, "will run test 1..."),
+	concat_ = concatenate_two_char_arrays(zero_, one_);
 	assertion(!strcmp(concat_, zero_));
 	free((char *) concat_);
+	fprintf(stderr, " done\n");
 }
 
 void
@@ -73,9 +81,13 @@ char_arrays_concatenation_test_2()
 {
 	const char * zero_ = "";
 	const char * one_ = "bar";
-	const char * concat_ = concatenate_two_char_arrays(zero_, one_);
+	const char * concat_;
+
+	fprintf(stderr, "will run test 2..."),
+	concat_ = concatenate_two_char_arrays(zero_, one_);
 	assertion(!strcmp(concat_, one_));
 	free((char *) concat_);
+	fprintf(stderr, " done\n");
 }
 
 void
@@ -83,11 +95,16 @@ char_arrays_concatenation_test_3()
 {
 	const char * zero_ = "foo";
 	const char * one_ = "bar";
-	const char * concat_ = concatenate_two_char_arrays(zero_, one_);
-	const int strcmp_ret_ = strcmp(concat_, "foobar");
-	fprintf(stderr, "%s\n", concat_);
+	const char * concat_;
+	int strcmp_ret_;
+
+	fprintf(stderr, "will run test 3...");
+	concat_ = concatenate_two_char_arrays(zero_, one_);
+	strcmp_ret_ = strcmp(concat_, "foobar");
+	/* fprintf(stderr, "%s\n", concat_); */
 	assertion(!strcmp_ret_);
 	free((char *) concat_);
+	fprintf(stderr, " done\n");
 }
 
 void
@@ -102,8 +119,13 @@ char_arrays_concatenation_test_4()
 0123456789012345678901234567890123456789\
 01234567890123";
 	const char * one_ = "";
-	const char * concat_ = concatenate_two_char_arrays(zero_, one_);
-	const char * expectation_ = "\
+	const char * concat_;
+	const char * expectation_;
+	int strcmp_ret_;
+
+	fprintf(stderr, "will run test 4...");
+	concat_ = concatenate_two_char_arrays(zero_, one_);
+	expectation_ = "\
 0123456789012345678901234567890123456789\
 0123456789012345678901234567890123456789\
 0123456789012345678901234567890123456789\
@@ -111,12 +133,13 @@ char_arrays_concatenation_test_4()
 0123456789012345678901234567890123456789\
 0123456789012345678901234567890123456789\
 01234567890123"; /* FIXME ??? */
-	const int strcmp_ret_ = strcmp(concat_, expectation_);
-	fprintf(stderr, "%s\n", zero_);
+	strcmp_ret_ = strcmp(concat_, expectation_);
+	/* fprintf(stderr, "%s\n", zero_);
 	fprintf(stderr, "%s\n", one_);
-	fprintf(stderr, "%s\n", concat_);
+	fprintf(stderr, "%s\n", concat_); */
 	assertion(!strcmp_ret_);
 	free((char *) concat_);
+	fprintf(stderr, " done\n");
 }
 
 void
@@ -131,8 +154,12 @@ char_arrays_concatenation_test_5()
 0123456789012345678901234567890123456789\
 0123456789012345678901234567890123456789\
 01234567890123";
-	const char * concat_ = concatenate_two_char_arrays(zero_, one_);
-	const char * expectation_ = "\
+	const char * concat_;
+	const char * expectation_;
+	int strcmp_ret_;
+
+	fprintf(stderr, "will run test 5...");
+	expectation_ = "\
 0123456789012345678901234567890123456789\
 0123456789012345678901234567890123456789\
 0123456789012345678901234567890123456789\
@@ -140,12 +167,14 @@ char_arrays_concatenation_test_5()
 0123456789012345678901234567890123456789\
 0123456789012345678901234567890123456789\
 01234567890123"; /* FIXME ??? */
-	const int strcmp_ret_ = strcmp(concat_, expectation_);
-	fprintf(stderr, "%s\n", zero_);
+	concat_ = concatenate_two_char_arrays(zero_, one_);
+	strcmp_ret_ = strcmp(concat_, expectation_);
+	/* fprintf(stderr, "%s\n", zero_);
 	fprintf(stderr, "%s\n", one_);
-	fprintf(stderr, "%s\n", concat_);
+	fprintf(stderr, "%s\n", concat_); */
 	assertion(!strcmp_ret_);
 	free((char *) concat_);
+	fprintf(stderr, " done\n");
 }
 
 void
@@ -154,11 +183,15 @@ char_arrays_concatenation_test_6()
 	const char * zero_ = "";
 	const char * one_ = "";
 	const char * two_ = "";
-	const char * concat_ =
-			concatenate_three_char_arrays(zero_, one_, two_);
-	const int strcmp_ret_ = strcmp(concat_, zero_);
+	const char * concat_;
+	int strcmp_ret_;
+
+	fprintf(stderr, "will run test 6...");
+	concat_ = concatenate_three_char_arrays(zero_, one_, two_);
+	strcmp_ret_ = strcmp(concat_, zero_);
 	assertion(!strcmp_ret_);
 	free((char *) concat_);
+	fprintf(stderr, " done\n");
 }
 
 void
@@ -168,11 +201,15 @@ char_arrays_concatenation_test_7()
 	const char * one_ = "";
 	const char * two_ = "";
 	const char * three_ = "";
-	const char * concat_ = concatenate_four_char_arrays(
-			zero_, one_, two_, three_);
-	const int strcmp_ret_ = strcmp(concat_, zero_);
+	const char * concat_;
+	int strcmp_ret_;
+
+	fprintf(stderr, "will run test 7...");
+	concat_ = concatenate_four_char_arrays(zero_, one_, two_, three_);
+	strcmp_ret_ = strcmp(concat_, zero_);
 	assertion(!strcmp_ret_);
 	free((char *) concat_);
+	fprintf(stderr, " done\n");
 }
 
 void
@@ -227,7 +264,20 @@ register_char_arrays_concatenation_tests_(const tests_simple_list * tests)
 	forced_assertion(returning_->next->next->first != NULL);
 	forced_assertion(returning_->next->next->next == NULL);
 
-	/* FIXME */
+	tests_simple_list_push_back(
+			returning_, & char_arrays_concatenation_test_3);
+
+	tests_simple_list_push_back(
+			returning_, & char_arrays_concatenation_test_4);
+
+	tests_simple_list_push_back(
+			returning_, & char_arrays_concatenation_test_5);
+
+	tests_simple_list_push_back(
+			returning_, & char_arrays_concatenation_test_6);
+
+	tests_simple_list_push_back(
+			returning_, & char_arrays_concatenation_test_7);
 
 	return returning_;
 }
