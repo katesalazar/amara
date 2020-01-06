@@ -4,6 +4,7 @@ comment   All of these characters aren't used, but their use doesn't
           XXX Missing digits.
           XXX Missing alpha characters.
 comment ends
+
  !"#$%&'()*+,-./          :;<=>?@                          [\]^_`                          {|}~
 
 function identifier main identifier ends

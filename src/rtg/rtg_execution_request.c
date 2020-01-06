@@ -120,6 +120,7 @@ rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_l
 	if (input_ret_->status ==
 			RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
 
+		forced_assertion(input_ret_->error_messages == NULL);
 		if (input_ret_->execution_request != NULL) {
 
 			rtg_execution_request_destructor(
@@ -129,7 +130,14 @@ rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_l
 		assertion(input_ret_->status ==
 					RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_APPLICATION_NOT_FOUND);
 
-		;
+		forced_assertion(input_ret_->error_messages == NULL);
+
+		/*
+		if (input_ret_->error_messages != NULL) {
+			amara_strings_simple_list_destructor(
+					input_ret_->error_messages);
+		}
+		*/
 	}
 
 	free(input_ret_);
@@ -154,6 +162,8 @@ rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_l
 	forced_assertion(ret_ != NULL);
 
 	ret_->status = RTG_EXECUTION_REQUEST_OUT_OF_STT_EXECUTION_REQUEST_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_INVALID;
+	ret_->error_messages = NULL;
+	ret_->execution_request = NULL;
 
 	if (applications == NULL) {
 
@@ -189,6 +199,8 @@ rtg_execution_request_out_of_stt_execution_request_and_rtg_applications_simple_l
 		assertion(error_messages_->first != NULL);
 		assertion(error_messages_->next == NULL);
 #endif
+
+		amara_string_destructor(error_message_);
 
 		ret_->error_messages = error_messages_;
 		ret_->execution_request = NULL;

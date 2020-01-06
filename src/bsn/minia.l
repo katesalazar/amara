@@ -252,6 +252,8 @@ _ {
 
     /*   Extensions are implementation dependent. */
 
+    /*   TODO Move this whole body out to a `flex_annex` utility class. */
+
     unsigned short miniatext_index_;
     char * dice_left_hand_side_char_array_;
     amara_string * dice_left_hand_side_raw_natural_;
@@ -313,8 +315,11 @@ _ {
       dice_left_hand_side_char_array_[1] = '\0';
       dice_left_hand_side_raw_natural_ =
           amara_string_exhaustive_constructor(dice_left_hand_side_char_array_);
+      free(dice_left_hand_side_char_array_);
       dice_left_hand_side_ =
           natural_exhaustive_constructor(dice_left_hand_side_raw_natural_);
+
+      amara_string_destructor(dice_left_hand_side_raw_natural_);
 
       assertion(yytext[16] == ' ');
 
@@ -401,18 +406,22 @@ _ {
 
       dice_right_hand_side_raw_natural_ = amara_string_exhaustive_constructor(
           dice_right_hand_side_char_array_);
+      free(dice_right_hand_side_char_array_);
       dice_right_hand_side_ =
           natural_exhaustive_constructor(dice_right_hand_side_raw_natural_);
 
+      amara_string_destructor(dice_right_hand_side_raw_natural_);
+
       dice_expression_ = stt_dice_expression_exhaustive_constructor(
           dice_left_hand_side_, dice_right_hand_side_);
+
+      natural_destructor(dice_left_hand_side_);
+      natural_destructor(dice_right_hand_side_);
 
       minialval.node = stt_node_default_constructor();
       stt_node_set_dice_expression(minialval.node, dice_expression_);
 
       stt_dice_expression_destructor(dice_expression_);
-      natural_destructor(dice_left_hand_side_);
-      natural_destructor(dice_right_hand_side_);
 
       trace_flex_three("accepting recognized extension ('", yytext, "')\n");
 

@@ -301,7 +301,8 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 			malloc(sizeof(rtg_named_functions_simple_list));
 	forced_assertion(sub_ret_ != NULL);
 
-	sub_ret_fun_ret_ = rtg_named_function_out_of_stt_named_function(list->first);
+	sub_ret_fun_ret_ = rtg_named_function_out_of_stt_named_function(
+			list->first);
 	forced_assertion(sub_ret_fun_ret_ != NULL);
 
 	if (sub_ret_fun_ret_->status !=
@@ -324,11 +325,14 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 
 		ret_->status = RTG_NAMED_FUNCTIONS_SIMPLE_LIST_OUT_OF_STT_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION_IN_AT_LEAST_ONE_FUNCTION;
 
+		free(sub_ret_);  /* XXX */
+
 		return ret_;
 	}
 
 	forced_assertion(sub_ret_fun_ret_->status ==
 			RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_SUCCESS);
+	forced_assertion(sub_ret_fun_ret_->error_messages == NULL);
 
 	sub_ret_->first = sub_ret_fun_ret_->named_function;
 	sub_ret_fun_ret_->named_function = NULL;
@@ -396,7 +400,7 @@ rtg_named_functions_out_of_stt_doc_ret_destructor(
 		}
 	} else {
 		forced_assertion(rtg_named_functions_out_of_stt_doc_ret_->status ==
-					RTG_NAMED_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION_IN_AT_LEAST_ONE_FUNCTION);
+				RTG_NAMED_FUNCTIONS_OUT_OF_STT_DOC_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION_IN_AT_LEAST_ONE_FUNCTION);
 
 		forced_assertion(rtg_named_functions_out_of_stt_doc_ret_->error_messages !=
 				NULL);

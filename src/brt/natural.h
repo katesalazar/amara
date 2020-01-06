@@ -22,9 +22,6 @@
 /*   For `typedef struct natural { ... } natural;`. */
 #include "brt_forward_declarations.h"
 
-/* For `typedef struct stt_node { ... } stt_node`. */
-#include "../stt/stt_node.h"
-
 /**  Default constructor. */
 natural *
 natural_default_constructor(void)
@@ -170,15 +167,6 @@ safe_arguments_natural_raw_comparison(
 __attribute__((warn_unused_result))
 ;
 
-/*   Non destructive in its arguments.
- *   `node_zero` minus `node_one`. */
-struct stt_node *
-simplify_natural_literal_nodes_substraction(
-		const struct stt_node * node_zero,
-		const struct stt_node * node_one)
-__attribute__((warn_unused_result))
-;
-
 /**  Non destructive in its arguments.
  *   Must return the number product of `raw_natural_zero` multiplied
  * by `raw_natural_one`. */
@@ -195,26 +183,6 @@ amara_string *
 raw_naturals_euclidean_quotient_as_raw_natural(
 		const amara_string * raw_natural_zero,
 		const amara_string * raw_natural_one)
-__attribute__((warn_unused_result))
-;
-
-/*   Non destructive in its arguments.
- *   `node_zero` divided by `node_one`. */
-struct stt_node *
-simplify_natural_literal_nodes_multiplication(
-		const struct stt_node * node_zero,
-		const struct stt_node * node_one)
-__attribute__((warn_unused_result))
-;
-
-/*   Non destructive in its arguments.
- *   `node_zero` divided by `node_one`.
- *   Note that euclidean
- * division is performed, if (because) arguments are naturals. */
-struct stt_node *
-simplify_natural_literal_nodes_division(
-		const struct stt_node * node_zero,
-		const struct stt_node * node_one)
 __attribute__((warn_unused_result))
 ;
 

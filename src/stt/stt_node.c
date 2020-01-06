@@ -777,16 +777,19 @@ void
 stt_node_set_rational_literal(
 		stt_node * node, const amara_string * raw_rational_literal)
 {
+#ifndef NDEBUG
 	assertion(node != NULL);
 	assertion(node->type_ == STT_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
 
 	assertion(raw_rational_literal != NULL);
 	assertion(raw_rational_literal->value_ != NULL);
+#endif
 
 	node->rational_literal_subnode_ =
 			stt_rational_literal_subnode_exhaustive_constructor(
 					raw_rational_literal);
+	forced_assertion(node->rational_literal_subnode_ != NULL);
 
 	node->type_ = STT_NODE_TYPE_RATIONAL_LITERAL;
 }
@@ -794,16 +797,19 @@ stt_node_set_rational_literal(
 void
 stt_node_set_identifier(stt_node * node, const amara_string * identifier)
 {
+#ifndef NDEBUG
 	assertion(node != NULL);
 	assertion(node->type_ == STT_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
 
 	assertion(identifier != NULL);
 	assertion(identifier->value_ != NULL);
+#endif
 
 	node->identifier_subnode_ =
 			stt_identifier_subnode_exhaustive_constructor(
 					identifier);
+	forced_assertion(node->identifier_subnode_ != NULL);
 
 	node->type_ = STT_NODE_TYPE_IDENTIFIER;
 }
@@ -2448,4 +2454,175 @@ assert_clean_doc_node(const stt_node * node)
 
 		assertion(node->doc_subnode_->execution_requests_ != NULL);
 	/*}*/  /* XXX */
+}
+
+/*   This is non destructive towards its arguments. */
+stt_node *
+numeric_natural_nodes_multiplication_types_checked_both_are_valid_raw_naturals(
+		const amara_string * raw_natural_zero,
+		const amara_string * raw_natural_one)
+__attribute__((warn_unused_result))
+;
+
+stt_node *
+numeric_natural_nodes_multiplication_types_checked_both_are_valid_raw_naturals(
+		const amara_string * raw_natural_zero,
+		const amara_string * raw_natural_one)
+{
+	amara_string * raw_natural_;
+	stt_node * returning_;
+	raw_natural_ = raw_naturals_multiplication_as_raw_natural(
+			raw_natural_zero, raw_natural_one);
+	forced_assertion(raw_natural_ != NULL);
+	returning_ = stt_node_wrapping_raw_natural(raw_natural_);
+	forced_assertion(returning_ != NULL);
+	amara_string_destructor(raw_natural_);
+	return returning_;
+}
+
+/*   This is non destructive towards its arguments. */
+stt_node *
+numeric_natural_nodes_euclidean_quotient_types_checked_both_are_valid_raw_naturals(
+		const amara_string * raw_natural_zero,
+		const amara_string * raw_natural_one)
+__attribute__((warn_unused_result));
+
+stt_node *
+numeric_natural_nodes_euclidean_quotient_types_checked_both_are_valid_raw_naturals(
+		const amara_string * raw_natural_zero,
+		const amara_string * raw_natural_one)
+{
+	amara_string * raw_natural_;
+	stt_node * returning_;
+
+	raw_natural_ = raw_naturals_euclidean_quotient_as_raw_natural(
+			raw_natural_zero, raw_natural_one);
+	forced_assertion(raw_natural_ != NULL);
+	returning_ = stt_node_wrapping_raw_natural(raw_natural_);
+	forced_assertion(returning_ != NULL);
+	amara_string_destructor(raw_natural_);
+	return returning_;
+}
+
+/*   This is non destructive towards its arguments. */
+stt_node *
+numeric_natural_nodes_substraction_types_checked_both_are_valid_raw_naturals(
+		const amara_string * raw_natural_zero,
+		const amara_string * raw_natural_one)
+__attribute__((warn_unused_result));
+
+/*   Friend declaration. */
+amara_string *
+raw_naturals_substraction_as_raw_natural_zero_is_larger_than_one(
+		const amara_string * raw_natural_zero,
+		const amara_string * raw_natural_one)
+__attribute__((warn_unused_result))
+;
+
+stt_node *
+numeric_natural_nodes_substraction_types_checked_both_are_valid_raw_naturals(
+		const amara_string * raw_natural_zero,
+		const amara_string * raw_natural_one)
+{
+	signed char comparison_result_;
+	/*   Substraction results as a raw natural (characters array). */
+	amara_string * raw_natural_;
+	stt_node * returning_;
+
+	/* printf("raw_natural_zero: %s\n", raw_natural_zero);
+	fprintf(stderr, "raw_natural_one: %s\n", raw_natural_one); */
+	comparison_result_ = safe_arguments_natural_raw_comparison(
+			raw_natural_zero, raw_natural_one);
+	/* printf("raw_natural_zero: %s\n", raw_natural_zero);
+	fprintf(stderr, "raw_natural_one: %s\n", raw_natural_one); */
+	if (comparison_result_ < 0) {
+		/*
+		assertion_two(0, "right now can not substract b from a if a is lesser than b");
+		fprintf(stderr, "right now can not substract b from a if a is lesset than b\n");
+		exit(EXIT_FAILURE);
+		*/
+		returning_ = stt_node_default_constructor();
+		return returning_;
+	}
+	if (comparison_result_ == 0) {
+		raw_natural_ = amara_string_exhaustive_constructor("0");
+	} else {
+		assertion(comparison_result_ > 0);
+		raw_natural_ = raw_naturals_substraction_as_raw_natural_zero_is_larger_than_one(
+				raw_natural_zero, raw_natural_one);
+	}
+	returning_ = stt_node_wrapping_raw_natural(raw_natural_);
+	amara_string_destructor(raw_natural_);
+	return returning_;
+}
+
+/*   This is non destructive towards its arguments. */
+stt_node *
+simplify_natural_literal_nodes_multiplication(
+		const stt_node * node_zero, const stt_node * node_one)
+{
+	stt_node * returning_;
+	/* can include:
+	 * - natural node (trivially multipliable)
+	 * - identifier node (multipliable because the semantic analysis confirms)
+	 * - operation node (multipliabe because the semantic analysis confirms)
+	 */
+	assertion(node_zero->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
+	assert_clean_natural_literal_node(node_zero);
+	assert_valid_raw_natural(node_zero->natural_literal_subnode_->raw_);
+	assertion(node_one->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
+	assert_clean_natural_literal_node(node_one);
+	assert_valid_raw_natural(node_one->natural_literal_subnode_->raw_);
+	returning_ = numeric_natural_nodes_multiplication_types_checked_both_are_valid_raw_naturals(
+			node_zero->natural_literal_subnode_->raw_,
+			node_one->natural_literal_subnode_->raw_);
+	return returning_;
+}
+
+/*   This is non destructive towards its arguments. Note that euclidean
+ * division is performed, if arguments are naturals. */
+stt_node *
+simplify_natural_literal_nodes_division(
+		const stt_node * node_zero, const stt_node * node_one)
+{
+	stt_node * returning_;
+	assertion(node_zero->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
+	assert_clean_natural_literal_node(node_zero);
+	assert_valid_raw_natural(node_zero->natural_literal_subnode_->raw_);
+	assertion(node_one->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
+	assert_clean_natural_literal_node(node_one);
+	assert_valid_raw_natural(node_one->natural_literal_subnode_->raw_);
+
+	/*   Note that since arguments are naturals, euclidean quotient
+	 * is computed here, **instead** of the division computed on the
+	 * promotion of the arguments to rationals. */
+	returning_ = numeric_natural_nodes_euclidean_quotient_types_checked_both_are_valid_raw_naturals(
+			node_zero->natural_literal_subnode_->raw_,
+			node_one->natural_literal_subnode_->raw_);
+
+	return returning_;
+}
+
+/*   This is non destructive towards its arguments. */
+stt_node *
+simplify_natural_literal_nodes_substraction(
+		const stt_node * node_zero, const stt_node * node_one)
+{
+	stt_node * returning_;
+
+#ifndef NDEBUG
+	assertion(node_zero->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
+	assertion(node_zero->natural_literal_subnode_ != NULL);
+	assertion(node_zero->natural_literal_subnode_->raw_ != NULL);
+	assert_valid_raw_natural(node_zero->natural_literal_subnode_->raw_);
+	assertion(node_one->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
+	assertion(node_one->natural_literal_subnode_ != NULL);
+	assertion(node_one->natural_literal_subnode_->raw_ != NULL);
+	assert_valid_raw_natural(node_one->natural_literal_subnode_->raw_);
+#endif
+	returning_ = numeric_natural_nodes_substraction_types_checked_both_are_valid_raw_naturals(
+			node_zero->natural_literal_subnode_->raw_,
+			node_one->natural_literal_subnode_->raw_);
+	forced_assertion(returning_ != NULL);
+	return returning_;
 }

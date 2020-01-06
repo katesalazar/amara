@@ -85,9 +85,7 @@ stt_expression_copy_constructor(const stt_expression * expression)
 		returning_->sub_string_literal_ =
 				stt_expression_sub_string_literal_copy_constructor(
 						expression->sub_string_literal_);
-#ifndef NDEBUG
-		assertion(returning_->sub_string_literal_ != NULL);
-#endif
+		forced_assertion(returning_->sub_string_literal_ != NULL);
 
 #ifndef NDEBUG
 		assertion(expression->sub_natural_literal_ == NULL);

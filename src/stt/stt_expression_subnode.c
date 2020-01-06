@@ -39,7 +39,7 @@ stt_expression_subnode_exhaustive_constructor(
 			"malloc failed: stt_expression_subnode.c: 38\n");
 
 	returning_->expression_ = stt_expression_copy_constructor(expression);
-	assertion(returning_->expression_ != NULL);
+	forced_assertion(returning_->expression_ != NULL);
 
 	return returning_;
 }

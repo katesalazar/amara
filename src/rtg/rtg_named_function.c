@@ -38,8 +38,11 @@ rtg_named_function_default_constructor()
 #endif
 			malloc(sizeof(rtg_named_function));
 	forced_assertion(ret_ != NULL);
+
+	ret_->where_value_bindings_ = NULL;
 	ret_->operations_ = NULL;
 	ret_->name_ = NULL;
+
 	ret_->type_ = RTG_NAMED_FUNCTION_TYPE_INVALID;
 
 	return ret_;
@@ -299,6 +302,7 @@ rtg_named_function_out_of_stt_named_function(
 
 		forced_assertion(operations_sub_ret_->operations == NULL);
 
+		rtg_named_function_destructor(ret_->named_function);
 		ret_->named_function = NULL;
 
 		ret_->error_messages = operations_sub_ret_->error_messages;
@@ -308,6 +312,9 @@ rtg_named_function_out_of_stt_named_function(
 				operations_sub_ret_);
 
 		ret_->status = RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION;
+
+		rtg_where_value_bindings_simple_list_destructor(
+				where_value_bindings_sub_ret_sub_);
 
 		return ret_;
 	}

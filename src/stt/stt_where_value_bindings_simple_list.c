@@ -114,9 +114,13 @@ void
 stt_where_value_bindings_simple_list_destructor(
 		stt_where_value_bindings_simple_list * list)
 {
+#ifndef NDEBUG
 	assertion(list != NULL);
+#endif
 	if (list->first == NULL) {
+#ifndef NDEBUG
 		assertion(list->next == NULL);
+#endif
 		free(list);
 	} else {
 		stt_where_value_bindings_simple_list_destructor_inner(list);
@@ -197,8 +201,11 @@ stt_where_value_bindings_simple_list_push_back(
 		while (ptr_->next != NULL) {
 			ptr_ = ptr_->next;
 		}
-		ptr_->next = malloc(sizeof(
-				stt_where_value_bindings_simple_list));
+		ptr_->next =
+#ifdef AMARA_USE_STD_CXX98
+				(struct stt_where_value_bindings_simple_list *)
+#endif
+				malloc(sizeof(stt_where_value_bindings_simple_list));
 		ptr_->next->first = stt_where_value_binding_copy_constructor(
 				addition);
 		ptr_->next->next = NULL;

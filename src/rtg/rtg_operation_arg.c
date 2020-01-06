@@ -409,7 +409,7 @@ rtg_operation_arg_out_of_stt_operation_arg_ret *
 rtg_operation_arg_out_of_stt_operation_arg(
 		const stt_operation_arg * operation_arg,
 		const stt_operation_type operation_type,
-		const stt_where_value_bindings_simple_list * function_where_bindings)
+		const struct stt_where_value_bindings_simple_list * function_where_bindings)
 {
 	const stt_where_value_binding * target_where_value_binding_;
 	rtg_expression_out_of_stt_expression_ret * rtg_expression_out_of_stt_expression_ret_;
@@ -427,6 +427,7 @@ rtg_operation_arg_out_of_stt_operation_arg(
 	forced_assertion(ret_ != NULL);
 	ret_->status = RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_INVALID;
 	ret_->operation_arg = NULL;
+	ret_->error_messages = NULL;
 	assertion(operation_arg != NULL);
 	assertion(operation_arg->node_ != NULL);
 	/* assert_stt_node_is_valid(operation_arg->node_); */
