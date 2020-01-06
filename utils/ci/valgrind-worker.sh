@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #
-# Copyright 2019 Mercedes Catherine Salazar
+# Copyright 2019-2020 Mercedes Catherine Salazar
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -51,16 +51,30 @@ do
 		make all || continue
 		echo '' >valgrind_report
 		date 2>&1 >>valgrind_report
-		valgrind \
-				--leak-check=full \
-				--show-leak-kinds=all \
-				--num-callers=24 \
-				"${binary}"\
-				run tests \
-				2>&1 | \
-				nl -b a >>valgrind_report || ( \
-				echo 'valgrind returned bad' && \
-				continue)
+		if test "${branch}" = 'experimental'
+		then
+			valgrind \
+					--leak-check=full \
+					--show-leak-kinds=all \
+					--num-callers=24 \
+					"${binary}"\
+					run scrambled_tests \
+					2>&1 | \
+					nl -b a >>valgrind_report || ( \
+					echo 'valgrind returned bad' && \
+					continue)
+		else
+			valgrind \
+					--leak-check=full \
+					--show-leak-kinds=all \
+					--num-callers=24 \
+					"${binary}"\
+					run tests \
+					2>&1 | \
+					nl -b a >>valgrind_report || ( \
+					echo 'valgrind returned bad' && \
+					continue)
+		fi
 		date 2>&1 >>valgrind_report
 		mv \
 				./valgrind_report \

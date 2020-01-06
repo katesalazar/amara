@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #
-# Copyright 2018-2019 Mercedes Catherine Salazar
+# Copyright 2018-2020 Mercedes Catherine Salazar
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -87,14 +87,19 @@ fi
 		true &&
 				echo 'nice -n 19 ./build/release/amara' &&
 				nice -n 19 ./build/release/amara
-		true &&
-				echo 'nice -n 19 ./build/debug/amara_g run tests' &&
-				nice -n 19 ./build/debug/amara_g \
-						run tests &&
-				echo 'nice -n 19 ./build/release/amara run tests' &&
-				nice -n 19 ./build/release/amara \
-						run tests &&
-				true
+		if test "${branch}" = 'experimental'
+		then
+			echo 'nice -n 19 ./build/debug/amara_g run scrambled_tests'
+			nice -n 19 ./build/debug/amara_g run scrambled_tests
+			echo 'nice -n 19 ./build/release/amara run scrambled_tests'
+			nice -n 19 ./build/release/amara run scrambled_tests
+		else
+			echo 'nice -n 19 ./build/debug/amara_g run tests'
+			nice -n 19 ./build/debug/amara_g run tests
+			echo 'nice -n 19 ./build/release/amara run tests'
+			nice -n 19 ./build/release/amara run tests
+		fi
+
 		if test $? -ne 0
 		then
 			echo 'continuing (at line 68)'
@@ -152,10 +157,18 @@ fi
 			nice -n 19 ./build/debug/amara_g greet foo
 			echo 'nice -n 19 ./build/debug/amara_g run foo'
 			nice -n 19 ./build/debug/amara_g run foo
-			echo 'nice -n 19 ./build/debug/amara_g run tests --no-banner'
-			nice -n 19 ./build/debug/amara_g run tests --no-banner
-			echo 'nice -n 19 ./build/debug/amara_g run tests foo'
-			nice -n 19 ./build/debug/amara_g run tests foo
+			if test "${branch}" = 'experimental'
+			then
+				echo 'nice -n 19 ./build/debug/amara_g run scrambled_tests --no-banner'
+				nice -n 19 ./build/debug/amara_g run scrambled_tests --no-banner
+				echo 'nice -n 19 ./build/debug/amara_g run scrambled_tests foo'
+				nice -n 19 ./build/debug/amara_g run scrambled_tests foo
+			else
+				echo 'nice -n 19 ./build/debug/amara_g run tests --no-banner'
+				nice -n 19 ./build/debug/amara_g run tests --no-banner
+				echo 'nice -n 19 ./build/debug/amara_g run tests foo'
+				nice -n 19 ./build/debug/amara_g run tests foo
+			fi
 			echo 'nice -n 19 ./build/debug/amara_g run foo --no-banner'
 			nice -n 19 ./build/debug/amara_g run foo --no-banner
 			echo 'nice -n 19 ./build/debug/amara_g assert 1 --no-banner'

@@ -31,6 +31,7 @@ build/src/bsn/minia.l
 build/src/bsn/minia.y
 build/src/bsn/minia.dot
 build/src/bsn/minia.output
+build/src/bsn/minia.vcg
 
 #   Flex object docs.
 build/src/bsn/lex.minia.c
