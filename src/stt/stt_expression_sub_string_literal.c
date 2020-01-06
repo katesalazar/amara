@@ -49,10 +49,8 @@ stt_expression_sub_string_literal_copy_constructor(
 
 	returning_->string_literal_ = amara_string_copy_constructor(
 			expression_sub_string_literal->string_literal_);
-#ifndef NDEBUG
-	assertion(returning_->string_literal_ != NULL);
-	assertion(returning_->string_literal_->value_ != NULL);
-#endif
+	forced_assertion(returning_->string_literal_ != NULL);
+	forced_assertion(returning_->string_literal_->value_ != NULL);
 
 	return returning_;
 }

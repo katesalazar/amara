@@ -408,6 +408,10 @@ rtg_applications_simple_list_transformation_constructor_test_2()
 #ifndef NDEBUG
 	/* TODO missing assertions? */
 #endif
+	rtg_named_functions_out_of_stt_doc_ret_->named_functions = NULL;
+
+	rtg_named_functions_out_of_stt_doc_ret_destructor(
+			rtg_named_functions_out_of_stt_doc_ret_);
 
 	rtg_applications_out_of_stt_doc_and_rtg_named_functions_ret_ =
 			rtg_applications_out_of_stt_doc_and_rtg_named_functions_simple_list(

@@ -17,6 +17,9 @@
  * dice type of expression.
  */
 
+/*   For `void forced_assertion(int expression)`. */
+#include "../asr/assertion.h"
+
 /*   For `natural * natural_example_one()`. */
 #include "../brt/natural_tests.h"
 

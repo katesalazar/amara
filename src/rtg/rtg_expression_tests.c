@@ -270,6 +270,9 @@ rtg_expression_example_simple_conditional()
 			expression_);
 #endif
 	forced_assertion(mid_ret_ != NULL);
+	/*
+	forced_assertion(mid_ret_->error_messages == NULL);
+	*/
 #ifndef NDEBUG
 	assertion(mid_ret_->status ==
 			RTG_EXPRESSION_OUT_OF_STT_EXPRESSION_RET_STATUS_SUCCESS);
@@ -280,6 +283,8 @@ rtg_expression_example_simple_conditional()
 	stt_expression_destructor(expression_);
 
 	returning_ = mid_ret_->expression;
+	mid_ret_->expression = NULL;
+	rtg_expression_out_of_stt_expression_ret_destructor(mid_ret_);
 
 	return returning_;
 }

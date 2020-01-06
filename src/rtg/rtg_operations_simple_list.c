@@ -169,7 +169,7 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_destructor(
 rtg_operations_simple_list_out_of_stt_operations_simple_list_ret *
 rtg_operations_simple_list_out_of_stt_operations_simple_list(
 		const stt_operations_simple_list * operations,
-		const stt_where_value_bindings_simple_list * function_where_bindings)
+		const struct stt_where_value_bindings_simple_list * function_where_bindings)
 {
 	rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * ret_;
 	rtg_operations_simple_list * ret_list_;
@@ -210,16 +210,24 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list(
 		return ret_;
 	}
 	assertion(operations->first != NULL);
+
 	ret_list_ =
 #ifdef AMARA_USE_STD_CXX98
 			(rtg_operations_simple_list *)
 #endif
 			malloc(sizeof(rtg_operations_simple_list));
 	forced_assertion(ret_list_ != NULL);
+
+#ifndef NDEBUG
+	ret_list_->first = NULL;
+	ret_list_->next = NULL;
+#endif
+
 	single_operation_transformation_ =
 			rtg_operation_out_of_stt_operation(
 					operations->first,
 					function_where_bindings);
+	forced_assertion(single_operation_transformation_ != NULL);
 
 	if (single_operation_transformation_->status !=
 			RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS) {
@@ -243,6 +251,8 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list(
 				single_operation_transformation_);
 
 		ret_->status = RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION;
+
+		free(ret_list_);  /* XXX */
 
 		return ret_;
 	}

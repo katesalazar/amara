@@ -91,7 +91,9 @@ stt_string_literal_subnode_exhaustive_constructor(
 void
 stt_string_literal_subnode_destructor(stt_string_literal_subnode * subnode)
 {
+#ifndef NDEBUG
 	assertion(subnode != NULL);
+#endif
 	if (subnode->string_literal_ != NULL) {
 		amara_string_destructor(subnode->string_literal_);
 	}

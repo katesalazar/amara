@@ -119,6 +119,16 @@ bison_test_4()
 }
 
 void
+bison_test_4b()
+{
+	char ret_;
+
+	ret_ = run_app("./res/tst/conditional_expression_gt/");
+
+	assertion(ret_ == 0);
+}
+
+void
 bison_test_5()
 {
 	char ret_;
@@ -150,12 +160,16 @@ bison_test_6()
 void
 bison_tests(void)
 {
+#ifdef __APPLE__
 	/* FIXME This test should not be executed under Xcode. */
 	char * getcwd_return;
 	char * getcwd_buffer;
+	char * getcwd_buffer_;
 	char * strstr_return;
 	const char * needle = "/Library/Developer/Xcode/DerivedData/";
+#endif
 
+#ifdef __APPLE__
 	getcwd_buffer =
 #ifdef AMARA_USE_STD_CXX98
 			(char *)
@@ -167,14 +181,21 @@ bison_tests(void)
 	forced_assertion_two(getcwd_return != NULL, "`getcwd` returned NULL");
 	forced_assertion_two(getcwd_return == getcwd_buffer,
 			"bison_tests.c: 159\n");
+#endif
 
+#ifdef __APPLE__
 	fprintf(stderr, "%s\n", getcwd_buffer);
+#endif
 
+#ifdef __APPLE__
 	strstr_return = strstr(getcwd_buffer, needle);
+#endif
 
+#ifdef __APPLE__
 	if (strstr_return == NULL) {
 
 		/* No occurrence, no Xcode, can run the tests like this */
+#endif
 
 	bison_test_0();
 
@@ -183,6 +204,7 @@ bison_tests(void)
 	bison_test_3();
 
 	bison_test_4();
+	bison_test_4b();
 
 	bison_test_5();
 
@@ -200,8 +222,15 @@ bison_tests(void)
 	bison_test_6();
 	*/
 
+#ifdef __APPLE__
 	} else {
 
 		/* needle occured, can not run tests just like that, because cwd is not where the code expects it to be... */
 	}
+#endif
+
+#ifdef __APPLE__
+	getcwd_buffer_ = getcwd_buffer;  /* transitional */
+	free(getcwd_buffer_);
+#endif
 }
