@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,11 @@
 
 void
 arn_values_simple_list_tests(void)
+;
+
+tests_simple_list *
+register_arn_values_simple_list_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
 ;
 
 #endif

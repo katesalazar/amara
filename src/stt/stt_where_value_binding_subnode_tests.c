@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,8 @@
 /*   For `stt_where_value_binding *
  * stt_where_value_binding_example_simple_value_bind()`. */
 #include "stt_where_value_binding_tests.h"
+
+#include "stt_where_value_binding_subnode_tests.h"
 
 void
 stt_where_value_binding_subnode_default_constructor_test()
@@ -177,8 +179,43 @@ stt_where_value_binding_subnode_constructors_tests()
 	stt_where_value_binding_subnode_copy_constructor_test_0();
 }
 
+tests_simple_list *
+register_stt_where_value_binding_subnode_constructors_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_where_value_binding_subnode_constructors_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_where_value_binding_subnode_default_constructor_test);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_where_value_binding_subnode_exhaustive_constructor_test_0);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_where_value_binding_subnode_copy_constructor_test_0);
+	return returning_;
+}
+
 void
 stt_where_value_binding_subnode_tests()
 {
 	stt_where_value_binding_subnode_constructors_tests();
+}
+
+tests_simple_list *
+register_stt_where_value_binding_subnode_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_where_value_binding_subnode_constructors_tests(
+			tests);
+	return returning_;
 }

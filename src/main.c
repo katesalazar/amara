@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,8 +78,10 @@ print_help()
 	printf("    AMARA assert EXPR MSG [OPTIONS...]\n");
 	printf("        (tries to assert an expression, printing the ");
 	printf("message if the assertion fails)\n");
-	printf("    AMARA run tests [OPTIONS...]\n");
-	printf("        (runs the rests)\n");
+	printf("    AMARA run (tests|scrambled_tests|scrambled tests) [OPTIONS...]\n");
+	printf("        (runs the unit tests)\n");
+	printf("    AMARA run (ordered_tests|ordered tests) [OPTIONS...]\n");
+	printf("        (runs the unit tests layer by layer in a sequential order)\n");
 	printf("    AMARA run app DIR [OPTIONS...]\n");
 	printf("        (runs the application in DIR)\n");
 	printf("\n");
@@ -129,9 +131,6 @@ amara_main(const int argc, const char * * argv)
 		}
 		if (arg_->value & ARG_RET_RUN_SCRAMBLED_TESTS) {
 			run_scrambled_tests(print_banner_);
-			/*
-			run_tests(print_banner_);
-			*/
 			returning_ = AMARA_MAIN_RET_SUCCESS;
 		}
 	} else {

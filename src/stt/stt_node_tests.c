@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
  *
  * src/stt/stt_node_tests.c: Test the Amara syntax tree node.
  */
+
+#include <stdio.h>
 
 #include "../asr/assertion.h"
 
@@ -2518,11 +2520,69 @@ stt_node_copy_constructor_tests()
 	stt_node_copy_constructor_test_70_doc();
 }
 
+tests_simple_list *
+register_stt_node_copy_constructor_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_node_copy_constructor_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_node_copy_constructor_test_10_natural_literal);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_node_copy_constructor_test_20_integer_literal);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_node_copy_constructor_test_30_rational_literal);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_node_copy_constructor_test_31_identifier);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_node_copy_constructor_test_32_condition);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_node_copy_constructor_test_33_expression);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_node_copy_constructor_test_34_where_binding);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_node_copy_constructor_test_35_where_bindings);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_node_copy_constructor_test_36_operation);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_node_copy_constructor_test_37_operations_list);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_node_copy_constructor_test_40_named_function);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_node_copy_constructor_test_50_application);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_node_copy_constructor_test_60_execution_request);
+	tests_simple_list_push_back(
+			returning_, & stt_node_copy_constructor_test_70_doc);
+	return returning_;
+}
+
 void
 stt_node_set_dice_expression_test_0()
 {
 	stt_node * node_;
 	stt_dice_expression * dice_expression_;
+
+	fprintf(stderr,
+	        "will run stt_node_set_dice_expression_test_0...");
 
 	dice_expression_ = stt_dice_expression_example_single_vanilla_dice();
 	forced_assertion(dice_expression_ != NULL);
@@ -2554,12 +2614,26 @@ stt_node_set_dice_expression_test_0()
 
 	stt_dice_expression_destructor(dice_expression_);
 	stt_node_destructor(node_);
+
+	fprintf(stderr, " done\n");
 }
 
 void
 stt_node_set_dice_expression_tests()
 {
 	stt_node_set_dice_expression_test_0();
+}
+
+tests_simple_list *
+register_stt_node_set_dice_expression_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_node_set_dice_expression_test_0);
+	return returning_;
 }
 
 void
@@ -2797,6 +2871,24 @@ stt_node_set_expression_tests()
 	stt_node_set_expression_test_20_dice();
 }
 
+tests_simple_list *
+register_stt_node_set_expression_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_node_set_expression_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& stt_node_set_expression_test_10_string_literal);
+	tests_simple_list_push_back(
+			tests, & stt_node_set_expression_test_15_identifier);
+	tests_simple_list_push_back(tests,
+	                            & stt_node_set_expression_test_20_dice);
+	return tests;
+}
+
 void
 stt_node_set_where_value_bindings_test_0()
 {
@@ -2839,12 +2931,37 @@ stt_node_set_where_value_bindings_tests()
 	stt_node_set_where_value_bindings_test_0();
 }
 
+tests_simple_list *
+register_stt_node_set_where_value_bindings_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_node_set_where_value_bindings_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests, & stt_node_set_where_value_bindings_test_0);
+	return tests;
+}
+
 void
 stt_node_setters_tests()
 {
 	stt_node_set_dice_expression_tests();
 	stt_node_set_expression_tests();
 	stt_node_set_where_value_bindings_tests();
+}
+
+tests_simple_list *
+register_stt_node_setters_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_node_set_dice_expression_tests(tests);
+	returning_ = register_stt_node_set_expression_tests(returning_);
+	returning_ = register_stt_node_set_where_value_bindings_tests(
+			returning_);
+	return returning_;
 }
 
 void
@@ -3597,6 +3714,54 @@ stt_node_validation_tests()
 	stt_node_validation_test_50_doc();
 }
 
+tests_simple_list *
+register_stt_node_validation_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests, &
+			stt_node_validation_test_05_natural_literal
+			);
+	tests_simple_list_push_back(tests, &
+			stt_node_validation_test_10_integer_literal
+			);
+	tests_simple_list_push_back(tests, &
+			stt_node_validation_test_15_rational_literal
+			);
+	tests_simple_list_push_back(tests, &
+			stt_node_validation_test_20_identifier
+			);
+	tests_simple_list_push_back(tests, &
+			stt_node_validation_test_21_condition
+			);
+	tests_simple_list_push_back(tests, &
+			stt_node_validation_test_22_expression
+			);
+	tests_simple_list_push_back(tests, &
+			stt_node_validation_test_23_where_binding
+			);
+	tests_simple_list_push_back(tests, &
+			stt_node_validation_test_24_where_bindings
+			);
+	tests_simple_list_push_back(tests, &
+			stt_node_validation_test_25_operation
+			);
+	tests_simple_list_push_back(tests, &
+			stt_node_validation_test_30_operations_list
+			);
+	tests_simple_list_push_back(tests, &
+			stt_node_validation_test_35_named_function
+			);
+	tests_simple_list_push_back(tests, &
+			stt_node_validation_test_40_application
+			);
+	tests_simple_list_push_back(tests, &
+			stt_node_validation_test_45_execution_request
+			);
+	tests_simple_list_push_back(tests, &
+			stt_node_validation_test_50_doc
+			);
+	return tests;
+}
+
 void
 stt_node_type_name_test_0_operation()
 {
@@ -3873,6 +4038,28 @@ stt_node_type_name_tests()
 	stt_node_type_name_test_20_doc();
 }
 
+tests_simple_list *
+register_stt_node_type_name_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_node_type_name_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests,
+	                            & stt_node_type_name_test_0_operation);
+	tests_simple_list_push_back(
+			tests, & stt_node_type_name_test_1_operations_list);
+	tests_simple_list_push_back(
+			tests, & stt_node_type_name_test_2_named_function);
+	tests_simple_list_push_back(tests,
+	                            & stt_node_type_name_test_3_application);
+	tests_simple_list_push_back(
+			tests, & stt_node_type_name_test_10_execution_request);
+	tests_simple_list_push_back(tests, & stt_node_type_name_test_20_doc);
+	return tests;
+}
+
 void
 stt_nodes_substraction_test_0()
 {
@@ -3917,6 +4104,18 @@ void
 stt_nodes_substraction_tests()
 {
 	stt_nodes_substraction_test_0();
+}
+
+tests_simple_list *
+register_stt_nodes_substraction_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_nodes_substraction_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests, & stt_nodes_substraction_test_0);
+	return tests;
 }
 
 void
@@ -3965,6 +4164,18 @@ stt_nodes_multiplication_tests()
 	stt_nodes_multiplication_test_0();
 }
 
+tests_simple_list *
+register_stt_nodes_multiplication_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_nodes_multiplication_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests, & stt_nodes_multiplication_test_0);
+	return tests;
+}
+
 void
 stt_nodes_division_test_0()
 {
@@ -4008,6 +4219,18 @@ void
 stt_nodes_division_tests()
 {
 	stt_nodes_division_test_0();
+}
+
+tests_simple_list *
+register_stt_nodes_division_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_nodes_division_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests, & stt_nodes_division_test_0);
+	return tests;
 }
 
 void
@@ -4196,6 +4419,19 @@ register_named_function_tests()
 	register_named_function_test_1();
 }
 
+tests_simple_list *
+register_register_named_function_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_register_named_function_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests, & register_named_function_test_0);
+	tests_simple_list_push_back(tests, & register_named_function_test_1);
+	return tests;
+}
+
 void
 register_application_test_0()
 {
@@ -4274,6 +4510,18 @@ void
 register_application_tests()
 {
 	register_application_test_0();
+}
+
+tests_simple_list *
+register_register_application_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_register_application_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests, & register_application_test_0);
+	return tests;
 }
 
 void
@@ -4358,6 +4606,19 @@ void
 register_execution_request_tests()
 {
 	register_execution_request_test_0();
+}
+
+tests_simple_list *
+register_register_execution_request_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_register_execution_request_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests,
+	                            & register_execution_request_test_0);
+	return tests;
 }
 
 void
@@ -4549,6 +4810,19 @@ dump_syntax_tree_tests()
 {
 	dump_syntax_tree_test_0();
 	dump_syntax_tree_test_1();
+}
+
+tests_simple_list *
+register_dump_syntax_tree_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_dump_syntax_tree_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests, & dump_syntax_tree_test_0);
+	tests_simple_list_push_back(tests, & dump_syntax_tree_test_1);
+	return tests;
 }
 
 void
@@ -4863,6 +5137,52 @@ look_for_undefined_labels_tests()
 	*/
 }
 
+tests_simple_list *
+register_look_for_undefined_labels_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_look_for_undefined_labels_tests(tests_simple_list * tests)
+{
+	/*   One single named function with no dependencies. */
+	tests_simple_list_push_back(tests, & look_for_undefined_labels_test_0);
+
+	/*   One single named function with no dependencies and an
+	 * application using it as entry point. */
+	tests_simple_list_push_back(tests, & look_for_undefined_labels_test_1);
+
+	/*   One application but no named functions, so the entry point
+	 * function is not to be found. */
+	tests_simple_list_push_back(tests, & look_for_undefined_labels_test_2);
+
+	/*   Two named functions and an application, but none of the
+	 * functions is the requested entry point named function for the
+	 * application. */
+	tests_simple_list_push_back(tests, & look_for_undefined_labels_test_3);
+
+	/*   One execution request but there are no named functions or
+	 * applications, so it must return some error messages. */
+	tests_simple_list_push_back(tests, & look_for_undefined_labels_test_4);
+
+	/*   Two applications and one execution request, but none of the
+	 * applications is the application that the execution requests
+	 * wants. */
+	tests_simple_list_push_back(tests, & look_for_undefined_labels_test_5);
+
+	/*   One single named function, an application using it as entry
+	 * point, and an execution request of that application. */
+	tests_simple_list_push_back(tests, & look_for_undefined_labels_test_6);
+
+	/*   One single function, but depending on an undefined
+	 * identifier. */
+	/* FIXME the tested code does not exist yet.
+	tests_simple_list_push_back(tests, & look_for_undefined_labels_test_7);
+	*/
+
+	return tests;
+}
+
 void
 stt_node_tests()
 {
@@ -4878,4 +5198,25 @@ stt_node_tests()
 	register_execution_request_tests();
 	dump_syntax_tree_tests();
 	look_for_undefined_labels_tests();
+}
+
+tests_simple_list *
+register_stt_node_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	returning_ = register_stt_node_copy_constructor_tests(returning_);
+	returning_ = register_stt_node_setters_tests(returning_);
+	returning_ = register_stt_node_validation_tests(returning_);
+	returning_ = register_stt_node_type_name_tests(returning_);
+	returning_ = register_stt_nodes_substraction_tests(returning_);
+	returning_ = register_stt_nodes_multiplication_tests(returning_);
+	returning_ = register_stt_nodes_division_tests(returning_);
+	returning_ = register_register_named_function_tests(returning_);
+	returning_ = register_register_application_tests(returning_);
+	returning_ = register_register_execution_request_tests(returning_);
+	returning_ = register_dump_syntax_tree_tests(returning_),
+	returning_ = register_look_for_undefined_labels_tests(returning_);
+	return returning_;
 }

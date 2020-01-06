@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,12 @@
  */
 
 #include "../asr/assertion.h"
+
 #include "../cmn/amara_string.h"
 
 #include "rational.h"
+
+#include "rational_tests.h"
 
 void
 assert_valid_raw_rational_test_0()
@@ -108,8 +111,41 @@ assert_valid_raw_rational_tests()
 	/* TODO missing tests for: 0.0 (invalid), 0.000 (invalid), 0.001 (valid), 00.1 (invalid)... etc. */
 }
 
+tests_simple_list *
+register_assert_valid_raw_rational_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_assert_valid_raw_rational_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(returning_,
+	                            & assert_valid_raw_rational_test_0);
+	tests_simple_list_push_back(returning_,
+	                            & assert_valid_raw_rational_test_1);
+	tests_simple_list_push_back(returning_,
+	                            & assert_valid_raw_rational_test_2);
+	tests_simple_list_push_back(returning_,
+	                            & assert_valid_raw_rational_test_3);
+	tests_simple_list_push_back(returning_,
+	                            & assert_valid_raw_rational_test_4);
+	return returning_;
+}
+
 void
 rational_tests()
 {
 	assert_valid_raw_rational_tests();
+}
+
+tests_simple_list *
+register_rational_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_assert_valid_raw_rational_tests(tests);
+	return returning_;
 }

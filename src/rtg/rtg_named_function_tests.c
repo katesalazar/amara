@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,13 @@
 
 #include "../asr/assertion.h"
 
-#include "rtg_named_function_tests.h"
-
 #include "rtg_operation_tests.h"
 
 #include "rtg_operations_simple_list_tests.h"
 
 #include "rtg_where_value_bindings_simple_list_tests.h"
+
+#include "rtg_named_function_tests.h"
 
 rtg_named_function *
 rtg_named_function_example_print_string_literal_foo()
@@ -370,8 +370,40 @@ rtg_named_function_constructors_tests()
 	rtg_named_function_exhaustive_constructor_tests();
 }
 
+tests_simple_list *
+register_rtg_named_function_constructors_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_named_function_constructors_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_named_function_exhaustive_constructor_test_0);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_named_function_exhaustive_constructor_test_1);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_named_function_exhaustive_constructor_test_2);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_named_function_exhaustive_constructor_test_3);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_named_function_exhaustive_constructor_test_4);
+	return tests;
+}
+
 void
 rtg_named_function_tests()
 {
 	rtg_named_function_constructors_tests();
+}
+
+tests_simple_list *
+register_rtg_named_function_tests(tests_simple_list * tests)
+{
+	return register_rtg_named_function_constructors_tests(tests);
 }

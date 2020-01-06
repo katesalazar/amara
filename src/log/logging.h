@@ -1,5 +1,5 @@
 /*
- * Copyright 2018, 2020 Mercedes Catherine Salazar
+ * Copyright 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,22 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * src/stt/stt_execution_requests_simple_list_tests.h: Test the Amara
- * syntax tree application execution requests simple list.
+ * src/log/logging.h: Logging facility.
  */
 
-#ifndef __AMARA__SYNTAX_TREE__EXECUTION_REQUESTS_SIMPLE_LIST_TESTS__H__
-#define __AMARA__SYNTAX_TREE__EXECUTION_REQUESTS_SIMPLE_LIST_TESTS__H__
-
-#include "../tst/tests_simple_list.h"
-
 void
-stt_execution_requests_simple_list_tests(void)
+amara_log(const char * ca)
 ;
-
-tests_simple_list *
-register_stt_execution_requests_simple_list_tests(tests_simple_list * tests)
-__amara__warn_unused_result__
-;
-
-#endif

@@ -119,12 +119,33 @@ disarm_interim_tests()
 */
 
 void
-assertion_tests()
+assertion_test_0()
 {
 	interpret_and_assert("1");
 	/*
 	disarm_interim_tests();
 	*/
+}
+
+void
+assertion_tests()
+{
+	assertion_test_0();
+}
+
+tests_simple_list *
+register_assertion_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_assertion_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(returning_, & assertion_test_0);
+	return returning_;
 }
 
 void
@@ -139,8 +160,6 @@ run_tests(amara_boolean double_end_of_line_char)
 	printf("Running tests...\n");
 
 	/* printf("%d\n", running_tests_ctl(RUNNING_TESTS_HOLD)); */ /* XXX */
-
-	applications_runner_tests();
 
 	assertion_tests();
 
@@ -157,6 +176,8 @@ run_tests(amara_boolean double_end_of_line_char)
 	bison_tests();
 
 	run_time_graph_tests();
+
+	applications_runner_tests();
 
 	app_runner_tests();
 
@@ -185,10 +206,32 @@ register_tests(const tests_simple_list * tests)
 	assertion(tests->next == NULL);
 #endif
 
-	returning_ = register_common_tests(tests);
+	returning_ = (tests_simple_list *) tests;
+
+	returning_ = register_assertion_tests(returning_);
 	forced_assertion(returning_ != NULL);
 
-	/* FIXME more registrations pending */
+	returning_ = register_common_tests(returning_);
+	forced_assertion(returning_ != NULL);
+
+	returning_ = register_basic_arithmetic_tests(returning_);
+	forced_assertion(returning_ != NULL);
+
+	returning_ = register_persistence_tests(returning_);
+
+	returning_ = register_syntax_tree_tests(returning_);
+	forced_assertion(returning_ != NULL);
+
+	returning_ = register_flex_tests(returning_);
+
+	returning_ = register_bison_tests(returning_);
+
+	returning_ = register_run_time_graph_tests(returning_);
+
+	returning_ = register_applications_runner_tests(returning_);
+	forced_assertion(returning_ != NULL);
+
+	returning_ = register_app_runner_tests(returning_);
 
 	return returning_;
 }
@@ -212,7 +255,9 @@ run_scrambled_tests(amara_boolean double_end_of_line_char)
 	tests__ = register_tests(tests_);
 	forced_assertion(tests__ != NULL);
 
+	/*
 	tests_simple_list_destructor(tests_);
+	*/
 
 	tests_ = tests__;
 

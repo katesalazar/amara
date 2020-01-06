@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Mercedes Catherine Salazar
+ * Copyright 2019, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,6 +73,24 @@ assert_types_compatible_for_condition_type_less_than_tests()
 #endif
 }
 
+tests_simple_list *
+register_assert_types_compatible_for_condition_type_less_than_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_assert_types_compatible_for_condition_type_less_than_tests(
+		tests_simple_list * tests)
+{
+#ifndef NDEBUG
+	tests_simple_list_push_back(
+			tests,
+			& assert_types_compatible_for_condition_type_less_than_test_0); 
+#endif
+	return tests;
+}
+
 void
 app_runner_tests()
 {
@@ -80,4 +98,11 @@ app_runner_tests()
 	/*
 	assert_types_compatible_for_condition_type_greater_than_tests();
 	*/
+}
+
+tests_simple_list *
+register_app_runner_tests(tests_simple_list * tests)
+{
+	return register_assert_types_compatible_for_condition_type_less_than_tests(
+			tests);
 }

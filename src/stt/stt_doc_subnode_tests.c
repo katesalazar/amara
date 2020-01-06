@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,16 @@
 #include "../asr/assertion.h"
 
 #include "stt_application_tests.h"
+
 #include "stt_doc_subnode.h"
-#include "stt_doc_subnode_tests.h"
+
 #include "stt_execution_request_tests.h"
+
 #include "stt_named_function_tests.h"
 
 #include "stt_named_functions_simple_list_tests.h"
+
+#include "stt_doc_subnode_tests.h"
 
 stt_doc_subnode *
 stt_doc_subnode_example_one_invalid_named_function()
@@ -152,12 +156,12 @@ assert_expectations_on_stt_doc_subnode_example_print_string_literal_foo(
 #endif
 
 void
-stt_doc_subnode_construct_and_destruct_test_0()
+stt_doc_subnode_default_constructor_test()
 {
 	stt_doc_subnode * doc_subnode_;
 
 	doc_subnode_ = stt_doc_subnode_default_constructor();
-	assertion(doc_subnode_ != NULL);
+	forced_assertion(doc_subnode_ != NULL);
 	assertion(doc_subnode_->named_functions_ != NULL);
 	assertion(doc_subnode_->named_functions_->first == NULL);
 	assertion(doc_subnode_->named_functions_->next == NULL);
@@ -399,10 +403,32 @@ stt_doc_subnode_exhaustive_constructor_tests()
 	stt_doc_subnode_exhaustive_constructor_test_1();
 }
 
+tests_simple_list *
+register_stt_doc_subnode_exhaustive_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_doc_subnode_exhaustive_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_doc_subnode_exhaustive_constructor_test_0);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_doc_subnode_exhaustive_constructor_test_1);
+	return returning_;
+}
+
 void
 stt_doc_subnode_constructors_tests()
 {
-	stt_doc_subnode_construct_and_destruct_test_0();
+	stt_doc_subnode_default_constructor_test();
 	stt_doc_subnode_construct_and_destruct_test_1();
 	/*
 	stt_doc_subnode_construct_and_destruct_test_2();
@@ -412,8 +438,50 @@ stt_doc_subnode_constructors_tests()
 	stt_doc_subnode_exhaustive_constructor_tests();
 }
 
+tests_simple_list *
+register_stt_doc_subnode_constructors_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_doc_subnode_constructors_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_doc_subnode_default_constructor_test);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_doc_subnode_construct_and_destruct_test_1);
+	/*
+	tests_simple_list_push_back(
+			returning_,
+			& stt_doc_subnode_construct_and_destruct_test_2);
+	*/
+	tests_simple_list_push_back(
+			returning_,
+			& stt_doc_subnode_construct_and_destruct_test_3);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_doc_subnode_construct_and_destruct_test_4);
+	returning_ = register_stt_doc_subnode_exhaustive_constructor_tests(
+			returning_);
+	return returning_;
+}
+
 void
 stt_doc_subnode_tests()
 {
 	stt_doc_subnode_constructors_tests();
+}
+
+tests_simple_list *
+register_stt_doc_subnode_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_doc_subnode_constructors_tests(tests);
+	return returning_;
 }

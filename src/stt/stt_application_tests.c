@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,8 @@
 
 /*   For `stt_application`. */
 #include "stt_application.h"
+
+#include "stt_application_tests.h"
 
 stt_application *
 stt_application_example_print_foo()
@@ -239,14 +241,40 @@ stt_application_construct_and_destruct_test_1()
 }
 
 void
-stt_application_construct_and_destruct_tests()
+stt_application_constructors_tests()
 {
 	stt_application_construct_and_destruct_test_0();
 	stt_application_construct_and_destruct_test_1();
 }
 
+tests_simple_list *
+register_stt_application_constructors_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_application_constructors_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& stt_application_construct_and_destruct_test_0);
+	tests_simple_list_push_back(
+			tests,
+			& stt_application_construct_and_destruct_test_1);
+	return tests;
+}
+
 void
 stt_application_tests()
 {
-	stt_application_construct_and_destruct_tests();
+	stt_application_constructors_tests();
+}
+
+tests_simple_list *
+register_stt_application_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_application_constructors_tests(tests);
+	return returning_;
 }

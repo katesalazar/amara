@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,7 +55,7 @@ char_arrays_concatenation_test_0()
 	const char * one_ = "";
 	const char * concat_;
 
-	fprintf(stderr, "will run test 0..."),
+	fprintf(stderr, "will run char_arrays_concatenation_test_0..."),
 	concat_ = concatenate_two_char_arrays(zero_, one_);
 	assertion(!strcmp(concat_, ""));
 	free((char *) concat_);
@@ -69,7 +69,7 @@ char_arrays_concatenation_test_1()
 	const char * one_ = "";
 	const char * concat_;
 
-	fprintf(stderr, "will run test 1..."),
+	fprintf(stderr, "will run char_arrays_concatenation_test_1..."),
 	concat_ = concatenate_two_char_arrays(zero_, one_);
 	assertion(!strcmp(concat_, zero_));
 	free((char *) concat_);
@@ -83,7 +83,7 @@ char_arrays_concatenation_test_2()
 	const char * one_ = "bar";
 	const char * concat_;
 
-	fprintf(stderr, "will run test 2..."),
+	fprintf(stderr, "will run char_arrays_concatenation_test_2..."),
 	concat_ = concatenate_two_char_arrays(zero_, one_);
 	assertion(!strcmp(concat_, one_));
 	free((char *) concat_);
@@ -98,7 +98,7 @@ char_arrays_concatenation_test_3()
 	const char * concat_;
 	int strcmp_ret_;
 
-	fprintf(stderr, "will run test 3...");
+	fprintf(stderr, "will run char_arrays_concatenation_test_3..."),
 	concat_ = concatenate_two_char_arrays(zero_, one_);
 	strcmp_ret_ = strcmp(concat_, "foobar");
 	/* fprintf(stderr, "%s\n", concat_); */
@@ -123,7 +123,7 @@ char_arrays_concatenation_test_4()
 	const char * expectation_;
 	int strcmp_ret_;
 
-	fprintf(stderr, "will run test 4...");
+	fprintf(stderr, "will run char_arrays_concatenation_test_4..."),
 	concat_ = concatenate_two_char_arrays(zero_, one_);
 	expectation_ = "\
 0123456789012345678901234567890123456789\
@@ -158,7 +158,7 @@ char_arrays_concatenation_test_5()
 	const char * expectation_;
 	int strcmp_ret_;
 
-	fprintf(stderr, "will run test 5...");
+	fprintf(stderr, "will run char_arrays_concatenation_test_5..."),
 	expectation_ = "\
 0123456789012345678901234567890123456789\
 0123456789012345678901234567890123456789\
@@ -186,7 +186,7 @@ char_arrays_concatenation_test_6()
 	const char * concat_;
 	int strcmp_ret_;
 
-	fprintf(stderr, "will run test 6...");
+	fprintf(stderr, "will run char_arrays_concatenation_test_6..."),
 	concat_ = concatenate_three_char_arrays(zero_, one_, two_);
 	strcmp_ret_ = strcmp(concat_, zero_);
 	assertion(!strcmp_ret_);
@@ -204,7 +204,7 @@ char_arrays_concatenation_test_7()
 	const char * concat_;
 	int strcmp_ret_;
 
-	fprintf(stderr, "will run test 7...");
+	fprintf(stderr, "will run char_arrays_concatenation_test_7..."),
 	concat_ = concatenate_four_char_arrays(zero_, one_, two_, three_);
 	strcmp_ret_ = strcmp(concat_, zero_);
 	assertion(!strcmp_ret_);
@@ -235,34 +235,41 @@ register_char_arrays_concatenation_tests_(const tests_simple_list * tests)
 {
 	tests_simple_list * returning_;
 
+	/*
 	returning_ = tests_simple_list_copy_constructor(tests);
+	*/
+	returning_ = (tests_simple_list *) tests;
 	forced_assertion(returning_ != NULL);
-
+	/*
 	forced_assertion(returning_->first == NULL);
+	*/
 
 	tests_simple_list_push_back(
 			returning_, & char_arrays_concatenation_test_0);
-
 	forced_assertion(returning_->first != NULL);
+	/*
 	forced_assertion(returning_->next == NULL);
+	*/
 
 	tests_simple_list_push_back(
 			returning_, & char_arrays_concatenation_test_1);
-
 	forced_assertion(returning_->first != NULL);
 	forced_assertion(returning_->next != NULL);
 	forced_assertion(returning_->next->first != NULL);
+	/*
 	forced_assertion(returning_->next->next == NULL);
+	*/
 
 	tests_simple_list_push_back(
 			returning_, & char_arrays_concatenation_test_2);
-
 	forced_assertion(returning_->first != NULL);
 	forced_assertion(returning_->next != NULL);
 	forced_assertion(returning_->next->first != NULL);
 	forced_assertion(returning_->next->next != NULL);
 	forced_assertion(returning_->next->next->first != NULL);
+	/*
 	forced_assertion(returning_->next->next->next == NULL);
+	*/
 
 	tests_simple_list_push_back(
 			returning_, & char_arrays_concatenation_test_3);
@@ -333,6 +340,26 @@ char_arrays_simple_list_equality_tests_()
 {
 	char_arrays_simple_list_equality_test_0_();
 	char_arrays_simple_list_equality_test_1_();
+}
+
+tests_simple_list *
+register_char_arrays_simple_list_equality_tests_(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_char_arrays_simple_list_equality_tests_(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_equality_test_0_);
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_equality_test_1_);
+	return returning_;
 }
 
 void
@@ -623,11 +650,58 @@ char_arrays_simple_list_concatenation_tests_()
 	char_arrays_simple_list_concatenation_test_4();
 }
 
+tests_simple_list *
+register_char_arrays_simple_list_concatenation_tests_(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_char_arrays_simple_list_concatenation_tests_(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_concatenation_test_0);
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_concatenation_test_1);
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_concatenation_test_2);
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_concatenation_test_3);
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_concatenation_test_4);
+	return returning_;
+}
+
 void
 char_arrays_simple_list_tests_()
 {
 	char_arrays_simple_list_equality_tests_();
 	char_arrays_simple_list_concatenation_tests_();
+}
+
+tests_simple_list *
+register_char_arrays_simple_list_tests_(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_char_arrays_simple_list_tests_(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_char_arrays_simple_list_equality_tests_(tests);
+	returning_ = register_char_arrays_simple_list_concatenation_tests_(
+			tests);
+	return returning_;
 }
 
 void
@@ -636,17 +710,11 @@ common_tests()
 #ifdef TRACE_STEPS_IN
 	fprintf(stderr, "----> %s:%u: void common_tests()\n", __FILE__, __LINE__);
 #endif
-
 	char_array_tests_();
-
 	char_array_tests();
-
 	char_arrays_simple_list_tests_();
-
 	char_arrays_simple_list_tests();
-
 	amara_string_tests();
-
 	amara_strings_simple_list_tests();
 }
 
@@ -654,9 +722,14 @@ tests_simple_list *
 register_common_tests(const tests_simple_list * tests)
 {
 	tests_simple_list * returning_;
+
 	returning_ = register_char_array_tests_(tests);
-
-	/* FIXME */
-
+	forced_assertion(returning_ != NULL);
+	returning_ = register_char_array_tests(returning_);
+	forced_assertion(returning_ != NULL);
+	returning_ = register_char_arrays_simple_list_tests_(returning_);
+	returning_ = register_char_arrays_simple_list_tests(returning_);
+	returning_ = register_amara_string_tests(returning_);
+	returning_ = register_amara_strings_simple_list_tests(returning_);
 	return returning_;
 }

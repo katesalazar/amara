@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,20 +19,40 @@
  */
 
 #include "../asr/assertion.h"
+
 #include "stt_identifier_subnode.h"
 
-void stt_identifier_subnode_construct_and_destruct_test_0()
+#include "stt_identifier_subnode_tests.h"
+
+void
+stt_identifier_subnode_default_constructor_test()
 {
 	stt_identifier_subnode * identifier_subnode_;
+
 	identifier_subnode_ = stt_identifier_subnode_default_constructor();
-	assertion(identifier_subnode_ != NULL);
+	forced_assertion(identifier_subnode_ != NULL);
 	assertion(identifier_subnode_->value_ == NULL);
 	stt_identifier_subnode_destructor(identifier_subnode_);
 }
 
-void stt_identifier_subnode_construct_and_destruct_tests()
+void
+stt_identifier_subnode_constructors_tests()
 {
-	stt_identifier_subnode_construct_and_destruct_test_0();
+	stt_identifier_subnode_default_constructor_test();
+}
+
+tests_simple_list *
+register_stt_identifier_subnode_constructors_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_identifier_subnode_constructors_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& stt_identifier_subnode_default_constructor_test);
+	return tests;
 }
 
 void
@@ -90,9 +110,37 @@ stt_identifier_subnode_setter_tests()
 	stt_identifier_subnode_setter_test_1();
 }
 
+tests_simple_list *
+register_stt_identifier_subnode_setter_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_identifier_subnode_setter_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(returning_,
+	                            & stt_identifier_subnode_setter_test_0);
+	tests_simple_list_push_back(returning_,
+	                            & stt_identifier_subnode_setter_test_1);
+	return returning_;
+}
+
 void
 stt_identifier_subnode_tests()
 {
-	stt_identifier_subnode_construct_and_destruct_tests();
+	stt_identifier_subnode_constructors_tests();
 	stt_identifier_subnode_setter_tests();
+}
+
+tests_simple_list *
+register_stt_identifier_subnode_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_identifier_subnode_constructors_tests(tests);
+	returning_ = register_stt_identifier_subnode_setter_tests(returning_);
+	return returning_;
 }

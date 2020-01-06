@@ -240,6 +240,7 @@ UTILS_DIR = utils
 	$(SRC_DIR)/cmn/char_arrays_simple_list.c \
 	$(SRC_DIR)/cmn/char_arrays_simple_list_tests.c \
 	$(SRC_DIR)/cmn/common_tests.c \
+	$(SRC_DIR)/log/logging.c \
 	$(SRC_DIR)/wrp/dirent_wrapper.c \
 	$(SRC_DIR)/bsn/flex_tests.c \
 	$(SRC_DIR)/brt/integer.c \
@@ -396,6 +397,7 @@ BUILD_SRC = \
 	$(BUILD_DIR_SRC)/cmn/char_arrays_simple_list.$(CEXT) \
 	$(BUILD_DIR_SRC)/cmn/char_arrays_simple_list_tests.$(CEXT) \
 	$(BUILD_DIR_SRC)/cmn/common_tests.$(CEXT) \
+	$(BUILD_DIR_SRC)/log/logging.$(CEXT) \
 	$(BUILD_DIR_SRC)/wrp/dirent_wrapper.$(CEXT) \
 	$(BUILD_DIR_SRC)/bsn/flex_tests.$(CEXT) \
 	$(BUILD_DIR_SRC)/brt/integer.$(CEXT) \
@@ -554,6 +556,7 @@ OBJ_DEBUG = \
 		$(BUILD_DIR_DEBUG)/char_arrays_simple_list.o \
 		$(BUILD_DIR_DEBUG)/char_arrays_simple_list_tests.o \
 		$(BUILD_DIR_DEBUG)/common_tests.o \
+		$(BUILD_DIR_DEBUG)/logging.o \
 		$(BUILD_DIR_DEBUG)/dirent_wrapper.o \
 		$(BUILD_DIR_DEBUG)/flex_tests.o \
 		$(BUILD_DIR_DEBUG)/integer.o \
@@ -711,6 +714,7 @@ OBJ_RELEASE = \
 		$(BUILD_DIR_RELEASE)/char_arrays_simple_list.o \
 		$(BUILD_DIR_RELEASE)/char_arrays_simple_list_tests.o \
 		$(BUILD_DIR_RELEASE)/common_tests.o \
+		$(BUILD_DIR_RELEASE)/logging.o \
 		$(BUILD_DIR_RELEASE)/dirent_wrapper.o \
 		$(BUILD_DIR_RELEASE)/flex_tests.o \
 		$(BUILD_DIR_RELEASE)/integer.o \
@@ -866,6 +870,7 @@ checkdirs: \
 	$(BUILD_DIR_SRC)/bsn \
 	$(BUILD_DIR_SRC)/cmn \
 	$(BUILD_DIR_SRC)/ftr \
+	$(BUILD_DIR_SRC)/log \
 	$(BUILD_DIR_SRC)/prs \
 	$(BUILD_DIR_SRC)/rtg \
 	$(BUILD_DIR_SRC)/stt \
@@ -896,6 +901,9 @@ $(BUILD_DIR_SRC)/cmn:
 	@find $@ -type d -maxdepth 0 >/dev/null 2>/dev/null || mkdir -p $@
 
 $(BUILD_DIR_SRC)/ftr:
+	@find $@ -type d -maxdepth 0 >/dev/null 2>/dev/null || mkdir -p $@
+
+$(BUILD_DIR_SRC)/log:
 	@find $@ -type d -maxdepth 0 >/dev/null 2>/dev/null || mkdir -p $@
 
 $(BUILD_DIR_SRC)/prs:
@@ -1022,11 +1030,13 @@ $(BUILD_DIR_RELEASE)/amara_string.o: \
 	$(C) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_SRC)/cmn/amara_string_tests.$(HEXT): \
-		$(SRC_DIR)/cmn/amara_string_tests.h
+		$(SRC_DIR)/cmn/amara_string_tests.h \
+		$(BUILD_DIR_SRC)/tst/tests_simple_list.$(HEXT)
 	$(CP) $< $@
 
 $(BUILD_DIR_SRC)/cmn/amara_string_tests.$(CEXT): \
-		$(SRC_DIR)/cmn/amara_string_tests.c
+		$(SRC_DIR)/cmn/amara_string_tests.c \
+		$(BUILD_DIR_SRC)/log/logging.$(HEXT)
 	$(CP) $< $@
 
 $(BUILD_DIR_DEBUG)/amara_string_tests.o: \
@@ -1147,7 +1157,8 @@ $(BUILD_DIR_DEBUG)/basic_arithmetic_tests.o: \
 		$(BUILD_DIR_SRC)/stt/stt_node.$(HEXT) \
 		$(BUILD_DIR_SRC)/brt/integer_tests.$(HEXT) \
 		$(BUILD_DIR_SRC)/brt/natural_tests.$(HEXT) \
-		$(BUILD_DIR_SRC)/brt/rational_tests.$(HEXT)
+		$(BUILD_DIR_SRC)/brt/rational_tests.$(HEXT) \
+		$(BUILD_DIR_SRC)/tst/tests_simple_list.$(HEXT)
 	$(C) $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
 $(BUILD_DIR_RELEASE)/basic_arithmetic_tests.o: \
@@ -1157,7 +1168,8 @@ $(BUILD_DIR_RELEASE)/basic_arithmetic_tests.o: \
 		$(BUILD_DIR_SRC)/stt/stt_node.$(HEXT) \
 		$(BUILD_DIR_SRC)/brt/integer_tests.$(HEXT) \
 		$(BUILD_DIR_SRC)/brt/natural_tests.$(HEXT) \
-		$(BUILD_DIR_SRC)/brt/rational_tests.$(HEXT)
+		$(BUILD_DIR_SRC)/brt/rational_tests.$(HEXT) \
+		$(BUILD_DIR_SRC)/tst/tests_simple_list.$(HEXT)
 	$(C) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_SRC)/bsn/bison_annex.$(HEXT): \
@@ -1621,7 +1633,8 @@ $(BUILD_DIR_RELEASE)/arn_type.o: \
 	$(C) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_SRC)/arn/arn_type_tests.$(HEXT): \
-		$(SRC_DIR)/arn/arn_type_tests.h
+		$(SRC_DIR)/arn/arn_type_tests.h \
+		$(BUILD_DIR_SRC)/tst/tests_simple_list.$(HEXT)
 	$(CP) $< $@
 
 $(BUILD_DIR_SRC)/arn/arn_type_tests.$(CEXT): \
@@ -1631,13 +1644,15 @@ $(BUILD_DIR_SRC)/arn/arn_type_tests.$(CEXT): \
 $(BUILD_DIR_DEBUG)/arn_type_tests.o: \
 		$(BUILD_DIR_SRC)/arn/arn_type_tests.$(CEXT) \
 		$(BUILD_DIR_SRC)/arn/arn_type_tests.$(HEXT) \
-		$(BUILD_DIR_SRC)/rtg/rtg_expression_tests.$(HEXT)
+		$(BUILD_DIR_SRC)/rtg/rtg_expression_tests.$(HEXT) \
+		$(BUILD_DIR_SRC)/log/logging.$(HEXT)
 	$(C) $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
 $(BUILD_DIR_RELEASE)/arn_type_tests.o: \
 		$(BUILD_DIR_SRC)/arn/arn_type_tests.$(CEXT) \
 		$(BUILD_DIR_SRC)/arn/arn_type_tests.$(HEXT) \
-		$(BUILD_DIR_SRC)/rtg/rtg_expression_tests.$(HEXT)
+		$(BUILD_DIR_SRC)/rtg/rtg_expression_tests.$(HEXT) \
+		$(BUILD_DIR_SRC)/log/logging.$(HEXT)
 	$(C) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_SRC)/arn/arn_value.$(HEXT): \
@@ -1913,6 +1928,24 @@ $(BUILD_DIR_RELEASE)/flex_tests.o: \
 		$(BUILD_DIR_SRC)/stt/stt_node.$(HEXT)
 	$(C) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
+$(BUILD_DIR_SRC)/log/logging.$(HEXT): \
+		$(SRC_DIR)/log/logging.h
+	$(CP) $< $@
+
+$(BUILD_DIR_SRC)/log/logging.$(CEXT): \
+		$(SRC_DIR)/log/logging.c
+	$(CP) $< $@
+
+$(BUILD_DIR_DEBUG)/logging.o: \
+		$(BUILD_DIR_SRC)/log/logging.$(CEXT) \
+		$(BUILD_DIR_SRC)/log/logging.$(HEXT)
+	$(C) $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/logging.o: \
+		$(BUILD_DIR_SRC)/log/logging.$(CEXT) \
+		$(BUILD_DIR_SRC)/log/logging.$(HEXT)
+	$(C) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
 $(BUILD_DIR_SRC)/prs/persistence.$(HEXT): \
 		$(SRC_DIR)/prs/persistence.h \
 		$(BUILD_DIR_SRC)/wrp/dirent_wrapper.$(HEXT)
@@ -2017,7 +2050,8 @@ $(BUILD_DIR_RELEASE)/tests_runner.o: \
 	$(C) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_SRC)/tst/tests_simple_list.$(HEXT): \
-		$(SRC_DIR)/tst/tests_simple_list.h
+		$(SRC_DIR)/tst/tests_simple_list.h \
+		$(BUILD_DIR_SRC)/definitions.$(HEXT)
 	$(CP) $< $@
 
 $(BUILD_DIR_SRC)/tst/tests_simple_list.$(CEXT): \
@@ -4425,7 +4459,8 @@ $(BUILD_DIR_RELEASE)/stt_string_literal_subnode.o: \
 	$(C) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_SRC)/stt/stt_string_literal_subnode_tests.$(HEXT): \
-		$(SRC_DIR)/stt/stt_string_literal_subnode_tests.h
+		$(SRC_DIR)/stt/stt_string_literal_subnode_tests.h \
+		$(BUILD_DIR_SRC)/tst/tests_simple_list.$(HEXT)
 	$(CP) $< $@
 
 $(BUILD_DIR_SRC)/stt/stt_string_literal_subnode_tests.$(CEXT): \

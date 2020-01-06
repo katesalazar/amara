@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -547,6 +547,19 @@ stt_operation_default_constructor_tests()
 	stt_operation_default_constructor_test_0();
 }
 
+tests_simple_list *
+register_stt_operation_default_constructor_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_operation_default_constructor_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests, & stt_operation_default_constructor_test_0);
+	return tests;
+}
+
 void
 stt_operation_destructor_test_0()
 {
@@ -584,6 +597,19 @@ stt_operation_destructor_tests()
 	stt_operation_destructor_test_1();
 }
 
+tests_simple_list *
+register_stt_operation_destructor_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_operation_destructor_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests, & stt_operation_destructor_test_0);
+	tests_simple_list_push_back(tests, & stt_operation_destructor_test_1);
+	return tests;
+}
+
 void
 stt_operation_constructors_tests()
 {
@@ -594,8 +620,30 @@ stt_operation_constructors_tests()
 	stt_operation_destructor_tests();
 }
 
+tests_simple_list *
+register_stt_operation_constructors_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_operation_constructors_tests(tests_simple_list * tests)
+{
+	return register_stt_operation_destructor_tests(
+			register_stt_operation_default_constructor_tests(
+				tests));
+}
+
 void
 stt_operation_tests()
 {
 	stt_operation_constructors_tests();
+}
+
+tests_simple_list *
+register_stt_operation_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_operation_constructors_tests(tests);
+	return returning_;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -206,12 +206,12 @@ assert_expectations_on_rtg_application_example_cli_app_print_bar(
 #endif
 
 void
-rtg_application_construct_and_destruct_test_0()
+rtg_application_default_constructor_test_0()
 {
 	rtg_application * application_;
 
 	application_ = rtg_application_default_constructor();
-	assertion(application_ != NULL);
+	forced_assertion(application_ != NULL);
 	assertion(application_->type_ == RTG_APPLICATION_TYPE_INVALID);
 	assertion(application_->name_ == NULL);
 	assertion(application_->entry_point_function_ == NULL);
@@ -220,9 +220,22 @@ rtg_application_construct_and_destruct_test_0()
 }
 
 void
-rtg_application_construct_and_destruct_tests()
+rtg_application_constructors_tests()
 {
-	rtg_application_construct_and_destruct_test_0();
+	rtg_application_default_constructor_test_0();
+}
+
+tests_simple_list *
+register_rtg_application_constructors_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_application_constructors_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests, & rtg_application_default_constructor_test_0);
+	return tests;
 }
 
 void
@@ -358,9 +371,37 @@ rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_tests
 	*/
 }
 
+tests_simple_list *
+register_rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_test_0);
+	/*
+	tests_simple_list_push_back(
+			tests,
+			& rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_test_1);
+	*/
+	return tests;
+}
+
 void
 rtg_application_tests()
 {
-	rtg_application_construct_and_destruct_tests();
+	rtg_application_constructors_tests();
 	rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_tests();
+}
+
+tests_simple_list *
+register_rtg_application_tests(tests_simple_list * tests)
+{
+	return register_rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list_tests(
+	       register_rtg_application_constructors_tests(tests));
 }

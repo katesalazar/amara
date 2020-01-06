@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Mercedes Catherine Salazar
+ * Copyright 2019, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,17 @@
  * src/bsn/flex_tests.c: Test the Amara docs Flex scanner.
  */
 
+#include "flex_tests.h"
+
 void
 flex_tests(void)
 {
 	;  /* XXX */
+}
+
+tests_simple_list *
+register_flex_tests(tests_simple_list * tests)
+{
+	;  /* XXX */
+	return tests;
 }

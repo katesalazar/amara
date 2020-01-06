@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,21 +18,24 @@
  */
 
 #include "../asr/assertion.h"
+
 #include "stt_integer_literal_subnode.h"
 
-void stt_integer_literal_subnode_construct_and_destruct_test_0()
+#include "stt_integer_literal_subnode_tests.h"
+
+void stt_integer_literal_subnode_default_constructor_test_0()
 {
 	stt_integer_literal_subnode * integer_literal_subnode_;
 
 	integer_literal_subnode_ =
 			stt_integer_literal_subnode_default_constructor();
-	assertion(integer_literal_subnode_ != NULL);
-	assertion(integer_literal_subnode_->raw_ == NULL);
+	forced_assertion(integer_literal_subnode_ != NULL);
+	forced_assertion(integer_literal_subnode_->raw_ == NULL);
 
 	stt_integer_literal_subnode_destructor(integer_literal_subnode_);
 }
 
-void stt_integer_literal_subnode_construct_and_destruct_test_1()
+void stt_integer_literal_subnode_copy_constructor_test_0()
 {
 	stt_integer_literal_subnode * integer_literal_subnode_zero_;
 	stt_integer_literal_subnode * integer_literal_subnode_one_;
@@ -68,10 +71,32 @@ void stt_integer_literal_subnode_construct_and_destruct_test_1()
 	stt_integer_literal_subnode_destructor(integer_literal_subnode_zero_);
 }
 
-void stt_integer_literal_subnode_construct_and_destruct_tests()
+void stt_integer_literal_subnode_constructors_tests()
 {
-	stt_integer_literal_subnode_construct_and_destruct_test_0();
-	stt_integer_literal_subnode_construct_and_destruct_test_1();
+	stt_integer_literal_subnode_default_constructor_test_0();
+	stt_integer_literal_subnode_copy_constructor_test_0();
+}
+
+tests_simple_list *
+register_stt_integer_literal_subnode_constructors_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_integer_literal_subnode_constructors_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_integer_literal_subnode_default_constructor_test_0);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_integer_literal_subnode_copy_constructor_test_0);
+	return returning_;
 }
 
 void stt_integer_literal_subnode_get_raw_test_0()
@@ -111,6 +136,23 @@ void stt_integer_literal_subnode_get_raw_test_0()
 void stt_integer_literal_subnode_get_raw_tests()
 {
 	stt_integer_literal_subnode_get_raw_test_0();
+}
+
+tests_simple_list *
+register_stt_integer_literal_subnode_get_raw_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_integer_literal_subnode_get_raw_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_integer_literal_subnode_get_raw_test_0);
+	return returning_;
 }
 
 void stt_integer_literal_subnode_set_raw_test_0()
@@ -222,10 +264,50 @@ void stt_integer_literal_subnode_set_raw_tests()
 	stt_integer_literal_subnode_set_raw_test_3();
 }
 
+tests_simple_list *
+register_stt_integer_literal_subnode_set_raw_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_integer_literal_subnode_set_raw_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_integer_literal_subnode_set_raw_test_0);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_integer_literal_subnode_set_raw_test_1);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_integer_literal_subnode_set_raw_test_2);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_integer_literal_subnode_set_raw_test_3);
+	return returning_;
+}
+
 void
 stt_integer_literal_subnode_tests()
 {
-	stt_integer_literal_subnode_construct_and_destruct_tests();
+	stt_integer_literal_subnode_constructors_tests();
 	stt_integer_literal_subnode_get_raw_tests();
 	stt_integer_literal_subnode_set_raw_tests();
+}
+
+tests_simple_list *
+register_stt_integer_literal_subnode_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_integer_literal_subnode_constructors_tests(
+			tests);
+	returning_ = register_stt_integer_literal_subnode_get_raw_tests(
+			returning_);
+	returning_ = register_stt_integer_literal_subnode_set_raw_tests(
+			returning_);
+	return returning_;
 }

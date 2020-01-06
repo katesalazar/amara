@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -368,10 +368,39 @@ rtg_expression_copy_constructor_tests()
 	rtg_expression_copy_constructor_test_20_conditional();
 }
 
+tests_simple_list *
+register_rtg_expression_copy_constructor_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_expression_copy_constructor_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_expression_copy_constructor_test_10_identifier);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_expression_copy_constructor_test_20_conditional);
+	return tests;
+}
+
+
 void
 rtg_expression_constructors_tests()
 {
 	rtg_expression_copy_constructor_tests();
+}
+
+tests_simple_list *
+register_rtg_expression_constructors_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_expression_constructors_tests(tests_simple_list * tests)
+{
+	return register_rtg_expression_copy_constructor_tests(tests);
 }
 
 #ifndef NDEBUG
@@ -427,6 +456,27 @@ rtg_expression_assert_validity_tests()
 
 #endif
 
+#ifndef NDEBUG
+
+tests_simple_list *
+register_rtg_expression_assert_validity_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_expression_assert_validity_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_expression_assert_validity_test_10_dice);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_expression_assert_validity_test_20_conditional);
+	return tests;
+}
+
+#endif
+
 void
 rtg_expression_tests()
 {
@@ -434,4 +484,20 @@ rtg_expression_tests()
 #ifndef NDEBUG
 	rtg_expression_assert_validity_tests();
 #endif
+}
+
+tests_simple_list *
+register_rtg_expression_tests(tests_simple_list * tests)
+{
+	return
+#ifndef NDEBUG
+			register_rtg_expression_assert_validity_tests(
+#endif
+			register_rtg_expression_constructors_tests(
+					tests
+			)
+#ifndef NDEBUG
+			)
+#endif
+			;
 }

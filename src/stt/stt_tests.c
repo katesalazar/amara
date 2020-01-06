@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -116,6 +116,9 @@
 
 /*   For `stt_where_value_bindings_subnode_tests`. */
 #include "stt_where_value_bindings_subnode_tests.h"
+
+/*   For own prototypes. */
+#include "stt_tests.h"
 
 void
 node_name_from_type_test_0()
@@ -410,6 +413,33 @@ node_name_from_type_tests()
 	node_name_from_type_test_for_identifier_node();
 }
 
+tests_simple_list *
+register_node_name_from_type_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_node_name_from_type_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(returning_, & node_name_from_type_test_0);
+	tests_simple_list_push_back(returning_, & node_name_from_type_test_1);
+	tests_simple_list_push_back(returning_, & node_name_from_type_test_2);
+	tests_simple_list_push_back(returning_, & node_name_from_type_test_3);
+	tests_simple_list_push_back(returning_, & node_name_from_type_test_4);
+	/*
+	tests_simple_list_push_back(returning_, & node_name_from_type_test_5);
+	tests_simple_list_push_back(returning_, & node_name_from_type_test_6);
+	tests_simple_list_push_back(returning_, & node_name_from_type_test_7);
+	*/
+	tests_simple_list_push_back(
+			returning_,
+			& node_name_from_type_test_for_identifier_node);
+	return returning_;
+}
+
 void
 syntax_tree_tests_()
 {
@@ -472,4 +502,72 @@ syntax_tree_tests()
 	fprintf(stderr, "----> %s:%u: void syntax_tree_tests()\n", __FILE__, __LINE__);
 #endif
 	syntax_tree_tests_();
+}
+
+tests_simple_list *
+register_syntax_tree_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+
+	returning_ = register_stt_string_literal_subnode_tests(returning_);
+
+	returning_ = register_stt_natural_literal_subnode_tests(returning_);
+
+	returning_ = register_stt_integer_literal_subnode_tests(returning_);
+
+	returning_ = register_stt_rational_literal_subnode_tests(returning_);
+
+	returning_ = register_stt_identifier_subnode_tests(returning_);
+
+	returning_ = register_stt_dice_expression_tests(returning_);
+
+	returning_ = register_stt_expression_sub_identifier_tests(returning_);
+	returning_ = register_stt_expression_sub_dice_tests(returning_);
+	returning_ = register_stt_expression_sub_conditional_tests(returning_);
+	returning_ = register_stt_expression_tests(returning_);
+	returning_ = register_stt_expression_subnode_tests(returning_);
+
+	returning_ = register_stt_condition_tests(returning_);
+	returning_ = register_stt_condition_subnode_tests(returning_);
+
+	returning_ = register_stt_where_value_binding_tests(returning_);
+	returning_ = register_stt_where_value_binding_subnode_tests(
+			returning_);
+	returning_ = register_stt_where_value_bindings_simple_list_tests(
+			returning_);
+	returning_ = register_stt_where_value_bindings_subnode_tests(
+			returning_);
+
+	returning_ = register_stt_operation_arg_tests(returning_);
+	returning_ = register_stt_operation_args_simple_list_tests(returning_);
+	returning_ = register_stt_operation_tests(returning_);
+
+	returning_ = register_stt_operation_subnode_tests(returning_);
+
+	returning_ = register_stt_operations_simple_list_tests(returning_);
+	returning_ = register_stt_operations_list_subnode_tests(returning_);
+
+	returning_ = register_stt_named_function_tests(returning_);
+	returning_ = register_stt_named_function_subnode_tests(returning_);
+	returning_ = register_stt_named_functions_simple_list_tests(
+			returning_);
+
+	returning_ = register_stt_application_tests(returning_);
+	returning_ = register_stt_application_subnode_tests(returning_);
+	returning_ = register_stt_applications_simple_list_tests(returning_);
+
+	returning_ = register_stt_execution_request_tests(returning_);
+	returning_ = register_stt_execution_request_subnode_tests(returning_);
+	returning_ = register_stt_execution_requests_simple_list_tests(
+			returning_);
+
+	returning_ = register_stt_doc_subnode_tests(returning_);
+
+	returning_ = register_stt_node_tests(returning_);
+
+	returning_ = register_node_name_from_type_tests(returning_);
+
+	return returning_;
 }

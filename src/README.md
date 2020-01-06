@@ -49,6 +49,8 @@ that).
 snprintf(char * str, size_t size, const char * format, ...)` without actually
 being under C99.
 
+* `log`: <strong>Log</strong>ging facilities.
+
 * `prs`: The **p**e**rs**istence system deals with persistent IO, in a way
 fully coverable by tests, abstracting uncoverable conditions by proxying them
   to source documents in

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -425,6 +425,43 @@ char_arrays_simple_list_concat_destructive_tests()
 	char_arrays_simple_list_concat_destructive_test_6();
 }
 
+tests_simple_list *
+register_char_arrays_simple_list_concat_destructive_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_char_arrays_simple_list_concat_destructive_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_concat_destructive_test_0);
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_concat_destructive_test_1);
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_concat_destructive_test_2);
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_concat_destructive_test_3);
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_concat_destructive_test_4);
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_concat_destructive_test_5);
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_concat_destructive_test_6);
+	return returning_;
+}
+
 void
 char_arrays_simple_list_push_front_test_0()
 {
@@ -485,6 +522,23 @@ void
 char_arrays_simple_list_push_front_tests()
 {
 	char_arrays_simple_list_push_front_test_0();
+}
+
+tests_simple_list *
+register_char_arrays_simple_list_push_front_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_char_arrays_simple_list_push_front_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_push_front_test_0);
+	return returning_;
 }
 
 #ifndef NDEBUG
@@ -1024,10 +1078,63 @@ char_arrays_simple_list_equality_tests()
 #endif
 }
 
+tests_simple_list *
+register_char_arrays_simple_list_equality_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_char_arrays_simple_list_equality_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+	returning_ = tests;
+#ifndef NDEBUG
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_equality_test_0);
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_equality_test_1);
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_equality_test_2);
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_equality_test_3);
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_equality_test_4);
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_equality_test_5);
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_equality_test_6);
+	tests_simple_list_push_back(
+			returning_,
+			& char_arrays_simple_list_equality_test_7);
+#endif
+	return returning_;
+}
+
 void
 char_arrays_simple_list_tests()
 {
 	char_arrays_simple_list_concat_destructive_tests();
 	char_arrays_simple_list_push_front_tests();
 	char_arrays_simple_list_equality_tests();
+}
+
+tests_simple_list *
+register_char_arrays_simple_list_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_char_arrays_simple_list_concat_destructive_tests(
+			tests);
+	returning_ = register_char_arrays_simple_list_push_front_tests(
+			returning_);
+	returning_ = register_char_arrays_simple_list_equality_tests(
+			returning_);
+	return returning_;
 }

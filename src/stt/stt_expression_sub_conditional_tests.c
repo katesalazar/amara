@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -546,6 +546,25 @@ stt_expression_sub_conditional_default_constructor_tests()
 	stt_expression_sub_conditional_default_constructor_test_0();
 }
 
+tests_simple_list *
+register_stt_expression_sub_conditional_default_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_expression_sub_conditional_default_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_expression_sub_conditional_default_constructor_test_0);
+	return returning_;
+}
+
 /**  This is a reordering of `void
  * stt_expression_sub_conditional_default_constructor_test()`. */
 void
@@ -645,6 +664,25 @@ void
 stt_expression_sub_conditional_setters_tests()
 {
 	stt_expression_sub_conditional_setters_test_0();
+}
+
+tests_simple_list *
+register_stt_expression_sub_conditional_setters_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_expression_sub_conditional_setters_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_expression_sub_conditional_setters_test_0);
+	return returning_;
 }
 
 /**  If the conditions are different, then the whole E.S.C. 's are
@@ -761,10 +799,46 @@ stt_expression_sub_conditional_equality_tests()
 	stt_expression_sub_conditional_equality_test_1();
 }
 
+tests_simple_list *
+register_stt_expression_sub_conditional_equality_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_expression_sub_conditional_equality_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_expression_sub_conditional_equality_test_0);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_expression_sub_conditional_equality_test_1);
+	return returning_;
+}
+
 void
 stt_expression_sub_conditional_tests()
 {
 	stt_expression_sub_conditional_default_constructor_tests();
 	stt_expression_sub_conditional_setters_tests();
 	stt_expression_sub_conditional_equality_tests();
+}
+
+tests_simple_list *
+register_stt_expression_sub_conditional_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_expression_sub_conditional_default_constructor_tests(
+			tests);
+	returning_ = register_stt_expression_sub_conditional_setters_tests(
+			returning_);
+	returning_ = register_stt_expression_sub_conditional_equality_tests(
+			returning_);
+	return returning_;
 }
