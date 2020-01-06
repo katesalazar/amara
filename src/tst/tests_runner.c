@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,6 +51,8 @@
 #include "../stt/stt_tests.h"
 
 #include "tests_simple_list.h"
+
+#include "tests_pseudo_random_numbers_generation_tests.h"
 
 /*   For definitions. */
 #include "tests_runner.h"
@@ -201,6 +203,8 @@ run_scrambled_tests(amara_boolean double_end_of_line_char)
 	running_tests();
 
 	printf("Running tests...\n");
+
+	tests_pseudo_random_numbers_generation_tests();
 
 	tests_ = tests_simple_list_default_constructor();
 	forced_assertion(tests_ != NULL);

@@ -75,11 +75,26 @@ tests_prng_next_integer_between_three(
 		next_ = seed_;
 	}
 
+	/*   `0` should be a reasonable minimum for this, but... */
+	/*
 	forced_assertion(smallest > -1);
-	/* potentially too strong assumption. also unnecessary from the point of view that this is going to be used just only for scrambling the unit tests.
+	*/
+
+	/*   ... see comment below, in the loop, as the reason for this
+	 * one. */
+	forced_assertion(smallest > 0);
+
+	/*   Unfortunately, isn't working well for `smallest` larger
+	 * than `1`, for some reason. */
+	forced_assertion(smallest < 2);
+
+	/*   Potentially a too strong assumption. Also unnecessary from
+	 * the point of view that this class is going to be used just
+	 * ONLY for scrambling the unit tests. */
+	/*
 	forced_assertion(largest <= INT_MAX - 1);
 	*/
-	/* explicit paper assumption. */
+	/*   Explicit paper assumption. */
 	forced_assertion(largest <= 32768 - 1);
 
 	/*   Will generate the next pseudo random number using an
@@ -91,14 +106,20 @@ tests_prng_next_integer_between_three(
 	 */
 
 	next_ = next_ * 1103515245 + 12345;
+	/*
 	do {
+	*/
 		next_ = ((unsigned) (next_ / 65536)) % (largest + 1);
 
-		if (next_ == 0) {  /* XXX ??? */
-			next_++;  /* XXX ??? */
-		}  /* XXX ??? */
+		/*   Do this in order to prevent infinite looping. Also
+		 * this is the reason not to allow `0` as a valid value
+		 * for the `next_` random integer. */
+		if (next_ == 0) {
+			next_++;
+		}
 
-	} while (next_ < smallest || next_ > largest);
+	/*
+	} while (next_ < smallest */ /* || next_ > largest *//*);*/
 
 	forced_assertion(next_ >= smallest);
 	forced_assertion(next_ <= largest);

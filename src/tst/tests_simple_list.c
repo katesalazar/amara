@@ -294,9 +294,12 @@ tests_simple_list_scramble_tests(const tests_simple_list * tests)
 		}
 	} while (tests_copy_len_ > 0);
 
+	forced_assertion(tests_copy_ == NULL);
+	/*
 	if (tests_copy_ != NULL) {
 		tests_simple_list_destructor(tests_copy_);
 	}
+	*/
 
 	return scrambled_tests_;
 }
