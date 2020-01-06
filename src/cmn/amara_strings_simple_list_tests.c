@@ -48,18 +48,30 @@ amara_strings_simple_list_exhaustive_constructor_three_to_one_test_0()
 	char * ca2_;
 	amara_strings_simple_list * returned_;
 
-	ca0_ = malloc(2);
+	ca0_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(2);
 	forced_assertion(ca0_ != NULL);
 	ca0_[0] = '0';
 	ca0_[1] = '\0';
 
-	ca1_ = malloc(3);
+	ca1_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(3);
 	forced_assertion(ca1_ != NULL);
 	ca1_[0] = '1';
 	ca1_[1] = '2';
 	ca1_[2] = '\0';
 
-	ca2_ = malloc(4);
+	ca2_ =
+#ifdef AMARA_USE_STD_CXX98
+			(char *)
+#endif
+			malloc(4);
 	forced_assertion(ca2_ != NULL);
 	ca2_[0] = '3';
 	ca2_[1] = '4';

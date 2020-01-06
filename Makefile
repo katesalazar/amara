@@ -2810,13 +2810,15 @@ $(BUILD_DIR_SRC)/rtg/rtg_tests.$(CEXT): \
 $(BUILD_DIR_DEBUG)/rtg_tests.o: \
 		$(BUILD_DIR_SRC)/rtg/rtg_tests.$(CEXT) \
 		$(BUILD_DIR_SRC)/rtg/rtg_tests.$(HEXT) \
-		$(BUILD_DIR_SRC)/rtg/rtg_applications_simple_list.$(HEXT)
+		$(BUILD_DIR_SRC)/rtg/rtg_applications_simple_list.$(HEXT) \
+		$(BUILD_DIR_SRC)/rtg/rtg_expression_sub_identifier_tests.$(HEXT)
 	$(C) $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
 
 $(BUILD_DIR_RELEASE)/rtg_tests.o: \
 		$(BUILD_DIR_SRC)/rtg/rtg_tests.$(CEXT) \
 		$(BUILD_DIR_SRC)/rtg/rtg_tests.$(HEXT) \
-		$(BUILD_DIR_SRC)/rtg/rtg_applications_simple_list.$(HEXT)
+		$(BUILD_DIR_SRC)/rtg/rtg_applications_simple_list.$(HEXT) \
+		$(BUILD_DIR_SRC)/rtg/rtg_expression_sub_identifier_tests.$(HEXT)
 	$(C) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_SRC)/rtg/rtg_where_value_binding.$(HEXT): \
