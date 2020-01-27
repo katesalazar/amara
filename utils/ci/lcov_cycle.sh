@@ -89,10 +89,14 @@ fi
 				nice -n 19 ./build/release/amara
 		if test "${branch}" = 'experimental'
 		then
-			echo 'nice -n 19 ./build/debug/amara_g run scrambled_tests'
-			nice -n 19 ./build/debug/amara_g run scrambled_tests
-			echo 'nice -n 19 ./build/release/amara run scrambled_tests'
-			nice -n 19 ./build/release/amara run scrambled_tests
+			echo 'nice -n 19 ./build/debug/amara_g run scrambled tests'
+			nice -n 19 ./build/debug/amara_g run scrambled tests
+			echo 'nice -n 19 ./build/release/amara run scrambled tests'
+			nice -n 19 ./build/release/amara run scrambled tests
+			echo 'nice -n 19 ./build/debug/amara_g run ordered tests'
+			nice -n 19 ./build/debug/amara_g run ordered tests
+			echo 'nice -n 19 ./build/release/amara run ordered tests'
+			nice -n 19 ./build/release/amara run ordered tests
 		else
 			echo 'nice -n 19 ./build/debug/amara_g run tests'
 			nice -n 19 ./build/debug/amara_g run tests
@@ -163,6 +167,10 @@ fi
 				nice -n 19 ./build/debug/amara_g run scrambled_tests --no-banner
 				echo 'nice -n 19 ./build/debug/amara_g run scrambled_tests foo'
 				nice -n 19 ./build/debug/amara_g run scrambled_tests foo
+				echo 'nice -n 19 ./build/debug/amara_g run ordered_tests --no-banner'
+				nice -n 19 ./build/debug/amara_g run ordered_tests --no-banner
+				echo 'nice -n 19 ./build/debug/amara_g run ordered_tests foo'
+				nice -n 19 ./build/debug/amara_g run ordered_tests foo
 			else
 				echo 'nice -n 19 ./build/debug/amara_g run tests --no-banner'
 				nice -n 19 ./build/debug/amara_g run tests --no-banner
