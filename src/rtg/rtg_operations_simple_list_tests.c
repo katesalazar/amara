@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,8 @@
 #include "rtg_operation_tests.h"
 
 #include "rtg_operations_simple_list.h"
+
+#include "rtg_operations_simple_list_tests.h"
 
 #ifndef NDEBUG
 
@@ -320,6 +322,28 @@ rtg_operations_simple_list_copy_constructor_tests()
 	rtg_operations_simple_list_copy_constructor_test_2();
 }
 
+tests_simple_list *
+register_rtg_operations_simple_list_copy_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_operations_simple_list_copy_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_operations_simple_list_copy_constructor_test_0);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_operations_simple_list_copy_constructor_test_1);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_operations_simple_list_copy_constructor_test_2);
+	return tests;
+}
+
 void
 rtg_operations_simple_list_transformation_constructor_test_0()
 {
@@ -391,9 +415,36 @@ rtg_operations_simple_list_transformation_constructor_tests()
 	rtg_operations_simple_list_transformation_constructor_test_1();
 }
 
+tests_simple_list *
+register_rtg_operations_simple_list_transformation_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_operations_simple_list_transformation_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_operations_simple_list_transformation_constructor_test_0);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_operations_simple_list_transformation_constructor_test_1);
+	return tests;
+}
+
 void
 rtg_operations_simple_list_tests()
 {
 	rtg_operations_simple_list_copy_constructor_tests();
 	rtg_operations_simple_list_transformation_constructor_tests();
+}
+
+tests_simple_list *
+register_rtg_operations_simple_list_tests(tests_simple_list * tests)
+{
+	return register_rtg_operations_simple_list_transformation_constructor_tests(
+	       register_rtg_operations_simple_list_copy_constructor_tests(
+	               tests));
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,7 +60,11 @@ arg_ret * arg(const int argc, const char * * argv)
 				}
 			} else if (!strcmp(argv[1], "run")) {
 				if (!strcmp(argv[2], "tests")) {
+					ret->value |= ARG_RET_RUN_SCRAMBLED_TESTS;
+				} else if (!strcmp(argv[2], "ordered_tests")) {
 					ret->value |= ARG_RET_RUN_TESTS;
+				} else if (!strcmp(argv[2], "scrambled_tests")) {
+					ret->value |= ARG_RET_RUN_SCRAMBLED_TESTS;
 				} else {
 					ret->value |= ARG_RET_PRINT_HELP;
 					ret->value |= ARG_RET_ERR;
@@ -79,7 +83,23 @@ arg_ret * arg(const int argc, const char * * argv)
 		} else if (argc == 4) {
 			if (!strcmp(argv[1], "run")) {
 				if (!strcmp(argv[2], "tests")) {
+					ret->value |= ARG_RET_RUN_SCRAMBLED_TESTS;
+					if (!strcmp(argv[3], "--no-banner")) {
+						ret->value |= ARG_RET_NO_BANNER;
+					} else {
+						ret->value |= ARG_RET_PRINT_HELP;
+						ret->value |= ARG_RET_ERR;
+					}
+				} else if (!strcmp(argv[2], "ordered_tests")) {
 					ret->value |= ARG_RET_RUN_TESTS;
+					if (!strcmp(argv[3], "--no-banner")) {
+						ret->value |= ARG_RET_NO_BANNER;
+					} else {
+						ret->value |= ARG_RET_PRINT_HELP;
+						ret->value |= ARG_RET_ERR;
+					}
+				} else if (!strcmp(argv[2], "scrambled_tests")) {
+					ret->value |= ARG_RET_RUN_SCRAMBLED_TESTS;
 					if (!strcmp(argv[3], "--no-banner")) {
 						ret->value |= ARG_RET_NO_BANNER;
 					} else {
@@ -92,6 +112,20 @@ arg_ret * arg(const int argc, const char * * argv)
 					ret->option_zero = (char *)
 							malloc(argv_two_len + 1);
 					strcpy(ret->option_zero, argv[3]);
+				} else if (!strcmp(argv[2], "ordered")) {
+					if (!strcmp(argv[3], "tests")) {
+						ret->value |= ARG_RET_RUN_TESTS;
+					} else {
+						ret->value |= ARG_RET_PRINT_HELP;
+						ret->value |= ARG_RET_ERR;
+					}
+				} else if (!strcmp(argv[2], "scrambled")) {
+					if (!strcmp(argv[3], "tests")) {
+						ret->value |= ARG_RET_RUN_SCRAMBLED_TESTS;
+					} else {
+						ret->value |= ARG_RET_PRINT_HELP;
+						ret->value |= ARG_RET_ERR;
+					}
 				} else {
 					ret->value |= ARG_RET_PRINT_HELP;
 					ret->value |= ARG_RET_ERR;

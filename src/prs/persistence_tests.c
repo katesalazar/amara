@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -128,4 +128,14 @@ void
 persistence_tests()
 {
 	acquire_dir_tests();
+}
+
+tests_simple_list *
+register_persistence_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(returning_, & acquire_dir_tests);
+	return returning_;
 }

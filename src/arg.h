@@ -38,7 +38,7 @@ typedef struct {
 #define ARG_RET_RUN_TESTS  0x02
 #define ARG_RET_RUN_APP    0x04
 #define ARG_RET_GREET      0x08
-#define ARG_RET_UNUSED_2   0x10
+#define ARG_RET_RUN_SCRAMBLED_TESTS 0x10
 #define ARG_RET_NO_BANNER   0x20
 #define ARG_RET_ASSERT_EXPR 0x40
 #define ARG_RET_ERR        0x80

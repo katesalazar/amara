@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,15 @@
 #ifndef __AMARA__COMMON__CHAR_ARRAY_TESTS__H__
 #define __AMARA__COMMON__CHAR_ARRAY_TESTS__H__
 
+#include "../tst/tests_simple_list.h"
+
 void
 char_array_tests(void)
+;
+
+tests_simple_list *
+register_char_array_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
 ;
 
 #endif

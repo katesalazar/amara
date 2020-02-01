@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,25 +18,47 @@
  */
 
 #include "../asr/assertion.h"
+
 #include "stt_natural_literal_subnode.h"
 
+#include "stt_natural_literal_subnode_tests.h"
+
 void
-stt_natural_literal_subnode_construct_and_destruct_test_0()
+stt_natural_literal_subnode_default_constructor_test_0()
 {
 	stt_natural_literal_subnode * natural_literal_subnode_;
 
 	natural_literal_subnode_ =
 			stt_natural_literal_subnode_default_constructor();
-	assertion(natural_literal_subnode_ != NULL);
-	assertion(natural_literal_subnode_->raw_ == NULL);
+	forced_assertion(natural_literal_subnode_ != NULL);
+	forced_assertion(natural_literal_subnode_->raw_ == NULL);
 
 	stt_natural_literal_subnode_destructor(natural_literal_subnode_);
 }
 
 void
-stt_natural_literal_subnode_construct_and_destruct_tests()
+stt_natural_literal_subnode_constructors_tests()
 {
-	stt_natural_literal_subnode_construct_and_destruct_test_0();
+	stt_natural_literal_subnode_default_constructor_test_0();
+}
+
+tests_simple_list *
+register_stt_natural_literal_subnode_constructors_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_natural_literal_subnode_constructors_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_natural_literal_subnode_default_constructor_test_0);
+	return returning_;
 }
 
 void
@@ -107,9 +129,41 @@ stt_natural_literal_subnode_setter_tests()
 	stt_natural_literal_subnode_setter_test_1();
 }
 
+tests_simple_list *
+register_stt_natural_literal_subnode_setter_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_natural_literal_subnode_setter_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_natural_literal_subnode_setter_test_0);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_natural_literal_subnode_setter_test_1);
+	return returning_;
+}
+
 void
 stt_natural_literal_subnode_tests()
 {
-	stt_natural_literal_subnode_construct_and_destruct_tests();
+	stt_natural_literal_subnode_constructors_tests();
 	stt_natural_literal_subnode_setter_tests();
+}
+
+tests_simple_list *
+register_stt_natural_literal_subnode_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_natural_literal_subnode_constructors_tests(
+			tests);
+	returning_ = register_stt_natural_literal_subnode_setter_tests(
+			returning_);
+	return returning_;
 }

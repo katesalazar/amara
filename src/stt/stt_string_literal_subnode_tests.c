@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@
 
 #include "../asr/assertion.h"
 
+#include "../log/logging.h"
+
 #include "stt_string_literal_subnode.h"
 
 #include "stt_string_literal_subnode_tests.h"
@@ -32,6 +34,8 @@ stt_string_literal_subnode_set_string_literal_test_0()
 #ifndef NDEBUG
 	amara_boolean equality_;
 #endif
+
+	amara_log("will run stt_string_literal_subnode_set_string_literal_test_0... ");
 
 	foo_ = amara_string_exhaustive_constructor("foo");
 	forced_assertion(foo_ != NULL);
@@ -62,6 +66,8 @@ stt_string_literal_subnode_set_string_literal_test_0()
 	amara_string_destructor(bar_);
 	stt_string_literal_subnode_destructor(subnode_);
 	amara_string_destructor(foo_);
+
+	amara_log("done\n");
 }
 
 void
@@ -177,6 +183,34 @@ stt_string_literal_subnode_set_string_literal_tests()
 	stt_string_literal_subnode_set_string_literal_test_3();
 }
 
+tests_simple_list *
+register_stt_string_literal_subnode_set_string_literal_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_string_literal_subnode_set_string_literal_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_string_literal_subnode_set_string_literal_test_0);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_string_literal_subnode_set_string_literal_test_1);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_string_literal_subnode_set_string_literal_test_2);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_string_literal_subnode_set_string_literal_test_3);
+	return returning_;
+}
+
 void
 stt_string_literal_subnode_equality_test_0()
 {
@@ -266,9 +300,46 @@ stt_string_literal_subnode_equality_tests()
 	stt_string_literal_subnode_equality_test_1();
 }
 
+tests_simple_list *
+register_stt_string_literal_subnode_equality_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_string_literal_subnode_equality_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_string_literal_subnode_equality_test_0);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_string_literal_subnode_equality_test_1);
+	return returning_;
+}
+
 void
 stt_string_literal_subnode_tests()
 {
 	stt_string_literal_subnode_set_string_literal_tests();
 	stt_string_literal_subnode_equality_tests();
+}
+
+tests_simple_list *
+register_stt_string_literal_subnode_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_string_literal_subnode_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_string_literal_subnode_set_string_literal_tests(
+			tests);
+	returning_ = register_stt_string_literal_subnode_equality_tests(
+			returning_);
+	return returning_;
 }

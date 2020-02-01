@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,11 @@
 
 #include "../asr/assertion.h"
 
+#include "../log/logging.h"
+
 #include "char_array.h"
+
+#include "char_array_tests.h"
 
 void
 concatenate_two_char_arrays_test_0()
@@ -52,6 +56,7 @@ the implemented maximum";
 	*/
 	assertion(!strcmp_ret_);
 	free((char *) concat_);
+	amara_log("ran test concatenate_two_char_arrays_test_0");
 }
 
 void
@@ -77,6 +82,7 @@ concatenate_two_char_arrays_test_1()
 	*/
 	assertion(!strcmp_ret_);
 	free((char *) concat_);
+	amara_log("ran test concatenate_two_char_arrays_test_1");
 }
 
 void
@@ -86,8 +92,35 @@ concatenate_two_char_arrays_tests()
 	concatenate_two_char_arrays_test_1();
 }
 
+tests_simple_list *
+register_concatenate_two_char_arrays_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_concatenate_two_char_arrays_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_, & concatenate_two_char_arrays_test_0);
+	tests_simple_list_push_back(
+			returning_, & concatenate_two_char_arrays_test_1);
+	return returning_;
+}
+
 void
 char_array_tests()
 {
 	concatenate_two_char_arrays_tests();
+}
+
+tests_simple_list *
+register_char_array_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_concatenate_two_char_arrays_tests(tests);
+	return returning_;
 }

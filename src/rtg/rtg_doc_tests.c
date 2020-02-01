@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ rtg_doc_default_constructor_test_0()
 	rtg_doc * doc_;
 
 	doc_ = rtg_doc_default_constructor();
-	assertion(doc_ != NULL);
+	forced_assertion(doc_ != NULL);
 	assertion(doc_->functions_ != NULL);
 	assertion(doc_->functions_->first == NULL);
 	assertion(doc_->functions_->next == NULL);
@@ -52,6 +52,19 @@ void
 rtg_doc_default_constructor_tests()
 {
 	rtg_doc_default_constructor_test_0();
+}
+
+tests_simple_list *
+register_rtg_doc_default_constructor_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_doc_default_constructor_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests,
+			            & rtg_doc_default_constructor_test_0);
+	return tests;
 }
 
 void
@@ -123,6 +136,21 @@ rtg_doc_transformation_constructor_tests()
 	rtg_doc_transformation_constructor_test_4();
 }
 
+tests_simple_list *
+register_rtg_doc_transformation_constructor_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_doc_transformation_constructor_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests, & rtg_doc_transformation_constructor_test_0);
+	tests_simple_list_push_back(
+			tests, & rtg_doc_transformation_constructor_test_4);
+	return tests;
+}
+
 void
 rtg_doc_constructors_tests()
 {
@@ -130,8 +158,30 @@ rtg_doc_constructors_tests()
 	rtg_doc_transformation_constructor_tests();
 }
 
+tests_simple_list *
+register_rtg_doc_constructors_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_doc_constructors_tests(tests_simple_list * tests)
+{
+	return register_rtg_doc_transformation_constructor_tests(
+	       register_rtg_doc_default_constructor_tests(tests));
+}
+
 void
 rtg_doc_tests()
 {
 	rtg_doc_constructors_tests();
+}
+
+tests_simple_list *
+register_rtg_doc_tests(tests_simple_list * tests)
+{
+	return
+			register_rtg_doc_constructors_tests(
+			tests
+			)
+			;
 }

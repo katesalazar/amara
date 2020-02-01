@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@
 
 #ifndef __AMARA__RUN_TIME_GRAPH__OPERATION_ARG_TESTS__H__
 #define __AMARA__RUN_TIME_GRAPH__OPERATION_ARG_TESTS__H__
+
+#include "../tst/tests_simple_list.h"
 
 /*   For `typedef struct rtg_operation_arg { ... } rtg_operation_arg;`. */
 #include "rtg_operation_arg.h"
@@ -76,6 +78,11 @@ assert_expectations_on_rtg_operation_arg_example_identifier_bar(
 
 void
 rtg_operation_arg_tests(void)
+;
+
+tests_simple_list *
+register_rtg_operation_arg_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
 ;
 
 #endif

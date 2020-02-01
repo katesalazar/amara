@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -128,8 +128,33 @@ stt_dice_expression_constructors_tests()
 	stt_dice_expression_constructors_test_0();
 }
 
+tests_simple_list *
+register_stt_dice_expression_constructors_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_dice_expression_constructors_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(returning_,
+	                            & stt_dice_expression_constructors_test_0);
+	return returning_;
+}
+
 void
 stt_dice_expression_tests()
 {
 	stt_dice_expression_constructors_tests();
+}
+
+tests_simple_list *
+register_stt_dice_expression_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_dice_expression_constructors_tests(tests);
+	return returning_;
 }

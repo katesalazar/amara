@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -523,6 +523,22 @@ stt_named_function_default_constructor_tests()
 	stt_named_function_default_constructor_test_0();
 }
 
+tests_simple_list *
+register_stt_named_function_default_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_named_function_default_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& stt_named_function_default_constructor_test_0);
+	return tests;
+}
+
 void
 stt_named_function_exhaustive_constructor_test_0()
 {
@@ -563,11 +579,47 @@ stt_named_function_exhaustive_constructor_tests()
 	stt_named_function_exhaustive_constructor_test_1();
 }
 
+tests_simple_list *
+register_stt_named_function_exhaustive_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_named_function_exhaustive_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& stt_named_function_exhaustive_constructor_test_0);
+	tests_simple_list_push_back(
+			tests,
+			& stt_named_function_exhaustive_constructor_test_1);
+	return tests;
+}
+
 void
 stt_named_function_constructors_tests()
 {
 	stt_named_function_default_constructor_tests();
 	stt_named_function_exhaustive_constructor_tests();
+}
+
+tests_simple_list *
+register_stt_named_function_constructors_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_named_function_constructors_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_named_function_default_constructor_tests(
+			tests);
+	returning_ = register_stt_named_function_exhaustive_constructor_tests(
+			returning_);
+	return returning_;
 }
 
 void
@@ -668,9 +720,32 @@ stt_named_function_setters_tests()
 	stt_named_function_setters_test_0();
 }
 
+tests_simple_list *
+register_stt_named_function_setters_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_named_function_setters_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests,
+	                            & stt_named_function_setters_test_0);
+	return tests;
+}
+
 void
 stt_named_function_tests()
 {
 	stt_named_function_constructors_tests();
 	stt_named_function_setters_tests();
+}
+
+tests_simple_list *
+register_stt_named_function_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_named_function_constructors_tests(tests);
+	returning_ = register_stt_named_function_setters_tests(returning_);
+	return returning_;
 }

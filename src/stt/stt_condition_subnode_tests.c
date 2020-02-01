@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,6 +74,31 @@ stt_condition_subnode_exhaustive_constructor_test_0()
 }
 
 void
+stt_condition_subnode_exhaustive_constructor_tests()
+{
+	stt_condition_subnode_exhaustive_constructor_test_0();
+}
+
+tests_simple_list *
+register_stt_condition_subnode_exhaustive_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_condition_subnode_exhaustive_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_condition_subnode_exhaustive_constructor_test_0);
+	return returning_;
+}
+
+void
 stt_condition_subnode_copy_constructor_test_0()
 {
 	stt_condition * condition_;
@@ -113,15 +138,28 @@ stt_condition_subnode_copy_constructor_test_0()
 }
 
 void
-stt_condition_subnode_exhaustive_constructor_tests()
-{
-	stt_condition_subnode_exhaustive_constructor_test_0();
-}
-
-void
 stt_condition_subnode_copy_constructor_tests()
 {
 	stt_condition_subnode_copy_constructor_test_0();
+}
+
+tests_simple_list *
+register_stt_condition_subnode_copy_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_condition_subnode_copy_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_condition_subnode_copy_constructor_test_0);
+	return returning_;
 }
 
 void
@@ -131,8 +169,34 @@ stt_condition_subnode_constructors_tests()
 	stt_condition_subnode_copy_constructor_tests();
 }
 
+tests_simple_list *
+register_stt_condition_subnode_constructors_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_condition_subnode_constructors_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_condition_subnode_exhaustive_constructor_tests(
+			tests);
+	returning_ = register_stt_condition_subnode_copy_constructor_tests(
+			returning_);
+	return returning_;
+}
+
 void
 stt_condition_subnode_tests()
 {
 	stt_condition_subnode_constructors_tests();
+}
+
+tests_simple_list *
+register_stt_condition_subnode_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_condition_subnode_constructors_tests(tests);
+	return returning_;
 }

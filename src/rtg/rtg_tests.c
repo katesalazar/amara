@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,6 +48,8 @@
 /*   For `void rtg_where_value_bindings_simple_list_tests()`. */
 #include "rtg_where_value_bindings_simple_list_tests.h"
 
+#include "rtg_tests.h"
+
 void
 run_time_graph_tests()
 {
@@ -84,4 +86,49 @@ run_time_graph_tests()
 	rtg_execution_requests_simple_list_tests();
 
 	rtg_doc_tests();
+}
+
+tests_simple_list *
+register_run_time_graph_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_rtg_condition_tests(tests);
+
+	returning_ = register_rtg_expression_sub_conditional_tests(returning_);
+
+	returning_ = register_rtg_expression_sub_dice_tests(returning_);
+
+	returning_ = register_rtg_expression_sub_identifier_tests(returning_);
+
+	returning_ = register_rtg_expression_tests(returning_);
+
+	returning_ = register_rtg_where_value_bindings_simple_list_tests(
+			returning_);
+
+	returning_ = register_rtg_operation_arg_tests(returning_);
+
+	returning_ = register_rtg_operation_args_simple_list_tests(returning_);
+
+	returning_ = register_rtg_operation_tests(returning_);
+
+	returning_ = register_rtg_operations_simple_list_tests(returning_);
+
+	returning_ = register_rtg_named_function_tests(returning_);
+
+	returning_ = register_rtg_named_functions_simple_list_tests(
+			returning_);
+
+	returning_ = register_rtg_application_tests(returning_);
+
+	returning_ = register_rtg_applications_simple_list_tests(returning_);
+
+	returning_ = register_rtg_execution_request_tests(returning_);
+
+	returning_ = register_rtg_execution_requests_simple_list_tests(
+			returning_);
+
+	returning_ = register_rtg_doc_tests(returning_);
+
+	return returning_;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,6 @@
 #include "../asr/assertion.h"
 
 #include "stt_named_function_tests.h"
-
-/*   For `stt_named_functions_simple_list`. */
-/* #include "stt_named_functions_simple_list.h" */
 
 #include "stt_node.h"
 
@@ -221,26 +218,51 @@ assert_expectations_on_stt_named_functions_simple_list_example_one_valid_named_f
 #endif
 
 void
-stt_named_functions_simple_list_construct_and_destruct_test_0()
+stt_named_functions_simple_list_default_constructor_test()
 {
 	stt_named_functions_simple_list * list_;
 
 	list_ = stt_named_functions_simple_list_default_constructor();
-	assertion(list_ != NULL);
-	assertion(list_->first == NULL);
-	assertion(list_->next == NULL);
+	forced_assertion(list_ != NULL);
+	forced_assertion(list_->first == NULL);
+	forced_assertion(list_->next == NULL);
 
 	stt_named_functions_simple_list_destructor(list_);
 }
 
 void
-stt_named_functions_simple_list_construct_and_destruct_test_1()
+stt_named_functions_simple_list_default_constructor_tests()
+{
+	stt_named_functions_simple_list_default_constructor_test();
+}
+
+tests_simple_list *
+register_stt_named_functions_simple_list_default_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_named_functions_simple_list_default_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_named_functions_simple_list_default_constructor_test);
+	return returning_;
+}
+
+void
+stt_named_functions_simple_list_copy_constructor_test_0()
 {
 	stt_named_functions_simple_list * list_zero_;
 	stt_named_functions_simple_list * list_one_;
 
 	list_zero_ = stt_named_functions_simple_list_default_constructor();
-	assertion(list_zero_ != NULL);
+	forced_assertion(list_zero_ != NULL);
 	assertion(list_zero_->first == NULL);
 	assertion(list_zero_->next == NULL);
 
@@ -248,7 +270,7 @@ stt_named_functions_simple_list_construct_and_destruct_test_1()
 			list_zero_);
 	assertion(list_zero_->first == NULL);
 	assertion(list_zero_->next == NULL);
-	assertion(list_one_ != NULL);
+	forced_assertion(list_one_ != NULL);
 	assertion(list_one_->first == NULL);
 	assertion(list_one_->next == NULL);
 
@@ -257,20 +279,20 @@ stt_named_functions_simple_list_construct_and_destruct_test_1()
 }
 
 void
-stt_named_functions_simple_list_construct_and_destruct_test_2()
+stt_named_functions_simple_list_copy_constructor_test_1()
 {
 	stt_named_functions_simple_list * list_zero_;
 	stt_named_functions_simple_list * list_one_;
 	stt_named_function * named_function_;
 
 	list_zero_ = stt_named_functions_simple_list_default_constructor();
-	assertion(list_zero_ != NULL);
+	forced_assertion(list_zero_ != NULL);
 	assertion(list_zero_->first == NULL);
 	assertion(list_zero_->next == NULL);
 
 	named_function_ = stt_named_function_example_print_string_literal_foo();
+	forced_assertion(named_function_ != NULL);
 #ifndef NDEBUG
-	assertion(named_function_ != NULL);
 	assert_expectations_on_stt_named_function_example_print_string_literal_foo(
 			named_function_);
 #endif
@@ -280,8 +302,10 @@ stt_named_functions_simple_list_construct_and_destruct_test_2()
 #ifndef NDEBUG
 	assert_expectations_on_stt_named_function_example_print_string_literal_foo(
 			named_function_);
-	assertion(list_zero_ != NULL);
-	assertion(list_zero_->first != NULL);
+#endif
+	forced_assertion(list_zero_ != NULL);
+	forced_assertion(list_zero_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_stt_named_function_example_print_string_literal_foo(
 			list_zero_->first);
 	assertion(list_zero_->next == NULL);
@@ -294,8 +318,10 @@ stt_named_functions_simple_list_construct_and_destruct_test_2()
 	assert_expectations_on_stt_named_function_example_print_string_literal_foo(
 			list_zero_->first);
 	assertion(list_zero_->next == NULL);
-	assertion(list_one_ != NULL);
-	assertion(list_one_->first != NULL);
+#endif
+	forced_assertion(list_one_ != NULL);
+	forced_assertion(list_one_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_stt_named_function_example_print_string_literal_foo(
 			list_one_->first);
 	assertion(list_one_->next == NULL);
@@ -307,7 +333,7 @@ stt_named_functions_simple_list_construct_and_destruct_test_2()
 }
 
 void
-stt_named_functions_simple_list_construct_and_destruct_test_3()
+stt_named_functions_simple_list_copy_constructor_test_2()
 {
 	stt_named_functions_simple_list * list_zero_;
 	stt_named_functions_simple_list * list_one_;
@@ -315,20 +341,20 @@ stt_named_functions_simple_list_construct_and_destruct_test_3()
 	stt_named_function * named_function_one_;
 
 	list_zero_ = stt_named_functions_simple_list_default_constructor();
-	assertion(list_zero_ != NULL);
+	forced_assertion(list_zero_ != NULL);
 	assertion(list_zero_->first == NULL);
 	assertion(list_zero_->next == NULL);
 
 	named_function_zero_ = stt_named_function_example_print_string_literal_bar();
+	forced_assertion(named_function_zero_ != NULL);
 #ifndef NDEBUG
-	assertion(named_function_zero_ != NULL);
 	assert_expectations_on_stt_named_function_example_print_string_literal_bar(
 			named_function_zero_);
 #endif
 
 	named_function_one_ = stt_named_function_example_print_string_literal_foo();
+	forced_assertion(named_function_one_ != NULL);
 #ifndef NDEBUG
-	assertion(named_function_one_ != NULL);
 	assert_expectations_on_stt_named_function_example_print_string_literal_foo(
 			named_function_one_);
 #endif
@@ -338,8 +364,10 @@ stt_named_functions_simple_list_construct_and_destruct_test_3()
 #ifndef NDEBUG
 	assert_expectations_on_stt_named_function_example_print_string_literal_bar(
 			named_function_zero_);
-	assertion(list_zero_ != NULL);
-	assertion(list_zero_->first != NULL);
+#endif
+	forced_assertion(list_zero_ != NULL);
+	forced_assertion(list_zero_->first != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_stt_named_function_example_print_string_literal_bar(
 			list_zero_->first);
 	assertion(list_zero_->next == NULL);
@@ -372,7 +400,9 @@ stt_named_functions_simple_list_construct_and_destruct_test_3()
 	assert_expectations_on_stt_named_function_example_print_string_literal_bar(
 			list_zero_->next->first);
 	assertion(list_zero_->next->next == NULL);
-	assertion(list_one_ != NULL);
+#endif
+	forced_assertion(list_one_ != NULL);
+#ifndef NDEBUG
 	assertion(list_one_->first != NULL);
 	assert_expectations_on_stt_named_function_example_print_string_literal_foo(
 			list_one_->first);
@@ -390,12 +420,62 @@ stt_named_functions_simple_list_construct_and_destruct_test_3()
 }
 
 void
-stt_named_functions_simple_list_construct_and_destruct_tests()
+stt_named_functions_simple_list_copy_constructor_tests()
 {
-	stt_named_functions_simple_list_construct_and_destruct_test_0();
-	stt_named_functions_simple_list_construct_and_destruct_test_1();
-	stt_named_functions_simple_list_construct_and_destruct_test_2();
-	stt_named_functions_simple_list_construct_and_destruct_test_3();
+	stt_named_functions_simple_list_copy_constructor_test_0();
+	stt_named_functions_simple_list_copy_constructor_test_1();
+	stt_named_functions_simple_list_copy_constructor_test_2();
+}
+
+tests_simple_list *
+register_stt_named_functions_simple_list_copy_constructors_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_named_functions_simple_list_copy_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_named_functions_simple_list_copy_constructor_test_0);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_named_functions_simple_list_copy_constructor_test_1);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_named_functions_simple_list_copy_constructor_test_2);
+	return returning_;
+}
+
+void
+stt_named_functions_simple_list_constructors_tests()
+{
+	stt_named_functions_simple_list_default_constructor_tests();
+	stt_named_functions_simple_list_copy_constructor_tests();
+}
+
+tests_simple_list *
+register_stt_named_functions_simple_list_constructors_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_named_functions_simple_list_constructors_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_named_functions_simple_list_default_constructor_tests(
+			tests);
+	returning_ = register_stt_named_functions_simple_list_copy_constructor_tests(
+			returning_);
+	return returning_;
 }
 
 void
@@ -565,6 +645,34 @@ stt_named_functions_simple_list_length_tests()
 	stt_named_functions_simple_list_length_test_3();
 }
 
+tests_simple_list *
+register_stt_named_functions_simple_list_length_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_named_functions_simple_list_length_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_named_functions_simple_list_length_test_0);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_named_functions_simple_list_length_test_1);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_named_functions_simple_list_length_test_2);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_named_functions_simple_list_length_test_3);
+	return returning_;
+}
+
 void
 stt_named_functions_simple_list_push_front_test_0()
 {
@@ -586,10 +694,43 @@ stt_named_functions_simple_list_push_front_tests()
 	stt_named_functions_simple_list_push_front_test_0();
 }
 
+tests_simple_list *
+register_stt_named_functions_simple_list_push_front_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_named_functions_simple_list_push_front_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_named_functions_simple_list_push_front_test_0);
+	return returning_;
+}
+
 void
 stt_named_functions_simple_list_tests()
 {
-	stt_named_functions_simple_list_construct_and_destruct_tests();
+	stt_named_functions_simple_list_constructors_tests();
 	stt_named_functions_simple_list_length_tests();
 	stt_named_functions_simple_list_push_front_tests();
+}
+
+tests_simple_list *
+register_stt_named_functions_simple_list_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_named_functions_simple_list_constructors_tests(
+			tests);
+	returning_ = register_stt_named_functions_simple_list_length_tests(
+			returning_);
+	returning_ = register_stt_named_functions_simple_list_push_front_tests(
+			returning_);
+	return returning_;
 }

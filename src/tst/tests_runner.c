@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,6 +49,10 @@
 
 /*   For `void syntax_tree_tests()`. */
 #include "../stt/stt_tests.h"
+
+#include "tests_simple_list.h"
+
+#include "tests_pseudo_random_numbers_generation_tests.h"
 
 /*   For definitions. */
 #include "tests_runner.h"
@@ -115,12 +119,33 @@ disarm_interim_tests()
 */
 
 void
-assertion_tests()
+assertion_test_0()
 {
 	interpret_and_assert("1");
 	/*
 	disarm_interim_tests();
 	*/
+}
+
+void
+assertion_tests()
+{
+	assertion_test_0();
+}
+
+tests_simple_list *
+register_assertion_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_assertion_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(returning_, & assertion_test_0);
+	return returning_;
 }
 
 void
@@ -152,9 +177,99 @@ run_tests(amara_boolean double_end_of_line_char)
 
 	run_time_graph_tests();
 
+	applications_runner_tests();
+
 	app_runner_tests();
 
 	applications_runner_tests();
+
+	printf("... done\n");
+
+	if (double_end_of_line_char) {
+		printf("\n");
+	}
+
+	not_running_tests();
+}
+
+tests_simple_list *
+register_tests(const tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_tests(const tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	forced_assertion(tests != NULL);
+#ifndef NDEBUG
+	assertion(tests->first == NULL);
+	assertion(tests->next == NULL);
+#endif
+
+	returning_ = (tests_simple_list *) tests;
+
+	returning_ = register_assertion_tests(returning_);
+	forced_assertion(returning_ != NULL);
+
+	returning_ = register_common_tests(returning_);
+	forced_assertion(returning_ != NULL);
+
+	returning_ = register_basic_arithmetic_tests(returning_);
+	forced_assertion(returning_ != NULL);
+
+	returning_ = register_persistence_tests(returning_);
+
+	returning_ = register_syntax_tree_tests(returning_);
+	forced_assertion(returning_ != NULL);
+
+	returning_ = register_flex_tests(returning_);
+
+	returning_ = register_bison_tests(returning_);
+
+	returning_ = register_run_time_graph_tests(returning_);
+
+	returning_ = register_applications_runner_tests(returning_);
+	forced_assertion(returning_ != NULL);
+
+	returning_ = register_app_runner_tests(returning_);
+
+	return returning_;
+}
+
+void
+run_scrambled_tests(amara_boolean double_end_of_line_char)
+{
+	tests_simple_list * tests_;
+	tests_simple_list * tests__;
+	tests_simple_list * scrambled_tests_;
+
+	running_tests();
+
+	printf("Running tests...\n");
+
+	tests_pseudo_random_numbers_generation_tests();
+
+	tests_ = tests_simple_list_default_constructor();
+	forced_assertion(tests_ != NULL);
+
+	tests__ = register_tests(tests_);
+	forced_assertion(tests__ != NULL);
+
+	/*
+	tests_simple_list_destructor(tests_);
+	*/
+
+	tests_ = tests__;
+
+	scrambled_tests_ = tests_simple_list_scramble_tests(tests_);
+
+	tests_simple_list_destructor(tests_);
+
+	tests_simple_list_run_tests(scrambled_tests_);
+
+	tests_simple_list_destructor(scrambled_tests_);
 
 	printf("... done\n");
 

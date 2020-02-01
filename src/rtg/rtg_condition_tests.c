@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -182,6 +182,19 @@ rtg_condition_copy_constructors_tests()
 	rtg_condition_copy_constructors_test_0();
 }
 
+tests_simple_list *
+register_rtg_condition_copy_constructors_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_condition_copy_constructors_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests,
+	                            & rtg_condition_copy_constructors_test_0);
+	return tests;
+}
+
 void
 rtg_condition_transformation_constructor_test_0()
 {
@@ -216,11 +229,44 @@ rtg_condition_transformation_constructors_tests()
 	rtg_condition_transformation_constructor_test_0();
 }
 
+tests_simple_list *
+register_rtg_condition_transformation_constructors_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_condition_transformation_constructors_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_condition_transformation_constructor_test_0);
+	return tests;
+}
+
 void
 rtg_condition_constructors_tests()
 {
 	rtg_condition_copy_constructors_tests();
 	rtg_condition_transformation_constructors_tests();
+}
+
+tests_simple_list *
+register_rtg_condition_constructors_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_condition_constructors_tests(tests_simple_list * tests)
+{
+	return
+			register_rtg_condition_transformation_constructors_tests(
+					register_rtg_condition_copy_constructors_tests(
+							tests
+					)
+			)
+			;
 }
 
 void
@@ -266,6 +312,23 @@ rtg_condition_type_is_valid_tests()
 {
 	rtg_condition_type_is_valid_test_10_less_than();
 	rtg_condition_type_is_valid_test_20_greater_than();
+}
+
+tests_simple_list *
+register_rtg_condition_type_is_valid_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_condition_type_is_valid_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_condition_type_is_valid_test_10_less_than);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_condition_type_is_valid_test_20_greater_than);
+	return tests;
 }
 
 void
@@ -319,6 +382,18 @@ rtg_condition_flip_tests()
 	rtg_condition_flip_test_0();
 }
 
+tests_simple_list *
+register_rtg_condition_flip_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_condition_flip_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests, & rtg_condition_flip_test_0);
+	return tests;
+}
+
 #ifndef NDEBUG
 
 void
@@ -352,4 +427,23 @@ rtg_condition_tests()
 #ifndef NDEBUG
 	rtg_condition_assert_validity_tests();
 #endif
+}
+
+tests_simple_list *
+register_rtg_condition_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_rtg_condition_constructors_tests(tests);
+
+	returning_ = register_rtg_condition_type_is_valid_tests(returning_);
+
+	returning_ = register_rtg_condition_flip_tests(returning_);
+
+#ifndef NDEBUG
+	tests_simple_list_push_back(returning_,
+	                            & rtg_condition_assert_validity_tests);
+#endif
+
+	return returning_;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -443,6 +443,27 @@ arn_value_construct_and_destruct_tests()
 	arn_value_construct_and_destruct_test_4();
 }
 
+tests_simple_list *
+register_arn_value_construct_and_destruct_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_arn_value_construct_and_destruct_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests,
+	                            & arn_value_construct_and_destruct_test_0);
+	tests_simple_list_push_back(tests,
+	                            & arn_value_construct_and_destruct_test_1);
+	tests_simple_list_push_back(tests,
+	                            & arn_value_construct_and_destruct_test_2);
+	tests_simple_list_push_back(tests,
+	                            & arn_value_construct_and_destruct_test_3);
+	tests_simple_list_push_back(tests,
+	                            & arn_value_construct_and_destruct_test_4);
+	return tests;
+}
+
 void
 arn_value_assign_natural_out_of_unsigned_short_test_0()
 {
@@ -501,6 +522,22 @@ arn_value_assign_natural_out_of_unsigned_short_tests()
 	arn_value_assign_natural_out_of_unsigned_short_test_0();
 }
 
+tests_simple_list *
+register_arn_value_assign_natural_out_of_unsigned_short_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_arn_value_assign_natural_out_of_unsigned_short_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& arn_value_assign_natural_out_of_unsigned_short_test_0);
+	return tests;
+}
+
 void
 arn_value_out_of_amara_boolean_test_0()
 {
@@ -522,6 +559,19 @@ void
 arn_value_out_of_amara_boolean_tests()
 {
 	arn_value_out_of_amara_boolean_test_0();
+}
+
+tests_simple_list *
+register_arn_value_out_of_amara_boolean_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_arn_value_out_of_amara_boolean_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests,
+	                            & arn_value_out_of_amara_boolean_test_0);
+	return tests;
 }
 
 /**  Friend declaration of otherwise private function. */
@@ -558,6 +608,18 @@ void
 run_dice_tests()
 {
 	run_dice_test_0();
+}
+
+tests_simple_list *
+register_run_dice_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_run_dice_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests, & run_dice_test_0);
+	return tests;
 }
 
 /**  Friendly declaration of an otherwise private function. */
@@ -602,6 +664,17 @@ arn_value_out_of_rtg_expression_tests()
 	*/
 }
 
+tests_simple_list *
+register_arn_value_out_of_rtg_expression_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_arn_value_out_of_rtg_expression_tests(tests_simple_list * tests)
+{
+	return tests;
+}
+
 void
 arn_value_characterize_as_boolean_test_0()
 {
@@ -626,6 +699,19 @@ arn_value_characterize_as_boolean_tests()
 	arn_value_characterize_as_boolean_test_0();
 }
 
+tests_simple_list *
+register_arn_value_characterize_as_boolean_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_arn_value_characterize_as_boolean_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests, & arn_value_characterize_as_boolean_test_0);
+	return tests;
+}
+
 void
 arn_value_tests()
 {
@@ -635,4 +721,15 @@ arn_value_tests()
 	run_dice_tests();
 	arn_value_out_of_rtg_expression_tests();
 	arn_value_characterize_as_boolean_tests();
+}
+
+tests_simple_list *
+register_arn_value_tests(tests_simple_list * tests)
+{
+	return register_arn_value_characterize_as_boolean_tests(
+	       register_arn_value_out_of_rtg_expression_tests(
+	       register_run_dice_tests(
+	       register_arn_value_out_of_amara_boolean_tests(
+	       register_arn_value_assign_natural_out_of_unsigned_short_tests(
+	       register_arn_value_construct_and_destruct_tests(tests))))));
 }
