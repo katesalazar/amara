@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,8 @@
 
 /*   For `stt_execution_request`. */
 #include "stt_execution_request.h"
+
+#include "stt_execution_request_tests.h"
 
 stt_execution_request *
 stt_execution_request_example_print_foo()
@@ -108,8 +110,34 @@ stt_execution_request_construct_and_destruct_tests()
 	stt_execution_request_construct_and_destruct_test_0();
 }
 
+tests_simple_list *
+register_stt_execution_request_construct_and_destruct_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_execution_request_construct_and_destruct_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& stt_execution_request_construct_and_destruct_test_0);
+	return tests;
+}
+
 void
 stt_execution_request_tests()
 {
 	stt_execution_request_construct_and_destruct_tests();
+}
+
+tests_simple_list *
+register_stt_execution_request_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_execution_request_construct_and_destruct_tests(
+			tests);
+	return returning_;
 }

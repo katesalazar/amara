@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -234,6 +234,22 @@ stt_node_natural_copy_tests()
 	stt_node_natural_copy_test_0();
 }
 
+tests_simple_list *
+register_stt_node_natural_copy_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_node_natural_copy_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(returning_,
+	                            & stt_node_natural_copy_test_0);
+	return returning_;
+}
+
 void
 stt_node_natural_substraction_test_0()
 {
@@ -397,6 +413,24 @@ stt_node_natural_substraction_tests()
 {
 	stt_node_natural_substraction_test_0();
 	stt_node_natural_substraction_test_1();
+}
+
+tests_simple_list *
+register_stt_node_natural_substraction_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_node_natural_substraction_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(returning_,
+	                            & stt_node_natural_substraction_test_0);
+	tests_simple_list_push_back(returning_,
+	                            & stt_node_natural_substraction_test_1);
+	return returning_;
 }
 
 void
@@ -676,6 +710,30 @@ stt_node_natural_multiplication_tests()
 	*/
 }
 
+tests_simple_list *
+register_stt_node_natural_multiplication_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_node_natural_multiplication_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(returning_,
+	                            & stt_node_natural_multiplication_test_0);
+	tests_simple_list_push_back(returning_,
+	                            & stt_node_natural_multiplication_test_1);
+	tests_simple_list_push_back(returning_,
+	                            & stt_node_natural_multiplication_test_2);
+	/*
+	tests_simple_list_push_back(returning_,
+	                            & stt_node_natural_multiplication_test_3);
+	*/
+	return returning_;
+}
+
 void
 stt_node_natural_division_test_0()
 {
@@ -746,6 +804,22 @@ void
 stt_node_natural_division_tests()
 {
 	stt_node_natural_division_test_0();
+}
+
+tests_simple_list *
+register_stt_node_natural_division_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_node_natural_division_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(returning_,
+	                            & stt_node_natural_division_test_0);
+	return returning_;
 }
 
 #ifndef NDEBUG
@@ -912,6 +986,43 @@ natural_fit_raw_natural_in_unsigned_short_tests()
 	natural_fit_raw_natural_in_unsigned_short_test_6();
 }
 
+tests_simple_list *
+register_natural_fit_raw_natural_in_unsigned_short_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_natural_fit_raw_natural_in_unsigned_short_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& natural_fit_raw_natural_in_unsigned_short_test_0);
+	tests_simple_list_push_back(
+			returning_,
+			& natural_fit_raw_natural_in_unsigned_short_test_1);
+	tests_simple_list_push_back(
+			returning_,
+			& natural_fit_raw_natural_in_unsigned_short_test_2);
+	tests_simple_list_push_back(
+			returning_,
+			& natural_fit_raw_natural_in_unsigned_short_test_3);
+	tests_simple_list_push_back(
+			returning_,
+			& natural_fit_raw_natural_in_unsigned_short_test_4);
+	tests_simple_list_push_back(
+			returning_,
+			& natural_fit_raw_natural_in_unsigned_short_test_5);
+	tests_simple_list_push_back(
+			returning_,
+			& natural_fit_raw_natural_in_unsigned_short_test_6);
+	return returning_;
+}
+
 void
 natural_copy_pointer_to_unsigned_short_into_raw_natural_test_0()
 {
@@ -979,6 +1090,28 @@ natural_copy_pointer_to_unsigned_short_into_raw_natural_tests()
 	natural_copy_pointer_to_unsigned_short_into_raw_natural_test_1();
 }
 
+tests_simple_list *
+register_natural_copy_pointer_to_unsigned_short_into_raw_natural_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_natural_copy_pointer_to_unsigned_short_into_raw_natural_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& natural_copy_pointer_to_unsigned_short_into_raw_natural_test_0);
+	tests_simple_list_push_back(
+			returning_,
+			& natural_copy_pointer_to_unsigned_short_into_raw_natural_test_1);
+	return returning_;
+}
+
 void
 natural_copy_unsigned_short_into_raw_natural_test_0()
 {
@@ -1041,6 +1174,25 @@ natural_copy_unsigned_long_into_raw_natural_tests()
 	natural_copy_unsigned_long_into_raw_natural_test_0();
 }
 
+tests_simple_list *
+register_natural_copy_unsigned_long_into_raw_natural_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_natural_copy_unsigned_long_into_raw_natural_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& natural_copy_unsigned_long_into_raw_natural_test_0);
+	return returning_;
+}
+
 void
 natural_copy_pointer_to_unsigned_long_into_raw_natural_test_0()
 {
@@ -1075,6 +1227,25 @@ natural_copy_pointer_to_unsigned_long_into_raw_natural_tests()
 	natural_copy_pointer_to_unsigned_long_into_raw_natural_test_0();
 }
 
+tests_simple_list *
+register_natural_copy_pointer_to_unsigned_long_into_raw_natural_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_natural_copy_pointer_to_unsigned_long_into_raw_natural_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& natural_copy_pointer_to_unsigned_long_into_raw_natural_test_0);
+	return returning_;
+}
+
 void
 well_formed_raw_natural_test_0()
 {
@@ -1094,6 +1265,22 @@ void
 well_formed_raw_natural_tests()
 {
 	well_formed_raw_natural_test_0();
+}
+
+tests_simple_list *
+register_well_formed_raw_natural_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_well_formed_raw_natural_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(returning_,
+	                            & well_formed_raw_natural_test_0);
+	return returning_;
 }
 
 void
@@ -1197,6 +1384,28 @@ raw_naturals_multiplication_as_raw_natural_tests()
 {
 	raw_naturals_multiplication_as_raw_natural_test_0();
 	raw_naturals_multiplication_as_raw_natural_test_1();
+}
+
+tests_simple_list *
+register_raw_naturals_multiplication_as_raw_natural_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_raw_naturals_multiplication_as_raw_natural_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& raw_naturals_multiplication_as_raw_natural_test_0);
+	tests_simple_list_push_back(
+			returning_,
+			& raw_naturals_multiplication_as_raw_natural_test_1);
+	return returning_;
 }
 
 void
@@ -1426,6 +1635,34 @@ raw_naturals_euclidean_quotient_as_raw_natural_tests()
 	raw_naturals_euclidean_quotient_as_raw_natural_test_3();
 }
 
+tests_simple_list *
+register_raw_naturals_euclidean_quotient_as_raw_natural_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_raw_naturals_euclidean_quotient_as_raw_natural_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& raw_naturals_euclidean_quotient_as_raw_natural_test_0);
+	tests_simple_list_push_back(
+			returning_,
+			& raw_naturals_euclidean_quotient_as_raw_natural_test_1);
+	tests_simple_list_push_back(
+			returning_,
+			& raw_naturals_euclidean_quotient_as_raw_natural_test_2);
+	tests_simple_list_push_back(
+			returning_,
+			& raw_naturals_euclidean_quotient_as_raw_natural_test_3);
+	return returning_;
+}
+
 void
 naturals_less_than_test_0()
 {
@@ -1522,6 +1759,23 @@ naturals_less_than_tests()
 	naturals_less_than_test_0();
 	naturals_less_than_test_1();
 	naturals_less_than_test_2();
+}
+
+tests_simple_list *
+register_naturals_less_than_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_naturals_less_than_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(returning_, & naturals_less_than_test_0);
+	tests_simple_list_push_back(returning_, & naturals_less_than_test_1);
+	tests_simple_list_push_back(returning_, & naturals_less_than_test_2);
+	return returning_;
 }
 
 void
@@ -1622,6 +1876,26 @@ naturals_greater_than_tests()
 	naturals_greater_than_test_2();
 }
 
+tests_simple_list *
+register_naturals_greater_than_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_naturals_greater_than_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(returning_,
+	                            & naturals_greater_than_test_0);
+	tests_simple_list_push_back(returning_,
+	                            & naturals_greater_than_test_1);
+	tests_simple_list_push_back(returning_,
+	                            & naturals_greater_than_test_2);
+	return returning_;
+}
+
 void
 natural_tests()
 {
@@ -1647,4 +1921,37 @@ natural_tests()
 	raw_naturals_euclidean_quotient_as_raw_natural_tests();
 	naturals_less_than_tests();
 	naturals_greater_than_tests();
+}
+
+tests_simple_list *
+register_natural_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_node_natural_copy_tests(tests);
+	returning_ = register_stt_node_natural_substraction_tests(returning_);
+	returning_ = register_stt_node_natural_multiplication_tests(
+			returning_);
+	returning_ = register_stt_node_natural_division_tests(returning_);
+	/*
+	67 * 5 == 79 EN MACOS, PERO ES UN ERROR, DBERA SER 335
+	natural_division_tests();
+	DESPUES 335 ENTRE 9 DEBE DAR 37
+	*/
+	returning_ = register_natural_fit_raw_natural_in_unsigned_short_tests(
+			returning_);
+	returning_ = register_natural_copy_pointer_to_unsigned_short_into_raw_natural_tests(
+			returning_);
+	returning_ = register_natural_copy_unsigned_long_into_raw_natural_tests(
+			returning_);
+	returning_ = register_natural_copy_pointer_to_unsigned_long_into_raw_natural_tests(
+			returning_);
+	returning_ = register_well_formed_raw_natural_tests(returning_);
+	returning_ = register_raw_naturals_multiplication_as_raw_natural_tests(
+			returning_);
+	returning_ = register_raw_naturals_euclidean_quotient_as_raw_natural_tests(
+			returning_);
+	returning_ = register_naturals_less_than_tests(returning_);
+	returning_ = register_naturals_greater_than_tests(returning_);
+	return returning_;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,19 +18,23 @@
  */
 
 #include "../asr/assertion.h"
+
 #include "stt_rational_literal_subnode.h"
 
-void stt_rational_literal_subnode_construct_and_destruct_test_0()
+#include "stt_rational_literal_subnode_tests.h"
+
+void stt_rational_literal_subnode_default_constructor_test_0()
 {
 	stt_rational_literal_subnode * rational_literal_subnode_;
+
 	rational_literal_subnode_ =
 			stt_rational_literal_subnode_default_constructor();
-	assertion(rational_literal_subnode_ != NULL);
-	assertion(rational_literal_subnode_->raw_ == NULL);
+	forced_assertion(rational_literal_subnode_ != NULL);
+	forced_assertion(rational_literal_subnode_->raw_ == NULL);
 	stt_rational_literal_subnode_destructor(rational_literal_subnode_);
 }
 
-void stt_rational_literal_subnode_construct_and_destruct_test_1()
+void stt_rational_literal_subnode_exhaustive_and_copy_constructors_test_0()
 {
 	stt_rational_literal_subnode * rational_literal_subnode_zero_;
 	stt_rational_literal_subnode * rational_literal_subnode_one_;
@@ -62,10 +66,32 @@ void stt_rational_literal_subnode_construct_and_destruct_test_1()
 }
 
 void
-stt_rational_literal_subnode_construct_and_destruct_tests()
+stt_rational_literal_subnode_constructors_tests()
 {
-	stt_rational_literal_subnode_construct_and_destruct_test_0();
-	stt_rational_literal_subnode_construct_and_destruct_test_1();
+	stt_rational_literal_subnode_default_constructor_test_0();
+	stt_rational_literal_subnode_exhaustive_and_copy_constructors_test_0();
+}
+
+tests_simple_list *
+register_stt_rational_literal_subnode_constructors_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_rational_literal_subnode_constructors_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_rational_literal_subnode_default_constructor_test_0);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_rational_literal_subnode_exhaustive_and_copy_constructors_test_0);
+	return returning_;
 }
 
 void
@@ -145,9 +171,43 @@ stt_rational_literal_subnode_set_and_get_raw_tests()
 	stt_rational_literal_subnode_set_and_get_raw_test_1();
 }
 
+tests_simple_list *
+register_stt_rational_literal_subnode_set_and_get_raw_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_rational_literal_subnode_set_and_get_raw_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_rational_literal_subnode_set_and_get_raw_test_0);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_rational_literal_subnode_set_and_get_raw_test_1);
+	return returning_;
+}
+
 void
 stt_rational_literal_subnode_tests()
 {
-	stt_rational_literal_subnode_construct_and_destruct_tests();
+	stt_rational_literal_subnode_constructors_tests();
 	stt_rational_literal_subnode_set_and_get_raw_tests();
+}
+
+tests_simple_list *
+register_stt_rational_literal_subnode_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_rational_literal_subnode_constructors_tests(
+			tests);
+	returning_ = register_stt_rational_literal_subnode_set_and_get_raw_tests(
+			returning_);
+	return returning_;
 }

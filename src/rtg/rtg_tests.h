@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,15 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__TESTS__H__
 #define __AMARA__RUN_TIME_GRAPH__TESTS__H__
 
+#include "../tst/tests_simple_list.h"
+
 void
 run_time_graph_tests(void)
+;
+
+tests_simple_list *
+register_run_time_graph_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
 ;
 
 #endif

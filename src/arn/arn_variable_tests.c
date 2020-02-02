@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,15 @@
 
 #include "arn_variable.h"
 
+#include "arn_variable_tests.h"
+
 void
-arn_variable_construct_and_destruct_test_0()
+arn_variable_default_constructor_test()
 {
 	arn_variable * variable_;
+
 	variable_ = arn_variable_default_constructor();
-	assertion(variable_ != NULL);
+	forced_assertion(variable_ != NULL);
 	assertion(variable_->type_ == ARN_VARIABLE_TYPE_INVALID);
 	assertion(variable_->name_ == NULL);
 	assertion(variable_->natural_ == NULL);
@@ -35,13 +38,32 @@ arn_variable_construct_and_destruct_test_0()
 }
 
 void
-arn_variable_construct_and_destruct_tests()
+arn_variable_constructors_tests()
 {
-	arn_variable_construct_and_destruct_test_0();
+	arn_variable_default_constructor_test();
+}
+
+tests_simple_list *
+register_arn_variable_constructors_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_arn_variable_constructors_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests, & arn_variable_default_constructor_test);
+	return tests;
 }
 
 void
 arn_variable_tests()
 {
-	arn_variable_construct_and_destruct_tests();
+	arn_variable_constructors_tests();
+}
+
+tests_simple_list *
+register_arn_variable_tests(tests_simple_list * tests)
+{
+	return register_arn_variable_constructors_tests(tests);
 }

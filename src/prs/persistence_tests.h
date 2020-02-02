@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,18 @@
  * src/prs/persistence_tests.h: Tests for the persistence system.
  */
 
+#include "../tst/tests_simple_list.h"
+
 #ifndef __AMARA__PERSISTENCE__PERSISTENCE_TESTS__H__
 #define __AMARA__PERSISTENCE__PERSISTENCE_TESTS__H__
 
 void
 persistence_tests(void)
+;
+
+tests_simple_list *
+register_persistence_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
 ;
 
 #endif

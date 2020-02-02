@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,8 @@
 #include "rtg_named_function_tests.h"
 
 #include "rtg_named_functions_simple_list.h"
+
+#include "rtg_named_functions_simple_list_tests.h"
 
 rtg_named_functions_simple_list *
 rtg_named_functions_simple_list_example_two_named_functions()
@@ -136,11 +138,37 @@ rtg_named_functions_simple_list_default_constructor_test()
 
 	named_functions_zero_ =
 			rtg_named_functions_simple_list_default_constructor();
-	assertion(named_functions_zero_ != NULL);
+	forced_assertion(named_functions_zero_ != NULL);
 	assertion(named_functions_zero_->first == NULL);
 	assertion(named_functions_zero_->next == NULL);
 
 	rtg_named_functions_simple_list_destructor(named_functions_zero_);
+}
+
+void
+rtg_named_functions_simple_list_default_constructor_tests(void)
+;
+
+void
+rtg_named_functions_simple_list_default_constructor_tests(void)
+{
+	rtg_named_functions_simple_list_default_constructor_test();
+}
+
+tests_simple_list *
+register_rtg_named_functions_simple_list_default_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_named_functions_simple_list_default_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_named_functions_simple_list_default_constructor_test);
+	return tests;
 }
 
 void
@@ -151,14 +179,14 @@ rtg_named_functions_simple_list_copy_constructor_test_0()
 
 	named_functions_zero_ =
 			rtg_named_functions_simple_list_default_constructor();
-	assertion(named_functions_zero_ != NULL);
+	forced_assertion(named_functions_zero_ != NULL);
 	assertion(named_functions_zero_->first == NULL);
 	assertion(named_functions_zero_->next == NULL);
 
 	named_functions_one_ =
 			rtg_named_functions_simple_list_copy_constructor(
 					named_functions_zero_);
-	assertion(named_functions_zero_ != NULL);
+	forced_assertion(named_functions_zero_ != NULL);
 	assertion(named_functions_zero_->first == NULL);
 	assertion(named_functions_zero_->next == NULL);
 	assertion(named_functions_one_ != NULL);
@@ -178,7 +206,7 @@ rtg_named_functions_simple_list_copy_constructor_test_1()
 
 	named_functions_zero_ =
 			rtg_named_functions_simple_list_default_constructor();
-	assertion(named_functions_zero_ != NULL);
+	forced_assertion(named_functions_zero_ != NULL);
 	assertion(named_functions_zero_->first == NULL);
 	assertion(named_functions_zero_->next == NULL);
 
@@ -205,7 +233,7 @@ rtg_named_functions_simple_list_copy_constructor_test_1()
 	named_functions_one_ =
 			rtg_named_functions_simple_list_copy_constructor(
 					named_functions_zero_);
-	assertion(named_functions_zero_ != NULL);
+	forced_assertion(named_functions_zero_ != NULL);
 	assertion(named_functions_zero_->first != NULL);
 	assertion(named_functions_zero_->next == NULL);
 	assertion(named_functions_one_ != NULL);
@@ -260,7 +288,7 @@ rtg_named_functions_simple_list_copy_constructor_test_2()
 	named_functions_one_ =
 			rtg_named_functions_simple_list_copy_constructor(
 					named_functions_zero_);
-	assertion(named_functions_zero_ != NULL);
+	forced_assertion(named_functions_zero_ != NULL);
 	assertion(named_functions_zero_->first != NULL);
 	assertion(named_functions_zero_->next != NULL);
 	assertion(named_functions_zero_->next->first != NULL);
@@ -284,6 +312,28 @@ rtg_named_functions_simple_list_copy_constructor_tests()
 	rtg_named_functions_simple_list_copy_constructor_test_0();
 	rtg_named_functions_simple_list_copy_constructor_test_1();
 	rtg_named_functions_simple_list_copy_constructor_test_2();
+}
+
+tests_simple_list *
+register_rtg_named_functions_simple_list_copy_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_named_functions_simple_list_copy_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_named_functions_simple_list_copy_constructor_test_0);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_named_functions_simple_list_copy_constructor_test_1);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_named_functions_simple_list_copy_constructor_test_2);
+	return tests;
 }
 
 void
@@ -443,12 +493,54 @@ rtg_named_functions_simple_list_transformation_constructor_tests()
 	rtg_named_functions_simple_list_transformation_constructor_test_3();
 }
 
+tests_simple_list *
+register_rtg_named_functions_simple_list_transformation_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_named_functions_simple_list_transformation_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_named_functions_simple_list_transformation_constructor_test_0);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_named_functions_simple_list_transformation_constructor_test_1);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_named_functions_simple_list_transformation_constructor_test_2);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_named_functions_simple_list_transformation_constructor_test_3);
+	return tests;
+}
+
 void
 rtg_named_functions_simple_list_constructors_tests()
 {
-	rtg_named_functions_simple_list_default_constructor_test();
+	rtg_named_functions_simple_list_default_constructor_tests();
 	rtg_named_functions_simple_list_copy_constructor_tests();
 	rtg_named_functions_simple_list_transformation_constructor_tests();
+}
+
+tests_simple_list *
+register_rtg_named_functions_simple_list_constructors_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_named_functions_simple_list_constructors_tests(
+		tests_simple_list * tests)
+{
+	return
+			register_rtg_named_functions_simple_list_transformation_constructor_tests(
+			register_rtg_named_functions_simple_list_copy_constructor_tests(
+			register_rtg_named_functions_simple_list_default_constructor_tests(
+			tests)));
 }
 
 /*   Search in a null list. */
@@ -810,9 +902,49 @@ rtg_named_functions_simple_list_find_by_name_tests()
 	rtg_named_functions_simple_list_find_by_name_test_5();
 }
 
+tests_simple_list *
+register_rtg_named_functions_simple_list_find_by_name_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_named_functions_simple_list_find_by_name_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_named_functions_simple_list_find_by_name_test_0);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_named_functions_simple_list_find_by_name_test_1);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_named_functions_simple_list_find_by_name_test_2);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_named_functions_simple_list_find_by_name_test_3);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_named_functions_simple_list_find_by_name_test_4);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_named_functions_simple_list_find_by_name_test_5);
+	return tests;
+}
+
 void
 rtg_named_functions_simple_list_tests()
 {
 	rtg_named_functions_simple_list_constructors_tests();
 	rtg_named_functions_simple_list_find_by_name_tests();
+}
+
+tests_simple_list *
+register_rtg_named_functions_simple_list_tests(tests_simple_list * tests)
+{
+	return
+			register_rtg_named_functions_simple_list_find_by_name_tests(
+			register_rtg_named_functions_simple_list_constructors_tests(
+			tests));
 }

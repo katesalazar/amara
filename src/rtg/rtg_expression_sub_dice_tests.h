@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,8 @@
 
 #include "../definitions.h"
 
+#include "../tst/tests_simple_list.h"
+
 /*   For `typedef struct rtg_expression_sub_dice { ... }
  * rtg_expression_sub_dice;`. */
 #include "rtg_expression_sub_dice.h"
@@ -42,6 +44,11 @@ assert_expectations_on_rtg_expression_sub_dice_example_single_vanilla_dice(
 
 void
 rtg_expression_sub_dice_tests(void)
+;
+
+tests_simple_list *
+register_rtg_expression_sub_dice_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
 ;
 
 #endif

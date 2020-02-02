@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@
 
 #ifndef __AMARA__RUN_TIME_GRAPH__APPLICATION_TESTS__H__
 #define __AMARA__RUN_TIME_GRAPH__APPLICATION_TESTS__H__
+
+#include "../tst/tests_simple_list.h"
 
 #include "rtg_application.h"
 
@@ -44,6 +46,11 @@ assert_expectations_on_rtg_application_example_cli_app_print_bar(
 
 void
 rtg_application_tests(void)
+;
+
+tests_simple_list *
+register_rtg_application_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
 ;
 
 #endif

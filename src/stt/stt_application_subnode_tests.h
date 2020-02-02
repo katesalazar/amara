@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@
 #ifndef __AMARA__SYNTAX_TREE__APPLICATION_SUBNODE_TESTS__H__
 #define __AMARA__SYNTAX_TREE__APPLICATION_SUBNODE_TESTS__H__
 
+#include "../tst/tests_simple_list.h"
+
 #include "stt_application_subnode.h"
 
 stt_application_subnode *
@@ -38,6 +40,11 @@ assert_expectations_on_stt_application_subnode_example_print_foo(
 
 void
 stt_application_subnode_tests(void)
+;
+
+tests_simple_list *
+register_stt_application_subnode_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
 ;
 
 #endif

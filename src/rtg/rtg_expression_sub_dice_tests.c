@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -115,10 +115,38 @@ rtg_expression_sub_dice_transformation_constructor_tests()
 	rtg_expression_sub_dice_transformation_constructor_test_0();
 }
 
+tests_simple_list *
+register_rtg_expression_sub_dice_transformation_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_expression_sub_dice_transformation_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_expression_sub_dice_transformation_constructor_test_0);
+	return tests;
+}
+
 void
 rtg_expression_sub_dice_constructors_tests()
 {
 	rtg_expression_sub_dice_transformation_constructor_tests();
+}
+
+tests_simple_list *
+register_rtg_expression_sub_dice_constructors_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_expression_sub_dice_constructors_tests(tests_simple_list * tests)
+{
+	return register_rtg_expression_sub_dice_transformation_constructor_tests(
+			tests);
 }
 
 #ifndef NDEBUG
@@ -160,6 +188,23 @@ rtg_expression_sub_dice_validity_tests()
 
 #endif
 
+#ifndef NDEBUG
+
+tests_simple_list *
+register_rtg_expression_sub_dice_validity_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_expression_sub_dice_validity_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests,
+	                            & rtg_expression_sub_dice_validity_test_0);
+	return tests;
+}
+
+#endif
+
 void
 rtg_expression_sub_dice_tests()
 {
@@ -167,4 +212,20 @@ rtg_expression_sub_dice_tests()
 #ifndef NDEBUG
 	rtg_expression_sub_dice_validity_tests();
 #endif
+}
+
+tests_simple_list *
+register_rtg_expression_sub_dice_tests(tests_simple_list * tests)
+{
+	return
+#ifndef NDEBUG
+			register_rtg_expression_sub_dice_validity_tests(
+#endif
+			register_rtg_expression_sub_dice_constructors_tests(
+					tests
+			)
+#ifndef NDEBUG
+			)
+#endif
+			;
 }

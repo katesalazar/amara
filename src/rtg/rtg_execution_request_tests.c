@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -95,6 +95,7 @@ rtg_execution_request_example_execute_bar()
 
 	returning_ = rtg_execution_request_exhaustive_constructor(
 			requested_type_, application_);
+	forced_assertion(returning_ != NULL);
 #ifndef NDEBUG
 	assert_expectations_on_rtg_application_example_cli_app_print_bar(
 			application_);
@@ -141,6 +142,32 @@ rtg_execution_request_default_constructor_test()
 #endif
 
 	rtg_execution_request_destructor(rtg_execution_request_);
+}
+
+void
+rtg_execution_request_default_constructor_tests(void)
+;
+
+void
+rtg_execution_request_default_constructor_tests(void)
+{
+	rtg_execution_request_default_constructor_test();
+}
+
+tests_simple_list *
+register_rtg_execution_request_default_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_execution_request_default_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_execution_request_default_constructor_test);
+	return tests;
 }
 
 void
@@ -288,15 +315,53 @@ rtg_execution_request_transformation_constructor_tests()
 	rtg_execution_request_transformation_constructor_test_1();
 }
 
+tests_simple_list *
+register_rtg_execution_request_transformation_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_execution_request_transformation_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_execution_request_transformation_constructor_test_0);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_execution_request_transformation_constructor_test_1);
+	return tests;
+}
+
 void
 rtg_execution_request_constructors_tests()
 {
-	rtg_execution_request_default_constructor_test();
+	rtg_execution_request_default_constructor_tests();
 	rtg_execution_request_transformation_constructor_tests();
+}
+
+tests_simple_list *
+register_rtg_execution_request_constructors_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_execution_request_constructors_tests(tests_simple_list * tests)
+{
+	return register_rtg_execution_request_transformation_constructor_tests(
+	       register_rtg_execution_request_default_constructor_tests(
+	           tests));
 }
 
 void
 rtg_execution_request_tests()
 {
 	rtg_execution_request_constructors_tests();
+}
+
+tests_simple_list *
+register_rtg_execution_request_tests(tests_simple_list * tests)
+{
+	return register_rtg_execution_request_constructors_tests(tests);
 }

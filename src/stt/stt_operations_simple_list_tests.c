@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,8 @@
 #include "stt_operation_tests.h"
 
 /*   For own definitions. */
+#include "stt_operations_simple_list_tests.h"
+
 #include "stt_operations_simple_list_tests.h"
 
 stt_operations_simple_list *
@@ -253,10 +255,45 @@ stt_operations_simple_list_default_constructor_tests()
 	stt_operations_simple_list_default_constructor_test_1();
 }
 
+
+tests_simple_list *
+register_stt_operations_simple_list_default_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_operations_simple_list_default_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& stt_operations_simple_list_default_constructor_test_0);
+	tests_simple_list_push_back(
+			tests,
+			& stt_operations_simple_list_default_constructor_test_1);
+	return tests;
+}
+
 void
 stt_operations_simple_list_constructors_tests()
 {
 	stt_operations_simple_list_default_constructor_tests();
+}
+
+tests_simple_list *
+register_stt_operations_simple_list_constructors_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_operations_simple_list_constructors_tests(
+		tests_simple_list * tests)
+{
+	tests = register_stt_operations_simple_list_default_constructor_tests(
+			tests);
+	return tests;
 }
 
 /**  An empty list can not be equal to a non empty list. */
@@ -462,9 +499,41 @@ stt_operations_simple_list_equality_tests()
 	stt_operations_simple_list_equality_test_5();
 }
 
+tests_simple_list *
+register_stt_operations_simple_list_equality_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_operations_simple_list_equality_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& stt_operations_simple_list_equality_test_0);
+	tests_simple_list_push_back(
+			tests,
+			& stt_operations_simple_list_equality_test_1);
+	tests_simple_list_push_back(
+			tests,
+			& stt_operations_simple_list_equality_test_2);
+	return tests;
+}
+
 void
 stt_operations_simple_list_tests()
 {
 	stt_operations_simple_list_constructors_tests();
 	stt_operations_simple_list_equality_tests();
+}
+
+tests_simple_list *
+register_stt_operations_simple_list_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_operations_simple_list_constructors_tests(
+			tests);
+	returning_ = register_stt_operations_simple_list_equality_tests(
+			returning_);
+	return returning_;
 }

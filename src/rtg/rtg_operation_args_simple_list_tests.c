@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -125,6 +125,32 @@ rtg_operation_args_simple_list_default_constructor_test()
 	assertion(operation_args_list_->next == NULL);
 
 	rtg_operation_args_simple_list_destructor(operation_args_list_);
+}
+
+void
+rtg_operation_args_simple_list_default_constructor_tests(void)
+;
+
+
+void
+rtg_operation_args_simple_list_default_constructor_tests(void)
+{
+	rtg_operation_args_simple_list_default_constructor_test();
+}
+
+tests_simple_list *
+register_rtg_operation_args_simple_list_default_constructor_tests(
+		tests_simple_list * tests)
+;
+
+tests_simple_list *
+register_rtg_operation_args_simple_list_default_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_operation_args_simple_list_default_constructor_test);
+	return tests;
 }
 
 void
@@ -320,6 +346,28 @@ rtg_operation_args_simple_list_copy_constructor_tests()
 	rtg_operation_args_simple_list_copy_constructor_test_2();
 }
 
+tests_simple_list *
+register_rtg_operation_args_simple_list_copy_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_operation_args_simple_list_copy_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_operation_args_simple_list_copy_constructor_test_0);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_operation_args_simple_list_copy_constructor_test_1);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_operation_args_simple_list_copy_constructor_test_2);
+	return tests;
+}
+
 void
 rtg_operation_args_simple_list_transformation_constructor_test_0()
 {
@@ -367,12 +415,45 @@ rtg_operation_args_simple_list_transformation_constructor_tests()
 	rtg_operation_args_simple_list_transformation_constructor_test_0();
 }
 
+tests_simple_list *
+register_rtg_operation_args_simple_list_transformation_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_operation_args_simple_list_transformation_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_operation_args_simple_list_transformation_constructor_test_0);
+	return tests;
+}
+
 void
 rtg_operation_args_simple_list_constructors_tests()
 {
 	rtg_operation_args_simple_list_default_constructor_test();
 	rtg_operation_args_simple_list_copy_constructor_tests();
 	rtg_operation_args_simple_list_transformation_constructor_tests();
+}
+
+tests_simple_list *
+register_rtg_operation_args_simple_list_constructors_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_operation_args_simple_list_constructors_tests(
+		tests_simple_list * tests)
+{
+	return
+			register_rtg_operation_args_simple_list_transformation_constructor_tests(
+			register_rtg_operation_args_simple_list_copy_constructor_tests(
+			register_rtg_operation_args_simple_list_default_constructor_tests(
+			tests)));
 }
 
 void
@@ -404,9 +485,33 @@ rtg_operation_args_simple_list_length_tests()
 	rtg_operation_args_simple_list_length_test_0();
 }
 
+tests_simple_list *
+register_rtg_operation_args_simple_list_length_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_operation_args_simple_list_length_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests, & rtg_operation_args_simple_list_length_test_0);
+	return tests;
+}
+
 void
 rtg_operation_args_simple_list_tests()
 {
 	rtg_operation_args_simple_list_constructors_tests();
 	rtg_operation_args_simple_list_length_tests();
+}
+
+tests_simple_list *
+register_rtg_operation_args_simple_list_tests(tests_simple_list * tests)
+{
+	return
+			register_rtg_operation_args_simple_list_length_tests(
+			register_rtg_operation_args_simple_list_constructors_tests(
+			tests
+			))
+			;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Mercedes Catherine Salazar
+ * Copyright 2019, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,15 @@
 #ifndef __AMARA__APPLICATIONS_RUNNER__APP_RUNNER_TESTS_H__
 #define __AMARA__APPLICATIONS_RUNNER__APP_RUNNER_TESTS_H__
 
+#include "../tst/tests_simple_list.h"
+
 void
 app_runner_tests(void)
+;
+
+tests_simple_list *
+register_app_runner_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
 ;
 
 #endif

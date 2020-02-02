@@ -54,4 +54,9 @@ void
 run_tests(amara_boolean double_end_of_line_char)
 ;
 
+/*   Call this to register, scramble and run the tests. */
+void
+run_scrambled_tests(amara_boolean double_end_of_line_char)
+;
+
 #endif

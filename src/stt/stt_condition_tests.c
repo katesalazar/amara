@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -287,6 +287,7 @@ stt_condition_create_and_destroy_less_than_examples()
 	stt_condition * condition_;
 
 	condition_ = stt_condition_example_simple_lt_true_condition();
+	forced_assertion(condition_ != NULL);
 #ifndef NDEBUG
 	assert_expectations_on_stt_condition_example_simple_lt_true_condition(
 			condition_);
@@ -332,11 +333,52 @@ stt_condition_create_and_destroy_greater_than_examples()
 	stt_condition_create_and_destroy_greater_than_example_1();
 }
 
+tests_simple_list *
+register_stt_condition_create_and_destroy_greater_than_examples(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_condition_create_and_destroy_greater_than_examples(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_condition_create_and_destroy_greater_than_example_0);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_condition_create_and_destroy_greater_than_example_1);
+	return returning_;
+}
+
 void
 stt_condition_create_and_destroy_examples()
 {
 	stt_condition_create_and_destroy_less_than_examples();
 	stt_condition_create_and_destroy_greater_than_examples();
+}
+
+tests_simple_list *
+register_stt_condition_create_and_destroy_examples(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_condition_create_and_destroy_examples(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_condition_create_and_destroy_less_than_examples);
+	returning_ = register_stt_condition_create_and_destroy_greater_than_examples(
+			returning_);
+	return returning_;
 }
 
 void
@@ -370,4 +412,13 @@ stt_condition_tests()
 {
 	stt_condition_create_and_destroy_examples();
 	stt_condition_equality_tests();
+}
+
+tests_simple_list *
+register_stt_condition_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_condition_create_and_destroy_examples(tests);
+	return returning_;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Mercedes Catherine Salazar
+ * Copyright 2019, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -121,10 +121,42 @@ rtg_expression_sub_conditional_copy_constructor_tests()
 	rtg_expression_sub_conditional_copy_constructor_test_0();
 }
 
+tests_simple_list *
+register_rtg_expression_sub_conditional_copy_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_expression_sub_conditional_copy_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_expression_sub_conditional_copy_constructor_test_0);
+	return tests;
+}
+
 void
 rtg_expression_sub_conditional_constructors_tests()
 {
 	rtg_expression_sub_conditional_copy_constructor_tests();
+}
+
+tests_simple_list *
+register_rtg_expression_sub_conditional_constructors_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_expression_sub_conditional_constructors_tests(
+		tests_simple_list * tests)
+{
+	return
+			register_rtg_expression_sub_conditional_copy_constructor_tests(
+					tests
+			);
 }
 
 #ifndef NDEBUG
@@ -144,10 +176,34 @@ rtg_expression_sub_conditional_validity_test_0()
 	rtg_expression_sub_conditional_destructor(sub_zero_);
 }
 
+#endif
+
+#ifndef NDEBUG
+
 void
 rtg_expression_sub_conditional_validity_tests()
 {
 	rtg_expression_sub_conditional_validity_test_0();
+}
+
+#endif
+
+#ifndef NDEBUG
+
+tests_simple_list *
+register_rtg_expression_sub_conditional_validity_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_expression_sub_conditional_validity_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_expression_sub_conditional_validity_test_0);
+	return tests;
 }
 
 #endif
@@ -159,4 +215,20 @@ rtg_expression_sub_conditional_tests()
 #ifndef NDEBUG
 	rtg_expression_sub_conditional_validity_tests();
 #endif
+}
+
+tests_simple_list *
+register_rtg_expression_sub_conditional_tests(tests_simple_list * tests)
+{
+	return
+#ifndef NDEBUG
+			register_rtg_expression_sub_conditional_validity_tests(
+#endif
+					register_rtg_expression_sub_conditional_constructors_tests(
+							tests
+					)
+#ifndef NDEBUG
+			)
+#endif
+			;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -466,8 +466,8 @@ stt_expression_default_constructor_test()
 	stt_expression * expression_;
 
 	expression_ = stt_expression_default_constructor();
+	forced_assertion(expression_ != NULL);
 #ifndef NDEBUG
-	assertion(expression_ != NULL);
 	assertion(expression_->type_ == STT_EXPRESSION_TYPE_INVALID);
 	assertion(expression_->sub_natural_literal_ == NULL);
 	assertion(expression_->sub_conditional_ == NULL);
@@ -481,6 +481,28 @@ stt_expression_default_constructor_test()
 }
 
 void
+stt_expression_default_constructor_tests()
+{
+	stt_expression_default_constructor_test();
+}
+
+tests_simple_list *
+register_stt_expression_default_constructor_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_expression_default_constructor_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(returning_,
+	                            & stt_expression_default_constructor_test);
+	return returning_;
+}
+
+void
 stt_expression_copy_constructor_test_20_identifier()
 {
 	amara_string * identifier_;
@@ -488,9 +510,9 @@ stt_expression_copy_constructor_test_20_identifier()
 	stt_expression * expression_copy_;
 
 	identifier_ = amara_string_exhaustive_constructor("foo");
+	forced_assertion(identifier_ != NULL);
+	forced_assertion(identifier_->value_ != NULL);
 #ifndef NDEBUG
-	assertion(identifier_ != NULL);
-	assertion(identifier_->value_ != NULL);
 	assertion(identifier_->value_[0] == 0x66);  /* 102: 'f'. */
 	assertion(identifier_->value_[1] == 0x6F);  /* 111: 'o'. */
 	assertion(identifier_->value_[2] == 0x6F);  /* 111: 'o'. */
@@ -498,8 +520,8 @@ stt_expression_copy_constructor_test_20_identifier()
 #endif
 
 	original_expression_ = stt_expression_default_constructor();
+	forced_assertion(original_expression_ != NULL);
 #ifndef NDEBUG
-	assertion(original_expression_ != NULL);
 	assertion(original_expression_->type_ == STT_EXPRESSION_TYPE_INVALID);
 #endif
 
@@ -543,12 +565,17 @@ stt_expression_copy_constructor_test_20_identifier()
 			0x6F);  /* 111: 'o'. */
 	assertion(original_expression_->sub_identifier_->identifier_->value_[3] ==
 			0x00);  /* 0: '\0'. */
-	assertion(expression_copy_ != NULL);
+#endif
+	forced_assertion(expression_copy_ != NULL);
+#ifndef NDEBUG
 	assertion(expression_copy_->type_ == STT_EXPRESSION_TYPE_IDENTIFIER);
-	assertion(expression_copy_->sub_identifier_ != NULL);
-	assertion(expression_copy_->sub_identifier_->identifier_ != NULL);
-	assertion(expression_copy_->sub_identifier_->identifier_->value_ !=
+#endif
+	forced_assertion(expression_copy_->sub_identifier_ != NULL);
+	forced_assertion(expression_copy_->sub_identifier_->identifier_ !=
 			NULL);
+	forced_assertion(expression_copy_->sub_identifier_->identifier_->value_ !=
+			NULL);
+#ifndef NDEBUG
 	assertion(expression_copy_->sub_identifier_->identifier_->value_[0] ==
 			0x66);  /* 102: 'f'. */
 	assertion(expression_copy_->sub_identifier_->identifier_->value_[1] ==
@@ -565,12 +592,6 @@ stt_expression_copy_constructor_test_20_identifier()
 }
 
 void
-stt_expression_default_constructor_tests()
-{
-	stt_expression_default_constructor_test();
-}
-
-void
 stt_expression_copy_constructor_test_30_conditional()
 {
 	stt_expression_sub_conditional * sub_conditional_;
@@ -578,15 +599,15 @@ stt_expression_copy_constructor_test_30_conditional()
 	stt_expression * expression_copy_;
 
 	sub_conditional_ = stt_expression_sub_conditional_example_simple_conditional();
+	forced_assertion(sub_conditional_ != NULL);
 #ifndef NDEBUG
-	assertion(sub_conditional_ != NULL);
 	assert_expectations_on_stt_expression_sub_conditional_example_simple_conditional(
 			sub_conditional_);
 #endif
 
 	original_expression_ = stt_expression_default_constructor();
+	forced_assertion(original_expression_ != NULL);
 #ifndef NDEBUG
-	assertion(original_expression_ != NULL);
 	assertion(original_expression_->type_ == STT_EXPRESSION_TYPE_INVALID);
 #endif
 
@@ -605,8 +626,10 @@ stt_expression_copy_constructor_test_30_conditional()
 	assertion(original_expression_->sub_conditional_ != NULL);
 	assert_expectations_on_stt_expression_sub_conditional_example_simple_conditional(
 			original_expression_->sub_conditional_);
-	assertion(expression_copy_ != NULL);
-	assertion(expression_copy_->sub_conditional_ != NULL);
+#endif
+	forced_assertion(expression_copy_ != NULL);
+	forced_assertion(expression_copy_->sub_conditional_ != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_stt_expression_sub_conditional_example_simple_conditional(
 			expression_copy_->sub_conditional_);
 #endif
@@ -643,8 +666,8 @@ stt_expression_copy_constructor_test_40_dice()
 #endif
 
 	original_expression_ = stt_expression_default_constructor();
+	forced_assertion(original_expression_ != NULL);
 #ifndef NDEBUG
-	assertion(original_expression_ != NULL);
 	assertion(original_expression_->type_ == STT_EXPRESSION_TYPE_INVALID);
 #endif
 
@@ -667,8 +690,8 @@ stt_expression_copy_constructor_test_40_dice()
 			original_expression_->sub_dice_);
 #endif
 	forced_assertion(expression_copy_ != NULL);
+	forced_assertion(expression_copy_->sub_dice_ != NULL);
 #ifndef NDEBUG
-	assertion(expression_copy_->sub_dice_ != NULL);
 	assert_expectations_on_stt_expression_sub_dice_example_single_vanilla_dice(
 			expression_copy_->sub_dice_);
 #endif
@@ -689,11 +712,52 @@ stt_expression_copy_constructor_tests()
 	stt_expression_copy_constructor_test_40_dice();
 }
 
+tests_simple_list *
+register_stt_expression_copy_constructor_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_expression_copy_constructor_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_expression_copy_constructor_test_20_identifier);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_expression_copy_constructor_test_30_conditional);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_expression_copy_constructor_test_40_dice);
+	return returning_;
+}
+
 void
 stt_expression_constructors_and_destructors_tests()
 {
 	stt_expression_default_constructor_tests();
 	stt_expression_copy_constructor_tests();
+}
+
+tests_simple_list *
+register_stt_expression_constructors_and_destructors_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_expression_constructors_and_destructors_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_expression_default_constructor_tests(tests);
+	returning_ = register_stt_expression_copy_constructor_tests(
+			returning_);
+	return returning_;
 }
 
 void
@@ -806,6 +870,26 @@ stt_expression_equality_tests()
 	stt_expression_equality_test_4();
 }
 
+tests_simple_list *
+register_stt_expression_equality_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_expression_equality_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_expression_equality_test_0);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_expression_equality_test_1);
+	return returning_;
+}
+
 #ifndef NDEBUG
 
 void
@@ -885,6 +969,31 @@ stt_expression_cleanliness_tests()
 	stt_expression_cleanliness_test_30_dice();
 }
 
+tests_simple_list *
+register_stt_expression_cleanliness_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_expression_cleanliness_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& stt_expression_cleanliness_test_10_string_literal);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_expression_cleanliness_test_20_identifier);
+	tests_simple_list_push_back(
+			returning_,
+			& stt_expression_cleanliness_test_25_conditional);
+	tests_simple_list_push_back(returning_,
+	                            & stt_expression_cleanliness_test_30_dice);
+	return returning_;
+}
+
 #endif
 
 void
@@ -895,4 +1004,18 @@ stt_expression_tests()
 #ifndef NDEBUG
 	stt_expression_cleanliness_tests();
 #endif
+}
+
+tests_simple_list *
+register_stt_expression_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_expression_constructors_and_destructors_tests(
+			tests);
+	returning_ = register_stt_expression_equality_tests(returning_);
+#ifndef NDEBUG
+	returning_ = register_stt_expression_cleanliness_tests(returning_);
+#endif
+	return returning_;
 }

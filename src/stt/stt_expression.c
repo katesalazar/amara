@@ -151,7 +151,7 @@ stt_expression_copy_constructor(const stt_expression * expression)
 	} else {
 #ifndef NDEBUG
 		/*
-		fprintf(stderr, "%u\n", expression->type_);
+		fprintf(stderr, "%s:%d %u\n", __FILE__, __LINE__, expression->type_);
 		*/
 		assertion(expression->type_ == STT_EXPRESSION_TYPE_DICE);
 #endif
@@ -519,8 +519,8 @@ stt_expression_equality(const stt_expression * e0, const stt_expression * e1)
 	}
 
 	/*
-	fprintf(stderr, "%u\n", e0->type_);
-	fprintf(stderr, "%u\n", e1->type_);
+	fprintf(stderr, "%s:%d %u\n", __FILE__, __LINE__, e0->type_);
+	fprintf(stderr, "%s:%d %u\n", __FILE__, __LINE__, e1->type_);
 	*/
 
 	if (e0->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL) {

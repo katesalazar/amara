@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,8 @@
 #include "stt_where_value_binding_tests.h"
 
 /*   For owned prototypes. */
+#include "stt_where_value_bindings_simple_list_tests.h"
+
 #include "stt_where_value_bindings_simple_list_tests.h"
 
 stt_where_value_bindings_simple_list *
@@ -308,6 +310,25 @@ stt_where_value_bindings_simple_list_constructors_tests()
 	stt_where_value_bindings_simple_list_copy_constructor_test();
 }
 
+tests_simple_list *
+register_stt_where_value_bindings_simple_list_constructors_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_where_value_bindings_simple_list_constructors_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& stt_where_value_bindings_simple_list_default_constructor_test);
+	tests_simple_list_push_back(
+			tests,
+			& stt_where_value_bindings_simple_list_copy_constructor_test);
+	return tests;
+}
+
 void
 stt_where_value_bindings_simple_list_find_by_value_name_test_0()
 {
@@ -417,6 +438,31 @@ stt_where_value_bindings_simple_list_find_by_value_name_tests()
 	stt_where_value_bindings_simple_list_find_by_value_name_test_3();
 }
 
+tests_simple_list *
+register_stt_where_value_bindings_simple_list_find_by_value_name_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_where_value_bindings_simple_list_find_by_value_name_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& stt_where_value_bindings_simple_list_find_by_value_name_test_0);
+	tests_simple_list_push_back(
+			tests,
+			& stt_where_value_bindings_simple_list_find_by_value_name_test_1);
+	tests_simple_list_push_back(
+			tests,
+			& stt_where_value_bindings_simple_list_find_by_value_name_test_2);
+	tests_simple_list_push_back(
+			tests,
+			& stt_where_value_bindings_simple_list_find_by_value_name_test_3);
+	return tests;
+}
+
 void
 stt_where_value_bindings_simple_list_push_front_test_0()
 {
@@ -469,6 +515,22 @@ void
 stt_where_value_bindings_simple_list_push_front_tests()
 {
 	stt_where_value_bindings_simple_list_push_front_test_0();
+}
+
+tests_simple_list *
+register_stt_where_value_bindings_simple_list_push_front_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_where_value_bindings_simple_list_push_front_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& stt_where_value_bindings_simple_list_push_front_test_0);
+	return tests;
 }
 
 void
@@ -800,6 +862,22 @@ stt_where_value_bindings_simple_list_equality_tests()
 	stt_where_value_bindings_simple_list_equality_test_5();
 }
 
+tests_simple_list *
+register_stt_where_value_bindings_simple_list_push_back_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_stt_where_value_bindings_simple_list_push_back_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& stt_where_value_bindings_simple_list_push_back_test_0);
+	return tests;
+}
+
 void
 stt_where_value_bindings_simple_list_tests()
 {
@@ -808,4 +886,20 @@ stt_where_value_bindings_simple_list_tests()
 	stt_where_value_bindings_simple_list_push_back_tests();
 	stt_where_value_bindings_simple_list_find_by_value_name_tests();
 	stt_where_value_bindings_simple_list_equality_tests();
+}
+
+tests_simple_list *
+register_stt_where_value_bindings_simple_list_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_stt_where_value_bindings_simple_list_constructors_tests(
+			tests);
+	returning_ = register_stt_where_value_bindings_simple_list_find_by_value_name_tests(
+			returning_);
+	returning_ = register_stt_where_value_bindings_simple_list_push_front_tests(
+			returning_);
+	returning_ = register_stt_where_value_bindings_simple_list_push_back_tests(
+			returning_);
+	return returning_;
 }

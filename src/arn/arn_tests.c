@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,8 @@
 #include "arn_variable_tests.h"
 #include "arn_variables_simple_list_tests.h"
 
+#include "arn_tests.h"
+
 void
 applications_runner_tests()
 {
@@ -33,4 +35,18 @@ applications_runner_tests()
 	arn_values_simple_list_tests();
 	arn_variable_tests();
 	arn_variables_simple_list_tests();
+}
+
+tests_simple_list *
+register_applications_runner_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_arn_type_tests(tests);
+	returning_ = register_arn_value_tests(returning_);
+	returning_ = register_arn_values_fixed_list_tests(returning_);
+	returning_ = register_arn_values_simple_list_tests(returning_);
+	returning_ = register_arn_variable_tests(returning_);
+	returning_ = register_arn_variables_simple_list_tests(returning_);
+	return returning_;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Mercedes Catherine Salazar
+ * Copyright 2019, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@
 #include "../arn/app_runner.h"
 
 #include "../asr/assertion.h"
+
+#include "flex_tests.h"
 
 void
 flex_ignored_chars_test_0()
@@ -68,8 +70,27 @@ flex_ignored_chars_tests()
 	flex_ignored_chars_test_1();
 }
 
+tests_simple_list *
+register_flex_ignored_chars_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_flex_ignored_chars_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests, & flex_ignored_chars_test_0);
+	tests_simple_list_push_back(tests, & flex_ignored_chars_test_1);
+	return tests;
+}
+
 void
 flex_tests(void)
 {
 	flex_ignored_chars_tests();
+}
+
+tests_simple_list *
+register_flex_tests(tests_simple_list * tests)
+{
+	return register_flex_ignored_chars_tests(tests);
 }

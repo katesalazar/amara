@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@
 
 #ifndef __AMARA__SYNTAX_TREE__WHERE_VALUE_BINDING_TESTS__H__
 #define __AMARA__SYNTAX_TREE__WHERE_VALUE_BINDING_TESTS__H__
+
+#include "../tst/tests_simple_list.h"
 
 /*   For `stt_where_value_binding`. */
 #include "stt_where_value_binding.h"
@@ -98,6 +100,11 @@ assert_expectations_on_stt_where_value_binding_example_identifier_bar_is_bound_t
 
 void
 stt_where_value_binding_tests(void)
+;
+
+tests_simple_list *
+register_stt_where_value_binding_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
 ;
 
 #endif

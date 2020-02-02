@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Mercedes Catherine Salazar
+ * Copyright 2019, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,8 @@
 #include "../arn/app_runner.h"
 
 #include "../asr/assertion.h"
+
+#include "bison_tests.h"
 
 void
 bison_test_0()
@@ -233,4 +235,15 @@ bison_tests(void)
 	getcwd_buffer_ = getcwd_buffer;  /* transitional */
 	free(getcwd_buffer_);
 #endif
+}
+
+tests_simple_list *
+register_bison_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests, & bison_test_0);
+	tests_simple_list_push_back(tests, & bison_test_1);
+	tests_simple_list_push_back(tests, & bison_test_3);
+	tests_simple_list_push_back(tests, & bison_test_4);
+	tests_simple_list_push_back(tests, & bison_test_5);
+	return tests;
 }

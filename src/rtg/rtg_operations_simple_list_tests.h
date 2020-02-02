@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,10 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__OPERATIONS_SIMPLE_LIST_TESTS__H__
 #define __AMARA__RUN_TIME_GRAPH__OPERATIONS_SIMPLE_LIST_TESTS__H__
 
+#include "../tst/tests_simple_list.h"
+
+#include "rtg_operations_simple_list.h"
+
 #ifndef NDEBUG
 
 void
@@ -31,6 +35,11 @@ assert_expectations_on_rtg_operations_simple_list_example_print_identifier_foo(
 
 void
 rtg_operations_simple_list_tests(void)
+;
+
+tests_simple_list *
+register_rtg_operations_simple_list_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
 ;
 
 #endif

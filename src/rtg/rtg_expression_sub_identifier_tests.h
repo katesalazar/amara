@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Mercedes Catherine Salazar
+ * Copyright 2019, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,11 @@ assert_expectations_on_rtg_expression_sub_identifier_example_foo(
 
 void
 rtg_expression_sub_identifier_tests(void)
+;
+
+tests_simple_list *
+register_rtg_expression_sub_identifier_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
 ;
 
 #endif

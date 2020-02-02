@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -254,6 +254,30 @@ rtg_operation_arg_default_constructor_test()
 }
 
 void
+rtg_operation_arg_default_constructor_tests(void)
+;
+
+
+void
+rtg_operation_arg_default_constructor_tests(void)
+{
+	rtg_operation_arg_default_constructor_test();
+}
+
+tests_simple_list *
+register_rtg_operation_arg_default_constructor_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_operation_arg_default_constructor_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests, & rtg_operation_arg_default_constructor_test);
+	return tests;
+}
+
+void
 rtg_operation_arg_copy_constructor_test_0()
 {
 	stt_operation_arg * stt_operation_arg_;
@@ -320,11 +344,36 @@ rtg_operation_arg_copy_constructor_tests()
 	rtg_operation_arg_copy_constructor_test_0();
 }
 
-void
-rtg_operation_arg_construct_and_destruct_tests()
+tests_simple_list *
+register_rtg_operation_arg_copy_constructor_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_operation_arg_copy_constructor_tests(tests_simple_list * tests)
 {
-	rtg_operation_arg_default_constructor_test();
+	tests_simple_list_push_back(
+			tests, & rtg_operation_arg_copy_constructor_test_0);
+	return tests;
+}
+
+void
+rtg_operation_arg_constructors_tests()
+{
+	rtg_operation_arg_default_constructor_tests();
 	rtg_operation_arg_copy_constructor_tests();
+}
+
+tests_simple_list *
+register_rtg_operation_arg_constructors_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_operation_arg_constructors_tests(tests_simple_list * tests)
+{
+	return register_rtg_operation_arg_copy_constructor_tests(
+	       register_rtg_operation_arg_default_constructor_tests(tests));
 }
 
 void
@@ -552,15 +601,59 @@ rtg_operation_arg_type_setter_tests()
 	rtg_operation_arg_type_setter_test_4_set_invalid_when_being_string_literal();
 }
 
+tests_simple_list *
+register_rtg_operation_arg_type_setter_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_operation_arg_type_setter_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_operation_arg_type_setter_test_0_string_literal);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_operation_arg_type_setter_test_1_natural_literal);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_operation_arg_type_setter_test_2_identifier);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_operation_arg_type_setter_test_3_set_invalid_when_being_invalid);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_operation_arg_type_setter_test_4_set_invalid_when_being_string_literal);
+	return tests;
+}
+
 void
 rtg_operation_arg_setters_tests()
 {
 	rtg_operation_arg_type_setter_tests();
 }
 
+tests_simple_list *
+register_rtg_operation_arg_setters_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_operation_arg_setters_tests(tests_simple_list * tests)
+{
+	return register_rtg_operation_arg_type_setter_tests(tests);
+}
+
 void
 rtg_operation_arg_tests()
 {
-	rtg_operation_arg_construct_and_destruct_tests();
+	rtg_operation_arg_constructors_tests();
 	rtg_operation_arg_setters_tests();
+}
+
+tests_simple_list *
+register_rtg_operation_arg_tests(tests_simple_list * tests)
+{
+	return register_rtg_operation_arg_setters_tests(
+	       register_rtg_operation_arg_constructors_tests(tests));
 }

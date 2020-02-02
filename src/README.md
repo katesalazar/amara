@@ -1,5 +1,5 @@
 <!--
-    Copyright 2018 Mercedes Catherine Salazar
+    Copyright 2018-2020 Mercedes Catherine Salazar
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -49,15 +49,21 @@ that).
 * `brt`: <strong>B</strong>asic A<strong>r</strong>i<strong>t</strong>hmetic
   source code tree. Contains classes such as the natural and rational numbers.
 
-* `cmn`: **C**o**m**mo**n** boiler plates. Everything inside must be under 100% coverage.
+* `cmn`: <strong>C</strong>o<strong>m</strong>mo<strong>n</strong> boiler
+  plates. Everything inside must be under 100% coverage.
 
 * `ftr`: The **f**u**t**u**r**e system deals with providing the C99 `int
 snprintf(char * str, size_t size, const char * format, ...)` without actually
 being under C99.
 
+* `log`: <strong>Log</strong>ging facilities.
+
 * `prs`: The **p**e**rs**istence system deals with persistent IO, in a way
-fully coverable by tests, abstracting uncoverable conditions by proxying them to source documents in
-the `wrp/` directory. You could call this the IO port, thinking in terms of ports&amp;adapters (A.K.A. hexagonal). Everything inside must be under 100% coverage.
+fully coverable by tests, abstracting uncoverable conditions by proxying them
+  to source documents in
+the `wrp/` directory. You could call this the IO port, thinking in terms of
+  ports&amp;adapters (A.K.A. hexagonal). Everything inside must be under 100%
+  coverage.
 
 * `rtg`: Scripts **r**un **t**ime **g**raphs. These data structures correspond
   to the same data structures of `stt`, just that every possible constant name
@@ -70,17 +76,21 @@ the `wrp/` directory. You could call this the IO port, thinking in terms of port
   Everything inside must be under 100% coverage.
 
 * `tst`: The **t**e**st**s system is currently separated from applications
-running. But I have forgotten why. Everything inside must be under 100% coverage.
+running. But I have forgotten why. Everything inside must be under 100%
+  coverage.
 
 * `wrp`: External systems **wr**a**p**pers are provided in order to provide
-mock versions of all external systems. You could call this the IO adapter, thinking in terms of ports&amp;adapters (A.K.A. hexagonal). By definition this directory can not reach full tests coverage.
+mock versions of all external systems. You could call this the IO adapter,
+  thinking in terms of ports&amp;adapters (A.K.A. hexagonal). By definition
+  this directory can not reach full tests coverage.
 
 
 ## design decisions
 
 ### `simple_list`
 
-Super simple linked list, with a single pointer to the head. No pointer to the tail, no reverse direction.
+Super simple linked list, with a single pointer to the head. No pointer to the
+tail, no reverse direction.
 
 Empty:
 
@@ -122,7 +132,8 @@ Not empty, two different elements:
 
 ### `fixed_list`
 
-Almost like `simple_list`, just the pointer to the head is guaranteed to be constant from construction till destruction.
+Almost like `simple_list`, just the pointer to the head is guaranteed to be
+constant from construction till destruction.
 
 
 ## coding style
@@ -152,7 +163,9 @@ Almost like `simple_list`, just the pointer to the head is guaranteed to be cons
 * Other stuff.
 
   * Markdown syntax is simple and ubiquitous. Allow it inside comments as long
-    as it doesn't interfere with common external systems in use (or potentially), e.g. Doxygen. You don't know whether at some point the editor or pager might render richly **bold**, _italic_, `code`...
+    as it doesn't interfere with common external systems in use (or
+    potentially), e.g. Doxygen. You don't know whether at some point the editor
+    or pager might render richly **bold**, _italic_, `code`...
 
 * When in doubt about something, look into what do other big projects (e.g.
 Linux or Apache) do.

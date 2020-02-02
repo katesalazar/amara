@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@
 #include <string.h>
 
 #include "../asr/assertion.h"
+
+#include "../log/logging.h"
 
 #include "amara_string_tests.h"
 
@@ -84,31 +86,101 @@ assert_expectations_on_amara_string_example_bar(const amara_string * string)
 #endif
 
 void
-amara_string_construct_and_destruct_test_0()
+amara_string_default_constructor_test_0()
 {
 	amara_string * amara_string_;
+
+	amara_log("will run amara_string_default_constuctor_test_0");
+
 	amara_string_ = amara_string_default_constructor();
-	assertion(amara_string_ != NULL);
-	assertion(amara_string_->value_ == NULL);
+	forced_assertion(amara_string_ != NULL);
+	forced_assertion(amara_string_->value_ == NULL);
+
 	amara_string_destructor(amara_string_);
+
+	amara_log("done");
 }
 
 void
-amara_string_construct_and_destruct_test_1()
+amara_string_default_constructor_tests()
+{
+	amara_string_default_constructor_test_0();
+}
+
+tests_simple_list *
+register_amara_string_default_constructor_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_amara_string_default_constructor_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& amara_string_default_constructor_test_0);
+	return returning_;
+}
+
+void
+amara_string_exhaustive_constructor_test_0()
 {
 	amara_string * amara_string_;
+
 	amara_string_ = amara_string_exhaustive_constructor("foo");
-	assertion(amara_string_ != NULL);
-	assertion(amara_string_->value_ != NULL);
-	assertion(!strcmp(amara_string_->value_, "foo"));
+	forced_assertion(amara_string_ != NULL);
+	forced_assertion(amara_string_->value_ != NULL);
+	forced_assertion(!strcmp(amara_string_->value_, "foo"));
+
 	amara_string_destructor(amara_string_);
 }
 
 void
-amara_string_construct_and_destruct_tests()
+amara_string_exhaustive_constructor_tests()
 {
-	amara_string_construct_and_destruct_test_0();
-	amara_string_construct_and_destruct_test_1();
+	amara_string_exhaustive_constructor_test_0();
+}
+
+tests_simple_list *
+register_amara_string_exhaustive_constructor_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_amara_string_exhaustive_constructor_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& amara_string_exhaustive_constructor_test_0);
+	return returning_;
+}
+
+void
+amara_string_constructors_tests()
+{
+	amara_string_default_constructor_tests();
+	amara_string_exhaustive_constructor_tests();
+}
+
+tests_simple_list *
+register_amara_string_constructors_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_amara_string_constructors_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_amara_string_default_constructor_tests(tests);
+	returning_ = register_amara_string_exhaustive_constructor_tests(
+			returning_);
+	return returning_;
 }
 
 void
@@ -129,9 +201,6 @@ amara_string_equality_test_0()
 	amara_string_destructor(a2);
 }
 
-#ifndef NDEBUG
-#endif
-
 void
 amara_string_equality_test_1()
 {
@@ -150,9 +219,6 @@ amara_string_equality_test_1()
 
 	amara_string_destructor(a1_);
 }
-
-#ifndef NDEBUG
-#endif
 
 void
 amara_string_equality_test_2()
@@ -201,22 +267,18 @@ amara_string_assert_healthy_test_0()
 
 	as_ = amara_string_exhaustive_constructor("foo");
 	forced_assertion(as_ != NULL);
-#ifndef NDEBUG
 	assertion(as_->value_ != NULL);
 	assertion(as_->value_[0] == 'f');
 	assertion(as_->value_[1] == 'o');
 	assertion(as_->value_[2] == 'o');
 	assertion(as_->value_[3] == '\0');
-#endif
 
 	amara_string_assert_healthy(as_);
-#ifndef NDEBUG
 	assertion(as_->value_ != NULL);
 	assertion(as_->value_[0] == 'f');
 	assertion(as_->value_[1] == 'o');
 	assertion(as_->value_[2] == 'o');
 	assertion(as_->value_[3] == '\0');
-#endif
 
 	amara_string_destructor(as_);
 }
@@ -229,27 +291,53 @@ amara_string_assert_healthy_tests()
 
 #endif
 
-#ifndef NDEBUG
-#endif
 void
 amara_string_equality_tests()
 {
 	amara_string_equality_test_0();
-#ifndef NDEBUG
-#endif
 	amara_string_equality_test_1();
-#ifndef NDEBUG
-#endif
 	amara_string_equality_test_2();
 	amara_string_equality_test_3();
+}
+
+tests_simple_list *
+register_amara_string_equality_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_amara_string_equality_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_, & amara_string_equality_test_0);
+	tests_simple_list_push_back(
+			returning_, & amara_string_equality_test_1);
+	tests_simple_list_push_back(
+			returning_, & amara_string_equality_test_2);
+	tests_simple_list_push_back(
+			returning_, & amara_string_equality_test_3);
+	return returning_;
 }
 
 void
 amara_string_tests()
 {
-	amara_string_construct_and_destruct_tests();
+	amara_string_constructors_tests();
 #ifndef NDEBUG
 	amara_string_assert_healthy_tests();
 #endif
 	amara_string_equality_tests();
+}
+
+tests_simple_list *
+register_amara_string_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_amara_string_constructors_tests(tests);
+	returning_ = register_amara_string_equality_tests(returning_);
+	return returning_;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Mercedes Catherine Salazar
+ * Copyright 2019, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -130,6 +130,25 @@ amara_strings_simple_list_constructors_tests()
 	amara_strings_simple_list_exhaustive_constructors_tests();
 }
 
+tests_simple_list *
+register_amara_strings_simple_list_constructors_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_amara_strings_simple_list_constructors_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& amara_strings_simple_list_default_constructor_test);
+	return returning_;
+}
+
 void
 amara_strings_simple_list_push_front_test_0()
 {
@@ -229,9 +248,41 @@ amara_strings_simple_list_push_front_tests()
 	amara_strings_simple_list_push_front_test_1();
 }
 
+tests_simple_list *
+register_amara_strings_simple_list_push_front_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_amara_strings_simple_list_push_front_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = tests;
+	tests_simple_list_push_back(
+			returning_,
+			& amara_strings_simple_list_push_front_test_0);
+	tests_simple_list_push_back(
+			returning_,
+			& amara_strings_simple_list_push_front_test_1);
+	return returning_;
+}
+
 void
 amara_strings_simple_list_tests()
 {
 	amara_strings_simple_list_constructors_tests();
 	amara_strings_simple_list_push_front_tests();
+}
+
+tests_simple_list *
+register_amara_strings_simple_list_tests(tests_simple_list * tests)
+{
+	tests_simple_list * returning_;
+
+	returning_ = register_amara_strings_simple_list_constructors_tests(
+			tests);
+	returning_ = register_amara_strings_simple_list_push_front_tests(
+			returning_);
+	return returning_;
 }

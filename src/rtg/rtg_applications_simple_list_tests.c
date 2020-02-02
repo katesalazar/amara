@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,9 +27,9 @@
 
 #include "rtg_applications_simple_list.h"
 
-#include "rtg_applications_simple_list_tests.h"
-
 #include "rtg_named_functions_simple_list_tests.h"
+
+#include "rtg_applications_simple_list_tests.h"
 
 #ifndef NDEBUG
 
@@ -64,6 +64,32 @@ rtg_applications_simple_list_default_constructor_test()
 #endif
 
 	rtg_applications_simple_list_destructor(applications_list_);
+}
+
+void
+rtg_applications_simple_list_default_constructor_tests(void)
+;
+
+void
+rtg_applications_simple_list_default_constructor_tests()
+{
+	rtg_applications_simple_list_default_constructor_test();
+}
+
+tests_simple_list *
+register_rtg_applications_simple_list_default_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_applications_simple_list_default_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_applications_simple_list_default_constructor_test);
+	return tests;
 }
 
 void
@@ -261,6 +287,28 @@ rtg_applications_simple_list_copy_constructor_tests()
 	rtg_applications_simple_list_copy_constructor_test_2();
 }
 
+tests_simple_list *
+register_rtg_applications_simple_list_copy_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_applications_simple_list_copy_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_applications_simple_list_copy_constructor_test_0);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_applications_simple_list_copy_constructor_test_1);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_applications_simple_list_copy_constructor_test_2);
+	return tests;
+}
+
 void
 rtg_applications_simple_list_transformation_constructor_test_0()
 {
@@ -445,12 +493,51 @@ rtg_applications_simple_list_transformation_constructor_tests()
 	rtg_applications_simple_list_transformation_constructor_test_2();
 }
 
+tests_simple_list *
+register_rtg_applications_simple_list_transformation_constructor_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_applications_simple_list_transformation_constructor_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_applications_simple_list_transformation_constructor_test_0);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_applications_simple_list_transformation_constructor_test_1);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_applications_simple_list_transformation_constructor_test_2);
+	return tests;
+}
+
 void
 rtg_applications_simple_list_constructors_tests()
 {
-	rtg_applications_simple_list_default_constructor_test();
+	rtg_applications_simple_list_default_constructor_tests();
 	rtg_applications_simple_list_copy_constructor_tests();
 	rtg_applications_simple_list_transformation_constructor_tests();
+}
+
+tests_simple_list *
+register_rtg_applications_simple_list_constructors_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_applications_simple_list_constructors_tests(
+		tests_simple_list * tests)
+{
+	return
+			register_rtg_applications_simple_list_transformation_constructor_tests(
+			register_rtg_applications_simple_list_copy_constructor_tests(
+			register_rtg_applications_simple_list_default_constructor_tests(
+			tests)));
 }
 
 /**  Search in an empty list. */
@@ -794,9 +881,46 @@ rtg_applications_simple_list_find_by_name_tests()
 	rtg_applications_simple_list_find_by_name_test_4();
 }
 
+tests_simple_list *
+register_rtg_applications_simple_list_find_by_name_tests(
+		tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_rtg_applications_simple_list_find_by_name_tests(
+		tests_simple_list * tests)
+{
+	tests_simple_list_push_back(
+			tests,
+			& rtg_applications_simple_list_find_by_name_test_0);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_applications_simple_list_find_by_name_test_1);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_applications_simple_list_find_by_name_test_2);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_applications_simple_list_find_by_name_test_3);
+	tests_simple_list_push_back(
+			tests,
+			& rtg_applications_simple_list_find_by_name_test_4);
+	return tests;
+}
+
 void
 rtg_applications_simple_list_tests()
 {
 	rtg_applications_simple_list_constructors_tests();
 	rtg_applications_simple_list_find_by_name_tests();
+}
+
+tests_simple_list *
+register_rtg_applications_simple_list_tests(tests_simple_list * tests)
+{
+	return
+			register_rtg_applications_simple_list_find_by_name_tests(
+			register_rtg_applications_simple_list_constructors_tests(
+			tests));
 }
