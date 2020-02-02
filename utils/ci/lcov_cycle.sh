@@ -87,7 +87,7 @@ fi
 		true &&
 				echo 'nice -n 19 ./build/release/amara' &&
 				nice -n 19 ./build/release/amara
-		if test "${branch}" = 'experimental'
+		if test "${branch}" = 'integration' -o "${branch}" = 'experimental'
 		then
 			echo 'nice -n 19 ./build/debug/amara_g run scrambled tests'
 			nice -n 19 ./build/debug/amara_g run scrambled tests
@@ -161,7 +161,7 @@ fi
 			nice -n 19 ./build/debug/amara_g greet foo
 			echo 'nice -n 19 ./build/debug/amara_g run foo'
 			nice -n 19 ./build/debug/amara_g run foo
-			if test "${branch}" = 'experimental'
+			if test "${branch}" = 'integration' -o "${branch}" = 'experimental'
 			then
 				echo 'nice -n 19 ./build/debug/amara_g run scrambled_tests --no-banner'
 				nice -n 19 ./build/debug/amara_g run scrambled_tests --no-banner
