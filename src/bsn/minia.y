@@ -81,7 +81,9 @@ void yyerror(stt_node * syntax_tree, const char * s);
 #define TRACE_BISON_CONSTANT_VALUE 0x00
 #endif
 
+/*
 const unsigned char bison_trace_constant = TRACE_BISON_CONSTANT_VALUE;
+*/
 
 void
 bison_trace_chars_array(const char * message)
@@ -340,16 +342,28 @@ cli_named_function :
   b_trace_chars_array("function_where_clauses T_END T_FUNCTION ");
   b_trace_chars_array("T_IDENTIFIER\n");
   must_call_YYERROR_ =
+#ifdef AMARA_USE_STD_CXX98
+      (unsigned char *)
+#endif
       malloc(sizeof(unsigned char));
   forced_assertion(must_call_YYERROR_ != NULL);
   * must_call_YYERROR_ = 0;
   node_for_yyerror_ =
+#ifdef AMARA_USE_STD_CXX98
+      (stt_node * *)
+#endif
       malloc(sizeof(const stt_node *));
   forced_assertion(node_for_yyerror_ != NULL);
   * node_for_yyerror_=
+#ifdef AMARA_USE_STD_CXX98
+      (stt_node *)
+#endif
       malloc(sizeof(const stt_node));
   forced_assertion(* node_for_yyerror_ != NULL);
   message_for_yyerror_ =  /* XXX */
+#ifdef AMARA_USE_STD_CXX98
+      (char *)
+#endif
       malloc(1024 * 4 + 1);  /* XXX */
   forced_assertion(message_for_yyerror_ != NULL);
   message_for_yyerror_[0] = '\0';
