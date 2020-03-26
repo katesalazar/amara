@@ -3,6 +3,7 @@ function identifier main identifier ends
 	and receives nothing at all
 	and returns nothing at all
 	so it causes side effects
+	and executes statements sequentially
 	and does
 	print string literal you roll 3d6 and get  string literal ends
 	comment   You can sequence up to five operations per function. comment ends

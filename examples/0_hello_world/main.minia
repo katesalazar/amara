@@ -45,6 +45,7 @@ function identifier main identifier ends
 	comment   This is the line which separates function heading
 	 * declarations from the function implementation, i.e. _the
 	 * code_. comment ends
+	 and executes statements sequentially
 	and does
 
 	comment   This is an operation. Function bodies are composed of

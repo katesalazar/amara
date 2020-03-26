@@ -3,6 +3,7 @@ function identifier main identifier ends
 	and receives nothing at all
 	and returns nothing at all
 	so it causes side effects
+	and executes statements sequentially
 	and does
 	print
 		extension shiny unimplemented extension will be ignored extension ends

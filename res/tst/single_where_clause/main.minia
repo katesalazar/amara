@@ -3,6 +3,7 @@ function ident main ident ends
 	and receives nothing at all
 	and returns nothing at all
 	so it causes side effects
+	and executes statements sequentially
 	and does
 	print id something id ends
 	and then new line

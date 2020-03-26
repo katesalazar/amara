@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,9 @@ named_functions_and_applications_and_execution_requests :
   named_function named_functions_and_applications_and_execution_requests
 | application named_functions_and_applications_and_execution_requests
 | execution_request named_functions_and_applications_and_execution_requests
-|
+| ignored
+;
+ignored :
 ;
 application :
   cli_application
@@ -39,10 +41,14 @@ named_function :
   cli_named_function
 ;
 cli_named_function :
-  FUNCTION IDENTIFIER IS A COMMAND LINE INTERFACE
-  APPLICATION FUNCTION AND function_receives_clause AND
-  function_returns_clause function_side_effects_clause AND DOES
-  function_statements function_where_clauses END FUNCTION IDENTIFIER
+  FUNCTION IDENTIFIER IS A
+  COMMAND LINE INTERFACE APPLICATION FUNCTION
+  AND function_receives_clause
+  AND function_returns_clause
+  function_side_effects_clause
+  AND EXECUTES STATEMENTS SEQUENTIALLY
+  AND DOES function_statements
+  function_where_clauses END FUNCTION IDENTIFIER
 ;
 function_receives_clause :
   RECEIVES function_receives_clause_inner

@@ -1,7 +1,7 @@
 %{
 
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -619,6 +619,11 @@ substraction {
     return T_SUBSTRACTION;
   }
 
+statements {
+    trace_flex_three("returning T_STATEMENTS (", yytext, ")\n");
+    return T_STATEMENTS;
+  }
+
 so {
     trace_flex_three("returning T_SO (", yytext, ")\n");
     return T_SO;
@@ -642,6 +647,11 @@ side {
 set {
     trace_flex_three("returning T_SET (", yytext, ")\n");
     return T_SET;
+  }
+
+sequentially {
+    trace_flex_three("returning T_SEQUENTIALLY (", yytext, ")\n");
+    return T_SEQUENTIALLY;
   }
 
 run {
@@ -777,6 +787,11 @@ formula {
 feed {
     trace_flex_three("returning T_FEED (", yytext, ")\n");
     return T_FEED;
+  }
+
+executes {
+    trace_flex_three("returning T_EXECUTES (", yytext, ")\n");
+    return T_EXECUTES;
   }
 
 entry           {

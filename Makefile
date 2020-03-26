@@ -854,7 +854,8 @@ all: \
 	$(BUILD_DIR_RELEASE)/amara \
 	$(BUILD_DIR_RELEASE)/amara_not_stripped \
 	$(BUILD_DIR_DEBUG)/amara_g \
-	$(BUILD_DIR_DEBUG)/amara_g_not_stripped
+	$(BUILD_DIR_DEBUG)/amara_g_not_stripped \
+	$(DEBUG_RESOURCES)
 
 #   All of the directory structure is created at once, even those parts
 # that might not going to be used, because this allows to avoid a whole

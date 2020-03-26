@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -146,13 +146,13 @@ b_trace_unsigned_char(unsigned char value)
 %token T_A T_ALL T_AN T_AND T_APPLICATION T_ARGS T_AT T_AWESOME T_BOUND
 %token T_CARRIAGE
 %token T_CAUSES T_CHAIN T_COMMAND T_COMMANDS T_DIVISION
-%token T_DOES T_EASE T_EFFECTS T_ELSE T_END
+%token T_DOES T_EASE T_EFFECTS T_ELSE T_END T_EXECUTES
 %token T_ENTRY T_FEED T_FORMULA T_FUNCTION T_GREATER T_IF T_INTEGER T_INTERFACE
 %token T_IS T_IT T_LESS T_LINE T_NATURAL T_NEW
 %token T_NO T_NOR
 %token T_NOTHING T_OPERATOR T_POINT T_PRINT T_RATIONAL T_READ T_RECEIVES
-%token T_RETURN T_RETURNS T_RUN T_SET T_SIDE T_SIMPLE T_SMALL T_SO
-%token T_SUBSTRACTION
+%token T_RETURN T_RETURNS T_RUN T_SEQUENTIALLY T_SET T_SIDE T_SIMPLE T_SMALL
+%token T_SO T_STATEMENTS T_SUBSTRACTION
 %token T_THAN T_THAT T_THE T_THEN T_THREAD T_TO
 %token T_WHERE T_WITH T_WITHOUT
 
@@ -327,6 +327,7 @@ cli_named_function :
   T_AND function_receives_clause
   T_AND function_returns_clause
   function_side_effects_clause
+  T_AND T_EXECUTES T_STATEMENTS T_SEQUENTIALLY
   T_AND T_DOES function_statements
   function_where_clauses T_END T_FUNCTION T_IDENTIFIER
 {
@@ -338,6 +339,7 @@ cli_named_function :
   b_trace_chars_array("T_A T_COMMAND T_LINE T_INTERFACE T_APPLICATION ");
   b_trace_chars_array("T_FUNCTION T_AND function_receives_clause T_AND ");
   b_trace_chars_array("function_returns_clause function_side_effects_clause ");
+  b_trace_chars_array("T_AND T_EXECUTES T_STATEMENTS T_SEQUENTIALLY ");
   b_trace_chars_array("T_AND T_DOES function_statements ");
   b_trace_chars_array("function_where_clauses T_END T_FUNCTION ");
   b_trace_chars_array("T_IDENTIFIER\n");
@@ -372,7 +374,7 @@ cli_named_function :
       /*
       $11, $13, $14,
       */
-      $17, $18, $21);
+      $21, $22, $25);
   if (* must_call_YYERROR_) {
     yyerror(* node_for_yyerror_, message_for_yyerror_);
     free(must_call_YYERROR_);
