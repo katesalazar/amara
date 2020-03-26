@@ -25,7 +25,7 @@
 /*   For `stt_node`. */
 #include "../stt/stt_node.h"
 
-#define APP_RUNNER_RUN_APP_RET_SUCCESS                0x00
+#define APP_RUNNER_RUN_APP_RET_SUCCESS                  0x00
 #define APP_RUNNER_RUN_APP_RET_ERROR_DIR_DOES_NOT_EXIST 0x01
 #define APP_RUNNER_RUN_APP_RET_ERROR_DOC_DOES_NOT_EXIST 0x02
 #define APP_RUNNER_RUN_APP_RET_ERROR_MALFORMED_DOC      0x04

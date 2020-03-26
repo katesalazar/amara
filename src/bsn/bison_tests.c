@@ -195,6 +195,15 @@ bison_test_9()
 }
 
 void
+bison_test_10()
+{
+	char ret_;
+
+	ret_ = run_app("./res/tst/two_functions/");
+	forced_assertion(ret_ == APP_RUNNER_RUN_APP_RET_SUCCESS);
+}
+
+void
 bison_tests(void)
 {
 #ifdef __APPLE__
@@ -259,18 +268,20 @@ bison_tests(void)
 	bison_test_6();
 	*/
 
+	bison_test_7();
+
+	bison_test_8();
+
+	bison_test_9();
+
+	bison_test_10();
+
 #ifdef __APPLE__
 	} else {
 
 		/* needle occured, can not run tests just like that, because cwd is not where the code expects it to be... */
 	}
 #endif
-
-	bison_test_7();
-
-	bison_test_8();
-
-	bison_test_9();
 
 #ifdef __APPLE__
 	getcwd_buffer_ = getcwd_buffer;  /* transitional */
@@ -290,5 +301,6 @@ register_bison_tests(tests_simple_list * tests)
 	tests_simple_list_push_back(tests, & bison_test_7);
 	tests_simple_list_push_back(tests, & bison_test_8);
 	tests_simple_list_push_back(tests, & bison_test_9);
+	tests_simple_list_push_back(tests, & bison_test_10);
 	return tests;
 }

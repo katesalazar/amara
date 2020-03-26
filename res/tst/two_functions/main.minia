@@ -1,0 +1,45 @@
+comment
+        Copyright 2020 Mercedes Catherine Salazar
+
+        Licensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+        Unless required by applicable law or agreed to in writing,
+        software distributed under the License is distributed on an
+        "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+        either express or implied.
+        See the License for the specific language governing permissions
+        and limitations under the License.
+
+        res/tst/two_functions/main.minia: Test demonstrating parse of
+        two functions.
+comment ends
+
+function ident main ident ends
+	is a command line interface application function
+	and receives nothing at all
+	and returns nothing at all
+	so it causes side effects
+	and executes statements sequentially
+	and does
+	print id something id ends
+	and then new line
+	where id something id ends is bound to id another thing id ends
+	where id another thing id ends is bound to 0
+end function ident main ident ends
+
+function ident other ident ends
+	is a command line interface application function
+	and receives nothing at all
+	and returns nothing at all
+	so it causes side effects
+	and executes statements sequentially
+	and does
+	print id something id ends
+	and then new line
+	where id something id ends is bound to id another thing id ends
+	where id another thing id ends is bound to 0
+end function ident other ident ends

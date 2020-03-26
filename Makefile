@@ -1163,8 +1163,10 @@ $(BUILD_DIR_SRC)/brt/natural_tests.$(HEXT): \
 		$(BUILD_DIR_SRC)/brt/natural.$(HEXT)
 	$(CP) $< $@
 
+# TODO remove this dependency on stt_node.$(HEXT)
 $(BUILD_DIR_SRC)/brt/natural_tests.$(CEXT): \
-		$(SRC_DIR)/brt/natural_tests.c
+		$(SRC_DIR)/brt/natural_tests.c \
+		$(BUILD_DIR_SRC)/stt/stt_node.$(HEXT)
 	$(CP) $< $@
 
 define natural_tests_OBJ_RULE
@@ -1597,7 +1599,8 @@ $$(BUILD_DIR_$(BUILD_TYPE))/persistence_tests.o: \
 endef
 
 $(BUILD_DIR_SRC)/tst/tests_pseudo_random_numbers_generation.$(HEXT): \
-		$(SRC_DIR)/tst/tests_pseudo_random_numbers_generation.h
+		$(SRC_DIR)/tst/tests_pseudo_random_numbers_generation.h \
+		$(BUILD_DIR_SRC)/asr/assertion.$(HEXT)
 	$(CP) $< $@
 
 $(BUILD_DIR_SRC)/tst/tests_pseudo_random_numbers_generation.$(CEXT): \
@@ -1613,7 +1616,8 @@ $$(BUILD_DIR_$(BUILD_TYPE))/tests_pseudo_random_numbers_generation.o: \
 endef
 
 $(BUILD_DIR_SRC)/tst/tests_pseudo_random_numbers_generation_tests.$(HEXT): \
-		$(SRC_DIR)/tst/tests_pseudo_random_numbers_generation_tests.h
+		$(SRC_DIR)/tst/tests_pseudo_random_numbers_generation_tests.h \
+		$(BUILD_DIR_SRC)/asr/assertion.$(HEXT)
 	$(CP) $< $@
 
 $(BUILD_DIR_SRC)/tst/tests_pseudo_random_numbers_generation_tests.$(CEXT): \
@@ -1848,7 +1852,8 @@ $$(BUILD_DIR_$(BUILD_TYPE))/rtg_doc_tests.o: \
 endef
 
 $(BUILD_DIR_SRC)/rtg/rtg_execution_request.$(HEXT): \
-		$(SRC_DIR)/rtg/rtg_execution_request.h
+		$(SRC_DIR)/rtg/rtg_execution_request.h \
+		$(BUILD_DIR_SRC)/rtg/rtg_applications_simple_list.$(HEXT)
 	$(CP) $< $@
 
 $(BUILD_DIR_SRC)/rtg/rtg_execution_request.$(CEXT): \
@@ -1865,7 +1870,8 @@ $$(BUILD_DIR_$(BUILD_TYPE))/rtg_execution_request.o: \
 endef
 
 $(BUILD_DIR_SRC)/rtg/rtg_execution_request_tests.$(HEXT): \
-		$(SRC_DIR)/rtg/rtg_execution_request_tests.h
+		$(SRC_DIR)/rtg/rtg_execution_request_tests.h \
+		$(BUILD_DIR_SRC)/rtg/rtg_execution_request.$(HEXT)
 	$(CP) $< $@
 
 $(BUILD_DIR_SRC)/rtg/rtg_execution_request_tests.$(CEXT): \
@@ -2141,7 +2147,8 @@ $$(BUILD_DIR_$(BUILD_TYPE))/rtg_named_function_tests.o: \
 endef
 
 $(BUILD_DIR_SRC)/rtg/rtg_named_functions_simple_list.$(HEXT): \
-		$(SRC_DIR)/rtg/rtg_named_functions_simple_list.h
+		$(SRC_DIR)/rtg/rtg_named_functions_simple_list.h \
+		$(BUILD_DIR_SRC)/stt/stt_doc_subnode.$(HEXT)
 	$(CP) $< $@
 
 $(BUILD_DIR_SRC)/rtg/rtg_named_functions_simple_list.$(CEXT): \
@@ -2338,7 +2345,8 @@ $(BUILD_DIR_SRC)/rtg/rtg_tests.$(HEXT): \
 	$(CP) $< $@
 
 $(BUILD_DIR_SRC)/rtg/rtg_tests.$(CEXT): \
-		$(SRC_DIR)/rtg/rtg_tests.c
+		$(SRC_DIR)/rtg/rtg_tests.c \
+		$(BUILD_DIR_SRC)/rtg/rtg_execution_request_tests.$(HEXT)
 	$(CP) $< $@
 
 define rtg_tests_OBJ_RULE
@@ -2981,7 +2989,8 @@ $(BUILD_DIR_SRC)/stt/stt_expression_tests.$(HEXT): \
 	$(CP) $< $@
 
 $(BUILD_DIR_SRC)/stt/stt_expression_tests.$(CEXT): \
-		$(SRC_DIR)/stt/stt_expression_tests.c
+		$(SRC_DIR)/stt/stt_expression_tests.c \
+		$(BUILD_DIR_SRC)/stt/stt_expression_sub_conditional_tests.$(HEXT)
 	$(CP) $< $@
 
 define stt_expression_tests_OBJ_RULE
@@ -3569,7 +3578,8 @@ $(BUILD_DIR_SRC)/stt/stt_tests.$(HEXT): \
 	$(CP) $< $@
 
 $(BUILD_DIR_SRC)/stt/stt_tests.$(CEXT): \
-		$(SRC_DIR)/stt/stt_tests.c
+		$(SRC_DIR)/stt/stt_tests.c \
+		$(BUILD_DIR_SRC)/stt/stt_node_tests.$(HEXT)
 	$(CP) $< $@
 
 define stt_tests_OBJ_RULE
