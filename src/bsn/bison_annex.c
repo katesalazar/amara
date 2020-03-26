@@ -493,6 +493,28 @@ bison_annex_function_sequential_statements_out_of_function_statement(
 }
 
 stt_node *
+bison_annex_function_parallel_statements_out_of_function_statement_and_token_and_and_token_then_and_function_parallel_statements(
+		stt_node * function_statement,
+		stt_node * function_parallel_statements)
+{
+	return
+			/* XXX IT IS NOT REALLY PARALLEL ON THE INSIDE, ONLY THE SYNTAX IS ADDED. TRULY PARALLEL EXECUTION REMAINS TODO :) */
+			bison_annex_function_sequential_statements_out_of_function_statement_and_token_and_and_token_then_and_function_sequential_statements(  /* XXX */
+					function_statement,  /* XXX */
+					function_parallel_statements);  /* XXX */
+}
+
+stt_node *
+bison_annex_function_parallel_statements_out_of_function_statement(
+		stt_node * function_statement)
+{
+	return
+			/* XXX IT IS NOT REALLY PARALLEL ON THE INSIDE, ONLY THE SYNTAX IS ADDED. TRULY PARALLEL EXECUTION REMAINS TODO :) */
+			bison_annex_function_sequential_statements_out_of_function_statement(  /* XXX */
+					function_statement);  /* XXX */
+}
+
+stt_node *
 function_statement_out_of_token_print_and_expression(stt_node * expression)
 {
 	stt_node * returning_;

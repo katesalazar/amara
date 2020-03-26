@@ -147,10 +147,11 @@ b_trace_unsigned_char(unsigned char value)
 %token T_CARRIAGE
 %token T_CAUSES T_CHAIN T_COMMAND T_COMMANDS T_DIVISION
 %token T_DOES T_EASE T_EFFECTS T_ELSE T_END T_EXECUTES
-%token T_ENTRY T_FEED T_FORMULA T_FUNCTION T_GREATER T_IF T_INTEGER T_INTERFACE
-%token T_IS T_IT T_LESS T_LINE T_NATURAL T_NEW
+%token T_ENTRY T_FEED T_FORMULA T_FUNCTION T_GREATER T_IF T_IN T_INTEGER
+%token T_INTERFACE T_IS T_IT T_LESS T_LINE T_NATURAL T_NEW
 %token T_NO T_NOR
-%token T_NOTHING T_OPERATOR T_POINT T_PRINT T_RATIONAL T_READ T_RECEIVES
+%token T_NOTHING T_OPERATOR T_PARALLEL T_POINT T_PRINT T_RATIONAL T_READ
+%token T_RECEIVES
 %token T_RETURN T_RETURNS T_RUN T_SEQUENTIALLY T_SET T_SIDE T_SIMPLE T_SMALL
 %token T_SO T_STATEMENTS T_SUBSTRACTION
 %token T_THAN T_THAT T_THE T_THEN T_THREAD T_TO
@@ -173,7 +174,9 @@ b_trace_unsigned_char(unsigned char value)
 %type<node> function_where_clauses
 %type<node> function_statement
 %type<node> function_sequential_statements
+%type<node> function_parallel_statements
 %type<node> function_sequential_execution_statements_clause
+%type<node> function_parallel_execution_statements_clause
 %type<node> function_statements_clause
 %type<node> function_side_effects_clause
 %type<node> function_returns_clause
@@ -438,12 +441,13 @@ function_statements_clause :
   $$ = $1;
   forced_assertion($$ != NULL);
 }
-/*
 | function_parallel_execution_statements_clause
 {
-  ...
+  b_trace_chars_array("function_statements_clause : ");
+  b_trace_chars_array("function_parallel_execution_statements_clause\n");
+  $$ = $1;
+  forced_assertion($$ != NULL);
 }
-*/
 ;
 
 function_sequential_execution_statements_clause :
@@ -454,6 +458,18 @@ function_sequential_execution_statements_clause :
   b_trace_chars_array("T_AND T_EXECUTES T_STATEMENTS T_SEQUENTIALLY ");
   b_trace_chars_array("T_AND T_DOES function_sequential_statements\n");
   $$ = $7;
+  forced_assertion($$ != NULL);
+}
+;
+
+function_parallel_execution_statements_clause :
+  T_AND T_EXECUTES T_STATEMENTS T_IN T_PARALLEL
+  T_AND T_DOES function_parallel_statements
+{
+  b_trace_chars_array("function_parallel_execution_statements_clause : ");
+  b_trace_chars_array("T_AND T_EXECUTES T_STATEMENTS T_IN T_PARALLEL ");
+  b_trace_chars_array("T_AND T_DOES function_parallel_statements\n");
+  $$ = $8;
   forced_assertion($$ != NULL);
 }
 ;
@@ -518,7 +534,7 @@ execution_request :
 function_sequential_statements :
   function_statement T_AND T_THEN function_sequential_statements
 {
-  b_trace_chars_array("function_sequential_tatements : function_statement ");
+  b_trace_chars_array("function_sequential_statements : function_statement ");
   b_trace_chars_array("T_AND T_THEN function_sequential_statements\n");
   $$ = bison_annex_function_sequential_statements_out_of_function_statement_and_token_and_and_token_then_and_function_sequential_statements(
       $1, $4);
@@ -528,6 +544,24 @@ function_sequential_statements :
 {
   b_trace_chars_array("function_sequential_statements : function_statement\n");
   $$ = bison_annex_function_sequential_statements_out_of_function_statement(
+      $1);
+  forced_assertion($$ != NULL);
+}
+;
+
+function_parallel_statements :
+  function_statement T_AND function_parallel_statements
+{
+  b_trace_chars_array("function_parallel_statements : function_statement ");
+  b_trace_chars_array("T_AND function_parallel_statements\n");
+  $$ = bison_annex_function_parallel_statements_out_of_function_statement_and_token_and_and_token_then_and_function_parallel_statements(
+      $1, $3);
+  forced_assertion($$ != NULL);
+}
+| function_statement
+{
+  b_trace_chars_array("function_parallel_statements : function_statement\n");
+  $$ = bison_annex_function_parallel_statements_out_of_function_statement(
       $1);
   forced_assertion($$ != NULL);
 }

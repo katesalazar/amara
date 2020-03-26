@@ -66,13 +66,15 @@ function_side_effects_clause :
 ;
 function_statements_clause :
   function_sequential_execution_statements_clause
-/*
 | function_parallel_execution_statements_clause
-*/
 ;
 function_sequential_execution_statements_clause :
   AND EXECUTES STATEMENTS SEQUENTIALLY
   AND DOES function_sequential_statements
+;
+function_parallel_execution_statements_clause :
+  AND EXECUTES STATEMENTS IN PARALLEL
+  AND DOES function_parallel_statements
 ;
 function_where_clauses :
   WHERE function_where_clause function_where_clauses
@@ -86,6 +88,10 @@ execution_request :
 ;
 function_sequential_statements :
   function_statement AND THEN function_sequential_statements
+| function_statement
+;
+function_parallel_statements :
+  function_statement AND function_parallel_statements
 | function_statement
 ;
 function_statement :

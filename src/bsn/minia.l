@@ -694,6 +694,10 @@ point           {
                   return T_POINT;
                 }
 
+parallel {
+    trace_flex_three("returning T_PARALLEL (", yytext, ")\n");
+    return T_PARALLEL;
+  }
 operator {
     trace_flex_three("returning T_OPERATOR (", yytext, ")\n");
     return T_OPERATOR;
@@ -767,6 +771,11 @@ interface {
 integer {
     trace_flex_three("returning T_INTEGER (", yytext, ")\n");
     return T_INTEGER;
+  }
+
+in {
+    trace_flex_three("returning T_IN (", yytext, ")\n");
+    return T_IN;
   }
 
 greater {

@@ -1,0 +1,19 @@
+function ident main ident ends
+	is a command line interface application function
+	and receives nothing at all
+	and returns nothing at all
+	so it causes side effects
+	and executes statements in parallel
+	and does
+	print string literal 0 string literal ends
+	and print string literal 1 string literal ends
+	and print string literal 2 string literal ends
+	and print string literal 3 string literal ends
+end function ident main ident ends
+
+application ident app ident ends
+	is a command line interface application
+	and the entry point is function ident main ident ends
+end application ident app ident ends
+
+run command line interface application ident app ident ends

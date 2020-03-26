@@ -116,6 +116,37 @@ bison_annex_function_sequential_statements_out_of_function_statement(
 __amara__warn_unused_result__
 ;
 
+/**  For:
+ *
+ *     function_parallel_statements :
+ *       function_statement T_AND T_THEN function_parallel_statements
+ */
+stt_node *
+bison_annex_function_parallel_statements_out_of_function_statement_and_token_and_and_token_then_and_function_parallel_statements(
+		stt_node * function_statement,
+		stt_node * function_parallel_statements)
+__amara__warn_unused_result__
+;
+
+/**  For:
+ *
+ *     function_parallel_statements : function_statement
+ */
+stt_node *
+bison_annex_function_parallel_statements_out_of_function_statement(
+		stt_node * function_statement)
+__amara__warn_unused_result__
+;
+
+stt_node *
+function_statement_out_of_token_print_and_expression(stt_node * expression)
+__attribute__((warn_unused_result))
+;
+
+stt_node *
+function_statement_out_of_token_new_and_token_line(void)
+__attribute__((warn_unused_result))
+;
 stt_node *
 function_statement_out_of_token_print_and_expression(stt_node * expression)
 __attribute__((warn_unused_result))
