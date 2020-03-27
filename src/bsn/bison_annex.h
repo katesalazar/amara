@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Mercedes Catherine Salazar
+ * Copyright 2019, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,11 +74,11 @@ __amara__warn_unused_result__
  *       T_AND function_receives_clause
  *       T_AND function_returns_clause
  *       function_side_effects_clause
- *       T_AND T_DOES function_statements
+ *       function_statements_clause
  *       function_where_clauses T_END T_FUNCTION T_IDENTIFIER
  */
 stt_node *
-bison_annex_cli_named_function_out_of_token_function_and_token_identifier_and_token_is_and_token_a_and_token_command_and_token_line_and_token_interface_and_token_application_and_token_function_and_token_and_and_function_receives_clause_and_token_and_and_function_returns_clause_and_function_side_effects_clause_and_token_and_and_token_does_and_function_statements_and_function_where_clauses_and_token_end_and_token_function_and_token_identifier(
+bison_annex_cli_named_function_out_of_token_function_and_token_identifier_and_token_is_and_token_a_and_token_command_and_token_line_and_token_interface_and_token_application_and_token_function_and_token_and_and_function_receives_clause_and_token_and_and_function_returns_clause_and_function_side_effects_clause_and_function_statements_clause_and_function_where_clauses_and_token_end_and_token_function_and_token_identifier(
 		unsigned char * must_call_YYERROR,
 		stt_node * * node_for_yyerror,
 		char * message_for_yyerror,
@@ -96,21 +96,22 @@ __amara__warn_unused_result__
 
 /**  For:
  *
- *     function_statements :
- *       function_statement T_AND T_THEN function_statements
+ *     function_sequential_statements :
+ *       function_statement T_AND T_THEN function_sequential_statements
  */
 stt_node *
-bison_annex_function_statements_out_of_function_statement_and_token_and_and_token_then_and_function_statements(
-		stt_node * function_statement, stt_node * function_statements)
+bison_annex_function_sequential_statements_out_of_function_statement_and_token_and_and_token_then_and_function_sequential_statements(
+		stt_node * function_statement,
+		stt_node * function_sequential_statements)
 __amara__warn_unused_result__
 ;
 
 /**  For:
  *
- *     function_statements : function_statement
+ *     function_sequential_statements : function_statement
  */
 stt_node *
-bison_annex_function_statements_out_of_function_statement(
+bison_annex_function_sequential_statements_out_of_function_statement(
 		stt_node * function_statement)
 __amara__warn_unused_result__
 ;

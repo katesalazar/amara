@@ -172,7 +172,9 @@ b_trace_unsigned_char(unsigned char value)
 %type<node> function_where_clause
 %type<node> function_where_clauses
 %type<node> function_statement
-%type<node> function_statements
+%type<node> function_sequential_statements
+%type<node> function_sequential_execution_statements_clause
+%type<node> function_statements_clause
 %type<node> function_side_effects_clause
 %type<node> function_returns_clause
 %type<node> function_receives_clause
@@ -327,8 +329,7 @@ cli_named_function :
   T_AND function_receives_clause
   T_AND function_returns_clause
   function_side_effects_clause
-  T_AND T_EXECUTES T_STATEMENTS T_SEQUENTIALLY
-  T_AND T_DOES function_statements
+  function_statements_clause
   function_where_clauses T_END T_FUNCTION T_IDENTIFIER
 {
   unsigned char * must_call_YYERROR_;
@@ -339,8 +340,7 @@ cli_named_function :
   b_trace_chars_array("T_A T_COMMAND T_LINE T_INTERFACE T_APPLICATION ");
   b_trace_chars_array("T_FUNCTION T_AND function_receives_clause T_AND ");
   b_trace_chars_array("function_returns_clause function_side_effects_clause ");
-  b_trace_chars_array("T_AND T_EXECUTES T_STATEMENTS T_SEQUENTIALLY ");
-  b_trace_chars_array("T_AND T_DOES function_statements ");
+  b_trace_chars_array("function_statements_clause ");
   b_trace_chars_array("function_where_clauses T_END T_FUNCTION ");
   b_trace_chars_array("T_IDENTIFIER\n");
   must_call_YYERROR_ =
@@ -369,12 +369,12 @@ cli_named_function :
       malloc(1024 * 4 + 1);  /* XXX */
   forced_assertion(message_for_yyerror_ != NULL);
   message_for_yyerror_[0] = '\0';
-  $$ = bison_annex_cli_named_function_out_of_token_function_and_token_identifier_and_token_is_and_token_a_and_token_command_and_token_line_and_token_interface_and_token_application_and_token_function_and_token_and_and_function_receives_clause_and_token_and_and_function_returns_clause_and_function_side_effects_clause_and_token_and_and_token_does_and_function_statements_and_function_where_clauses_and_token_end_and_token_function_and_token_identifier(
+  $$ = bison_annex_cli_named_function_out_of_token_function_and_token_identifier_and_token_is_and_token_a_and_token_command_and_token_line_and_token_interface_and_token_application_and_token_function_and_token_and_and_function_receives_clause_and_token_and_and_function_returns_clause_and_function_side_effects_clause_and_function_statements_clause_and_function_where_clauses_and_token_end_and_token_function_and_token_identifier(
       must_call_YYERROR_, node_for_yyerror_, message_for_yyerror_, $2,
       /*
       $11, $13, $14,
       */
-      $21, $22, $25);
+      $15, $16, $19);
   if (* must_call_YYERROR_) {
     yyerror(* node_for_yyerror_, message_for_yyerror_);
     free(must_call_YYERROR_);
@@ -427,6 +427,34 @@ function_side_effects_clause :
 {
   b_trace_chars_array("function_side_effects_clause : T_SO T_IT T_CAUSES ");
   b_trace_chars_array("T_SIDE T_EFFECTS\n");
+}
+;
+
+function_statements_clause :
+  function_sequential_execution_statements_clause
+{
+  b_trace_chars_array("function_statements_clause : ");
+  b_trace_chars_array("function_sequential_execution_statements_clause\n");
+  $$ = $1;
+  forced_assertion($$ != NULL);
+}
+/*
+| function_parallel_execution_statements_clause
+{
+  ...
+}
+*/
+;
+
+function_sequential_execution_statements_clause :
+  T_AND T_EXECUTES T_STATEMENTS T_SEQUENTIALLY
+  T_AND T_DOES function_sequential_statements
+{
+  b_trace_chars_array("function_sequential_execution_statements_clause : ");
+  b_trace_chars_array("T_AND T_EXECUTES T_STATEMENTS T_SEQUENTIALLY ");
+  b_trace_chars_array("T_AND T_DOES function_sequential_statements\n");
+  $$ = $7;
+  forced_assertion($$ != NULL);
 }
 ;
 
@@ -487,19 +515,20 @@ execution_request :
 }
 ;
 
-function_statements :
-  function_statement T_AND T_THEN function_statements
+function_sequential_statements :
+  function_statement T_AND T_THEN function_sequential_statements
 {
-  b_trace_chars_array("function_statements : function_statement T_AND ");
-  b_trace_chars_array("T_THEN function_statements\n");
-  $$ = bison_annex_function_statements_out_of_function_statement_and_token_and_and_token_then_and_function_statements(
+  b_trace_chars_array("function_sequential_tatements : function_statement ");
+  b_trace_chars_array("T_AND T_THEN function_sequential_statements\n");
+  $$ = bison_annex_function_sequential_statements_out_of_function_statement_and_token_and_and_token_then_and_function_sequential_statements(
       $1, $4);
   forced_assertion($$ != NULL);
 }
 | function_statement
 {
-  b_trace_chars_array("function_statements : function_statement\n");
-  $$ = bison_annex_function_statements_out_of_function_statement($1);
+  b_trace_chars_array("function_sequential_statements : function_statement\n");
+  $$ = bison_annex_function_sequential_statements_out_of_function_statement(
+      $1);
   forced_assertion($$ != NULL);
 }
 ;
