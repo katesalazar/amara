@@ -312,7 +312,7 @@ cli_application :
   free($2);
   free($15->identifier_subnode_);
   free($15);
-  free($18->identifier_subnode_->value_);
+  amara_string_destructor($18->identifier_subnode_->value_);
   free($18->identifier_subnode_);
   free($18);
 }

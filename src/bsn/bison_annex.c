@@ -202,6 +202,10 @@ bison_annex_named_functions_and_applications_and_execution_requests_out_of_appli
 #ifndef NDEBUG
 		assertion(returning_->doc_subnode_ != NULL);
 #endif
+		amara_string_destructor(
+				application->application_subnode_->entry_point_function_name_);
+		amara_string_destructor(
+				application->application_subnode_->name_);
 		free(application->application_subnode_);
 		free(application);
 	/*
@@ -251,6 +255,8 @@ bison_annex_named_functions_and_applications_and_execution_requests_out_of_execu
 #ifndef NDEBUG
 		assertion(returning_->doc_subnode_ != NULL);
 #endif
+		amara_string_destructor(
+				execution_request->execution_request_subnode_->application_name_);
 		free(execution_request->execution_request_subnode_);
 		free(execution_request);
 	/*
