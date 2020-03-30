@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,8 +52,21 @@ arn_values_simple_list_out_of_arn_values_fixed_list(
 __attribute__((warn_unused_result))
 ;
 
+/**  Old only destructor is now deprecated. */
 void
 arn_values_simple_list_destructor(arn_values_simple_list * values)
+;
+
+/**  Shallow destructor destroys the list while not destroying the
+ * contained elements, which aren't owned. */
+void
+arn_values_simple_list_shallow_destructor(arn_values_simple_list * values)
+;
+
+/**  Deep destructor destroys the list and the contained elements too,
+ * for they are owned by the list. */
+void
+arn_values_simple_list_deep_destructor(arn_values_simple_list * values)
 ;
 
 arn_values_simple_list *

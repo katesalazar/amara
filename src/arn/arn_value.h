@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,6 +41,7 @@
 #define ARN_VALUE_TYPE_NAMED_UNASSIGNED_NATURAL      0x23  /* 35: '#'. */
 /**  Named assigned string value. */
 #define ARN_VALUE_TYPE_NAMED_ASSIGNED_STRING         0x24  /* 35: '$'. */
+#define ARN_VALUE_TYPE_NAMED_ASSIGNED_BOOLEAN        0x30  /* 48: '0'. */
 /**  Named assigned natural value. */
 #define ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL        0x25  /* 37: '%'. */
 /**  Likely the result of running some [intermediate] operation, or some

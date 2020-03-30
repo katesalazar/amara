@@ -1,5 +1,6 @@
 #   Vim stuff.
 *.swp
+*.swo
 
 #   KDevelop stuff.
 amara.kdev4

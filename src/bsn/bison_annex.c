@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Mercedes Catherine Salazar
+ * Copyright 2019, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -202,6 +202,10 @@ bison_annex_named_functions_and_applications_and_execution_requests_out_of_appli
 #ifndef NDEBUG
 		assertion(returning_->doc_subnode_ != NULL);
 #endif
+		amara_string_destructor(
+				application->application_subnode_->entry_point_function_name_);
+		amara_string_destructor(
+				application->application_subnode_->name_);
 		free(application->application_subnode_);
 		free(application);
 	/*
@@ -251,6 +255,8 @@ bison_annex_named_functions_and_applications_and_execution_requests_out_of_execu
 #ifndef NDEBUG
 		assertion(returning_->doc_subnode_ != NULL);
 #endif
+		amara_string_destructor(
+				execution_request->execution_request_subnode_->application_name_);
 		free(execution_request->execution_request_subnode_);
 		free(execution_request);
 	/*
@@ -283,7 +289,7 @@ named_functions_and_applications_and_execution_requests_out_of_ignored()
 }
 
 stt_node *
-bison_annex_cli_named_function_out_of_token_function_and_token_identifier_and_token_is_and_token_a_and_token_command_and_token_line_and_token_interface_and_token_application_and_token_function_and_token_and_and_function_receives_clause_and_token_and_and_function_returns_clause_and_function_side_effects_clause_and_token_and_and_token_does_and_function_statements_and_function_where_clauses_and_token_end_and_token_function_and_token_identifier(
+bison_annex_cli_named_function_out_of_token_function_and_token_identifier_and_token_is_and_token_a_and_token_command_and_token_line_and_token_interface_and_token_application_and_token_function_and_token_and_and_function_receives_clause_and_token_and_and_function_returns_clause_and_function_side_effects_clause_and_function_statements_clause_and_function_where_clauses_and_token_end_and_token_function_and_token_identifier(
 		unsigned char * must_call_YYERROR,
 		stt_node * * node_for_yyerror,
 		char * message_for_yyerror,
@@ -293,7 +299,7 @@ bison_annex_cli_named_function_out_of_token_function_and_token_identifier_and_to
 		stt_node * function_returns_clause,
 		stt_node * function_side_effects_clause,
 		*/
-		stt_node * function_statements,
+		stt_node * function_statements_clause,
 		stt_node * function_where_clauses,
 		stt_node * identifier_at_position_twenty_one)
 {
@@ -336,35 +342,39 @@ bison_annex_cli_named_function_out_of_token_function_and_token_identifier_and_to
 	returning_ = stt_node_default_constructor();
 
 	/*   Attach the function operations to this node. */
-	/*   Those are hanging from function_statements */
-	assertion_two(function_statements != NULL, "`$17` unexpectedly NULL");
-	if (function_statements->type_ != STT_NODE_TYPE_CLI_OPERATIONS_LIST) {
+	/*   Those are hanging from `function_statements_clause`. */
+	assertion_two(function_statements_clause != NULL,
+			"`$17` unexpectedly NULL");
+	if (function_statements_clause->type_ !=
+			STT_NODE_TYPE_CLI_OPERATIONS_LIST) {
 
 #ifdef DUMP_FLOW_TO_STDERR
 		/*
-		fprintf(stderr, "function_statements->type_: %u\n",
+		fprintf(stderr, "function_statements_clause->type_: %u\n",
 		        $17->type_);
 		*/
 #endif
 	}
 	assertion_two(
-			function_statements->type_ ==
+			function_statements_clause->type_ ==
 					STT_NODE_TYPE_CLI_OPERATIONS_LIST,
-			"unexpected value for `function_statements->type_`");
-	assertion_two(function_statements->operations_list_subnode_ != NULL,
-			"`function_statements->operations_list_subnode_` unexpectedly NULL");
+			"unexpected value for `function_statements_clause->type_`");
 	assertion_two(
-		function_statements->operations_list_subnode_->operations_ !=
+			function_statements_clause->operations_list_subnode_ !=
+					NULL,
+			"`function_statements_clause->operations_list_subnode_` unexpectedly NULL");
+	assertion_two(
+		function_statements_clause->operations_list_subnode_->operations_ !=
 				NULL,
-		"`function_statements->operations_list_subnode_->operations_` unexpectedly NULL");
+		"`function_statements_clause->operations_list_subnode_->operations_` unexpectedly NULL");
 	assertion_two(
-		function_statements->operations_list_subnode_->operations_->first !=
+		function_statements_clause->operations_list_subnode_->operations_->first !=
 				NULL,
-		"`function_statements->operations_list_subnode_->operations_->first` unexpectedly NULL");
+		"`function_statements_clause->operations_list_subnode_->operations_->first` unexpectedly NULL");
 	assertion_two(
-		function_statements->operations_list_subnode_->operations_->first->type_ !=
+		function_statements_clause->operations_list_subnode_->operations_->first->type_ !=
 				STT_OPERATION_TYPE_INVALID,
-		"`function_statements->operations_list_subnode_->operations_->first->type_` is invalid");
+		"`function_statements_clause->operations_list_subnode_->operations_->first->type_` is invalid");
 
 	assertion(function_where_clauses != NULL);
 	assertion(function_where_clauses->type_ ==
@@ -381,7 +391,7 @@ bison_annex_cli_named_function_out_of_token_function_and_token_identifier_and_to
 	returning_->named_function_subnode_->name_ =
 			identifier_at_position_two->identifier_subnode_->value_;
 	returning_->named_function_subnode_->operations_ =
-			function_statements->operations_list_subnode_->operations_;
+			function_statements_clause->operations_list_subnode_->operations_;
 	returning_->named_function_subnode_->where_value_bindings_ =
 			function_where_clauses->where_value_bindings_subnode_->where_value_bindings_;
 	returning_->named_function_subnode_->type_ =
@@ -391,8 +401,8 @@ bison_annex_cli_named_function_out_of_token_function_and_token_identifier_and_to
 
 	free(identifier_at_position_two->identifier_subnode_);
 	free(identifier_at_position_two);
-	free(function_statements->operations_list_subnode_);
-	free(function_statements);
+	free(function_statements_clause->operations_list_subnode_);
+	free(function_statements_clause);
 	free(function_where_clauses->where_value_bindings_subnode_);
 	free(function_where_clauses);
 	amara_string_destructor(
@@ -404,8 +414,9 @@ bison_annex_cli_named_function_out_of_token_function_and_token_identifier_and_to
 }
 
 stt_node *
-bison_annex_function_statements_out_of_function_statement_and_token_and_and_token_then_and_function_statements(
-		stt_node * function_statement, stt_node * function_statements)
+bison_annex_function_sequential_statements_out_of_function_statement_and_token_and_and_token_then_and_function_sequential_statements(
+		stt_node * function_statement,
+		stt_node * function_sequential_statements)
 {
 	stt_node * returning_;
 	stt_operations_simple_list * new_node_sub_child_;
@@ -415,14 +426,15 @@ bison_annex_function_statements_out_of_function_statement_and_token_and_and_toke
 	assertion(function_statement->type_ == STT_NODE_TYPE_OPERATION);
 	assertion(function_statement->operation_subnode_ != NULL);
 	assertion(function_statement->operation_subnode_->operation_ != NULL);
-	assertion(function_statements != NULL);
-	assertion(function_statements->type_ ==
+	assertion(function_sequential_statements != NULL);
+	assertion(function_sequential_statements->type_ ==
 			STT_NODE_TYPE_CLI_OPERATIONS_LIST);
-	assertion(function_statements->operations_list_subnode_ != NULL);
+	assertion(function_sequential_statements->operations_list_subnode_ !=
+			NULL);
 #endif
 
 #ifndef NDEBUG
-	assertion(function_statements->operations_list_subnode_->operations_->first !=
+	assertion(function_sequential_statements->operations_list_subnode_->operations_->first !=
 			NULL);
 #endif
 
@@ -433,12 +445,12 @@ bison_annex_function_statements_out_of_function_statement_and_token_and_and_toke
 			function_statement->operation_subnode_->operation_;
 
 	new_node_sub_child_->next =
-			function_statements->operations_list_subnode_->operations_;
+			function_sequential_statements->operations_list_subnode_->operations_;
 
-	function_statements->operations_list_subnode_->operations_ =
+	function_sequential_statements->operations_list_subnode_->operations_ =
 			new_node_sub_child_;
 
-	returning_ = function_statements;
+	returning_ = function_sequential_statements;
 
 	free(function_statement->operation_subnode_);
 
@@ -448,7 +460,7 @@ bison_annex_function_statements_out_of_function_statement_and_token_and_and_toke
 }
 
 stt_node *
-bison_annex_function_statements_out_of_function_statement(
+bison_annex_function_sequential_statements_out_of_function_statement(
 		stt_node * function_statement)
 {
 	stt_node * returning_;
@@ -484,6 +496,28 @@ bison_annex_function_statements_out_of_function_statement(
 	free(function_statement);
 
 	return returning_;
+}
+
+stt_node *
+bison_annex_function_parallel_statements_out_of_function_statement_and_token_and_and_token_then_and_function_parallel_statements(
+		stt_node * function_statement,
+		stt_node * function_parallel_statements)
+{
+	return
+			/* XXX IT IS NOT REALLY PARALLEL ON THE INSIDE, ONLY THE SYNTAX IS ADDED. TRULY PARALLEL EXECUTION REMAINS TODO :) */
+			bison_annex_function_sequential_statements_out_of_function_statement_and_token_and_and_token_then_and_function_sequential_statements(  /* XXX */
+					function_statement,  /* XXX */
+					function_parallel_statements);  /* XXX */
+}
+
+stt_node *
+bison_annex_function_parallel_statements_out_of_function_statement(
+		stt_node * function_statement)
+{
+	return
+			/* XXX IT IS NOT REALLY PARALLEL ON THE INSIDE, ONLY THE SYNTAX IS ADDED. TRULY PARALLEL EXECUTION REMAINS TODO :) */
+			bison_annex_function_sequential_statements_out_of_function_statement(  /* XXX */
+					function_statement);  /* XXX */
 }
 
 stt_node *

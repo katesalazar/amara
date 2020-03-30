@@ -854,7 +854,8 @@ all: \
 	$(BUILD_DIR_RELEASE)/amara \
 	$(BUILD_DIR_RELEASE)/amara_not_stripped \
 	$(BUILD_DIR_DEBUG)/amara_g \
-	$(BUILD_DIR_DEBUG)/amara_g_not_stripped
+	$(BUILD_DIR_DEBUG)/amara_g_not_stripped \
+	$(DEBUG_RESOURCES)
 
 #   All of the directory structure is created at once, even those parts
 # that might not going to be used, because this allows to avoid a whole
@@ -927,11 +928,15 @@ $(BUILD_DIR_DEBUG):
 $(BUILD_DIR_RELEASE):
 	@find $@ -type d -maxdepth 0 >/dev/null 2>/dev/null || mkdir -p $@
 
+#   `$(BUILD_DIR_DEBUG)/amara_g_not_stripped` is already a target of
+# `$(BUILD_DIR_DEBUG)/amara_g`.
 amara_g: \
+	checkdirs \
 	$(BUILD_DIR_DEBUG)/amara_g \
 	$(DEBUG_RESOURCES)
 
 amara: \
+	checkdirs \
 	$(BUILD_DIR_RELEASE)/amara
 
 $(BUILD_DIR_SRC)/bsn/minia.y: \
