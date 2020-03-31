@@ -219,8 +219,7 @@ run_app_main_doc_exists(
 
 	if (minia_bison_main_ret_->type_ == STT_NODE_TYPE_INVALID) {
 
-		;
-
+		stt_node_destructor(minia_bison_main_ret_);
 		return APP_RUNNER_RUN_APP_RET_ERROR_MALFORMED_DOC;
 	}
 
