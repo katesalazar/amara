@@ -1,3 +1,5 @@
+/**  This document is extremely obsolete and should be removed. */
+
 #ifndef __AMARA__BISON__SYNTAX_TREE_NODE__H__
 #define __AMARA__BISON__SYNTAX_TREE_NODE__H__
 

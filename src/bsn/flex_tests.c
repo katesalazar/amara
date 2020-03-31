@@ -84,13 +84,185 @@ register_flex_ignored_chars_tests(tests_simple_list * tests)
 }
 
 void
+flex_four_sided_dice_test_0()
+;
+
+void
+flex_four_sided_dice_test_0()
+{
+	char ret_;
+
+	ret_ = run_app("./res/tst/four_sided_dice/");
+	forced_assertion(ret_ == 0);
+}
+
+void
+flex_four_sided_dice_tests()
+;
+
+void
+flex_four_sided_dice_tests()
+{
+	flex_four_sided_dice_test_0();
+}
+
+tests_simple_list *
+register_flex_four_sided_dice_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_flex_four_sided_dice_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests, & flex_four_sided_dice_test_0);
+	return tests;
+}
+
+void
+flex_eight_sided_dice_test_0()
+;
+
+void
+flex_eight_sided_dice_test_0()
+{
+	char ret_;
+
+	ret_ = run_app("./res/tst/eight_sided_dice/");
+	forced_assertion(ret_ == 0);
+}
+
+void
+flex_eight_sided_dice_tests()
+;
+
+void
+flex_eight_sided_dice_tests()
+{
+	flex_eight_sided_dice_test_0();
+}
+
+tests_simple_list *
+register_flex_eight_sided_dice_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_flex_eight_sided_dice_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests, & flex_eight_sided_dice_test_0);
+	return tests;
+}
+
+void
+flex_twelve_sided_dice_test_0()
+;
+
+void
+flex_twelve_sided_dice_test_0()
+{
+	char ret_;
+
+	ret_ = run_app("./res/tst/twelve_sided_dice/");
+	forced_assertion(ret_ == 0);
+}
+
+void
+flex_twelve_sided_dice_tests()
+;
+
+void
+flex_twelve_sided_dice_tests()
+{
+	flex_twelve_sided_dice_test_0();
+}
+
+tests_simple_list *
+register_flex_twelve_sided_dice_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_flex_twelve_sided_dice_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests, & flex_twelve_sided_dice_test_0);
+	return tests;
+}
+
+void
+flex_twenty_sided_dice_test_0()
+;
+
+void
+flex_twenty_sided_dice_test_0()
+{
+	char ret_;
+
+	ret_ = run_app("./res/tst/twenty_sided_dice/");
+	forced_assertion(ret_ == 0);
+}
+
+void
+flex_twenty_sided_dice_tests()
+;
+
+void
+flex_twenty_sided_dice_tests()
+{
+	flex_twenty_sided_dice_test_0();
+}
+
+tests_simple_list *
+register_flex_twenty_sided_dice_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_flex_twenty_sided_dice_tests(tests_simple_list * tests)
+{
+	tests_simple_list_push_back(tests, & flex_twenty_sided_dice_test_0);
+	return tests;
+}
+
+void
+flex_dice_tests()
+;
+
+void
+flex_dice_tests()
+{
+	flex_four_sided_dice_tests();
+	flex_eight_sided_dice_tests();
+	flex_twelve_sided_dice_tests();
+	flex_twenty_sided_dice_tests();
+}
+
+tests_simple_list *
+register_flex_dice_tests(tests_simple_list * tests)
+__amara__warn_unused_result__
+;
+
+tests_simple_list *
+register_flex_dice_tests(tests_simple_list * tests)
+{
+	return
+			register_flex_twenty_sided_dice_tests(
+			register_flex_twelve_sided_dice_tests(
+			register_flex_eight_sided_dice_tests(
+			register_flex_four_sided_dice_tests(
+					tests))));
+}
+
+void
 flex_tests(void)
 {
 	flex_ignored_chars_tests();
+	flex_dice_tests();
 }
 
 tests_simple_list *
 register_flex_tests(tests_simple_list * tests)
 {
-	return register_flex_ignored_chars_tests(tests);
+	return register_flex_dice_tests(
+			register_flex_ignored_chars_tests(
+					tests));
 }

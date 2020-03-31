@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -196,6 +196,7 @@ run_app_dir_exists(const char * app_name)
 	return inner_status_;
 }
 
+/**  Friend declaration... */
 stt_node *
 minia_bison_main(FILE * file)
 __attribute__((warn_unused_result))
@@ -214,7 +215,7 @@ run_app_main_doc_exists(
 	assertion(app_name != NULL);
 
 	minia_bison_main_ret_ = minia_bison_main((FILE *) main_doc_descriptor);
-	assertion(minia_bison_main_ret_ != NULL);
+	forced_assertion(minia_bison_main_ret_ != NULL);
 
 	if (minia_bison_main_ret_->type_ == STT_NODE_TYPE_INVALID) {
 
@@ -400,13 +401,20 @@ assert_types_compatible_for_condition_type_less_than(
 				right_hand_side_value_->type_);
 #endif
 
+		if (right_hand_side_value_->type_ ==
+				ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL) {
+
 		forced_assertion_two(
 				right_hand_side_value_->type_ ==
 						ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL,
 				"app_runner.c: 365\n");
 
-		return AMARA_BOOLEAN_TRUE;
+		} else {
+			forced_assertion(right_hand_side_value_->type_ ==
+					ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
+		}
 
+		return AMARA_BOOLEAN_TRUE;
 	}
 }
 
@@ -431,16 +439,20 @@ assert_types_compatible_for_condition_type_greater_than(
 		arn_value * right_hand_side_value_)
 {
 	forced_assertion(left_hand_side_value_ != NULL);
-	forced_assertion_two(
-			left_hand_side_value_->type_ ==
-					ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL,
-			"app_runner.c: 343\n");
+	if (left_hand_side_value_->type_ ==
+			ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL) {
 
 	forced_assertion(right_hand_side_value_ != NULL);
 	forced_assertion_two(
 			right_hand_side_value_->type_ ==
 					ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL,
 			"app_runner.c: 349\n");
+	} else {
+		forced_assertion(left_hand_side_value_->type_ ==
+				ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL);
+		forced_assertion(right_hand_side_value_->type_ ==
+				ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
+	}
 
 	return AMARA_BOOLEAN_TRUE;
 }
@@ -541,8 +553,16 @@ evaluate_condition(const rtg_condition * condition,
 						condition->right_hand_side_expression_));
 #endif
 
+		if (left_hand_side_requested_identifier_value_->type_ ==
+				ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL) {
+
 		forced_assertion(left_hand_side_requested_identifier_value_->type_ ==
 				ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
+
+		} else {
+			forced_assertion(left_hand_side_requested_identifier_value_->type_ ==
+					ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL);
+		}
 
 		forced_assertion(condition->right_hand_side_expression_->type_ ==
 				RTG_EXPRESSION_TYPE_NATURAL_LITERAL);
@@ -572,8 +592,15 @@ evaluate_condition(const rtg_condition * condition,
 						condition->right_hand_side_expression_));
 #endif
 
+		if (left_hand_side_requested_identifier_value_->type_ ==
+				ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL) {
+
 		forced_assertion(left_hand_side_requested_identifier_value_->type_ ==
 				ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
+		} else {
+			forced_assertion(left_hand_side_requested_identifier_value_->type_ ==
+					ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL);
+		}
 
 		forced_assertion(condition->right_hand_side_expression_->type_ ==
 				RTG_EXPRESSION_TYPE_NATURAL_LITERAL);
@@ -883,6 +910,17 @@ run_operation(const rtg_operation * operation,
 #endif
 			printf("%s",
 			       expression_evaluated_value_->string_->value_);
+			} else if (expression_evaluated_value_->type_ ==
+					ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL) {
+#ifndef NDEBUG
+				assertion(expression_evaluated_value_->natural_ != NULL);
+				assertion_two(expression_evaluated_value_->natural_->raw_ != NULL,
+						"app_runner.c: 765");
+				assertion_two(expression_evaluated_value_->natural_->raw_->value_ != NULL,
+						"app_runner.c: 766");
+#endif
+				printf("%s",
+				       expression_evaluated_value_->natural_->raw_->value_);
 			} else {
 				forced_assertion_two(expression_evaluated_value_->type_ == ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL,
 						"unexpected behavior, app_runner.c: 761");
@@ -898,6 +936,8 @@ run_operation(const rtg_operation * operation,
 				printf("%s",
 				       expression_evaluated_value_->natural_->raw_->value_);
 			}
+
+			arn_value_destructor(expression_evaluated_value_);
 		}
 		forced_assertion(operation->type_ == RTG_OPERATION_TYPE_PRINT);
 		/*
@@ -1172,6 +1212,12 @@ run_named_function(const rtg_named_function * function,
 				function_scope_variables*/);
 		operations_ptr_ = operations_ptr_->next;
 	}
+
+	arn_values_fixed_list_destructor(
+			(arn_values_fixed_list *) where_values_);
+
+	arn_values_simple_list_shallow_destructor(operation_scope_values_);
+
 	return operation_returned_value_;
 }
 
@@ -1206,7 +1252,9 @@ run_application(const rtg_application * application)
 	assertion(entry_point_function_returned_value_->type_ ==
 			ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL);
 	*/
-	assertion(entry_point_function_returned_value_ == NULL);
+	forced_assertion(entry_point_function_returned_value_ == NULL);
+
+	arn_values_fixed_list_destructor(global_values_scope_);
 }
 
 void

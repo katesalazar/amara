@@ -1,0 +1,11 @@
+* RATIONAL NUMBERS and RATIONAL LITERALS.
+* `make` env var `$C` (compiler) goes to
+  `AMARA_BASE/build/$C/(debug|release)/OBJECT.o`. Keeping `build/release/amara`
+  no longer as a binary, but as symlink to e.g. `build/gcc/release/amara` or
+  `build/clang++/release/amara`.
+* reentrant bison parser, instead of the good old yacc-compatible NON REENTRANT
+  parser.
+* function body operation where nothing is returned, may be headed with a `RUN`
+  particle, like `run something` instead of just `something` (if that
+  `something` is returned, `run something` does not apply, but
+  `return something`.

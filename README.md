@@ -1,5 +1,5 @@
 <!--
-    Copyright 2018-2019 Mercedes Catherine Salazar
+    Copyright 2018-2020 Mercedes Catherine Salazar
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -378,8 +378,8 @@ look [here](https://github.com/katesalazar/amara/tree/master/src/wrp/)).
 
 ## compliance with 3rd parties' terms
 
-If you know of some terms this project might be in breach of, please open an
-issue explaining. Thanks.
+If you know of some terms this project might be in breach of, please ~~open an
+issue explaining~~ get in touch through IRC. Thanks.
 
 
 ### current observance
@@ -401,15 +401,17 @@ skeleton is _freeware_.
 
 ## credits &amp; copying
 
-Copyright (c) 2018-2019 the *amara project* authors and contributors.
+Copyright (c) 2018-2020 the *amara project* authors and contributors.
 
 * Authored by:
 
-  * 2019 &lt;your name here&gt;
+  * 2020 &lt;your name here&gt;
 
     * &lt;your work here&gt;
 
-  * 2018-2019 Mercedes Catherine Salazar (katesalazar):
+  * 2018-2020 Mercedes Catherine Salazar (katesalazar):
+
+    * (2020) Lexicon, syntax, semantics, implementation, tests, documentation.
 
     * (2019) Implementation, tests, documentation.
 
@@ -417,7 +419,7 @@ Copyright (c) 2018-2019 the *amara project* authors and contributors.
 
 * Contributions by:
 
-  * 2019 &lt;your name here&gt;
+  * 2020 &lt;your name here&gt;
 
     * &lt;your work here&gt;
 

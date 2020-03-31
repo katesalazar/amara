@@ -100,43 +100,10 @@ CFLAGS_GENERAL += -Wparentheses
 CFLAGS_PARTICULAR_FLEX += -Wparentheses
 # $(info CFLAGS_PARTICULAR_FLEX: $(CFLAGS_PARTICULAR_FLEX))
 
-CFLAGS_GENERAL += -pedantic -Wall -Wextra
-# $(info $(CFLAGS_GENERAL))
-CFLAGS_PARTICULAR_FLEX += -pedantic -Wall -Wextra
-# $(info $(CFLAGS_PARTICULAR_FLEX))
-
-#   `-Werror`: Maybe this is causing issues to the `flex` output doc..?
-CFLAGS_GENERAL += -Werror
-# $(info $(CFLAGS_GENERAL))
-# TODO    Here the differential condition is probably not the Darwin OS
-# TODO  but some particular `flex` version.
-ifeq ($(UNAME_S), Darwin)
-CFLAGS_PARTICULAR_FLEX += -Werror
-endif
-# $(info $(CFLAGS_PARTICULAR_FLEX))
-
-#   `-Wunused-result`: warn (and so error) if the return value of a
-# function is not stored.
-CFLAGS_GENERAL += -Wunused-result
-# $(info $(CFLAGS_GENERAL))
-CFLAGS_PARTICULAR_FLEX += -Wunused-result
-# $(info $(CFLAGS_PARTICULAR_FLEX))
-
-CFLAGS_GENERAL += -Wmissing-include-dirs
-# $(info $(CFLAGS_GENERAL))
-CFLAGS_PARTICULAR_FLEX += -Wmissing-include-dirs
-# $(info $(CFLAGS_PARTICULAR_FLEX))
-
-CFLAGS_GENERAL += -Wparentheses
-# $(info CFLAGS_GENERAL: $(CFLAGS_GENERAL))
-CFLAGS_PARTICULAR_FLEX += -Wparentheses
-# $(info CFLAGS_PARTICULAR_FLEX: $(CFLAGS_PARTICULAR_FLEX))
-
 ifeq ($(UNAME_S), Darwin)
 CFLAGS_GENERAL += -DCLANG
 endif
 
-#   This for legacy compatibility...
 CFLAGS = $(CFLAGS_GENERAL)
 
 CFLAGS_DEBUG = -O0 -g -fprofile-arcs -ftest-coverage
@@ -297,6 +264,7 @@ UTILS_DIR = utils
 	$(SRC_DIR)/tst/tests_pseudo_random_numbers_generation_tests.c \
 	$(SRC_DIR)/tst/tests_runner.c \
 	$(SRC_DIR)/tst/tests_simple_list.c \
+	$(SRC_DIR)/tst/tests_simple_list_tests.c \
 	$(SRC_DIR)/stt/stt_application.c \
 	$(SRC_DIR)/stt/stt_application_subnode.c \
 	$(SRC_DIR)/stt/stt_application_subnode_tests.c \
@@ -455,6 +423,7 @@ BUILD_SRC = \
 	$(BUILD_DIR_SRC)/tst/tests_pseudo_random_numbers_generation_tests.$(CEXT) \
 	$(BUILD_DIR_SRC)/tst/tests_runner.$(CEXT) \
 	$(BUILD_DIR_SRC)/tst/tests_simple_list.$(CEXT) \
+	$(BUILD_DIR_SRC)/tst/tests_simple_list_tests.$(CEXT) \
 	$(BUILD_DIR_SRC)/stt/stt_application.$(CEXT) \
 	$(BUILD_DIR_SRC)/stt/stt_application_subnode.$(CEXT) \
 	$(BUILD_DIR_SRC)/stt/stt_application_subnode_tests.$(CEXT) \
@@ -613,6 +582,7 @@ OBJ_DEBUG = \
 		$(BUILD_DIR_DEBUG)/tests_pseudo_random_numbers_generation_tests.o \
 		$(BUILD_DIR_DEBUG)/tests_runner.o \
 		$(BUILD_DIR_DEBUG)/tests_simple_list.o \
+		$(BUILD_DIR_DEBUG)/tests_simple_list_tests.o \
 		$(BUILD_DIR_DEBUG)/stt_application.o \
 		$(BUILD_DIR_DEBUG)/stt_application_subnode.o \
 		$(BUILD_DIR_DEBUG)/stt_application_subnode_tests.o \
@@ -771,6 +741,7 @@ OBJ_RELEASE = \
 		$(BUILD_DIR_RELEASE)/tests_pseudo_random_numbers_generation_tests.o \
 		$(BUILD_DIR_RELEASE)/tests_runner.o \
 		$(BUILD_DIR_RELEASE)/tests_simple_list.o \
+		$(BUILD_DIR_RELEASE)/tests_simple_list_tests.o \
 		$(BUILD_DIR_RELEASE)/stt_application.o \
 		$(BUILD_DIR_RELEASE)/stt_application_subnode.o \
 		$(BUILD_DIR_RELEASE)/stt_application_subnode_tests.o \
@@ -854,7 +825,8 @@ all: \
 	$(BUILD_DIR_RELEASE)/amara \
 	$(BUILD_DIR_RELEASE)/amara_not_stripped \
 	$(BUILD_DIR_DEBUG)/amara_g \
-	$(BUILD_DIR_DEBUG)/amara_g_not_stripped
+	$(BUILD_DIR_DEBUG)/amara_g_not_stripped \
+	$(DEBUG_RESOURCES)
 
 #   All of the directory structure is created at once, even those parts
 # that might not going to be used, because this allows to avoid a whole
@@ -927,11 +899,15 @@ $(BUILD_DIR_DEBUG):
 $(BUILD_DIR_RELEASE):
 	@find $@ -type d -maxdepth 0 >/dev/null 2>/dev/null || mkdir -p $@
 
+#   `$(BUILD_DIR_DEBUG)/amara_g_not_stripped` is already a target of
+# `$(BUILD_DIR_DEBUG)/amara_g`.
 amara_g: \
+	checkdirs \
 	$(BUILD_DIR_DEBUG)/amara_g \
 	$(DEBUG_RESOURCES)
 
 amara: \
+	checkdirs \
 	$(BUILD_DIR_RELEASE)/amara
 
 $(BUILD_DIR_SRC)/bsn/minia.y: \
@@ -2040,7 +2016,7 @@ $(BUILD_DIR_SRC)/tst/tests_runner.$(CEXT): \
 $(BUILD_DIR_DEBUG)/tests_runner.o: \
 		$(BUILD_DIR_SRC)/tst/tests_runner.$(CEXT) \
 		$(BUILD_DIR_SRC)/tst/tests_runner.$(HEXT) \
-		$(BUILD_DIR_SRC)/tst/tests_simple_list.$(HEXT) \
+		$(BUILD_DIR_SRC)/tst/tests_simple_list_tests.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_tests.$(HEXT) \
 		$(BUILD_DIR_SRC)/bsn/flex_tests.$(HEXT) \
 		$(BUILD_DIR_SRC)/arn/app_runner_tests.$(HEXT)
@@ -2049,7 +2025,7 @@ $(BUILD_DIR_DEBUG)/tests_runner.o: \
 $(BUILD_DIR_RELEASE)/tests_runner.o: \
 		$(BUILD_DIR_SRC)/tst/tests_runner.$(CEXT) \
 		$(BUILD_DIR_SRC)/tst/tests_runner.$(HEXT) \
-		$(BUILD_DIR_SRC)/tst/tests_simple_list.$(HEXT) \
+		$(BUILD_DIR_SRC)/tst/tests_simple_list_tests.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_tests.$(HEXT) \
 		$(BUILD_DIR_SRC)/bsn/flex_tests.$(HEXT) \
 		$(BUILD_DIR_SRC)/arn/app_runner_tests.$(HEXT)
@@ -2074,6 +2050,25 @@ $(BUILD_DIR_RELEASE)/tests_simple_list.o: \
 		$(BUILD_DIR_SRC)/tst/tests_simple_list.$(CEXT) \
 		$(BUILD_DIR_SRC)/tst/tests_simple_list.$(HEXT) \
 		$(BUILD_DIR_SRC)/tst/tests_pseudo_random_numbers_generation.$(HEXT)
+	$(C) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+
+$(BUILD_DIR_SRC)/tst/tests_simple_list_tests.$(HEXT): \
+		$(SRC_DIR)/tst/tests_simple_list_tests.h \
+		$(BUILD_DIR_SRC)/tst/tests_simple_list.$(HEXT)
+	$(CP) $< $@
+
+$(BUILD_DIR_SRC)/tst/tests_simple_list_tests.$(CEXT): \
+		$(SRC_DIR)/tst/tests_simple_list_tests.c
+	$(CP) $< $@
+
+$(BUILD_DIR_DEBUG)/tests_simple_list_tests.o: \
+		$(BUILD_DIR_SRC)/tst/tests_simple_list_tests.$(CEXT) \
+		$(BUILD_DIR_SRC)/tst/tests_simple_list_tests.$(HEXT)
+	$(C) $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/tests_simple_list_tests.o: \
+		$(BUILD_DIR_SRC)/tst/tests_simple_list_tests.$(CEXT) \
+		$(BUILD_DIR_SRC)/tst/tests_simple_list_tests.$(HEXT)
 	$(C) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_SRC)/wrp/dirent_wrapper.$(HEXT): \

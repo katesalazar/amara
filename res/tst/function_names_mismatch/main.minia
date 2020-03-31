@@ -1,5 +1,5 @@
 comment
-        Copyright 2019, 2020 Mercedes Catherine Salazar
+        Copyright 2020 Mercedes Catherine Salazar
 
         Licensed under the Apache License, Version 2.0 (the "License");
         you may not use this file except in compliance with the License.
@@ -14,11 +14,8 @@ comment
         See the License for the specific language governing permissions
         and limitations under the License.
 
-        res/tst/missing_where_clause/main.minia: This corresponds to the
-        parse test of a function that shouldn't be let to parse
-        successfully, for the [`print`] statement depends on an unbound
-        identifier. FIXME      I think that it parses correclty, but
-                    FIXME    that's DEFINITELY not O.K.
+        res/tst/function_names_mismatch/main.minia: Test demonstrating
+        failure to parse when function name declaration mismatches name.
 comment ends
 
 function ident main ident ends
@@ -26,8 +23,9 @@ function ident main ident ends
 	and receives nothing at all
 	and returns nothing at all
 	so it causes side effects
+	and executes statements sequentially
 	and does
-	comment corresponding where clause is absent comment ends
 	print id something id ends
 	and then new line
-end function ident main ident ends
+	where id something id ends is bound to 0
+end function ident mistake ident ends

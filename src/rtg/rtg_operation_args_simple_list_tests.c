@@ -434,7 +434,7 @@ register_rtg_operation_args_simple_list_transformation_constructor_tests(
 void
 rtg_operation_args_simple_list_constructors_tests()
 {
-	rtg_operation_args_simple_list_default_constructor_test();
+	rtg_operation_args_simple_list_default_constructor_tests();
 	rtg_operation_args_simple_list_copy_constructor_tests();
 	rtg_operation_args_simple_list_transformation_constructor_tests();
 }

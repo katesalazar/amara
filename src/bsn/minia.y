@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,9 @@
 #include <stdio.h>
 
 /*   For `void exit(int status)`. */
+/*
 #include <stdlib.h>
+*/
 
 /*   For `size_t strlen(const char * s)`. */
 #include <string.h>
@@ -146,13 +148,14 @@ b_trace_unsigned_char(unsigned char value)
 %token T_A T_ALL T_AN T_AND T_APPLICATION T_ARGS T_AT T_AWESOME T_BOUND
 %token T_CARRIAGE
 %token T_CAUSES T_CHAIN T_COMMAND T_COMMANDS T_DIVISION
-%token T_DOES T_EASE T_EFFECTS T_ELSE T_END
-%token T_ENTRY T_FEED T_FORMULA T_FUNCTION T_GREATER T_IF T_INTEGER T_INTERFACE
-%token T_IS T_IT T_LESS T_LINE T_NATURAL T_NEW
+%token T_DOES T_EASE T_EFFECTS T_ELSE T_END T_EXECUTES
+%token T_ENTRY T_FEED T_FORMULA T_FUNCTION T_GREATER T_IF T_IN T_INTEGER
+%token T_INTERFACE T_IS T_IT T_LESS T_LINE T_NATURAL T_NEW
 %token T_NO T_NOR
-%token T_NOTHING T_OPERATOR T_POINT T_PRINT T_RATIONAL T_READ T_RECEIVES
-%token T_RETURN T_RETURNS T_RUN T_SET T_SIDE T_SIMPLE T_SMALL T_SO
-%token T_SUBSTRACTION
+%token T_NOTHING T_OPERATOR T_PARALLEL T_POINT T_PRINT T_RATIONAL T_READ
+%token T_RECEIVES
+%token T_RETURN T_RETURNS T_RUN T_SEQUENTIALLY T_SET T_SIDE T_SIMPLE T_SMALL
+%token T_SO T_STATEMENTS T_SUBSTRACTION
 %token T_THAN T_THAT T_THE T_THEN T_THREAD T_TO
 %token T_WHERE T_WITH T_WITHOUT
 
@@ -172,7 +175,11 @@ b_trace_unsigned_char(unsigned char value)
 %type<node> function_where_clause
 %type<node> function_where_clauses
 %type<node> function_statement
-%type<node> function_statements
+%type<node> function_sequential_statements
+%type<node> function_parallel_statements
+%type<node> function_sequential_execution_statements_clause
+%type<node> function_parallel_execution_statements_clause
+%type<node> function_statements_clause
 %type<node> function_side_effects_clause
 %type<node> function_returns_clause
 %type<node> function_receives_clause
@@ -307,7 +314,7 @@ cli_application :
   free($2);
   free($15->identifier_subnode_);
   free($15);
-  free($18->identifier_subnode_->value_);
+  amara_string_destructor($18->identifier_subnode_->value_);
   free($18->identifier_subnode_);
   free($18);
 }
@@ -327,7 +334,7 @@ cli_named_function :
   T_AND function_receives_clause
   T_AND function_returns_clause
   function_side_effects_clause
-  T_AND T_DOES function_statements
+  function_statements_clause
   function_where_clauses T_END T_FUNCTION T_IDENTIFIER
 {
   unsigned char * must_call_YYERROR_;
@@ -338,7 +345,7 @@ cli_named_function :
   b_trace_chars_array("T_A T_COMMAND T_LINE T_INTERFACE T_APPLICATION ");
   b_trace_chars_array("T_FUNCTION T_AND function_receives_clause T_AND ");
   b_trace_chars_array("function_returns_clause function_side_effects_clause ");
-  b_trace_chars_array("T_AND T_DOES function_statements ");
+  b_trace_chars_array("function_statements_clause ");
   b_trace_chars_array("function_where_clauses T_END T_FUNCTION ");
   b_trace_chars_array("T_IDENTIFIER\n");
   must_call_YYERROR_ =
@@ -367,12 +374,12 @@ cli_named_function :
       malloc(1024 * 4 + 1);  /* XXX */
   forced_assertion(message_for_yyerror_ != NULL);
   message_for_yyerror_[0] = '\0';
-  $$ = bison_annex_cli_named_function_out_of_token_function_and_token_identifier_and_token_is_and_token_a_and_token_command_and_token_line_and_token_interface_and_token_application_and_token_function_and_token_and_and_function_receives_clause_and_token_and_and_function_returns_clause_and_function_side_effects_clause_and_token_and_and_token_does_and_function_statements_and_function_where_clauses_and_token_end_and_token_function_and_token_identifier(
+  $$ = bison_annex_cli_named_function_out_of_token_function_and_token_identifier_and_token_is_and_token_a_and_token_command_and_token_line_and_token_interface_and_token_application_and_token_function_and_token_and_and_function_receives_clause_and_token_and_and_function_returns_clause_and_function_side_effects_clause_and_function_statements_clause_and_function_where_clauses_and_token_end_and_token_function_and_token_identifier(
       must_call_YYERROR_, node_for_yyerror_, message_for_yyerror_, $2,
       /*
       $11, $13, $14,
       */
-      $17, $18, $21);
+      $15, $16, $19);
   if (* must_call_YYERROR_) {
     yyerror(* node_for_yyerror_, message_for_yyerror_);
     free(must_call_YYERROR_);
@@ -425,6 +432,47 @@ function_side_effects_clause :
 {
   b_trace_chars_array("function_side_effects_clause : T_SO T_IT T_CAUSES ");
   b_trace_chars_array("T_SIDE T_EFFECTS\n");
+}
+;
+
+function_statements_clause :
+  function_sequential_execution_statements_clause
+{
+  b_trace_chars_array("function_statements_clause : ");
+  b_trace_chars_array("function_sequential_execution_statements_clause\n");
+  $$ = $1;
+  forced_assertion($$ != NULL);
+}
+| function_parallel_execution_statements_clause
+{
+  b_trace_chars_array("function_statements_clause : ");
+  b_trace_chars_array("function_parallel_execution_statements_clause\n");
+  $$ = $1;
+  forced_assertion($$ != NULL);
+}
+;
+
+function_sequential_execution_statements_clause :
+  T_AND T_EXECUTES T_STATEMENTS T_SEQUENTIALLY
+  T_AND T_DOES function_sequential_statements
+{
+  b_trace_chars_array("function_sequential_execution_statements_clause : ");
+  b_trace_chars_array("T_AND T_EXECUTES T_STATEMENTS T_SEQUENTIALLY ");
+  b_trace_chars_array("T_AND T_DOES function_sequential_statements\n");
+  $$ = $7;
+  forced_assertion($$ != NULL);
+}
+;
+
+function_parallel_execution_statements_clause :
+  T_AND T_EXECUTES T_STATEMENTS T_IN T_PARALLEL
+  T_AND T_DOES function_parallel_statements
+{
+  b_trace_chars_array("function_parallel_execution_statements_clause : ");
+  b_trace_chars_array("T_AND T_EXECUTES T_STATEMENTS T_IN T_PARALLEL ");
+  b_trace_chars_array("T_AND T_DOES function_parallel_statements\n");
+  $$ = $8;
+  forced_assertion($$ != NULL);
 }
 ;
 
@@ -485,19 +533,38 @@ execution_request :
 }
 ;
 
-function_statements :
-  function_statement T_AND T_THEN function_statements
+function_sequential_statements :
+  function_statement T_AND T_THEN function_sequential_statements
 {
-  b_trace_chars_array("function_statements : function_statement T_AND ");
-  b_trace_chars_array("T_THEN function_statements\n");
-  $$ = bison_annex_function_statements_out_of_function_statement_and_token_and_and_token_then_and_function_statements(
+  b_trace_chars_array("function_sequential_statements : function_statement ");
+  b_trace_chars_array("T_AND T_THEN function_sequential_statements\n");
+  $$ = bison_annex_function_sequential_statements_out_of_function_statement_and_token_and_and_token_then_and_function_sequential_statements(
       $1, $4);
   forced_assertion($$ != NULL);
 }
 | function_statement
 {
-  b_trace_chars_array("function_statements : function_statement\n");
-  $$ = bison_annex_function_statements_out_of_function_statement($1);
+  b_trace_chars_array("function_sequential_statements : function_statement\n");
+  $$ = bison_annex_function_sequential_statements_out_of_function_statement(
+      $1);
+  forced_assertion($$ != NULL);
+}
+;
+
+function_parallel_statements :
+  function_statement T_AND function_parallel_statements
+{
+  b_trace_chars_array("function_parallel_statements : function_statement ");
+  b_trace_chars_array("T_AND function_parallel_statements\n");
+  $$ = bison_annex_function_parallel_statements_out_of_function_statement_and_token_and_and_token_then_and_function_parallel_statements(
+      $1, $3);
+  forced_assertion($$ != NULL);
+}
+| function_statement
+{
+  b_trace_chars_array("function_parallel_statements : function_statement\n");
+  $$ = bison_annex_function_parallel_statements_out_of_function_statement(
+      $1);
   forced_assertion($$ != NULL);
 }
 ;
@@ -982,16 +1049,21 @@ minia_bison_main(FILE * file)
     }
     */
     free(shared_with_miniaparse_); /* XXX */
+    returning_->bison_ret_ = BISON_RET_SUCCESS;
     return returning_; /* XXX */
   } else if (miniaparse_ret_ ==
       miniaparse_ret_failed_because_of_invalid_input_) {
+    returning_ = stt_node_default_constructor();  /* XXX */
+    returning_->bison_ret_ = BISON_RET_FAILURE_INVALID_INPUT;
     /* XXX */
-    return NULL; /* XXX */
+    return returning_; /* XXX */
   } else {
     assertion(miniaparse_ret_ ==
         miniaparse_ret_failed_due_to_memory_exhaustion_);
+    returning_ = stt_node_default_constructor();  /* XXX */
+    returning_->bison_ret_ = BISON_RET_FAILURE_MEMORY_EXHAUSTION;
     /* XXX */
-    return NULL; /* XXX */
+    return returning_; /* XXX */
   }
 }
 
@@ -1002,7 +1074,9 @@ yyerror(stt_node * syntax_tree, const char * msg)
   if (syntax_tree == NULL) {
     fprintf(stderr, "`syntax_tree`: NULL\n");
   }
+  /*
         exit(1);
+  */
 }
 
 /*

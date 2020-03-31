@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -218,53 +218,76 @@ arn_value_out_of_amara_boolean(const amara_boolean boolean)
 void
 arn_value_destructor(arn_value * value)
 {
-	assertion(value != NULL);
+	forced_assertion(value != NULL);
 	if (value->type_ == ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING) {
+#ifndef NDEBUG
 		assertion(value->name_ == NULL);
 		assertion(value->string_ != NULL);
 		assertion(value->string_->value_ != NULL);
+#endif
 		amara_string_destructor(value->string_);
+#ifndef NDEBUG
 		assertion(value->natural_ == NULL);
-	} else if (value->type_ == ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_BOOLEAN) {
+#endif
+	} else if (value->type_ ==
+			ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_BOOLEAN) {
+#ifndef NDEBUG
 		assertion(value->name_ == NULL);
 		assertion(value->boolean_ == NULL);
+#endif
 	} else if (value->type_ == ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_BOOLEAN) {
+#ifndef NDEBUG
 		assertion(value->name_ == NULL);
 		assertion(value->boolean_ != NULL);
 		assertion(* value->boolean_ == AMARA_BOOLEAN_FALSE ||
 				* value->boolean_ == AMARA_BOOLEAN_TRUE);
+#endif
 		free(value->boolean_);
 	} else if (value->type_ == ARN_VALUE_TYPE_NAMED_UNASSIGNED_NATURAL) {
+#ifndef NDEBUG
 		assertion(value->name_ != NULL);
 		assertion(value->name_->value_ != NULL);
+#endif
 		amara_string_destructor(value->name_);
+#ifndef NDEBUG
 		assertion(value->string_ == NULL);
 		assertion(value->natural_ == NULL);
+#endif
 	} else if (value->type_ == ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL) {
+#ifndef NDEBUG
 		assertion(value->name_ != NULL);
 		assertion(value->name_->value_ != NULL);
+#endif
 		amara_string_destructor(value->name_);
+#ifndef NDEBUG
 		assertion(value->string_ == NULL);
 		assertion(value->natural_ != NULL);
 		assertion(value->natural_->raw_ != NULL);
 		assertion(value->natural_->raw_->value_ != NULL);
 		assertion(value->natural_was_moved == AMARA_BOOLEAN_FALSE);
+#endif
 		natural_destructor(value->natural_);
 	} else if (value->type_ == ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL) {
+#ifndef NDEBUG
 		assertion(value->name_ == NULL);
 		assertion(value->string_ == NULL);
 		assertion(value->natural_ != NULL);
 		assertion(value->natural_->raw_ != NULL);
 		assertion(value->natural_->raw_->value_ != NULL);
 		assertion(value->natural_was_moved == AMARA_BOOLEAN_FALSE);
+#endif
 		natural_destructor(value->natural_);
 	} else if (value->type_ ==
 			ARN_VALUE_TYPE_NAMED_VALUE_OF_UNDEFINED_TYPE) {
+#ifndef NDEBUG
 		assertion(value->name_ != NULL);
 		assertion(value->name_->value_ != NULL);
+#endif
 		amara_string_destructor(value->name_);
+#ifndef NDEBUG
 		assertion(value->string_ == NULL);
 		assertion(value->natural_ == NULL);
+#endif
 	} else {
 
 #ifdef DUMP_FLOW_TO_STDERR
@@ -273,10 +296,12 @@ arn_value_destructor(arn_value * value)
 		*/
 #endif
 
-		assertion(value->type_ == ARN_VALUE_TYPE_INVALID);
+		forced_assertion(value->type_ == ARN_VALUE_TYPE_INVALID);
+#ifndef NDEBUG
 		assertion(value->name_ == NULL);
 		assertion(value->string_ == NULL);
 		assertion(value->natural_ == NULL);
+#endif
 	}
 	free(value);
 }
@@ -371,6 +396,8 @@ arn_value_out_of_rtg_expression(const rtg_expression * expression)
 
 		forced_assertion(expression->sub_dice_ != NULL);
 		returning_ = run_dice(expression->sub_dice_);
+		forced_assertion(returning_ != NULL);
+		forced_assertion(returning_->name_ == NULL);
 
 		return returning_;
 	}
@@ -432,7 +459,7 @@ arn_value_bind_where_value(const rtg_where_value_binding * where_value_binding)
 		returning_->boolean_ = boolean_;
 		returning_->string_ = NULL;
 		returning_->natural_ = NULL;
-        returning_->type_ = ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_BOOLEAN;
+		returning_->type_ = ARN_VALUE_TYPE_NAMED_ASSIGNED_BOOLEAN;
 	} else if (expression_type_->type_ == ARN_TYPE_TYPE_STRING) {
 		string_value_ = arn_value_out_of_rtg_expression(
 				where_value_binding->value_expression_);
@@ -443,7 +470,7 @@ arn_value_bind_where_value(const rtg_where_value_binding * where_value_binding)
 		returning_->boolean_ = NULL;
 		returning_->string_ = string_;
 		returning_->natural_ = NULL;
-        returning_->type_ = ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING;
+		returning_->type_ = ARN_VALUE_TYPE_NAMED_ASSIGNED_STRING;
 	} else {
 		assertion(expression_type_->type_ == ARN_TYPE_TYPE_NATURAL);
 		natural_value_ = arn_value_out_of_rtg_expression(
@@ -456,7 +483,7 @@ arn_value_bind_where_value(const rtg_where_value_binding * where_value_binding)
 		returning_->boolean_ = NULL;
 		returning_->string_ = NULL;
 		returning_->natural_ = natural_;
-        returning_->type_ = ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_NATURAL;
+		returning_->type_ = ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL;
 	}
 
 	return returning_;
@@ -544,9 +571,9 @@ arn_value_set_string(arn_value * value, const amara_string * string)
 	assertion(string->value_ != NULL);
 #endif
 	value->string_ = amara_string_copy_constructor(string);
+	forced_assertion(value->string_ != NULL);
+	forced_assertion(value->string_->value_ != NULL);
 #ifndef NDEBUG
-    assertion(value->string_ != NULL);
-    assertion(value->string_->value_ != NULL);
     equality_ = amara_string_equality(value->string_, string);
     assertion(equality_ == AMARA_BOOLEAN_TRUE);
     equality_ = amara_string_equality(value->string_, string);
@@ -560,8 +587,9 @@ arn_value_set_string(arn_value * value, const amara_string * string)
 	*/
 #endif
 
-	if (value->type_ == ARN_VALUE_TYPE_NAMED_UNASSIGNED_STRING) {
-		value->type_ = ARN_VALUE_TYPE_NAMED_ASSIGNED_NATURAL;
+	if (value->type_ == ARN_VALUE_TYPE_NAMED_UNASSIGNED_NATURAL) {
+		forced_assertion_two(0, "TYPE ERROR????????");
+		value->type_ = ARN_VALUE_TYPE_NAMED_ASSIGNED_STRING;  /* XXX ??? */
 	} else if (value->type_ ==
 			ARN_VALUE_TYPE_ANONYMOUS_UNASSIGNED_STRING) {
 		value->type_ = ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING;
@@ -573,7 +601,7 @@ arn_value_set_string(arn_value * value, const amara_string * string)
 		*/
 #endif
 
-		assertion(value->type_ ==
+		forced_assertion(value->type_ ==
 				ARN_VALUE_TYPE_NAMED_VALUE_OF_UNDEFINED_TYPE);
 		value->type_ = ARN_VALUE_TYPE_NAMED_ASSIGNED_STRING;
 	}

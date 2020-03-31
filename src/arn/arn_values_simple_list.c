@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -141,8 +141,10 @@ arn_values_simple_list_destructor_inner(arn_values_simple_list * values)
 void
 arn_values_simple_list_destructor_inner(arn_values_simple_list * values)
 {
-	assertion(values != NULL);
+	forced_assertion(values != NULL);
+#ifndef NDEBUG
 	assertion(values->first != NULL);
+#endif
 	arn_value_destructor(values->first);
 	if (values->next != NULL) {
 		arn_values_simple_list_destructor_inner(values->next);
@@ -153,13 +155,53 @@ arn_values_simple_list_destructor_inner(arn_values_simple_list * values)
 void
 arn_values_simple_list_destructor(arn_values_simple_list * values)
 {
-	assertion(values != NULL);
+	forced_assertion(values != NULL);
 	if (values->first == NULL) {
-		assertion(values->next == NULL);
+#ifndef NDEBUG
+		forced_assertion(values->next == NULL);
+#endif
 		free(values);
-	} else{
+	} else {
 		arn_values_simple_list_destructor_inner(values);
 	}
+}
+
+void
+arn_values_simple_list_shallow_destructor_inner(
+		arn_values_simple_list * values)
+;
+
+void
+arn_values_simple_list_shallow_destructor_inner(
+		arn_values_simple_list * values)
+{
+	if (values != NULL) {
+#ifndef NDEBUG
+		assertion(values->first != NULL);
+#endif
+		arn_values_simple_list_shallow_destructor_inner(values->next);
+		free(values);
+	}
+}
+
+void
+arn_values_simple_list_shallow_destructor(arn_values_simple_list * values)
+{
+	forced_assertion(values != NULL);
+	if (values->first == NULL) {
+#ifndef NDEBUG
+		forced_assertion(values->next == NULL);
+#endif
+		free(values);
+	} else {
+		arn_values_simple_list_shallow_destructor_inner(values);
+	}
+}
+
+void
+arn_values_simple_list_deep_destructor(arn_values_simple_list * values)
+{
+	arn_values_simple_list_destructor(values);
 }
 
 arn_values_simple_list *
@@ -251,10 +293,11 @@ arn_values_simple_list_push_front_as_references_all_elements_of_arn_values_fixed
 	if (source->first == NULL) {
 
 		assertion(source->next == NULL);
-		/*
+
 		return destination;
-		*/
+		/*
 		return arn_values_simple_list_copy_constructor(destination);
+		*/
 	}
 
 	return arn_values_simple_list_push_front_as_references_all_elements_of_arn_values_fixed_list_inner(
