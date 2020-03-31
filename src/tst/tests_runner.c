@@ -50,7 +50,7 @@
 /*   For `void syntax_tree_tests()`. */
 #include "../stt/stt_tests.h"
 
-#include "tests_simple_list.h"
+#include "tests_simple_list_tests.h"
 
 #include "tests_pseudo_random_numbers_generation_tests.h"
 
@@ -248,6 +248,8 @@ run_scrambled_tests(amara_boolean double_end_of_line_char)
 	running_tests();
 
 	printf("Running tests...\n");
+
+	tests_simple_list_tests();
 
 	tests_pseudo_random_numbers_generation_tests();
 

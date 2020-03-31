@@ -196,6 +196,7 @@ run_app_dir_exists(const char * app_name)
 	return inner_status_;
 }
 
+/**  Friend declaration... */
 stt_node *
 minia_bison_main(FILE * file)
 __attribute__((warn_unused_result))
@@ -214,7 +215,7 @@ run_app_main_doc_exists(
 	assertion(app_name != NULL);
 
 	minia_bison_main_ret_ = minia_bison_main((FILE *) main_doc_descriptor);
-	assertion(minia_bison_main_ret_ != NULL);
+	forced_assertion(minia_bison_main_ret_ != NULL);
 
 	if (minia_bison_main_ret_->type_ == STT_NODE_TYPE_INVALID) {
 

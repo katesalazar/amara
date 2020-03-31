@@ -89,6 +89,10 @@ typedef unsigned char stt_node_type;
 #define STT_NODE_TYPE_CLI_OPERATIONS_LIST 0x81
 #define STT_NODE_TYPE_ERRORED             0xFF
 
+#define BISON_RET_SUCCESS                   0
+#define BISON_RET_FAILURE_INVALID_INPUT     1
+#define BISON_RET_FAILURE_MEMORY_EXHAUSTION 2
+
 /*   `stt_node` for '**S**yn**t**ax **t**ree node'. */
 typedef struct stt_node {
 
@@ -123,6 +127,8 @@ typedef struct stt_node {
 	stt_execution_request_subnode * execution_request_subnode_;
 
 	stt_doc_subnode * doc_subnode_;
+
+	int bison_ret_;
 } stt_node
 ;
 

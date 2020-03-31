@@ -46,7 +46,9 @@
 #include <stdio.h>
 
 /*   For `void exit(int status)`. */
+/*
 #include <stdlib.h>
+*/
 
 /*   For `size_t strlen(const char * s)`. */
 #include <string.h>
@@ -1047,16 +1049,21 @@ minia_bison_main(FILE * file)
     }
     */
     free(shared_with_miniaparse_); /* XXX */
+    returning_->bison_ret_ = BISON_RET_SUCCESS;
     return returning_; /* XXX */
   } else if (miniaparse_ret_ ==
       miniaparse_ret_failed_because_of_invalid_input_) {
+    returning_ = stt_node_default_constructor();  /* XXX */
+    returning_->bison_ret_ = BISON_RET_FAILURE_INVALID_INPUT;
     /* XXX */
-    return NULL; /* XXX */
+    return returning_; /* XXX */
   } else {
     assertion(miniaparse_ret_ ==
         miniaparse_ret_failed_due_to_memory_exhaustion_);
+    returning_ = stt_node_default_constructor();  /* XXX */
+    returning_->bison_ret_ = BISON_RET_FAILURE_MEMORY_EXHAUSTION;
     /* XXX */
-    return NULL; /* XXX */
+    return returning_; /* XXX */
   }
 }
 
@@ -1067,7 +1074,9 @@ yyerror(stt_node * syntax_tree, const char * msg)
   if (syntax_tree == NULL) {
     fprintf(stderr, "`syntax_tree`: NULL\n");
   }
+  /*
         exit(1);
+  */
 }
 
 /*

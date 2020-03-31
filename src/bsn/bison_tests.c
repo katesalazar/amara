@@ -180,6 +180,21 @@ bison_test_8()
 }
 
 void
+bison_test_9()
+{
+	char ret_;
+
+	ret_ = run_app("./res/tst/function_names_mismatch/");
+
+	if (1) {
+		/*
+		forced_assertion(ret_ == RUN_APP_RETURN_STATUS_ERROR_FUNCTION_NAME_MISMATCH);
+		*/
+		forced_assertion(ret_ != 0);
+	} /* XXX disarm 'set but not used' */
+}
+
+void
 bison_tests(void)
 {
 #ifdef __APPLE__
@@ -255,6 +270,8 @@ bison_tests(void)
 
 	bison_test_8();
 
+	bison_test_9();
+
 #ifdef __APPLE__
 	getcwd_buffer_ = getcwd_buffer;  /* transitional */
 	free(getcwd_buffer_);
@@ -272,5 +289,6 @@ register_bison_tests(tests_simple_list * tests)
 	tests_simple_list_push_back(tests, & bison_test_5);
 	tests_simple_list_push_back(tests, & bison_test_7);
 	tests_simple_list_push_back(tests, & bison_test_8);
+	tests_simple_list_push_back(tests, & bison_test_9);
 	return tests;
 }

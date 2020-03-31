@@ -45,7 +45,9 @@
 #ifdef TRACE_FLEX
 #undef TRACE_FLEX
 #endif
-/* #define TRACE_FLEX */
+/*
+#define TRACE_FLEX
+*/
 
 #ifdef TRACE_FLEX
 #define TRACE_FLEX_CONSTANT_VALUE 0xFF
@@ -53,24 +55,46 @@
 #define TRACE_FLEX_CONSTANT_VALUE 0x00
 #endif
 
+/*
 const unsigned char trace_flex_constant = TRACE_FLEX_CONSTANT_VALUE;
+*/
 
 void
 trace_flex_one(const char * s0)
 {
+  /*
   if (trace_flex_constant) {
     fprintf(stderr, "%s", s0);
   }
+  */
+
+#ifdef TRACE_FLEX
+  fprintf(stderr, "%s", s0);
+#else
+  s0 = NULL;
+#endif
 }
 
 void
 trace_flex_three(const char * s0, const char * s1, const char * s2)
 {
+  /*
   if (trace_flex_constant) {
     fprintf(stderr, "%s", s0);
     fprintf(stderr, "%s", s1);
     fprintf(stderr, "%s", s2);
   }
+  */
+
+#ifdef TRACE_FLEX
+  fprintf(stderr, "%s", s0);
+  fprintf(stderr, "%s", s1);
+  fprintf(stderr, "%s", s2);
+#else
+  s0 = NULL;
+  s1 = NULL;
+  s2 = NULL;
+#endif
 }
 
 %}
@@ -303,7 +327,12 @@ _ {
       forced_assertion(yytext[13] == 'l');
       forced_assertion(yytext[14] == ' ');
 
-      assertion(yytext[15] > 48 && yytext[15] < 58);
+      /*
+      forced_assertion(yytext[15] > 48 && yytext[15] < 58);
+      */
+      forced_assertion(yytext[15] > 48);
+      forced_assertion(yytext[15] < 58);
+
       dice_left_hand_side_char_array_ =
 #ifdef AMARA_USE_STD_CXX98
           (char *)
@@ -321,7 +350,19 @@ _ {
 
       amara_string_destructor(dice_left_hand_side_raw_natural_);
 
-      assertion(yytext[16] == ' ');
+      forced_assertion(yytext[16] == ' ');
+
+#ifndef NDEBUG
+      if (yytext[17] == '4') {
+        forced_assertion(yytext[17] == '4');
+      }
+      if (yytext[17] == '6') {
+        forced_assertion(yytext[17] == '6');
+      }
+      if (yytext[17] == '8') {
+        forced_assertion(yytext[17] == '8');
+      }
+#endif
 
       if (yytext[17] == '4' || yytext[17] == '6' || yytext[17] == '8') {
         dice_right_hand_side_char_array_ =
@@ -360,7 +401,21 @@ _ {
         forced_assertion(yytext[42] == 'd');
         forced_assertion(yytext[43] == 's');
       } else {
-        assertion(yytext[17] == '1' || yytext[17] == '2');
+
+#ifdef NDEBUG
+        if (yytext[17] == '1') {
+          forced_assertion(yytext[17] == '1');
+        }
+        if (yytext[17] == '2') {
+          forced_assertion(yytext[17] == '2');
+        }
+#endif
+
+        if (yytext[17] == '1') {
+          forced_assertion(yytext[17] == '1');
+        } else {
+          forced_assertion(yytext[17] == '2');
+        }
         dice_right_hand_side_char_array_ =
 #ifdef AMARA_USE_STD_CXX98
             (char *)
@@ -369,11 +424,15 @@ _ {
         forced_assertion_two(dice_right_hand_side_char_array_ != NULL,
             "malloc failed\n");
         dice_right_hand_side_char_array_[0] = yytext[17];
+
         if (yytext[17] == '1') {
-          assertion(yytext[18] == '2');
-        } else if (yytext[17] == '2') {
-          assertion(yytext[18] == '0');
+          forced_assertion(yytext[18] == '2');
+        } else {
+          forced_assertion(yytext[17] == '2');
+
+          forced_assertion(yytext[18] == '0');
         }
+
         dice_right_hand_side_char_array_[1] = yytext[18];
         dice_right_hand_side_char_array_[2] = '\0';
         forced_assertion(yytext[19] == ' ');
@@ -450,17 +509,20 @@ _ {
     /*   Ignore all white space. */
                 }
 
+ /*
 -[1-9][0-9]* {
     trace_flex_three("returning T_INTEGER_LITERAL (", yytext, ")\n");
     assertion_two(0, "unimplemented code at %s:%d\n");
     return T_INTEGER_LITERAL;
-  }
+  }*/
 
+ /*
 -?(0|[1-9][0-9]*)\.[0-9]*[1-9] {
     trace_flex_three("returning T_RATIONAL_LITERAL (", yytext, ")\n");
     assertion_two(0, "unimplemented code at %s:%d\n");
     return T_RATIONAL_LITERAL;
-                }
+  }*/
+
  /*
 [1-9]d([468]|12|20) {
     char * dice_left_hand_side_char_array_;
@@ -469,7 +531,11 @@ _ {
     char * dice_right_hand_side_char_array_;
     amara_string * dice_right_hand_side_raw_natural_;
     natural * dice_right_hand_side_;
-    *//**  FIXME MUST RETURN NOT AN stt_dice_expression BUT AN stt_expression CORRECTLY SET TO the STT_EXPRESSION_TYPE_DICE TYPE AND WITH ITS DATA HANGING FROM THE stt_expression_sub_dice SUB. *//*
+    */
+    /**  FIXME MUST RETURN NOT AN stt_dice_expression BUT AN stt_expression
+               CORRECTLY SET TO the STT_EXPRESSION_TYPE_DICE TYPE AND WITH ITS
+               DATA HANGING FROM THE stt_expression_sub_dice SUB. */
+    /*
     stt_dice_expression * dice_expression_;
 
     trace_flex_three("returning T_DICE_EXPRESSION (", yytext, ")\n");
@@ -521,8 +587,7 @@ _ {
     free(dice_left_hand_side_char_array_);
 
     return T_DICE_EXPRESSION;
-  }
-*/
+  }*/
 
 (0|[1-9][0-9]*) {
     unsigned char single_byte_indexer_;
@@ -559,35 +624,39 @@ _ {
     return T_NATURAL_LITERAL;
                 }
 
+ /*
 without {
     trace_flex_three("returning T_WITHOUT (", yytext, ")\n");
     return T_WITHOUT;
-  }
+  }*/
 
+ /*
 with            {
     trace_flex_three("returning T_WITH (", yytext, ")\n");
                   return T_WITH;
-                }
+  }*/
 
 where {
     trace_flex_three("returning T_WHERE (", yytext, ")\n");
     return T_WHERE;
   }
 
+ /*
 type {
     trace_flex_three("returning T_TYPE (", yytext, ")\n");
     return T_TYPE;
-  }
+  }*/
 
 to {
     trace_flex_three("returning T_TO (", yytext, ")\n");
     return T_TO;
   }
 
+ /*
 thread {
     trace_flex_three("returning T_THREAD (", yytext, ")\n");
     return T_THREAD;
-  }
+  }*/
 
 then {
     trace_flex_three("returning T_THEN (", yytext, ")\n");
@@ -599,16 +668,18 @@ the {
     return T_THE;
   }
 
+ /*
 that {
     trace_flex_three("returning T_THAT (", yytext, ")\n");
     return T_THAT;
-  }
+  }*/
 
 than {
     trace_flex_three("returning T_THAN (", yytext, ")\n");
     return T_THAN;
   }
 
+ /*
 times {
     trace_flex_three("returning T_TIMES (", yytext, ")\n");
     return T_TIMES;
@@ -617,7 +688,7 @@ times {
 substraction {
     trace_flex_three("returning T_SUBSTRACTION (", yytext, ")\n");
     return T_SUBSTRACTION;
-  }
+  }*/
 
 statements {
     trace_flex_three("returning T_STATEMENTS (", yytext, ")\n");
@@ -629,6 +700,7 @@ so {
     return T_SO;
   }
 
+ /*
 small {
     trace_flex_three("returning T_SMALL (", yytext, ")\n");
     return T_SMALL;
@@ -637,17 +709,18 @@ small {
 simple {
     trace_flex_three("returning T_SIMPLE (", yytext, ")\n");
     return T_SIMPLE;
-  }
+  }*/
 
 side {
     trace_flex_three("returning T_SIDE (", yytext, ")\n");
     return T_SIDE;
   }
 
+ /*
 set {
     trace_flex_three("returning T_SET (", yytext, ")\n");
     return T_SET;
-  }
+  }*/
 
 sequentially {
     trace_flex_three("returning T_SEQUENTIALLY (", yytext, ")\n");
@@ -663,26 +736,28 @@ returns         {
     trace_flex_three("returning T_RETURNS (", yytext, ")\n");
                   return T_RETURNS;
                 }
-
+ /*
 return {
     trace_flex_three("returning T_RETURN (", yytext, ")\n");
     return T_RETURN;
-  }
+  }*/
 
 receives        {
     trace_flex_three("returning T_RECEIVES (", yytext, ")\n");
                   return T_RECEIVES;
                 }
 
+ /*
 read {
     trace_flex_three("returning T_READ (", yytext, ")\n");
     return T_READ;
-  }
+  }*/
 
+ /*
 rational {
     trace_flex_three("returning T_RATIONAL (", yytext, ")\n");
     return T_RATIONAL;
-  }
+  }*/
 
 print           {
     trace_flex_three("returning T_PRINT (", yytext, ")\n");
@@ -698,21 +773,25 @@ parallel {
     trace_flex_three("returning T_PARALLEL (", yytext, ")\n");
     return T_PARALLEL;
   }
+
+ /*
 operator {
     trace_flex_three("returning T_OPERATOR (", yytext, ")\n");
     return T_OPERATOR;
-  }
+  }*/
 
+ /*
 of {
     trace_flex_three("returning T_OF (", yytext, ")\n");
     return T_OF;
-  }
+  }*/
 
 nothing         {
     trace_flex_three("returning T_NOTHING (", yytext, ")\n");
                   return T_NOTHING;
                 }
 
+ /*
 nor {
     trace_flex_three("returning T_NOR (", yytext, ")\n");
     return T_NOR;
@@ -721,13 +800,14 @@ nor {
 no              {
     trace_flex_three("returning T_NO (", yytext, ")\n");
                   return T_NO;
-                }
+  }*/
 
 new {
     trace_flex_three("returning T_NEW (", yytext, ")\n");
     return T_NEW;
   }
 
+ /*
 natural {
     trace_flex_three("returning T_NATURAL (", yytext, ")\n");
     return T_NATURAL;
@@ -736,7 +816,7 @@ natural {
 minus {
     trace_flex_three("returning T_MINUS (", yytext, ")\n");
     return T_MINUS;
-  }
+  }*/
 
 line {
     trace_flex_three("returning T_LINE (", yytext, ")\n");
@@ -768,10 +848,11 @@ interface {
     return T_INTERFACE;
   }
 
+ /*
 integer {
     trace_flex_three("returning T_INTEGER (", yytext, ")\n");
     return T_INTEGER;
-  }
+  }*/
 
 in {
     trace_flex_three("returning T_IN (", yytext, ")\n");
@@ -788,6 +869,7 @@ function        {
                   return T_FUNCTION;
                 }
 
+ /*
 formula {
     trace_flex_three("returning T_FORMULA (", yytext, ")\n");
     return T_FORMULA;
@@ -796,7 +878,7 @@ formula {
 feed {
     trace_flex_three("returning T_FEED (", yytext, ")\n");
     return T_FEED;
-  }
+  }*/
 
 executes {
     trace_flex_three("returning T_EXECUTES (", yytext, ")\n");
@@ -823,16 +905,18 @@ effects {
     return T_EFFECTS;
   }
 
+ /*
 ease            {
     trace_flex_three("returning T_EASE (", yytext, ")\n");
                   return T_EASE;
-                }
+  }*/
 
 does            {
     trace_flex_three("returning T_DOES (", yytext, ")\n");
                   return T_DOES;
                 }
 
+ /*
 division {
     trace_flex_three("returning T_DIVISION (", yytext, ")\n");
     return T_DIVISION;
@@ -851,27 +935,29 @@ by {
 commands {
     trace_flex_three("returning T_COMMANDS (", yytext, ")\n");
     return T_COMMANDS;
-  }
+  }*/
 
 command {
     trace_flex_three("returning T_COMMAND (", yytext, ")\n");
     return T_COMMAND;
                 }
 
+ /*
 chain {
     trace_flex_three("returning T_CHAIN (", yytext, ")\n");
     return T_CHAIN;
-  }
+  }*/
 
 causes {
     trace_flex_three("returning T_CAUSES (", yytext, ")\n");
     return T_CAUSES;
   }
 
+ /*
 carriage {
     trace_flex_three("returning T_CARRIAGE (", yytext, ")\n");
     return T_CARRIAGE;
-  }
+  }*/
 
 bound {
 
@@ -879,20 +965,22 @@ bound {
     return T_BOUND;
   }
 
+ /*
 awesome         {
     trace_flex_three("returning T_AWESOME (", yytext, ")\n");
                   return T_AWESOME;
-                }
+  }*/
 
 at              {
     trace_flex_three("returning T_AT (", yytext, ")\n");
                   return T_AT;
                 }
 
+ /*
 args            {
     trace_flex_three("returning T_ARGS (", yytext, ")\n");
                   return T_ARGS;
-                }
+  }*/
 
 application {
     trace_flex_three("returning T_APPLICATION (", yytext, ")\n");
@@ -904,10 +992,11 @@ and             {
                   return T_AND;
                 }
 
+ /*
 an              {
     trace_flex_three("returning T_AN (", yytext, ")\n");
                   return T_AN;
-                }
+  }*/
 
 [Aa][Ll][Ll] {
     trace_flex_three("returning T_ALL (", yytext, ")\n");

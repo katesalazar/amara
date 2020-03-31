@@ -326,10 +326,19 @@ rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_destr
 		forced_assertion(input_ret_->error_messages != NULL);
 		*/
 
+		/* XXX ???
 		if (input_ret_->error_messages != NULL) {
 			amara_strings_simple_list_destructor(
 					input_ret_->error_messages);
+		} else {
+		*/
+			forced_assertion(input_ret_->error_messages == NULL);
+
+			/* XXX ??? */
+			;
+		/* XXX ???
 		}
+		*/
 	} else {
 		forced_assertion(rtg_execution_requests_out_of_stt_doc_and_rtg_applications_simple_list_ret_->status ==
 				RTG_EXECUTION_REQUESTS_OUT_OF_STT_DOC_AND_RTG_APPLICATIONS_SIMPLE_LIST_RET_STATUS_ERROR_ONE_OR_MORE_APPLICATIONS_REQUESTED_TO_BE_EXECUTED_NOT_FOUND);
