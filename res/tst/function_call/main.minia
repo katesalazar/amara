@@ -38,6 +38,7 @@ function ident main ident ends
 	so it causes side effects
 	and executes statements sequentially
 	and does
+	execute
 	call function ident inner ident ends
 	with no arguments at all
 end function ident main ident ends

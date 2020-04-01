@@ -896,6 +896,11 @@ executes {
     return T_EXECUTES;
   }
 
+execute {
+    trace_flex_three("returning T_EXECUTE (", yytext, ")\n");
+    return T_EXECUTE;
+  }
+
 entry           {
     trace_flex_three("returning T_ENTRY (", yytext, ")\n");
                   return T_ENTRY;
