@@ -98,6 +98,19 @@ function_statement :
   PRINT expression
 | NEW LINE
 | READ NATURAL IDENTIFIER
+| EXECUTE function_executable_statement
+;
+function_executable_statement :
+  function_call_without_return_value
+;
+function_call_without_return_value :
+  function_call
+;
+function_call :
+  CALL FUNCTION IDENTIFIER function_call_arguments
+;
+function_call_arguments :
+  WITH NO ARGUMENTS AT ALL
 ;
 expression :
   IF condition THEN expression ELSE expression END IF

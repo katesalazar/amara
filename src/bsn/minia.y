@@ -145,10 +145,11 @@ b_trace_unsigned_char(unsigned char value)
 %token<node> T_INTEGER_LITERAL
 %token<node> T_RATIONAL_LITERAL
 
-%token T_A T_ALL T_AN T_AND T_APPLICATION T_ARGS T_AT T_AWESOME T_BOUND
+%token T_A T_ALL T_AN T_AND T_APPLICATION T_ARGUMENTS T_ARGS T_AT T_AWESOME
+%token T_BOUND T_CALL
 %token T_CARRIAGE
 %token T_CAUSES T_CHAIN T_COMMAND T_COMMANDS T_DIVISION
-%token T_DOES T_EASE T_EFFECTS T_ELSE T_END T_EXECUTES
+%token T_DOES T_EASE T_EFFECTS T_ELSE T_END T_EXECUTE T_EXECUTES
 %token T_ENTRY T_FEED T_FORMULA T_FUNCTION T_GREATER T_IF T_IN T_INTEGER
 %token T_INTERFACE T_IS T_IT T_LESS T_LINE T_NATURAL T_NEW
 %token T_NO T_NOR
@@ -174,6 +175,10 @@ b_trace_unsigned_char(unsigned char value)
 %type<node> expression
 %type<node> function_where_clause
 %type<node> function_where_clauses
+%type<node> function_call_arguments
+%type<node> function_call
+%type<node> function_call_without_return_value
+%type<node> function_executable_statement
 %type<node> function_statement
 %type<node> function_sequential_statements
 %type<node> function_parallel_statements
@@ -590,7 +595,7 @@ function_statement :
 }
 | T_READ T_NATURAL T_IDENTIFIER
 {
-  b_trace_chars_array("cli_fn_op : T_READ T_NATURAL T_IDENTIFIER\n");
+  b_trace_chars_array("function_statement : T_READ T_NATURAL T_IDENTIFIER\n");
   assertion($3 != NULL);
   assertion($3->type_ == STT_NODE_TYPE_IDENTIFIER);
   $$ = stt_node_default_constructor();
@@ -605,6 +610,48 @@ function_statement :
   $$->operation_subnode_->operation_->type_ =
       STT_OPERATION_TYPE_READ_NATURAL_TO_VALUE;
   $$->type_ = STT_NODE_TYPE_OPERATION;
+}
+| T_EXECUTE function_executable_statement
+{
+  b_trace_chars_array("function_statement : T_EXECUTE ");
+  b_trace_chars_array("function_executable_statement\n");
+  $$ = $2;
+  forced_assertion($$ != NULL);
+}
+;
+
+function_executable_statement :
+  function_call_without_return_value
+{
+  b_trace_chars_array("function_executable_statement : ");
+  b_trace_chars_array("function_call_without_return_value\n");
+  $$ = $1;
+  forced_assertion($$ != NULL);
+}
+;
+
+function_call_without_return_value :
+  function_call
+{
+  b_trace_chars_array("function_call_without_return_value : function_call\n");
+  $$ = $1;
+  forced_assertion($$ != NULL);
+}
+;
+
+function_call :
+  T_CALL T_FUNCTION T_IDENTIFIER function_call_arguments
+{
+  b_trace_chars_array("function_call : T_CALL T_FUNCTION T_IDENTIFIER ");
+  b_trace_chars_array("function_call_arguments\n");
+}
+;
+
+function_call_arguments :
+  T_WITH T_NO T_ARGUMENTS T_AT T_ALL
+{
+  b_trace_chars_array("function_call_arguments : T_WITH T_NO T_ARGUMENTS ");
+  b_trace_chars_array("T_AT T_ALL\n");
 }
 ;
 
