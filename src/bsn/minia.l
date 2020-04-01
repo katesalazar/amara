@@ -642,11 +642,10 @@ without {
     return T_WITHOUT;
   }*/
 
- /*
 with            {
     trace_flex_three("returning T_WITH (", yytext, ")\n");
                   return T_WITH;
-  }*/
+  }
 
 where {
     trace_flex_three("returning T_WHERE (", yytext, ")\n");
@@ -807,12 +806,12 @@ nothing         {
 nor {
     trace_flex_three("returning T_NOR (", yytext, ")\n");
     return T_NOR;
-  }
+  }*/
 
 no              {
     trace_flex_three("returning T_NO (", yytext, ")\n");
                   return T_NO;
-  }*/
+  }
 
 new {
     trace_flex_three("returning T_NEW (", yytext, ")\n");
@@ -971,6 +970,11 @@ carriage {
     return T_CARRIAGE;
   }*/
 
+call {
+    trace_flex_three("returning T_CALL (", yytext, ")\n");
+    return T_CALL;
+  }
+
 bound {
 
     trace_flex_three("returning T_BOUND (", yytext, ")\n");
@@ -987,6 +991,11 @@ at              {
     trace_flex_three("returning T_AT (", yytext, ")\n");
                   return T_AT;
                 }
+
+arguments {
+    trace_flex_three("returning T_ARGUMENTS (", yytext, ")\n");
+    return T_ARGUMENTS;
+  }
 
  /*
 args            {
