@@ -138,23 +138,32 @@ bison_annex_function_parallel_statements_out_of_function_statement(
 __amara__warn_unused_result__
 ;
 
+/**  For:
+ *
+ *     function_statement : T_PRINT expression
+ */
 stt_node *
 function_statement_out_of_token_print_and_expression(stt_node * expression)
 __attribute__((warn_unused_result))
 ;
 
+/**  For:
+ *
+ *     function_statement : T_NEW T_LINE
+ */
 stt_node *
 function_statement_out_of_token_new_and_token_line(void)
-__attribute__((warn_unused_result))
-;
-stt_node *
-function_statement_out_of_token_print_and_expression(stt_node * expression)
 __attribute__((warn_unused_result))
 ;
 
+/**  For:
+ *
+ *     function_statement : T_EXECUTE function_executable_statement
+ */
 stt_node *
-function_statement_out_of_token_new_and_token_line(void)
-__attribute__((warn_unused_result))
+bison_annex_function_statement_out_of_token_execute_and_nonterminal_function_executable_statement(
+		stt_node * function_executable_statement)
+__amara__warn_unused_result__
 ;
 
 /**  To be called from:
@@ -185,6 +194,55 @@ __amara__warn_unused_result__
 stt_node *
 function_where_clause_out_of_token_identifier_and_token_is_and_token_bound_and_token_to_and_expression(
 		stt_node * identifier, stt_node * expression)
+__amara__warn_unused_result__
+;
+
+/**  To be called from:
+ *
+ *     function_statement : T_EXECUTE function_executable_statement
+ */
+stt_node*
+bison_annex_function_executable_statement_out_of_token_execute_and_nonterminal_function_executable_statement(
+		stt_node * function_executable_statement)
+__amara__warn_unused_result__
+;
+
+/**  To be called from:
+ *
+ *     function_executable_statement : function_call_without_return_value
+ */
+stt_node *
+bison_annex_function_executable_statement_out_of_nonterminal_function_call_without_return_value(
+		stt_node * function_call_without_return_value)
+__amara__warn_unused_result__
+;
+
+/**  To be called from:
+ *
+ *     function_call_without_return_value : function_call
+ */
+stt_node *
+bison_annex_function_call_without_return_value_out_of_nonterminal_function_call(
+		stt_node * function_call)
+__amara__warn_unused_result__
+;
+
+/**  To be called from:
+ *
+ *     function_call : T_CALL T_FUNCTION T_IDENTIFIER function_call_arguments
+ */
+stt_node *
+bison_annex_function_call_out_of_token_call_and_token_function_and_token_identifier_and_nonterminal_function_call_arguments(
+		stt_node * function_call_arguments)
+__amara__warn_unused_result__
+;
+
+/**  To be called from:
+ *
+ *     function_call_arguments : T_WITH T_NO T_ARGUMENTS T_AT T_ALL
+ */
+stt_node *
+bison_annex_function_call_arguments_out_of_token_with_and_token_no_and_token_arguments_and_token_at_and_token_all()
 __amara__warn_unused_result__
 ;
 

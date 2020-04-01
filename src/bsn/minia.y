@@ -619,7 +619,7 @@ function_statement :
 {
   b_trace_chars_array("function_statement : T_EXECUTE ");
   b_trace_chars_array("function_executable_statement\n");
-  $$ = $2;
+  $$ = bison_annex_function_statement_out_of_token_execute_and_nonterminal_function_executable_statement($2);
   forced_assertion($$ != NULL);
 }
 ;
@@ -629,7 +629,8 @@ function_executable_statement :
 {
   b_trace_chars_array("function_executable_statement : ");
   b_trace_chars_array("function_call_without_return_value\n");
-  $$ = $1;
+  $$ = bison_annex_function_executable_statement_out_of_nonterminal_function_call_without_return_value(
+      $1);
   forced_assertion($$ != NULL);
 }
 ;
@@ -638,7 +639,8 @@ function_call_without_return_value :
   function_call
 {
   b_trace_chars_array("function_call_without_return_value : function_call\n");
-  $$ = $1;
+  $$ = bison_annex_function_call_without_return_value_out_of_nonterminal_function_call(
+      $1);
   forced_assertion($$ != NULL);
 }
 ;
@@ -648,6 +650,9 @@ function_call :
 {
   b_trace_chars_array("function_call : T_CALL T_FUNCTION T_IDENTIFIER ");
   b_trace_chars_array("function_call_arguments\n");
+  $$ = bison_annex_function_call_out_of_token_call_and_token_function_and_token_identifier_and_nonterminal_function_call_arguments(
+      $3);
+  forced_assertion($$ != NULL);
 }
 ;
 
@@ -656,6 +661,8 @@ function_call_arguments :
 {
   b_trace_chars_array("function_call_arguments : T_WITH T_NO T_ARGUMENTS ");
   b_trace_chars_array("T_AT T_ALL\n");
+  $$ = bison_annex_function_call_arguments_out_of_token_with_and_token_no_and_token_arguments_and_token_at_and_token_all();
+  forced_assertion($$ != NULL);
 }
 ;
 

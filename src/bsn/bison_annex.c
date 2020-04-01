@@ -675,6 +675,19 @@ function_statement_out_of_token_new_and_token_line()
 }
 
 stt_node *
+bison_annex_function_statement_out_of_token_execute_and_nonterminal_function_executable_statement(
+		stt_node * function_executable_statement)
+{
+#ifndef NDEBUG
+	assertion(function_executable_statement != NULL);
+#endif
+	forced_assertion(function_executable_statement->type_ ==  /* XXX */
+			STT_NODE_TYPE_INVALID);  /* XXX */
+	function_executable_statement->type_ = STT_NODE_TYPE_OPERATION;  /* XXX */
+	return function_executable_statement;  /* XXX */
+}
+
+stt_node *
 bison_annex_function_where_clauses_out_of_token_where_and_function_where_clause_and_function_where_clauses(
 		stt_node * function_where_clause,
 		stt_node * function_where_clauses)
@@ -826,6 +839,34 @@ function_where_clause_out_of_token_identifier_and_token_is_and_token_bound_and_t
 	stt_node_destructor(expression);
 
 	return returning_;
+}
+
+stt_node*
+bison_annex_function_executable_statement_out_of_token_execute_and_nonterminal_function_executable_statement(
+		stt_node * function_executable_statement)
+{
+	;
+}
+
+stt_node *
+bison_annex_function_executable_statement_out_of_nonterminal_function_call_without_return_value(
+		stt_node * function_call_without_return_value)
+{
+	;
+}
+
+stt_node *
+bison_annex_function_call_without_return_value_out_of_nonterminal_function_call(
+		stt_node * function_call)
+{
+	;
+}
+
+stt_node *
+bison_annex_function_call_out_of_token_call_and_token_function_and_token_identifier_and_nonterminal_function_call_arguments(
+		stt_node * function_call_arguments)
+{
+	;
 }
 
 stt_node *
