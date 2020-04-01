@@ -72,18 +72,22 @@ extern FILE * miniain;
 
 void yyerror(stt_node * syntax_tree, const char * s);
 
+/*
 #ifdef TRACE_BISON
 #undef TRACE_BISON
 #endif
-/* #define TRACE_BISON */
+*/
+/*
+#define TRACE_BISON
+*/
 
+/*
 #ifdef TRACE_BISON
 #define TRACE_BISON_CONSTANT_VALUE 0xFF
 #else
 #define TRACE_BISON_CONSTANT_VALUE 0x00
 #endif
 
-/*
 const unsigned char bison_trace_constant = TRACE_BISON_CONSTANT_VALUE;
 */
 
