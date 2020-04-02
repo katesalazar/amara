@@ -830,28 +830,28 @@ function_where_clause_out_of_token_identifier_and_token_is_and_token_bound_and_t
 
 /*
 stt_node *
-bison_annex_function_statement_out_of_token_execute_and_nonterminal_function_executable_statement(
-		stt_node * function_executable_statement)
+bison_annex_function_statement_out_of_token_execute_and_nonterminal_function_executable_expression(
+		stt_node * function_executable_expression)
 {
 #ifndef NDEBUG
-	assertion(function_executable_statement != NULL);
+	assertion(function_executable_expression != NULL);
 #endif
-	forced_assertion(function_executable_statement->type_ ==  *//* XXX *//*
+	forced_assertion(function_executable_expression->type_ ==  *//* XXX *//*
 			STT_NODE_TYPE_INVALID);  *//* XXX *//*
-	function_executable_statement->type_ = STT_NODE_TYPE_OPERATION;  *//* XXX *//*
-	return function_executable_statement;  *//* XXX *//*
+	function_executable_expression->type_ = STT_NODE_TYPE_OPERATION;  *//* XXX *//*
+	return function_executable_expression;  *//* XXX *//*
 }
 */
 
 stt_node*
-bison_annex_function_statement_out_of_token_execute_and_nonterminal_function_executable_statement(
-		stt_node * function_executable_statement)
+bison_annex_function_statement_out_of_token_execute_and_nonterminal_function_executable_expression(
+		stt_node * function_executable_expression)
 {
 	stt_node * returning_;
 	stt_operation_args_simple_list * operation_args_;
 
 #ifndef NDEBUG
-	assertion(function_executable_statement != NULL);
+	assertion(function_executable_expression != NULL);
 #endif
 	returning_ = stt_node_default_constructor();
 	forced_assertion(returning_ != NULL);
@@ -878,7 +878,7 @@ bison_annex_function_statement_out_of_token_execute_and_nonterminal_function_exe
 }
 
 stt_node *
-bison_annex_function_executable_statement_out_of_nonterminal_function_call_without_return_value(
+bison_annex_function_executable_expression_out_of_nonterminal_function_call_without_return_value(
 		stt_node * function_call_without_return_value)
 {
 	stt_node * returning_;
@@ -890,8 +890,11 @@ bison_annex_function_executable_statement_out_of_nonterminal_function_call_witho
 			stt_operation_subnode_default_constructor();
 	forced_assertion(returning_->operation_subnode_ != NULL);
 
-	returning_->operation_subnode_
-	
+	returning_->operation_subnode_->operation_ =
+			stt_operation_default_constructor();
+	forced_assertion(returning_->operation_subnode_->operation_ != NULL);
+
+	stt_operation_set_args(function_call_without_return_value);
 
 	return returning_;
 }

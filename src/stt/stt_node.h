@@ -51,6 +51,8 @@
 /*   For `stt_natural_literal_subnode`. */
 #include "stt_natural_literal_subnode.h"
 
+#include "stt_node_sub_function_call.h"
+
 /*   For `stt_operation_subnode`. */
 #include "stt_operation_subnode.h"
 
@@ -89,6 +91,9 @@ typedef unsigned char stt_node_type;
 #define STT_NODE_TYPE_DOC_FRAGMENT        0x0F
 #define STT_NODE_TYPE_DOC                 0x10
 #define STT_NODE_TYPE_CLI_OPERATIONS_LIST 0x81
+#define STT_NODE_TYPE_EMPTY_FUNCTION_CALL_ARGUMENTS_LIST 0x82
+#define STT_NODE_TYPE_FUNCTION_CALL_ARGUMENTS_LIST       0x83
+#define STT_NODE_TYPE_FUNCTION_CALL                      0x84
 #define STT_NODE_TYPE_ERRORED             0xFF
 
 #define BISON_RET_SUCCESS                   0
@@ -130,6 +135,9 @@ typedef struct stt_node {
 
 	stt_doc_subnode * doc_subnode_;
 
+	stt_node_sub_function_call * sub_function_call_;
+
+	/**  Bison `yyparse` function is supposed  to return 0, 1 or 2. */
 	int bison_ret_;
 } stt_node
 ;

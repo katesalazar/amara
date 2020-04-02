@@ -182,7 +182,7 @@ b_trace_unsigned_char(unsigned char value)
 %type<node> function_call_arguments
 %type<node> function_call
 %type<node> function_call_without_return_value
-%type<node> function_executable_statement
+%type<node> function_executable_expression
 %type<node> function_statement
 %type<node> function_sequential_statements
 %type<node> function_parallel_statements
@@ -615,21 +615,22 @@ function_statement :
       STT_OPERATION_TYPE_READ_NATURAL_TO_VALUE;
   $$->type_ = STT_NODE_TYPE_OPERATION;
 }
-| T_EXECUTE function_executable_statement
+| T_EXECUTE function_executable_expression
 {
   b_trace_chars_array("function_statement : T_EXECUTE ");
-  b_trace_chars_array("function_executable_statement\n");
-  $$ = bison_annex_function_statement_out_of_token_execute_and_nonterminal_function_executable_statement($2);
+  b_trace_chars_array("function_executable_expression\n");
+  $$ = bison_annex_function_statement_out_of_token_execute_and_nonterminal_function_executable_expression(
+      $2);
   forced_assertion($$ != NULL);
 }
 ;
 
-function_executable_statement :
+function_executable_expression :
   function_call_without_return_value
 {
-  b_trace_chars_array("function_executable_statement : ");
+  b_trace_chars_array("function_executable_expression : ");
   b_trace_chars_array("function_call_without_return_value\n");
-  $$ = bison_annex_function_executable_statement_out_of_nonterminal_function_call_without_return_value(
+  $$ = bison_annex_function_executable_expression_out_of_nonterminal_function_call_without_return_value(
       $1);
   forced_assertion($$ != NULL);
 }

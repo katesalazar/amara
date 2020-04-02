@@ -156,16 +156,6 @@ function_statement_out_of_token_new_and_token_line(void)
 __attribute__((warn_unused_result))
 ;
 
-/**  For:
- *
- *     function_statement : T_EXECUTE function_executable_statement
- */
-stt_node *
-bison_annex_function_statement_out_of_token_execute_and_nonterminal_function_executable_statement(
-		stt_node * function_executable_statement)
-__amara__warn_unused_result__
-;
-
 /**  To be called from:
  *
  *     function_where_clauses :
@@ -199,20 +189,20 @@ __amara__warn_unused_result__
 
 /**  To be called from:
  *
- *     function_statement : T_EXECUTE function_executable_statement
+ *     function_statement : T_EXECUTE function_executable_expression
  */
 stt_node*
-bison_annex_function_statement_out_of_token_execute_and_nonterminal_function_executable_statement(
-		stt_node * function_executable_statement)
+bison_annex_function_statement_out_of_token_execute_and_nonterminal_function_executable_expression(
+		stt_node * function_executable_expression)
 __amara__warn_unused_result__
 ;
 
 /**  To be called from:
  *
- *     function_executable_statement : function_call_without_return_value
+ *     function_executable_expression : function_call_without_return_value
  */
 stt_node *
-bison_annex_function_executable_statement_out_of_nonterminal_function_call_without_return_value(
+bison_annex_function_executable_expression_out_of_nonterminal_function_call_without_return_value(
 		stt_node * function_call_without_return_value)
 __amara__warn_unused_result__
 ;

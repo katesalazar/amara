@@ -3236,6 +3236,7 @@ $(BUILD_DIR_SRC)/stt/stt_node.$(HEXT): \
 		$(BUILD_DIR_SRC)/stt/stt_identifier_subnode.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_integer_literal_subnode.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_natural_literal_subnode.$(HEXT) \
+		$(BUILD_DIR_SRC)/stt/stt_node_sub_function_call.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_operation_subnode.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_operations_list_subnode.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_rational_literal_subnode.$(HEXT) \
@@ -3260,6 +3261,10 @@ $$(BUILD_DIR_$(BUILD_TYPE))/stt_node.o: \
 		$$(BUILD_DIR_SRC)/brt/natural.$$(HEXT)
 	$$(C) $$(CFLAGS) $$(CFLAGS_$(BUILD_TYPE)) -c -o $$@ $$<
 endef
+
+$(BUILD_DIR_SRC)/stt/stt_node_sub_function_call.$(HEXT): \
+		$(SRC_DIR)/stt/stt_node_sub_function_call.h
+	$(CP) $< $@
 
 $(BUILD_DIR_SRC)/stt/stt_node_tests.$(HEXT): \
 		$(SRC_DIR)/stt/stt_node_tests.h \
