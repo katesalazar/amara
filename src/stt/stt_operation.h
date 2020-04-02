@@ -34,6 +34,10 @@ typedef unsigned char stt_operation_type;
 #define STT_OPERATION_TYPE_READ_NATURAL_INTO_VALUE \
 		STT_OPERATION_TYPE_READ_NATURAL_TO_VALUE
 #define STT_OPERATION_TYPE_READ_INTEGER_INTO_VALUE 0x30  /* 48: '0'. */
+/**  An execution is something that can be executed in order to cause
+ * side effects. If something doesn't cause side effects, there's no
+ * need or use in _executing_ it, only in _evaluating_ it. */
+#define STT_OPERATION_TYPE_EXECUTION               0x31  /* 49: '1'. */
 /* #define STT_OPERATION_TYPE_READ_NATURAL_TO_VARIABLE 0x30  *//* TODO remove it temporarily */
 /* XXX mutate this into expression only
 #define STT_OPERATION_TYPE_RESOLVE_TYPE_OF_EXPRESSION 0x31

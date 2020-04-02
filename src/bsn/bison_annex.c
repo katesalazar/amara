@@ -675,19 +675,6 @@ function_statement_out_of_token_new_and_token_line()
 }
 
 stt_node *
-bison_annex_function_statement_out_of_token_execute_and_nonterminal_function_executable_statement(
-		stt_node * function_executable_statement)
-{
-#ifndef NDEBUG
-	assertion(function_executable_statement != NULL);
-#endif
-	forced_assertion(function_executable_statement->type_ ==  /* XXX */
-			STT_NODE_TYPE_INVALID);  /* XXX */
-	function_executable_statement->type_ = STT_NODE_TYPE_OPERATION;  /* XXX */
-	return function_executable_statement;  /* XXX */
-}
-
-stt_node *
 bison_annex_function_where_clauses_out_of_token_where_and_function_where_clause_and_function_where_clauses(
 		stt_node * function_where_clause,
 		stt_node * function_where_clauses)
@@ -841,25 +828,90 @@ function_where_clause_out_of_token_identifier_and_token_is_and_token_bound_and_t
 	return returning_;
 }
 
-stt_node*
-bison_annex_function_executable_statement_out_of_token_execute_and_nonterminal_function_executable_statement(
+/*
+stt_node *
+bison_annex_function_statement_out_of_token_execute_and_nonterminal_function_executable_statement(
 		stt_node * function_executable_statement)
 {
-	;
+#ifndef NDEBUG
+	assertion(function_executable_statement != NULL);
+#endif
+	forced_assertion(function_executable_statement->type_ ==  *//* XXX *//*
+			STT_NODE_TYPE_INVALID);  *//* XXX *//*
+	function_executable_statement->type_ = STT_NODE_TYPE_OPERATION;  *//* XXX *//*
+	return function_executable_statement;  *//* XXX *//*
+}
+*/
+
+stt_node*
+bison_annex_function_statement_out_of_token_execute_and_nonterminal_function_executable_statement(
+		stt_node * function_executable_statement)
+{
+	stt_node * returning_;
+	stt_operation_args_simple_list * operation_args_;
+
+#ifndef NDEBUG
+	assertion(function_executable_statement != NULL);
+#endif
+	returning_ = stt_node_default_constructor();
+	forced_assertion(returning_ != NULL);
+
+	returning_->operation_subnode_ =
+			stt_operation_subnode_default_constructor();
+	forced_assertion(returning_->operation_subnode_ != NULL);
+
+	returning_->operation_subnode_->operation_ =
+			stt_operation_default_constructor();
+	forced_assertion(returning_->operation_subnode_->operation_ != NULL);
+
+	stt_operation_set_args(
+			returning_->operation_subnode_->operation_,
+			operation_args_);
+
+	stt_operation_set_type(
+			returning_->operation_subnode_->operation_,
+			STT_OPERATION_TYPE_EXECUTION);
+
+	stt_node_set_type(returning_, STT_NODE_TYPE_OPERATION);
+
+	return returning_;
 }
 
 stt_node *
 bison_annex_function_executable_statement_out_of_nonterminal_function_call_without_return_value(
 		stt_node * function_call_without_return_value)
 {
-	;
+	stt_node * returning_;
+
+	returning_ = stt_node_default_constructor();
+	forced_assertion(returning_ != NULL);
+
+	returning_->operation_subnode_ =
+			stt_operation_subnode_default_constructor();
+	forced_assertion(returning_->operation_subnode_ != NULL);
+
+	returning_->operation_subnode_
+	
+
+	return returning_;
 }
 
 stt_node *
 bison_annex_function_call_without_return_value_out_of_nonterminal_function_call(
 		stt_node * function_call)
 {
-	;
+#ifndef NDEBUG
+	assertion(function_call != NULL);
+	assertion(function_call->type_ == STT_NODE_TYPE_FUNCTION_CALL);
+	assertion(function_call->sub_function_call_ != NULL);
+	assertion(function_call->sub_function_call_->pending_semantic_checks_ !=
+			NULL);
+	assertion(function_call->sub_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ ==
+			0);
+#endif
+	function_call->sub_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ =
+			1;
+	return function_call;
 }
 
 stt_node *
@@ -868,16 +920,17 @@ bison_annex_function_call_out_of_token_call_and_token_function_and_token_identif
 {
 	stt_node * returning_;
 
-	forced_assertion(identifier != NULL);
-	forced_assertion(identifier->type_ == STT_NODE_TYPE_IDENTIFIER);
-	forced_assertion(identifier->identifier_subnode_ != NULL);
-	forced_assertion(identifier->identifier_subnode_->value_ != NULL);
-	forced_assertion(identifier->identifier_subnode_->value_->value_ !=
-			NULL);
+#ifndef NDEBUG
+	assertion(identifier != NULL);
+	assertion(identifier->type_ == STT_NODE_TYPE_IDENTIFIER);
+	assertion(identifier->identifier_subnode_ != NULL);
+	assertion(identifier->identifier_subnode_->value_ != NULL);
+	assertion(identifier->identifier_subnode_->value_->value_ != NULL);
 
-	forced_assertion(function_call_arguments != NULL);
-	forced_assertion(function_call_arguments->type_ ==  /* XXX */
+	assertion(function_call_arguments != NULL);
+	assertion(function_call_arguments->type_ ==  /* XXX */
 			STT_NODE_TYPE_EMPTY_FUNCTION_CALL_ARGUMENTS_LIST);  /* XXX */
+#endif
 
 	returning_ = stt_node_default_constructor();
 	forced_assertion(returning_ != NULL);

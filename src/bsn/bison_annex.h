@@ -202,7 +202,7 @@ __amara__warn_unused_result__
  *     function_statement : T_EXECUTE function_executable_statement
  */
 stt_node*
-bison_annex_function_executable_statement_out_of_token_execute_and_nonterminal_function_executable_statement(
+bison_annex_function_statement_out_of_token_execute_and_nonterminal_function_executable_statement(
 		stt_node * function_executable_statement)
 __amara__warn_unused_result__
 ;

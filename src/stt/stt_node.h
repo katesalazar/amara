@@ -77,7 +77,9 @@ typedef unsigned char stt_node_type;
 #define STT_NODE_TYPE_IDENTIFIER          0x05
 #define STT_NODE_TYPE_CONDITION           0x22  /* 34: '"'. */
 #define STT_NODE_TYPE_EXPRESSION          0x23  /* 35: '#'. */
+/**  A.K.A. `function_statement`. */
 #define STT_NODE_TYPE_OPERATION           0x08
+/**  A.K.A. `function_statements`. */
 #define STT_NODE_TYPE_OPERATIONS_LIST     0x09
 #define STT_NODE_TYPE_WHERE_BINDING       0x24  /* 36: '$'. */
 #define STT_NODE_TYPE_WHERE_BINDINGS      0x0B
@@ -157,13 +159,9 @@ void
 stt_node_destructor(stt_node const * node)
 ;
 
-/*
-
 void
 stt_node_set_type(stt_node * node, const stt_node_type type)
 ;
-
-*/
 
 void
 stt_node_set_string_literal(
