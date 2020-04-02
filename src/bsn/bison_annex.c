@@ -848,6 +848,7 @@ bison_annex_function_statement_out_of_token_execute_and_nonterminal_function_exe
 		stt_node * function_executable_expression)
 {
 	stt_node * returning_;
+	stt_operation_arg * operation_arg_;
 	stt_operation_args_simple_list * operation_args_;
 
 #ifndef NDEBUG
@@ -863,6 +864,18 @@ bison_annex_function_statement_out_of_token_execute_and_nonterminal_function_exe
 	returning_->operation_subnode_->operation_ =
 			stt_operation_default_constructor();
 	forced_assertion(returning_->operation_subnode_->operation_ != NULL);
+
+	operation_args_ = stt_operation_args_simple_list_default_constructor();
+	forced_assertion(operation_args_ != NULL);
+
+	operation_arg_ = stt_operation_arg_default_constructor();
+	forced_assertion(operation_arg_ != NULL);
+
+	stt_operation_arg_set_node(
+			operation_arg_, function_executable_expression);
+
+	operation_args_ = stt_operation_args_simple_list_push_front(
+			operation_args_, operation_arg_);
 
 	stt_operation_set_args(
 			returning_->operation_subnode_->operation_,
@@ -883,6 +896,7 @@ bison_annex_function_executable_expression_out_of_nonterminal_function_call_with
 {
 	stt_node * returning_;
 
+/*
 	returning_ = stt_node_default_constructor();
 	forced_assertion(returning_ != NULL);
 
@@ -895,6 +909,9 @@ bison_annex_function_executable_expression_out_of_nonterminal_function_call_with
 	forced_assertion(returning_->operation_subnode_->operation_ != NULL);
 
 	stt_operation_set_args(function_call_without_return_value);
+*/
+
+	returning_ = function_call_without_return_value;
 
 	return returning_;
 }

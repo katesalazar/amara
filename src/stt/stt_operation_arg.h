@@ -66,12 +66,14 @@ stt_operation_arg_set_node(
 		const struct stt_node * node)
 ;
 
+/**  A synctactic sugar for `stt_operation_arg_set_node(2)`. */
 void
 stt_operation_arg_set_string_literal(
 		stt_operation_arg * operation_arg,
 		const amara_string * string_literal)
 ;
 
+/**  A synctactic sugar for `stt_operation_arg_set_node(2)`. */
 void
 stt_operation_arg_set_identifier(
 		stt_operation_arg * operation_arg,

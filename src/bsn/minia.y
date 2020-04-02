@@ -652,7 +652,7 @@ function_call :
   b_trace_chars_array("function_call : T_CALL T_FUNCTION T_IDENTIFIER ");
   b_trace_chars_array("function_call_arguments\n");
   $$ = bison_annex_function_call_out_of_token_call_and_token_function_and_token_identifier_and_nonterminal_function_call_arguments(
-      $3);
+      $3, $4);
   forced_assertion($$ != NULL);
 }
 ;
