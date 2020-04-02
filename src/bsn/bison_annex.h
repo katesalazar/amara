@@ -233,7 +233,7 @@ __amara__warn_unused_result__
  */
 stt_node *
 bison_annex_function_call_out_of_token_call_and_token_function_and_token_identifier_and_nonterminal_function_call_arguments(
-		stt_node * function_call_arguments)
+		stt_node * identifier, stt_node * function_call_arguments)
 __amara__warn_unused_result__
 ;
 

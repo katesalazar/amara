@@ -864,9 +864,45 @@ bison_annex_function_call_without_return_value_out_of_nonterminal_function_call(
 
 stt_node *
 bison_annex_function_call_out_of_token_call_and_token_function_and_token_identifier_and_nonterminal_function_call_arguments(
-		stt_node * function_call_arguments)
+		stt_node * identifier, stt_node * function_call_arguments)
 {
-	;
+	stt_node * returning_;
+
+	forced_assertion(identifier != NULL);
+	forced_assertion(identifier->type_ == STT_NODE_TYPE_IDENTIFIER);
+	forced_assertion(identifier->identifier_subnode_ != NULL);
+	forced_assertion(identifier->identifier_subnode_->value_ != NULL);
+	forced_assertion(identifier->identifier_subnode_->value_->value_ !=
+			NULL);
+
+	forced_assertion(function_call_arguments != NULL);
+	forced_assertion(function_call_arguments->type_ ==  /* XXX */
+			STT_NODE_TYPE_EMPTY_FUNCTION_CALL_ARGUMENTS_LIST);  /* XXX */
+
+	returning_ = stt_node_default_constructor();
+	forced_assertion(returning_ != NULL);
+
+	returning_->sub_function_call_ =
+			stt_node_sub_function_call_exhaustive_constructor(
+					identifier, function_call_arguments);
+	forced_assertion(returning_->sub_function_call_ != NULL);
+
+	returning_->type_ = STT_NODE_TYPE_FUNCTION_CALL;
+
+	return returning_;
+}
+
+stt_node *
+bison_annex_function_call_arguments_out_of_token_with_and_token_no_and_token_arguments_and_token_at_and_token_all()
+{
+	stt_node * returning_;
+
+	returning_ = stt_node_default_constructor();
+	forced_assertion(returning_ != NULL);
+
+	returning_->type_ = STT_NODE_TYPE_EMPTY_FUNCTION_CALL_ARGUMENTS_LIST;  /* XXX */
+
+	return returning_;
 }
 
 stt_node *
