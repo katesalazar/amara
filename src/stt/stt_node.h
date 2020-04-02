@@ -84,17 +84,18 @@ typedef unsigned char stt_node_type;
 /**  A.K.A. `function_statements`. */
 #define STT_NODE_TYPE_OPERATIONS_LIST     0x09
 #define STT_NODE_TYPE_WHERE_BINDING       0x24  /* 36: '$'. */
-#define STT_NODE_TYPE_WHERE_BINDINGS      0x0B
-#define STT_NODE_TYPE_NAMED_FUNCTION      0x0C
-#define STT_NODE_TYPE_APPLICATION         0x0D
-#define STT_NODE_TYPE_EXECUTION_REQUEST   0x0E
-#define STT_NODE_TYPE_DOC_FRAGMENT        0x0F
-#define STT_NODE_TYPE_DOC                 0x10
-#define STT_NODE_TYPE_CLI_OPERATIONS_LIST 0x81
-#define STT_NODE_TYPE_EMPTY_FUNCTION_CALL_ARGUMENTS_LIST 0x82
-#define STT_NODE_TYPE_FUNCTION_CALL_ARGUMENTS_LIST       0x83
-#define STT_NODE_TYPE_FUNCTION_CALL                      0x84
-#define STT_NODE_TYPE_ERRORED             0xFF
+#define STT_NODE_TYPE_WHERE_BINDINGS      0x0B  /* 11       */
+#define STT_NODE_TYPE_NAMED_FUNCTION      0x0C  /* 12       */
+#define STT_NODE_TYPE_APPLICATION         0x0D  /* 13       */
+#define STT_NODE_TYPE_EXECUTION_REQUEST   0x0E  /* 14       */
+#define STT_NODE_TYPE_DOC_FRAGMENT        0x0F  /* 15       */
+#define STT_NODE_TYPE_DOC                 0x10  /* 16       */
+#define STT_UNUSED                        0x7F  /* 127      */
+#define STT_NODE_TYPE_CLI_OPERATIONS_LIST 0x81  /* 129      */
+#define STT_NODE_TYPE_EMPTY_FUNCTION_CALL_ARGUMENTS_LIST 0x82  /* 130 */
+#define STT_NODE_TYPE_FUNCTION_CALL_ARGUMENTS_LIST       0x83  /* 131 */
+#define STT_NODE_TYPE_FUNCTION_CALL                      0x84  /* 132 */
+#define STT_NODE_TYPE_ERRORED             0xFF  /* 255      */
 
 #define BISON_RET_SUCCESS                   0
 #define BISON_RET_FAILURE_INVALID_INPUT     1
@@ -337,6 +338,8 @@ look_for_undefined_labels(const stt_node * node)
 __attribute__((warn_unused_result))
 ;
 
+#ifndef NDEBUG
+
 void
 assert_clean_string_literal_node(const stt_node * node)
 ;
@@ -400,6 +403,17 @@ assert_clean_doc_fragment_node(const stt_node * node)
 void
 assert_clean_doc_node(const stt_node * node)
 ;
+
+void
+stt_node_assert_clean_function_call_node(const stt_node * node)
+;
+
+void
+stt_node_assert_clean_empty_function_call_arguments_list_node(
+		const stt_node * node)
+;
+
+#endif
 
 /*   Non destructive in its arguments.
  *   `node_zero` minus `node_one`. */

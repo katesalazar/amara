@@ -98,9 +98,9 @@ function_statement :
   PRINT expression
 | NEW LINE
 | READ NATURAL IDENTIFIER
-| EXECUTE function_executable_statement
+| EXECUTE function_executable_expression
 ;
-function_executable_statement :
+function_executable_expression :
   function_call_without_return_value
 ;
 function_call_without_return_value :

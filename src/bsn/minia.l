@@ -71,7 +71,7 @@ trace_flex_one(const char * s0)
 #ifdef TRACE_FLEX
   fprintf(stderr, "%s", s0);
 #else
-  s0 = NULL;
+  assertion(s0 != NULL);
 #endif
 }
 
@@ -92,8 +92,9 @@ trace_flex_three(const char * s0, const char * s1, const char * s2)
   fprintf(stderr, "%s", s2);
 #else
   s0 = NULL;
-  s1 = NULL;
-  s2 = NULL;
+  s1 = s0;
+  s2 = s1;
+  s0 = s2;
 #endif
 }
 

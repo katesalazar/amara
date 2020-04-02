@@ -566,7 +566,9 @@ function_statement_out_of_token_print_and_expression(stt_node * expression)
 	} else if ($2->type_ == STT_NODE_TYPE_EXPRESSION) {
 	*/
 
+#ifndef NDEBUG
 		assert_clean_expression_node(expression);
+#endif
 	/*
 	} else {
 		assertion($2->type_ == STT_NODE_TYPE_IDENTIFIER);

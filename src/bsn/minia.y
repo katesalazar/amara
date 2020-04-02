@@ -740,7 +740,9 @@ expression :
   /*
   fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
   */
+#ifndef NDEBUG
   assert_clean_identifier_node($1);
+#endif
   /*
   fprintf(stderr, "%s:%u\n", __FILE__, __LINE__);
   */

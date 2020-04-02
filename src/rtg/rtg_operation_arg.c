@@ -428,10 +428,13 @@ rtg_operation_arg_out_of_stt_operation_arg(
 	ret_->status = RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_INVALID;
 	ret_->operation_arg = NULL;
 	ret_->error_messages = NULL;
+#ifndef NDEBUG
 	assertion(operation_arg != NULL);
 	assertion(operation_arg->node_ != NULL);
 	/* assert_stt_node_is_valid(operation_arg->node_); */
+#endif
 	if (operation_arg->node_->type_ == STT_NODE_TYPE_STRING_LITERAL) {
+#ifndef NDEBUG
 		assert_clean_string_literal_node(operation_arg->node_);
 		assertion(operation_arg->node_->string_literal_subnode_ !=
 				NULL);
@@ -439,6 +442,7 @@ rtg_operation_arg_out_of_stt_operation_arg(
 				NULL);
 		assertion(operation_arg->node_->string_literal_subnode_->string_literal_->value_ !=
 				NULL);
+#endif
 		sub_ret_ =
 #ifdef AMARA_USE_STD_CXX98
 				(rtg_operation_arg *)
@@ -455,15 +459,19 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		sub_ret_->operation_ = NULL;
 		sub_ret_->type_ = RTG_OPERATION_ARG_TYPE_STRING_LITERAL;
 	} else if (operation_arg->node_->type_ == STT_NODE_TYPE_NATURAL_LITERAL) {
+#ifndef NDEBUG
 		assert_clean_natural_literal_node(operation_arg->node_);
+#endif
 		/*
 		fprintf(stderr, "%s:%u: %u\n", __FILE__, __LINE__, operation_arg->node_->type_);
 		*/
+#ifndef NDEBUG
 		assertion(operation_arg->node_->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
 		assertion(operation_arg->node_->natural_literal_subnode_ !=
 				NULL);
 		assertion(operation_arg->node_->natural_literal_subnode_->raw_ !=
 				NULL);
+#endif
 		sub_ret_ =
 #ifdef AMARA_USE_STD_CXX98
 				(rtg_operation_arg *)
@@ -507,12 +515,12 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		sub_ret_->type_ = RTG_OPERATION_ARG_TYPE_INTEGER_LITERAL;
 	*/
 	} else if (operation_arg->node_->type_ == STT_NODE_TYPE_IDENTIFIER) {
-
+#ifndef NDEBUG
 		assert_clean_identifier_node(operation_arg->node_);
 		assertion(operation_arg->node_->identifier_subnode_ != NULL);
 		assertion(operation_arg->node_->identifier_subnode_->value_ !=
 				NULL);
-
+#endif
 		if (operation_type == STT_OPERATION_TYPE_PRINT) {
 
 			/*   Operation depends on the identifier. */
@@ -627,6 +635,7 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		sub_ret_->type_ = RTG_OPERATION_ARG_TYPE_IDENTIFIER;
 	*/
 	} else {
+#ifndef NDEBUG
 		assertion(operation_arg->node_->type_ == STT_NODE_TYPE_EXPRESSION);
 		assert_clean_expression_node(operation_arg->node_);
 		assertion(operation_arg->node_->type_ ==
@@ -634,6 +643,7 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		assertion(operation_arg->node_->expression_subnode_ != NULL);
 		assertion(operation_arg->node_->expression_subnode_->expression_ !=
 				NULL);
+#endif
 		sub_ret_ =
 #ifdef AMARA_USE_STD_CXX98
 				(rtg_operation_arg *)

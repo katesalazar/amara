@@ -126,7 +126,9 @@ stt_operation_set_type(
 		forced_assertion(operation->args_->first->type_ ==
 				STT_OPERATION_ARG_TYPE_VALID);
 		forced_assertion(operation->args_->first->node_ != NULL);
+#ifndef NDEBUG
 		assert_clean_identifier_node(operation->args_->first->node_);
+#endif
 		forced_assertion(operation->args_->next == NULL);
 	} else if (type == STT_OPERATION_TYPE_PRINT) {
 
@@ -138,7 +140,9 @@ stt_operation_set_type(
 		forced_assertion(operation->args_->first->type_ ==
 				STT_OPERATION_ARG_TYPE_VALID);
 		forced_assertion(operation->args_->first->node_ != NULL);
+#ifndef NDEBUG
 		assert_clean_identifier_node(operation->args_->first->node_);
+#endif
 		forced_assertion(operation->args_->next == NULL);
 	} else {
 		forced_assertion(type ==
@@ -152,7 +156,9 @@ stt_operation_set_type(
 		forced_assertion(operation->args_->first->type_ ==
 				STT_OPERATION_ARG_TYPE_VALID);
 		forced_assertion(operation->args_->first->node_ != NULL);
+#ifndef NDEBUG
 		assert_clean_identifier_node(operation->args_->first->node_);
+#endif
 		forced_assertion(operation->args_->next == NULL);
 	}
 

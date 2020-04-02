@@ -5222,7 +5222,9 @@ simplify_natural_literal_nodes_substraction_test_0()
 	amara_string_set_value(
 			(amara_string *) expectation_raw_,
 			expectation_raw_chars_array_);
+#ifndef NDEBUG
 	assert_clean_natural_literal_node(result_);
+#endif
 	assertion(
 			amara_string_equality(
 				result_->natural_literal_subnode_->raw_,

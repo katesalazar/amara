@@ -15,11 +15,15 @@
  *
  * src/stt/stt_node_sub_function_call.h: A syntax tree node can
  * represent a function call. If so, it holds some information that is
- * stored in this "sub" enttity.
+ * stored in this "sub" entity.
  */
 
 #ifndef __AMARA__SYNTAX_TREE__NODE_SUB_FUNCTION_CALL__H__
 #define __AMARA__SYNTAX_TREE__NODE_SUB_FUNCTION_CALL__H__
+
+#include "../definitions.h"
+
+#include "../cmn/amara_boolean.h"
 
 /**  Helper struct for flags. */
 typedef struct stt_node_sub_function_call_pending_semantic_checks {
@@ -50,18 +54,22 @@ stt_node_sub_function_call *
 stt_node_sub_function_call_default_constructor(void)
 __amara__warn_unused_result__
 ;
-
-stt_identifier_subnode *
-stt_identifier_subnode_copy_constructor(const stt_identifier_subnode * subnode)
-__attribute__((warn_unused_result))
-;
 */
 
+/**  Copy constructor. */
+stt_node_sub_function_call *
+stt_node_sub_function_call_copy_constructor(
+		const stt_node_sub_function_call * sub_function_call)
+__amara__warn_unused_result__
+;
+
+/**  Exhaustive constructor. Warning: _steals_ both
+ * `function_name_identifier` and `call_arguments`. */
 stt_node_sub_function_call *
 stt_node_sub_function_call_exhaustive_constructor(
 		struct stt_node * function_name_identifier,
 		struct stt_node * call_arguments)
-__attribute__((warn_unused_result))
+__amara__warn_unused_result__
 ;
 
 /*

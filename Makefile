@@ -332,6 +332,7 @@ UTILS_DIR = utils
 	$(SRC_DIR)/stt/stt_natural_literal_subnode.c \
 	$(SRC_DIR)/stt/stt_natural_literal_subnode_tests.c \
 	$(SRC_DIR)/stt/stt_node.c \
+	$(SRC_DIR)/stt/stt_node_sub_function_call.c \
 	$(SRC_DIR)/stt/stt_node_tests.c \
 	$(SRC_DIR)/stt/stt_operation.c \
 	$(SRC_DIR)/stt/stt_operation_arg.c \
@@ -492,6 +493,7 @@ BUILD_SRC = \
 	$(BUILD_DIR_SRC)/stt/stt_natural_literal_subnode.$(CEXT) \
 	$(BUILD_DIR_SRC)/stt/stt_natural_literal_subnode_tests.$(CEXT) \
 	$(BUILD_DIR_SRC)/stt/stt_node.$(CEXT) \
+	$(BUILD_DIR_SRC)/stt/stt_node_sub_function_call.$(CEXT) \
 	$(BUILD_DIR_SRC)/stt/stt_node_tests.$(CEXT) \
 	$(BUILD_DIR_SRC)/stt/stt_operation.$(CEXT) \
 	$(BUILD_DIR_SRC)/stt/stt_operation_arg.$(CEXT) \
@@ -3265,6 +3267,20 @@ endef
 $(BUILD_DIR_SRC)/stt/stt_node_sub_function_call.$(HEXT): \
 		$(SRC_DIR)/stt/stt_node_sub_function_call.h
 	$(CP) $< $@
+
+$(BUILD_DIR_SRC)/stt/stt_node_sub_function_call.$(CEXT): \
+		$(SRC_DIR)/stt/stt_node_sub_function_call.c
+	$(CP) $< $@
+
+$(BUILD_DIR_DEBUG)/stt_node_sub_function_call.o: \
+		$(BUILD_DIR_SRC)/stt/stt_node_sub_function_call.$(CEXT) \
+		$(BUILD_DIR_SRC)/stt/stt_node_sub_function_call.$(HEXT)
+	$(C) $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
+
+$(BUILD_DIR_RELEASE)/stt_node_sub_function_call.o: \
+		$(BUILD_DIR_SRC)/stt/stt_node_sub_function_call.$(CEXT) \
+		$(BUILD_DIR_SRC)/stt/stt_node_sub_function_call.$(HEXT)
+	$(C) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
 
 $(BUILD_DIR_SRC)/stt/stt_node_tests.$(HEXT): \
 		$(SRC_DIR)/stt/stt_node_tests.h \
