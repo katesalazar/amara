@@ -97,6 +97,7 @@ typedef unsigned char stt_node_type;
 #define STT_NODE_TYPE_FUNCTION_CALL                      0x84  /* 132 */
 #define STT_NODE_TYPE_ERRORED             0xFF  /* 255      */
 
+#define BISON_RET_INVALID                   7
 #define BISON_RET_SUCCESS                   0
 #define BISON_RET_FAILURE_INVALID_INPUT     1
 #define BISON_RET_FAILURE_MEMORY_EXHAUSTION 2
