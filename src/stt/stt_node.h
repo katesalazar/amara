@@ -97,10 +97,10 @@ typedef unsigned char stt_node_type;
 #define STT_NODE_TYPE_FUNCTION_CALL                      0x84  /* 132 */
 #define STT_NODE_TYPE_ERRORED             0xFF  /* 255      */
 
-#define BISON_RET_INVALID                   7
-#define BISON_RET_SUCCESS                   0
-#define BISON_RET_FAILURE_INVALID_INPUT     1
-#define BISON_RET_FAILURE_MEMORY_EXHAUSTION 2
+#define BISON_RET_INVALID                   0x7F
+#define BISON_RET_SUCCESS                   0x00
+#define BISON_RET_FAILURE_INVALID_INPUT     0x01
+#define BISON_RET_FAILURE_MEMORY_EXHAUSTION 0x02
 
 /*   `stt_node` for '**S**yn**t**ax **t**ree node'. */
 typedef struct stt_node {
@@ -361,6 +361,16 @@ void
 assert_clean_identifier_node(const stt_node * node)
 ;
 
+#endif
+
+/**  Like `void assert_clean_identifier_node(const stt_node * node)`,
+ * just that forced. */
+void
+stt_node_forced_assertion_clean_identifier_node(const stt_node * node)
+;
+
+#ifndef NDEBUG
+
 void
 assert_clean_condition_node(const stt_node * node)
 ;
@@ -406,11 +416,21 @@ assert_clean_doc_node(const stt_node * node)
 ;
 
 void
-stt_node_assert_clean_function_call_node(const stt_node * node)
+stt_node_assertion_clean_function_call_node(const stt_node * node)
 ;
 
+#endif
+
+/**  Like `void stt_node_assertion_clean_function_call_node(
+ * const stt_node * node)`, just that forced. */
 void
-stt_node_assert_clean_empty_function_call_arguments_list_node(
+stt_node_forced_assertion_clean_function_call_node(const stt_node * node)
+;
+
+#ifndef NDEBUG
+
+void
+stt_node_assertion_clean_empty_function_call_arguments_list_node(
 		const stt_node * node)
 ;
 

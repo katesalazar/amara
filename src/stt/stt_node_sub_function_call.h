@@ -88,4 +88,12 @@ stt_identifier_subnode_set_value(
 ;
 */
 
+/**  Equality test. */
+amara_boolean
+stt_node_sub_function_call_equality(
+		const stt_node_sub_function_call * s0,
+		const stt_node_sub_function_call * s1)
+__amara__warn_unused_result__
+;
+
 #endif

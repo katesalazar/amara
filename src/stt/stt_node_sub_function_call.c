@@ -123,3 +123,42 @@ stt_node_sub_function_call_exhaustive_constructor(
 
 	return returning_;
 }
+
+/**  Friend declaration. */
+amara_boolean
+stt_nodes_equality(const struct stt_node * n0, const struct stt_node * n1)
+__amara__warn_unused_result__
+;
+
+amara_boolean
+stt_node_sub_function_call_equality(
+		const stt_node_sub_function_call * s0,
+		const stt_node_sub_function_call * s1)
+{
+	amara_boolean equality_;
+
+	forced_assertion(s0 != NULL);
+	forced_assertion(s1 != NULL);
+
+	forced_assertion(s0->function_name_identifier_ != NULL);
+	/*
+	forced_assertion(s0->function_name_identifier_->value_ != NULL);
+	*/
+	forced_assertion(s1->function_name_identifier_ != NULL);
+	/*
+	forced_assertion(s1->function_name_identifier_->value_ != NULL);
+	equality_ = amara_strings_equality(s0->function_name_identifier_,
+	                                   s1->function_name_identifier_);
+	*/
+	equality_ = stt_nodes_equality(s0->function_name_identifier_,
+	                               s1->function_name_identifier_);
+	if (equality_ == AMARA_BOOLEAN_FALSE) {
+		return AMARA_BOOLEAN_FALSE;
+	}
+
+	forced_assertion(s0->call_arguments_ != NULL);
+	forced_assertion(s1->call_arguments_ != NULL);
+	return stt_nodes_equality(s0->call_arguments_, s1->call_arguments_);
+
+	/*   Pending semantic checks remain TODO at this function. */
+}
