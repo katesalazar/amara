@@ -899,12 +899,19 @@ stt_node_set_type(stt_node * node, const stt_node_type type)
 	assertion(node != NULL);
 	assertion(node->type_ == STT_NODE_TYPE_INVALID);
 #endif
-	forced_assertion(type == STT_NODE_TYPE_IDENTIFIER);
+	if (type == STT_NODE_TYPE_IDENTIFIER) {
 #ifndef NDEBUG
 	assertion(node->identifier_subnode_ != NULL);
 	assertion(node->identifier_subnode_->value_ != NULL);
 #endif
 	node->type_ = STT_NODE_TYPE_IDENTIFIER;
+	} else {
+		forced_assertion(type == STT_NODE_TYPE_OPERATION);
+#ifndef NDEBUG
+		assertion(node->operation_subnode_ != NULL);
+#endif
+		node->type_ = STT_NODE_TYPE_OPERATION;
+	}
 }
 
 void
