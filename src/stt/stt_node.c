@@ -908,6 +908,12 @@ stt_node_destructor(stt_node const * node)
 		stt_node_sub_function_call_destructor(
 				node->sub_function_call_);
 		break;
+	case STT_NODE_TYPE_EMPTY_FUNCTION_CALL_ARGUMENTS_LIST:
+#ifndef NDEBUG
+		stt_node_assertion_clean_empty_function_call_arguments_list_node(
+				node);
+#endif
+		break;
 	default:
 		forced_assertion(node->type_ == STT_NODE_TYPE_INVALID);
 #ifndef NDEBUG
@@ -915,8 +921,6 @@ stt_node_destructor(stt_node const * node)
 #endif
 		break;
 	}
-
-	TAMBIEN EMPTY FUNCTIONCALL ARGUMENTS LIST
 
 	free((stt_node *) node);
 }
