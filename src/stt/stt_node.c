@@ -903,7 +903,7 @@ stt_node_destructor(stt_node const * node)
 		break;
 	case STT_NODE_TYPE_FUNCTION_CALL:
 #ifndef NDEBUG
-		assert_clean_function_call_node(node);
+		stt_node_assertion_clean_function_call_node(node);
 #endif
 		stt_node_sub_function_call_destructor(
 				node->sub_function_call_);
@@ -945,12 +945,14 @@ void
 stt_node_set_string_literal(
 		stt_node * node, const amara_string * string_literal)
 {
+#ifndef NDEBUG
 	assertion(node != NULL);
 	assertion(node->type_ == STT_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
 
 	assertion(string_literal != NULL);
 	assertion(string_literal->value_ != NULL);
+#endif
 
 	node->string_literal_subnode_ =
 			stt_string_literal_subnode_exhaustive_constructor(
@@ -963,12 +965,14 @@ void
 stt_node_set_natural_literal(
 		stt_node * node, const amara_string * raw_natural_literal)
 {
+#ifndef NDEBUG
 	assertion(node != NULL);
 	assertion(node->type_ == STT_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
 
 	assertion(raw_natural_literal != NULL);
 	assertion(raw_natural_literal->value_ != NULL);
+#endif
 
 	node->natural_literal_subnode_ =
 			stt_natural_literal_subnode_exhaustive_constructor(
@@ -981,12 +985,14 @@ void
 stt_node_set_integer_literal(
 		stt_node * node, const amara_string * raw_integer_literal)
 {
+#ifndef NDEBUG
 	assertion(node != NULL);
 	assertion(node->type_ == STT_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
 
 	assertion(raw_integer_literal != NULL);
 	assertion(raw_integer_literal->value_ != NULL);
+#endif
 
 	node->integer_literal_subnode_ =
 			stt_integer_literal_subnode_exhaustive_constructor(
@@ -1039,6 +1045,7 @@ stt_node_set_identifier(stt_node * node, const amara_string * identifier)
 void
 stt_node_set_condition(stt_node * node, const stt_condition * condition)
 {
+#ifndef NDEBUG
 	assertion(node != NULL);
 	assertion(node->type_ == STT_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
@@ -1052,6 +1059,7 @@ stt_node_set_condition(stt_node * node, const stt_condition * condition)
 	assertion(condition->right_hand_side_expression_ != NULL);
 	assertion(condition->right_hand_side_expression_->type_ !=
 			STT_EXPRESSION_TYPE_INVALID);
+#endif
 
 	node->condition_subnode_ =
 			stt_condition_subnode_exhaustive_constructor(
@@ -1069,6 +1077,7 @@ stt_node_set_dice_expression(
 	*/
 	stt_expression * expression_;
 
+#ifndef NDEBUG
 	assertion(node != NULL);
 	assertion(node->type_ == STT_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
@@ -1082,6 +1091,7 @@ stt_node_set_dice_expression(
 	assertion(dice_expression->right_hand_side_natural_->raw_ != NULL);
 	assertion(dice_expression->right_hand_side_natural_->raw_->value_ !=
 			NULL);
+#endif
 
 	/*
 	expression_sub_dice_ = stt_expression_sub_dice_exhaustive_constructor(
@@ -1115,14 +1125,10 @@ stt_node_set_expression(stt_node * node, const stt_expression * expression)
 	assertion(node != NULL);
 	assertion(node->type_ == STT_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
-#endif
 
-#ifndef NDEBUG
 	assertion(expression != NULL);
 	assertion(expression->type_ != STT_EXPRESSION_TYPE_INVALID);
-#endif
 
-#ifndef NDEBUG
 	if (expression->type_ == STT_EXPRESSION_TYPE_STRING_LITERAL) {
 
 		assertion(expression->sub_string_literal_ != NULL);
@@ -1171,6 +1177,7 @@ stt_node_set_where_value_binding(
 		stt_node * node,
 		const stt_where_value_binding * where_value_binding)
 {
+#ifndef NDEBUG
 	assertion(node != NULL);
 	assertion(node->type_ == STT_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
@@ -1181,6 +1188,7 @@ stt_node_set_where_value_binding(
 	assertion(where_value_binding->value_expression_ != NULL);
 	assertion(where_value_binding->value_expression_->type_ !=
 			STT_EXPRESSION_TYPE_INVALID);
+#endif
 
 	node->where_value_binding_subnode_ =
 			stt_where_value_binding_subnode_exhaustive_constructor(
@@ -1194,9 +1202,9 @@ stt_node_set_where_value_bindings(
 		stt_node * node,
 		const stt_where_value_bindings_simple_list * where_value_bindings)
 {
+#ifndef NDEBUG
 	forced_assertion(node != NULL);
 	forced_assertion(node->type_ == STT_NODE_TYPE_INVALID);
-#ifndef NDEBUG
 	assert_all_subnodes_are_null(node);
 #endif
 
@@ -1221,12 +1229,14 @@ stt_node_set_where_value_bindings(
 void
 stt_node_set_operation(stt_node * node, const stt_operation * operation)
 {
+#ifndef NDEBUG
 	assertion(node != NULL);
 	assertion(node->type_ == STT_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
 
 	assertion(operation != NULL);
 	assertion(operation->type_ != STT_OPERATION_TYPE_INVALID);
+#endif
 
 	node->operation_subnode_ =
 			stt_operation_subnode_exhaustive_constructor(
@@ -1239,6 +1249,7 @@ void
 stt_node_set_operations_list(
 		stt_node * node, const stt_operations_simple_list * operations)
 {
+#ifndef NDEBUG
 	assertion(node != NULL);
 	assertion(node->type_ == STT_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
@@ -1247,6 +1258,7 @@ stt_node_set_operations_list(
 	/*
 	assertion(operations->first != NULL);
 	*/
+#endif
 
 	node->operations_list_subnode_ =
 			stt_operations_list_subnode_exhaustive_constructor(
@@ -1260,9 +1272,11 @@ void
 stt_node_set_named_function(
 		stt_node * node, const stt_named_function * named_function)
 {
+#ifndef NDEBUG
 	assertion(node != NULL);
 	assertion(node->type_ == STT_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
+#endif
 
 	node->named_function_subnode_ =
 			stt_named_function_subnode_exhaustive_constructor(
@@ -1275,8 +1289,11 @@ stt_node_set_named_function(
 void
 stt_node_set_application(stt_node * node, const stt_application * application)
 {
+#ifndef NDEBUG
+	assertion(node != NULL);
 	assertion(node->type_ == STT_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
+#endif
 
 	node->application_subnode_ =
 			stt_application_subnode_exhaustive_constructor(
@@ -1291,6 +1308,7 @@ stt_node_set_execution_request(stt_node * node,
                                const stt_execution_request * execution_request)
 {
 #ifndef NDEBUG
+	assertion(node != NULL);
 	assertion(node->type_ == STT_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
 #endif
@@ -1306,8 +1324,11 @@ void
 stt_node_set_doc_fragment(
 		stt_node * node, const stt_doc_subnode * doc_subnode)
 {
+#ifndef NDEBUG
+	assertion(node != NULL);
 	assertion(node->type_ == STT_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
+#endif
 
 	node->doc_subnode_ = stt_doc_subnode_copy_constructor(doc_subnode);
 	forced_assertion(node->doc_subnode_ != NULL);
@@ -1322,8 +1343,11 @@ stt_node_set_doc_by_components(
 		const stt_applications_simple_list * applications,
 		const stt_execution_requests_simple_list * execution_requests)
 {
+#ifndef NDEBUG
+	assertion(node != NULL);
 	assertion(node->type_ == STT_NODE_TYPE_INVALID);
 	assert_all_subnodes_are_null(node);
+#endif
 
 	node->doc_subnode_ = stt_doc_subnode_exhaustive_constructor(
 			named_functions, applications, execution_requests);

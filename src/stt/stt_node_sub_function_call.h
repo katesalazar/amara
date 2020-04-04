@@ -72,11 +72,11 @@ stt_node_sub_function_call_exhaustive_constructor(
 __amara__warn_unused_result__
 ;
 
-/*
 void
-stt_identifier_subnode_destructor(stt_identifier_subnode * subnode)
+stt_node_sub_function_call_destructor(stt_node_sub_function_call  * sfc)
 ;
 
+/*
 amara_string *
 stt_identifier_subnode_get_value(void)
 __attribute__((warn_unused_result))

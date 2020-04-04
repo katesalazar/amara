@@ -125,6 +125,31 @@ stt_node_sub_function_call_exhaustive_constructor(
 }
 
 /**  Friend declaration. */
+void
+stt_node_destructor(struct stt_node * node)
+;
+
+void
+stt_node_sub_function_call_destructor(stt_node_sub_function_call  * sfc)
+{
+#ifndef NDEBUG
+	assertion(sfc->function_name_identifier_ != NULL);
+#endif
+	stt_node_destructor(sfc->function_name_identifier_);
+
+#ifndef NDEBUG
+	assertion(sfc->call_arguments_ != NULL);
+#endif
+	stt_node_destructor(sfc->call_arguments_);
+
+#ifndef NDEBUG
+	assertion(sfc->pending_semantic_checks_ != NULL);
+#endif
+	free(sfc->pending_semantic_checks_);
+	free(sfc);
+}
+
+/**  Friend declaration. */
 amara_boolean
 stt_nodes_equality(const struct stt_node * n0, const struct stt_node * n1)
 __amara__warn_unused_result__
