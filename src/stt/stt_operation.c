@@ -107,6 +107,8 @@ stt_operation_destructor(stt_operation * operation)
 		stt_operation_args_simple_list_destructor(operation->args_);
 	}
 
+	ALSO TYPE EXECUTION
+
 	free(operation);
 }
 
