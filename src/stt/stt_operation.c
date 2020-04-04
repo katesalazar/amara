@@ -73,41 +73,59 @@ stt_operation_copy_constructor(const stt_operation * operation)
 void
 stt_operation_destructor(stt_operation * operation)
 {
+#ifndef NDEBUG
 	assertion(operation != NULL);
+#endif
 
 	if (operation->type_ == STT_OPERATION_TYPE_INVALID) {
 
+#ifndef NDEBUG
 		assertion(operation->args_ == NULL);
+#endif
 	/*
 	} else if (operation->type_ == STT_OPERATION_TYPE_PRINT_NO_CRLF) {
 
+#ifndef NDEBUG
 		assertion(operation->args_ != NULL);
+#endif
 		stt_operation_args_simple_list_destructor(operation->args_);
 	*/
 	} else if (operation->type_ ==
 			STT_OPERATION_TYPE_READ_NATURAL_INTO_VALUE) {
 
+#ifndef NDEBUG
 		assertion(operation->args_ != NULL);
+#endif
 		stt_operation_args_simple_list_destructor(operation->args_);
 	} else if (operation->type_ ==
 			STT_OPERATION_TYPE_READ_INTEGER_INTO_VALUE) {
 
+#ifndef NDEBUG
 		assertion(operation->args_ != NULL);
+#endif
 		stt_operation_args_simple_list_destructor(operation->args_);
 	} else if (operation->type_ ==
 				STT_OPERATION_TYPE_PRINT) {
 
+#ifndef NDEBUG
 		assertion(operation->args_ != NULL);
+#endif
+		stt_operation_args_simple_list_destructor(operation->args_);
+	} else if (operation->type_ == STT_OPERATION_TYPE_PRINT_CRLF) {
+
+#ifndef NDEBUG
+		assertion(operation->args_ != NULL);
+#endif
 		stt_operation_args_simple_list_destructor(operation->args_);
 	} else {
-		assertion(operation->type_ ==
-				STT_OPERATION_TYPE_PRINT_CRLF);
+		forced_assertion(operation->type_ ==
+				STT_OPERATION_TYPE_EXECUTION);
 
+#ifndef NDEBUG
 		assertion(operation->args_ != NULL);
+#endif
 		stt_operation_args_simple_list_destructor(operation->args_);
 	}
-
-	ALSO TYPE EXECUTION
 
 	free(operation);
 }
