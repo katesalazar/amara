@@ -634,9 +634,8 @@ rtg_operation_arg_out_of_stt_operation_arg(
 				rtg_operation_out_of_stt_operation_ret_);
 		sub_ret_->type_ = RTG_OPERATION_ARG_TYPE_IDENTIFIER;
 	*/
-	} else {
+	} else if (operation_arg->node_->type_ == STT_NODE_TYPE_EXPRESSION) {
 #ifndef NDEBUG
-		assertion(operation_arg->node_->type_ == STT_NODE_TYPE_EXPRESSION);
 		assert_clean_expression_node(operation_arg->node_);
 		assertion(operation_arg->node_->type_ ==
 				STT_NODE_TYPE_EXPRESSION);
@@ -671,9 +670,12 @@ rtg_operation_arg_out_of_stt_operation_arg(
 				rtg_expression_out_of_stt_expression_ret_);
 		sub_ret_->operation_ = NULL;
 		sub_ret_->type_ = RTG_OPERATION_ARG_TYPE_EXPRESSION;
-	}
+	} else {
+		forced_assertion(operation_arg->node_->type_ ==
+				STT_NODE_TYPE_FUNCTION_CALL);
 
-	TAMBIEN STT_NODE_TYPE_FUNCTION_CALL
+		REQUIRES RECEIVING THE FUNCTIONS DIRECTORY!!!!!!!
+	}
 
 	ret_->operation_arg = sub_ret_;
 	ret_->error_messages = NULL;

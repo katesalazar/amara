@@ -351,6 +351,7 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 				malloc(sizeof(rtg_named_functions_simple_list));
 		forced_assertion(sub_ret_ptr_->next != NULL);
 
+		also needs to receive rtg_named_functions_discovered_up_to_the_moment
 		sub_ret_fun_ret_ =
 				rtg_named_function_out_of_stt_named_function(
 						list_ptr_->next->first);
