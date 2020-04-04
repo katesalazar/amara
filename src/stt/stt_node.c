@@ -916,6 +916,8 @@ stt_node_destructor(stt_node const * node)
 		break;
 	}
 
+	TAMBIEN EMPTY FUNCTIONCALL ARGUMENTS LIST
+
 	free((stt_node *) node);
 }
 
