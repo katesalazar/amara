@@ -673,6 +673,8 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		sub_ret_->type_ = RTG_OPERATION_ARG_TYPE_EXPRESSION;
 	}
 
+	TAMBIEN STT_NODE_TYPE_FUNCTION_CALL
+
 	ret_->operation_arg = sub_ret_;
 	ret_->error_messages = NULL;
 	ret_->status = RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS;
