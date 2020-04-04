@@ -592,6 +592,8 @@ stt_node_wrapping_raw_natural(const amara_string * raw_natural)
 	return returning_;
 }
 
+#ifndef NDEBUG
+
 void
 assert_all_subnodes_are_null(const stt_node * node)
 ;
@@ -614,8 +616,11 @@ assert_all_subnodes_are_null(const stt_node * node)
 	assertion(node->operations_list_subnode_ == NULL);
 	assertion(node->doc_subnode_ == NULL);
 	assertion(node->execution_request_subnode_ == NULL);
+	assertion(node->sub_function_call_ == NULL);
 	assertion(node->type_ == STT_NODE_TYPE_INVALID);
 }
+
+#endif
 
 void
 stt_node_destructor(stt_node const * node)
@@ -640,6 +645,7 @@ stt_node_destructor(stt_node const * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
+		assertion(node->sub_function_call_ == NULL);
 #endif
 		break;
 	case STT_NODE_TYPE_NATURAL_LITERAL:
@@ -661,6 +667,7 @@ stt_node_destructor(stt_node const * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
+		assertion(node->sub_function_call_ == NULL);
 #endif
 		break;
 	case STT_NODE_TYPE_INTEGER_LITERAL:
@@ -682,6 +689,7 @@ stt_node_destructor(stt_node const * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
+		assertion(node->sub_function_call_ == NULL);
 #endif
 		break;
 	case STT_NODE_TYPE_RATIONAL_LITERAL:
@@ -703,6 +711,7 @@ stt_node_destructor(stt_node const * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
+		assertion(node->sub_function_call_ == NULL);
 #endif
 		break;
 	case STT_NODE_TYPE_IDENTIFIER:
@@ -723,6 +732,7 @@ stt_node_destructor(stt_node const * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
+		assertion(node->sub_function_call_ == NULL);
 #endif
 		break;
 	case STT_NODE_TYPE_CONDITION:
@@ -750,6 +760,7 @@ stt_node_destructor(stt_node const * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
+		assertion(node->sub_function_call_ == NULL);
 #endif
 		break;
 	case STT_NODE_TYPE_WHERE_BINDING:
@@ -782,6 +793,7 @@ stt_node_destructor(stt_node const * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
+		assertion(node->sub_function_call_ == NULL);
 #endif
 		break;
 	case STT_NODE_TYPE_NAMED_FUNCTION:
@@ -802,6 +814,7 @@ stt_node_destructor(stt_node const * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
+		assertion(node->sub_function_call_ == NULL);
 #endif
 		break;
 	case STT_NODE_TYPE_APPLICATION:
@@ -820,6 +833,7 @@ stt_node_destructor(stt_node const * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
+		assertion(node->sub_function_call_ == NULL);
 #endif
 		break;
 	case STT_NODE_TYPE_CLI_OPERATIONS_LIST:  /* XXX */
@@ -842,6 +856,7 @@ stt_node_destructor(stt_node const * node)
 #ifndef NDEBUG
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
+		assertion(node->sub_function_call_ == NULL);
 #endif
 		break;
 	case STT_NODE_TYPE_DOC_FRAGMENT:
@@ -862,6 +877,7 @@ stt_node_destructor(stt_node const * node)
 		stt_doc_subnode_destructor(node->doc_subnode_);
 #ifndef NDEBUG
 		assertion(node->execution_request_subnode_ == NULL);
+		assertion(node->sub_function_call_ == NULL);
 #endif
 		break;
 	case STT_NODE_TYPE_EXECUTION_REQUEST:
@@ -881,14 +897,25 @@ stt_node_destructor(stt_node const * node)
 #endif
 		stt_execution_request_subnode_destructor(
 				node->execution_request_subnode_);
+#ifndef NDEBUG
+		assertion(node->sub_function_call_ == NULL);
+#endif
+		break;
+	case STT_NODE_TYPE_FUNCTION_CALL:
+#ifndef NDEBUG
+		assert_clean_function_call_node(node);
+#endif
+		stt_node_sub_function_call_destructor(
+				node->sub_function_call_);
 		break;
 	default:
+		forced_assertion(node->type_ == STT_NODE_TYPE_INVALID);
 #ifndef NDEBUG
-		assertion(node->type_ == STT_NODE_TYPE_INVALID);
 		assert_all_subnodes_are_null(node);
 #endif
 		break;
 	}
+
 	free((stt_node *) node);
 }
 
