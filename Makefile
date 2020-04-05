@@ -692,6 +692,7 @@ default: \
 	checkdirs \
 	$(BUILD_DIR_RELEASE)/amara
 
+#   `amara_not_stripped` is implicit in `amara`.
 all: \
 	checkdirs \
 	$(BUILD_DIR_RELEASE)/amara_not_stripped \
