@@ -418,14 +418,9 @@ rtg_operation_out_of_stt_operation(
 	ret_->status = RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_INVALID;
 	ret_->error_messages = NULL;
 	ret_->operation = NULL;
-	rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_ =
-			rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list(
-					operation->args_,
-					operation->type_,
-					function_where_bindings);
+	rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_ = rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list(operation->args_, operation->type_, function_where_bindings);
 
-	if (rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_->status !=
-			RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
+	if (rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_->status != RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
 
 		assertion(rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret_->status ==
 				RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER);

@@ -221,11 +221,11 @@ rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list(
 	rtg_operation_arg_out_of_stt_operation_arg_ret * sub_ret_ptr_element_ret_;
 	rtg_operation_arg * sub_ret_ptr_element_;
 
-	ret_ =
 #ifdef AMARA_USE_STD_CXX98
-			(rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret *)
+	ret_ = (rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret *) malloc(sizeof(rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret));
+#else
+	ret_ = malloc(sizeof(rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret));
 #endif
-			malloc(sizeof(rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list_ret));
 	forced_assertion(ret_ != NULL);
 	ret_->status = RTG_OPERATION_ARGS_SIMPLE_LIST_OUT_OF_STT_OPERATION_ARGS_SIMPLE_LIST_RET_STATUS_INVALID;
 	ret_->error_messages = NULL;
@@ -295,10 +295,7 @@ rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list(
 	sub_ret_ptr_->next = NULL;
 	*/
 
-	sub_ret_ptr_element_ret_ = rtg_operation_arg_out_of_stt_operation_arg(
-			operation_args_ptr_->first,
-			operation_type,
-			function_where_bindings);
+	sub_ret_ptr_element_ret_ = rtg_operation_arg_out_of_stt_operation_arg(operation_args_ptr_->first, operation_type, function_where_bindings);
 	forced_assertion(sub_ret_ptr_element_ret_ != NULL);
 
 	if (sub_ret_ptr_element_ret_->status !=
