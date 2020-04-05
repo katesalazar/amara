@@ -31,14 +31,6 @@
 /*   For `rtg_named_function`. */
 #include "rtg_named_function.h"
 
-typedef struct rtg_named_functions_simple_list {
-
-	rtg_named_function * first;
-
-	struct rtg_named_functions_simple_list * next;
-} rtg_named_functions_simple_list
-;
-
 rtg_named_functions_simple_list *
 rtg_named_functions_simple_list_default_constructor(void)
 __attribute__((warn_unused_result))
@@ -60,6 +52,12 @@ rtg_named_functions_simple_list_push_front(
 		rtg_named_functions_simple_list * named_functions,
 		const rtg_named_function * named_function)
 __attribute__((warn_unused_result))
+;
+
+void
+rtg_named_functions_simple_list_push_back(
+		const rtg_named_functions_simple_list * named_functions,
+		const rtg_named_function * named_function)
 ;
 
 #define RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_INVALID   0x00

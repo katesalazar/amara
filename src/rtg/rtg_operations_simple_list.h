@@ -26,14 +26,6 @@
 /*   For `rtg_operation`. */
 #include "rtg_operation.h"
 
-typedef struct rtg_operations_simple_list {
-
-	rtg_operation * first;
-
-	struct rtg_operations_simple_list * next;
-} rtg_operations_simple_list
-;
-
 rtg_operations_simple_list *
 rtg_operations_simple_list_default_constructor(void)
 __attribute__((warn_unused_result))

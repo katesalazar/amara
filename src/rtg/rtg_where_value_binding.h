@@ -29,17 +29,6 @@
 /*   For `rtg_expression`. */
 #include "rtg_expression.h"
 
-/**  Run time graph _where_ value name to expression bind. */
-typedef struct rtg_where_value_binding {
-
-	/**  Run time graph _where_ value: name. */
-	amara_string * value_name_;
-
-	/**  Run time graph _where_ value: expression bound. */
-	rtg_expression * value_expression_;
-} rtg_where_value_binding
-;
-
 /**  Copy constructor. */
 rtg_where_value_binding *
 rtg_where_value_binding_copy_constructor(

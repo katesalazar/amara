@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__NAMED_FUNCTION__H__
 #define __AMARA__RUN_TIME_GRAPH__NAMED_FUNCTION__H__
 
+#include "rtg_forward_declarations.h"
+
 /*   For `amara_string`. */
 #include "../cmn/amara_string.h"
 
@@ -38,17 +40,6 @@
 #define RTG_NAMED_FUNCTION_TYPE_INVALID      0x00
 #define RTG_NAMED_FUNCTION_TYPE_PURE_FUNCTION 0x0F
 #define RTG_NAMED_FUNCTION_TYPE_CLI_APP_FUNCTION 0xF0
-
-typedef struct rtg_named_function {
-
-	unsigned char type_;
-
-	amara_string * name_;
-
-	rtg_operations_simple_list * operations_;
-
-	rtg_where_value_bindings_simple_list * where_value_bindings_;
-} rtg_named_function;
 
 rtg_named_function *
 rtg_named_function_default_constructor(void)
@@ -95,6 +86,13 @@ rtg_named_function_out_of_stt_named_function_ret *
 rtg_named_function_out_of_stt_named_function(
 		const stt_named_function * named_function)
 __attribute__((warn_unused_result))
+;
+
+rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list_ret *
+rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list(
+		const stt_named_function * stt_named_function,
+		const rtg_named_functions_simple_list * rtg_named_functions)
+__amara__warn_unused_result__
 ;
 
 #endif

@@ -26,13 +26,6 @@
 /*   For `rtg_where_value_binding`. */
 #include "rtg_where_value_binding.h"
 
-/**  List of run time _where_ values names and value bindings. */
-typedef struct rtg_where_value_bindings_simple_list {
-	rtg_where_value_binding * first;
-	struct rtg_where_value_bindings_simple_list * next;
-} rtg_where_value_bindings_simple_list
-;
-
 /**  Default constructor. */
 rtg_where_value_bindings_simple_list *
 rtg_where_value_bindings_simple_list_default_constructor(void)

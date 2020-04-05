@@ -2107,8 +2107,13 @@ $$(BUILD_DIR_$(BUILD_TYPE))/rtg_expression_tests.o: \
 	$$(C) $$(CFLAGS) $$(CFLAGS_$(BUILD_TYPE)) -c -o $$@ $$<
 endef
 
+$(BUILD_DIR_SRC)/rtg/rtg_forward_declarations.$(HEXT): \
+		$(SRC_DIR)/rtg/rtg_forward_declarations.h
+	$(CP) $< $@
+
 $(BUILD_DIR_SRC)/rtg/rtg_named_function.$(HEXT): \
 		$(SRC_DIR)/rtg/rtg_named_function.h \
+		$(BUILD_DIR_SRC)/rtg/rtg_forward_declarations.$(HEXT) \
 		$(BUILD_DIR_SRC)/rtg/rtg_operations_simple_list.$(HEXT) \
 		$(BUILD_DIR_SRC)/rtg/rtg_where_value_bindings_simple_list.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_named_function.$(HEXT)

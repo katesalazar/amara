@@ -26,40 +26,6 @@
 /*   For `rtg_operation_args_simple_list`. */
 #include "rtg_operation_args_simple_list.h"
 
-#define RTG_OPERATION_TYPE_INVALID       0x00
-#define RTG_OPERATION_TYPE_PRINT      0x03
-#define RTG_OPERATION_TYPE_PRINT_CRLF 0x0C
-/*
-#define RTG_OPERATION_TYPE_MULTIPLICATION           0x30
-#define RTG_OPERATION_TYPE_DIVISION                 0x31
-#define RTG_OPERATION_TYPE_ADDITION                 0x32
-#define RTG_OPERATION_TYPE_SUBSTRACTION             0x33
-*/
-#define RTG_OPERATION_TYPE_READ_NATURAL_TO_VALUE    0xBF
-#define RTG_OPERATION_TYPE_READ_NATURAL_INTO_VALUE \
-		RTG_OPERATION_TYPE_READ_NATURAL_TO_VALUE
-#define RTG_OPERATION_TYPE_READ_INTEGER_INTO_VALUE  0xC0
-/*
-#define RTG_OPERATION_TYPE_READ_NATURAL_TO_VARIABLE 0xC0
-#define RTG_OPERATION_TYPE_READ_NATURAL_INTO_VARIABLE \
-		RTG_OPERATION_TYPE_READ_NATURAL_TO_VARIABLE
-*/
-/*
-#define RTG_FAKE_OPERATION_TYPE_RESOLVE_TYPE_OF_EXPRESSION 0xC1 *//*   Must remain resolved by semantic analysis by the time run time comes. */
-/*
-#define RTG_OPERATION_TYPE_PRINT_NO_CRLF            0xFF
-*/
-
-typedef unsigned char rtg_operation_type;
-
-typedef struct rtg_operation {
-
-	rtg_operation_type type_;
-
-	struct rtg_operation_args_simple_list * args_;
-} rtg_operation
-;
-
 rtg_operation *
 rtg_operation_exhaustive_constructor(
 		const rtg_operation_type type,

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -322,10 +322,10 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 
 		forced_assertion(list_ptr_->first != NULL);
 
-		also needs to receive rtg_named_functions_discovered_up_to_the_moment
 		sub_ret_fun_ret_ =
 				rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list(
-						list_ptr_->next->first, sub_ret_);
+						list_ptr_->next->first,
+						sub_ret_);
 		forced_assertion(sub_ret_fun_ret_ != NULL);
 		forced_assertion(sub_ret_fun_ret_->status ==
 				RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_SUCCESS);
