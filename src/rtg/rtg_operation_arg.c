@@ -466,7 +466,6 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		fprintf(stderr, "%s:%u: %u\n", __FILE__, __LINE__, operation_arg->node_->type_);
 		*/
 #ifndef NDEBUG
-		assertion(operation_arg->node_->type_ == STT_NODE_TYPE_NATURAL_LITERAL);
 		assertion(operation_arg->node_->natural_literal_subnode_ !=
 				NULL);
 		assertion(operation_arg->node_->natural_literal_subnode_->raw_ !=
@@ -490,7 +489,7 @@ rtg_operation_arg_out_of_stt_operation_arg(
 	/*
 	} else if (operation_arg->node_->type_ ==
 			STT_NODE_TYPE_INTEGER_LITERAL) {
-
+#ifndef NDEBUG
 		assert_clean_integer_literal_node(operation_arg->node_);
 		assertion(operation_arg->node_->integer_literal_subnode_ !=
 				NULL);
@@ -498,6 +497,7 @@ rtg_operation_arg_out_of_stt_operation_arg(
 				NULL);
 		assertion(operation_arg->node_->integer_literal_subnode_->raw_->value_ !=
 				NULL);
+#endif
 		sub_ret_ =
 #ifdef AMARA_USE_STD_CXX98
 				(rtg_operation_arg *)
@@ -602,12 +602,12 @@ rtg_operation_arg_out_of_stt_operation_arg(
 	/*
 	} else if (operation_arg->node_->type_ == STT_NODE_TYPE_OPERATION) {
 
+#ifndef NDEBUG
 		assert_clean_operation_node(operation_arg->node_);
-		assertion(operation_arg->node_->type_ ==
-				STT_NODE_TYPE_OPERATION);
 		assertion(operation_arg->node_->operation_subnode_ != NULL);
 		assertion(operation_arg->node_->operation_subnode_->operation_ !=
 				NULL);
+#endif
 		sub_ret_ =
 #ifdef AMARA_USE_STD_CXX98
 				(rtg_operation_arg *)
@@ -637,8 +637,6 @@ rtg_operation_arg_out_of_stt_operation_arg(
 	} else if (operation_arg->node_->type_ == STT_NODE_TYPE_EXPRESSION) {
 #ifndef NDEBUG
 		assert_clean_expression_node(operation_arg->node_);
-		assertion(operation_arg->node_->type_ ==
-				STT_NODE_TYPE_EXPRESSION);
 		assertion(operation_arg->node_->expression_subnode_ != NULL);
 		assertion(operation_arg->node_->expression_subnode_->expression_ !=
 				NULL);
@@ -673,8 +671,23 @@ rtg_operation_arg_out_of_stt_operation_arg(
 	} else {
 		forced_assertion(operation_arg->node_->type_ ==
 				STT_NODE_TYPE_FUNCTION_CALL);
-
+#ifndef NDEBUG
+		stt_node_assertion_clean_function_call_node(
+				operation_arg->node_);
+		assertion(operation_arg->node_->sub_function_call_ != NULL);
+		assertion(operation_arg->node_->sub_function_call_->function_name_identifier_ !=
+				NULL);
+		assertion(operation_arg->node_->sub_function_call_->call_arguments_ !=
+				NULL);
+		assertion(operation_arg->node_->sub_function_call_->flags_ !=
+				NULL);
+		assertion(operation_arg->node_->sub_function_call_->flags_->check_whatever_ ==
+				0);
+#endif
+		sub_ret_ = NULL; /* WIP XXX FIXME ALERT DANGER XXX */
+		/*
 		REQUIRES RECEIVING THE FUNCTIONS DIRECTORY!!!!!!!
+		*/
 	}
 
 	ret_->operation_arg = sub_ret_;

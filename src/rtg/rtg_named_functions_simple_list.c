@@ -112,6 +112,7 @@ rtg_named_functions_simple_list_push_front(
 		const rtg_named_function * named_function)
 {
 	rtg_named_functions_simple_list * new_list_node_;
+
 	assertion(named_functions != NULL);
 	assertion(named_function != NULL);
 	if (named_functions->first == NULL) {
@@ -130,6 +131,44 @@ rtg_named_functions_simple_list_push_front(
 			rtg_named_function_copy_constructor(named_function);
 	new_list_node_->next = named_functions;
 	return new_list_node_;
+}
+
+void
+rtg_named_functions_simple_list_push_back(
+		const rtg_named_functions_simple_list * named_functions,
+		const rtg_named_function * named_function)
+{
+	rtg_named_function * named_function_copy_;
+	rtg_named_functions_simple_list * named_functions_ptr_;
+
+#ifndef NDEBUG
+	assertion(named_functions != NULL);
+#endif
+	if (named_functions->first == NULL) {
+#ifndef NDEBUG
+		assertion(named_functions->next == NULL);
+#endif
+		named_function_copy_ = rtg_named_function_copy_constructor(
+				named_function);
+		forced_assertion(named_function_copy_ != NULL);
+		named_functions->first = named_function_copy_;
+		return;
+	}
+	named_functions_ptr_ = named_functions;
+	while (named_functions_ptr_->next != NULL) {
+		named_functions_ptr_ = named_functions_ptr_->next;
+	}
+	named_functions_ptr_->next =
+#ifdef USE_STD_CXX_98
+			(rtg_named_function *)
+#endif
+			malloc(sizeof(rtg_named_function));
+	forced_assertion(named_functions_ptr_->next != NULL);
+	named_function_copy_ =
+			rtg_named_function_copy_constructor(named_function);
+	forced_assertion(named_function_copy_ != NULL);
+	named_functions_ptr_->next->first = named_function_copy_;
+	named_functions_ptr_->next->next = NULL;
 }
 
 void
