@@ -28,6 +28,8 @@
 /*   For `stt_node`. */
 #include "../stt/stt_node.h"
 
+#include "rtg_forward_declarations.h"
+
 /*   For own definitions. */
 #include "rtg_operation_arg.h"
 
@@ -397,29 +399,27 @@ rtg_operation_arg_out_of_stt_operation_arg_ret_destructor(
 	free(rtg_operation_arg_out_of_stt_operation_arg_ret_);
 }
 
-/*
-*/
-/*   Forward this declaration in order to avoid a circular dependency. */
-/*
-rtg_operation_out_of_stt_operation_ret *
-rtg_operation_out_of_stt_operation(const stt_operation * operation)
-__attribute__((warn_unused_result))
-;
-*/
-
 rtg_operation_arg_out_of_stt_operation_arg_ret *
 rtg_operation_arg_out_of_stt_operation_arg(
 		const stt_operation_arg * operation_arg,
 		const stt_operation_type operation_type,
-		const struct stt_where_value_bindings_simple_list * function_where_bindings)
+		const struct stt_where_value_bindings_simple_list * function_where_bindings,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 {
+	/**  TODO What was this for? */
 	const stt_where_value_binding * target_where_value_binding_;
+	/**  TODO What was this for? */
 	rtg_expression_out_of_stt_expression_ret * rtg_expression_out_of_stt_expression_ret_;
 	/*
 	struct rtg_operation_out_of_stt_operation_ret * rtg_operation_out_of_stt_operation_ret_;
 	*/
-	rtg_operation_arg * sub_ret_;
+	/**  Returned entity. */
 	rtg_operation_arg_out_of_stt_operation_arg_ret * ret_;
+	/**  Returned entity's sub entity. */
+	rtg_operation_arg * sub_ret_;
+	/**  In case the operation arg is a function call, the function
+	 * to be called will have to be found. */
+	rtg_named_functions_simple_list_find_by_name_ret * find_rtg_named_function_ret_;
 
 	ret_ = amara_malloc_rtg_operation_arg_out_of_stt_operation_arg_ret();
 	forced_assertion(ret_ != NULL);
@@ -434,12 +434,9 @@ rtg_operation_arg_out_of_stt_operation_arg(
 	if (operation_arg->node_->type_ == STT_NODE_TYPE_STRING_LITERAL) {
 #ifndef NDEBUG
 		assert_clean_string_literal_node(operation_arg->node_);
-		assertion(operation_arg->node_->string_literal_subnode_ !=
-				NULL);
-		assertion(operation_arg->node_->string_literal_subnode_->string_literal_ !=
-				NULL);
-		assertion(operation_arg->node_->string_literal_subnode_->string_literal_->value_ !=
-				NULL);
+		assertion(operation_arg->node_->string_literal_subnode_ != NULL);
+		assertion(operation_arg->node_->string_literal_subnode_->string_literal_ != NULL);
+		assertion(operation_arg->node_->string_literal_subnode_->string_literal_->value_ != NULL);
 #endif
 		sub_ret_ =
 #ifdef AMARA_USE_STD_CXX98
@@ -447,8 +444,7 @@ rtg_operation_arg_out_of_stt_operation_arg(
 #endif
 				malloc(sizeof(rtg_operation_arg));
 		forced_assertion(sub_ret_ != NULL);
-		sub_ret_->string_literal_ = amara_string_copy_constructor(
-				operation_arg->node_->string_literal_subnode_->string_literal_);
+		sub_ret_->string_literal_ = amara_string_copy_constructor(operation_arg->node_->string_literal_subnode_->string_literal_);
 		sub_ret_->natural_literal_ = NULL;
 		sub_ret_->integer_literal_ = NULL;
 		sub_ret_->rational_literal_ = NULL;
@@ -464,10 +460,8 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		fprintf(stderr, "%s:%u: %u\n", __FILE__, __LINE__, operation_arg->node_->type_);
 		*/
 #ifndef NDEBUG
-		assertion(operation_arg->node_->natural_literal_subnode_ !=
-				NULL);
-		assertion(operation_arg->node_->natural_literal_subnode_->raw_ !=
-				NULL);
+		assertion(operation_arg->node_->natural_literal_subnode_ != NULL);
+		assertion(operation_arg->node_->natural_literal_subnode_->raw_ != NULL);
 #endif
 		sub_ret_ =
 #ifdef AMARA_USE_STD_CXX98
@@ -476,8 +470,7 @@ rtg_operation_arg_out_of_stt_operation_arg(
 				malloc(sizeof(rtg_operation_arg));
 		forced_assertion(sub_ret_ != NULL);
 		sub_ret_->string_literal_ = NULL;
-		sub_ret_->natural_literal_ = amara_string_copy_constructor(
-				operation_arg->node_->natural_literal_subnode_->raw_);
+		sub_ret_->natural_literal_ = amara_string_copy_constructor(operation_arg->node_->natural_literal_subnode_->raw_);
 		sub_ret_->integer_literal_ = NULL;
 		sub_ret_->rational_literal_ = NULL;
 		sub_ret_->identifier_ = NULL;
@@ -485,16 +478,12 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		sub_ret_->operation_ = NULL;
 		sub_ret_->type_ = RTG_OPERATION_ARG_TYPE_NATURAL_LITERAL;
 	/*
-	} else if (operation_arg->node_->type_ ==
-			STT_NODE_TYPE_INTEGER_LITERAL) {
+	} else if (operation_arg->node_->type_ == STT_NODE_TYPE_INTEGER_LITERAL) {
 #ifndef NDEBUG
 		assert_clean_integer_literal_node(operation_arg->node_);
-		assertion(operation_arg->node_->integer_literal_subnode_ !=
-				NULL);
-		assertion(operation_arg->node_->integer_literal_subnode_->raw_ !=
-				NULL);
-		assertion(operation_arg->node_->integer_literal_subnode_->raw_->value_ !=
-				NULL);
+		assertion(operation_arg->node_->integer_literal_subnode_ != NULL);
+		assertion(operation_arg->node_->integer_literal_subnode_->raw_ != NULL);
+		assertion(operation_arg->node_->integer_literal_subnode_->raw_->value_ != NULL);
 #endif
 		sub_ret_ =
 #ifdef AMARA_USE_STD_CXX98
@@ -504,8 +493,7 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		forced_assertion(sub_ret_ != NULL);
 		sub_ret_->string_literal_ = NULL;
 		sub_ret_->natural_literal_ = NULL;
-		sub_ret_->integer_literal_ = amara_string_copy_constructor(
-				operation_arg->node_->integer_literal_subnode_->raw_);
+		sub_ret_->integer_literal_ = amara_string_copy_constructor(operation_arg->node_->integer_literal_subnode_->raw_);
 		sub_ret_->rational_literal_ = NULL;
 		sub_ret_->identifier_ = NULL;
 		sub_ret_->expression_ = NULL;
@@ -522,10 +510,7 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		if (operation_type == STT_OPERATION_TYPE_PRINT) {
 
 			/*   Operation depends on the identifier. */
-			target_where_value_binding_ =
-					stt_where_value_bindings_simple_list_find_by_value_name(
-							function_where_bindings,
-							operation_arg->node_->identifier_subnode_->value_);
+			target_where_value_binding_ = stt_where_value_bindings_simple_list_find_by_value_name(function_where_bindings, operation_arg->node_->identifier_subnode_->value_);
 		} else {
 
 			/*   Operation does not depend on the
@@ -558,10 +543,10 @@ rtg_operation_arg_out_of_stt_operation_arg(
 			forced_assertion(target_where_value_binding_ == NULL);
 		*/
 
-		if (
+		if (1
 				/*   Operation depends on the
 				 * identifier. */
-				operation_type == STT_OPERATION_TYPE_PRINT
+				&& operation_type == STT_OPERATION_TYPE_PRINT
 				/*   There is no _where value_ binding
 				 * the requested name. */
 				&& target_where_value_binding_ == NULL
@@ -569,11 +554,7 @@ rtg_operation_arg_out_of_stt_operation_arg(
 
 			/*   Identifier not found in the function's scope. */
 			ret_->operation_arg = NULL;
-			ret_->error_messages =
-					amara_strings_simple_list_exhaustive_constructor_three_to_one(
-							"unable to resolve identifier '",
-							operation_arg->node_->identifier_subnode_->value_->value_,
-							"' in the function's where value bindings scope");
+			ret_->error_messages = amara_strings_simple_list_exhaustive_constructor_three_to_one("unable to resolve identifier '", operation_arg->node_->identifier_subnode_->value_->value_, "' in the function's where value bindings scope");
 			forced_assertion(ret_->error_messages != NULL);
 			ret_->status = RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_IDENTIFIER;
 			return ret_;
@@ -590,12 +571,10 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		sub_ret_->natural_literal_ = NULL;
 		sub_ret_->integer_literal_ = NULL;
 		sub_ret_->rational_literal_ = NULL;
-		sub_ret_->identifier_ = amara_string_copy_constructor(
-				operation_arg->node_->identifier_subnode_->value_); /* XXX */
+			sub_ret_->identifier_ = amara_string_copy_constructor(operation_arg->node_->identifier_subnode_->value_); /* XXX */
 		sub_ret_->expression_ = NULL;
 		sub_ret_->operation_ = NULL;
-		sub_ret_->type_ =
-				RTG_OPERATION_ARG_TYPE_IDENTIFIER_TO_BE_RESOLVED;
+			sub_ret_->type_ = RTG_OPERATION_ARG_TYPE_IDENTIFIER_TO_BE_RESOLVED;
 		}
 	/*
 	} else if (operation_arg->node_->type_ == STT_NODE_TYPE_OPERATION) {
@@ -603,8 +582,7 @@ rtg_operation_arg_out_of_stt_operation_arg(
 #ifndef NDEBUG
 		assert_clean_operation_node(operation_arg->node_);
 		assertion(operation_arg->node_->operation_subnode_ != NULL);
-		assertion(operation_arg->node_->operation_subnode_->operation_ !=
-				NULL);
+		assertion(operation_arg->node_->operation_subnode_->operation_ != NULL);
 #endif
 		sub_ret_ =
 #ifdef AMARA_USE_STD_CXX98
@@ -612,12 +590,9 @@ rtg_operation_arg_out_of_stt_operation_arg(
 #endif
 				malloc(sizeof(rtg_operation_arg));
 		forced_assertion(sub_ret_ != NULL);
-		rtg_operation_out_of_stt_operation_ret_ =
-				rtg_operation_out_of_stt_operation(
-						operation_arg->node_->operation_subnode_->operation_);
+		rtg_operation_out_of_stt_operation_ret_ = rtg_operation_out_of_stt_operation(operation_arg->node_->operation_subnode_->operation_);
 #ifndef NDEBUG
-		assertion(rtg_operation_out_of_stt_operation_ret_->status ==
-				RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS);
+		assertion(rtg_operation_out_of_stt_operation_ret_->status == RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS);
 #endif
 		sub_ret_->string_literal_ = NULL;
 		sub_ret_->natural_literal_ = NULL;
@@ -625,19 +600,16 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		sub_ret_->rational_literal_ = NULL;
 		sub_ret_->identifier_ = NULL;
 		sub_ret_->expression_ = NULL;
-		sub_ret_->operation_ =
-				rtg_operation_out_of_stt_operation_ret_->operation;
+		sub_ret_->operation_ = rtg_operation_out_of_stt_operation_ret_->operation;
 		rtg_operation_out_of_stt_operation_ret_->operation = NULL;
-		rtg_operation_out_of_stt_operation_ret_destructor(
-				rtg_operation_out_of_stt_operation_ret_);
+		rtg_operation_out_of_stt_operation_ret_destructor(rtg_operation_out_of_stt_operation_ret_);
 		sub_ret_->type_ = RTG_OPERATION_ARG_TYPE_IDENTIFIER;
 	*/
 	} else if (operation_arg->node_->type_ == STT_NODE_TYPE_EXPRESSION) {
 #ifndef NDEBUG
 		assert_clean_expression_node(operation_arg->node_);
 		assertion(operation_arg->node_->expression_subnode_ != NULL);
-		assertion(operation_arg->node_->expression_subnode_->expression_ !=
-				NULL);
+		assertion(operation_arg->node_->expression_subnode_->expression_ != NULL);
 #endif
 		sub_ret_ =
 #ifdef AMARA_USE_STD_CXX98
@@ -645,48 +617,45 @@ rtg_operation_arg_out_of_stt_operation_arg(
 #endif
 				malloc(sizeof(rtg_operation_arg));
 		forced_assertion(sub_ret_ != NULL);
-		rtg_expression_out_of_stt_expression_ret_ =
-				rtg_expression_out_of_stt_expression(
-						operation_arg->node_->expression_subnode_->expression_
-						/* FIXME: MUST RECEIVE FUNCTION WHERE VALUE BINDINGS TOO */
-				);
+		rtg_expression_out_of_stt_expression_ret_ = rtg_expression_out_of_stt_expression(operation_arg->node_->expression_subnode_->expression_);  /* FIXME: MUST RECEIVE FUNCTION WHERE VALUE BINDINGS TOO */
 #ifndef NDEBUG
-		assertion(rtg_expression_out_of_stt_expression_ret_->status ==
-				RTG_EXPRESSION_OUT_OF_STT_EXPRESSION_RET_STATUS_SUCCESS);
+		assertion(rtg_expression_out_of_stt_expression_ret_->status == RTG_EXPRESSION_OUT_OF_STT_EXPRESSION_RET_STATUS_SUCCESS);
 #endif
 		sub_ret_->string_literal_ = NULL;
 		sub_ret_->natural_literal_ = NULL;
 		sub_ret_->integer_literal_ = NULL;
 		sub_ret_->rational_literal_ = NULL;
 		sub_ret_->identifier_ = NULL;
-		sub_ret_->expression_ =
-				rtg_expression_out_of_stt_expression_ret_->expression;
+		sub_ret_->expression_ = rtg_expression_out_of_stt_expression_ret_->expression;
 		rtg_expression_out_of_stt_expression_ret_->expression = NULL;
-		rtg_expression_out_of_stt_expression_ret_destructor(
-				rtg_expression_out_of_stt_expression_ret_);
+		rtg_expression_out_of_stt_expression_ret_destructor(rtg_expression_out_of_stt_expression_ret_);
 		sub_ret_->operation_ = NULL;
 		sub_ret_->type_ = RTG_OPERATION_ARG_TYPE_EXPRESSION;
 	} else {
 		forced_assertion(operation_arg->node_->type_ == STT_NODE_TYPE_FUNCTION_CALL);
 #ifndef NDEBUG
-		stt_node_assertion_clean_function_call_node(
-				operation_arg->node_);
+		stt_node_assertion_clean_function_call_node(operation_arg->node_);
 		assertion(operation_arg->node_->sub_function_call_ != NULL);
-		assertion(operation_arg->node_->sub_function_call_->function_name_identifier_ !=
-				NULL);
-		assertion(operation_arg->node_->sub_function_call_->call_arguments_ !=
-				NULL);
-		assertion(operation_arg->node_->sub_function_call_->pending_semantic_checks_ !=
-				NULL);
-		assertion(operation_arg->node_->sub_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ ==
-				0);
+		assertion(operation_arg->node_->sub_function_call_->function_name_identifier_ != NULL);
+		assertion(operation_arg->node_->sub_function_call_->function_name_identifier_->value_ != NULL);
+		assertion(operation_arg->node_->sub_function_call_->function_name_identifier_->value_->value_ != NULL);
+		assertion(operation_arg->node_->sub_function_call_->call_arguments_ != NULL);
+		assertion(operation_arg->node_->sub_function_call_->pending_semantic_checks_ != NULL);
+		assertion(operation_arg->node_->sub_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ == 0);
 #endif
-		sub_ret_ = NULL; /* WIP XXX FIXME ALERT DANGER XXX */
+		find_rtg_named_function_ret_ = rtg_named_functions_simple_list_find_by_name(rtg_named_function, operation_arg->node_->sub_function_call_->function_name_identifier_->value_);
+		forced_assertion
 
-		HACER!!!
-		/*
-		*/
 		REQUIRES RECEIVING THE FUNCTIONS DIRECTORY!!!!!!!
+
+		BUSCAR LA FUNCION POR NOMBRE
+
+		SI NO ESTA, DEVOLVER ERROR
+
+		SI SI ESTA
+			COMPROBAR PENDING CHECK SEMANTIC
+			COMPROBAR CORRECCION, AJUSTE DE  TIPOS DE LA LLAMADA A LA SIGNATURA DE LA FUNCION
+			AJUSTAR PUNTERO RTG
 	}
 
 	ret_->operation_arg = sub_ret_;

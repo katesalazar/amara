@@ -181,13 +181,12 @@ rtg_application_out_of_stt_application_and_rtg_named_functions_simple_list(
 			find_entry_point_rtg_named_function_ret_->named_function !=
 					NULL,
 			"unable to find function with particular name in list of functions (function set to NULL inconsistently given the status code returned was success)");
-	application_entry_point_function_ =
-			find_entry_point_rtg_named_function_ret_->named_function;
-	find_entry_point_rtg_named_function_ret_->named_function_was_moved =
-			AMARA_BOOLEAN_TRUE;
-	rtg_named_functions_simple_list_find_by_name_ret_destructor(
-			find_entry_point_rtg_named_function_ret_);
+	application_entry_point_function_ = find_entry_point_rtg_named_function_ret_->named_function;
+	find_entry_point_rtg_named_function_ret_->named_function = NULL;
+	rtg_named_functions_simple_list_find_by_name_ret_destructor(find_entry_point_rtg_named_function_ret_);
+#ifndef NDEBUG
 	assertion(application_entry_point_function_ != NULL);
+#endif
 	ret_->application = rtg_application_default_constructor();
 	forced_assertion(ret_->application != NULL);
 	ret_->application->entry_point_function_ =

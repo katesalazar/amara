@@ -177,20 +177,18 @@ void
 rtg_named_functions_simple_list_find_by_name_ret_destructor(
 		rtg_named_functions_simple_list_find_by_name_ret * ret_)
 {
+#ifndef NDEBUG
 	assertion(ret_ != NULL);
-	if (ret_->status ==
-			RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS) {
-		assertion(ret_->named_function != NULL);
-		if (ret_->named_function_was_moved == AMARA_BOOLEAN_FALSE) {
+#endif
+	if (ret_->status == RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS) {
+		if (ret_->named_function != NULL) {
 			rtg_named_function_destructor(ret_->named_function);
-			ret_->named_function = NULL; /* XXX Not actually necessary. */
 		}
 	} else {
-		assertion(ret_->status ==
-					RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND);
+		forced_assertion(ret_->status == RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND);
+#ifndef NDEBUG
 		assertion(ret_->named_function == NULL);
-		assertion(ret_->named_function_was_moved ==
-				AMARA_BOOLEAN_FALSE);
+#endif
 	}
 	free(ret_);
 }
@@ -218,11 +216,9 @@ rtg_named_functions_simple_list_find_by_name(
 
 	ret_->status = RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_INVALID;
 	ret_->named_function = NULL;
-	ret_->named_function_was_moved = AMARA_BOOLEAN_FALSE;
 	if (haystack == NULL || haystack->first == NULL) {
 		ret_->status = RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND;
 		ret_->named_function = NULL;
-		ret_->named_function_was_moved = AMARA_BOOLEAN_FALSE;
 
 #ifdef DUMP_FLOW_TO_STDERR
 		fprintf(stderr, "<---- %s:%u:find_rtg_named_function_by_name_ret * find_rtg_named_function_by_name(const amara_string *, const rtg_named_functions_simple_list *) - not found\n",
@@ -236,7 +232,6 @@ rtg_named_functions_simple_list_find_by_name(
 		ret_->status = RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS;
 		named_function_ = rtg_named_function_copy_constructor(haystack->first);
 		ret_->named_function = named_function_;
-		ret_->named_function_was_moved = AMARA_BOOLEAN_FALSE;
 
 #ifdef DUMP_FLOW_TO_STDERR
 		fprintf(stderr, "<---- %s:%u:find_rtg_named_function_by_name_ret * find_rtg_named_function_by_name(const amara_string *, const rtg_named_functions_simple_list *) - found\n",
@@ -251,25 +246,20 @@ rtg_named_functions_simple_list_find_by_name(
 			__FILE__, __LINE__);
 #endif
 
-	rec_ret_ = rtg_named_functions_simple_list_find_by_name(
-			haystack->next, needle);
+	rec_ret_ = rtg_named_functions_simple_list_find_by_name(haystack->next, needle);
 	ret_->status = rec_ret_->status;
-	if (rec_ret_->status ==
-			RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS) {
+	if (rec_ret_->status == RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS) {
+#ifndef NDEBUG
 		assertion(rec_ret_->named_function != NULL);
-		assertion(rec_ret_->named_function_was_moved ==
-				AMARA_BOOLEAN_FALSE);
-		rec_ret_->named_function_was_moved = AMARA_BOOLEAN_TRUE;
+#endif
 		ret_->named_function = rec_ret_->named_function;
-		ret_->named_function_was_moved = AMARA_BOOLEAN_FALSE;
+		rec_ret_->named_function = NULL;
 	} else {
-		assertion(rec_ret_->status ==
-				RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND);
+#ifndef NDEBUG
+		assertion(rec_ret_->status == RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND);
 		assertion(rec_ret_->named_function == NULL);
-		assertion(rec_ret_->named_function_was_moved ==
-				AMARA_BOOLEAN_FALSE);
+#endif
 		ret_->named_function = NULL;
-		ret_->named_function_was_moved = AMARA_BOOLEAN_FALSE;
 	}
 	rtg_named_functions_simple_list_find_by_name_ret_destructor(rec_ret_);
 

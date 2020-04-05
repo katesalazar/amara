@@ -60,20 +60,6 @@ rtg_named_functions_simple_list_push_back(
 		const rtg_named_function * named_function)
 ;
 
-#define RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_INVALID   0x00
-#define RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS   0x0F
-#define RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND 0xF0
-
-typedef struct rtg_named_functions_simple_list_find_by_name_ret {
-
-	unsigned char status;
-
-	rtg_named_function * named_function;
-
-	amara_boolean named_function_was_moved;  /* FIXME Remove this */
-} rtg_named_functions_simple_list_find_by_name_ret
-;
-
 void
 rtg_named_functions_simple_list_find_by_name_ret_destructor(
 		rtg_named_functions_simple_list_find_by_name_ret * ret_)

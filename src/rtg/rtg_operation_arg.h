@@ -30,6 +30,10 @@
 /*   For `stt_operation_arg`. */
 #include "../stt/stt_operation_arg.h"
 
+/*
+#include "rtg_forward_declarations.h"
+*/
+
 /*   For `rtg_expression`. */
 #include "rtg_expression.h"
 
@@ -148,7 +152,8 @@ rtg_operation_arg_out_of_stt_operation_arg_ret *
 rtg_operation_arg_out_of_stt_operation_arg(
 		const stt_operation_arg * operation_arg,
 		const stt_operation_type operation_type,
-		const struct stt_where_value_bindings_simple_list * function_where_bindings)
+		const struct stt_where_value_bindings_simple_list * function_where_bindings,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 __attribute__((warn_unused_result))
 ;
 
