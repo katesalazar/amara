@@ -507,6 +507,8 @@ rtg_operation_out_of_stt_operation(
 		sub_ret_->type_ = RTG_OPERATION_TYPE_PRINT_CRLF;
 	}
 
+	CAN ALSO BE STT_OPERATION_TYPE_EXECUTION HERE
+
 	forced_assertion(ret_ != NULL);
 	ret_->operation = sub_ret_;
 	ret_->status = RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS;
