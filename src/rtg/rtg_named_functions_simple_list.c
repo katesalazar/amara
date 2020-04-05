@@ -249,7 +249,9 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 	/**  List which may hang from the returned structure. */
 	rtg_named_functions_simple_list * sub_ret_;
 	/**  Pointer for `sub_ret_` traversals. */
+	/*
 	rtg_named_functions_simple_list * sub_ret_ptr_;
+	*/
 	/**  Pointer for `list` traversals. */
 	const stt_named_functions_simple_list * list_ptr_;
 	/**  Structure holding an element of `sub_ret_`. */
@@ -299,45 +301,12 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 
 	assertion(list->first != NULL);
 
-	sub_ret_ =
-#ifdef AMARA_USE_STD_CXX98
-			(rtg_named_functions_simple_list *)
-#endif
-			malloc(sizeof(rtg_named_functions_simple_list));
+	sub_ret_ = rtg_named_functions_simple_list_default_constructor();
 	forced_assertion(sub_ret_ != NULL);
-
-	sub_ret_->first = NULL;
-	sub_ret_->next = NULL;
 
 	sub_ret_fun_ret_ = rtg_named_function_out_of_stt_named_function(
 			list->first);
 	forced_assertion(sub_ret_fun_ret_ != NULL);
-
-	if (sub_ret_fun_ret_->status !=
-			RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_SUCCESS) {
-
-		forced_assertion(sub_ret_fun_ret_->status ==
-				RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION);
-
-		forced_assertion(sub_ret_fun_ret_->error_messages != NULL);
-
-		forced_assertion(sub_ret_fun_ret_->named_function == NULL);
-
-		ret_->named_functions = NULL;
-
-		ret_->error_messages = sub_ret_fun_ret_->error_messages;
-		sub_ret_fun_ret_->error_messages = NULL;
-
-		rtg_named_function_out_of_stt_named_function_ret_destructor(
-				sub_ret_fun_ret_);
-
-		ret_->status = RTG_NAMED_FUNCTIONS_SIMPLE_LIST_OUT_OF_STT_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION_IN_AT_LEAST_ONE_FUNCTION;
-
-		/*   Might be better to destroy this using its destructor? */
-		free(sub_ret_);  /* XXX */
-
-		return ret_;
-	}
 
 	forced_assertion(sub_ret_fun_ret_->status ==
 			RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_SUCCESS);
@@ -347,35 +316,30 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 	sub_ret_fun_ret_->named_function = NULL;
 	rtg_named_function_out_of_stt_named_function_ret_destructor(
 			sub_ret_fun_ret_);
-	list_ptr_ = list;
-	sub_ret_ptr_ = sub_ret_;
-	while (list_ptr_->next != NULL) {
 
-		forced_assertion(list_ptr_->next->first != NULL);
+	list_ptr_ = list->next;
+	while (list_ptr_ != NULL) {
 
-		sub_ret_ptr_->next =
-#ifdef AMARA_USE_STD_CXX98
-				(rtg_named_functions_simple_list *)
-#endif
-				malloc(sizeof(rtg_named_functions_simple_list));
-		forced_assertion(sub_ret_ptr_->next != NULL);
+		forced_assertion(list_ptr_->first != NULL);
 
 		also needs to receive rtg_named_functions_discovered_up_to_the_moment
 		sub_ret_fun_ret_ =
-				rtg_named_function_out_of_stt_named_function(
-						list_ptr_->next->first);
+				rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list(
+						list_ptr_->next->first, sub_ret_);
 		forced_assertion(sub_ret_fun_ret_ != NULL);
 		forced_assertion(sub_ret_fun_ret_->status ==
 				RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_SUCCESS);
 
-		sub_ret_ptr_->next->first = sub_ret_fun_ret_->named_function;
+		rtg_named_functions_simple_list_push_back(
+				sub_ret_, sub_ret_fun_ret_->named_function);
+		rtg_named_function_destructor(
+				sub_ret_fun_ret_->named_function);
 		sub_ret_fun_ret_->named_function = NULL;
 		rtg_named_function_out_of_stt_named_function_ret_destructor(
 				sub_ret_fun_ret_);
+
 		list_ptr_ = list_ptr_->next;
-		sub_ret_ptr_ = sub_ret_ptr_->next;
 	}
-	sub_ret_ptr_->next = NULL;
 
 	ret_->named_functions = sub_ret_;
 	ret_->status = RTG_NAMED_FUNCTIONS_SIMPLE_LIST_OUT_OF_STT_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
