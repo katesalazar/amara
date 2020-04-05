@@ -405,10 +405,13 @@ rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list
 		rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list_ret * input_ret)
 {
 #ifndef NDEBUG
-	assertion(input_ret == NULL);  /* XXX */
+	assertion(input_ret != NULL);
 #endif
-	forced_assertion(input_ret == NULL);  /* XXX */
-	/* FIXME */
+	forced_assertion(input_ret->status ==
+			RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
+	forced_assertion(input_ret->error_messages == NULL);
+	forced_assertion(input_ret->named_function == NULL);
+	free(input_ret);
 }
 
 rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list_ret *
