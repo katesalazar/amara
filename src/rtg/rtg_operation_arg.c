@@ -669,8 +669,7 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		sub_ret_->operation_ = NULL;
 		sub_ret_->type_ = RTG_OPERATION_ARG_TYPE_EXPRESSION;
 	} else {
-		forced_assertion(operation_arg->node_->type_ ==
-				STT_NODE_TYPE_FUNCTION_CALL);
+		forced_assertion(operation_arg->node_->type_ == STT_NODE_TYPE_FUNCTION_CALL);
 #ifndef NDEBUG
 		stt_node_assertion_clean_function_call_node(
 				operation_arg->node_);
@@ -688,6 +687,8 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		/*
 		REQUIRES RECEIVING THE FUNCTIONS DIRECTORY!!!!!!!
 		*/
+
+		HACER!!!
 	}
 
 	ret_->operation_arg = sub_ret_;
