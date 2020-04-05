@@ -20,6 +20,8 @@
 /*   For `int fprintf(FILE * stream, const char * format, ...)`. */
 #include <stdio.h>
 
+#include "../mmm/allocator.h"
+
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
@@ -419,11 +421,7 @@ rtg_operation_arg_out_of_stt_operation_arg(
 	rtg_operation_arg * sub_ret_;
 	rtg_operation_arg_out_of_stt_operation_arg_ret * ret_;
 
-	ret_ =
-#ifdef AMARA_USE_STD_CXX98
-			(rtg_operation_arg_out_of_stt_operation_arg_ret *)
-#endif
-			malloc(sizeof(rtg_operation_arg_out_of_stt_operation_arg_ret));
+	ret_ = amara_malloc_rtg_operation_arg_out_of_stt_operation_arg_ret();
 	forced_assertion(ret_ != NULL);
 	ret_->status = RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_INVALID;
 	ret_->operation_arg = NULL;
@@ -684,11 +682,11 @@ rtg_operation_arg_out_of_stt_operation_arg(
 				0);
 #endif
 		sub_ret_ = NULL; /* WIP XXX FIXME ALERT DANGER XXX */
-		/*
-		REQUIRES RECEIVING THE FUNCTIONS DIRECTORY!!!!!!!
-		*/
 
 		HACER!!!
+		/*
+		*/
+		REQUIRES RECEIVING THE FUNCTIONS DIRECTORY!!!!!!!
 	}
 
 	ret_->operation_arg = sub_ret_;

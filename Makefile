@@ -715,6 +715,7 @@ checkdirs: \
 	$(BUILD_DIR_SRC)/cmn \
 	$(BUILD_DIR_SRC)/ftr \
 	$(BUILD_DIR_SRC)/log \
+	$(BUILD_DIR_SRC)/mmm \
 	$(BUILD_DIR_SRC)/prs \
 	$(BUILD_DIR_SRC)/rtg \
 	$(BUILD_DIR_SRC)/stt \
@@ -734,6 +735,7 @@ $(BUILD_DIR_SRC) \
 		$(BUILD_DIR_SRC)/cmn \
 		$(BUILD_DIR_SRC)/ftr \
 		$(BUILD_DIR_SRC)/log \
+		$(BUILD_DIR_SRC)/mmm \
 		$(BUILD_DIR_SRC)/prs \
 		$(BUILD_DIR_SRC)/rtg \
 		$(BUILD_DIR_SRC)/stt \
@@ -1567,6 +1569,10 @@ $$(BUILD_DIR_$(BUILD_TYPE))/logging.o: \
 	$$(C) $$(CFLAGS) $$(CFLAGS_$(BUILD_TYPE)) -c -o $$@ $$<
 endef
 
+$(BUILD_DIR_SRC)/mmm/allocator.$(HEXT): \
+		$(SRC_DIR)/mmm/allocator.h
+	$(CP) $< $@
+
 $(BUILD_DIR_SRC)/prs/persistence.$(HEXT): \
 		$(SRC_DIR)/prs/persistence.h \
 		$(BUILD_DIR_SRC)/wrp/dirent_wrapper.$(HEXT)
@@ -2228,6 +2234,7 @@ define rtg_operation_arg_OBJ_RULE
 $$(BUILD_DIR_$(BUILD_TYPE))/rtg_operation_arg.o: \
 		$$(BUILD_DIR_SRC)/rtg/rtg_operation_arg.$$(CEXT) \
 		$$(BUILD_DIR_SRC)/rtg/rtg_operation_arg.$$(HEXT) \
+		$$(BUILD_DIR_SRC)/mmm/allocator.$$(HEXT) \
 		$$(BUILD_DIR_SRC)/stt/stt_node.$$(HEXT) \
 		$$(BUILD_DIR_SRC)/cmn/amara_strings_simple_list.$$(HEXT) \
 		$$(BUILD_DIR_SRC)/rtg/rtg_operation.$$(HEXT)
