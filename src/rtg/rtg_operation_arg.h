@@ -87,6 +87,12 @@ typedef struct rtg_operation_arg {
 
 	rtg_expression * expression_;
 
+	/**  In case the operation is a function call, pointer to the
+	 * function call, which should include a pointer to the called
+	 * function itself. */
+	rtg_function_call * function_call_;
+
+	/**  TODO Why was this added? */
 	struct rtg_operation * operation_;
 } rtg_operation_arg
 ;

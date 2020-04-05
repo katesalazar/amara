@@ -554,21 +554,22 @@ rtg_named_functions_simple_list_find_by_name_test_0()
 	haystack_ = NULL;
 
 	needle_ = amara_string_exhaustive_constructor("whatever");
-	assertion(needle_ != NULL);
+	forced_assertion(needle_ != NULL);
+#ifndef NDEBUG
 	assertion(needle_->value_ != NULL);
+#endif
 
-	search_result_ = rtg_named_functions_simple_list_find_by_name(
-			haystack_, needle_);
+	search_result_ = rtg_named_functions_simple_list_find_by_name(haystack_, needle_);
+#ifndef NDEBUG
 	assertion(needle_->value_ != NULL);
-	assertion(search_result_ != NULL);
-	assertion(search_result_->status ==
-			RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND);
+#endif
+	forced_assertion(search_result_ != NULL);
+#ifndef NDEBUG
+	assertion(search_result_->status == RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND);
 	assertion(search_result_->named_function == NULL);
-	assertion(search_result_->named_function_was_moved ==
-			AMARA_BOOLEAN_FALSE);
+#endif
 
-	rtg_named_functions_simple_list_find_by_name_ret_destructor(
-			search_result_);
+	rtg_named_functions_simple_list_find_by_name_ret_destructor(search_result_);
 	amara_string_destructor(needle_);
 }
 
@@ -581,28 +582,29 @@ rtg_named_functions_simple_list_find_by_name_test_1()
 	rtg_named_functions_simple_list_find_by_name_ret * search_result_;
 
 	haystack_ = rtg_named_functions_simple_list_default_constructor();
-	assertion(haystack_ != NULL);
+	forced_assertion(haystack_ != NULL);
+#ifndef NDEBUG
 	assertion(haystack_->first == NULL);
 	assertion(haystack_->next == NULL);
+#endif
 
 	needle_ = amara_string_exhaustive_constructor("whatever");
-	assertion(needle_ != NULL);
+	forced_assertion(needle_ != NULL);
+#ifndef NDEBUG
 	assertion(needle_->value_ != NULL);
+#endif
 
-	search_result_ = rtg_named_functions_simple_list_find_by_name(
-			haystack_, needle_);
+	search_result_ = rtg_named_functions_simple_list_find_by_name(haystack_, needle_);
+#ifndef NDEBUG
 	assertion(haystack_->first == NULL);
 	assertion(haystack_->next == NULL);
 	assertion(needle_->value_ != NULL);
-	assertion(search_result_ != NULL);
-	assertion(search_result_->status ==
-			RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND);
-	assertion(search_result_->named_function == NULL);
-	assertion(search_result_->named_function_was_moved ==
-			AMARA_BOOLEAN_FALSE);
+#endif
+	forced_assertion(search_result_ != NULL);
+	forced_assertion(search_result_->status == RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND);
+	forced_assertion(search_result_->named_function == NULL);
 
-	rtg_named_functions_simple_list_find_by_name_ret_destructor(
-			search_result_);
+	rtg_named_functions_simple_list_find_by_name_ret_destructor(search_result_);
 	amara_string_destructor(needle_);
 	rtg_named_functions_simple_list_destructor(haystack_);
 }
@@ -618,51 +620,47 @@ rtg_named_functions_simple_list_find_by_name_test_2()
 	rtg_named_functions_simple_list_find_by_name_ret * search_result_;
 
 	haystack_ = rtg_named_functions_simple_list_default_constructor();
-	assertion(haystack_ != NULL);
+	forced_assertion(haystack_ != NULL);
+#ifndef NDEBUG
 	assertion(haystack_->first == NULL);
 	assertion(haystack_->next == NULL);
-
-	named_function_ =
-			rtg_named_function_example_print_string_literal_foo();
-	assertion(named_function_ != NULL);
-#ifndef NDEBUG
-	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(
-			named_function_);
 #endif
 
-	haystack_ = rtg_named_functions_simple_list_push_front(
-			haystack_, named_function_);
-	assertion(haystack_->first != NULL);
+	named_function_ = rtg_named_function_example_print_string_literal_foo();
+	forced_assertion(named_function_ != NULL);
 #ifndef NDEBUG
-	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(
-			haystack_->first);
+	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(named_function_);
 #endif
-	assertion(haystack_->next == NULL);
+
+	haystack_ = rtg_named_functions_simple_list_push_front(haystack_, named_function_);
+	forced_assertion(haystack_->first != NULL);
 #ifndef NDEBUG
-	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(
-			named_function_);
+	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(haystack_->first);
+#endif
+	forced_assertion(haystack_->next == NULL);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(named_function_);
 #endif
 
 	needle_ = amara_string_exhaustive_constructor("print_foo");
-	assertion(needle_ != NULL);
+	forced_assertion(needle_ != NULL);
+#ifndef NDEBUG
 	assertion(needle_->value_ != NULL);
+#endif
 
-	search_result_ = rtg_named_functions_simple_list_find_by_name(
-			haystack_, needle_);
+	search_result_ = rtg_named_functions_simple_list_find_by_name(haystack_, needle_);
+#ifndef NDEBUG
 	assertion(haystack_ != NULL);
 	assertion(haystack_->first != NULL);
 	assertion(haystack_->next == NULL);
 	assertion(needle_ != NULL);
 	assertion(needle_->value_ != NULL);
-	assertion(search_result_ != NULL);
-	assertion(search_result_->status ==
-			RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS);
-	assertion(search_result_->named_function != NULL);
-	assertion(search_result_->named_function_was_moved ==
-			AMARA_BOOLEAN_FALSE);
+#endif
+	forced_assertion(search_result_ != NULL);
+	forced_assertion(search_result_->status == RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS);
+	forced_assertion(search_result_->named_function != NULL);
 
-	rtg_named_functions_simple_list_find_by_name_ret_destructor(
-			search_result_);
+	rtg_named_functions_simple_list_find_by_name_ret_destructor(search_result_);
 	amara_string_destructor(needle_);
 	rtg_named_function_destructor(named_function_);
 	rtg_named_functions_simple_list_destructor(haystack_);
@@ -680,55 +678,50 @@ rtg_named_functions_simple_list_find_by_name_test_3()
 	rtg_named_function * extracted_search_result_;
 
 	haystack_ = rtg_named_functions_simple_list_default_constructor();
-	assertion(haystack_ != NULL);
+	forced_assertion(haystack_ != NULL);
+#ifndef NDEBUG
 	assertion(haystack_->first == NULL);
 	assertion(haystack_->next == NULL);
-
-	named_function_ =
-			rtg_named_function_example_print_string_literal_foo();
-	assertion(named_function_ != NULL);
-#ifndef NDEBUG
-	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(
-			named_function_);
 #endif
 
-	haystack_ = rtg_named_functions_simple_list_push_front(
-			haystack_, named_function_);
-	assertion(haystack_->first != NULL);
+	named_function_ = rtg_named_function_example_print_string_literal_foo();
+	forced_assertion(named_function_ != NULL);
 #ifndef NDEBUG
-	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(
-			haystack_->first);
+	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(named_function_);
 #endif
-	assertion(haystack_->next == NULL);
+
+	haystack_ = rtg_named_functions_simple_list_push_front(haystack_, named_function_);
+	forced_assertion(haystack_->first != NULL);
 #ifndef NDEBUG
-	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(
-			named_function_);
+	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(haystack_->first);
+#endif
+	forced_assertion(haystack_->next == NULL);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(named_function_);
 #endif
 
 	needle_ = amara_string_exhaustive_constructor("print_foo");
-	assertion(needle_ != NULL);
+	forced_assertion(needle_ != NULL);
+#ifndef NDEBUG
 	assertion(needle_->value_ != NULL);
+#endif
 
-	search_result_ = rtg_named_functions_simple_list_find_by_name(
-			haystack_, needle_);
+	search_result_ = rtg_named_functions_simple_list_find_by_name(haystack_, needle_);
+#ifndef NDEBUG
 	assertion(haystack_ != NULL);
 	assertion(haystack_->first != NULL);
 	assertion(haystack_->next == NULL);
 	assertion(needle_ != NULL);
 	assertion(needle_->value_ != NULL);
-	assertion(search_result_ != NULL);
-	assertion(search_result_->status ==
-			RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS);
+#endif
+	forced_assertion(search_result_ != NULL);
+	assertion(search_result_->status == RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS);
 	assertion(search_result_->named_function != NULL);
-	assertion(search_result_->named_function_was_moved ==
-			AMARA_BOOLEAN_FALSE);
 
 	extracted_search_result_ = search_result_->named_function;
-	search_result_->named_function_was_moved = AMARA_BOOLEAN_TRUE;
 
 	rtg_named_function_destructor(extracted_search_result_);
-	rtg_named_functions_simple_list_find_by_name_ret_destructor(
-			search_result_);
+	rtg_named_functions_simple_list_find_by_name_ret_destructor(search_result_);
 	amara_string_destructor(needle_);
 	rtg_named_function_destructor(named_function_);
 	rtg_named_functions_simple_list_destructor(haystack_);
@@ -745,51 +738,47 @@ rtg_named_functions_simple_list_find_by_name_test_4()
 	rtg_named_functions_simple_list_find_by_name_ret * search_result_;
 
 	haystack_ = rtg_named_functions_simple_list_default_constructor();
-	assertion(haystack_ != NULL);
+	forced_assertion(haystack_ != NULL);
+#ifndef NDEBUG
 	assertion(haystack_->first == NULL);
 	assertion(haystack_->next == NULL);
-
-	named_function_ =
-			rtg_named_function_example_print_string_literal_foo();
-	assertion(named_function_ != NULL);
-#ifndef NDEBUG
-	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(
-			named_function_);
 #endif
 
-	haystack_ = rtg_named_functions_simple_list_push_front(
-			haystack_, named_function_);
-	assertion(haystack_->first != NULL);
+	named_function_ = rtg_named_function_example_print_string_literal_foo();
+	forced_assertion(named_function_ != NULL);
 #ifndef NDEBUG
-	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(
-			haystack_->first);
+	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(named_function_);
 #endif
-	assertion(haystack_->next == NULL);
+
+	haystack_ = rtg_named_functions_simple_list_push_front(haystack_, named_function_);
+	forced_assertion(haystack_->first != NULL);
 #ifndef NDEBUG
-	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(
-			named_function_);
+	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(haystack_->first);
+#endif
+	forced_assertion(haystack_->next == NULL);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(named_function_);
 #endif
 
 	needle_ = amara_string_exhaustive_constructor("print_foa");
-	assertion(needle_ != NULL);
+	forced_assertion(needle_ != NULL);
+#ifndef NDEBUG
 	assertion(needle_->value_ != NULL);
+#endif
 
-	search_result_ = rtg_named_functions_simple_list_find_by_name(
-			haystack_, needle_);
+	search_result_ = rtg_named_functions_simple_list_find_by_name(haystack_, needle_);
+#ifndef NDEBUG
 	assertion(haystack_ != NULL);
 	assertion(haystack_->first != NULL);
 	assertion(haystack_->next == NULL);
 	assertion(needle_ != NULL);
 	assertion(needle_->value_ != NULL);
-	assertion(search_result_ != NULL);
-	assertion(search_result_->status ==
-			RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND);
-	assertion(search_result_->named_function == NULL);
-	assertion(search_result_->named_function_was_moved ==
-			AMARA_BOOLEAN_FALSE);
+#endif
+	forced_assertion(search_result_ != NULL);
+	forced_assertion(search_result_->status == RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND);
+	forced_assertion(search_result_->named_function == NULL);
 
-	rtg_named_functions_simple_list_find_by_name_ret_destructor(
-			search_result_);
+	rtg_named_functions_simple_list_find_by_name_ret_destructor(search_result_);
 	amara_string_destructor(needle_);
 	rtg_named_function_destructor(named_function_);
 	rtg_named_functions_simple_list_destructor(haystack_);
@@ -807,84 +796,71 @@ rtg_named_functions_simple_list_find_by_name_test_5()
 	rtg_named_functions_simple_list_find_by_name_ret * search_result_;
 
 	haystack_ = rtg_named_functions_simple_list_default_constructor();
-	assertion(haystack_ != NULL);
+	forced_assertion(haystack_ != NULL);
+#ifndef NDEBUG
 	assertion(haystack_->first == NULL);
 	assertion(haystack_->next == NULL);
-
-	named_function_zero_ =
-			rtg_named_function_example_print_string_literal_foo();
-	assertion(named_function_zero_ != NULL);
-#ifndef NDEBUG
-	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(
-			named_function_zero_);
 #endif
 
-	haystack_ = rtg_named_functions_simple_list_push_front(
-			haystack_, named_function_zero_);
-	assertion(haystack_->first != NULL);
+	named_function_zero_ = rtg_named_function_example_print_string_literal_foo();
+	forced_assertion(named_function_zero_ != NULL);
 #ifndef NDEBUG
-	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(
-			haystack_->first);
-#endif
-	assertion(haystack_->next == NULL);
-#ifndef NDEBUG
-	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(
-			named_function_zero_);
+	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(named_function_zero_);
 #endif
 
-	named_function_one_ =
-			rtg_named_function_example_print_string_literal_bar();
-	assertion(named_function_one_ != NULL);
+	haystack_ = rtg_named_functions_simple_list_push_front(haystack_, named_function_zero_);
+	forced_assertion(haystack_->first != NULL);
 #ifndef NDEBUG
-	assert_expectations_on_rtg_named_function_example_print_string_literal_bar(
-			named_function_one_);
+	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(haystack_->first);
+#endif
+	forced_assertion(haystack_->next == NULL);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(named_function_zero_);
 #endif
 
-	haystack_ = rtg_named_functions_simple_list_push_front(
-			haystack_, named_function_one_);
-	assertion(haystack_->first != NULL);
+	named_function_one_ = rtg_named_function_example_print_string_literal_bar();
+	forced_assertion(named_function_one_ != NULL);
 #ifndef NDEBUG
-	assert_expectations_on_rtg_named_function_example_print_string_literal_bar(
-			haystack_->first);
+	assert_expectations_on_rtg_named_function_example_print_string_literal_bar(named_function_one_);
 #endif
-	assertion(haystack_->next != NULL);
-	assertion(haystack_->next->first != NULL);
+
+	haystack_ = rtg_named_functions_simple_list_push_front(haystack_, named_function_one_);
+	forced_assertion(haystack_->first != NULL);
 #ifndef NDEBUG
-	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(
-			haystack_->next->first);
+	assert_expectations_on_rtg_named_function_example_print_string_literal_bar(haystack_->first);
 #endif
-	assertion(haystack_->next->next == NULL);
+	forced_assertion(haystack_->next != NULL);
+	forced_assertion(haystack_->next->first != NULL);
 #ifndef NDEBUG
-	assert_expectations_on_rtg_named_function_example_print_string_literal_bar(
-			named_function_one_);
+	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(haystack_->next->first);
+#endif
+	forced_assertion(haystack_->next->next == NULL);
+#ifndef NDEBUG
+	assert_expectations_on_rtg_named_function_example_print_string_literal_bar(named_function_one_);
 #endif
 
 	needle_ = amara_string_exhaustive_constructor("print_foo");
-	assertion(needle_ != NULL);
+	forced_assertion(needle_ != NULL);
+#ifndef NDEBUG
 	assertion(needle_->value_ != NULL);
+#endif
 
-	search_result_ = rtg_named_functions_simple_list_find_by_name(
-			haystack_, needle_);
+	search_result_ = rtg_named_functions_simple_list_find_by_name(haystack_, needle_);
+#ifndef NDEBUG
 	assertion(haystack_ != NULL);
 	assertion(haystack_->first != NULL);
 	assertion(haystack_->next != NULL);
 	assertion(haystack_->next->first != NULL);
-#ifndef NDEBUG
-	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(
-			haystack_->next->first);
-#endif
+	assert_expectations_on_rtg_named_function_example_print_string_literal_foo(haystack_->next->first);
 	assertion(haystack_->next->next == NULL);
 	assertion(needle_ != NULL);
 	assertion(needle_->value_ != NULL);
-	assertion(search_result_ != NULL);
-	assertion(search_result_->status ==
-			RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS);
-	assertion(search_result_->named_function != NULL);
-	assertion(search_result_->named_function_was_moved ==
-			AMARA_BOOLEAN_FALSE);
+#endif
+	forced_assertion(search_result_ != NULL);
+	forced_assertion(search_result_->status == RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_SUCCESS);
+	forced_assertion(search_result_->named_function != NULL);
 
-	rtg_named_functions_simple_list_find_by_name_ret_destructor(
-			search_result_);
+	rtg_named_functions_simple_list_find_by_name_ret_destructor(search_result_);
 	amara_string_destructor(needle_);
 	rtg_named_function_destructor(named_function_one_);
 	rtg_named_function_destructor(named_function_zero_);

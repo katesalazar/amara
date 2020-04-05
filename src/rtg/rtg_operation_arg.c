@@ -399,6 +399,14 @@ rtg_operation_arg_out_of_stt_operation_arg_ret_destructor(
 	free(rtg_operation_arg_out_of_stt_operation_arg_ret_);
 }
 
+/**  Friend declaration. */
+rtg_named_functions_simple_list_find_by_name_ret *
+rtg_named_functions_simple_list_find_by_name(
+		const rtg_named_functions_simple_list * haystack,
+		const amara_string * needle)
+__attribute__((warn_unused_result))
+;
+
 rtg_operation_arg_out_of_stt_operation_arg_ret *
 rtg_operation_arg_out_of_stt_operation_arg(
 		const stt_operation_arg * operation_arg,
@@ -641,26 +649,30 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		assertion(operation_arg->node_->sub_function_call_->function_name_identifier_->value_->value_ != NULL);
 		assertion(operation_arg->node_->sub_function_call_->call_arguments_ != NULL);
 		assertion(operation_arg->node_->sub_function_call_->pending_semantic_checks_ != NULL);
-		assertion(operation_arg->node_->sub_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ == 0);
+		assertion(operation_arg->node_->sub_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ == AMARA_BOOLEAN_FALSE);
+		assertion(operation_type == STT_NODE_TYPE_EXECUTION);
 #endif
-		find_rtg_named_function_ret_ = rtg_named_functions_simple_list_find_by_name(rtg_named_function, operation_arg->node_->sub_function_call_->function_name_identifier_->value_);
-		forced_assertion
-
-		REQUIRES RECEIVING THE FUNCTIONS DIRECTORY!!!!!!!
-
-		BUSCAR LA FUNCION POR NOMBRE
-
-		SI NO ESTA, DEVOLVER ERROR
-
-		SI SI ESTA
-			COMPROBAR PENDING CHECK SEMANTIC
-			COMPROBAR CORRECCION, AJUSTE DE  TIPOS DE LA LLAMADA A LA SIGNATURA DE LA FUNCION
-			AJUSTAR PUNTERO RTG
-	}
-
+		find_rtg_named_function_ret_ = rtg_named_functions_simple_list_find_by_name(rtg_named_functions, operation_arg->node_->sub_function_call_->function_name_identifier_->identifier_subnode_->value_);
+		forced_assertion(find_rtg_named_function_ret_ != NULL);
+		if (find_rtg_named_function_ret_->status == RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND) {
+			forced_assertion(ret_->operation_arg == NULL);
+			ret_->error_messages = amara_strings_simple_list_exhaustive_constructor_three_to_one("unable to find function '", operation_arg->node_->sub_function_call_->function_name_identifier_->identifier_subnode_->value_->value_, "' requested as function to be called (rtg_operation.c:658)");
+			ret_->status = RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_IDENTIFIER;
+			return ret_;
+		}
+		/*   Function to be called has been found at this point. */
+		if (operation_arg->node_->sub_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ == AMARA_BOOLEAN_TRUE) {
+			forced_assertion(0);  /* FIXXXME */
+		} else {
+			forced_assertion(0);  /* FIXXXME */
+		}
+		COMPROBAR CORRECCION, AJUSTE DE  TIPOS DE LA LLAMADA A LA SIGNATURA DE LA FUNCION
+		sub_ret_ = rtg_operation_arg_default_constructor();
+		forced_assertion(sub_ret_ != NULL);
+		AJUSTAR PUNTERO RTG
+	}  /* End switching on `operation_arg->node_->type_`. */
 	ret_->operation_arg = sub_ret_;
 	ret_->error_messages = NULL;
 	ret_->status = RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS;
-
 	return ret_;
 }
