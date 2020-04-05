@@ -409,11 +409,11 @@ rtg_operation_out_of_stt_operation(
 
 	forced_assertion(operation != NULL);
 	forced_assertion(operation->type_ != STT_OPERATION_TYPE_INVALID);
-	ret_ =
 #ifdef AMARA_USE_STD_CXX98
-			(rtg_operation_out_of_stt_operation_ret *)
+	ret_ = (rtg_operation_out_of_stt_operation_ret *) malloc(sizeof(rtg_operation_out_of_stt_operation_ret));
+#else
+	ret_ = malloc(sizeof(rtg_operation_out_of_stt_operation_ret));
 #endif
-			malloc(sizeof(rtg_operation_out_of_stt_operation_ret));
 	forced_assertion(ret_ != NULL);
 	ret_->status = RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_INVALID;
 	ret_->error_messages = NULL;

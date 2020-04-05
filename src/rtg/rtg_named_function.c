@@ -437,11 +437,11 @@ rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list
 	rtg_named_functions = NULL;  /* XXX */
 	forced_assertion(rtg_named_functions == NULL);  /* XXX */
 
-	ret_ =
 #ifdef AMARA_USE_STD_CXX98
-			(rtg_named_function_out_of_stt_named_function_ret *)
+	ret_ = (rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list_ret *) malloc(sizeof(rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list_ret));
+#else
+	ret_ = malloc(sizeof(rtg_named_function_out_of_stt_named_function_ret));
 #endif
-			malloc(sizeof(rtg_named_function_out_of_stt_named_function_ret));
 	forced_assertion(ret_ != NULL);
 
 	ret_->status = RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_INVALID;

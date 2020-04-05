@@ -160,11 +160,11 @@ rtg_named_functions_simple_list_push_back(
 	while (named_functions_ptr_->next != NULL) {
 		named_functions_ptr_ = named_functions_ptr_->next;
 	}
-	named_functions_ptr_->next =
-#ifdef USE_STD_CXX_98
-			(rtg_named_function *)
+#ifdef AMARA_USE_STD_CXX98
+	named_functions_ptr_->next = (rtg_named_functions_simple_list *) malloc(sizeof(rtg_named_functions_simple_list));
+#else
+	named_functions_ptr_->next = malloc(sizeof(rtg_named_functions_simple_list));
 #endif
-			malloc(sizeof(rtg_named_function));
 	forced_assertion(named_functions_ptr_->next != NULL);
 	named_function_copy_ =
 			rtg_named_function_copy_constructor(named_function);
