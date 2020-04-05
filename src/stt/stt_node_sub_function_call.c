@@ -126,7 +126,7 @@ stt_node_sub_function_call_exhaustive_constructor(
 
 /**  Friend declaration. */
 void
-stt_node_destructor(struct stt_node * node)
+stt_node_destructor(struct stt_node const * node)
 ;
 
 void
