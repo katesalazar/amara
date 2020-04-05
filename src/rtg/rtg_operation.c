@@ -501,13 +501,13 @@ rtg_operation_out_of_stt_operation(
 		assertion(operation->type_ ==
 				STT_OPERATION_TYPE_PRINT_NO_CRLF);
 	*/
+	} else if (operation->type_ == STT_OPERATION_TYPE_PRINT_CRLF) {
+		sub_ret_->type_ = RTG_OPERATION_TYPE_PRINT_CRLF;
 	} else {
 		forced_assertion(operation->type_ ==
-				STT_OPERATION_TYPE_PRINT_CRLF);
-		sub_ret_->type_ = RTG_OPERATION_TYPE_PRINT_CRLF;
+				STT_OPERATION_TYPE_EXECUTION);
+		sub_ret_->type_ = RTG_OPERATION_TYPE_EXECUTION;
 	}
-
-	CAN ALSO BE STT_OPERATION_TYPE_EXECUTION HERE
 
 	forced_assertion(ret_ != NULL);
 	ret_->operation = sub_ret_;

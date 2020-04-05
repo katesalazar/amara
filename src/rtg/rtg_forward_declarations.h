@@ -37,6 +37,7 @@
 */
 /*
 #define RTG_FAKE_OPERATION_TYPE_RESOLVE_TYPE_OF_EXPRESSION 0xC2 *//*   Must remain resolved by semantic analysis by the time run time comes. */
+#define RTG_OPERATION_TYPE_EXECUTION                       0xD0
 /*
 #define RTG_OPERATION_TYPE_PRINT_NO_CRLF                   0xFF
 */
