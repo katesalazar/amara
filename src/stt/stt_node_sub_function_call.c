@@ -40,21 +40,21 @@ stt_node_sub_function_call_copy_constructor(
 	forced_assertion(sub_function_call != NULL);
 	forced_assertion(sub_function_call->pending_semantic_checks_ != NULL);
 
-	returning_pending_semantic_checks_ =
-#ifdef USE_STD_CXX_98
-			(stt_node_sub_function_call_pending_semantic_checks *)
+#ifdef AMARA_USE_STD_CXX98
+	returning_pending_semantic_checks_ = (stt_node_sub_function_call_pending_semantic_checks *) malloc(sizeof(stt_node_sub_function_call_pending_semantic_checks));
+#else
+	returning_pending_semantic_checks_ = malloc(sizeof(stt_node_sub_function_call_pending_semantic_checks));
 #endif
-			malloc(sizeof(stt_node_sub_function_call_pending_semantic_checks));
 	forced_assertion(returning_pending_semantic_checks_ != NULL);
 
 	returning_pending_semantic_checks_->called_function_has_no_return_value_ =
 			AMARA_BOOLEAN_FALSE;
 
-	returning_ =
-#ifdef USE_STD_CXX_98
-			(stt_node_sub_function_call *)
+#ifdef AMARA_USE_STD_CXX98
+	returning_ = (stt_node_sub_function_call *) malloc(sizeof(stt_node_sub_function_call));
+#else
+	returning_ = malloc(sizeof(stt_node_sub_function_call));
 #endif
-			malloc(sizeof(stt_node_sub_function_call));
 	forced_assertion(returning_ != NULL);
 
 	returning_->pending_semantic_checks_ =
@@ -79,11 +79,11 @@ stt_node_sub_function_call_exhaustive_constructor(
 	stt_node_sub_function_call * returning_;
 	stt_node_sub_function_call_pending_semantic_checks * returning_pending_semantic_checks_;
 
-	returning_ =
-#ifdef USE_STD_CXX_98
-			(stt_node_sub_function_call *)
+#ifdef AMARA_USE_STD_CXX98
+	returning_ = (stt_node_sub_function_call *) malloc(sizeof(stt_node_sub_function_call));
+#else
+	returning_ = malloc(sizeof(stt_node_sub_function_call));
 #endif
-			malloc(sizeof(stt_node_sub_function_call));
 	forced_assertion(returning_ != NULL);
 
 	returning_->function_name_identifier_ =
@@ -108,11 +108,11 @@ stt_node_sub_function_call_exhaustive_constructor(
 			;
 	forced_assertion(returning_->call_arguments_ != NULL);
 
-	returning_pending_semantic_checks_ =
-#ifdef USE_STD_CXX_98
-			(stt_node_sub_function_call_pending_semantic_checks *)
+#ifdef AMARA_USE_STD_CXX98
+	returning_pending_semantic_checks_ = (stt_node_sub_function_call_pending_semantic_checks *) malloc(sizeof(stt_node_sub_function_call_pending_semantic_checks));
+#else
+	returning_pending_semantic_checks_ = malloc(sizeof(stt_node_sub_function_call_pending_semantic_checks));
 #endif
-			malloc(sizeof(stt_node_sub_function_call_pending_semantic_checks));
 	forced_assertion(returning_pending_semantic_checks_ != NULL);
 
 	returning_pending_semantic_checks_->called_function_has_no_return_value_ =
