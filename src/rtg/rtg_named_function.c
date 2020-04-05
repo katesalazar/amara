@@ -499,8 +499,11 @@ rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list
 	/*
 	if (where_value_bindings_sub_ret_sub_->first == NULL) {
 
-		forced_assertion(stt_named_function->where_value_bindings_ == NULL ||
-				stt_named_function->where_value_bindings_->first == NULL);
+		forced_assertion(
+				stt_named_function->where_value_bindings_ ==
+						NULL
+				|| stt_named_function->where_value_bindings_->first ==
+						NULL);
 
 		if (stt_named_function->where_value_bindings_ != NULL) {
 
@@ -512,23 +515,31 @@ rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list
 
 	/*   Subsidiary. */
 	/*
-	forced_assertion(stt_named_function->where_value_bindings_->first == NULL);
+	forced_assertion(stt_named_function->where_value_bindings_->first ==
+			NULL);
 	*/
 
 	/*
 	forced_assertion(where_value_bindings_sub_ret_sub_->first != NULL ||
 			stt_named_function->where_value_bindings_ == NULL ||
-			stt_named_function->where_value_bindings_->first == NULL);
+			stt_named_function->where_value_bindings_->first ==
+					NULL);
 	*/
 
 	if (where_value_bindings_sub_ret_sub_->first == NULL) {
 
-		forced_assertion_two(stt_named_function->where_value_bindings_ != NULL,
+		forced_assertion_two(
+				stt_named_function->where_value_bindings_ !=
+						NULL,
 				"rtg_named_function.c: 330");
-		forced_assertion_two(named_function->where_value_bindings_->first == NULL,
+		forced_assertion_two(
+				stt_named_function->where_value_bindings_->first ==
+						NULL,
 				"rtg_named_function.c: 332");
 	} else {
-		forced_assertion_two(where_value_bindings_sub_ret_sub_->first != NULL,
+		forced_assertion_two(
+				where_value_bindings_sub_ret_sub_->first !=
+						NULL,
 				"rtg_named_function.c: 334");
 	}
 #endif

@@ -151,10 +151,12 @@ rtg_named_functions_simple_list_push_back(
 		named_function_copy_ = rtg_named_function_copy_constructor(
 				named_function);
 		forced_assertion(named_function_copy_ != NULL);
-		named_functions->first = named_function_copy_;
+		((rtg_named_functions_simple_list *) named_functions)->first =
+				named_function_copy_;
 		return;
 	}
-	named_functions_ptr_ = named_functions;
+	named_functions_ptr_ =
+			(rtg_named_functions_simple_list *) named_functions;
 	while (named_functions_ptr_->next != NULL) {
 		named_functions_ptr_ = named_functions_ptr_->next;
 	}

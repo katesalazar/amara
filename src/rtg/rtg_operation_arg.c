@@ -679,9 +679,9 @@ rtg_operation_arg_out_of_stt_operation_arg(
 				NULL);
 		assertion(operation_arg->node_->sub_function_call_->call_arguments_ !=
 				NULL);
-		assertion(operation_arg->node_->sub_function_call_->flags_ !=
+		assertion(operation_arg->node_->sub_function_call_->pending_semantic_checks_ !=
 				NULL);
-		assertion(operation_arg->node_->sub_function_call_->flags_->check_whatever_ ==
+		assertion(operation_arg->node_->sub_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ ==
 				0);
 #endif
 		sub_ret_ = NULL; /* WIP XXX FIXME ALERT DANGER XXX */
