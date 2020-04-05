@@ -2117,6 +2117,10 @@ $(BUILD_DIR_SRC)/rtg/rtg_forward_declarations.$(HEXT): \
 		$(SRC_DIR)/rtg/rtg_forward_declarations.h
 	$(CP) $< $@
 
+$(BUILD_DIR_SRC)/rtg/rtg_function_call.$(HEXT): \
+		$(SRC_DIR)/rtg/rtg_function_call.h
+	$(CP) $< $@
+
 $(BUILD_DIR_SRC)/rtg/rtg_named_function.$(HEXT): \
 		$(SRC_DIR)/rtg/rtg_named_function.h \
 		$(BUILD_DIR_SRC)/rtg/rtg_forward_declarations.$(HEXT) \
@@ -2223,7 +2227,8 @@ endef
 
 $(BUILD_DIR_SRC)/rtg/rtg_operation_arg.$(HEXT): \
 		$(SRC_DIR)/rtg/rtg_operation_arg.h \
-		$(BUILD_DIR_SRC)/rtg/rtg_expression.$(HEXT)
+		$(BUILD_DIR_SRC)/rtg/rtg_expression.$(HEXT) \
+		$(BUILD_DIR_SRC)/rtg/rtg_function_call.$(HEXT)
 	$(CP) $< $@
 
 $(BUILD_DIR_SRC)/rtg/rtg_operation_arg.$(CEXT): \

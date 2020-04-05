@@ -40,6 +40,8 @@
 /*   For `rtg_operation`. */
 #include "rtg_operation.h"
 
+#include "rtg_function_call.h"
+
 /*   This is an enumeration. */
 
 #define RTG_OPERATION_ARG_TYPE_INVALID                   0x20

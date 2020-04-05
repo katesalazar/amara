@@ -19,6 +19,10 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__FUNCTION_CALL__H__
 #define __AMARA__RUN_TIME_GRAPH__FUNCTION_CALL__H__
 
+typedef struct rtg_function_call {
+
+	int unused;  /* FIXME REMOVE ME */
+} rtg_function_call
 ;
 
 #endif
