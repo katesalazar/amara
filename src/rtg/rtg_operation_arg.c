@@ -662,14 +662,18 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		}
 		/*   Function to be called has been found at this point. */
 		if (operation_arg->node_->sub_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ == AMARA_BOOLEAN_TRUE) {
-			forced_assertion(0);  /* FIXXXME */
+			forced_assertion(0);  /* FIXXXME FIXME XXX */
 		} else {
-			forced_assertion(0);  /* FIXXXME */
+			forced_assertion(0);  /* FIXXXME FIXME XXX */
 		}
-		COMPROBAR CORRECCION, AJUSTE DE  TIPOS DE LA LLAMADA A LA SIGNATURA DE LA FUNCION
+		/* COMPROBAR CORRECCION, AJUSTE DE  TIPOS DE LA LLAMADA A LA SIGNATURA DE LA FUNCION */
+		rtg_function_call_signature_matches(rtg_function_call, rtg_named_function);  /* XXX QUIZAS NO EXACTAMENTE ASI, PENSAR ESTO BIEN */
 		sub_ret_ = rtg_operation_arg_default_constructor();
 		forced_assertion(sub_ret_ != NULL);
-		AJUSTAR PUNTERO RTG
+		/* MAS COSAS AQUI */
+		FIXME
+		/* AJUSTAR PUNTERO RTG */
+		FIXME
 	}  /* End switching on `operation_arg->node_->type_`. */
 	ret_->operation_arg = sub_ret_;
 	ret_->error_messages = NULL;
