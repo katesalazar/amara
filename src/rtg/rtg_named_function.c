@@ -432,6 +432,7 @@ rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list
 	*/
 
 	rtg_named_functions = NULL;  /* XXX */
+	forced_assertion(rtg_named_functions == NULL);  /* XXX */
 
 	ret_ =
 #ifdef AMARA_USE_STD_CXX98
