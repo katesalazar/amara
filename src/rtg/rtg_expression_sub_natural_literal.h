@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Mercedes Catherine Salazar
+ * Copyright 2018, 2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,20 +20,13 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__EXPRESSION_SUB_NATURAL_LITERAL__H__
 #define __AMARA__RUN_TIME_GRAPH__EXPRESSION_SUB_NATURAL_LITERAL__H__
 
+#include "rtg_forward_declarations.h"
+
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
-/*   For `natural`. */
-#include "../brt/natural.h"
-
 /*   For `stt_expression_sub_natural_literal`. */
 #include "../stt/stt_expression_sub_natural_literal.h"
-
-typedef struct rtg_expression_sub_natural_literal {
-
-	natural * natural_literal_;
-} rtg_expression_sub_natural_literal
-;
 
 /**  Copy constructor. */
 rtg_expression_sub_natural_literal *

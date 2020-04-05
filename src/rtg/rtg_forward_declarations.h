@@ -20,6 +20,9 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__FORWARD_DECLARATIONS__H__
 #define __AMARA__RUN_TIME_GRAPH__FORWARD_DECLARATIONS__H__
 
+/*   For `natural`. */
+#include "../brt/natural.h"
+
 #define RTG_OPERATION_TYPE_INVALID                         0x00
 #define RTG_OPERATION_TYPE_PRINT                           0x03
 #define RTG_OPERATION_TYPE_PRINT_CRLF                      0x0C
@@ -54,6 +57,32 @@ typedef struct rtg_operations_simple_list {
 
 	struct rtg_operations_simple_list * next;
 } rtg_operations_simple_list
+;
+
+typedef struct rtg_expression_sub_string_literal {
+
+	amara_string * string_literal_;
+} rtg_expression_sub_string_literal
+;
+
+typedef struct rtg_expression_sub_natural_literal {
+
+	natural * natural_literal_;
+} rtg_expression_sub_natural_literal
+;
+
+typedef struct rtg_expression_sub_identifier {
+
+	amara_string * identifier_;
+} rtg_expression_sub_identifier
+;
+
+typedef struct rtg_expression_sub_dice {
+
+	natural * left_hand_side_natural_;
+
+	natural * right_hand_side_natural_;
+} rtg_expression_sub_dice
 ;
 
 /*   This is an enumeration. */

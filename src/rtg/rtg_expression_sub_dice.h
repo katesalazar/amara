@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,19 +20,13 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__EXPRESSION_SUB_DICE__H__
 #define __AMARA__RUN_TIME_GRAPH__EXPRESSION_SUB_DICE__H__
 
+#include "rtg_forward_declarations.h"
+
 /*   For `typedef struct natural { ... } natural`. */
 #include "../brt/brt_forward_declarations.h"
 
 /*   For `stt_expression_sub_dice`. */
 #include "../stt/stt_expression_sub_dice.h"
-
-typedef struct rtg_expression_sub_dice {
-
-	natural * left_hand_side_natural_;
-
-	natural * right_hand_side_natural_;
-} rtg_expression_sub_dice
-;
 
 rtg_expression_sub_dice *
 rtg_expression_sub_dice_copy_constructor(

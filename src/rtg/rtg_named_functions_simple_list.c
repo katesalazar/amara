@@ -255,7 +255,9 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 	/**  Pointer for `list` traversals. */
 	const stt_named_functions_simple_list * list_ptr_;
 	/**  Structure holding an element of `sub_ret_`. */
-	rtg_named_function_out_of_stt_named_function_ret * sub_ret_fun_ret_;
+	rtg_named_function_out_of_stt_named_function_ret * sub_ret_fun_ret_0_;
+	/**  Structure holding an element of `sub_ret_` (another one). */
+	rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list_ret * sub_ret_fun_ret_1_;
 
 #ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "%s:%u ----> rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list_ret * rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(const stt_named_functions_simple_list *)\n",
@@ -304,39 +306,39 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 	sub_ret_ = rtg_named_functions_simple_list_default_constructor();
 	forced_assertion(sub_ret_ != NULL);
 
-	sub_ret_fun_ret_ = rtg_named_function_out_of_stt_named_function(
+	sub_ret_fun_ret_0_ = rtg_named_function_out_of_stt_named_function(
 			list->first);
-	forced_assertion(sub_ret_fun_ret_ != NULL);
+	forced_assertion(sub_ret_fun_ret_0_ != NULL);
 
-	forced_assertion(sub_ret_fun_ret_->status ==
+	forced_assertion(sub_ret_fun_ret_0_->status ==
 			RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_SUCCESS);
-	forced_assertion(sub_ret_fun_ret_->error_messages == NULL);
+	forced_assertion(sub_ret_fun_ret_0_->error_messages == NULL);
 
-	sub_ret_->first = sub_ret_fun_ret_->named_function;
-	sub_ret_fun_ret_->named_function = NULL;
+	sub_ret_->first = sub_ret_fun_ret_0_->named_function;
+	sub_ret_fun_ret_0_->named_function = NULL;
 	rtg_named_function_out_of_stt_named_function_ret_destructor(
-			sub_ret_fun_ret_);
+			sub_ret_fun_ret_0_);
 
 	list_ptr_ = list->next;
 	while (list_ptr_ != NULL) {
 
 		forced_assertion(list_ptr_->first != NULL);
 
-		sub_ret_fun_ret_ =
+		sub_ret_fun_ret_1_ =
 				rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list(
 						list_ptr_->next->first,
 						sub_ret_);
-		forced_assertion(sub_ret_fun_ret_ != NULL);
-		forced_assertion(sub_ret_fun_ret_->status ==
+		forced_assertion(sub_ret_fun_ret_1_ != NULL);
+		forced_assertion(sub_ret_fun_ret_1_->status ==
 				RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_SUCCESS);
 
 		rtg_named_functions_simple_list_push_back(
-				sub_ret_, sub_ret_fun_ret_->named_function);
+				sub_ret_, sub_ret_fun_ret_1_->named_function);
 		rtg_named_function_destructor(
-				sub_ret_fun_ret_->named_function);
-		sub_ret_fun_ret_->named_function = NULL;
-		rtg_named_function_out_of_stt_named_function_ret_destructor(
-				sub_ret_fun_ret_);
+				sub_ret_fun_ret_1_->named_function);
+		sub_ret_fun_ret_1_->named_function = NULL;
+		rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list_ret_destructor(
+				sub_ret_fun_ret_1_);
 
 		list_ptr_ = list_ptr_->next;
 	}
