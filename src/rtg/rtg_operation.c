@@ -145,9 +145,9 @@ rtg_operation_copy_constructor(const rtg_operation * operation)
 	rtg_operation * ret_;
 #ifndef NDEBUG
 	amara_string * operation_type_as_string_;
-#endif
 	assertion(operation->type_ != RTG_OPERATION_TYPE_INVALID);
-	assertion(operation->args_ != NULL);
+#endif
+	forced_assertion(operation->args_ != NULL);
 	if (operation->args_->first == NULL) {
 
 #ifdef DUMP_FLOW_TO_STDERR
@@ -156,20 +156,20 @@ rtg_operation_copy_constructor(const rtg_operation * operation)
 	}
 	if (operation->type_ == RTG_OPERATION_TYPE_PRINT_CRLF) {
 		/*   No args operation. */
-		assertion(operation->args_->first == NULL);
+		forced_assertion(operation->args_->first == NULL);
 	} else if (operation->type_ == RTG_OPERATION_TYPE_PRINT) {
 		/*   One arg operation right now. Eventually, variable
 		 * length. */
-		assertion(operation->args_->first != NULL);
-		assertion(operation->args_->next == NULL);
+		forced_assertion(operation->args_->first != NULL);
+		forced_assertion(operation->args_->next == NULL);
 	/*
 	} else if (operation->type_ ==
 			RTG_OPERATION_TYPE_READ_NATURAL_TO_VARIABLE) {
 	*/
 		/*   One arg operation. */
 	/*
-		assertion(operation->args_->first != NULL);
-		assertion(operation->args_->next == NULL);
+		forced_assertion(operation->args_->first != NULL);
+		forced_assertion(operation->args_->next == NULL);
 	*/
 	/*
 	} else if (operation->type_ == RTG_OPERATION_TYPE_MULTIPLICATION ||
@@ -180,20 +180,20 @@ rtg_operation_copy_constructor(const rtg_operation * operation)
 #ifndef NDEBUG
 		if (operation->type_ == RTG_OPERATION_TYPE_ADDITION) {
 
-			assertion(operation->type_ ==
+			forced_assertion(operation->type_ ==
 					RTG_OPERATION_TYPE_ADDITION);
 		} else if (operation->type_ ==
 				RTG_OPERATION_TYPE_SUBSTRACTION) {
 
-			assertion(operation->type_ ==
+			forced_assertion(operation->type_ ==
 					RTG_OPERATION_TYPE_SUBSTRACTION);
 		} else if (operation->type_ ==
 				RTG_OPERATION_TYPE_MULTIPLICATION) {
 
-			assertion(operation->type_ ==
+			forced_assertion(operation->type_ ==
 					RTG_OPERATION_TYPE_MULTIPLICATION);
 		} else {
-			assertion(operation->type_ ==
+			forced_assertion(operation->type_ ==
 					RTG_OPERATION_TYPE_DIVISION);
 		}
 #endif
@@ -201,35 +201,41 @@ rtg_operation_copy_constructor(const rtg_operation * operation)
 	*/
 		/*   Two args operation. */
 	/*
-		assertion(operation->args_->first != NULL);
-		assertion(operation->args_->next != NULL);
-		assertion(operation->args_->next->first != NULL);
-		assertion(operation->args_->next->next == NULL);
+		forced_assertion(operation->args_->first != NULL);
+		forced_assertion(operation->args_->next != NULL);
+		forced_assertion(operation->args_->next->first != NULL);
+		forced_assertion(operation->args_->next->next == NULL);
 	} else if (operation->type_ ==
 			RTG_FAKE_OPERATION_TYPE_RESOLVE_TYPE_OF_EXPRESSION) {
 	*/
 		/*   One arg operation. */
 	/*
-		assertion(operation->args_->first != NULL);
-		assertion(operation->args_->next == NULL);
+		forced_assertion(operation->args_->first != NULL);
+		forced_assertion(operation->args_->next == NULL);
 	*/
 	/*
 	} else if (operation->type_ != RTG_OPERATION_TYPE_PRINT_NO_CRLF) {
-		assertion(operation->type_ ==
+		forced_assertion(operation->type_ ==
 				RTG_OPERATION_TYPE_PRINT_NO_CRLF);
 	*/
 		/*   One arg operation. */
 	/*
-		assertion(operation->args_->first != NULL);
-		assertion(operation->args_->next == NULL);
+		forced_assertion(operation->args_->first != NULL);
+		forced_assertion(operation->args_->next == NULL);
 	*/
-	} else {
-		forced_assertion(operation->type_ ==
-				RTG_OPERATION_TYPE_READ_NATURAL_TO_VALUE);
+	} else if (operation->type_ ==
+			RTG_OPERATION_TYPE_READ_NATURAL_TO_VALUE) {
 
 		/*   One arg operation. */
-		assertion(operation->args_->first != NULL);
-		assertion(operation->args_->next == NULL);
+		forced_assertion(operation->args_->first != NULL);
+		forced_assertion(operation->args_->next == NULL);
+	} else {
+		forced_assertion(operation->type_ ==
+				RTG_OPERATION_TYPE_EXECUTION);
+
+		/*   One arg operation. */
+		forced_assertion(operation->args_->first != NULL);
+		forced_assertion(operation->args_->next == NULL);
 	}
 
 	ret_ =
