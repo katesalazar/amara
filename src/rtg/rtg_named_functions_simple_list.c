@@ -244,10 +244,15 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list_ret *
 rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 		const stt_named_functions_simple_list * list)
 {
+	/**  Returned structure. */
 	rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list_ret * ret_;
+	/**  List which may hang from the returned structure. */
 	rtg_named_functions_simple_list * sub_ret_;
+	/**  Pointer for `sub_ret_` traversals. */
 	rtg_named_functions_simple_list * sub_ret_ptr_;
+	/**  Pointer for `list` traversals. */
 	const stt_named_functions_simple_list * list_ptr_;
+	/**  Structure holding an element of `sub_ret_`. */
 	rtg_named_function_out_of_stt_named_function_ret * sub_ret_fun_ret_;
 
 #ifdef DUMP_FLOW_TO_STDERR
@@ -301,6 +306,9 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 			malloc(sizeof(rtg_named_functions_simple_list));
 	forced_assertion(sub_ret_ != NULL);
 
+	sub_ret_->first = NULL;
+	sub_ret_->next = NULL;
+
 	sub_ret_fun_ret_ = rtg_named_function_out_of_stt_named_function(
 			list->first);
 	forced_assertion(sub_ret_fun_ret_ != NULL);
@@ -325,6 +333,7 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 
 		ret_->status = RTG_NAMED_FUNCTIONS_SIMPLE_LIST_OUT_OF_STT_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION_IN_AT_LEAST_ONE_FUNCTION;
 
+		/*   Might be better to destroy this using its destructor? */
 		free(sub_ret_);  /* XXX */
 
 		return ret_;
@@ -355,11 +364,9 @@ rtg_named_functions_simple_list_out_of_stt_named_functions_simple_list(
 		sub_ret_fun_ret_ =
 				rtg_named_function_out_of_stt_named_function(
 						list_ptr_->next->first);
-#ifndef NDEBUG
-		assertion(sub_ret_fun_ret_ != NULL);
-		assertion(sub_ret_fun_ret_->status ==
+		forced_assertion(sub_ret_fun_ret_ != NULL);
+		forced_assertion(sub_ret_fun_ret_->status ==
 				RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_SUCCESS);
-#endif
 
 		sub_ret_ptr_->next->first = sub_ret_fun_ret_->named_function;
 		sub_ret_fun_ret_->named_function = NULL;
