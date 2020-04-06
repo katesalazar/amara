@@ -40,7 +40,7 @@
 /*   For `rtg_operation`. */
 #include "rtg_operation.h"
 
-#include "rtg_function_call.h"
+#include "rtg_named_function_call.h"
 
 /*   This is an enumeration. */
 
@@ -92,7 +92,7 @@ typedef struct rtg_operation_arg {
 	/**  In case the operation is a function call, pointer to the
 	 * function call, which should include a pointer to the called
 	 * function itself. */
-	rtg_function_call * function_call_;
+	rtg_named_function_call * named_function_call_;
 
 	/**  TODO Why was this added? */
 	struct rtg_operation * operation_;

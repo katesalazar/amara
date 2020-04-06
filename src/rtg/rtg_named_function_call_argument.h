@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * src/rtg/rtg_function_call.h: Amara runtime graph named function call.
+ * src/rtg/rtg_named_function_call_argument.h: Amara runtime graph named
+ * function call argument.
  */
 
-#ifndef __AMARA__RUN_TIME_GRAPH__FUNCTION_CALL__H__
-#define __AMARA__RUN_TIME_GRAPH__FUNCTION_CALL__H__
+#ifndef __AMARA__RUN_TIME_GRAPH__NAMED_FUNCTION_CALL_ARGUMENT__H__
+#define __AMARA__RUN_TIME_GRAPH__NAMED_FUNCTION_CALL_ARGUMENT__H__
 
-typedef struct rtg_function_call {
+typedef struct rtg_named_function_call_argument {
 
-	int unused;  /* FIXME REMOVE ME */
-} rtg_function_call
+	int unused;  /* XXX */
+} rtg_named_function_call_argument
 ;
-
-;....
 
 #endif
