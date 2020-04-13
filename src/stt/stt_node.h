@@ -92,9 +92,9 @@ typedef unsigned char stt_node_type;
 #define STT_NODE_TYPE_DOC                 0x10  /* 16       */
 #define STT_UNUSED                        0x7F  /* 127      */
 #define STT_NODE_TYPE_CLI_OPERATIONS_LIST 0x81  /* 129      */
-#define STT_NODE_TYPE_EMPTY_FUNCTION_CALL_ARGUMENTS_LIST 0x82  /* 130 */
-#define STT_NODE_TYPE_FUNCTION_CALL_ARGUMENTS_LIST       0x83  /* 131 */
-#define STT_NODE_TYPE_FUNCTION_CALL                      0x84  /* 132 */
+#define STT_NODE_TYPE_EMPTY_NAMED_FUNCTION_CALL_ARGUMENTS_LIST 0x82  /* 130 */
+#define STT_NODE_TYPE_NAMED_FUNCTION_CALL_ARGUMENTS_LIST       0x83  /* 131 */
+#define STT_NODE_TYPE_NAMED_FUNCTION_CALL                      0x84  /* 132 */
 #define STT_NODE_TYPE_ERRORED             0xFF  /* 255      */
 
 #define BISON_RET_INVALID                   0x7F

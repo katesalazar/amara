@@ -961,9 +961,9 @@ bison_annex_function_call_out_of_token_call_and_token_function_and_token_identif
 	returning_->sub_named_function_call_ =
 			stt_node_sub_named_function_call_exhaustive_constructor(
 					identifier, function_call_arguments);
-	forced_assertion(returning_->sub_function_call_ != NULL);
+	forced_assertion(returning_->sub_named_function_call_ != NULL);
 
-	returning_->type_ = STT_NODE_TYPE_FUNCTION_CALL;
+	returning_->type_ = STT_NODE_TYPE_NAMED_FUNCTION_CALL;
 
 	return returning_;
 }
