@@ -137,7 +137,7 @@ typedef struct stt_node {
 
 	stt_doc_subnode * doc_subnode_;
 
-	stt_node_sub_function_call * sub_function_call_;
+	stt_node_sub_named_function_call * sub_named_function_call_;
 
 	/**  Bison `yyparse` function is supposed  to return 0, 1 or 2. */
 	int bison_ret_;
