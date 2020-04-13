@@ -925,13 +925,14 @@ bison_annex_function_call_without_return_value_out_of_nonterminal_function_call(
 #ifndef NDEBUG
 	assertion(function_call != NULL);
 	assertion(function_call->type_ == STT_NODE_TYPE_FUNCTION_CALL);
-	assertion(function_call->sub_function_call_ != NULL);
-	assertion(function_call->sub_function_call_->pending_semantic_checks_ !=
+	assertion(function_call->sub_named_function_call_ != NULL);
+	assertion(function_call->sub_named_function_call_->named_function_call_ != NULL);
+	assertion(function_call->sub_named_function_call_->named_function_call_->pending_semantic_checks_ !=
 			NULL);
-	assertion(function_call->sub_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ ==
+	assertion(function_call->sub_named_function_call_->named_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ ==
 			0);
 #endif
-	function_call->sub_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ =
+	function_call->sub_named_function_call_->named_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ =
 			1;
 	return function_call;
 }
