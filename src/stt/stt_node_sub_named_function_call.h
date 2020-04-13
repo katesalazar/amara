@@ -29,6 +29,8 @@
 #include "../cmn/amara_boolean.h"
 */
 
+#include "stt_named_function_call.h"
+
 typedef struct stt_node_sub_named_function_call {
 
 	stt_named_function_call * named_function_call_;
