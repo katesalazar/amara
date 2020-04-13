@@ -51,7 +51,7 @@
 /*   For `stt_natural_literal_subnode`. */
 #include "stt_natural_literal_subnode.h"
 
-#include "stt_node_sub_function_call.h"
+#include "stt_node_sub_named_function_call.h"
 
 /*   For `stt_operation_subnode`. */
 #include "stt_operation_subnode.h"
