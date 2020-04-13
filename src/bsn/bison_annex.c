@@ -976,7 +976,7 @@ bison_annex_function_call_arguments_out_of_token_with_and_token_no_and_token_arg
 	returning_ = stt_node_default_constructor();
 	forced_assertion(returning_ != NULL);
 
-	returning_->type_ = STT_NODE_TYPE_EMPTY_FUNCTION_CALL_ARGUMENTS_LIST;  /* XXX */
+	returning_->type_ = STT_NODE_TYPE_EMPTY_NAMED_FUNCTION_CALL_ARGUMENTS_LIST;  /* XXX */
 
 	return returning_;
 }
