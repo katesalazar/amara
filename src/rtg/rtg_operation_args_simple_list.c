@@ -256,23 +256,15 @@ rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list(
 		assertion(operation_args_ptr_->first != NULL);
 #endif
 
-		sub_ret_ptr_element_ret_ =
-				rtg_operation_arg_out_of_stt_operation_arg(
-						operation_args_ptr_->first,
-						operation_type,
-						function_where_bindings);
+		sub_ret_ptr_element_ret_ = rtg_operation_arg_out_of_stt_operation_arg(operation_args_ptr_->first, operation_type, function_where_bindings, NULL  /* XXX */);
 		forced_assertion(sub_ret_ptr_element_ret_ != NULL);
-
-		forced_assertion(sub_ret_ptr_element_ret_->status ==
-				RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS);
-		forced_assertion(sub_ret_ptr_element_ret_->operation_arg !=
-				NULL);
+		forced_assertion(sub_ret_ptr_element_ret_->status == RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS);
+		forced_assertion(sub_ret_ptr_element_ret_->operation_arg != NULL);
 
 		sub_ret_ptr_element_ = sub_ret_ptr_element_ret_->operation_arg;
 		sub_ret_ptr_element_ret_->operation_arg = NULL;
 
-		rtg_operation_arg_out_of_stt_operation_arg_ret_destructor(
-				sub_ret_ptr_element_ret_);
+		rtg_operation_arg_out_of_stt_operation_arg_ret_destructor(sub_ret_ptr_element_ret_);
 
 		sub_ret_ptr_->first = sub_ret_ptr_element_;
 
@@ -295,14 +287,12 @@ rtg_operation_args_simple_list_out_of_stt_operation_args_simple_list(
 	sub_ret_ptr_->next = NULL;
 	*/
 
-	sub_ret_ptr_element_ret_ = rtg_operation_arg_out_of_stt_operation_arg(operation_args_ptr_->first, operation_type, function_where_bindings);
+	sub_ret_ptr_element_ret_ = rtg_operation_arg_out_of_stt_operation_arg(operation_args_ptr_->first, operation_type, function_where_bindings, NULL);
 	forced_assertion(sub_ret_ptr_element_ret_ != NULL);
 
-	if (sub_ret_ptr_element_ret_->status !=
-			RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS) {
+	if (sub_ret_ptr_element_ret_->status != RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS) {
 
-		assertion(sub_ret_ptr_element_ret_->status ==
-				RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_IDENTIFIER);
+		assertion(sub_ret_ptr_element_ret_->status == RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_IDENTIFIER);
 
 		ret_->operation_args = NULL;
 		ret_->error_messages =

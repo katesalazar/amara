@@ -19,6 +19,8 @@
 #ifndef __AMARA__SYNTAX_TREE__NAMED_FUNCTION_CALL__H__
 #define __AMARA__SYNTAX_TREE__NAMED_FUNCTION_CALL__H__
 
+#include "../cmn/amara_boolean.h"
+
 /**  Helper struct for flags. */
 typedef struct stt_named_function_call_pending_semantic_checks {
 

@@ -21,9 +21,7 @@
 #ifndef __AMARA__SYNTAX_TREE__NODE_SUB_NAMED_FUNCTION_CALL__H__
 #define __AMARA__SYNTAX_TREE__NODE_SUB_NAMED_FUNCTION_CALL__H__
 
-/*
 #include "../definitions.h"
-*/
 
 /*
 #include "../cmn/amara_boolean.h"

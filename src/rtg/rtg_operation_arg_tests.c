@@ -292,23 +292,14 @@ rtg_operation_arg_copy_constructor_test_0()
 			stt_operation_arg_);
 #endif
 
-	rtg_operation_arg_out_of_stt_operation_arg_ret_ =
-			rtg_operation_arg_out_of_stt_operation_arg(
-					stt_operation_arg_,
-					STT_OPERATION_TYPE_PRINT,
-					NULL);
+	rtg_operation_arg_out_of_stt_operation_arg_ret_ = rtg_operation_arg_out_of_stt_operation_arg(stt_operation_arg_, STT_OPERATION_TYPE_PRINT, NULL, NULL);
 #ifndef NDEBUG
-	assert_expectations_on_stt_operation_arg_example_natural_literal_zero(
-			stt_operation_arg_);
+	assert_expectations_on_stt_operation_arg_example_natural_literal_zero(stt_operation_arg_);
 #endif
-	forced_assertion(rtg_operation_arg_out_of_stt_operation_arg_ret_ !=
-			NULL);
-	forced_assertion(rtg_operation_arg_out_of_stt_operation_arg_ret_->status ==
-			RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS);
-	forced_assertion(rtg_operation_arg_out_of_stt_operation_arg_ret_->operation_arg !=
-			NULL);
-	forced_assertion(rtg_operation_arg_out_of_stt_operation_arg_ret_->error_messages ==
-			NULL);
+	forced_assertion(rtg_operation_arg_out_of_stt_operation_arg_ret_ != NULL);
+	forced_assertion(rtg_operation_arg_out_of_stt_operation_arg_ret_->status == RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_SUCCESS);
+	forced_assertion(rtg_operation_arg_out_of_stt_operation_arg_ret_->operation_arg != NULL);
+	forced_assertion(rtg_operation_arg_out_of_stt_operation_arg_ret_->error_messages == NULL);
 
 	rtg_operation_arg_zero_ =
 			rtg_operation_arg_out_of_stt_operation_arg_ret_->operation_arg;

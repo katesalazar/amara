@@ -134,6 +134,12 @@ rtg_operation_arg_set_identifier(
 		const amara_string * identifier)
 ;
 
+void
+rtg_operation_arg_set_named_function_call(
+		rtg_operation_arg * operation_arg,
+		const rtg_named_function_call * named_function_call)
+;
+
 #define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_INVALID 0x00
 #define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_IDENTIFIER 0x0E
 #define RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_ERROR_UNSPECIFIC 0x0F

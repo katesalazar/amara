@@ -443,6 +443,10 @@ rtg_operation_arg_out_of_stt_operation_arg(
 	 * particular function is actually callable from the function
 	 * call (types compatibility, etc.). */
 	amara_boolean function_callable_from_current_call_;
+	/**  Holds the return of the order to create an RTG named
+	 * function call out of an STT named function call and the
+	 * corresponding RTG named function. */
+	rtg_named_function_call_out_of_stt_named_function_call_and_rtg_named_function_ret * rtg_named_function_call_transformation_ret_;
 
 	ret_ = amara_malloc_rtg_operation_arg_out_of_stt_operation_arg_ret();
 	forced_assertion(ret_ != NULL);
@@ -684,10 +688,13 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		function_callable_from_current_call_ = rtg_named_function_callable_from_stt_named_function_call(find_rtg_named_function_ret_->named_function, operation_arg->node_->sub_named_function_call_->named_function_call_);
 		sub_ret_ = rtg_operation_arg_default_constructor();
 		forced_assertion(sub_ret_ != NULL);
-		/* MAS COSAS AQUI */
-		FIXME
-		/* AJUSTAR PUNTERO RTG */
-		FIXME
+		rtg_named_function_call_transformation_ret_ = rtg_named_function_call_out_of_stt_named_function_call_and_rtg_named_function(operation_arg->node_->sub_named_function_call_->named_function_call_, find_rtg_named_function_ret_->named_function);
+		forced_assertion(rtg_named_function_call_transformation_ret_->status == RTG_NAMED_FUNCTION_CALL_OUT_OF_STT_NAMED_FUNCTION_CALL_AND_RTG_NAMED_FUNCTION_RET_STATUS_SUCCESS);
+		rtg_operation_arg_set_named_function_call(sub_ret_, rtg_named_function_call_transformation_ret_->named_function_call);
+#ifndef NDEBUG
+		assertion(sub_ret_->type_ == RTG_OPERATION_ARG_TYPE_NAMED_FUNCTION_CALL);
+#endif
+		rtg_named_function_call_out_of_stt_named_function_call_and_rtg_named_function_ret_destructor(rtg_named_function_call_transformation_ret_);
 	}  /* End switching on `operation_arg->node_->type_`. */
 	ret_->operation_arg = sub_ret_;
 	ret_->error_messages = NULL;

@@ -32,13 +32,12 @@ __amara__warn_unused_result__
 
 stt_node_sub_function_call *
 stt_node_sub_named_function_call_copy_constructor(
-		const stt_node_sub_function_call * sub_function_call)
+		const stt_node_sub_named_function_call * sub_named_function_call)
 {
-	stt_node_sub_function_call_pending_semantic_checks * returning_pending_semantic_checks_;
-	stt_node_sub_function_call * returning_;
+	stt_node_sub_named_function_call * returning_;
 
-	forced_assertion(sub_function_call != NULL);
-	forced_assertion(sub_function_call->pending_semantic_checks_ != NULL);
+	forced_assertion(sub_named_function_call != NULL);
+	forced_assertion(sub_named_function_call->pending_semantic_checks_ != NULL);
 
 #ifdef AMARA_USE_STD_CXX98
 	returning_pending_semantic_checks_ = (stt_node_sub_function_call_pending_semantic_checks *) malloc(sizeof(stt_node_sub_function_call_pending_semantic_checks));

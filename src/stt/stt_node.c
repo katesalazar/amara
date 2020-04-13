@@ -66,7 +66,7 @@ stt_node_default_constructor()
 	returning_->operations_list_subnode_ = NULL;
 	returning_->doc_subnode_ = NULL;
 	returning_->execution_request_subnode_ = NULL;
-	returning_->sub_function_call_ = NULL;
+	returning_->sub_named_function_call_ = NULL;
 	returning_->bison_ret_ = BISON_RET_INVALID;
 
 	return returning_;
@@ -93,7 +93,7 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
-		assertion(node->sub_function_call_ == NULL);
+		assertion(node->sub_named_function_call_ == NULL);
 #endif
 	} else if (node->type_ == STT_NODE_TYPE_NATURAL_LITERAL) {
 #ifndef NDEBUG
@@ -112,7 +112,7 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
-		assertion(node->sub_function_call_ == NULL);
+		assertion(node->sub_named_function_call_ == NULL);
 #endif
 	} else if (node->type_ == STT_NODE_TYPE_INTEGER_LITERAL) {
 #ifndef NDEBUG
@@ -131,7 +131,7 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
-		assertion(node->sub_function_call_ == NULL);
+		assertion(node->sub_named_function_call_ == NULL);
 #endif
 	} else if (node->type_ == STT_NODE_TYPE_RATIONAL_LITERAL) {
 #ifndef NDEBUG
@@ -150,7 +150,7 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
-		assertion(node->sub_function_call_ == NULL);
+		assertion(node->sub_named_function_call_ == NULL);
 #endif
 	} else if (node->type_ == STT_NODE_TYPE_IDENTIFIER) {
 #ifndef NDEBUG
@@ -169,7 +169,7 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
-		assertion(node->sub_function_call_ == NULL);
+		assertion(node->sub_named_function_call_ == NULL);
 #endif
 	} else if (node->type_ == STT_NODE_TYPE_CONDITION) {
 #ifndef NDEBUG
@@ -188,7 +188,7 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
-		assertion(node->sub_function_call_ == NULL);
+		assertion(node->sub_named_function_call_ == NULL);
 #endif
 	} else if (node->type_ == STT_NODE_TYPE_EXPRESSION) {
 #ifndef NDEBUG
@@ -207,7 +207,7 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
-		assertion(node->sub_function_call_ == NULL);
+		assertion(node->sub_named_function_call_ == NULL);
 #endif
 	} else if (node->type_ == STT_NODE_TYPE_WHERE_BINDING) {
 #ifndef NDEBUG
@@ -226,7 +226,7 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
-		assertion(node->sub_function_call_ == NULL);
+		assertion(node->sub_named_function_call_ == NULL);
 #endif
 	} else if (node->type_ == STT_NODE_TYPE_WHERE_BINDINGS) {
 #ifndef NDEBUG
@@ -245,7 +245,7 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
-		assertion(node->sub_function_call_ == NULL);
+		assertion(node->sub_named_function_call_ == NULL);
 #endif
 	} else if (node->type_ == STT_NODE_TYPE_OPERATION) {
 #ifndef NDEBUG
@@ -264,7 +264,7 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
-		assertion(node->sub_function_call_ == NULL);
+		assertion(node->sub_named_function_call_ == NULL);
 #endif
 	} else if (node->type_ == STT_NODE_TYPE_NAMED_FUNCTION) {
 #ifndef NDEBUG
@@ -283,7 +283,7 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
-		assertion(node->sub_function_call_ == NULL);
+		assertion(node->sub_named_function_call_ == NULL);
 #endif
 	} else if (node->type_ == STT_NODE_TYPE_APPLICATION) {
 #ifndef NDEBUG
@@ -302,7 +302,7 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
-		assertion(node->sub_function_call_ == NULL);
+		assertion(node->sub_named_function_call_ == NULL);
 #endif
 	} else if (node->type_ == STT_NODE_TYPE_OPERATIONS_LIST) {
 #ifndef NDEBUG
@@ -321,7 +321,7 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->operations_list_subnode_ != NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
-		assertion(node->sub_function_call_ == NULL);
+		assertion(node->sub_named_function_call_ == NULL);
 #endif
 	} else if (node->type_ == STT_NODE_TYPE_DOC) {
 #ifndef NDEBUG
@@ -340,7 +340,7 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ != NULL);
 		assertion(node->execution_request_subnode_ == NULL);
-		assertion(node->sub_function_call_ == NULL);
+		assertion(node->sub_named_function_call_ == NULL);
 #endif
 	} else if (node->type_ == STT_NODE_TYPE_EXECUTION_REQUEST) {
 #ifndef NDEBUG
@@ -359,10 +359,10 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ != NULL);
-		assertion(node->sub_function_call_ == NULL);
+		assertion(node->sub_named_function_call_ == NULL);
 #endif
 	} else {
-		forced_assertion(node->type_ == STT_NODE_TYPE_FUNCTION_CALL);
+		forced_assertion(node->type_ == STT_NODE_TYPE_NAMED_FUNCTION_CALL);
 #ifndef NDEBUG
 		assertion(node->string_literal_subnode_ == NULL);
 		assertion(node->natural_literal_subnode_ == NULL);
@@ -379,7 +379,7 @@ assert_stt_node_is_valid(const stt_node * node)
 		assertion(node->operations_list_subnode_ == NULL);
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
-		assertion(node->sub_function_call_ != NULL);
+		assertion(node->sub_named_function_call_ != NULL);
 #endif
 	}
 }
@@ -558,22 +558,20 @@ stt_node_copy_constructor(const stt_node * node)
 		ret_->type_ = STT_NODE_TYPE_DOC;
 		return ret_;
 	}
-	if (node->type_ == STT_NODE_TYPE_FUNCTION_CALL) {
+	if (node->type_ == STT_NODE_TYPE_NAMED_FUNCTION_CALL) {
 #ifndef NDEBUG
 		stt_node_assertion_clean_function_call_node(node);
 #endif
-		ret_->sub_function_call_ = stt_node_sub_function_call_copy_constructor(
-				node->sub_function_call_);
-		forced_assertion(ret_->sub_function_call_ != NULL);
-		ret_->type_ = STT_NODE_TYPE_FUNCTION_CALL;
+		ret_->sub_named_function_call_ = stt_node_sub_named_function_call_copy_constructor(node->sub_named_function_call_);
+		forced_assertion(ret_->sub_named_function_call_ != NULL);
+		ret_->type_ = STT_NODE_TYPE_NAMED_FUNCTION_CALL;
 		return ret_;
 	}
-	forced_assertion(node->type_ ==
-			STT_NODE_TYPE_EMPTY_FUNCTION_CALL_ARGUMENTS_LIST);
+	forced_assertion(node->type_ == STT_NODE_TYPE_EMPTY_NAMED_FUNCTION_CALL_ARGUMENTS_LIST);
 #ifndef NDEBUG
 	stt_node_assertion_clean_empty_function_call_arguments_list_node(node);
 #endif
-	ret_->type_ = STT_NODE_TYPE_EMPTY_FUNCTION_CALL_ARGUMENTS_LIST;
+	ret_->type_ = STT_NODE_TYPE_EMPTY_NAMED_FUNCTION_CALL_ARGUMENTS_LIST;
 	return ret_;
 }
 
@@ -901,17 +899,15 @@ stt_node_destructor(stt_node const * node)
 		assertion(node->sub_function_call_ == NULL);
 #endif
 		break;
-	case STT_NODE_TYPE_FUNCTION_CALL:
+	case STT_NODE_TYPE_NAMED_FUNCTION_CALL:
 #ifndef NDEBUG
 		stt_node_assertion_clean_function_call_node(node);
 #endif
-		stt_node_sub_function_call_destructor(
-				node->sub_function_call_);
+		stt_node_sub_named_function_call_destructor(node->sub_named_function_call_);
 		break;
-	case STT_NODE_TYPE_EMPTY_FUNCTION_CALL_ARGUMENTS_LIST:
+	case STT_NODE_TYPE_EMPTY_NAMED_FUNCTION_CALL_ARGUMENTS_LIST:
 #ifndef NDEBUG
-		stt_node_assertion_clean_empty_function_call_arguments_list_node(
-				node);
+		stt_node_assertion_clean_empty_function_call_arguments_list_node(node);
 #endif
 		break;
 	default:
@@ -1421,26 +1417,23 @@ stt_node_equality(const stt_node * n0, const stt_node * n1)
 
 		return equality_;
 
-	} else if (n0->type_ == STT_NODE_TYPE_FUNCTION_CALL) {
+	} else if (n0->type_ == STT_NODE_TYPE_NAMED_FUNCTION_CALL) {
 
 #ifndef NDEBUG
-		assertion(n0->sub_function_call_ != NULL);
+		assertion(n0->sub_named_function_call_ != NULL);
 #endif
-		forced_assertion(n1->type_ == STT_NODE_TYPE_FUNCTION_CALL);
+		forced_assertion(n1->type_ == STT_NODE_TYPE_NAMED_FUNCTION_CALL);
 #ifndef NDEBUG
-		assertion(n1->sub_function_call_ != NULL);
+		assertion(n1->sub_named_function_call_ != NULL);
 #endif
 
-		equality_ = stt_node_sub_function_call_equality(
-				n0->sub_function_call_,
-				n1->sub_function_call_);
+		equality_ = stt_node_sub_named_function_call_equality(n0->sub_named_function_call_, n1->sub_named_function_call_);
 
 		return equality_ == AMARA_BOOLEAN_TRUE;
 	} else {
-		forced_assertion(n0->type_ ==
-				STT_NODE_TYPE_EMPTY_FUNCTION_CALL_ARGUMENTS_LIST);
+		forced_assertion(n0->type_ == STT_NODE_TYPE_EMPTY_NAMED_FUNCTION_CALL_ARGUMENTS_LIST);
 
-		if (n1->type_ == STT_NODE_TYPE_EMPTY_FUNCTION_CALL_ARGUMENTS_LIST) {
+		if (n1->type_ == STT_NODE_TYPE_EMPTY_NAMED_FUNCTION_CALL_ARGUMENTS_LIST) {
 			return AMARA_BOOLEAN_TRUE;
 		}
 		return AMARA_BOOLEAN_FALSE;
@@ -2452,7 +2445,7 @@ stt_node_forced_assertion_clean_identifier_node(const stt_node * node)
 	forced_assertion(node->application_subnode_ == NULL);
 	forced_assertion(node->execution_request_subnode_ == NULL);
 	forced_assertion(node->doc_subnode_ == NULL);
-	forced_assertion(node->sub_function_call_ == NULL);
+	forced_assertion(node->sub_named_function_call_ == NULL);
 }
 
 #ifndef NDEBUG
@@ -2478,7 +2471,7 @@ assert_clean_condition_node(const stt_node * node)
 	assertion(node->application_subnode_ == NULL);
 	assertion(node->execution_request_subnode_ == NULL);
 	assertion(node->doc_subnode_ == NULL);
-	assertion(node->sub_function_call_ == NULL);
+	assertion(node->sub_named_function_call_ == NULL);
 }
 
 void
@@ -2502,7 +2495,7 @@ assert_clean_expression_node(const stt_node * node)
 	assertion(node->application_subnode_ == NULL);
 	assertion(node->execution_request_subnode_ == NULL);
 	assertion(node->doc_subnode_ == NULL);
-	assertion(node->sub_function_call_ == NULL);
+	assertion(node->sub_named_function_call_ == NULL);
 }
 
 void
@@ -2526,7 +2519,7 @@ assert_clean_where_value_binding_node(const stt_node * node)
 	assertion(node->application_subnode_ == NULL);
 	assertion(node->execution_request_subnode_ == NULL);
 	assertion(node->doc_subnode_ == NULL);
-	assertion(node->sub_function_call_ == NULL);
+	assertion(node->sub_named_function_call_ == NULL);
 }
 
 void
@@ -2550,7 +2543,7 @@ assert_clean_where_value_bindings_node(const stt_node * node)
 	assertion(node->application_subnode_ == NULL);
 	assertion(node->execution_request_subnode_ == NULL);
 	assertion(node->doc_subnode_ == NULL);
-	assertion(node->sub_function_call_ == NULL);
+	assertion(node->sub_named_function_call_ == NULL);
 }
 
 void
@@ -2576,7 +2569,7 @@ assert_clean_operation_node(const stt_node * node)
 	assertion(node->application_subnode_ == NULL);
 	assertion(node->execution_request_subnode_ == NULL);
 	assertion(node->doc_subnode_ == NULL);
-	assertion(node->sub_function_call_ == NULL);
+	assertion(node->sub_named_function_call_ == NULL);
 }
 
 void
@@ -2600,7 +2593,7 @@ assert_clean_operations_list_node(const stt_node * node)
 	assertion(node->application_subnode_ == NULL);
 	assertion(node->execution_request_subnode_ == NULL);
 	assertion(node->doc_subnode_ == NULL);
-	assertion(node->sub_function_call_ == NULL);
+	assertion(node->sub_named_function_call_ == NULL);
 }
 
 void
@@ -2627,7 +2620,7 @@ assert_clean_named_function_node(const stt_node * node)
 	assertion(node->application_subnode_ == NULL);
 	assertion(node->execution_request_subnode_ == NULL);
 	assertion(node->doc_subnode_ == NULL);
-	assertion(node->sub_function_call_ == NULL);
+	assertion(node->sub_named_function_call_ == NULL);
 }
 
 void
@@ -2655,7 +2648,7 @@ assert_clean_application_node(const stt_node * node)
 			NULL);
 	assertion(node->execution_request_subnode_ == NULL);
 	assertion(node->doc_subnode_ == NULL);
-	assertion(node->sub_function_call_ == NULL);
+	assertion(node->sub_named_function_call_ == NULL);
 }
 
 void
@@ -2681,7 +2674,7 @@ assert_clean_execution_request_node(const stt_node * node)
 			STT_EXECUTION_REQUEST_SUBNODE_TYPE_INVALID);
 	assertion(node->execution_request_subnode_->application_name_ != NULL);
 	assertion(node->doc_subnode_ == NULL);
-	assertion(node->sub_function_call_ == NULL);
+	assertion(node->sub_named_function_call_ == NULL);
 }
 
 void
@@ -2729,7 +2722,7 @@ assert_clean_doc_fragment_node(const stt_node * node)
 		assertion(node->doc_subnode_->execution_requests_ != NULL);
 	/* }  *//* XXX */
 
-	assertion(node->sub_function_call_ == NULL);
+	assertion(node->sub_named_function_call_ == NULL);
 }
 
 void
@@ -2777,7 +2770,7 @@ assert_clean_doc_node(const stt_node * node)
 		assertion(node->doc_subnode_->execution_requests_ != NULL);
 	/*}*/  /* XXX */
 
-	assertion(node->sub_function_call_ == NULL);
+	assertion(node->sub_named_function_call_ == NULL);
 }
 
 void
@@ -2800,7 +2793,7 @@ stt_node_assertion_clean_function_call_node(const stt_node * node)
 	assertion(node->execution_request_subnode_ == NULL);
 	assertion(node->doc_subnode_ == NULL);
 	assertion(node->type_ == STT_NODE_TYPE_FUNCTION_CALL);
-	assertion(node->sub_function_call_ != NULL);
+	assertion(node->sub_named_function_call_ != NULL);
 }
 
 #endif
@@ -2824,8 +2817,8 @@ stt_node_forced_assertion_clean_function_call_node(const stt_node * node)
 	forced_assertion(node->application_subnode_ == NULL);
 	forced_assertion(node->execution_request_subnode_ == NULL);
 	forced_assertion(node->doc_subnode_ == NULL);
-	forced_assertion(node->type_ == STT_NODE_TYPE_FUNCTION_CALL);
-	forced_assertion(node->sub_function_call_ != NULL);
+	forced_assertion(node->type_ == STT_NODE_TYPE_NAMED_FUNCTION_CALL);
+	forced_assertion(node->sub_named_function_call_ != NULL);
 }
 
 #ifndef NDEBUG
@@ -2850,9 +2843,8 @@ stt_node_assertion_clean_empty_function_call_arguments_list_node(
 	assertion(node->application_subnode_ == NULL);
 	assertion(node->execution_request_subnode_ == NULL);
 	assertion(node->doc_subnode_ == NULL);
-	assertion(node->sub_function_call_ == NULL);
-	assertion(node->type_ ==
-			STT_NODE_TYPE_EMPTY_FUNCTION_CALL_ARGUMENTS_LIST);
+	assertion(node->sub_named_function_call_ == NULL);
+	assertion(node->type_ == STT_NODE_TYPE_EMPTY_NAMED_FUNCTION_CALL_ARGUMENTS_LIST);
 }
 
 #endif
