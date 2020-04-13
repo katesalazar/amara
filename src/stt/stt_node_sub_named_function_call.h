@@ -30,30 +30,31 @@
 */
 
 /*
-stt_node_sub_function_call *
-stt_node_sub_function_call_default_constructor(void)
+stt_node_sub_named_function_call *
+stt_node_sub_named_function_call_default_constructor(void)
 __amara__warn_unused_result__
 ;
 */
 
 /**  Copy constructor. */
-stt_node_sub_function_call *
-stt_node_sub_function_call_copy_constructor(
-		const stt_node_sub_function_call * sub_function_call)
+stt_node_sub_named_function_call *
+stt_node_sub_named_function_call_copy_constructor(
+		const stt_node_sub_named_function_call * sub_named_function_call)
 __amara__warn_unused_result__
 ;
 
 /**  Exhaustive constructor. Warning: _steals_ both
  * `function_name_identifier` and `call_arguments`. */
-stt_node_sub_function_call *
-stt_node_sub_function_call_exhaustive_constructor(
+stt_node_sub_named_function_call *
+stt_node_sub_named_function_call_exhaustive_constructor(
 		struct stt_node * function_name_identifier,
 		struct stt_node * call_arguments)
 __amara__warn_unused_result__
 ;
 
 void
-stt_node_sub_function_call_destructor(stt_node_sub_function_call  * sfc)
+stt_node_sub_named_function_call_destructor(
+		stt_node_sub_named_function_call  * sfc)
 ;
 
 /*
@@ -70,9 +71,9 @@ stt_identifier_subnode_set_value(
 
 /**  Equality test. */
 amara_boolean
-stt_node_sub_function_call_equality(
-		const stt_node_sub_function_call * s0,
-		const stt_node_sub_function_call * s1)
+stt_node_sub_named_function_call_equality(
+		const stt_node_sub_named_function_call * s0,
+		const stt_node_sub_named_function_call * s1)
 __amara__warn_unused_result__
 ;
 
