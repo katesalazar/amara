@@ -667,21 +667,21 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		assertion(operation_arg->node_->sub_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ == AMARA_BOOLEAN_FALSE);
 		assertion(operation_type == STT_NODE_TYPE_EXECUTION);
 #endif
-		find_rtg_named_function_ret_ = rtg_named_functions_simple_list_find_by_name(rtg_named_functions, operation_arg->node_->sub_function_call_->function_name_identifier_->identifier_subnode_->value_);
+		find_rtg_named_function_ret_ = rtg_named_functions_simple_list_find_by_name(rtg_named_functions, operation_arg->node_->sub_named_function_call_->named_function_call_->function_name_identifier_->identifier_subnode_->value_);
 		forced_assertion(find_rtg_named_function_ret_ != NULL);
 		if (find_rtg_named_function_ret_->status == RTG_NAMED_FUNCTIONS_SIMPLE_LIST_FIND_BY_NAME_RET_STATUS_NOT_FOUND) {
 			forced_assertion(ret_->operation_arg == NULL);
-			ret_->error_messages = amara_strings_simple_list_exhaustive_constructor_three_to_one("unable to find function '", operation_arg->node_->sub_function_call_->function_name_identifier_->identifier_subnode_->value_->value_, "' requested as function to be called (rtg_operation.c:658)");
+			ret_->error_messages = amara_strings_simple_list_exhaustive_constructor_three_to_one("unable to find function '", operation_arg->node_->sub_named_function_call_->named_function_call_->function_name_identifier_->identifier_subnode_->value_->value_, "' requested as function to be called (rtg_operation.c:658)");
 			ret_->status = RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_IDENTIFIER;
 			return ret_;
 		}
 		/*   Function to be called has been found at this point. */
-		if (operation_arg->node_->sub_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ == AMARA_BOOLEAN_TRUE) {
+		if (operation_arg->node_->sub_named_function_call_->named_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ == AMARA_BOOLEAN_TRUE) {
 			forced_assertion(0);  /* FIXXXME FIXME XXX */
 		} else {
 			forced_assertion(0);  /* FIXXXME FIXME XXX */
 		}
-		function_callable_from_current_call_ = rtg_named_function_callable_from_stt_named_function_call(find_rtg_named_function_ret_->named_function, operation_arg->node_->sub_function_call_->function_call_);
+		function_callable_from_current_call_ = rtg_named_function_callable_from_stt_named_function_call(find_rtg_named_function_ret_->named_function, operation_arg->node_->sub_named_function_call_->named_function_call_);
 		sub_ret_ = rtg_operation_arg_default_constructor();
 		forced_assertion(sub_ret_ != NULL);
 		/* MAS COSAS AQUI */
