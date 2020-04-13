@@ -20,6 +20,8 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__NAMED_FUNCTION_CALL__H__
 #define __AMARA__RUN_TIME_GRAPH__NAMED_FUNCTION_CALL__H__
 
+#include "../definitions.h"
+
 #include "rtg_named_function_call_arguments_simple_list.h"
 
 typedef struct rtg_named_function_call {

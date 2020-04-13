@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * src/stt/stt_node_sub_function_call.c: A syntax tree node can
+ * src/stt/stt_node_sub_named_function_call.c: A syntax tree node can
  * represent a function call. If so, it holds some information that is
  * stored in this "sub" enttity.
  */
@@ -22,7 +22,7 @@
 
 #include "../asr/assertion.h"
 
-#include "stt_node_sub_function_call.h"
+#include "stt_node_sub_named_function_call.h"
 
 /**  Forward declaration. */
 struct stt_node *
@@ -31,7 +31,7 @@ __amara__warn_unused_result__
 ;
 
 stt_node_sub_function_call *
-stt_node_sub_function_call_copy_constructor(
+stt_node_sub_named_function_call_copy_constructor(
 		const stt_node_sub_function_call * sub_function_call)
 {
 	stt_node_sub_function_call_pending_semantic_checks * returning_pending_semantic_checks_;
@@ -72,7 +72,7 @@ stt_node_sub_function_call_copy_constructor(
 }
 
 stt_node_sub_function_call *
-stt_node_sub_function_call_exhaustive_constructor(
+stt_node_sub_named_function_call_exhaustive_constructor(
 		struct stt_node * function_name_identifier,
 		struct stt_node * call_arguments)
 {
@@ -130,7 +130,7 @@ stt_node_destructor(struct stt_node const * node)
 ;
 
 void
-stt_node_sub_function_call_destructor(stt_node_sub_function_call  * sfc)
+stt_node_sub_named_function_call_destructor(stt_node_sub_function_call  * sfc)
 {
 #ifndef NDEBUG
 	assertion(sfc->function_name_identifier_ != NULL);
@@ -156,7 +156,7 @@ __amara__warn_unused_result__
 ;
 
 amara_boolean
-stt_node_sub_function_call_equality(
+stt_node_sub_named_function_call_equality(
 		const stt_node_sub_function_call * s0,
 		const stt_node_sub_function_call * s1)
 {

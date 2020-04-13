@@ -28,6 +28,8 @@
 /*   For `stt_named_function`. */
 #include "../stt/stt_named_function.h"
 
+#include "../stt/stt_named_function_call.h"
+
 /*   For `rtg_operations_simple_list`. */
 #include "rtg_operations_simple_list.h"
 
@@ -113,6 +115,13 @@ rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list
 rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list(
 		const stt_named_function * stt_named_function,
 		const rtg_named_functions_simple_list * rtg_named_functions)
+__amara__warn_unused_result__
+;
+
+amara_boolean
+rtg_named_function_callable_from_stt_named_function_call(
+		const rtg_named_function * named_function,
+		const stt_named_function_call * named_function_call)
 __amara__warn_unused_result__
 ;
 

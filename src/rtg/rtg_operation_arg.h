@@ -30,9 +30,7 @@
 /*   For `stt_operation_arg`. */
 #include "../stt/stt_operation_arg.h"
 
-/*
 #include "rtg_forward_declarations.h"
-*/
 
 /*   For `rtg_expression`. */
 #include "rtg_expression.h"

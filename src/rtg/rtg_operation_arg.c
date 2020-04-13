@@ -28,6 +28,8 @@
 /*   For `stt_node`. */
 #include "../stt/stt_node.h"
 
+#include "../stt/stt_named_function_call.h"
+
 #include "rtg_forward_declarations.h"
 
 /*   For own definitions. */
@@ -407,6 +409,14 @@ rtg_named_functions_simple_list_find_by_name(
 __attribute__((warn_unused_result))
 ;
 
+/**  Friend declaration. */
+amara_boolean
+rtg_named_function_callable_from_stt_named_function_call(
+		const rtg_named_function * named_function,
+		const stt_named_function_call * named_function_call)
+__amara__warn_unused_result__
+;
+
 rtg_operation_arg_out_of_stt_operation_arg_ret *
 rtg_operation_arg_out_of_stt_operation_arg(
 		const stt_operation_arg * operation_arg,
@@ -428,6 +438,11 @@ rtg_operation_arg_out_of_stt_operation_arg(
 	/**  In case the operation arg is a function call, the function
 	 * to be called will have to be found. */
 	rtg_named_functions_simple_list_find_by_name_ret * find_rtg_named_function_ret_;
+	/**  In case the operation argument is a function call, once the
+	 * function to be called is found, it must be checked that the
+	 * particular function is actually callable from the function
+	 * call (types compatibility, etc.). */
+	amara_boolean function_callable_from_current_call_;
 
 	ret_ = amara_malloc_rtg_operation_arg_out_of_stt_operation_arg_ret();
 	forced_assertion(ret_ != NULL);
@@ -666,8 +681,7 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		} else {
 			forced_assertion(0);  /* FIXXXME FIXME XXX */
 		}
-		/* COMPROBAR CORRECCION, AJUSTE DE  TIPOS DE LA LLAMADA A LA SIGNATURA DE LA FUNCION */
-		rtg_function_call_signature_matches(rtg_function_call, rtg_named_function);  /* XXX QUIZAS NO EXACTAMENTE ASI, PENSAR ESTO BIEN */
+		function_callable_from_current_call_ = rtg_named_function_callable_from_stt_named_function_call(find_rtg_named_function_ret_->named_function, operation_arg->node_->sub_function_call_->function_call_);
 		sub_ret_ = rtg_operation_arg_default_constructor();
 		forced_assertion(sub_ret_ != NULL);
 		/* MAS COSAS AQUI */
