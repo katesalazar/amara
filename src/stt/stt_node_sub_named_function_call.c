@@ -30,58 +30,44 @@ stt_node_copy_constructor(const struct stt_node * node)
 __amara__warn_unused_result__
 ;
 
-stt_node_sub_function_call *
+stt_node_sub_named_function_call *
 stt_node_sub_named_function_call_copy_constructor(
-		const stt_node_sub_named_function_call * sub_named_function_call)
+		const stt_node_sub_named_function_call * node_sub_named_function_call)
 {
 	stt_node_sub_named_function_call * returning_;
 
 	forced_assertion(sub_named_function_call != NULL);
-	forced_assertion(sub_named_function_call->pending_semantic_checks_ != NULL);
-
-#ifdef AMARA_USE_STD_CXX98
-	returning_pending_semantic_checks_ = (stt_node_sub_function_call_pending_semantic_checks *) malloc(sizeof(stt_node_sub_function_call_pending_semantic_checks));
-#else
-	returning_pending_semantic_checks_ = malloc(sizeof(stt_node_sub_function_call_pending_semantic_checks));
+#ifndef NDEBUG
+	assertion(sub_named_function_call->named_function_call_ != NULL);
+	assertion(sub_named_function_call->named_function_call_->function_name_identifier_ != NULL);
+	assertion(sub_named_function_call->named_function_call_->pending_semantic_checks_ != NULL);
 #endif
-	forced_assertion(returning_pending_semantic_checks_ != NULL);
-
-	returning_pending_semantic_checks_->called_function_has_no_return_value_ =
-			AMARA_BOOLEAN_FALSE;
 
 #ifdef AMARA_USE_STD_CXX98
-	returning_ = (stt_node_sub_function_call *) malloc(sizeof(stt_node_sub_function_call));
+	returning_ = (stt_node_sub_named_function_call *) malloc(sizeof(stt_node_sub_named_function_call));
 #else
-	returning_ = malloc(sizeof(stt_node_sub_function_call));
+	returning_ = malloc(sizeof(stt_node_sub_named_function_call));
 #endif
 	forced_assertion(returning_ != NULL);
 
-	returning_->pending_semantic_checks_ =
-			returning_pending_semantic_checks_;
-
-	returning_->function_name_identifier_ = stt_node_copy_constructor(
-			sub_function_call->function_name_identifier_);
-	forced_assertion(returning_->function_name_identifier_ != NULL);
-
-	returning_->call_arguments_ = stt_node_copy_constructor(
-			sub_function_call->call_arguments_);
-	forced_assertion(returning_->call_arguments_ != NULL);
+	returning_->named_function_call_ = stt_named_function_call_copy_constructor(node_sub_named_function_call->named_function_call_);
+	forced_assertion(returning_->named_function_call_ != NULL);
 
 	return returning_;
 }
 
-stt_node_sub_function_call *
+stt_node_sub_named_function_call *
 stt_node_sub_named_function_call_exhaustive_constructor(
 		struct stt_node * function_name_identifier,
 		struct stt_node * call_arguments)
 {
-	stt_node_sub_function_call * returning_;
-	stt_node_sub_function_call_pending_semantic_checks * returning_pending_semantic_checks_;
+	stt_node_sub_named_function_call * returning_;
+	stt_node_sub_named_function_call_pending_semantic_checks * returning_pending_semantic_checks_;
 
 #ifdef AMARA_USE_STD_CXX98
-	returning_ = (stt_node_sub_function_call *) malloc(sizeof(stt_node_sub_function_call));
+	returning_ = (stt_node_sub_named_function_call *) malloc(sizeof(stt_node_sub_named_function_call));
 #else
-	returning_ = malloc(sizeof(stt_node_sub_function_call));
+	returning_ = malloc(sizeof(stt_node_sub_named_function_call));
 #endif
 	forced_assertion(returning_ != NULL);
 
@@ -108,9 +94,9 @@ stt_node_sub_named_function_call_exhaustive_constructor(
 	forced_assertion(returning_->call_arguments_ != NULL);
 
 #ifdef AMARA_USE_STD_CXX98
-	returning_pending_semantic_checks_ = (stt_node_sub_function_call_pending_semantic_checks *) malloc(sizeof(stt_node_sub_function_call_pending_semantic_checks));
+	returning_pending_semantic_checks_ = (stt_node_sub_named_function_call_pending_semantic_checks *) malloc(sizeof(stt_node_sub_named_function_call_pending_semantic_checks));
 #else
-	returning_pending_semantic_checks_ = malloc(sizeof(stt_node_sub_function_call_pending_semantic_checks));
+	returning_pending_semantic_checks_ = malloc(sizeof(stt_node_sub_named_function_call_pending_semantic_checks));
 #endif
 	forced_assertion(returning_pending_semantic_checks_ != NULL);
 
@@ -129,7 +115,8 @@ stt_node_destructor(struct stt_node const * node)
 ;
 
 void
-stt_node_sub_named_function_call_destructor(stt_node_sub_function_call  * sfc)
+stt_node_sub_named_function_call_destructor(
+		stt_node_sub_named_function_call  * sfc)
 {
 #ifndef NDEBUG
 	assertion(sfc->function_name_identifier_ != NULL);
@@ -156,8 +143,8 @@ __amara__warn_unused_result__
 
 amara_boolean
 stt_node_sub_named_function_call_equality(
-		const stt_node_sub_function_call * s0,
-		const stt_node_sub_function_call * s1)
+		const stt_node_sub_named_function_call * s0,
+		const stt_node_sub_named_function_call * s1)
 {
 	amara_boolean equality_;
 
