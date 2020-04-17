@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2019 Mercedes Catherine Salazar
+ * Copyright 2018-2020 Mercedes Catherine Salazar
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,11 @@
 /*   For `void assert(scalar expression)`. */
 #include <assert.h>
 
-/*   XXX won't be available in every system. */
+#ifndef __CYG__
+/*   This header isn't available in every system. It is available on
+   GNU/Linux, and on macOS; but it is notably unavailable on Cygwin. */
 #include <execinfo.h>
+#endif
 
 /*   For `int fprintf(FILE * stream, const char * format, ...)`. */
 #include <stdio.h>
@@ -75,21 +78,27 @@ forced_assertion(int expression)
 void
 forced_assertion_two(int expression, const char * message)
 {
-	/**  FIXME This repeated allocation MUST be removed. */
+#ifndef __CYG__
+	/**  FIXME I guess this allocation should be removed in this
+	 * current form of it. */
 	void * call_stack[128];
+
 	char * * call_stack_strings;
 	short i, frames;
+#endif
 
 	if (!expression) {
 		fprintf(stderr, "%s\n", message);
 
-	/* WARNING THIS IS ONLY VALID IN LINUX AND MACO (http://stackoverflow.com/questions/3899870/) */
+	/*   http://stackoverflow.com/questions/3899870/ */
+#ifndef __CYG__
 	frames = backtrace(call_stack, 128);
 	call_stack_strings = backtrace_symbols(call_stack, frames);
 	for (i = 0; i < frames; i++) {
 		printf("%s\n", call_stack_strings[i]);
 	}
 	free(call_stack_strings);
+#endif
 
 	}
 
