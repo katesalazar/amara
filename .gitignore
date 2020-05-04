@@ -54,7 +54,7 @@ src/bsn/minia.tab.c
 src/bsn/minia.report
 src/bsn/minia.dot
 
-#   Object docs.
+#   Object docs (the general lines).
 build/src/*.c
 build/src/*.cpp
 build/src/*.h
@@ -67,6 +67,15 @@ build/debug/amara_g
 build/release/*.o
 build/release/amara_not_stripped
 build/release/amara
+
+#   Object docs (the specific lines meant for Cygwin builds).
+build/debug/amara_g.exe
+build/debug/stripped_amara_g.exe
+build/release/amara_not_stripped.exe
+build/release/amara.exe
+
+#   Object docs (the specific lines meant for Cygwin builds). This one is obsolete and maintained for backward compatibility, for a while. Probably not important, but probably worth it.
+build/debug/amara_g_not_stripped.exe
 
 #   Transitional object docs (REMOVE ME).
 build/debug/stripped_amara_g

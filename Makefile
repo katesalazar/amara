@@ -24,6 +24,13 @@
 UNAME_S = $(shell uname -s)
 # $(info Platform: $(UNAME_S))
 
+ifeq ($(UNAME_S), CYGWIN_NT-6.1)
+#   Windows 7.
+CYG = yes
+else
+CYG = no
+endif
+
 ifeq ($(UNAME_S), Darwin)
 # BISON ?= /usr/local/Cellar/bison/3.4.1/bin/bison
 BISON ?= bison
@@ -48,6 +55,10 @@ CFLAGS_PARTICULAR_FLEX += -ansi
 else
 CFLAGS_GENERAL += -D__APPLE__
 CFLAGS_PARTICULAR_FLEX += -D__APPLE__
+endif
+
+ifeq ($(CYG), yes)
+CFLAGS_GENERAL += -D__CYG__
 endif
 
 CFLAGS_GENERAL += -pedantic -Wall -Wextra
@@ -155,7 +166,12 @@ ifeq ($(C), g++)
     CEXT = cpp
     HEXT = h
     CFLAGS_GENERAL += -std=c++98 -DAMARA_USE_STD_CXX98
-    CFLAGS_PARTICULAR_FLEX += -std=c++98 -DAMARA_USE_STD_CXX98
+    ifeq ($(CYG), yes)
+        #   Apply SO's answer 32952453 for question 18784112.
+        CFLAGS_PARTICULAR_FLEX += -std=gnu++98 -DAMARA_USE_STD_GNUXX98
+    else
+        CFLAGS_PARTICULAR_FLEX += -std=c++98 -DAMARA_USE_STD_CXX98
+    endif
 else
     ifeq ($(C), clang++)
         CEXT = cpp
