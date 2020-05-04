@@ -822,10 +822,10 @@ default: \
 
 all: \
 	checkdirs \
-	$(BUILD_DIR_RELEASE)/amara \
 	$(BUILD_DIR_RELEASE)/amara_not_stripped \
+	$(BUILD_DIR_RELEASE)/amara \
 	$(BUILD_DIR_DEBUG)/amara_g \
-	$(BUILD_DIR_DEBUG)/amara_g_not_stripped \
+	$(BUILD_DIR_DEBUG)/stripped_amara_g \
 	$(DEBUG_RESOURCES)
 
 #   All of the directory structure is created at once, even those parts
@@ -899,8 +899,8 @@ $(BUILD_DIR_DEBUG):
 $(BUILD_DIR_RELEASE):
 	@find $@ -type d -maxdepth 0 >/dev/null 2>/dev/null || mkdir -p $@
 
-#   `$(BUILD_DIR_DEBUG)/amara_g_not_stripped` is already a target of
-# `$(BUILD_DIR_DEBUG)/amara_g`.
+#   Bear in mind, `$(BUILD_DIR_DEBUG)/stripped_amara_g` is not a target
+# of `$(BUILD_DIR_DEBUG)/amara_g`.
 amara_g: \
 	checkdirs \
 	$(BUILD_DIR_DEBUG)/amara_g \
@@ -968,12 +968,16 @@ $(BUILD_DIR_SRC)/bsn/lex.minia.$(CEXT): \
 			cd ../../../ && \
 			pwd
 
-$(BUILD_DIR_DEBUG)/amara_g_not_stripped: \
+#   Creates `amara_g_not_stripped` too, only in order for CI not to
+# behave oddly, however at the moment `amara_g_not_stripped` is
+# deprecated in favor of just `amara_g`.
+$(BUILD_DIR_DEBUG)/amara_g: \
 		$(OBJ_DEBUG)
 	$(C) $(CFLAGS) $(CFLAGS_DEBUG) -o $@ $(OBJ_DEBUG)
+	$(CP) $@ $(BUILD_DIR_DEBUG)/amara_g_not_stripped
 
-$(BUILD_DIR_DEBUG)/amara_g : \
-		$(BUILD_DIR_DEBUG)/amara_g_not_stripped
+$(BUILD_DIR_DEBUG)/stripped_amara_g : \
+		$(BUILD_DIR_DEBUG)/amara_g
 	$(CP) $< $@
 	$(STRIP) $@
 
@@ -4723,15 +4727,15 @@ clean:
 			$(BUILD_DIR_SRC)/*/*.c \
 			$(BUILD_DIR_SRC)/*/*.cpp \
 			$(BUILD_DIR_SRC)/*/*.h \
-			$(BUILD_DIR_DEBUG)/amara_g_not_stripped \
-			$(BUILD_DIR_DEBUG)/amara_g \
 			$(BUILD_DIR_RELEASE)/amara_not_stripped \
 			$(BUILD_DIR_RELEASE)/amara \
-			$(BUILD_DIR_DEBUG)/*.o \
+			$(BUILD_DIR_DEBUG)/amara_g \
+			$(BUILD_DIR_DEBUG)/stripped_amara_g \
 			$(BUILD_DIR_RELEASE)/*.o \
+			$(BUILD_DIR_DEBUG)/*.o \
 			$(BUILD_DIR_DEBUG)/*.gcno \
 			$(BUILD_DIR_DEBUG)/*.gcda
-	rm -rfv $(BUILD_DIR_DEBUG)
 	rm -rfv $(BUILD_DIR_RELEASE)
+	rm -rfv $(BUILD_DIR_DEBUG)
 	rm -rfv $(BUILD_DIR_SRC)
 	rm -rfv $(BUILD_DIR)
