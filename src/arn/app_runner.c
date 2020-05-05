@@ -219,8 +219,7 @@ run_app_main_doc_exists(
 
 	if (minia_bison_main_ret_->type_ == STT_NODE_TYPE_INVALID) {
 
-		;
-
+		stt_node_destructor(minia_bison_main_ret_);
 		return APP_RUNNER_RUN_APP_RET_ERROR_MALFORMED_DOC;
 	}
 
@@ -669,7 +668,7 @@ evaluate_expression(const rtg_expression * expression,
 				ARN_VALUE_TYPE_ANONYMOUS_ASSIGNED_STRING);
 		assertion(returning_->string_was_moved == AMARA_BOOLEAN_FALSE);
 		assertion(returning_->string_ != NULL);
-		assertion(returning_->string_->value_ != AMARA_BOOLEAN_FALSE);
+		assertion(returning_->string_->value_ != NULL);
 #endif
 	} else if (expression->type_ == RTG_EXPRESSION_TYPE_IDENTIFIER) {
 

@@ -336,6 +336,10 @@ _ {
       dice_left_hand_side_char_array_ =
 #ifdef AMARA_USE_STD_CXX98
           (char *)
+#else
+#ifdef AMARA_USE_STD_GNUXX98
+          (char *)
+#endif
 #endif
           malloc(1 + 1);
       forced_assertion_two(dice_left_hand_side_char_array_ != NULL,
@@ -368,6 +372,10 @@ _ {
         dice_right_hand_side_char_array_ =
 #ifdef AMARA_USE_STD_CXX98
             (char *)
+#else
+#ifdef AMARA_USE_STD_GNUXX98
+            (char *)
+#endif
 #endif
             malloc(1 + 1);
         forced_assertion_two(dice_right_hand_side_char_array_ != NULL,
@@ -419,6 +427,10 @@ _ {
         dice_right_hand_side_char_array_ =
 #ifdef AMARA_USE_STD_CXX98
             (char *)
+#else
+#ifdef AMARA_USE_STD_GNUXX98
+            (char *)
+#endif
 #endif
             malloc(2 + 1);
         forced_assertion_two(dice_right_hand_side_char_array_ != NULL,

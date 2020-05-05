@@ -294,6 +294,11 @@ cli_application :
   assertion($18->identifier_subnode_ != NULL);
   if (!amara_string_equality(
       $2->identifier_subnode_->value_, $18->identifier_subnode_->value_)) {
+
+    /*
+    stt_node_destructor(...
+    */
+
     yyerror(NULL, "application names do not match");
     YYERROR;
   }
@@ -381,6 +386,7 @@ cli_named_function :
       */
       $15, $16, $19);
   if (* must_call_YYERROR_) {
+    stt_node_destructor($$);
     yyerror(* node_for_yyerror_, message_for_yyerror_);
     free(must_call_YYERROR_);
     free(* node_for_yyerror_);
@@ -1053,6 +1059,7 @@ minia_bison_main(FILE * file)
     return returning_; /* XXX */
   } else if (miniaparse_ret_ ==
       miniaparse_ret_failed_because_of_invalid_input_) {
+    stt_node_destructor(shared_with_miniaparse_);
     returning_ = stt_node_default_constructor();  /* XXX */
     returning_->bison_ret_ = BISON_RET_FAILURE_INVALID_INPUT;
     /* XXX */
@@ -1060,6 +1067,7 @@ minia_bison_main(FILE * file)
   } else {
     assertion(miniaparse_ret_ ==
         miniaparse_ret_failed_due_to_memory_exhaustion_);
+    stt_node_destructor(shared_with_miniaparse_);
     returning_ = stt_node_default_constructor();  /* XXX */
     returning_->bison_ret_ = BISON_RET_FAILURE_MEMORY_EXHAUSTION;
     /* XXX */

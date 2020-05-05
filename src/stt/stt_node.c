@@ -648,6 +648,8 @@ stt_node_destructor(stt_node const * node)
 		assertion(node->doc_subnode_ == NULL);
 		assertion(node->execution_request_subnode_ == NULL);
 		break;
+	case STT_NODE_TYPE_CLI_OPERATIONS_LIST:  /* XXX */
+		/* XXX aliased to STT_NODE_TYPE_OPERATIONS_LIST for now. */
 	case STT_NODE_TYPE_OPERATIONS_LIST:
 		assertion(node->string_literal_subnode_ == NULL);
 		assertion(node->natural_literal_subnode_ == NULL);

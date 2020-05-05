@@ -327,6 +327,12 @@ bison_annex_cli_named_function_out_of_token_function_and_token_identifier_and_to
 	if (!amara_string_equality(
 			identifier_at_position_two->identifier_subnode_->value_,
 			identifier_at_position_twenty_one->identifier_subnode_->value_)) {
+
+		stt_node_destructor(function_statements_clause);
+		stt_node_destructor(function_where_clauses);
+		stt_node_destructor(identifier_at_position_two);
+		stt_node_destructor(identifier_at_position_twenty_one);
+
 		/*   Previously like
 		yyerror(NULL, "function names do not match");
 		YYERROR;
@@ -334,12 +340,19 @@ bison_annex_cli_named_function_out_of_token_function_and_token_identifier_and_to
 
 		/*   Now with these three lines. */
 		* must_call_YYERROR = 1;
+		free(* node_for_yyerror);  /* XXX ??? */
 		* node_for_yyerror = NULL;
 		strcpy(message_for_yyerror, "function names do not match");  /* XXX fits because it's a large buffer. */
+
+		returning_ = stt_node_default_constructor();
+		forced_assertion(returning_ != NULL);
+
+		return returning_;  /* XXX */
 	}
 
 	/*   Set node type. */
 	returning_ = stt_node_default_constructor();
+	forced_assertion(returning_ != NULL);
 
 	/*   Attach the function operations to this node. */
 	/*   Those are hanging from `function_statements_clause`. */

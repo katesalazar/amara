@@ -57,6 +57,8 @@ program thread at a same time is allowed to use the parser.
 Other third party libraries culd be added soon as dependencies, e.g. libyaml,
 Ncurses, or GMP, as long as there is no licensing clash.
 
+Python 3 is dependend upon, only for some debug configuration tasks.
+
 
 ### note on bison
 
