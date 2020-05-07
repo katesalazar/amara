@@ -662,13 +662,14 @@ rtg_operation_arg_out_of_stt_operation_arg(
 		forced_assertion(operation_arg->node_->type_ == STT_NODE_TYPE_NAMED_FUNCTION_CALL);
 #ifndef NDEBUG
 		stt_node_assertion_clean_function_call_node(operation_arg->node_);
-		assertion(operation_arg->node_->sub_function_call_ != NULL);
-		assertion(operation_arg->node_->sub_function_call_->function_name_identifier_ != NULL);
-		assertion(operation_arg->node_->sub_function_call_->function_name_identifier_->value_ != NULL);
-		assertion(operation_arg->node_->sub_function_call_->function_name_identifier_->value_->value_ != NULL);
-		assertion(operation_arg->node_->sub_function_call_->call_arguments_ != NULL);
-		assertion(operation_arg->node_->sub_function_call_->pending_semantic_checks_ != NULL);
-		assertion(operation_arg->node_->sub_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ == AMARA_BOOLEAN_FALSE);
+		assertion(operation_arg->node_->sub_named_function_call_ != NULL);
+		assertion(operation_arg->node_->sub_named_function_call_->named_function_call_ != NULL);
+		assertion(operation_arg->node_->sub_named_function_call_->named_function_call_->function_name_identifier_ != NULL);
+		assertion(operation_arg->node_->sub_named_function_call_->named_function_call_->function_name_identifier_->value_ != NULL);
+		assertion(operation_arg->node_->sub_named_function_call_->named_function_call_->function_name_identifier_->value_->value_ != NULL);
+		assertion(operation_arg->node_->sub_named_function_call_->named_function_call_->call_arguments_ != NULL);
+		assertion(operation_arg->node_->sub_named_function_call_->named_function_call_->pending_semantic_checks_ != NULL);
+		assertion(operation_arg->node_->sub_named_function_call_->named_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ == AMARA_BOOLEAN_FALSE);
 		assertion(operation_type == STT_NODE_TYPE_EXECUTION);
 #endif
 		find_rtg_named_function_ret_ = rtg_named_functions_simple_list_find_by_name(rtg_named_functions, operation_arg->node_->sub_named_function_call_->named_function_call_->function_name_identifier_->identifier_subnode_->value_);
@@ -686,6 +687,7 @@ rtg_operation_arg_out_of_stt_operation_arg(
 			forced_assertion(0);  /* FIXXXME FIXME XXX */
 		}
 		function_callable_from_current_call_ = rtg_named_function_callable_from_stt_named_function_call(find_rtg_named_function_ret_->named_function, operation_arg->node_->sub_named_function_call_->named_function_call_);
+		forced_assertion(function_callable_from_current_call_ == AMARA_BOOLEAN_TRUE);
 		sub_ret_ = rtg_operation_arg_default_constructor();
 		forced_assertion(sub_ret_ != NULL);
 		rtg_named_function_call_transformation_ret_ = rtg_named_function_call_out_of_stt_named_function_call_and_rtg_named_function(operation_arg->node_->sub_named_function_call_->named_function_call_, find_rtg_named_function_ret_->named_function);

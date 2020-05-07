@@ -924,7 +924,7 @@ bison_annex_function_call_without_return_value_out_of_nonterminal_function_call(
 {
 #ifndef NDEBUG
 	assertion(function_call != NULL);
-	assertion(function_call->type_ == STT_NODE_TYPE_FUNCTION_CALL);
+	assertion(function_call->type_ == STT_NODE_TYPE_NAMED_FUNCTION_CALL);
 	assertion(function_call->sub_named_function_call_ != NULL);
 	assertion(function_call->sub_named_function_call_->named_function_call_ != NULL);
 	assertion(function_call->sub_named_function_call_->named_function_call_->pending_semantic_checks_ !=
@@ -952,7 +952,7 @@ bison_annex_function_call_out_of_token_call_and_token_function_and_token_identif
 
 	assertion(function_call_arguments != NULL);
 	assertion(function_call_arguments->type_ ==  /* XXX */
-			STT_NODE_TYPE_EMPTY_FUNCTION_CALL_ARGUMENTS_LIST);  /* XXX */
+			STT_NODE_TYPE_NAMED_FUNCTION_CALL_ARGUMENTS_LIST);  /* XXX */
 #endif
 
 	returning_ = stt_node_default_constructor();
