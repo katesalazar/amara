@@ -60,6 +60,7 @@
  * most arithmetics into expressions from being operations.
 #define RTG_OPERATION_ARG_TYPE_OPERATION                 0x28
 */
+#define RTG_OPERATION_ARG_TYPE_NAMED_FUNCTION_CALL       0x29
 
 typedef struct rtg_operation_arg {
 
