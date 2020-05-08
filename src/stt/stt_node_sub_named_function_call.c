@@ -22,6 +22,8 @@
 
 #include "../asr/assertion.h"
 
+#include "stt_named_function_call.h"
+
 #include "stt_node_sub_named_function_call.h"
 
 /**  Forward declaration. */
@@ -36,11 +38,11 @@ stt_node_sub_named_function_call_copy_constructor(
 {
 	stt_node_sub_named_function_call * returning_;
 
-	forced_assertion(sub_named_function_call != NULL);
+	forced_assertion(node_sub_named_function_call != NULL);
 #ifndef NDEBUG
-	assertion(sub_named_function_call->named_function_call_ != NULL);
-	assertion(sub_named_function_call->named_function_call_->function_name_identifier_ != NULL);
-	assertion(sub_named_function_call->named_function_call_->pending_semantic_checks_ != NULL);
+	assertion(node_sub_named_function_call->named_function_call_ != NULL);
+	assertion(node_sub_named_function_call->named_function_call_->function_name_identifier_ != NULL);
+	assertion(node_sub_named_function_call->named_function_call_->pending_semantic_checks_ != NULL);
 #endif
 
 #ifdef AMARA_USE_STD_CXX98

@@ -655,6 +655,7 @@ OBJ_$(BUILD_TYPE) = \
 		$$(BUILD_DIR_$(BUILD_TYPE))/stt_natural_literal_subnode.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/stt_natural_literal_subnode_tests.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/stt_node.o \
+		$$(BUILD_DIR_$(BUILD_TYPE))/stt_node_sub_named_function_call.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/stt_node_tests.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/stt_operation.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/stt_operation_arg.o \
