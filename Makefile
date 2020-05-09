@@ -3062,6 +3062,10 @@ $(BUILD_DIR_SRC)/stt/stt_named_function_call.$(HEXT): \
 		$(SRC_DIR)/stt/stt_named_function_call.h
 	$(CP) $< $@
 
+$(BUILD_DIR_SRC)/stt/stt_named_function_call_arguments.$(HEXT): \
+		$(SRC_DIR)/stt/stt_named_function_call_arguments.h
+	$(CP) $< $@
+
 $(BUILD_DIR_SRC)/stt/stt_named_function_subnode.$(HEXT): \
 		$(SRC_DIR)/stt/stt_named_function_subnode.h \
 		$(BUILD_DIR_SRC)/stt/stt_operations_simple_list.$(HEXT) \
@@ -3318,7 +3322,8 @@ $$(BUILD_DIR_$(BUILD_TYPE))/stt_node_sub_named_function_call.o: \
 endef
 
 $(BUILD_DIR_SRC)/stt/stt_node_sub_named_function_call_arguments.$(HEXT): \
-		$(SRC_DIR)/stt/stt_node_sub_named_function_call_arguments.h
+		$(SRC_DIR)/stt/stt_node_sub_named_function_call_arguments.h \
+		$(BUILD_DIR_SRC)/stt/stt_named_function_call_arguments.$(HEXT)
 	$(CP) $< $@
 
 $(BUILD_DIR_SRC)/stt/stt_node_sub_named_function_call_arguments.$(CEXT): \

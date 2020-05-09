@@ -29,7 +29,7 @@
 #include "../cmn/amara_boolean.h"
 */
 
-#include "stt_named_function_call.h"
+#include "stt_named_function_call_arguments.h"
 
 typedef struct stt_node_sub_named_function_call_arguments {
 
