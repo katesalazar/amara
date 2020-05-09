@@ -57,9 +57,11 @@ src/bsn/minia.dot
 #   Object docs (the general lines).
 build/src/*.c
 build/src/*.cpp
+build/src/*.cc
 build/src/*.h
 build/src/*/*.c
 build/src/*/*.cpp
+build/src/*/*.cc
 build/src/*/*.h
 build/debug/*.o
 build/debug/amara_g_not_stripped

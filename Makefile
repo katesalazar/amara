@@ -163,7 +163,7 @@ FLEX_FLAGS ?= --noline
 endif
 
 ifeq ($(C), g++)
-    CEXT = cpp
+    CEXT ?= cpp
     HEXT = h
     CFLAGS_GENERAL += -std=c++98 -DAMARA_USE_STD_CXX98
     ifeq ($(CYG), yes)
@@ -174,12 +174,12 @@ ifeq ($(C), g++)
     endif
 else
     ifeq ($(C), clang++)
-        CEXT = cpp
+        CEXT ?= cpp
         HEXT = h
         CFLAGS_GENERAL += -std=c++98 -DAMARA_USE_STD_CXX98
         CFLAGS_PARTICULAR_FLEX += -std=c++98 -DAMARA_USE_STD_CXX98
     else
-        CEXT = c
+        CEXT ?= c
         HEXT = h
         CFLAGS_GENERAL += -std=c89 -DAMARA_USE_STD_C89
         CFLAGS_PARTICULAR_FLEX += -std=c89 -DAMARA_USE_STD_C89
@@ -3316,6 +3316,21 @@ $$(BUILD_DIR_$(BUILD_TYPE))/stt_node_sub_named_function_call.o: \
 	$$(C) $$(CFLAGS) $$(CFLAGS_$(BUILD_TYPE)) -c -o $$@ $$<
 endef
 
+$(BUILD_DIR_SRC)/stt/stt_node_sub_named_function_call_arguments.$(HEXT): \
+		$(SRC_DIR)/stt/stt_node_sub_named_function_call_arguments.h
+	$(CP) $< $@
+
+$(BUILD_DIR_SRC)/stt/stt_node_sub_named_function_call_arguments.$(CEXT): \
+		$(SRC_DIR)/stt/stt_node_sub_named_function_call_arguments.c
+	$(CP) $< $@
+
+define stt_node_sub_named_function_call_arguments_OBJ_RULE
+$$(BUILD_DIR_$(BUILD_TYPE))/stt_node_sub_named_function_call_arguments.o: \
+		$$(BUILD_DIR_SRC)/stt/stt_node_sub_named_function_call_arguments.$$(CEXT) \
+		$$(BUILD_DIR_SRC)/stt/stt_node_sub_named_function_call_arguments.$$(HEXT)
+	$$(C) $$(CFLAGS) $$(CFLAGS_$(BUILD_TYPE)) -c -o $$@ $$<
+endef
+
 $(BUILD_DIR_SRC)/stt/stt_node_tests.$(HEXT): \
 		$(SRC_DIR)/stt/stt_node_tests.h \
 		$(BUILD_DIR_SRC)/stt/stt_node.$(HEXT)
@@ -3881,6 +3896,8 @@ $(foreach DOC, \
 	stt_integer_literal_subnode stt_integer_literal_subnode_tests \
 	stt_natural_literal_subnode stt_natural_literal_subnode_tests \
 	stt_node stt_node_tests \
+	stt_node_sub_named_function_call \
+	stt_node_sub_named_function_call_arguments \
 	stt_operation stt_operation_tests \
 	stt_operation_arg stt_operation_arg_tests \
 	stt_operation_args_simple_list stt_operation_args_simple_list_tests \
