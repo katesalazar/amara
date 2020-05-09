@@ -18,9 +18,13 @@
  * stored in this "sub" enttity.
  */
 
+/*
 #include <stdlib.h>
+*/
 
 #include "../asr/assertion.h"
+
+#include "../mmm/allocator.h"
 
 #include "stt_named_function_call.h"
 
@@ -63,7 +67,6 @@ stt_node_sub_named_function_call_exhaustive_constructor(
 		struct stt_named_function_call * named_function_call)
 {
 	stt_node_sub_named_function_call * returning_;
-	stt_node_sub_named_function_call_pending_semantic_checks * returning_pending_semantic_checks_;
 
 #ifdef AMARA_USE_STD_CXX98
 	returning_ = (stt_node_sub_named_function_call *) amara_malloc(sizeof(stt_node_sub_named_function_call));
@@ -72,40 +75,8 @@ stt_node_sub_named_function_call_exhaustive_constructor(
 #endif
 	forced_assertion(returning_ != NULL);
 
-	returning_->function_name_identifier_ =
-			/*
-			stt_node_copy_constructor(
-			*/
-					function_name_identifier
-			/*
-			)
-			*/
-			;
-	forced_assertion(returning_->function_name_identifier_ != NULL);
-
-	returning_->call_arguments_ =
-			/*
-			stt_node_copy_constructor(
-			*/
-					call_arguments
-			/*
-			)
-			*/
-			;
-	forced_assertion(returning_->call_arguments_ != NULL);
-
-#ifdef AMARA_USE_STD_CXX98
-	returning_pending_semantic_checks_ = (stt_node_sub_named_function_call_pending_semantic_checks *) malloc(sizeof(stt_node_sub_named_function_call_pending_semantic_checks));
-#else
-	returning_pending_semantic_checks_ = malloc(sizeof(stt_node_sub_named_function_call_pending_semantic_checks));
-#endif
-	forced_assertion(returning_pending_semantic_checks_ != NULL);
-
-	returning_pending_semantic_checks_->called_function_has_no_return_value_ =
-			0;
-
-	returning_->pending_semantic_checks_ =
-			returning_pending_semantic_checks_;
+	returning_->named_function_call_ = stt_named_function_call_copy_constructor(named_function_call);
+	forced_assertion(returning_->named_function_call_ != NULL);
 
 	return returning_;
 }

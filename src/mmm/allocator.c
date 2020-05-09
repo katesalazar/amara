@@ -16,6 +16,8 @@
  * mmm/allocator.c: Memory allocator.
  */
 
+#include "allocator.h"
+
 void *
 amara_malloc_rtg_operation_arg_out_of_stt_operation_arg_ret()
 {
@@ -26,4 +28,15 @@ amara_malloc_rtg_operation_arg_out_of_stt_operation_arg_ret()
 #else
 	returning_ = malloc(sizeof(rtg_operation_arg_out_of_stt_operation_arg_ret));
 #endif
+}
+
+void *
+amara_malloc(size_t bytes)
+{
+	void * returning_;
+
+	returning_ = malloc(bytes);
+	forced_assertion(returning_ != NULL);
+
+	return returning_;
 }

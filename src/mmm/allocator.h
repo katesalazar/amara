@@ -21,8 +21,15 @@
 
 #include "../definitions.h"
 
+#include <stddef.h>
+
 void *
 amara_malloc_rtg_operation_arg_out_of_stt_operation_arg_ret()
+__amara__warn_unused_result__
+;
+
+void *
+amara_malloc(size_t bytes)
 __amara__warn_unused_result__
 ;
 

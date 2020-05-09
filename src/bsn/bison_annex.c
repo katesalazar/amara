@@ -956,20 +956,21 @@ bison_annex_function_call_out_of_token_call_and_token_function_and_token_identif
 	assertion(function_call_arguments != NULL);
 	assertion(function_call_arguments->type_ ==  /* XXX */
 			STT_NODE_TYPE_NAMED_FUNCTION_CALL_ARGUMENTS_LIST);  /* XXX */
-	assertion(function_call_argumemts->sub_function_call_arguments_ != NULL);
-	assertion(function_call_argumemts->sub_function_call_arguments_->function_call_arguments_ != NULL);
+	assertion(function_call_arguments->sub_function_call_arguments_ != NULL);
+	assertion(function_call_arguments->sub_function_call_arguments_->function_call_arguments_ != NULL);
 #endif
 
 	named_function_call_ =
 			stt_named_function_call_exhaustive_constructor(
 					identifier, function_call_arguments);
+	forced_assertion(named_function_call_ != NULL);
 
 	returning_ = stt_node_default_constructor();
 	forced_assertion(returning_ != NULL);
 
 	returning_->sub_named_function_call_ =
 			stt_node_sub_named_function_call_exhaustive_constructor(
-					identifier, function_call_arguments);
+					named_function_call_);
 	forced_assertion(returning_->sub_named_function_call_ != NULL);
 
 	returning_->type_ = STT_NODE_TYPE_NAMED_FUNCTION_CALL;
