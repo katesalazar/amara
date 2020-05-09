@@ -19,6 +19,8 @@
 
 #include <string.h>
 
+#include "../stt/stt_named_function_call.h"
+
 #include "bison_annex.h"
 
 stt_node *
@@ -942,6 +944,7 @@ bison_annex_function_call_out_of_token_call_and_token_function_and_token_identif
 		stt_node * identifier, stt_node * function_call_arguments)
 {
 	stt_node * returning_;
+	stt_named_function_call * named_function_call_;
 
 #ifndef NDEBUG
 	assertion(identifier != NULL);
@@ -953,7 +956,13 @@ bison_annex_function_call_out_of_token_call_and_token_function_and_token_identif
 	assertion(function_call_arguments != NULL);
 	assertion(function_call_arguments->type_ ==  /* XXX */
 			STT_NODE_TYPE_NAMED_FUNCTION_CALL_ARGUMENTS_LIST);  /* XXX */
+	assertion(function_call_argumemts->sub_function_call_arguments_ != NULL);
+	assertion(function_call_argumemts->sub_function_call_arguments_->function_call_arguments_ != NULL);
 #endif
+
+	named_function_call_ =
+			stt_named_function_call_exhaustive_constructor(
+					identifier, function_call_arguments);
 
 	returning_ = stt_node_default_constructor();
 	forced_assertion(returning_ != NULL);

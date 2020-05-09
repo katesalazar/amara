@@ -23,6 +23,10 @@
 
 #include "../cmn/amara_boolean.h"
 
+/*
+#include "stt_node.h"
+*/
+
 /**  Helper struct for flags. */
 typedef struct stt_named_function_call_pending_semantic_checks {
 
@@ -50,6 +54,13 @@ typedef struct stt_named_function_call {
 stt_named_function_call *
 stt_named_function_call_copy_constructor(
 		const stt_named_function_call * named_function_call)
+__amara__warn_unused_result__
+;
+
+stt_named_function_call *
+stt_named_function_call_exhaustive_constructor(
+		const struct stt_node * function_name_identifier,
+		const struct stt_node * call_arguments)
 __amara__warn_unused_result__
 ;
 

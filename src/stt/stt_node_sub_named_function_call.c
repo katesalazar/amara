@@ -60,16 +60,15 @@ stt_node_sub_named_function_call_copy_constructor(
 
 stt_node_sub_named_function_call *
 stt_node_sub_named_function_call_exhaustive_constructor(
-		struct stt_node * function_name_identifier,
-		struct stt_node * call_arguments)
+		struct stt_named_function_call * named_function_call)
 {
 	stt_node_sub_named_function_call * returning_;
 	stt_node_sub_named_function_call_pending_semantic_checks * returning_pending_semantic_checks_;
 
 #ifdef AMARA_USE_STD_CXX98
-	returning_ = (stt_node_sub_named_function_call *) malloc(sizeof(stt_node_sub_named_function_call));
+	returning_ = (stt_node_sub_named_function_call *) amara_malloc(sizeof(stt_node_sub_named_function_call));
 #else
-	returning_ = malloc(sizeof(stt_node_sub_named_function_call));
+	returning_ = amara_malloc(sizeof(stt_node_sub_named_function_call));
 #endif
 	forced_assertion(returning_ != NULL);
 

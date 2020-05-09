@@ -53,8 +53,7 @@ __amara__warn_unused_result__
  * `function_name_identifier` and `call_arguments`. */
 stt_node_sub_named_function_call *
 stt_node_sub_named_function_call_exhaustive_constructor(
-		struct stt_node * function_name_identifier,
-		struct stt_node * call_arguments)
+		struct stt_named_function_call * named_function_call)
 __amara__warn_unused_result__
 ;
 
