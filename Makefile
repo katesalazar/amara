@@ -333,6 +333,7 @@ UTILS_DIR = utils
 	$(SRC_DIR)/stt/stt_natural_literal_subnode_tests.c \
 	$(SRC_DIR)/stt/stt_node.c \
 	$(SRC_DIR)/stt/stt_node_sub_named_function_call.c \
+	$(SRC_DIR)/stt/stt_node_sub_named_function_call_arguments.c \
 	$(SRC_DIR)/stt/stt_node_tests.c \
 	$(SRC_DIR)/stt/stt_operation.c \
 	$(SRC_DIR)/stt/stt_operation_arg.c \
@@ -494,6 +495,7 @@ BUILD_SRC = \
 	$(BUILD_DIR_SRC)/stt/stt_natural_literal_subnode_tests.$(CEXT) \
 	$(BUILD_DIR_SRC)/stt/stt_node.$(CEXT) \
 	$(BUILD_DIR_SRC)/stt/stt_node_sub_named_function_call.$(CEXT) \
+	$(BUILD_DIR_SRC)/stt/stt_node_sub_named_function_call_arguments.$(CEXT) \
 	$(BUILD_DIR_SRC)/stt/stt_node_tests.$(CEXT) \
 	$(BUILD_DIR_SRC)/stt/stt_operation.$(CEXT) \
 	$(BUILD_DIR_SRC)/stt/stt_operation_arg.$(CEXT) \
@@ -656,6 +658,7 @@ OBJ_$(BUILD_TYPE) = \
 		$$(BUILD_DIR_$(BUILD_TYPE))/stt_natural_literal_subnode_tests.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/stt_node.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/stt_node_sub_named_function_call.o \
+		$$(BUILD_DIR_$(BUILD_TYPE))/stt_node_sub_named_function_call_arguments.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/stt_node_tests.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/stt_operation.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/stt_operation_arg.o \
@@ -3306,15 +3309,12 @@ $(BUILD_DIR_SRC)/stt/stt_node_sub_named_function_call.$(CEXT): \
 		$(SRC_DIR)/stt/stt_node_sub_named_function_call.c
 	$(CP) $< $@
 
-$(BUILD_DIR_DEBUG)/stt_node_sub_named_function_call.o: \
-		$(BUILD_DIR_SRC)/stt/stt_node_sub_named_function_call.$(CEXT) \
-		$(BUILD_DIR_SRC)/stt/stt_node_sub_named_function_call.$(HEXT)
-	$(C) $(CFLAGS) $(CFLAGS_DEBUG) -c -o $@ $<
-
-$(BUILD_DIR_RELEASE)/stt_node_sub_named_function_call.o: \
-		$(BUILD_DIR_SRC)/stt/stt_node_sub_named_function_call.$(CEXT) \
-		$(BUILD_DIR_SRC)/stt/stt_node_sub_named_function_call.$(HEXT)
-	$(C) $(CFLAGS) $(CFLAGS_RELEASE) -c -o $@ $<
+define stt_node_sub_named_function_call_OBJ_RULE
+$$(BUILD_DIR_$(BUILD_TYPE))/stt_node_sub_named_function_call.o: \
+		$$(BUILD_DIR_SRC)/stt/stt_node_sub_named_function_call.$$(CEXT) \
+		$$(BUILD_DIR_SRC)/stt/stt_node_sub_named_function_call.$$(HEXT)
+	$$(C) $$(CFLAGS) $$(CFLAGS_$(BUILD_TYPE)) -c -o $$@ $$<
+endef
 
 $(BUILD_DIR_SRC)/stt/stt_node_tests.$(HEXT): \
 		$(SRC_DIR)/stt/stt_node_tests.h \

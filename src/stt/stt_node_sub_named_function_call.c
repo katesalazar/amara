@@ -50,9 +50,9 @@ stt_node_sub_named_function_call_copy_constructor(
 #endif
 
 #ifdef AMARA_USE_STD_CXX98
-	returning_ = (stt_node_sub_named_function_call *) malloc(sizeof(stt_node_sub_named_function_call));
+	returning_ = (stt_node_sub_named_function_call *) amara_malloc(sizeof(stt_node_sub_named_function_call));
 #else
-	returning_ = malloc(sizeof(stt_node_sub_named_function_call));
+	returning_ = amara_malloc(sizeof(stt_node_sub_named_function_call));
 #endif
 	forced_assertion(returning_ != NULL);
 

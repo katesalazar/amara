@@ -16,6 +16,10 @@
  * mmm/allocator.c: Memory allocator.
  */
 
+/*
+#include <stdlib.h>
+*/
+
 #include "allocator.h"
 
 void *
