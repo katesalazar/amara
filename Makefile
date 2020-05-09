@@ -3276,6 +3276,7 @@ $(BUILD_DIR_SRC)/stt/stt_node.$(HEXT): \
 		$(BUILD_DIR_SRC)/stt/stt_integer_literal_subnode.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_natural_literal_subnode.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_node_sub_named_function_call.$(HEXT) \
+		$(BUILD_DIR_SRC)/stt/stt_node_sub_named_function_call_arguments.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_operation_subnode.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_operations_list_subnode.$(HEXT) \
 		$(BUILD_DIR_SRC)/stt/stt_rational_literal_subnode.$(HEXT) \
