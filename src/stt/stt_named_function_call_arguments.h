@@ -44,7 +44,8 @@ typedef struct stt_named_function_call_arguments {
 
 	stt_named_function_call_pending_semantic_checks * pending_semantic_checks_;
 */
-	void unused_;  /* XXX */
+	void *
+			unused_;  /* XXX */
 } stt_named_function_call
 ;
 
