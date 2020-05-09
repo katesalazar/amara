@@ -13,40 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * mmm/allocator.c: Memory allocator.
+ * src/stt/stt_named_function_call.c: TODO
  */
 
-/*
-#include <stdlib.h>
-*/
-
-#include "allocator.h"
-
-void *
-amara_malloc_rtg_operation_arg_out_of_stt_operation_arg_ret()
-{
-	void * returning_;
-
-#ifdef AMARA_USE_STD_CXX98
-	/* FIXME */
-#else
-	returning_ = malloc(sizeof(rtg_operation_arg_out_of_stt_operation_arg_ret));
-#endif
-}
-
-void *
-amara_malloc(size_t bytes)
-{
-	void * returning_;
-
-	returning_ = malloc(bytes);
-	forced_assertion(returning_ != NULL);
-
-	return returning_;
-}
-
 void
-amara_free(void * pointed_block)
+stt_named_function_call_destructor(stt_named_function_call * nfc)
 {
-	free(pointed_block);  /* XXX ??? No check at all? */
+	forced_assertion(0);
 }

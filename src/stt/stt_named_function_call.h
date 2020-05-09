@@ -64,4 +64,8 @@ stt_named_function_call_exhaustive_constructor(
 __amara__warn_unused_result__
 ;
 
+void
+stt_named_function_call_destructor(stt_named_function_call * nfc)
+;
+
 #endif

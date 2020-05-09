@@ -33,4 +33,8 @@ amara_malloc(size_t bytes)
 __amara__warn_unused_result__
 ;
 
+void
+amara_free(void * pointed_block)
+;
+
 #endif

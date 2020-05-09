@@ -88,23 +88,14 @@ stt_node_destructor(struct stt_node const * node)
 
 void
 stt_node_sub_named_function_call_destructor(
-		stt_node_sub_named_function_call  * sfc)
+		stt_node_sub_named_function_call * nsnfc)
 {
 #ifndef NDEBUG
-	assertion(sfc->function_name_identifier_ != NULL);
+	assertion(nsnfc->named_function_call_ != NULL);
 #endif
-	stt_node_destructor(sfc->function_name_identifier_);
+	stt_named_function_call_destructor(nsnfc->named_function_call_);
 
-#ifndef NDEBUG
-	assertion(sfc->call_arguments_ != NULL);
-#endif
-	stt_node_destructor(sfc->call_arguments_);
-
-#ifndef NDEBUG
-	assertion(sfc->pending_semantic_checks_ != NULL);
-#endif
-	free(sfc->pending_semantic_checks_);
-	free(sfc);
+	amara_free(nsnfc);
 }
 
 /**  Friend declaration. */

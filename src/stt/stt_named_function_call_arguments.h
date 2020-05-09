@@ -46,7 +46,7 @@ typedef struct stt_named_function_call_arguments {
 */
 	void *
 			unused_;  /* XXX */
-} stt_named_function_call
+} stt_named_function_call_arguments
 ;
 
 /*
