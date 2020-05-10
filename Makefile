@@ -123,9 +123,11 @@ CFLAGS_DEBUG = -O0 -g -fprofile-arcs -ftest-coverage
 CFLAGS_DEBUG += -DTRACE_BISON -DTRACE_FLEX
 
 #   There is some documentation stating that using `valgrind` and
-# `gprof` together brings up incompatibilities. Remove the `gprof` flag
-# temporarily while figuring out a permanent solution to this issue.
-# CFLAGS_DEBUG += -pg
+# `gprof` together brings up incompatibilities. The `gprof` flag is so
+# not enabled by default, for now.
+ifeq ($(PROFILE), yes)
+CFLAGS_DEBUG += -pg
+endif
 
 ifeq ($(UNAME_S), Linux)
 GCC_EQ_485 = $(shell expr `gcc -dumpversion | sed 's/\.\([0-9][0-9]\)/\1/g' | \
@@ -156,6 +158,13 @@ endif
 endif
 
 CFLAGS_RELEASE = -O2 -DNDEBUG
+
+#   There is some documentation stating that using `valgrind` and
+# `gprof` together brings up incompatibilities. The `gprof` flag is so
+# not enabled by default, for now.
+ifeq ($(PROFILE), yes)
+CFLAGS_RELEASE += -pg
+endif
 
 ifeq ($(XCODE), yes)
 BISON_FLAGS ?= --no-lines
