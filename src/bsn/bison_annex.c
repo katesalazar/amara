@@ -941,28 +941,28 @@ bison_annex_function_call_without_return_value_out_of_nonterminal_function_call(
 
 stt_node *
 bison_annex_function_call_out_of_token_call_and_token_function_and_token_identifier_and_nonterminal_function_call_arguments(
-		stt_node * identifier, stt_node * function_call_arguments)
+		stt_node * identifier_node, stt_node * function_call_arguments_node)
 {
 	stt_node * returning_;
 	stt_named_function_call * named_function_call_;
 
 #ifndef NDEBUG
-	assertion(identifier != NULL);
-	assertion(identifier->type_ == STT_NODE_TYPE_IDENTIFIER);
-	assertion(identifier->identifier_subnode_ != NULL);
-	assertion(identifier->identifier_subnode_->value_ != NULL);
-	assertion(identifier->identifier_subnode_->value_->value_ != NULL);
+	assertion(identifier_node != NULL);
+	assertion(identifier_node->type_ == STT_NODE_TYPE_IDENTIFIER);
+	assertion(identifier_node->identifier_subnode_ != NULL);
+	assertion(identifier_node->identifier_subnode_->value_ != NULL);
+	assertion(identifier_node->identifier_subnode_->value_->value_ != NULL);
 
-	assertion(function_call_arguments != NULL);
-	assertion(function_call_arguments->type_ ==  /* XXX */
+	assertion(function_call_arguments_node != NULL);
+	assertion(function_call_arguments_node->type_ ==  /* XXX */
 			STT_NODE_TYPE_NAMED_FUNCTION_CALL_ARGUMENTS_LIST);  /* XXX */
-	assertion(function_call_arguments->sub_function_call_arguments_ != NULL);
-	assertion(function_call_arguments->sub_function_call_arguments_->function_call_arguments_ != NULL);
+	assertion(function_call_arguments_node->sub_named_function_call_arguments_ != NULL);
+	assertion(function_call_arguments_node->sub_named_function_call_arguments_->named_function_call_arguments_ != NULL);
 #endif
 
 	named_function_call_ =
 			stt_named_function_call_exhaustive_constructor(
-					identifier, function_call_arguments);
+					identifier_node, function_call_arguments_node);
 	forced_assertion(named_function_call_ != NULL);
 
 	returning_ = stt_node_default_constructor();

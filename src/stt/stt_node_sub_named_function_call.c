@@ -114,25 +114,12 @@ stt_node_sub_named_function_call_equality(
 	forced_assertion(s0 != NULL);
 	forced_assertion(s1 != NULL);
 
-	forced_assertion(s0->function_name_identifier_ != NULL);
-	/*
-	forced_assertion(s0->function_name_identifier_->value_ != NULL);
-	*/
-	forced_assertion(s1->function_name_identifier_ != NULL);
-	/*
-	forced_assertion(s1->function_name_identifier_->value_ != NULL);
-	equality_ = amara_strings_equality(s0->function_name_identifier_,
-	                                   s1->function_name_identifier_);
-	*/
-	equality_ = stt_nodes_equality(s0->function_name_identifier_,
-	                               s1->function_name_identifier_);
-	if (equality_ == AMARA_BOOLEAN_FALSE) {
-		return AMARA_BOOLEAN_FALSE;
+	forced_assertion(s0->named_function_call_ != NULL);
+	forced_assertion(s1->named_function_call_ != NULL);
+
+	equality_ = stt_named_function_calls_equality(s0->named_function_call_, s1->named_function_call_);
+	if (equality_ == AMARA_BOOLEAN_TRUE) {
+		return AMARA_BOOLEAN_TRUE;
 	}
-
-	forced_assertion(s0->call_arguments_ != NULL);
-	forced_assertion(s1->call_arguments_ != NULL);
-	return stt_nodes_equality(s0->call_arguments_, s1->call_arguments_);
-
-	/*   Pending semantic checks remain TODO at this function. */
+	return AMARA_BOOLEAN_FALSE;
 }

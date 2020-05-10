@@ -33,7 +33,7 @@
 
 typedef struct stt_node_sub_named_function_call_arguments {
 
-	stt_named_function_call_arguments * named_function_call_;
+	stt_named_function_call_arguments * named_function_call_arguments_;
 } stt_node_sub_named_function_call_arguments
 ;
 

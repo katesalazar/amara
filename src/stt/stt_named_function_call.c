@@ -21,3 +21,17 @@ stt_named_function_call_destructor(stt_named_function_call * nfc)
 {
 	forced_assertion(0);
 }
+
+amara_boolean
+stt_named_function_call_equality(
+		const stt_named_function_call * nfc0,
+		const stt_named_function_call * nfc1)
+{_amara__warn_unused_result__
+}
+
+amara_boolean
+stt_named_function_calls_equality(
+		const stt_named_function_call * nfc0,
+		const stt_named_function_call * nfc1)
+{_amara__warn_unused_result__
+}
