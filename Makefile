@@ -243,6 +243,7 @@ UTILS_DIR = utils
 	$(SRC_DIR)/prs/persistence_tests.c \
 	$(SRC_DIR)/brt/rational.c \
 	$(SRC_DIR)/brt/rational_tests.c \
+	$(SRC_DIR)/mmm/allocator.c \
 	$(SRC_DIR)/rtg/rtg_application.c \
 	$(SRC_DIR)/rtg/rtg_application_tests.c \
 	$(SRC_DIR)/rtg/rtg_applications_simple_list.c \
@@ -405,6 +406,7 @@ BUILD_SRC = \
 	$(BUILD_DIR_SRC)/prs/persistence_tests.$(CEXT) \
 	$(BUILD_DIR_SRC)/brt/rational.$(CEXT) \
 	$(BUILD_DIR_SRC)/brt/rational_tests.$(CEXT) \
+	$(BUILD_DIR_SRC)/mmm/allocator.$(CEXT) \
 	$(BUILD_DIR_SRC)/rtg/rtg_application.$(CEXT) \
 	$(BUILD_DIR_SRC)/rtg/rtg_application_tests.$(CEXT) \
 	$(BUILD_DIR_SRC)/rtg/rtg_applications_simple_list.$(CEXT) \
@@ -525,6 +527,7 @@ BUILD_SRC = \
 
 define debug_and_release_OBJS_definition
 OBJ_$(BUILD_TYPE) = \
+		$$(BUILD_DIR_$(BUILD_TYPE))/allocator.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/amara_string.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/amara_string_tests.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/amara_strings_simple_list.o \
@@ -1577,6 +1580,17 @@ endef
 $(BUILD_DIR_SRC)/mmm/allocator.$(HEXT): \
 		$(SRC_DIR)/mmm/allocator.h
 	$(CP) $< $@
+
+$(BUILD_DIR_SRC)/mmm/allocator.$(CEXT): \
+		$(SRC_DIR)/mmm/allocator.c
+	$(CP) $< $@
+
+define allocator_OBJ_RULE
+$$(BUILD_DIR_$(BUILD_TYPE))/allocator.o: \
+		$$(BUILD_DIR_SRC)/mmm/allocator.$$(CEXT) \
+		$$(BUILD_DIR_SRC)/mmm/allocator.$$(HEXT)
+	$$(C) $$(CFLAGS) $$(CFLAGS_$(BUILD_TYPE)) -c -o $$@ $$<
+endef
 
 $(BUILD_DIR_SRC)/prs/persistence.$(HEXT): \
 		$(SRC_DIR)/prs/persistence.h \
@@ -3826,6 +3840,7 @@ $$(foreach BUILD_TYPE, DEBUG RELEASE, $$(eval $$($(DOC)_OBJ_RULE)))
 endef
 
 $(foreach DOC, \
+	allocator \
 	amara_string amara_string_tests \
 	amara_strings_simple_list amara_strings_simple_list_tests \
 	arg \

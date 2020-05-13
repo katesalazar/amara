@@ -16,23 +16,27 @@
  * mmm/allocator.c: Memory allocator.
  */
 
-/*
 #include <stdlib.h>
-*/
+
+#include "../asr/assertion.h"
 
 #include "allocator.h"
 
+/*
 void *
 amara_malloc_rtg_operation_arg_out_of_stt_operation_arg_ret()
 {
 	void * returning_;
 
 #ifdef AMARA_USE_STD_CXX98
+*/
 	/* FIXME */
+/*
 #else
 	returning_ = malloc(sizeof(rtg_operation_arg_out_of_stt_operation_arg_ret));
 #endif
 }
+*/
 
 void *
 amara_malloc(size_t bytes)
