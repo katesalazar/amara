@@ -449,9 +449,15 @@ rtg_operation_arg_out_of_stt_operation_arg(
 	rtg_named_function_call_out_of_stt_named_function_call_and_rtg_named_function_ret * rtg_named_function_call_transformation_ret_;
 
 #ifdef AMARA_USE_STD_CXX98
+	ret_ = (rtg_operation_arg_out_of_stt_operation_arg_ret *) amara_malloc(sizeof(rtg_operation_arg_out_of_stt_operation_arg_ret));
+	/*
 	ret_ = (rtg_operation_arg_out_of_stt_operation_arg_ret *) amara_malloc_rtg_operation_arg_out_of_stt_operation_arg_ret();
+	*/
 #else
+	ret_ = amara_malloc(sizeof(rtg_operation_arg_out_of_stt_operation_arg_ret));
+	/*
 	ret_ = amara_malloc_rtg_operation_arg_out_of_stt_operation_arg_ret();
+	*/
 #endif
 	forced_assertion(ret_ != NULL);
 	ret_->status = RTG_OPERATION_ARG_OUT_OF_STT_OPERATION_ARG_RET_STATUS_INVALID;
