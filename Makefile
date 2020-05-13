@@ -267,6 +267,7 @@ UTILS_DIR = utils
 	$(SRC_DIR)/rtg/rtg_expression_sub_string_literal.c \
 	$(SRC_DIR)/rtg/rtg_expression_tests.c \
 	$(SRC_DIR)/rtg/rtg_named_function.c \
+	$(SRC_DIR)/rtg/rtg_named_function_call.c \
 	$(SRC_DIR)/rtg/rtg_named_function_tests.c \
 	$(SRC_DIR)/rtg/rtg_named_functions_simple_list.c \
 	$(SRC_DIR)/rtg/rtg_named_functions_simple_list_tests.c \
@@ -430,6 +431,7 @@ BUILD_SRC = \
 	$(BUILD_DIR_SRC)/rtg/rtg_expression_sub_string_literal.$(CEXT) \
 	$(BUILD_DIR_SRC)/rtg/rtg_expression_tests.$(CEXT) \
 	$(BUILD_DIR_SRC)/rtg/rtg_named_function.$(CEXT) \
+	$(BUILD_DIR_SRC)/rtg/rtg_named_function_call.$(CEXT) \
 	$(BUILD_DIR_SRC)/rtg/rtg_named_function_tests.$(CEXT) \
 	$(BUILD_DIR_SRC)/rtg/rtg_named_functions_simple_list.$(CEXT) \
 	$(BUILD_DIR_SRC)/rtg/rtg_named_functions_simple_list_tests.$(CEXT) \
@@ -594,6 +596,7 @@ OBJ_$(BUILD_TYPE) = \
 		$$(BUILD_DIR_$(BUILD_TYPE))/rtg_expression_sub_string_literal.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/rtg_expression_tests.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/rtg_named_function.o \
+		$$(BUILD_DIR_$(BUILD_TYPE))/rtg_named_function_call.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/rtg_named_function_tests.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/rtg_named_functions_simple_list.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/rtg_named_functions_simple_list_tests.o \
@@ -2169,6 +2172,17 @@ $$(BUILD_DIR_$(BUILD_TYPE))/rtg_named_function.o: \
 		$$(BUILD_DIR_SRC)/rtg/rtg_named_function.$$(HEXT) \
 		$$(BUILD_DIR_SRC)/stt/stt_named_function.$$(HEXT) \
 		$$(BUILD_DIR_SRC)/rtg/rtg_operations_simple_list.$$(HEXT)
+	$$(C) $$(CFLAGS) $$(CFLAGS_$(BUILD_TYPE)) -c -o $$@ $$<
+endef
+
+$(BUILD_DIR_SRC)/rtg/rtg_named_function_call.$(CEXT): \
+		$(SRC_DIR)/rtg/rtg_named_function_call.c
+	$(CP) $< $@
+
+define rtg_named_function_call_OBJ_RULE
+$$(BUILD_DIR_$(BUILD_TYPE))/rtg_named_function_call.o: \
+		$$(BUILD_DIR_SRC)/rtg/rtg_named_function_call.$$(CEXT) \
+		$$(BUILD_DIR_SRC)/rtg/rtg_named_function_call.$$(HEXT)
 	$$(C) $$(CFLAGS) $$(CFLAGS_$(BUILD_TYPE)) -c -o $$@ $$<
 endef
 
@@ -3885,6 +3899,7 @@ $(foreach DOC, \
 	rtg_expression_sub_natural_literal \
 	rtg_expression_sub_string_literal \
 	rtg_named_function rtg_named_function_tests \
+	rtg_named_function_call \
 	rtg_named_functions_simple_list rtg_named_functions_simple_list_tests \
 	rtg_operation rtg_operation_tests \
 	rtg_operation_arg rtg_operation_arg_tests \

@@ -17,3 +17,17 @@
  * call.
  */
 
+void
+rtg_named_function_call_out_of_stt_named_function_call_and_rtg_named_function_ret_destructor(
+		rtg_named_function_call_out_of_stt_named_function_call_and_rtg_named_function_ret * input_ret)
+{
+	;
+}
+
+rtg_named_function_call_out_of_stt_named_function_call_and_rtg_named_function_ret *
+rtg_named_function_call_out_of_stt_named_function_call_and_rtg_named_function(
+		const stt_named_function_call * named_function_call,
+		const rtg_named_function * named_function)
+{
+	;
+}
