@@ -25,6 +25,10 @@
 #include <execinfo.h>
 #endif
 
+#ifdef __CYG__
+#include <signal.h>
+#endif
+
 /*   For `int fprintf(FILE * stream, const char * format, ...)`. */
 #include <stdio.h>
 
@@ -102,9 +106,32 @@ forced_assertion_two(int expression, const char * message)
 
 	}
 
+#ifdef __CYG__
+#ifndef INTERRUPT_INSTEAD_OF_FAIL_TO_ASSERT
+#define INTERRUPT_INSTEAD_OF_FAIL_TO_ASSERT
+#endif
+#endif
+
 #ifdef INTERRUPT_INSTEAD_OF_FAIL_TO_ASSERT
 	if (!expression) {
+
+#ifdef __CYG__
+		/*   This works well enough. */
+		/*   Might want to read these:
+		 * `https://stackoverflow.com/a/61803910` at
+		 * `https://stackoverflow.com/questions/61803664/`. */
+		/*
+		raise(SIGTRAP);
+		*/
+
+		/*   This works actually better. */
+		/*   Might want to read these:
+		 * `https://stackoverflow.com/a/61803910` at
+		 * `https://stackoverflow.com/questions/61803664/`. */
+		__asm__ __volatile__ ("int $3\n\t");
+#else
 		raise(SIGINT);
+#endif
 	}
 #else
 	assert(expression);
