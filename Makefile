@@ -1596,7 +1596,8 @@ $(BUILD_DIR_SRC)/mmm/allocator.$(HEXT): \
 	$(CP) $< $@
 
 $(BUILD_DIR_SRC)/mmm/allocator.$(CEXT): \
-		$(SRC_DIR)/mmm/allocator.c
+		$(SRC_DIR)/mmm/allocator.c \
+		$(BUILD_DIR_SRC)/asr/assertion.$(HEXT)
 	$(CP) $< $@
 
 define allocator_OBJ_RULE
