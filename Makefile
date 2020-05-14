@@ -322,6 +322,7 @@ UTILS_DIR = utils
 	$(SRC_DIR)/stt/stt_expression_subnode_tests.c \
 	$(SRC_DIR)/stt/stt_expression_tests.c \
 	$(SRC_DIR)/stt/stt_named_function.c \
+	$(SRC_DIR)/stt/stt_named_function_call.c \
 	$(SRC_DIR)/stt/stt_named_function_subnode.c \
 	$(SRC_DIR)/stt/stt_named_function_subnode_tests.c \
 	$(SRC_DIR)/stt/stt_named_function_tests.c \
@@ -486,6 +487,7 @@ BUILD_SRC = \
 	$(BUILD_DIR_SRC)/stt/stt_expression_subnode_tests.$(CEXT) \
 	$(BUILD_DIR_SRC)/stt/stt_expression_tests.$(CEXT) \
 	$(BUILD_DIR_SRC)/stt/stt_named_function.$(CEXT) \
+	$(BUILD_DIR_SRC)/stt/stt_named_function_call.$(CEXT) \
 	$(BUILD_DIR_SRC)/stt/stt_named_function_subnode.$(CEXT) \
 	$(BUILD_DIR_SRC)/stt/stt_named_function_subnode_tests.$(CEXT) \
 	$(BUILD_DIR_SRC)/stt/stt_named_function_tests.$(CEXT) \
@@ -651,6 +653,7 @@ OBJ_$(BUILD_TYPE) = \
 		$$(BUILD_DIR_$(BUILD_TYPE))/stt_expression_subnode_tests.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/stt_expression_tests.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/stt_named_function.o \
+		$$(BUILD_DIR_$(BUILD_TYPE))/stt_named_function_call.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/stt_named_function_subnode.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/stt_named_function_subnode_tests.o \
 		$$(BUILD_DIR_$(BUILD_TYPE))/stt_named_function_tests.o \
@@ -3090,6 +3093,17 @@ $(BUILD_DIR_SRC)/stt/stt_named_function_call.$(HEXT): \
 		$(SRC_DIR)/stt/stt_named_function_call.h
 	$(CP) $< $@
 
+$(BUILD_DIR_SRC)/stt/stt_named_function_call.$(CEXT): \
+		$(SRC_DIR)/stt/stt_named_function_call.c
+	$(CP) $< $@
+
+define stt_named_function_call_OBJ_RULE
+$$(BUILD_DIR_$(BUILD_TYPE))/stt_named_function_call.o: \
+		$$(BUILD_DIR_SRC)/stt/stt_named_function_call.$$(CEXT) \
+		$$(BUILD_DIR_SRC)/stt/stt_named_function_call.$$(HEXT)
+	$$(C) $$(CFLAGS) $$(CFLAGS_$(BUILD_TYPE)) -c -o $$@ $$<
+endef
+
 $(BUILD_DIR_SRC)/stt/stt_named_function_call_arguments.$(HEXT): \
 		$(SRC_DIR)/stt/stt_named_function_call_arguments.h
 	$(CP) $< $@
@@ -3926,6 +3940,7 @@ $(foreach DOC, \
 	stt_expression_sub_string_literal \
 	stt_expression_subnode stt_expression_subnode_tests \
 	stt_named_function stt_named_function_tests \
+	stt_named_function_call \
 	stt_named_function_subnode stt_named_function_subnode_tests \
 	stt_named_functions_simple_list stt_named_functions_simple_list_tests \
 	stt_identifier_subnode stt_identifier_subnode_tests \

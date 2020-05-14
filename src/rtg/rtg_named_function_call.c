@@ -36,5 +36,9 @@ rtg_named_function_call_out_of_stt_named_function_call_and_rtg_named_function(
 		const stt_named_function_call * named_function_call,
 		const rtg_named_function * named_function)
 {
-	;
+	forced_assertion(named_function_call == NULL);  /* XXX */
+	forced_assertion(named_function == NULL);  /* XXX */
+
+	forced_assertion(0);  /* XXX */
+	return NULL;  /* XXX */
 }

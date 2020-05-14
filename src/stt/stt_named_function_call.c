@@ -16,22 +16,43 @@
  * src/stt/stt_named_function_call.c: TODO
  */
 
+/*   For `NULL`. */
+#include <stdlib.h>
+
+#include "../asr/assertion.h"
+
+#include "stt_named_function_call.h"
+
+stt_named_function_call *
+stt_named_function_call_exhaustive_constructor(
+		const struct stt_node * function_name_identifier,
+		const struct stt_node * call_arguments)
+{
+	forced_assertion(function_name_identifier == NULL);  /* XXX */
+	forced_assertion(call_arguments == NULL);  /* XXX */
+
+	forced_assertion(0);  /* XXX */
+	return NULL;  /* XXX */
+}
+
 void
 stt_named_function_call_destructor(stt_named_function_call * nfc)
 {
-	forced_assertion(0);
+	forced_assertion(nfc != NULL);
+
+	forced_assertion(0);  /* XXX */
 }
 
 amara_boolean
 stt_named_function_call_equality(
 		const stt_named_function_call * nfc0,
 		const stt_named_function_call * nfc1)
-{_amara__warn_unused_result__
+{
 }
 
 amara_boolean
 stt_named_function_calls_equality(
 		const stt_named_function_call * nfc0,
 		const stt_named_function_call * nfc1)
-{_amara__warn_unused_result__
+{
 }
