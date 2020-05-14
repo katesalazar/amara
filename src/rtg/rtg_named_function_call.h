@@ -22,7 +22,11 @@
 
 #include "../definitions.h"
 
+#include "../cmn/amara_strings_simple_list.h"
+
 #include "../stt/stt_named_function_call.h"
+
+#include "rtg_forward_declarations.h"
 
 #include "rtg_named_function_call_arguments_simple_list.h"
 

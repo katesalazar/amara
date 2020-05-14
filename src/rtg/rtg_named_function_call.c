@@ -17,11 +17,18 @@
  * call.
  */
 
+#include "../asr/assertion.h"
+
+#include "rtg_named_function_call.h"
+
 void
 rtg_named_function_call_out_of_stt_named_function_call_and_rtg_named_function_ret_destructor(
 		rtg_named_function_call_out_of_stt_named_function_call_and_rtg_named_function_ret * input_ret)
 {
-	;
+	forced_assertion(input_ret != NULL);
+	forced_assertion(input_ret->status == RTG_NAMED_FUNCTION_CALL_OUT_OF_STT_NAMED_FUNCTION_CALL_AND_RTG_NAMED_FUNCTION_RET_STATUS_INVALID);
+	forced_assertion(input_ret->error_messages == NULL);
+	forced_assertion(input_ret->named_function_call == NULL);
 }
 
 rtg_named_function_call_out_of_stt_named_function_call_and_rtg_named_function_ret *
