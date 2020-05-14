@@ -48,6 +48,11 @@ stt_named_function_call_equality(
 		const stt_named_function_call * nfc0,
 		const stt_named_function_call * nfc1)
 {
+	forced_assertion(nfc0 != NULL);
+	forced_assertion(nfc1 != NULL);
+
+	forced_assertion(0);  /* XXX */
+	return AMARA_BOOLEAN_FALSE;  /* XXX */
 }
 
 amara_boolean
@@ -55,4 +60,5 @@ stt_named_function_calls_equality(
 		const stt_named_function_call * nfc0,
 		const stt_named_function_call * nfc1)
 {
+	return stt_named_function_call_equality(nfc0, nfc1);
 }

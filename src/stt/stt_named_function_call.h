@@ -75,6 +75,9 @@ stt_named_function_call_equality(
 __amara__warn_unused_result__
 ;
 
+/**  Synctactic sugar for `amara_boolean
+ * stt_named_function_call_equality(const stt_named_function_call *,
+ * const stt_named_function_call)`. */
 amara_boolean
 stt_named_function_calls_equality(
 		const stt_named_function_call * nfc0,
