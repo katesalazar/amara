@@ -25,8 +25,17 @@
 #include <execinfo.h>
 #endif
 
+/*
+#undef TRAP_CYGWIN_WITH_THE_VOLATILE_THING
+*/
+#ifndef TRAP_CYGWIN_WITH_THE_VOLATILE_THING
+#define TRAP_CYGWIN_WITH_THE_VOLATILE_THING
+#endif
+
 #ifdef __CYG__
+#ifndef TRAP_CYGWIN_WITH_THE_VOLATILE_THING
 #include <signal.h>
+#endif
 #endif
 
 /*   For `int fprintf(FILE * stream, const char * format, ...)`. */
@@ -107,6 +116,9 @@ forced_assertion_two(int expression, const char * message)
 	}
 
 #ifdef __CYG__
+/*
+#undef INTERRUPT_INSTEAD_OF_FAIL_TO_ASSERT
+*/
 #ifndef INTERRUPT_INSTEAD_OF_FAIL_TO_ASSERT
 #define INTERRUPT_INSTEAD_OF_FAIL_TO_ASSERT
 #endif
@@ -116,19 +128,19 @@ forced_assertion_two(int expression, const char * message)
 	if (!expression) {
 
 #ifdef __CYG__
+#ifndef TRAP_CYGWIN_WITH_THE_VOLATILE_THING
 		/*   This works well enough. */
 		/*   Might want to read these:
 		 * `https://stackoverflow.com/a/61803910` at
 		 * `https://stackoverflow.com/questions/61803664/`. */
-		/*
 		raise(SIGTRAP);
-		*/
-
+#else
 		/*   This works actually better. */
 		/*   Might want to read these:
 		 * `https://stackoverflow.com/a/61803910` at
 		 * `https://stackoverflow.com/questions/61803664/`. */
 		__asm__ __volatile__ ("int $3\n\t");
+#endif
 #else
 		raise(SIGINT);
 #endif
