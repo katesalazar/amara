@@ -63,25 +63,25 @@ build/src/*/*.c
 build/src/*/*.cpp
 build/src/*/*.cc
 build/src/*/*.h
-build/debug/*.o
-build/debug/amara_g_not_stripped
-build/debug/amara_g
 build/release/*.o
 build/release/amara_not_stripped
 build/release/amara
+build/debug/*.o
+build/debug/amara_g
+build/debug/stripped_amara_g
 
 #   Object docs (the specific lines meant for Cygwin builds).
-build/debug/amara_g.exe
-build/debug/stripped_amara_g.exe
 build/release/amara_not_stripped.exe
 build/release/amara.exe
+build/debug/amara_g.exe
+build/debug/stripped_amara_g.exe
 
 #   Object docs (the specific lines meant for Cygwin builds). This one is obsolete and maintained for backward compatibility, for a while. Probably not important, but probably worth it.
 build/debug/amara_g_not_stripped.exe
 
 #   Transitional object docs (REMOVE ME).
-build/debug/stripped_amara_g
 build/release/stripped_amara
+build/debug/amara_g_not_stripped
 
 #   macOS debugging symbols.
 amara_g.dSYM/
@@ -90,12 +90,12 @@ amara_g.dSYM/
 gmon.out
 
 #   GCC coverage output docs.
-build/debug/*.gcno
 build/release/*.gcno
+build/debug/*.gcno
 
 #   Coverage raw data.
-build/debug/*.gcda
 build/release/*.gcda
+build/debug/*.gcda
 
 #   `gcov` output docs.
 *.gcov
@@ -120,3 +120,6 @@ build/debug/minia.y
 
 #   Doxygen stuff.
 doxygen_reports/
+
+#   Miscellaneous Cygwin stuff.
+*.exe.stackdump
