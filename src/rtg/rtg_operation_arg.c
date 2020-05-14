@@ -373,6 +373,17 @@ rtg_operation_arg_set_identifier(
 }
 
 void
+rtg_operation_arg_set_named_function_call(
+		rtg_operation_arg * operation_arg,
+		const rtg_named_function_call * named_function_call)
+{
+	forced_assertion(operation_arg != NULL);
+	forced_assertion(named_function_call != NULL);
+
+	forced_assertion(0);  /* XXX */
+}
+
+void
 rtg_operation_arg_out_of_stt_operation_arg_ret_destructor(
 		rtg_operation_arg_out_of_stt_operation_arg_ret * rtg_operation_arg_out_of_stt_operation_arg_ret_)
 {

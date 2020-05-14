@@ -24,6 +24,16 @@
 #include "stt_named_function_call.h"
 
 stt_named_function_call *
+stt_named_function_call_copy_constructor(
+		const stt_named_function_call * named_function_call)
+{
+	forced_assertion(named_function_call != NULL);
+
+	forced_assertion(0);  /* XXX */
+	return NULL;  /* XXX */
+}
+
+stt_named_function_call *
 stt_named_function_call_exhaustive_constructor(
 		const struct stt_node * function_name_identifier,
 		const struct stt_node * call_arguments)
