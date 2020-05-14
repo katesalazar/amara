@@ -583,3 +583,15 @@ rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list
 
 	return ret_;
 }
+
+amara_boolean
+rtg_named_function_callable_from_stt_named_function_call(
+		const rtg_named_function * named_function,
+		const stt_named_function_call * named_function_call)
+{
+	forced_assertion(named_function != NULL);
+	forced_assertion(named_function_call != NULL);
+
+	forced_assertion(0);  /* XXX */
+	return AMARA_BOOLEAN_FALSE;  /* XXX */
+}
