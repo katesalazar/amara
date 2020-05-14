@@ -759,16 +759,24 @@ $(BUILD_DIR_SRC) \
 		$(BUILD_DIR_RELEASE):
 	@find $@ -type d -maxdepth 0 >/dev/null 2>/dev/null || mkdir -p $@
 
+amara: \
+		checkdirs \
+		$(BUILD_DIR_RELEASE)/amara
+
 #   Bear in mind, `$(BUILD_DIR_DEBUG)/stripped_amara_g` is not a target
 # of `$(BUILD_DIR_DEBUG)/amara_g`.
 amara_g: \
-	checkdirs \
-	$(BUILD_DIR_DEBUG)/amara_g \
-	$(DEBUG_RESOURCES)
+		checkdirs \
+		$(BUILD_DIR_DEBUG)/amara_g \
+		$(DEBUG_RESOURCES)
 
-amara: \
-	checkdirs \
-	$(BUILD_DIR_RELEASE)/amara
+#   `make release` is synctactic sugar for `make amara`.
+release: \
+		amara
+
+#   `make debug` is synctactic sugar for `make amara_g`.
+debug: \
+		amara_g
 
 $(BUILD_DIR_SRC)/bsn/minia.y: \
 		$(SRC_DIR)/bsn/minia.y
@@ -3979,7 +3987,9 @@ $(RESOURCES_DIR)/minia.grammar: $(SRC_DIR)/bsn/minia.y
 		default \
 		checkdirs \
 		amara \
-		amara_g
+		amara_g \
+		release \
+		debug
 
 clean:
 	rm -fv \
