@@ -77,24 +77,26 @@ assertion_two(int expression, const char * message)
 
 #ifndef NDEBUG
 #ifdef INTERRUPT_INSTEAD_OF_FAIL_TO_ASSERT
+	if (!expression) {
 #ifdef __CYG__
 #ifndef TRAP_CYGWIN_WITH_THE_VOLATILE_THING
-	/*   This works well enough. */
-	/*   Might want to read these:
-	 * `https://stackoverflow.com/a/61803910` at
-	 * `https://stackoverflow.com/questions/61803664/`. */
-	raise(SIGTRAP);
+		/*   This works well enough. */
+		/*   Might want to read these:
+		 * `https://stackoverflow.com/a/61803910` at
+		 * `https://stackoverflow.com/questions/61803664/`. */
+		raise(SIGTRAP);
 #else
-	/*   This works actually better. */
-	/*   Might want to read these:
-	 * `https://stackoverflow.com/a/61803910` at
-	 * `https://stackoverflow.com/questions/61803664/`. */
-	__asm__ __volatile__ ("int $3\n\t");
+		/*   This works actually better. */
+		/*   Might want to read these:
+		 * `https://stackoverflow.com/a/61803910` at
+		 * `https://stackoverflow.com/questions/61803664/`. */
+		__asm__ __volatile__ ("int $3\n\t");
 #endif
 #else
-	raise(SIGINT);
+		raise(SIGINT);
 #endif
 #endif
+	}
 #else
 	assert(expression);
 #endif
