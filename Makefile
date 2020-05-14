@@ -1597,6 +1597,7 @@ $(BUILD_DIR_SRC)/mmm/allocator.$(HEXT): \
 
 $(BUILD_DIR_SRC)/mmm/allocator.$(CEXT): \
 		$(SRC_DIR)/mmm/allocator.c \
+		$(BUILD_DIR_SRC)/definitions.$(HEXT) \
 		$(BUILD_DIR_SRC)/asr/assertion.$(HEXT)
 	$(CP) $< $@
 
