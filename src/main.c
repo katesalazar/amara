@@ -163,9 +163,9 @@ main(int argc, const char * * argv)
 {
 	unsigned char amara_main_ret_;
 
-	forced_assertion(0);  /* XXX */
-
 	amara_main_ret_ = amara_main(argc, argv);
-	forced_assertion(amara_main_ret_ <= 0x7F);
+
+	assertion(amara_main_ret_ <= 0x7F);
+
 	return amara_main_ret_;
 }
