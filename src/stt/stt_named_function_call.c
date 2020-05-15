@@ -31,29 +31,19 @@ stt_named_function_call *
 stt_named_function_call_copy_constructor(
 		const stt_named_function_call * named_function_call)
 {
+	stt_named_function_call * returning_;
+
 	forced_assertion(named_function_call != NULL);
+#ifndef NDEBUG
+	assertion(named_function_call->function_name_identifier_ != NULL);
+	stt_node_assert_clean_identifier_node(named_function_call->function_name_identifier_);
+	assertion(named_function_call->call_arguments_ != NULL);
+	blah....
+#endif
 
 	forced_assertion(HACER AHORA);  /* XXX */
 	return NULL;  /* XXX */
 }
-
-
-
-
-/* https://stackoverflow.com/a/809465/1737973 */
-
-#define PREPROCESSOR_ASSERT(predicate, file) _impl_CASSERT_LINE(predicate,__LINE__,file)
-
-#define _impl_PASTE(a,b) a##b
-#define _impl_CASSERT_LINE(predicate, line, file) \
-	typedef char _impl_PASTE(assertion_failed_##file##_,line)[2*!!(predicate)-1];
-
-
-
-
-
-
-
 
 stt_named_function_call *
 stt_named_function_call_exhaustive_constructor(

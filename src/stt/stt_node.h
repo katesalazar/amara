@@ -361,8 +361,14 @@ void
 assert_clean_rational_literal_node(const stt_node * node)
 ;
 
+/**  Deprecated. Use `void stt_node_assert_clean_identifier_node(const
+ * stt_node *)`. */
 void
 assert_clean_identifier_node(const stt_node * node)
+;
+
+void
+stt_node_assert_clean_identifier_node(const stt_node * node)
 ;
 
 #endif
