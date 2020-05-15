@@ -21,6 +21,10 @@
 
 #include "../asr/assertion.h"
 
+#include "../mmm/allocator.h"
+
+#include "../stt/stt_node.h"
+
 #include "stt_named_function_call.h"
 
 stt_named_function_call *
@@ -33,16 +37,52 @@ stt_named_function_call_copy_constructor(
 	return NULL;  /* XXX */
 }
 
+
+
+
+/* https://stackoverflow.com/a/809465/1737973 */
+
+#define PREPROCESSOR_ASSERT(predicate, file) _impl_CASSERT_LINE(predicate,__LINE__,file)
+
+#define _impl_PASTE(a,b) a##b
+#define _impl_CASSERT_LINE(predicate, line, file) \
+	typedef char _impl_PASTE(assertion_failed_##file##_,line)[2*!!(predicate)-1];
+
+
+
+
+
+
+
+
 stt_named_function_call *
 stt_named_function_call_exhaustive_constructor(
 		const struct stt_node * function_name_identifier,
 		const struct stt_node * call_arguments)
 {
-	forced_assertion(function_name_identifier == NULL);  /* XXX */
-	forced_assertion(call_arguments == NULL);  /* XXX */
+	stt_named_function_call * returning_;
 
-	forced_assertion(0);  /* XXX */
-	return NULL;  /* XXX */
+	forced_assertion(function_name_identifier != NULL);
+	stt_node_forced_assertion_clean_identifier_node(function_name_identifier);
+	forced_assertion(call_arguments != NULL);
+	stt_node_forced_assertion_clean_named_function_call_arguments_list_node(call_arguments);
+
+#if defined AMARA_USE_STD_C89
+	returning_ = amara_malloc(sizeof(stt_named_function_call));
+#elif defined AMARA_USE_STD_CXX98
+	returning_ = (stt_named_function_call *) amara_malloc(sizeof(stt_named_function_call));
+#else
+	PREPROCESSOR_ASSERT(AMARA_BOOLEAN_FALSE, stt_named_function_call);
+#endif
+	forced_assertion(returning_ != NULL);
+
+	returning_->function_name_identifier_ = stt_node_copy_constructor(function_name_identifier);
+	forced_assertion(returning_->function_name_identifier_ != NULL);
+
+	returning_->call_arguments_ = stt_node_copy_constructor(call_arguments);
+	forced_assertion(returning_->call_arguments_ != NULL);
+
+	return returning_;
 }
 
 void
