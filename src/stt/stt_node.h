@@ -441,7 +441,7 @@ stt_node_assertion_clean_empty_function_call_arguments_list_node(
 #endif
 
 void
-stt_node_forced_assertion_clean_function_call_arguments_list_node(
+stt_node_forced_assertion_clean_named_function_call_arguments_list_node(
 		const stt_node * node)
 ;
 

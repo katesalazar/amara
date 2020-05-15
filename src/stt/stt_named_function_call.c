@@ -33,7 +33,7 @@ stt_named_function_call_copy_constructor(
 {
 	forced_assertion(named_function_call != NULL);
 
-	forced_assertion(0);  /* XXX */
+	forced_assertion(HACER AHORA);  /* XXX */
 	return NULL;  /* XXX */
 }
 

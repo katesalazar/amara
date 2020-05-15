@@ -2849,6 +2849,34 @@ stt_node_assertion_clean_empty_function_call_arguments_list_node(
 
 #endif
 
+void
+stt_node_forced_assertion_clean_named_function_call_arguments_list_node(
+		const stt_node * node)
+{
+	forced_assertion(node != NULL);
+	forced_assertion(node->string_literal_subnode_ == NULL);
+	forced_assertion(node->natural_literal_subnode_ == NULL);
+	forced_assertion(node->integer_literal_subnode_ == NULL);
+	forced_assertion(node->rational_literal_subnode_ == NULL);
+	forced_assertion(node->identifier_subnode_ == NULL);
+	forced_assertion(node->condition_subnode_ == NULL);
+	forced_assertion(node->expression_subnode_ == NULL);
+	forced_assertion(node->where_value_binding_subnode_ == NULL);
+	forced_assertion(node->where_value_bindings_subnode_ == NULL);
+	forced_assertion(node->operation_subnode_ == NULL);
+	forced_assertion(node->operations_list_subnode_ == NULL);
+	forced_assertion(node->named_function_subnode_ == NULL);
+	forced_assertion(node->application_subnode_ == NULL);
+	forced_assertion(node->execution_request_subnode_ == NULL);
+	forced_assertion(node->doc_subnode_ == NULL);
+	forced_assertion(node->sub_named_function_call_ == NULL);
+	if (node->type_ == STT_NODE_TYPE_NAMED_FUNCTION_CALL_ARGUMENTS_LIST) {
+		forced_assertion(node->type_ == STT_NODE_TYPE_NAMED_FUNCTION_CALL_ARGUMENTS_LIST);
+	} else {
+		forced_assertion(node->type_ == STT_NODE_TYPE_EMPTY_NAMED_FUNCTION_CALL_ARGUMENTS_LIST);
+	}
+}
+
 /*   This is non destructive towards its arguments. */
 stt_node *
 numeric_natural_nodes_multiplication_types_checked_both_are_valid_raw_naturals(
