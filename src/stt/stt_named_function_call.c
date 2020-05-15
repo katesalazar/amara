@@ -19,6 +19,8 @@
 /*   For `NULL`. */
 #include <stdlib.h>
 
+#include "../macros.h"
+
 #include "../asr/assertion.h"
 
 #include "../mmm/allocator.h"

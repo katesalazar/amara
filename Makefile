@@ -1127,6 +1127,10 @@ $$(BUILD_DIR_$(BUILD_TYPE))/common_tests.o: \
 	$$(C) $$(CFLAGS) $$(CFLAGS_$(BUILD_TYPE)) -c -o $$@ $$<
 endef
 
+$(BUILD_DIR_SRC)/macros.$(HEXT): \
+		$(SRC_DIR)/macros.h
+	$(CP) $< $@
+
 $(BUILD_DIR_SRC)/main.$(CEXT): \
 		$(SRC_DIR)/main.c
 	$(CP) $< $@
@@ -3110,7 +3114,8 @@ $(BUILD_DIR_SRC)/stt/stt_named_function_call.$(CEXT): \
 define stt_named_function_call_OBJ_RULE
 $$(BUILD_DIR_$(BUILD_TYPE))/stt_named_function_call.o: \
 		$$(BUILD_DIR_SRC)/stt/stt_named_function_call.$$(CEXT) \
-		$$(BUILD_DIR_SRC)/stt/stt_named_function_call.$$(HEXT)
+		$$(BUILD_DIR_SRC)/stt/stt_named_function_call.$$(HEXT) \
+		$$(BUILD_DIR_SRC)/macros.$$(HEXT)
 	$$(C) $$(CFLAGS) $$(CFLAGS_$(BUILD_TYPE)) -c -o $$@ $$<
 endef
 

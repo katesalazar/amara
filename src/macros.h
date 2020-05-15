@@ -22,5 +22,5 @@
 #define _impl_PASTE(a, b) a##b
 #define _impl_PREPROCESSOR_ASSERT_LINE(predicate, line, file) \
 	typedef char _impl_PASTE( \
-			assertion_failed_##file##_, line \
+			assertion_failed_at_doc_##file##_at_line_, line \
 	)[ 2 * !!(predicate) - 1]
