@@ -957,11 +957,11 @@ bison_annex_function_call_out_of_token_call_and_token_function_and_token_identif
 	if (function_call_arguments_node->type_ == STT_NODE_TYPE_NAMED_FUNCTION_CALL_ARGUMENTS_LIST) {
 		assertion(function_call_arguments_node->type_ ==  STT_NODE_TYPE_NAMED_FUNCTION_CALL_ARGUMENTS_LIST);
 		assertion(function_call_arguments_node->sub_named_function_call_arguments_ != NULL);
+		assertion(function_call_arguments_node->sub_named_function_call_arguments_->named_function_call_arguments_ != NULL);
 	} else {
 		assertion(function_call_arguments_node->type_ ==  STT_NODE_TYPE_EMPTY_NAMED_FUNCTION_CALL_ARGUMENTS_LIST);
 		assertion(function_call_arguments_node->sub_named_function_call_arguments_ == NULL);
 	}
-	assertion(function_call_arguments_node->sub_named_function_call_arguments_->named_function_call_arguments_ != NULL);
 #endif
 
 	named_function_call_ =
