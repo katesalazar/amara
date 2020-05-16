@@ -38,11 +38,21 @@ stt_named_function_call_copy_constructor(
 	forced_assertion(named_function_call != NULL);
 #ifndef NDEBUG
 	assertion(named_function_call->function_name_identifier_ != NULL);
-	stt_node_assert_clean_identifier_node(named_function_call->function_name_identifier_);
+	stt_node_assertion_clean_identifier_node(named_function_call->function_name_identifier_);
 	assertion(named_function_call->call_arguments_ != NULL);
-	blah....
+	stt_node_assertion_clean_named_function_call_arguments_list_node(named_function_call->
 #endif
 
+#if defined AMARA_USE_STD_C89
+	returning_ = amara_malloc(sizeof(stt_named_function_call));
+#elif defined AMARA_USE_STD_CXX98
+	returning_ = (stt_named_function_call *) amara_malloc(sizeof(stt_named_function_call));
+#else
+	PREPROCESSOR_ASSERT(AMARA_BOOLEAN_FALSE, stt_named_function_call);
+#endif
+	forced_assertion(returning_ != NULL);
+
+	returning_->function_name_identifier
 	forced_assertion(HACER AHORA);  /* XXX */
 	return NULL;  /* XXX */
 }

@@ -2407,6 +2407,12 @@ assert_clean_identifier_node(const stt_node * node)
 void
 stt_node_assert_clean_identifier_node(const stt_node * node)
 {
+	stt_node_assertion_clean_identifier_node(node);
+}
+
+void
+stt_node_assertion_clean_identifier_node(const stt_node * node)
+{
 	assertion(node != NULL);
 	assertion(node->type_ == STT_NODE_TYPE_IDENTIFIER);
 	assertion(node->string_literal_subnode_ == NULL);
