@@ -16,11 +16,15 @@
  * src/macros.h: TODO
  */
 
-/* https://stackoverflow.com/a/809465/1737973 */
-#define PREPROCESSOR_ASSERT(predicate, file) \
-	_impl_PREPROCESSOR_ASSERT_LINE(predicate, __LINE__, file)
+/*   https://stackoverflow.com/a/809465/1737973 */
 #define _impl_PASTE(a, b) a##b
+
+/*   https://stackoverflow.com/a/809465/1737973 */
 #define _impl_PREPROCESSOR_ASSERT_LINE(predicate, line, file) \
 	typedef char _impl_PASTE( \
 			assertion_failed_at_doc_##file##_at_line_, line \
 	)[ 2 * !!(predicate) - 1]
+
+/*   https://stackoverflow.com/a/809465/1737973 */
+#define PREPROCESSOR_ASSERT(predicate, file) \
+	_impl_PREPROCESSOR_ASSERT_LINE(predicate, __LINE__, file)
