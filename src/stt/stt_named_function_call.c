@@ -40,7 +40,7 @@ stt_named_function_call_copy_constructor(
 	assertion(named_function_call->function_name_identifier_ != NULL);
 	stt_node_assertion_clean_identifier_node(named_function_call->function_name_identifier_);
 	assertion(named_function_call->call_arguments_ != NULL);
-	stt_node_assertion_clean_named_function_call_arguments_list_node(named_function_call->
+	stt_node_assertion_clean_named_function_call_arguments_list_node(named_function_call->call_arguments_);
 #endif
 
 #if defined AMARA_USE_STD_C89
@@ -52,9 +52,13 @@ stt_named_function_call_copy_constructor(
 #endif
 	forced_assertion(returning_ != NULL);
 
-	returning_->function_name_identifier
-	forced_assertion(HACER AHORA);  /* XXX */
-	return NULL;  /* XXX */
+	returning_->function_name_identifier_ = stt_node_copy_constructor(named_function_call->function_name_identifier_);
+	forced_assertion(returning_->function_name_identifier_ != NULL);
+
+	returning_->call_arguments_ = stt_node_copy_constructor(named_function_call->call_arguments_);
+	forced_assertion(returning_->call_arguments_ != NULL);
+
+	return returning_;
 }
 
 stt_named_function_call *

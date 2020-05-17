@@ -446,7 +446,7 @@ stt_node_forced_assertion_clean_function_call_node(const stt_node * node)
 #ifndef NDEBUG
 
 void
-stt_node_assertion_clean_empty_function_call_arguments_list_node(
+stt_node_assertion_clean_named_function_call_arguments_list_node(
 		const stt_node * node)
 ;
 
@@ -456,6 +456,15 @@ void
 stt_node_forced_assertion_clean_named_function_call_arguments_list_node(
 		const stt_node * node)
 ;
+
+#ifndef NDEBUG
+
+void
+stt_node_assertion_clean_empty_function_call_arguments_list_node(
+		const stt_node * node)
+;
+
+#endif
 
 /*   Non destructive in its arguments.
  *   `node_zero` minus `node_one`. */
