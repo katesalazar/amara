@@ -32,7 +32,12 @@ typedef struct stt_named_function_call_pending_semantic_checks {
 
 	/**  A function call might need to be checked that has no return
 	 * value, for that hints a function which causes side effects. */
+	/*
 	amara_boolean called_function_has_no_return_value_;
+	*/
+
+	/**  XXX Remove this later. */
+	int placeholder_for_avoiding_an_empty_struct;
 } stt_named_function_call_pending_semantic_checks
 ;
 

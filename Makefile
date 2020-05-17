@@ -3374,7 +3374,8 @@ $(BUILD_DIR_SRC)/stt/stt_node_sub_named_function_call.$(CEXT): \
 define stt_node_sub_named_function_call_OBJ_RULE
 $$(BUILD_DIR_$(BUILD_TYPE))/stt_node_sub_named_function_call.o: \
 		$$(BUILD_DIR_SRC)/stt/stt_node_sub_named_function_call.$$(CEXT) \
-		$$(BUILD_DIR_SRC)/stt/stt_node_sub_named_function_call.$$(HEXT)
+		$$(BUILD_DIR_SRC)/stt/stt_node_sub_named_function_call.$$(HEXT) \
+		$$(BUILD_DIR_SRC)/stt/stt_named_function_call.$$(HEXT)
 	$$(C) $$(CFLAGS) $$(CFLAGS_$(BUILD_TYPE)) -c -o $$@ $$<
 endef
 
