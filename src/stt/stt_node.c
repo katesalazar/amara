@@ -2836,7 +2836,7 @@ stt_node_forced_assertion_clean_function_call_node(const stt_node * node)
 #ifndef NDEBUG
 
 void
-stt_node_assertion_clean_empty_function_call_arguments_list_node(
+stt_node_assertion_clean_named_function_call_arguments_list_node(
 		const stt_node * node)
 {
 	assertion(node != NULL);
@@ -2856,7 +2856,11 @@ stt_node_assertion_clean_empty_function_call_arguments_list_node(
 	assertion(node->execution_request_subnode_ == NULL);
 	assertion(node->doc_subnode_ == NULL);
 	assertion(node->sub_named_function_call_ == NULL);
-	assertion(node->type_ == STT_NODE_TYPE_EMPTY_NAMED_FUNCTION_CALL_ARGUMENTS_LIST);
+	if (node->type_ == STT_NODE_TYPE_NAMED_FUNCTION_CALL_ARGUMENTS_LIST) {
+		assertion(node->type_ == STT_NODE_TYPE_NAMED_FUNCTION_CALL_ARGUMENTS_LIST);
+	} else {
+		assertion(node->type_ == STT_NODE_TYPE_EMPTY_NAMED_FUNCTION_CALL_ARGUMENTS_LIST);
+	}
 }
 
 #endif
@@ -2888,6 +2892,34 @@ stt_node_forced_assertion_clean_named_function_call_arguments_list_node(
 		forced_assertion(node->type_ == STT_NODE_TYPE_EMPTY_NAMED_FUNCTION_CALL_ARGUMENTS_LIST);
 	}
 }
+
+#ifndef NDEBUG
+
+void
+stt_node_assertion_clean_empty_function_call_arguments_list_node(
+		const stt_node * node)
+{
+	assertion(node != NULL);
+	assertion(node->string_literal_subnode_ == NULL);
+	assertion(node->natural_literal_subnode_ == NULL);
+	assertion(node->integer_literal_subnode_ == NULL);
+	assertion(node->rational_literal_subnode_ == NULL);
+	assertion(node->identifier_subnode_ == NULL);
+	assertion(node->condition_subnode_ == NULL);
+	assertion(node->expression_subnode_ == NULL);
+	assertion(node->where_value_binding_subnode_ == NULL);
+	assertion(node->where_value_bindings_subnode_ == NULL);
+	assertion(node->operation_subnode_ == NULL);
+	assertion(node->operations_list_subnode_ == NULL);
+	assertion(node->named_function_subnode_ == NULL);
+	assertion(node->application_subnode_ == NULL);
+	assertion(node->execution_request_subnode_ == NULL);
+	assertion(node->doc_subnode_ == NULL);
+	assertion(node->sub_named_function_call_ == NULL);
+	assertion(node->type_ == STT_NODE_TYPE_EMPTY_NAMED_FUNCTION_CALL_ARGUMENTS_LIST);
+}
+
+#endif
 
 /*   This is non destructive towards its arguments. */
 stt_node *
