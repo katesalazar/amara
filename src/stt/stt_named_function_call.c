@@ -29,6 +29,29 @@
 
 #include "stt_named_function_call.h"
 
+/**  Warning: fields are returned unitialized. */
+stt_named_function_call_pending_semantic_checks *
+stt_named_function_call_pending_semantic_checks_default_constructor()
+__amara__warn_unused_result__
+;
+
+stt_named_function_call_pending_semantic_checks *
+stt_named_function_call_pending_semantic_checks_default_constructor()
+{
+	stt_named_function_call_pending_semantic_checks * returning_;
+
+#if defined AMARA_USE_STD_C89
+	returning_ = amara_malloc(sizeof(stt_named_function_call_pending_semantic_checks));
+#elif defined AMARA_USE_STD_CXX98
+	returning_ = (stt_named_function_call *) amara_malloc(sizeof(stt_named_function_call_pending_semantic_checks));
+#else
+	PREPROCESSOR_ASSERT(AMARA_BOOLEAN_FALSE, stt_named_function_call);
+#endif
+	forced_assertion(returning_ != NULL);
+
+	return returning_;
+}
+
 stt_named_function_call *
 stt_named_function_call_copy_constructor(
 		const stt_named_function_call * named_function_call)
@@ -57,6 +80,9 @@ stt_named_function_call_copy_constructor(
 
 	returning_->call_arguments_ = stt_node_copy_constructor(named_function_call->call_arguments_);
 	forced_assertion(returning_->call_arguments_ != NULL);
+
+	returning_->pending_semantic_checks_ = stt_named_function_call_pending_semantic_checks_default_constructor();
+	forced_assertion(returning_->pending_semantic_checks_ != NULL);
 
 	return returning_;
 }
@@ -87,6 +113,8 @@ stt_named_function_call_exhaustive_constructor(
 
 	returning_->call_arguments_ = stt_node_copy_constructor(call_arguments);
 	forced_assertion(returning_->call_arguments_ != NULL);
+
+	returning_->pending_semantic_checks_ = NULL;
 
 	return returning_;
 }
