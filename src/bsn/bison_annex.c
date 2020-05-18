@@ -930,9 +930,9 @@ bison_annex_function_call_without_return_value_out_of_nonterminal_function_call(
 	assertion(function_call->sub_named_function_call_ != NULL);
 	assertion(function_call->sub_named_function_call_->named_function_call_ != NULL);
 	assertion(function_call->sub_named_function_call_->named_function_call_->pending_semantic_checks_ != NULL);
-	assertion(function_call->sub_named_function_call_->named_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ == 0);
+	assertion(function_call->sub_named_function_call_->named_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ == AMARA_BOOLEAN_INVALID);
 #endif
-	function_call->sub_named_function_call_->named_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ = 1;
+	function_call->sub_named_function_call_->named_function_call_->pending_semantic_checks_->called_function_has_no_return_value_ = AMARA_BOOLEAN_TRUE;
 	return function_call;
 }
 

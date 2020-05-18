@@ -21,7 +21,17 @@
 
 typedef unsigned char amara_boolean;
 
-#define AMARA_BOOLEAN_FALSE ((unsigned char) 0x00)
+/*   Hexadecimal:  0x ...0...0
+ *   Binary:          00000000
+ *   Decimal:                0 */
+#define AMARA_BOOLEAN_INVALID ((unsigned char) 0x00)
+/*   Hexadecimal:  0x ...5...5
+ *   Binary:          01010101
+ *   Decimal:         ???????? */
+#define AMARA_BOOLEAN_FALSE ((unsigned char) 0x55)
+/*   Hexadecimal:  0x ...a...a
+ *   Binary:          10101010
+ *   Decimal:         ???????? */
 #define AMARA_BOOLEAN_TRUE ((unsigned char) (~ ((unsigned char) AMARA_BOOLEAN_FALSE)))
 
 #endif

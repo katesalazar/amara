@@ -859,8 +859,7 @@ $(BUILD_DIR_RELEASE)/amara : \
 	$(STRIP) $@
 
 $(BUILD_DIR_SRC)/cmn/amara_string.$(HEXT): \
-		$(SRC_DIR)/cmn/amara_string.h \
-		$(BUILD_DIR_SRC)/asr/assertion.$(HEXT)
+		$(SRC_DIR)/cmn/amara_string.h
 	$(CP) $< $@
 
 $(BUILD_DIR_SRC)/cmn/amara_string.$(CEXT): \
@@ -891,7 +890,9 @@ $(BUILD_DIR_SRC)/cmn/amara_string.$(CEXT): \
 define amara_string_OBJ_RULE
 $$(BUILD_DIR_$(BUILD_TYPE))/amara_string.o: \
 		$$(BUILD_DIR_SRC)/cmn/amara_string.$$(CEXT) \
-		$$(BUILD_DIR_SRC)/cmn/amara_string.$$(HEXT)
+		$$(BUILD_DIR_SRC)/cmn/amara_string.$$(HEXT) \
+		$$(BUILD_DIR_SRC)/asr/assertion.$$(HEXT) \
+		$$(BUILD_DIR_SRC)/macros.$$(HEXT)
 	$$(C) $$(CFLAGS) $$(CFLAGS_$(BUILD_TYPE)) -c -o $$@ $$<
 endef
 

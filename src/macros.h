@@ -28,3 +28,11 @@
 /*   https://stackoverflow.com/a/809465/1737973 */
 #define PREPROCESSOR_ASSERT(predicate, file) \
 	_impl_PREPROCESSOR_ASSERT_LINE(predicate, __LINE__, file)
+
+/*   Synctactic sugar. */
+#define PREPROCESSOR_ASSERTION(predicate) \
+	PREPROCESSOR_ASSERT(predicate, __static_assertion_failed__)
+
+/*   Synctactic sugar. */
+#define PREPROCESSOR_FATAL \
+	PREPROCESSOR_ASSERTION(0)

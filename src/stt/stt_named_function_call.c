@@ -84,6 +84,8 @@ stt_named_function_call_copy_constructor(
 	returning_->pending_semantic_checks_ = stt_named_function_call_pending_semantic_checks_default_constructor();
 	forced_assertion(returning_->pending_semantic_checks_ != NULL);
 
+	returning_->pending_semantic_checks_ = AMARA_BOOLEAN_INVALID;
+
 	return returning_;
 }
 

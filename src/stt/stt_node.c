@@ -25,12 +25,17 @@
 /*   For `int strcmp(const char * s1, const char * s2)`. */
 /* #include <string.h> */
 
+#include "../macros.h"
+
 /*   For custom assertions. */
 #include "../asr/assertion.h"
 
 /*   For `char * concatenate_four_char_arrays(const char * zero, const
  * char * one, const char * two, cont char * three)`. */
 #include "../cmn/char_array.h"
+
+/*   For `void * amara_malloc(size_t)`. */
+#include "../mmm/allocator.h"
 
 /*   For `stt_operations_simple_list_copy_constructor`. */
 #include "stt_operations_simple_list.h"
@@ -43,11 +48,13 @@ stt_node_default_constructor()
 {
 	stt_node * returning_;
 
-	returning_ =
-#ifdef AMARA_USE_STD_CXX98
-			(stt_node *)
+#if defined AMARA_USE_STD_C89
+	returning_ = amara_malloc(sizeof(stt_node));
+#elif defined AMARA_USE_STD_CXX98
+	returning_ = (stt_node *) amara_malloc(sizeof(stt_node));
+#else
+	PREPROCESSOR_FATAL;
 #endif
-			malloc(sizeof(stt_node));
 	forced_assertion(returning_ != NULL);
 
 	returning_->type_ = STT_NODE_TYPE_INVALID;

@@ -24,8 +24,13 @@
  * const char * src)`. */
 #include <string.h>
 
+#include "../macros.h"
+
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
+
+/*   For `void * amara_malloc(size_t)`. */
+#include "../mmm/allocator.h"
 
 /*   For own definitions. */
 #include "amara_string.h"
@@ -63,18 +68,22 @@ amara_string_exhaustive_constructor(const char * value)
 	new_string_len_ = value_len_;
 	forced_assertion(new_string_len_ <= new_string_max_len_);
 
-	ret_ =
-#ifdef AMARA_USE_STD_CXX98
-			(amara_string *)
+#if defined AMARA_USE_STD_C89
+	ret_ = amara_malloc(sizeof(amara_string));
+#elif defined AMARA_USE_STD_CXX98
+	ret_ = (amara_string *) amara_malloc(sizeof(amara_string));
+#else
+	PREPROCESSOR_ASSERTION(0);
 #endif
-			malloc(sizeof(amara_string));
 	forced_assertion(ret_ != NULL);
 
-	ret_->value_ =
-#ifdef AMARA_USE_STD_CXX98
-			(char *)
+#if defined AMARA_USE_STD_C89
+	ret_->value_ = amara_malloc(new_string_len_ + 1);
+#elif defined AMARA_USE_STD_CXX98
+	ret_->value_ = (char *) amara_malloc(new_string_len_ + 1);
+#else
+	PREPROCESSOR_ASSERTION(0);
 #endif
-			malloc(new_string_len_ + 1);
 	forced_assertion(ret_->value_ != NULL);
 
 	strcpy(ret_->value_, value);
