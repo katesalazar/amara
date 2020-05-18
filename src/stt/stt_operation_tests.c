@@ -39,9 +39,7 @@ stt_operation_example_print_string_literal_foo()
 	forced_assertion(string_literal_ != NULL);
 	forced_assertion(string_literal_->value_ != NULL);
 
-	operation_arg_node_string_literal_subnode_ =
-			stt_string_literal_subnode_exhaustive_constructor(
-					string_literal_);
+	operation_arg_node_string_literal_subnode_ = stt_string_literal_subnode_exhaustive_constructor(string_literal_);
 	assertion(operation_arg_node_string_literal_subnode_ != NULL);
 
 	amara_string_destructor(string_literal_);
@@ -49,8 +47,7 @@ stt_operation_example_print_string_literal_foo()
 	operation_arg_node_ = stt_node_default_constructor();
 	assertion(operation_arg_node_ != NULL);
 
-	operation_arg_node_->string_literal_subnode_ =
-			operation_arg_node_string_literal_subnode_;
+	operation_arg_node_->string_literal_subnode_ = operation_arg_node_string_literal_subnode_;
 	operation_arg_node_->type_ = STT_NODE_TYPE_STRING_LITERAL;
 
 	operation_arg_ = stt_operation_arg_default_constructor();
@@ -62,8 +59,7 @@ stt_operation_example_print_string_literal_foo()
 	operation_args_ = stt_operation_args_simple_list_default_constructor();
 	forced_assertion(operation_args_ != NULL);
 
-	operation_args_ = stt_operation_args_simple_list_push_front(
-			operation_args_, operation_arg_);
+	operation_args_ = stt_operation_args_simple_list_push_front(operation_args_, operation_arg_);
 #ifndef NDEBUG
 	assertion(operation_args_ != NULL);
 #endif
