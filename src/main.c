@@ -80,7 +80,7 @@ print_help()
 	printf("message if the assertion fails)\n");
 	printf("    AMARA run (tests|scrambled_tests|scrambled tests) [OPTIONS...]\n");
 	printf("        (runs the unit tests)\n");
-	printf("    AMARA run (ordered_tests|ordered tests) [OPTIONS...]\n");
+	printf("    AMARA run (ordered_tests|ordered tests|tests in order) [OPTIONS...]\n");
 	printf("        (runs the unit tests layer by layer in a sequential order)\n");
 	printf("    AMARA run app DIR [OPTIONS...]\n");
 	printf("        (runs the application in DIR)\n");

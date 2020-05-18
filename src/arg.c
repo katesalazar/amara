@@ -162,6 +162,18 @@ arg_ret * arg(const int argc, const char * * argv)
 						ret->value |= ARG_RET_PRINT_HELP;
 						ret->value |= ARG_RET_ERR;
 					}
+				} else if (!strcmp(argv[2], "tests")) {
+					if (!strcmp(argv[3], "in")) {
+						if (!strcmp(argv[4], "order")) {
+							ret->value |= ARG_RET_RUN_TESTS;
+						} else {
+							ret->value |= ARG_RET_PRINT_HELP;
+							ret->value |= ARG_RET_ERR;
+						}
+					} else {
+						ret->value |= ARG_RET_PRINT_HELP;
+						ret->value |= ARG_RET_ERR;
+					}
 				} else {
 					ret->value |= ARG_RET_PRINT_HELP;
 					ret->value |= ARG_RET_ERR;
