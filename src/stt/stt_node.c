@@ -2104,9 +2104,11 @@ look_for_undefined_labels_in_applications_(const stt_node * node)
 
 	ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID;
 	ret_->messages = NULL;
+#ifndef NDEBUG
 	assertion(node != NULL);
 	assertion(node->type_ == STT_NODE_TYPE_DOC);
 	assertion(node->doc_subnode_ != NULL);
+#endif
 	applications_ptr_ = node->doc_subnode_->applications_;
 	while (applications_ptr_ != NULL) {
 		if (applications_ptr_->first != NULL) {  /* XXX */
@@ -2119,7 +2121,7 @@ look_for_undefined_labels_in_applications_(const stt_node * node)
 			} else {
 				while (named_functions_ptr_ != NULL) {
 					function_name_found_ = amara_string_equality(named_functions_ptr_->first->name_, target_entry_point_function_name_);
-					if (function_name_found_) {
+					if (function_name_found_ == AMARA_BOOLEAN_TRUE) {
 						break;
 					}
 					named_functions_ptr_ = named_functions_ptr_->next;
@@ -2146,7 +2148,9 @@ look_for_undefined_labels_in_applications_(const stt_node * node)
 				ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR;
 			} else {
 				/*   Entry point function name found. */
+#ifndef NDEBUG
 				assertion(function_name_found_);
+#endif
 			}
 		}  /* XXX */
 		applications_ptr_ = applications_ptr_->next;
