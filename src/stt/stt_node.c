@@ -2052,11 +2052,13 @@ look_for_undefined_labels_in_named_functions_(const stt_node * node)
 	*/
 #endif
 
-	ret_ =
-#ifdef AMARA_USE_STD_CXX98
-			(look_for_undefined_labels_ret *)
+#if defined AMARA_USE_STD_C89
+	ret_ = amara_malloc(sizeof(look_for_undefined_labels_ret));
+#elif defined AMARA_USE_STD_CXX98
+	ret_ = (look_for_undefined_labels_ret *) amara_malloc(sizeof(look_for_undefined_labels_ret));
+#else
+	PREPROCESSOR_FATAL;
 #endif
-			malloc(sizeof(look_for_undefined_labels_ret));
 	forced_assertion(ret_ != NULL);
 
 	ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID;
@@ -2174,11 +2176,13 @@ look_for_undefined_labels_in_execution_requests_(const stt_node * node)
 	const char * target_application_requested_to_be_run_name_chars_array_;
 	char_arrays_simple_list * messages_ptr_;
 
-	ret_ =
-#ifdef AMARA_USE_STD_CXX98
-			(look_for_undefined_labels_ret *)
+#if defined AMARA_USE_STD_C89
+	ret_ = amara_malloc(sizeof(look_for_undefined_labels_ret));
+#elif defined AMARA_USE_STD_CXX98
+	ret_ = (look_for_undefined_labels_ret *) amara_malloc(sizeof(look_for_undefined_labels_ret));
+#else
+	PREPROCESSOR_FATAL;
 #endif
-			malloc(sizeof(look_for_undefined_labels_ret));
 	forced_assertion(ret_ != NULL);
 
 	ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_INVALID;
@@ -2189,45 +2193,43 @@ look_for_undefined_labels_in_execution_requests_(const stt_node * node)
 	execution_requests_ptr_ = node->doc_subnode_->execution_requests_;
 	while (execution_requests_ptr_ != NULL) {
 		if (execution_requests_ptr_->first != NULL) {  /* XXX */
-		target_application_requested_to_be_run_name_ =
-				execution_requests_ptr_->first->application_name_;
-		applications_ptr_ = node->doc_subnode_->applications_;
-		application_name_found_ = AMARA_BOOLEAN_FALSE;
-		if (applications_ptr_->first == NULL) {
-			assertion(applications_ptr_->next == NULL);
-			applications_ptr_ = NULL;
-		} else {
-		while (applications_ptr_ != NULL) {
-			application_name_found_ = amara_string_equality(
-					applications_ptr_->first->name_,
-					target_application_requested_to_be_run_name_);
-			if (application_name_found_) {
-				break;
+			target_application_requested_to_be_run_name_ = execution_requests_ptr_->first->application_name_;
+			applications_ptr_ = node->doc_subnode_->applications_;
+			application_name_found_ = AMARA_BOOLEAN_FALSE;
+			if (applications_ptr_->first == NULL) {
+				assertion(applications_ptr_->next == NULL);
+				applications_ptr_ = NULL;
+			} else {
+				while (applications_ptr_ != NULL) {
+					application_name_found_ = amara_string_equality(applications_ptr_->first->name_, target_application_requested_to_be_run_name_);
+					if (application_name_found_ == AMARA_BOOLEAN_TRUE) {
+						break;
+					}
+					applications_ptr_ = applications_ptr_->next;
+				}
 			}
-			applications_ptr_ = applications_ptr_->next;
-		}
-		}
-		if (applications_ptr_ == NULL) {
-			/*   No application with a matching name with
-			 * the requested application as application to
-			 * be run by this execution request was found in
-			 * the applications list. */
-			messages_ptr_ = ret_->messages;
-			ret_->messages = char_arrays_simple_list_default_constructor();
-			target_application_requested_to_be_run_name_chars_array_ =
-					amara_string_get_value(
-							target_application_requested_to_be_run_name_);
-			ret_->messages->first = concatenate_three_char_arrays(
-					"error, application '",
-					target_application_requested_to_be_run_name_chars_array_,
-					"' not found but has been requested to be executed");
-			free((char *) target_application_requested_to_be_run_name_chars_array_);
-			ret_->messages->next = messages_ptr_;
-			ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR;
-		} else {
-			/*   Application to be run was found. */
-			assertion(application_name_found_);
-		}
+			if (applications_ptr_ == NULL) {
+				/*   No application with a matching name
+				 * with the requested application as
+				 * application to be run by this
+				 * execution request was found in the
+				 * applications list. */
+				messages_ptr_ = ret_->messages;
+				ret_->messages = char_arrays_simple_list_default_constructor();
+				target_application_requested_to_be_run_name_chars_array_ = amara_string_get_value(target_application_requested_to_be_run_name_);
+				ret_->messages->first = concatenate_three_char_arrays(
+						"error, application '",
+						target_application_requested_to_be_run_name_chars_array_,
+						"' not found but has been requested to be executed");
+				free((char *) target_application_requested_to_be_run_name_chars_array_);
+				ret_->messages->next = messages_ptr_;
+				ret_->status = LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR;
+			} else {
+				/*   Application to be run was found. */
+#ifndef NDEBUG
+				assertion(application_name_found_);
+#endif
+			}
 		}  /* XXX */
 		execution_requests_ptr_ = execution_requests_ptr_->next;
 	}

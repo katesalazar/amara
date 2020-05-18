@@ -5033,26 +5033,22 @@ look_for_undefined_labels_test_5()
 	assert_expectations_on_stt_node_example_doc_five(node_);
 #endif
 
-	message_expectation_ = amara_string_exhaustive_constructor(
-			"error, application 'cli_app_print_baz' not found but has been requested to be executed");
+	message_expectation_ = amara_string_exhaustive_constructor("error, application 'cli_app_print_baz' not found but has been requested to be executed");
 	forced_assertion(message_expectation_ != NULL);
 	forced_assertion(message_expectation_->value_ != NULL);
 
-	look_for_undefined_labels_ret_ = look_for_undefined_labels(
-			node_);
+	look_for_undefined_labels_ret_ = look_for_undefined_labels(node_);
 	forced_assertion(look_for_undefined_labels_ret_ != NULL);
-	forced_assertion(look_for_undefined_labels_ret_->status ==
-			LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR);
+	forced_assertion(look_for_undefined_labels_ret_->status == LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR);
 #ifndef NDEBUG
 	assertion(look_for_undefined_labels_ret_->messages != NULL);
 	assertion(look_for_undefined_labels_ret_->messages->first != NULL);
 #endif
-	actual_message_ = amara_string_exhaustive_constructor(
-			look_for_undefined_labels_ret_->messages->first);
+
+	actual_message_ = amara_string_exhaustive_constructor(look_for_undefined_labels_ret_->messages->first);
 	forced_assertion(actual_message_ != NULL);
 	forced_assertion(actual_message_->value_ != NULL);
-	equality_ = amara_string_equality(
-			actual_message_, message_expectation_);
+	equality_ = amara_string_equality(actual_message_, message_expectation_);
 	forced_assertion(equality_ == AMARA_BOOLEAN_TRUE);
 #ifndef NDEBUG
 	assertion(look_for_undefined_labels_ret_->messages->next == NULL);
@@ -5060,8 +5056,7 @@ look_for_undefined_labels_test_5()
 
 	amara_string_destructor(message_expectation_);
 	amara_string_destructor(actual_message_);
-	look_for_undefined_labels_ret_destructor(
-			look_for_undefined_labels_ret_);
+	look_for_undefined_labels_ret_destructor(look_for_undefined_labels_ret_);
 	stt_node_destructor(node_);
 }
 
