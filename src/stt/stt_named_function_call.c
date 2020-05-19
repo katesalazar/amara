@@ -137,9 +137,27 @@ stt_named_function_call_equality(
 {
 	forced_assertion(nfc0 != NULL);
 	forced_assertion(nfc1 != NULL);
+	amara_boolean identifier_nodes_equal_;
+	amara_boolean arguments_nodes_equal_;
 
-	forced_assertion(0);  /* XXX */
-	return AMARA_BOOLEAN_FALSE;  /* XXX */
+	forced_assertion(nfc0->function_name_identifier_ != NULL);
+	forced_assertion(nfc1->function_name_identifier_ != NULL);
+	identifier_nodes_equal_ = stt_nodes_equality(nfc0->function_name_identifier_, nfc1->function_name_identifier_);
+	if (AMARA_BOOLEAN_FALSE == identifier_nodes_equal_) {
+		return AMARA_BOOLEAN_FALSE;
+	}
+	forced_assertion(nfc0->call_arguments_ != NULL);
+	forced_assertion(nfc1->call_arguments_ != NULL);
+	arguments_nodes_equal_ = stt_nodes_equality(nfc0->call_arguments_, nfc1->call_arguments_);
+	if (AMARA_BOOLEAN_FALSE == arguments_nodes_equal_) {
+		return AMARA_BOOLEAN_FALSE;
+	}
+	forced_assertion(nfc0->pending_semantic_checks_ != NULL);
+	forced_assertion(nfc1->pending_semantic_checks_ != NULL);
+	if (nfc0->pending_semantic_checks_->called_function_has_no_return_value_ != nfc1->pending_semantic_checks_->called_function_has_no_return_value_) {
+		return AMARA_BOOLEAN_FALSE;
+	}
+	return AMARA_BOOLEAN_TRUE;
 }
 
 amara_boolean
