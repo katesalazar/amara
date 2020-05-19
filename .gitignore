@@ -123,7 +123,7 @@ doxygen_reports/
 *.exe.stackdump
 
 #   Code::Blocks on Windows 7 using GCC via Cygwin.
-codebl/*.depend
-codebl/*.layout
-codebl/obj/Debug/**/*.o
-codebl/bin/
+ide/code_blocks/*.depend
+ide/code_blocks/*.layout
+ide/code_blocks/obj/Debug/**/*.o
+ide/code_blocks/bin/
