@@ -92,9 +92,13 @@ __amara__warn_unused_result__
 
 typedef unsigned char rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_ret_status;
 
+/*
 #define RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_RET_STATUS_INVALID 0x00
+ */
 #define RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_RET_STATUS_SUCCESS 0x55
+/*
 #define RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_RET_STATUS_ERROR (unsigned char) 0xFF
+*/
 
 /**  TODO. */
 typedef struct rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_ret {
@@ -106,7 +110,9 @@ typedef struct rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindi
 	amara_string error_messages;
 
 	/**  The returned list. */
+	/*
 	rtg_where_value_bindings_simple_list where_value_bindings;
+	*/
 } rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_ret
 ;
 

@@ -23,6 +23,9 @@
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
+/*   For `void * amara_malloc(size_t)`. */
+#include "../mmm/allocator.h"
+
 /*   For own definitions. */
 #include "rtg_operations_simple_list.h"
 
@@ -129,49 +132,42 @@ rtg_operations_simple_list_push_front(
 }
 
 void
-rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_destructor(
-		rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_)
+rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret_destructor(
+		rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret * input_ret)
 {
-	forced_assertion(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_ !=
+	forced_assertion(input_ret !=
 			NULL);
 
-	if (rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->status ==
-			RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
+	if (input_ret->status == RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
 
-		forced_assertion(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->operations ==
-				NULL);
+		forced_assertion(input_ret->operations == NULL);
 
 		/*
-		if (rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->operations !=
-				NULL) {
+		if (rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->operations != NULL) {
 
-			rtg_operations_simple_list_destructor(
-					rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->operations);
+			rtg_operations_simple_list_destructor(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->operations);
 		}
 		*/
 
-		forced_assertion(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->error_messages ==
-				NULL);
+		forced_assertion(input_ret->error_messages == NULL);
 	} else {
-		forced_assertion(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->status ==
-				RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION);
+		forced_assertion(input_ret->status == RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION);
 
-		forced_assertion(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->error_messages ==
-				NULL);
+		forced_assertion(input_ret->error_messages == NULL);
 
-		forced_assertion(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_->operations ==
-				NULL);
+		forced_assertion(input_ret->operations == NULL);
 	}
 
-	free(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_);
+	free(input_ret);
 }
 
-rtg_operations_simple_list_out_of_stt_operations_simple_list_ret *
-rtg_operations_simple_list_out_of_stt_operations_simple_list(
+rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret *
+rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list(
 		const stt_operations_simple_list * operations,
-		const struct stt_where_value_bindings_simple_list * function_where_bindings)
+		const struct stt_where_value_bindings_simple_list * function_where_bindings,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 {
-	rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * ret_;
+	rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret * ret_;
 	rtg_operations_simple_list * ret_list_;
 	const stt_operations_simple_list * operations_ptr_;
 	rtg_operations_simple_list * ret_list_ptr_;
@@ -187,7 +183,7 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list(
 #ifdef AMARA_USE_STD_CXX98
 			(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret *)
 #endif
-			malloc(sizeof(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret));
+			amara_malloc(sizeof(rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret));
 	forced_assertion(ret_ != NULL);
 	ret_->status = RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_INVALID;
 	ret_->error_messages = NULL;

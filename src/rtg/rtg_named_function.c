@@ -24,6 +24,9 @@
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
+/*   For `void * amara_malloc(size_t)`. */
+#include "../mmm/allocator.h"
+
 /*   For own definitions. */
 #include "rtg_named_function.h"
 
@@ -250,13 +253,11 @@ rtg_named_function_out_of_stt_named_function(
 		const stt_named_function * named_function)
 {
 	rtg_named_function_out_of_stt_named_function_ret * ret_;
-	rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * operations_sub_ret_;
+	rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret * operations_sub_ret_;
 #ifndef NDEBUG
 	amara_boolean equality_;
 #endif
-	/*
 	rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret * where_value_bindings_sub_ret_;
-	*/
 	rtg_where_value_bindings_simple_list * where_value_bindings_sub_ret_sub_;
 
 	/*
@@ -268,7 +269,7 @@ rtg_named_function_out_of_stt_named_function(
 #ifdef AMARA_USE_STD_CXX98
 			(rtg_named_function_out_of_stt_named_function_ret *)
 #endif
-			malloc(sizeof(rtg_named_function_out_of_stt_named_function_ret));
+			amara_malloc(sizeof(rtg_named_function_out_of_stt_named_function_ret));
 	forced_assertion(ret_ != NULL);
 
 	ret_->status = RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_INVALID;
@@ -278,10 +279,11 @@ rtg_named_function_out_of_stt_named_function(
 	ret_->named_function = rtg_named_function_default_constructor();
 	forced_assertion(ret_->named_function != NULL);
 
-	/*
-	where_value_bindings_sub_ret_ =
-	*/
-	where_value_bindings_sub_ret_sub_ = rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list(named_function->where_value_bindings_);
+	where_value_bindings_sub_ret_ = rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list(named_function->where_value_bindings_);
+	forced_assertion(where_value_bindings_sub_ret_->status == RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_RET_STATUS_SUCCESS);
+	forced_assertion(where_value_bindings_sub_ret_->error_messages == NULL);
+	forced_assertion(where_value_bindings_sub_ret_->where_value_bindings != NULL);
+	where_value_bindings_sub_ret_sub_ = where_value_bindings_sub_ret_->where_value_bindings;
 	forced_assertion(where_value_bindings_sub_ret_sub_ != NULL);
 
 	operations_sub_ret_ = rtg_operations_simple_list_out_of_stt_operations_simple_list(named_function->operations_, named_function->where_value_bindings_, NULL);
@@ -301,7 +303,7 @@ rtg_named_function_out_of_stt_named_function(
 		ret_->error_messages = operations_sub_ret_->error_messages;
 		operations_sub_ret_->error_messages = NULL;
 
-		rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_destructor(operations_sub_ret_);
+		rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret_destructor(operations_sub_ret_);
 
 		ret_->status = RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION;
 

@@ -348,7 +348,7 @@ void
 rtg_operations_simple_list_transformation_constructor_test_0()
 {
 	stt_operations_simple_list * stt_operations_;
-	rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * transformation_ret_;
+	rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret * transformation_ret_;
 	rtg_operations_simple_list * rtg_operations_;
 
 	stt_operations_ = stt_operations_simple_list_default_constructor();
@@ -384,7 +384,7 @@ rtg_operations_simple_list_transformation_constructor_test_0()
 void
 rtg_operations_simple_list_transformation_constructor_test_1()
 {
-	rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * transformation_ret_;
+	rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret * transformation_ret_;
 	rtg_operations_simple_list * rtg_operations_;
 
 	transformation_ret_ = rtg_operations_simple_list_out_of_stt_operations_simple_list(NULL, NULL, NULL);
