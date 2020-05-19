@@ -123,3 +123,7 @@ doxygen_reports/
 
 #   Miscellaneous Cygwin stuff.
 *.exe.stackdump
+
+#   Code::Blocks on Windows 7 using GCC via Cygwin.
+codebl/*.depend
+codebl/obj/Debug/**/*.o
