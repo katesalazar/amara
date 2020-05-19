@@ -434,8 +434,8 @@ rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list
 			__FILE__, __LINE__);
 	*/
 
-	rtg_named_functions = NULL;  /* XXX */
-	forced_assertion(rtg_named_functions == NULL);  /* XXX */
+	rtg_named_functions = = NULL;  /* XXX */
+	forced_assertion(rtg_named_functions = = NULL);  /* XXX */
 
 #ifdef AMARA_USE_STD_CXX98
 	ret_ = (rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list_ret *) malloc(sizeof(rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list_ret));
