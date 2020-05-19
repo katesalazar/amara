@@ -79,13 +79,13 @@
 
 unsigned char
 run_app_dir_exists(const char * app_name)
-__attribute__((warn_unused_result))
+__amara__warn_unused_result__
 ;
 
 unsigned char
 run_app_main_doc_exists(
 		const char * app_name, const FILE * main_doc_descriptor)
-__attribute__((warn_unused_result))
+__amara__warn_unused_result__
 ;
 
 unsigned char
@@ -206,7 +206,7 @@ run_app_dir_exists(const char * app_name)
 /**  Friend declaration... */
 stt_node *
 minia_bison_main(FILE * file)
-__attribute__((warn_unused_result))
+__amara__warn_unused_result__
 ;
 
 unsigned char
@@ -460,7 +460,7 @@ assert_types_compatible_for_condition_type_greater_than(
 arn_value *
 arn_value_out_of_rtg_literal_expression(
 		const rtg_expression * expression)
-__attribute__((warn_unused_result))
+__amara__warn_unused_result__
 ;
 
 arn_value *

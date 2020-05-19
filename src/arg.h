@@ -45,7 +45,8 @@ typedef struct {
 
 arg_ret *
 arg(const int argc, const char * * argv)
-__attribute__((warn_unused_result));
+__amara__warn_unused_result__
+;
 
 void
 destroy_arg_ret(arg_ret * arg_ret);
