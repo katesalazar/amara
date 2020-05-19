@@ -127,3 +127,6 @@ doxygen_reports/
 #   CLion stuff.
 .idea/
 cmake-build-debug/
+
+#   Miscellaneous for CMake.
+cmake_build_without_clion/
