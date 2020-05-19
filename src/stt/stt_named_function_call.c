@@ -126,8 +126,13 @@ void
 stt_named_function_call_destructor(stt_named_function_call * nfc)
 {
 	forced_assertion(nfc != NULL);
-
-	forced_assertion(0);  /* XXX */
+	forced_assertion(nfc->function_name_identifier_ != NULL);
+	stt_node_destructor(nfc->function_name_identifier_);
+	forced_assertion(nfc->call_arguments_ != NULL);
+	stt_node_destructor(nfc->call_arguments_);
+	forced_assertion(nfc->pending_semantic_checks_ != NULL);
+	stt_named_function_call_pending_semantic_checks_destructor(nfc->pending_semantic_checks_);
+	amara_free(nfc);
 }
 
 amara_boolean
