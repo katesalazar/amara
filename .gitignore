@@ -118,3 +118,7 @@ build/debug/minia.y
 
 #   Doxygen stuff.
 doxygen_reports/
+
+#   CLion stuff.
+.idea/
+cmake-build-debug/
