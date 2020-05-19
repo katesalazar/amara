@@ -118,3 +118,12 @@ build/debug/minia.y
 
 #   Doxygen stuff.
 doxygen_reports/
+
+#   Miscellaneous Cygwin stuff.
+*.exe.stackdump
+
+#   Code::Blocks on Windows 7 using GCC via Cygwin.
+codebl/*.depend
+codebl/*.layout
+codebl/obj/Debug/**/*.o
+codebl/bin/

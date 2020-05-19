@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="codebl" />
+		<Option pch_mode="2" />
+		<Option compiler="cygwin" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/codebl" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="cygwin" />
+				<Compiler>
+					<Add option="-std=c90" />
+					<Add option="-g" />
+					<Add option="-DAMARA_USE_STD_C89" />
+					<Add option="-D__CYG__" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/codebl" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="cygwin" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-std=c90" />
+					<Add option="-DAMARA_USE_STD_C89" />
+					<Add option="-D__CYG__" />
+				</Compiler>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="../build/src/bsn/lex.minia.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../build/src/bsn/minia.tab.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../build/src/bsn/minia.tab.h" />
+		<Unit filename="../src/arg.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/arg.h" />
+		<Unit filename="../src/arn/app_runner.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/arn/app_runner.h" />
+		<Unit filename="../src/arn/app_runner_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/arn/app_runner_tests.h" />
+		<Unit filename="../src/arn/arn_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/arn/arn_tests.h" />
+		<Unit filename="../src/arn/arn_type.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/arn/arn_type.h" />
+		<Unit filename="../src/arn/arn_type_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/arn/arn_type_tests.h" />
+		<Unit filename="../src/arn/arn_value.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/arn/arn_value.h" />
+		<Unit filename="../src/arn/arn_value_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/arn/arn_value_tests.h" />
+		<Unit filename="../src/arn/arn_values_fixed_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/arn/arn_values_fixed_list.h" />
+		<Unit filename="../src/arn/arn_values_fixed_list_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/arn/arn_values_fixed_list_tests.h" />
+		<Unit filename="../src/arn/arn_values_simple_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/arn/arn_values_simple_list.h" />
+		<Unit filename="../src/arn/arn_values_simple_list_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/arn/arn_values_simple_list_tests.h" />
+		<Unit filename="../src/arn/arn_variable.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/arn/arn_variable.h" />
+		<Unit filename="../src/arn/arn_variable_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/arn/arn_variable_tests.h" />
+		<Unit filename="../src/arn/arn_variables_simple_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/arn/arn_variables_simple_list.h" />
+		<Unit filename="../src/arn/arn_variables_simple_list_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/arn/arn_variables_simple_list_tests.h" />
+		<Unit filename="../src/asr/assertion.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/asr/assertion.h" />
+		<Unit filename="../src/brt/basic_arithmetic_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/brt/basic_arithmetic_tests.h" />
+		<Unit filename="../src/brt/brt_forward_declarations.h" />
+		<Unit filename="../src/brt/integer.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/brt/integer.h" />
+		<Unit filename="../src/brt/integer_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/brt/integer_tests.h" />
+		<Unit filename="../src/brt/natural.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/brt/natural.h" />
+		<Unit filename="../src/brt/natural_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/brt/natural_tests.h" />
+		<Unit filename="../src/brt/rational.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/brt/rational.h" />
+		<Unit filename="../src/brt/rational_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/brt/rational_tests.h" />
+		<Unit filename="../src/bsn/bison_annex.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/bsn/bison_annex.h" />
+		<Unit filename="../src/bsn/bison_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/bsn/bison_tests.h" />
+		<Unit filename="../src/bsn/flex_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/bsn/flex_tests.h" />
+		<Unit filename="../src/cmn/amara_boolean.h" />
+		<Unit filename="../src/cmn/amara_string.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/cmn/amara_string.h" />
+		<Unit filename="../src/cmn/amara_string_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/cmn/amara_string_tests.h" />
+		<Unit filename="../src/cmn/amara_strings_simple_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/cmn/amara_strings_simple_list.h" />
+		<Unit filename="../src/cmn/amara_strings_simple_list_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/cmn/amara_strings_simple_list_tests.h" />
+		<Unit filename="../src/cmn/char_array.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/cmn/char_array.h" />
+		<Unit filename="../src/cmn/char_array_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/cmn/char_array_tests.h" />
+		<Unit filename="../src/cmn/char_arrays_simple_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/cmn/char_arrays_simple_list.h" />
+		<Unit filename="../src/cmn/char_arrays_simple_list_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/cmn/char_arrays_simple_list_tests.h" />
+		<Unit filename="../src/cmn/common_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/cmn/common_tests.h" />
+		<Unit filename="../src/definitions.h" />
+		<Unit filename="../src/ftr/stdio_ninety_nine_modernizer.h" />
+		<Unit filename="../src/log/logging.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/log/logging.h" />
+		<Unit filename="../src/macros.h" />
+		<Unit filename="../src/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/mmm/allocator.h" />
+		<Unit filename="../src/prs/persistence.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/prs/persistence.h" />
+		<Unit filename="../src/prs/persistence_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/prs/persistence_tests.h" />
+		<Unit filename="../src/rtg/rtg_application.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_application.h" />
+		<Unit filename="../src/rtg/rtg_application_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_application_tests.h" />
+		<Unit filename="../src/rtg/rtg_applications_simple_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_applications_simple_list.h" />
+		<Unit filename="../src/rtg/rtg_applications_simple_list_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_applications_simple_list_tests.h" />
+		<Unit filename="../src/rtg/rtg_condition.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_condition.h" />
+		<Unit filename="../src/rtg/rtg_condition_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_condition_tests.h" />
+		<Unit filename="../src/rtg/rtg_doc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_doc.h" />
+		<Unit filename="../src/rtg/rtg_doc_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_doc_tests.h" />
+		<Unit filename="../src/rtg/rtg_execution_request.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_execution_request.h" />
+		<Unit filename="../src/rtg/rtg_execution_request_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_execution_request_tests.h" />
+		<Unit filename="../src/rtg/rtg_execution_requests_simple_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_execution_requests_simple_list.h" />
+		<Unit filename="../src/rtg/rtg_execution_requests_simple_list_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_execution_requests_simple_list_tests.h" />
+		<Unit filename="../src/rtg/rtg_expression.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_expression.h" />
+		<Unit filename="../src/rtg/rtg_expression_sub_conditional.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_expression_sub_conditional.h" />
+		<Unit filename="../src/rtg/rtg_expression_sub_conditional_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_expression_sub_conditional_tests.h" />
+		<Unit filename="../src/rtg/rtg_expression_sub_dice.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_expression_sub_dice.h" />
+		<Unit filename="../src/rtg/rtg_expression_sub_dice_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_expression_sub_dice_tests.h" />
+		<Unit filename="../src/rtg/rtg_expression_sub_identifier.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_expression_sub_identifier.h" />
+		<Unit filename="../src/rtg/rtg_expression_sub_identifier_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_expression_sub_identifier_tests.h" />
+		<Unit filename="../src/rtg/rtg_expression_sub_natural_literal.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_expression_sub_natural_literal.h" />
+		<Unit filename="../src/rtg/rtg_expression_sub_string_literal.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_expression_sub_string_literal.h" />
+		<Unit filename="../src/rtg/rtg_expression_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_expression_tests.h" />
+		<Unit filename="../src/rtg/rtg_forward_declarations.h" />
+		<Unit filename="../src/rtg/rtg_named_function.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_named_function.h" />
+		<Unit filename="../src/rtg/rtg_named_function_call.h" />
+		<Unit filename="../src/rtg/rtg_named_function_call_argument.h" />
+		<Unit filename="../src/rtg/rtg_named_function_call_arguments_simple_list.h" />
+		<Unit filename="../src/rtg/rtg_named_function_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_named_function_tests.h" />
+		<Unit filename="../src/rtg/rtg_named_functions_simple_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_named_functions_simple_list.h" />
+		<Unit filename="../src/rtg/rtg_named_functions_simple_list_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_named_functions_simple_list_tests.h" />
+		<Unit filename="../src/rtg/rtg_operation.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_operation.h" />
+		<Unit filename="../src/rtg/rtg_operation_arg.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_operation_arg.h" />
+		<Unit filename="../src/rtg/rtg_operation_arg_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_operation_arg_tests.h" />
+		<Unit filename="../src/rtg/rtg_operation_args_simple_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_operation_args_simple_list.h" />
+		<Unit filename="../src/rtg/rtg_operation_args_simple_list_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_operation_args_simple_list_tests.h" />
+		<Unit filename="../src/rtg/rtg_operation_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_operation_tests.h" />
+		<Unit filename="../src/rtg/rtg_operations_simple_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_operations_simple_list.h" />
+		<Unit filename="../src/rtg/rtg_operations_simple_list_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_operations_simple_list_tests.h" />
+		<Unit filename="../src/rtg/rtg_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_tests.h" />
+		<Unit filename="../src/rtg/rtg_where_value_binding.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_where_value_binding.h" />
+		<Unit filename="../src/rtg/rtg_where_value_binding_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_where_value_binding_tests.h" />
+		<Unit filename="../src/rtg/rtg_where_value_bindings_simple_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_where_value_bindings_simple_list.h" />
+		<Unit filename="../src/rtg/rtg_where_value_bindings_simple_list_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/rtg/rtg_where_value_bindings_simple_list_tests.h" />
+		<Unit filename="../src/stt/stt_application.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_application.h" />
+		<Unit filename="../src/stt/stt_application_subnode.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_application_subnode.h" />
+		<Unit filename="../src/stt/stt_application_subnode_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_application_subnode_tests.h" />
+		<Unit filename="../src/stt/stt_application_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_application_tests.h" />
+		<Unit filename="../src/stt/stt_applications_simple_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_applications_simple_list.h" />
+		<Unit filename="../src/stt/stt_applications_simple_list_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_applications_simple_list_tests.h" />
+		<Unit filename="../src/stt/stt_condition.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_condition.h" />
+		<Unit filename="../src/stt/stt_condition_subnode.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_condition_subnode.h" />
+		<Unit filename="../src/stt/stt_condition_subnode_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_condition_subnode_tests.h" />
+		<Unit filename="../src/stt/stt_condition_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_condition_tests.h" />
+		<Unit filename="../src/stt/stt_dice_expression.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_dice_expression.h" />
+		<Unit filename="../src/stt/stt_dice_expression_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_dice_expression_tests.h" />
+		<Unit filename="../src/stt/stt_doc_subnode.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_doc_subnode.h" />
+		<Unit filename="../src/stt/stt_doc_subnode_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_doc_subnode_tests.h" />
+		<Unit filename="../src/stt/stt_execution_request.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_execution_request.h" />
+		<Unit filename="../src/stt/stt_execution_request_subnode.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_execution_request_subnode.h" />
+		<Unit filename="../src/stt/stt_execution_request_subnode_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_execution_request_subnode_tests.h" />
+		<Unit filename="../src/stt/stt_execution_request_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_execution_request_tests.h" />
+		<Unit filename="../src/stt/stt_execution_requests_simple_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_execution_requests_simple_list.h" />
+		<Unit filename="../src/stt/stt_execution_requests_simple_list_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_execution_requests_simple_list_tests.h" />
+		<Unit filename="../src/stt/stt_expression.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_expression.h" />
+		<Unit filename="../src/stt/stt_expression_sub_conditional.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_expression_sub_conditional.h" />
+		<Unit filename="../src/stt/stt_expression_sub_conditional_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_expression_sub_conditional_tests.h" />
+		<Unit filename="../src/stt/stt_expression_sub_dice.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_expression_sub_dice.h" />
+		<Unit filename="../src/stt/stt_expression_sub_dice_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_expression_sub_dice_tests.h" />
+		<Unit filename="../src/stt/stt_expression_sub_identifier.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_expression_sub_identifier.h" />
+		<Unit filename="../src/stt/stt_expression_sub_identifier_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_expression_sub_identifier_tests.h" />
+		<Unit filename="../src/stt/stt_expression_sub_natural_literal.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_expression_sub_natural_literal.h" />
+		<Unit filename="../src/stt/stt_expression_sub_string_literal.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_expression_sub_string_literal.h" />
+		<Unit filename="../src/stt/stt_expression_subnode.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_expression_subnode.h" />
+		<Unit filename="../src/stt/stt_expression_subnode_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_expression_subnode_tests.h" />
+		<Unit filename="../src/stt/stt_expression_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_expression_tests.h" />
+		<Unit filename="../src/stt/stt_forward_declarations.h" />
+		<Unit filename="../src/stt/stt_identifier_subnode.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_identifier_subnode.h" />
+		<Unit filename="../src/stt/stt_identifier_subnode_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_identifier_subnode_tests.h" />
+		<Unit filename="../src/stt/stt_integer_literal_subnode.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_integer_literal_subnode.h" />
+		<Unit filename="../src/stt/stt_integer_literal_subnode_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_integer_literal_subnode_tests.h" />
+		<Unit filename="../src/stt/stt_named_function.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_named_function.h" />
+		<Unit filename="../src/stt/stt_named_function_call.h" />
+		<Unit filename="../src/stt/stt_named_function_call_arguments.h" />
+		<Unit filename="../src/stt/stt_named_function_subnode.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_named_function_subnode.h" />
+		<Unit filename="../src/stt/stt_named_function_subnode_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_named_function_subnode_tests.h" />
+		<Unit filename="../src/stt/stt_named_function_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_named_function_tests.h" />
+		<Unit filename="../src/stt/stt_named_functions_simple_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_named_functions_simple_list.h" />
+		<Unit filename="../src/stt/stt_named_functions_simple_list_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_named_functions_simple_list_tests.h" />
+		<Unit filename="../src/stt/stt_natural_literal_subnode.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_natural_literal_subnode.h" />
+		<Unit filename="../src/stt/stt_natural_literal_subnode_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_natural_literal_subnode_tests.h" />
+		<Unit filename="../src/stt/stt_node.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_node.h" />
+		<Unit filename="../src/stt/stt_node_sub_named_function_call.h" />
+		<Unit filename="../src/stt/stt_node_sub_named_function_call_arguments.h" />
+		<Unit filename="../src/stt/stt_node_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_node_tests.h" />
+		<Unit filename="../src/stt/stt_operation.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_operation.h" />
+		<Unit filename="../src/stt/stt_operation_arg.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_operation_arg.h" />
+		<Unit filename="../src/stt/stt_operation_arg_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_operation_arg_tests.h" />
+		<Unit filename="../src/stt/stt_operation_args_simple_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_operation_args_simple_list.h" />
+		<Unit filename="../src/stt/stt_operation_args_simple_list_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_operation_args_simple_list_tests.h" />
+		<Unit filename="../src/stt/stt_operation_subnode.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_operation_subnode.h" />
+		<Unit filename="../src/stt/stt_operation_subnode_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_operation_subnode_tests.h" />
+		<Unit filename="../src/stt/stt_operation_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_operation_tests.h" />
+		<Unit filename="../src/stt/stt_operations_list_subnode.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_operations_list_subnode.h" />
+		<Unit filename="../src/stt/stt_operations_list_subnode_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_operations_list_subnode_tests.h" />
+		<Unit filename="../src/stt/stt_operations_simple_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_operations_simple_list.h" />
+		<Unit filename="../src/stt/stt_operations_simple_list_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_operations_simple_list_tests.h" />
+		<Unit filename="../src/stt/stt_rational_literal_subnode.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_rational_literal_subnode.h" />
+		<Unit filename="../src/stt/stt_rational_literal_subnode_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_rational_literal_subnode_tests.h" />
+		<Unit filename="../src/stt/stt_string_literal_subnode.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_string_literal_subnode.h" />
+		<Unit filename="../src/stt/stt_string_literal_subnode_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_string_literal_subnode_tests.h" />
+		<Unit filename="../src/stt/stt_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_tests.h" />
+		<Unit filename="../src/stt/stt_where_value_binding.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_where_value_binding.h" />
+		<Unit filename="../src/stt/stt_where_value_binding_subnode.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_where_value_binding_subnode.h" />
+		<Unit filename="../src/stt/stt_where_value_binding_subnode_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_where_value_binding_subnode_tests.h" />
+		<Unit filename="../src/stt/stt_where_value_binding_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_where_value_binding_tests.h" />
+		<Unit filename="../src/stt/stt_where_value_bindings_simple_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_where_value_bindings_simple_list.h" />
+		<Unit filename="../src/stt/stt_where_value_bindings_simple_list_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_where_value_bindings_simple_list_tests.h" />
+		<Unit filename="../src/stt/stt_where_value_bindings_subnode.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_where_value_bindings_subnode.h" />
+		<Unit filename="../src/stt/stt_where_value_bindings_subnode_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/stt/stt_where_value_bindings_subnode_tests.h" />
+		<Unit filename="../src/tst/tests_pseudo_random_numbers_generation.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/tst/tests_pseudo_random_numbers_generation.h" />
+		<Unit filename="../src/tst/tests_pseudo_random_numbers_generation_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/tst/tests_pseudo_random_numbers_generation_tests.h" />
+		<Unit filename="../src/tst/tests_runner.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/tst/tests_runner.h" />
+		<Unit filename="../src/tst/tests_simple_list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/tst/tests_simple_list.h" />
+		<Unit filename="../src/tst/tests_simple_list_tests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/tst/tests_simple_list_tests.h" />
+		<Unit filename="../src/wrp/dirent_wrapper.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../src/wrp/dirent_wrapper.h" />
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>

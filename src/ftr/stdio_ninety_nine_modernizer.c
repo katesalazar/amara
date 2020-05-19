@@ -24,6 +24,9 @@
 /*   For `int sprintf(char * str, const char * format, ...)`. */
 #include <stdio.h>
 
+/*   For `void exit(int)`. */
+#include <stdlib.h>
+
 /*   For `size_t strlen(const char * s)`. */
 #include <string.h>
 
