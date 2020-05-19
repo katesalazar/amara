@@ -28,13 +28,18 @@
 #include <stdio.h>
 
 /*   For `void free(void * ptr)`. */
+/*
 #include <stdlib.h>
+*/
 
 /*   For `size_t strlen(const char * s)`. */
 #include <string.h>
 
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
+
+/*   For `void * amara_malloc(size_t)`. */
+#include "../mmm/allocator.h"
 
 /*   For `unsigned char acquire_dir(const char *)`. */
 #include "../prs/persistence.h"
@@ -94,12 +99,15 @@ run_app(const char * app_name)
 #endif
 
 #ifdef __AMARA__POSIX
-	cwd_buffer_ =
-#ifdef AMARA_USE_STD_CXX98
-			(char *)
+#if defined AMARA_USE_STD_C89
+	cwd_buffer_ = amara_malloc(4096);
+#elif defined AMARA_USE_STD_CXX98
+	cwd_buffer_ = (char *) amara_malloc(4096);
+#else
+	PREPROCESSOR_FATAL;
 #endif
-			malloc(4096);
 	forced_assertion(cwd_buffer_ != NULL);
+
 	getcwd_return_ = getcwd(cwd_buffer_, 3072);
 
 #ifdef DUMP_FLOW_TO_STDERR
@@ -140,10 +148,8 @@ run_app(const char * app_name)
 	acquire_dir_return_status_ = 0x00;
 	printf("Running app '%s'...\n", app_name);
 	acquire_dir_return_status_ = acquire_dir(app_name);
-	if (acquire_dir_return_status_ ==
-			PERSISTENCE_ACQUIRE_DIR_ERR_DIR_DOES_NOT_EXIST) {
-		printf("An error happened while accessing the dir '%s'. ",
-				app_name);
+	if (acquire_dir_return_status_ == PERSISTENCE_ACQUIRE_DIR_ERR_DIR_DOES_NOT_EXIST) {
+		printf("An error happened while accessing the dir '%s'. ", app_name);
 		printf("The directory does not exist.\n");
 		return APP_RUNNER_RUN_APP_RET_ERROR_DIR_DOES_NOT_EXIST;
 	}
@@ -161,8 +167,11 @@ run_app_dir_exists(const char * app_name)
 	unsigned char path_to_main_len_;
 	FILE * main_doc_descriptor_;
 	unsigned char inner_status_;
+
 	app_name_len_ = strlen(app_name);
+#ifndef NDEBUG
 	assertion(app_name_len_ < 0x7F);
+#endif
 	if (app_name[app_name_len_ - 1] == '/') {
 		must_append_slash_ = 0x00;
 	} else {
@@ -171,8 +180,7 @@ run_app_dir_exists(const char * app_name)
 	appended_ = (const char *) malloc(sizeof(MAIN_NAME) + 1);
 	forced_assertion(appended_ != NULL);
 	strcpy((char *) appended_, MAIN_NAME);
-	path_to_main_len_ = app_name_len_ + (must_append_slash_ ? 1 : 0) +
-			strlen(appended_);
+	path_to_main_len_ = app_name_len_ + (must_append_slash_ ? 1 : 0) + strlen(appended_);
 	path_to_main_ = (const char *) malloc(path_to_main_len_ + 1);
 	strcpy((char *) path_to_main_, app_name);
 	strcat((char *) path_to_main_, must_append_slash_ ? "/" : "");
@@ -184,8 +192,7 @@ run_app_dir_exists(const char * app_name)
 		free((char *) path_to_main_);
 		return APP_RUNNER_RUN_APP_RET_ERROR_DOC_DOES_NOT_EXIST;
 	}
-	inner_status_ = run_app_main_doc_exists(
-			app_name, main_doc_descriptor_);
+	inner_status_ = run_app_main_doc_exists(app_name, main_doc_descriptor_);
 	assertion(path_to_main_ != NULL);
 	free((char *) path_to_main_);
 	fclose(main_doc_descriptor_);
@@ -211,8 +218,11 @@ run_app_main_doc_exists(
 	process_rtg_doc_execution_requests_ret * process_rtg_doc_execution_requests_ret_;
 	char_arrays_simple_list * ptr_;
 	rtg_doc_out_of_stt_doc_ret * rtg_doc_out_of_stt_doc_ret_;
+
+#ifndef NDEBUG
 	assertion(main_doc_descriptor != NULL);
 	assertion(app_name != NULL);
+#endif
 
 	minia_bison_main_ret_ = minia_bison_main((FILE *) main_doc_descriptor);
 	forced_assertion(minia_bison_main_ret_ != NULL);
@@ -228,14 +238,12 @@ run_app_main_doc_exists(
 	look_for_undefined_labels_ret_ =
 			look_for_undefined_labels(minia_bison_main_ret_);
 
-	if (look_for_undefined_labels_ret_->status !=
-			LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_OK) {
-		assertion(look_for_undefined_labels_ret_->status ==
-				LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR);
+	if (look_for_undefined_labels_ret_->status != LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_OK) {
+#ifndef NDEBUG
+		assertion(look_for_undefined_labels_ret_->status == LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_ERROR);
+#endif
 		fprintf(stderr, "error: undefined labels exist\n");
-		fprintf(stderr, "%s:%u - look_for_undefined_labels_ret_->status: %u\n",
-				__FILE__, __LINE__,
-				look_for_undefined_labels_ret_->status);
+		fprintf(stderr, "%s:%u - look_for_undefined_labels_ret_->status: %u\n", __FILE__, __LINE__, look_for_undefined_labels_ret_->status);
 		ptr_ = look_for_undefined_labels_ret_->messages;
 		while (ptr_ != NULL) {
 #ifdef DUMP_FLOW_TO_STDERR
@@ -245,8 +253,7 @@ run_app_main_doc_exists(
 #endif
 			ptr_ = ptr_->next;
 		}
-		look_for_undefined_labels_ret_destructor(
-				look_for_undefined_labels_ret_);
+		look_for_undefined_labels_ret_destructor(look_for_undefined_labels_ret_);
 		look_for_undefined_labels_ret_ = NULL;
 		return APP_RUNNER_RUN_APP_RET_ERROR_MALFORMED_DOC;
 	}
@@ -254,16 +261,14 @@ run_app_main_doc_exists(
 	/*   If there were no undefined labels, defined labels
 	 * have already been used to help all necessary pointer
 	 * resolutions. */
-	look_for_undefined_labels_ret_destructor(
-			look_for_undefined_labels_ret_);
+	look_for_undefined_labels_ret_destructor(look_for_undefined_labels_ret_);
 	look_for_undefined_labels_ret_ = NULL;
 
 	/*   Now it is known there are no missing labels, ask for a run
 	 * time ready graph where all labels (currently, only function
 	 * names and application names, but not yet variable identifiers
 	 * or type analysis) have been turned to entity pointers. */
-	rtg_doc_out_of_stt_doc_ret_ =
-			rtg_doc_out_of_stt_doc(minia_bison_main_ret_);
+	rtg_doc_out_of_stt_doc_ret_ = rtg_doc_out_of_stt_doc(minia_bison_main_ret_);
 
 	stt_node_destructor(minia_bison_main_ret_);
 
@@ -273,8 +278,7 @@ run_app_main_doc_exists(
 	*/
 #endif
 
-	forced_assertion(rtg_doc_out_of_stt_doc_ret_->status ==
-			RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_SUCCESS);
+	forced_assertion(rtg_doc_out_of_stt_doc_ret_->status == RTG_DOC_OUT_OF_STT_DOC_RET_STATUS_SUCCESS);
 
 #ifdef DUMP_FLOW_TO_STDERR
 	/*
@@ -282,9 +286,7 @@ run_app_main_doc_exists(
 	*/
 #endif
 
-	process_rtg_doc_execution_requests_ret_ =
-			process_rtg_doc_execution_requests(
-					rtg_doc_out_of_stt_doc_ret_->doc);
+	process_rtg_doc_execution_requests_ret_ = process_rtg_doc_execution_requests(rtg_doc_out_of_stt_doc_ret_->doc);
 
 #ifdef DUMP_FLOW_TO_STDERR
 	/*
@@ -292,8 +294,7 @@ run_app_main_doc_exists(
 	*/
 #endif
 
-	forced_assertion(process_rtg_doc_execution_requests_ret_->status ==
-			PROCESS_RTG_DOC_EXECUTION_REQUESTS_RET_STATUS_SUCCESS);
+	forced_assertion(process_rtg_doc_execution_requests_ret_->status == PROCESS_RTG_DOC_EXECUTION_REQUESTS_RET_STATUS_SUCCESS);
 
 #ifdef DUMP_FLOW_TO_STDERR
 	/*
@@ -301,8 +302,7 @@ run_app_main_doc_exists(
 	*/
 #endif
 
-	process_rtg_doc_execution_requests_ret_destructor(
-			process_rtg_doc_execution_requests_ret_);
+	process_rtg_doc_execution_requests_ret_destructor(process_rtg_doc_execution_requests_ret_);
 	process_rtg_doc_execution_requests_ret_ = NULL;
 
 #ifdef DUMP_FLOW_TO_STDERR
