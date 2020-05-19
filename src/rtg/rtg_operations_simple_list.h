@@ -45,8 +45,10 @@ rtg_operations_simple_list *
 rtg_operations_simple_list_push_front(
 		rtg_operations_simple_list * operations,
 		rtg_operation * operation)
-__attribute__((warn_unused_result))
+__amara__warn_unused_result__
 ;
+
+typedef unsigned char rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_status;
 
 #define RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_INVALID 0x00
 #define RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION 0x0E
@@ -55,7 +57,7 @@ __attribute__((warn_unused_result))
 
 typedef struct rtg_operations_simple_list_out_of_stt_operations_simple_list_ret {
 
-	unsigned char status;
+	rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_status status;
 
 	amara_strings_simple_list * error_messages;
 
@@ -69,12 +71,15 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list_ret_destructor(
 ;
 
 /*   @param operations - A function's operations.
- *   @param where_bindings - A function's where value bindings. */
+ *   @param where_bindings - A function's where value bindings.
+ *   @param rtg_named_functions - Other functions that `operations` or
+ * `where_bindings` might be relying on. */
 rtg_operations_simple_list_out_of_stt_operations_simple_list_ret *
 rtg_operations_simple_list_out_of_stt_operations_simple_list(
 		const stt_operations_simple_list * operations,
-		const struct stt_where_value_bindings_simple_list * function_where_bindings)
-__attribute__((warn_unused_result))
+		const struct stt_where_value_bindings_simple_list * function_where_bindings,
+		const rtg_named_functions_simple_list * rtg_named_functions)
+__amara__warn_unused_result__
 ;
 
 #endif

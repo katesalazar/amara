@@ -66,11 +66,35 @@ rtg_where_value_bindings_simple_list_push_front(
 __attribute__((warn_unused_result))
 ;
 
+typedef unsigned char rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret_status;
+
+/**  TODO. */
+typedef struct rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret {
+
+    /**  Return status. */
+    rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret_status status;
+
+    /**  Error messages. */
+    amara_string error_messages;
+
+    /**  The returned list. */
+    rtg_where_value_bindings_simple_list where_value_bindings;
+} rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret
+;
+
+/**  Transformation constructor (legacy code, particular case: there are
+ * no RTG named functions known yet). */
+rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret *
+rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list(
+	stt_where_value_bindings_simple_list * list)
+__amara__warn_unused_result__
+;
+
 typedef unsigned char rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_ret_status;
 
 #define RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_RET_STATUS_INVALID 0x00
-#define RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_RET_STATUS_SUCCESS (unsigned char) 0x55
-#define RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_RET_STATUS_ERROR ((unsigned char) ~RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_RET_STATUS_SUCCESS)
+#define RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_RET_STATUS_SUCCESS 0x55
+#define RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_RET_STATUS_ERROR (unsigned char) 0xFF
 
 /**  TODO. */
 typedef struct rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_ret {
@@ -86,10 +110,11 @@ typedef struct rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindi
 } rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_ret
 ;
 
-/**  Transformation constructor. */
+/**  Transformation constructor (general case). */
 rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_ret *
 rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions(
-		stt_where_value_bindings_simple_list * list)
+		stt_where_value_bindings_simple_list * list,
+		rtg_named_functions_simple_list * rtg_named_functions)
 __amara__warn_unused_result__
 ;
 

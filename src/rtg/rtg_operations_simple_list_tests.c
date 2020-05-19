@@ -358,9 +358,7 @@ rtg_operations_simple_list_transformation_constructor_test_0()
 	assertion(stt_operations_->next == NULL);
 #endif
 
-	transformation_ret_ =
-			rtg_operations_simple_list_out_of_stt_operations_simple_list(
-					stt_operations_, NULL);
+	transformation_ret_ = rtg_operations_simple_list_out_of_stt_operations_simple_list(stt_operations_, NULL, NULL);
 #ifndef NDEBUG
 	assertion(stt_operations_->first == NULL);
 	assertion(stt_operations_->next == NULL);
@@ -389,9 +387,7 @@ rtg_operations_simple_list_transformation_constructor_test_1()
 	rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * transformation_ret_;
 	rtg_operations_simple_list * rtg_operations_;
 
-	transformation_ret_ =
-			rtg_operations_simple_list_out_of_stt_operations_simple_list(
-					NULL, NULL);
+	transformation_ret_ = rtg_operations_simple_list_out_of_stt_operations_simple_list(NULL, NULL, NULL);
 	forced_assertion(transformation_ret_ != NULL);
 	forced_assertion(transformation_ret_->status ==
 			RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
