@@ -1,8 +1,11 @@
+#   Created from CLion.
+
 cmake_minimum_required(VERSION 3.16)
 project(amara C)
 
 set(CMAKE_C_STANDARD 90)
 
+#   XXX ASSUMING CYGWIN.
 add_definitions(-D__CYG__ -DAMARA_USE_STD_C89)
 
 include_directories(build)
@@ -101,6 +104,8 @@ add_executable(amara
         src/ftr/stdio_ninety_nine_modernizer.h
         src/log/logging.c
         src/log/logging.h
+        src/mmm/allocator.c
+        src/mmm/allocator.h
         src/prs/persistence.c
         src/prs/persistence.h
         src/prs/persistence_tests.c
@@ -151,6 +156,8 @@ add_executable(amara
         src/rtg/rtg_expression_tests.h
         src/rtg/rtg_named_function.c
         src/rtg/rtg_named_function.h
+        src/rtg/rtg_named_function_call.c
+        src/rtg/rtg_named_function_call.h
         src/rtg/rtg_named_function_tests.c
         src/rtg/rtg_named_function_tests.h
         src/rtg/rtg_named_functions_simple_list.c
@@ -258,6 +265,8 @@ add_executable(amara
         src/stt/stt_integer_literal_subnode_tests.h
         src/stt/stt_named_function.c
         src/stt/stt_named_function.h
+        src/stt/stt_named_function_call.c
+        src/stt/stt_named_function_call.h
         src/stt/stt_named_function_subnode.c
         src/stt/stt_named_function_subnode.h
         src/stt/stt_named_function_subnode_tests.c
@@ -274,6 +283,8 @@ add_executable(amara
         src/stt/stt_natural_literal_subnode_tests.h
         src/stt/stt_node.c
         src/stt/stt_node.h
+        src/stt/stt_node_sub_named_function_call.c
+        src/stt/stt_node_sub_named_function_call.h
         src/stt/stt_node_tests.c
         src/stt/stt_node_tests.h
         src/stt/stt_operation.c
