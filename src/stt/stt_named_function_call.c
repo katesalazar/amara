@@ -52,6 +52,19 @@ stt_named_function_call_pending_semantic_checks_default_constructor()
 	return returning_;
 }
 
+void
+stt_named_function_call_pending_semantic_checks_destructor(
+	stt_named_function_call_pending_semantic_checks * input)
+;
+
+void
+stt_named_function_call_pending_semantic_checks_destructor(
+	stt_named_function_call_pending_semantic_checks * input)
+{
+	forced_assertion(input != NULL);
+	amara_free(input);
+}
+
 stt_named_function_call *
 stt_named_function_call_copy_constructor(
 		const stt_named_function_call * named_function_call)
