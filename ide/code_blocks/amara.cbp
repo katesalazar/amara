@@ -677,6 +677,7 @@
 			</code_completion>
 			<debugger>
 				<search_path add="..\..\..\amara" />
+				<search_path add="..\..\src" />
 			</debugger>
 		</Extensions>
 	</Project>
