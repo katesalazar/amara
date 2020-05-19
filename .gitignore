@@ -123,3 +123,7 @@ doxygen_reports/
 
 #   Miscellaneous Cygwin stuff.
 *.exe.stackdump
+
+#   CLion stuff.
+.idea/
+cmake-build-debug/
