@@ -1,0 +1,1643 @@
+# depslib dependency file v1.0
+1589802508 source:c:\users\uprego\desktop\amara\src\arg.c
+	<stdlib.h>
+	<string.h>
+	"asr/assertion.h"
+	"arg.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\asr\assertion.h
+
+1589123405 c:\users\uprego\desktop\amara\src\arg.h
+
+1589123405 source:c:\users\uprego\desktop\amara\src\arn\app_runner_tests.c
+	"arn_value_tests.h"
+	"app_runner_tests.h"
+
+1589123405 c:\users\uprego\desktop\amara\src\arn\arn_value_tests.h
+	"../tst/tests_simple_list.h"
+	"arn_value.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\tst\tests_simple_list.h
+	"../definitions.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\definitions.h
+
+1589123405 c:\users\uprego\desktop\amara\src\arn\arn_value.h
+	"../definitions.h"
+	"../brt/natural.h"
+	"../cmn/amara_string.h"
+	"../rtg/rtg_where_value_binding.h"
+
+1589123405 c:\users\uprego\desktop\amara\src\brt\natural.h
+	"brt_forward_declarations.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\brt\brt_forward_declarations.h
+	"../cmn/amara_string.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\cmn\amara_string.h
+	"stdlib.h"
+	"amara_boolean.h"
+
+1589819956 c:\users\uprego\desktop\amara\src\cmn\amara_boolean.h
+
+1589371322 c:\users\uprego\desktop\amara\src\rtg\rtg_where_value_binding.h
+	"../cmn/amara_string.h"
+	"../stt/stt_where_value_binding.h"
+	"rtg_expression.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_where_value_binding.h
+	"../cmn/amara_string.h"
+	"stt_expression.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_expression.h
+	"stt_forward_declarations.h"
+	"stt_expression_sub_conditional.h"
+	"stt_expression_sub_dice.h"
+	"stt_expression_sub_identifier.h"
+	"stt_expression_sub_natural_literal.h"
+	"stt_expression_sub_string_literal.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_forward_declarations.h
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_expression_sub_conditional.h
+	"stt_condition.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_condition.h
+	<stdlib.h>
+	"../cmn/amara_boolean.h"
+	"stt_expression.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_expression_sub_dice.h
+	"../brt/brt_forward_declarations.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_expression_sub_identifier.h
+	"../cmn/amara_string.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_expression_sub_natural_literal.h
+	"../brt/brt_forward_declarations.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_expression_sub_string_literal.h
+	"../cmn/amara_string.h"
+
+1589371322 c:\users\uprego\desktop\amara\src\rtg\rtg_expression.h
+	"../stt/stt_expression.h"
+	"rtg_expression_sub_conditional.h"
+	"rtg_expression_sub_dice.h"
+	"rtg_expression_sub_identifier.h"
+	"rtg_expression_sub_natural_literal.h"
+	"rtg_expression_sub_string_literal.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\rtg\rtg_expression_sub_conditional.h
+	"rtg_condition.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\rtg\rtg_condition.h
+	"rtg_expression.h"
+
+1589371322 c:\users\uprego\desktop\amara\src\rtg\rtg_expression_sub_dice.h
+	"rtg_forward_declarations.h"
+	"../brt/brt_forward_declarations.h"
+	"../stt/stt_expression_sub_dice.h"
+
+1589371322 c:\users\uprego\desktop\amara\src\rtg\rtg_forward_declarations.h
+	"../brt/natural.h"
+
+1589371322 c:\users\uprego\desktop\amara\src\rtg\rtg_expression_sub_identifier.h
+	"rtg_forward_declarations.h"
+	"../cmn/amara_string.h"
+	"../stt/stt_expression_sub_identifier.h"
+
+1589371322 c:\users\uprego\desktop\amara\src\rtg\rtg_expression_sub_natural_literal.h
+	"rtg_forward_declarations.h"
+	"../asr/assertion.h"
+	"../stt/stt_expression_sub_natural_literal.h"
+
+1589371322 c:\users\uprego\desktop\amara\src\rtg\rtg_expression_sub_string_literal.h
+	"rtg_forward_declarations.h"
+	"../cmn/amara_string.h"
+	"../stt/stt_expression_sub_string_literal.h"
+
+1589123405 c:\users\uprego\desktop\amara\src\arn\app_runner_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123405 source:c:\users\uprego\desktop\amara\src\arn\arn_tests.c
+	"arn_type_tests.h"
+	"arn_value_tests.h"
+	"arn_values_fixed_list_tests.h"
+	"arn_values_simple_list_tests.h"
+	"arn_variable_tests.h"
+	"arn_variables_simple_list_tests.h"
+	"arn_tests.h"
+
+1589123405 c:\users\uprego\desktop\amara\src\arn\arn_type_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123405 c:\users\uprego\desktop\amara\src\arn\arn_values_fixed_list_tests.h
+
+1589123405 c:\users\uprego\desktop\amara\src\arn\arn_values_simple_list_tests.h
+
+1589123405 c:\users\uprego\desktop\amara\src\arn\arn_variable_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123405 c:\users\uprego\desktop\amara\src\arn\arn_variables_simple_list_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123405 c:\users\uprego\desktop\amara\src\arn\arn_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123405 source:c:\users\uprego\desktop\amara\src\arn\arn_type.c
+	<stdio.h>
+	"../asr/assertion.h"
+	"arn_type.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\arn\arn_type.h
+	"../cmn/amara_string.h"
+	"../rtg/rtg_expression.h"
+
+1589123405 source:c:\users\uprego\desktop\amara\src\arn\arn_type_tests.c
+	<stdio.h>
+	"../asr/assertion.h"
+	"../log/logging.h"
+	"../rtg/rtg_expression_tests.h"
+	"arn_type.h"
+	"arn_type_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\log\logging.h
+
+1589123406 c:\users\uprego\desktop\amara\src\rtg\rtg_expression_tests.h
+	"../tst/tests_simple_list.h"
+	"rtg_expression.h"
+
+1589123405 source:c:\users\uprego\desktop\amara\src\arn\arn_value.c
+	<stdio.h>
+	<time.h>
+	"../brt/natural.h"
+	"../rtg/rtg_expression.h"
+	"arn_type.h"
+	"arn_value.h"
+
+1589882812 source:c:\users\uprego\desktop\amara\src\arn\app_runner.c
+	<unistd.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../asr/assertion.h"
+	"../mmm/allocator.h"
+	"../prs/persistence.h"
+	"../rtg/rtg_application.h"
+	"../rtg/rtg_doc.h"
+	"../rtg/rtg_execution_requests_simple_list.h"
+	"../rtg/rtg_named_function.h"
+	"../rtg/rtg_operation.h"
+	"../rtg/rtg_operations_simple_list.h"
+	"../stt/stt_node.h"
+	"arn_values_fixed_list.h"
+	"arn_values_simple_list.h"
+	"app_runner.h"
+
+1589371322 c:\users\uprego\desktop\amara\src\mmm\allocator.h
+	"../definitions.h"
+	<stddef.h>
+
+1587032010 c:\users\uprego\desktop\amara\src\prs\persistence.h
+	"../wrp/dirent_wrapper.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\wrp\dirent_wrapper.h
+	<dirent.h>
+
+1587032010 c:\users\uprego\desktop\amara\src\rtg\rtg_application.h
+	"../cmn/amara_string.h"
+	"../stt/stt_application.h"
+	"rtg_named_function.h"
+	"rtg_named_functions_simple_list.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_application.h
+	"../cmn/amara_string.h"
+
+1589371322 c:\users\uprego\desktop\amara\src\rtg\rtg_named_function.h
+	"rtg_forward_declarations.h"
+	"../cmn/amara_string.h"
+	"../stt/stt_named_function.h"
+	"../stt/stt_named_function_call.h"
+	"rtg_operations_simple_list.h"
+	"rtg_where_value_bindings_simple_list.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_named_function.h
+	"stt_forward_declarations.h"
+	"stt_named_function_subnode.h"
+	"stt_operations_simple_list.h"
+	"stt_where_value_bindings_simple_list.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_named_function_subnode.h
+	"../cmn/amara_string.h"
+	"stt_forward_declarations.h"
+	"stt_operations_simple_list.h"
+	"stt_where_value_bindings_simple_list.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_operations_simple_list.h
+	"../definitions.h"
+	"stt_operation.h"
+
+1589820089 c:\users\uprego\desktop\amara\src\stt\stt_operation.h
+	"stt_operation_args_simple_list.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_operation_args_simple_list.h
+	"stt_operation_arg.h"
+
+1589820098 c:\users\uprego\desktop\amara\src\stt\stt_operation_arg.h
+	"../cmn/amara_string.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_where_value_bindings_simple_list.h
+	"stt_where_value_binding.h"
+
+1589800989 c:\users\uprego\desktop\amara\src\stt\stt_named_function_call.h
+	"../definitions.h"
+	"../cmn/amara_boolean.h"
+	"stt_node.h"
+
+1589820074 c:\users\uprego\desktop\amara\src\stt\stt_node.h
+	"../cmn/char_arrays_simple_list.h"
+	"stt_forward_declarations.h"
+	"stt_application_subnode.h"
+	"stt_condition_subnode.h"
+	"stt_dice_expression.h"
+	"stt_doc_subnode.h"
+	"stt_execution_request_subnode.h"
+	"stt_expression_sub_dice.h"
+	"stt_expression_subnode.h"
+	"stt_named_function_subnode.h"
+	"stt_identifier_subnode.h"
+	"stt_integer_literal_subnode.h"
+	"stt_natural_literal_subnode.h"
+	"stt_node_sub_named_function_call.h"
+	"stt_node_sub_named_function_call_arguments.h"
+	"stt_operation_subnode.h"
+	"stt_operations_list_subnode.h"
+	"stt_rational_literal_subnode.h"
+	"stt_string_literal_subnode.h"
+	"stt_where_value_binding_subnode.h"
+	"stt_where_value_bindings_subnode.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\cmn\char_arrays_simple_list.h
+	"amara_boolean.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_application_subnode.h
+	"../cmn/amara_string.h"
+	"stt_application.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_condition_subnode.h
+	"stt_condition.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_dice_expression.h
+	"stt_forward_declarations.h"
+	"../brt/natural.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_doc_subnode.h
+	"stt_named_functions_simple_list.h"
+	"stt_applications_simple_list.h"
+	"stt_execution_requests_simple_list.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_named_functions_simple_list.h
+	"stt_named_function.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_applications_simple_list.h
+	"stt_application.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_execution_requests_simple_list.h
+	"stt_execution_request.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_execution_request.h
+	"../cmn/amara_string.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_execution_request_subnode.h
+	"stt_execution_request.h"
+	"../cmn/amara_string.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_expression_subnode.h
+	"../asr/assertion.h"
+	"stt_expression.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_identifier_subnode.h
+	"../cmn/amara_string.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_integer_literal_subnode.h
+	"../cmn/amara_boolean.h"
+	"../cmn/amara_string.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_natural_literal_subnode.h
+	"../cmn/amara_string.h"
+
+1589371322 c:\users\uprego\desktop\amara\src\stt\stt_node_sub_named_function_call.h
+	"../definitions.h"
+	"../cmn/amara_boolean.h"
+	"stt_named_function_call.h"
+
+1589371322 c:\users\uprego\desktop\amara\src\stt\stt_node_sub_named_function_call_arguments.h
+	"../definitions.h"
+	"../cmn/amara_boolean.h"
+	"stt_named_function_call_arguments.h"
+
+1589371322 c:\users\uprego\desktop\amara\src\stt\stt_named_function_call_arguments.h
+	"../definitions.h"
+	"../cmn/amara_boolean.h"
+	"stt_node.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_operation_subnode.h
+	"stt_operation.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_operations_list_subnode.h
+	"stt_operations_simple_list.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_rational_literal_subnode.h
+	"../cmn/amara_string.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_string_literal_subnode.h
+	"../cmn/amara_boolean.h"
+	"../cmn/amara_string.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_where_value_binding_subnode.h
+	"stt_where_value_binding.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\stt\stt_where_value_bindings_subnode.h
+	"stt_where_value_bindings_simple_list.h"
+
+1589371322 c:\users\uprego\desktop\amara\src\rtg\rtg_operations_simple_list.h
+	"../stt/stt_operations_simple_list.h"
+	"rtg_operation.h"
+
+1589371322 c:\users\uprego\desktop\amara\src\rtg\rtg_operation.h
+	"../stt/stt_operation.h"
+	"rtg_operation_args_simple_list.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\rtg\rtg_operation_args_simple_list.h
+	"../stt/stt_operation_args_simple_list.h"
+	"rtg_operation_arg.h"
+
+1589820048 c:\users\uprego\desktop\amara\src\rtg\rtg_operation_arg.h
+	"../cmn/amara_string.h"
+	"../cmn/amara_strings_simple_list.h"
+	"../stt/stt_operation_arg.h"
+	"rtg_forward_declarations.h"
+	"rtg_expression.h"
+	"rtg_operation.h"
+	"rtg_named_function_call.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\cmn\amara_strings_simple_list.h
+	"amara_boolean.h"
+	"amara_string.h"
+
+1589451056 c:\users\uprego\desktop\amara\src\rtg\rtg_named_function_call.h
+	"../definitions.h"
+	"../cmn/amara_strings_simple_list.h"
+	"../stt/stt_named_function_call.h"
+	"rtg_forward_declarations.h"
+	"rtg_named_function_call_arguments_simple_list.h"
+
+1589371322 c:\users\uprego\desktop\amara\src\rtg\rtg_named_function_call_arguments_simple_list.h
+	"rtg_named_function_call_argument.h"
+
+1589371322 c:\users\uprego\desktop\amara\src\rtg\rtg_named_function_call_argument.h
+
+1589371322 c:\users\uprego\desktop\amara\src\rtg\rtg_where_value_bindings_simple_list.h
+	"../stt/stt_where_value_bindings_simple_list.h"
+	"rtg_where_value_binding.h"
+
+1589371322 c:\users\uprego\desktop\amara\src\rtg\rtg_named_functions_simple_list.h
+	"../cmn/amara_strings_simple_list.h"
+	"../stt/stt_doc_subnode.h"
+	"../stt/stt_named_functions_simple_list.h"
+	"rtg_named_function.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\rtg\rtg_doc.h
+	"../stt/stt_node.h"
+	"rtg_named_functions_simple_list.h"
+	"rtg_applications_simple_list.h"
+	"rtg_execution_requests_simple_list.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\rtg\rtg_applications_simple_list.h
+	"../stt/stt_applications_simple_list.h"
+	"rtg_application.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\rtg\rtg_execution_requests_simple_list.h
+	"../cmn/amara_strings_simple_list.h"
+	"../stt/stt_doc_subnode.h"
+	"../stt/stt_execution_requests_simple_list.h"
+	"rtg_applications_simple_list.h"
+	"rtg_execution_request.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\rtg\rtg_execution_request.h
+	"../cmn/amara_strings_simple_list.h"
+	"../stt/stt_execution_request.h"
+	"rtg_application.h"
+	"rtg_applications_simple_list.h"
+
+1589123405 c:\users\uprego\desktop\amara\src\arn\arn_values_fixed_list.h
+	"../rtg/rtg_where_value_bindings_simple_list.h"
+	"arn_value.h"
+
+1589123405 c:\users\uprego\desktop\amara\src\arn\arn_values_simple_list.h
+	"arn_value.h"
+	"arn_values_fixed_list.h"
+
+1589820170 c:\users\uprego\desktop\amara\src\arn\app_runner.h
+	"../rtg/rtg_doc.h"
+	"../stt/stt_node.h"
+
+1589123405 source:c:\users\uprego\desktop\amara\src\arn\arn_value_tests.c
+	"../rtg/rtg_expression_sub_dice_tests.h"
+	"arn_value_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\rtg\rtg_expression_sub_dice_tests.h
+	"../definitions.h"
+	"../tst/tests_simple_list.h"
+	"rtg_expression_sub_dice.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\arn\arn_values_fixed_list.c
+	<stdlib.h>
+	"../asr/assertion.h"
+	"../brt/natural.h"
+	"arn_values_fixed_list.h"
+
+1589123405 source:c:\users\uprego\desktop\amara\src\arn\arn_values_fixed_list_tests.c
+	"arn_values_fixed_list.h"
+	"arn_value_tests.h"
+
+1589123405 source:c:\users\uprego\desktop\amara\src\arn\arn_values_simple_list.c
+	"arn_values_simple_list.h"
+
+1589123405 source:c:\users\uprego\desktop\amara\src\arn\arn_values_simple_list_tests.c
+	"arn_value_tests.h"
+	"arn_values_simple_list.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\arn\arn_variable.c
+	"../brt/natural.h"
+	"arn_variable.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\arn\arn_variable.h
+	"../asr/assertion.h"
+	"../brt/natural.h"
+	"../cmn/amara_string.h"
+
+1589123405 source:c:\users\uprego\desktop\amara\src\arn\arn_variable_tests.c
+	"../asr/assertion.h"
+	"arn_variable.h"
+	"arn_variable_tests.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\arn\arn_variables_simple_list.c
+	"arn_variables_simple_list.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\arn\arn_variables_simple_list.h
+	"arn_variable.h"
+
+1589123405 source:c:\users\uprego\desktop\amara\src\arn\arn_variables_simple_list_tests.c
+	"../asr/assertion.h"
+	"arn_variables_simple_list.h"
+	"arn_variables_simple_list_tests.h"
+
+1589123405 source:c:\users\uprego\desktop\amara\src\brt\basic_arithmetic_tests.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../asr/assertion.h"
+	"integer_tests.h"
+	"natural.h"
+	"natural_tests.h"
+	"rational_tests.h"
+	"basic_arithmetic_tests.h"
+
+1589123405 c:\users\uprego\desktop\amara\src\brt\integer_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123405 c:\users\uprego\desktop\amara\src\brt\natural_tests.h
+	"../tst/tests_simple_list.h"
+	"natural.h"
+
+1589123405 c:\users\uprego\desktop\amara\src\brt\rational_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123405 c:\users\uprego\desktop\amara\src\brt\basic_arithmetic_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123405 source:c:\users\uprego\desktop\amara\src\brt\integer.c
+	<string.h>
+	"../asr/assertion.h"
+	"integer.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\brt\integer.h
+	"../stt/stt_node.h"
+
+1589487359 source:c:\users\uprego\desktop\amara\src\asr\assertion.c
+	<assert.h>
+	<execinfo.h>
+	<signal.h>
+	<signal.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"assertion.h"
+
+1589123405 source:c:\users\uprego\desktop\amara\src\brt\integer_tests.c
+	"integer.h"
+	"integer_tests.h"
+
+1589123405 source:c:\users\uprego\desktop\amara\src\brt\natural.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../asr/assertion.h"
+	"../ftr/stdio_ninety_nine_modernizer.h"
+	"natural.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\ftr\stdio_ninety_nine_modernizer.h
+	<stdio.h>
+
+1589123405 source:c:\users\uprego\desktop\amara\src\brt\natural_tests.c
+	"../asr/assertion.h"
+	"../cmn/amara_string.h"
+	"../stt/stt_node.h"
+	"natural_tests.h"
+
+1589123405 source:c:\users\uprego\desktop\amara\src\brt\rational.c
+	<string.h>
+	"../asr/assertion.h"
+	"rational.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\brt\rational.h
+	"../stt/stt_node.h"
+
+1589123405 source:c:\users\uprego\desktop\amara\src\brt\rational_tests.c
+	"../asr/assertion.h"
+	"../cmn/amara_string.h"
+	"rational.h"
+	"rational_tests.h"
+
+1589816256 source:c:\users\uprego\desktop\amara\src\bsn\bison_annex.c
+	<string.h>
+	"../stt/stt_named_function_call.h"
+	"bison_annex.h"
+
+1589371322 c:\users\uprego\desktop\amara\src\bsn\bison_annex.h
+	"../stt/stt_node.h"
+
+1589371322 source:c:\users\uprego\desktop\amara\src\bsn\bison_tests.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	"../arn/app_runner.h"
+	"../asr/assertion.h"
+	"bison_tests.h"
+
+1589123405 c:\users\uprego\desktop\amara\src\bsn\bison_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123405 source:c:\users\uprego\desktop\amara\src\bsn\flex_tests.c
+	"../arn/app_runner.h"
+	"../asr/assertion.h"
+	"flex_tests.h"
+
+1589123405 c:\users\uprego\desktop\amara\src\bsn\flex_tests.h
+	"../tst/tests_simple_list.h"
+
+1589819964 source:c:\users\uprego\desktop\amara\src\cmn\amara_string.c
+	<stdio.h>
+	<string.h>
+	"../macros.h"
+	"../asr/assertion.h"
+	"../mmm/allocator.h"
+	"amara_string.h"
+
+1589818605 c:\users\uprego\desktop\amara\src\macros.h
+
+1589123405 source:c:\users\uprego\desktop\amara\src\cmn\amara_string_tests.c
+	<string.h>
+	"../asr/assertion.h"
+	"../log/logging.h"
+	"amara_string_tests.h"
+
+1589123405 c:\users\uprego\desktop\amara\src\cmn\amara_string_tests.h
+	"../tst/tests_simple_list.h"
+	"amara_string.h"
+
+1589123405 source:c:\users\uprego\desktop\amara\src\cmn\amara_strings_simple_list.c
+	"../asr/assertion.h"
+	"amara_strings_simple_list.h"
+
+1589123405 source:c:\users\uprego\desktop\amara\src\cmn\amara_strings_simple_list_tests.c
+	"../asr/assertion.h"
+	"amara_string_tests.h"
+	"amara_strings_simple_list.h"
+	"amara_strings_simple_list_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\cmn\amara_strings_simple_list_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\cmn\char_array.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../asr/assertion.h"
+	"../ftr/stdio_ninety_nine_modernizer.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\cmn\char_array_tests.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../asr/assertion.h"
+	"../log/logging.h"
+	"char_array.h"
+	"char_array_tests.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\cmn\char_array.h
+
+1589123406 c:\users\uprego\desktop\amara\src\cmn\char_array_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\cmn\char_arrays_simple_list.c
+	<stdlib.h>
+	<string.h>
+	"../asr/assertion.h"
+	"char_arrays_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\cmn\char_arrays_simple_list_tests.c
+	<stdlib.h>
+	<string.h>
+	"../asr/assertion.h"
+	"char_arrays_simple_list.h"
+	"char_arrays_simple_list_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\cmn\char_arrays_simple_list_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\cmn\common_tests.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../asr/assertion.h"
+	"amara_boolean.h"
+	"amara_string_tests.h"
+	"amara_strings_simple_list_tests.h"
+	"char_array.h"
+	"char_array_tests.h"
+	"char_arrays_simple_list.h"
+	"char_arrays_simple_list_tests.h"
+	"common_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\cmn\common_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\log\logging.c
+	<stdio.h>
+
+1589802142 source:c:\users\uprego\desktop\amara\src\main.c
+	<stdio.h>
+	<stdlib.h>
+	"arn/app_runner.h"
+	"asr/assertion.h"
+	"tst/tests_runner.h"
+	"arg.h"
+	"prs/persistence.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\tst\tests_runner.h
+	"../cmn/amara_boolean.h"
+
+1589450244 source:c:\users\uprego\desktop\amara\src\mmm\allocator.c
+	<stdlib.h>
+	"../asr/assertion.h"
+	"allocator.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\prs\persistence.c
+	<stdlib.h>
+	"../asr/assertion.h"
+	"persistence.h"
+	"../wrp/dirent_wrapper.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\prs\persistence_tests.c
+	<stdio.h>
+	"persistence.h"
+	"../asr/assertion.h"
+	"persistence_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\prs\persistence_tests.h
+	"../tst/tests_simple_list.h"
+
+1589819977 source:c:\users\uprego\desktop\amara\src\rtg\rtg_application.c
+	<stdio.h>
+	"../asr/assertion.h"
+	"rtg_application.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_application_tests.c
+	"../asr/assertion.h"
+	"../stt/stt_application_tests.h"
+	"rtg_named_function_tests.h"
+	"rtg_application_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_application_tests.h
+	"../tst/tests_simple_list.h"
+	"stt_application.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\rtg\rtg_named_function_tests.h
+	"../tst/tests_simple_list.h"
+	"rtg_named_function.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\rtg\rtg_application_tests.h
+	"../tst/tests_simple_list.h"
+	"rtg_application.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_applications_simple_list.c
+	<stdio.h>
+	"../asr/assertion.h"
+	"../rtg/rtg_named_functions_simple_list.h"
+	"rtg_applications_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_applications_simple_list_tests.c
+	"../asr/assertion.h"
+	"../stt/stt_applications_simple_list_tests.h"
+	"../stt/stt_node_tests.h"
+	"rtg_application_tests.h"
+	"rtg_applications_simple_list.h"
+	"rtg_named_functions_simple_list_tests.h"
+	"rtg_applications_simple_list_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_applications_simple_list_tests.h
+	"../tst/tests_simple_list.h"
+	"stt_applications_simple_list.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_node_tests.h
+	"../tst/tests_simple_list.h"
+	"stt_node.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\rtg\rtg_named_functions_simple_list_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\rtg\rtg_applications_simple_list_tests.h
+	"../tst/tests_simple_list.h"
+	"rtg_applications_simple_list.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\rtg\rtg_condition.c
+	"../asr/assertion.h"
+	"rtg_condition.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_condition_tests.c
+	"../stt/stt_condition_tests.h"
+	"rtg_expression_tests.h"
+	"rtg_condition_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_condition_tests.h
+	"../definitions.h"
+	"../tst/tests_simple_list.h"
+	"stt_condition.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\rtg\rtg_condition_tests.h
+	"../tst/tests_simple_list.h"
+	"rtg_condition.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_doc.c
+	<stdio.h>
+	"../asr/assertion.h"
+	"rtg_named_functions_simple_list.h"
+	"rtg_applications_simple_list.h"
+	"rtg_execution_requests_simple_list.h"
+	"rtg_doc.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_doc_tests.c
+	<stdio.h>
+	"../asr/assertion.h"
+	"../stt/stt_node_tests.h"
+	"../stt/stt_node.h"
+	"rtg_doc.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_execution_request.c
+	"../asr/assertion.h"
+	"../stt/stt_execution_request.h"
+	"rtg_execution_request.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_execution_request_tests.c
+	"../asr/assertion.h"
+	"rtg_application_tests.h"
+	"rtg_execution_request.h"
+	"rtg_named_function_tests.h"
+	"rtg_execution_request_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\rtg\rtg_execution_request_tests.h
+	"rtg_execution_request.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_execution_requests_simple_list.c
+	"../asr/assertion.h"
+	"rtg_execution_requests_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_execution_requests_simple_list_tests.c
+	"../asr/assertion.h"
+	"../stt/stt_execution_request_tests.h"
+	"rtg_application_tests.h"
+	"rtg_execution_request_tests.h"
+	"rtg_execution_requests_simple_list.h"
+	"rtg_execution_requests_simple_list_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_execution_request_tests.h
+	"../tst/tests_simple_list.h"
+	"stt_execution_request.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\rtg\rtg_execution_requests_simple_list_tests.h
+	"../tst/tests_simple_list.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\rtg\rtg_expression.c
+	"../asr/assertion.h"
+	"../stt/stt_expression.h"
+	"rtg_expression.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\rtg\rtg_expression_sub_conditional.c
+	"../asr/assertion.h"
+	"rtg_expression_sub_conditional.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_expression_sub_conditional_tests.c
+	"../stt/stt_expression_sub_conditional_tests.h"
+	"rtg_condition_tests.h"
+	"rtg_expression_tests.h"
+	"rtg_expression_sub_conditional_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_expression_sub_conditional_tests.h
+	"../tst/tests_simple_list.h"
+	"stt_expression_sub_conditional.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\rtg\rtg_expression_sub_conditional_tests.h
+	"../tst/tests_simple_list.h"
+	"rtg_expression_sub_conditional.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\rtg\rtg_expression_sub_dice.c
+	"../asr/assertion.h"
+	"../brt/natural.h"
+	"rtg_expression_sub_dice.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_expression_sub_dice_tests.c
+	"../asr/assertion.h"
+	"../stt/stt_expression_sub_dice_tests.h"
+	"rtg_expression_sub_dice_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_expression_sub_dice_tests.h
+	"../tst/tests_simple_list.h"
+	"stt_expression_sub_dice.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\rtg\rtg_expression_sub_identifier.c
+	"../asr/assertion.h"
+	"rtg_expression_sub_identifier.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_expression_sub_identifier_tests.c
+	"../asr/assertion.h"
+	"../stt/stt_expression_sub_identifier_tests.h"
+	"rtg_expression_sub_identifier.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_expression_sub_identifier_tests.h
+	"../tst/tests_simple_list.h"
+	"stt_expression_sub_identifier.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\rtg\rtg_expression_sub_natural_literal.c
+	"rtg_expression_sub_natural_literal.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\rtg\rtg_expression_sub_string_literal.c
+	"../asr/assertion.h"
+	"rtg_expression_sub_string_literal.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_expression_tests.c
+	"../asr/assertion.h"
+	"../stt/stt_expression_tests.h"
+	"rtg_condition_tests.h"
+	"rtg_expression_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_expression_tests.h
+	"../tst/tests_simple_list.h"
+	"stt_expression.h"
+
+1589820004 source:c:\users\uprego\desktop\amara\src\rtg\rtg_named_function.c
+	<stdio.h>
+	"../asr/assertion.h"
+	"rtg_named_function.h"
+
+1589451467 source:c:\users\uprego\desktop\amara\src\rtg\rtg_named_function_call.c
+	"../asr/assertion.h"
+	"rtg_named_function_call.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_named_function_tests.c
+	"../asr/assertion.h"
+	"rtg_operation_tests.h"
+	"rtg_operations_simple_list_tests.h"
+	"rtg_where_value_bindings_simple_list_tests.h"
+	"rtg_named_function_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\rtg\rtg_operation_tests.h
+	"../tst/tests_simple_list.h"
+	"rtg_operation.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\rtg\rtg_operations_simple_list_tests.h
+	"../tst/tests_simple_list.h"
+	"rtg_operations_simple_list.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\rtg\rtg_where_value_bindings_simple_list_tests.h
+	"rtg_where_value_bindings_simple_list.h"
+
+1589371322 source:c:\users\uprego\desktop\amara\src\rtg\rtg_named_functions_simple_list.c
+	<stdio.h>
+	"../asr/assertion.h"
+	"rtg_named_functions_simple_list.h"
+
+1589371322 source:c:\users\uprego\desktop\amara\src\rtg\rtg_named_functions_simple_list_tests.c
+	"../asr/assertion.h"
+	"../stt/stt_doc_subnode_tests.h"
+	"../stt/stt_named_functions_simple_list_tests.h"
+	"rtg_named_function_tests.h"
+	"rtg_named_functions_simple_list.h"
+	"rtg_named_functions_simple_list_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_doc_subnode_tests.h
+	"../tst/tests_simple_list.h"
+	"stt_doc_subnode.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_named_functions_simple_list_tests.h
+	"../tst/tests_simple_list.h"
+	"stt_named_functions_simple_list.h"
+
+1589820031 source:c:\users\uprego\desktop\amara\src\rtg\rtg_operation.c
+	<stdio.h>
+	"../asr/assertion.h"
+	"rtg_operation_args_simple_list.h"
+	"rtg_operation.h"
+
+1589820040 source:c:\users\uprego\desktop\amara\src\rtg\rtg_operation_arg.c
+	<stdio.h>
+	"../mmm/allocator.h"
+	"../asr/assertion.h"
+	"../stt/stt_node.h"
+	"../stt/stt_named_function_call.h"
+	"rtg_forward_declarations.h"
+	"rtg_operation_arg.h"
+
+1589371322 source:c:\users\uprego\desktop\amara\src\rtg\rtg_operation_arg_tests.c
+	"../asr/assertion.h"
+	"../stt/stt_operation_arg_tests.h"
+	"rtg_operation_arg_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_operation_arg_tests.h
+	"../tst/tests_simple_list.h"
+	"stt_operation_arg.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\rtg\rtg_operation_arg_tests.h
+	"../tst/tests_simple_list.h"
+	"rtg_operation_arg.h"
+
+1589820056 source:c:\users\uprego\desktop\amara\src\rtg\rtg_operation_args_simple_list.c
+	"../asr/assertion.h"
+	"rtg_operation_args_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_operation_args_simple_list_tests.c
+	"../asr/assertion.h"
+	"../stt/stt_operation_args_simple_list_tests.h"
+	"rtg_operation_arg_tests.h"
+	"rtg_operation_args_simple_list.h"
+	"rtg_operation_args_simple_list_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_operation_args_simple_list_tests.h
+	"../tst/tests_simple_list.h"
+	"stt_operation_args_simple_list.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\rtg\rtg_operation_args_simple_list_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_operation_tests.c
+	"../asr/assertion.h"
+	"../cmn/amara_string_tests.h"
+	"../stt/stt_operation_tests.h"
+	"rtg_operation_arg.h"
+	"rtg_operation_arg_tests.h"
+	"rtg_operation_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_operation_tests.h
+	"../tst/tests_simple_list.h"
+	"stt_operation.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_operations_simple_list.c
+	<stdio.h>
+	"../asr/assertion.h"
+	"rtg_operations_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_operations_simple_list_tests.c
+	"../asr/assertion.h"
+	"../cmn/amara_string_tests.h"
+	"rtg_operation_tests.h"
+	"rtg_operations_simple_list.h"
+	"rtg_operations_simple_list_tests.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_tests.c
+	"rtg_application_tests.h"
+	"rtg_applications_simple_list_tests.h"
+	"rtg_condition_tests.h"
+	"rtg_doc_tests.h"
+	"rtg_execution_request_tests.h"
+	"rtg_execution_requests_simple_list_tests.h"
+	"rtg_expression_sub_conditional_tests.h"
+	"rtg_expression_sub_dice_tests.h"
+	"rtg_expression_sub_identifier_tests.h"
+	"rtg_expression_tests.h"
+	"rtg_named_function_tests.h"
+	"rtg_named_functions_simple_list_tests.h"
+	"rtg_operation_arg_tests.h"
+	"rtg_operation_args_simple_list_tests.h"
+	"rtg_operation_tests.h"
+	"rtg_operations_simple_list_tests.h"
+	"rtg_where_value_bindings_simple_list_tests.h"
+	"rtg_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\rtg\rtg_doc_tests.h
+
+1589123406 c:\users\uprego\desktop\amara\src\rtg\rtg_expression_sub_identifier_tests.h
+
+1589123406 c:\users\uprego\desktop\amara\src\rtg\rtg_tests.h
+	"../tst/tests_simple_list.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\rtg\rtg_where_value_binding.c
+	"../asr/assertion.h"
+	"../stt/stt_where_value_binding.h"
+	"rtg_where_value_binding.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_where_value_binding_tests.c
+	"../stt/stt_where_value_binding_tests.h"
+	"rtg_expression_tests.h"
+	"rtg_where_value_binding_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_where_value_binding_tests.h
+	"../tst/tests_simple_list.h"
+	"stt_where_value_binding.h"
+
+1587032010 c:\users\uprego\desktop\amara\src\rtg\rtg_where_value_binding_tests.h
+	"rtg_where_value_binding.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_where_value_bindings_simple_list.c
+	"../asr/assertion.h"
+	"rtg_where_value_bindings_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\rtg\rtg_where_value_bindings_simple_list_tests.c
+	"../stt/stt_where_value_bindings_simple_list_tests.h"
+	"rtg_where_value_binding_tests.h"
+	"rtg_where_value_bindings_simple_list.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_where_value_bindings_simple_list_tests.h
+	"../tst/tests_simple_list.h"
+	"stt_where_value_bindings_simple_list.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\stt\stt_application.c
+	"../asr/assertion.h"
+	"stt_application.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_application_subnode.c
+	"../asr/assertion.h"
+	"stt_application_subnode.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_application_subnode_tests.c
+	"../asr/assertion.h"
+	"stt_application_subnode.h"
+	"stt_application_tests.h"
+	"stt_application_subnode_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_application_subnode_tests.h
+	"../tst/tests_simple_list.h"
+	"stt_application_subnode.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_application_tests.c
+	"../asr/assertion.h"
+	"stt_application.h"
+	"stt_application_tests.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_applications_simple_list.c
+	<stdio.h>
+	"../asr/assertion.h"
+	"stt_applications_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_applications_simple_list_tests.c
+	"../asr/assertion.h"
+	"stt_application_tests.h"
+	"stt_applications_simple_list.h"
+	"stt_applications_simple_list_tests.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_condition.c
+	"../asr/assertion.h"
+	"stt_condition.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\stt\stt_condition_subnode.c
+	"../asr/assertion.h"
+	"stt_condition_subnode.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_condition_subnode_tests.c
+	"../asr/assertion.h"
+	"stt_condition_tests.h"
+	"stt_condition_subnode_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_condition_subnode_tests.h
+	"../tst/tests_simple_list.h"
+	"stt_condition_subnode.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_condition_tests.c
+	"../asr/assertion.h"
+	"stt_expression_tests.h"
+	"stt_condition_tests.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_dice_expression.c
+	"../asr/assertion.h"
+	"stt_dice_expression.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_dice_expression_tests.c
+	"../asr/assertion.h"
+	"../brt/natural_tests.h"
+	"stt_dice_expression.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_doc_subnode.c
+	<stdio.h>
+	"../asr/assertion.h"
+	"stt_doc_subnode.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_doc_subnode_tests.c
+	"../asr/assertion.h"
+	"stt_application_tests.h"
+	"stt_doc_subnode.h"
+	"stt_execution_request_tests.h"
+	"stt_named_function_tests.h"
+	"stt_named_functions_simple_list_tests.h"
+	"stt_doc_subnode_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_named_function_tests.h
+	"../tst/tests_simple_list.h"
+	"stt_named_function.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_execution_request.c
+	"../asr/assertion.h"
+	"stt_execution_request.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_execution_request_subnode.c
+	"../asr/assertion.h"
+	"stt_execution_request_subnode.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_execution_request_subnode_tests.c
+	"../asr/assertion.h"
+	"stt_execution_request_subnode.h"
+	"stt_execution_request_subnode_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_execution_request_subnode_tests.h
+	"../tst/tests_simple_list.h"
+	"stt_execution_request_subnode.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_execution_request_tests.c
+	"../asr/assertion.h"
+	"stt_execution_request.h"
+	"stt_execution_request_tests.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_execution_requests_simple_list.c
+	<stdio.h>
+	"../asr/assertion.h"
+	"stt_execution_requests_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_execution_requests_simple_list_tests.c
+	"../asr/assertion.h"
+	"stt_execution_request_tests.h"
+	"stt_execution_requests_simple_list.h"
+	"stt_execution_requests_simple_list_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_execution_requests_simple_list_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_expression.c
+	<stdio.h>
+	"../asr/assertion.h"
+	"../brt/natural.h"
+	"stt_expression_sub_natural_literal.h"
+	"stt_expression.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_expression_sub_conditional.c
+	"../asr/assertion.h"
+	"stt_expression_sub_conditional.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_expression_sub_conditional_tests.c
+	"../definitions.h"
+	"../asr/assertion.h"
+	"stt_condition_tests.h"
+	"stt_expression_tests.h"
+	"stt_expression_sub_conditional_tests.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_expression_sub_dice.c
+	"../asr/assertion.h"
+	"../brt/natural.h"
+	"stt_expression_sub_dice.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_expression_sub_dice_tests.c
+	"../asr/assertion.h"
+	"../brt/natural_tests.h"
+	"stt_expression_sub_dice_tests.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\stt\stt_expression_sub_identifier.c
+	"../asr/assertion.h"
+	"stt_expression_sub_identifier.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_expression_sub_identifier_tests.c
+	"../asr/assertion.h"
+	"stt_expression_sub_identifier.h"
+	"stt_expression_sub_identifier_tests.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_expression_sub_natural_literal.c
+	"../asr/assertion.h"
+	"../brt/natural.h"
+	"stt_expression_sub_natural_literal.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_expression_sub_string_literal.c
+	"../asr/assertion.h"
+	"stt_expression_sub_string_literal.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_expression_subnode.c
+	"stt_expression_subnode.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_expression_subnode_tests.c
+	"stt_expression_subnode.h"
+	"stt_expression_tests.h"
+	"stt_expression_subnode_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_expression_subnode_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_expression_tests.c
+	"../asr/assertion.h"
+	"../brt/natural_tests.h"
+	"stt_dice_expression_tests.h"
+	"stt_expression_sub_conditional_tests.h"
+	"stt_expression_sub_dice_tests.h"
+	"stt_expression_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_dice_expression_tests.h
+	"../tst/tests_simple_list.h"
+	"stt_dice_expression.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\stt\stt_identifier_subnode.c
+	"../asr/assertion.h"
+	"stt_identifier_subnode.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_identifier_subnode_tests.c
+	"../asr/assertion.h"
+	"stt_identifier_subnode.h"
+	"stt_identifier_subnode_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_identifier_subnode_tests.h
+	"../tst/tests_simple_list.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\stt\stt_integer_literal_subnode.c
+	"../asr/assertion.h"
+	"../brt/integer.h"
+	"stt_integer_literal_subnode.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_integer_literal_subnode_tests.c
+	"../asr/assertion.h"
+	"stt_integer_literal_subnode.h"
+	"stt_integer_literal_subnode_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_integer_literal_subnode_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_named_function.c
+	"../asr/assertion.h"
+	"stt_operations_simple_list.h"
+	"stt_named_function.h"
+
+1589816299 source:c:\users\uprego\desktop\amara\src\stt\stt_named_function_call.c
+	<stdlib.h>
+	"../macros.h"
+	"../asr/assertion.h"
+	"../mmm/allocator.h"
+	"../stt/stt_node.h"
+	"stt_named_function_call.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\stt\stt_named_function_subnode.c
+	"../asr/assertion.h"
+	"stt_named_function.h"
+	"stt_named_function_subnode.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_named_function_subnode_tests.c
+	"../asr/assertion.h"
+	"stt_named_function_subnode.h"
+	"stt_operation_tests.h"
+	"stt_named_function_subnode_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_named_function_subnode_tests.h
+	"../tst/tests_simple_list.h"
+	"stt_named_function_subnode.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_named_function_tests.c
+	"../asr/assertion.h"
+	"stt_named_function_tests.h"
+	"stt_operation_tests.h"
+	"stt_operations_simple_list_tests.h"
+	"stt_where_value_bindings_simple_list_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_operations_simple_list_tests.h
+	"../definitions.h"
+	"../tst/tests_simple_list.h"
+	"stt_operations_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_named_functions_simple_list.c
+	<stdio.h>
+	"../asr/assertion.h"
+	"stt_named_functions_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_named_functions_simple_list_tests.c
+	"../asr/assertion.h"
+	"stt_named_function_tests.h"
+	"stt_node.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\stt\stt_natural_literal_subnode.c
+	"../asr/assertion.h"
+	"../brt/natural.h"
+	"stt_natural_literal_subnode.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_natural_literal_subnode_tests.c
+	"../asr/assertion.h"
+	"stt_natural_literal_subnode.h"
+	"stt_natural_literal_subnode_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_natural_literal_subnode_tests.h
+	"../tst/tests_simple_list.h"
+
+1589827315 source:c:\users\uprego\desktop\amara\src\stt\stt_node.c
+	<stdio.h>
+	"../macros.h"
+	"../asr/assertion.h"
+	"../cmn/char_array.h"
+	"../mmm/allocator.h"
+	"stt_operations_simple_list.h"
+	"stt_node.h"
+
+1589371322 source:c:\users\uprego\desktop\amara\src\stt\stt_node_sub_named_function_call.c
+	<stdlib.h>
+	"../asr/assertion.h"
+	"../mmm/allocator.h"
+	"stt_named_function_call.h"
+	"stt_node_sub_named_function_call.h"
+
+1589450244 source:c:\users\uprego\desktop\amara\src\stt\stt_node_sub_named_function_call_arguments.c
+
+1589826884 source:c:\users\uprego\desktop\amara\src\stt\stt_node_tests.c
+	<stdio.h>
+	"../asr/assertion.h"
+	"stt_application_subnode_tests.h"
+	"stt_application_tests.h"
+	"stt_condition_tests.h"
+	"stt_dice_expression_tests.h"
+	"stt_doc_subnode_tests.h"
+	"stt_execution_request_tests.h"
+	"stt_execution_request_subnode_tests.h"
+	"stt_expression_sub_dice_tests.h"
+	"stt_expression_tests.h"
+	"stt_named_function_subnode_tests.h"
+	"stt_named_function_tests.h"
+	"stt_node.h"
+	"stt_operation_tests.h"
+	"stt_operations_simple_list_tests.h"
+	"stt_node_tests.h"
+	"stt_where_value_binding_tests.h"
+	"stt_where_value_bindings_simple_list_tests.h"
+
+1589371322 source:c:\users\uprego\desktop\amara\src\stt\stt_operation.c
+	<stdlib.h>
+	"../asr/assertion.h"
+	"stt_node.h"
+	"stt_operation.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_operation_arg.c
+	<stdlib.h>
+	"../asr/assertion.h"
+	"stt_node.h"
+	"stt_operation_arg.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_operation_arg_tests.c
+	"stt_node_tests.h"
+	"stt_operation_arg_tests.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_operation_args_simple_list.c
+	<stdlib.h>
+	"../asr/assertion.h"
+	"stt_node.h"
+	"stt_operation_args_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_operation_args_simple_list_tests.c
+	"../asr/assertion.h"
+	"stt_operation_arg_tests.h"
+	"stt_operation_args_simple_list_tests.h"
+	"stt_operation_args_simple_list_tests.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\stt\stt_operation_subnode.c
+	<stdlib.h>
+	"../asr/assertion.h"
+	"stt_operation_subnode.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_operation_subnode_tests.c
+	"../asr/assertion.h"
+	"stt_operation_subnode.h"
+	"stt_operation_subnode_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_operation_subnode_tests.h
+	"../tst/tests_simple_list.h"
+
+1589819711 source:c:\users\uprego\desktop\amara\src\stt\stt_operation_tests.c
+	"../asr/assertion.h"
+	"stt_node.h"
+	"stt_operation_arg_tests.h"
+	"stt_operation_tests.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\stt\stt_operations_list_subnode.c
+	<stdlib.h>
+	"../asr/assertion.h"
+	"stt_operations_list_subnode.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_operations_list_subnode_tests.c
+	"../asr/assertion.h"
+	"stt_operation_tests.h"
+	"stt_operations_list_subnode.h"
+	"stt_operations_list_subnode_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_operations_list_subnode_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_operations_simple_list.c
+	<stdio.h>
+	<stdlib.h>
+	"../asr/assertion.h"
+	"stt_operations_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_operations_simple_list_tests.c
+	"../asr/assertion.h"
+	"stt_forward_declarations.h"
+	"stt_operation_tests.h"
+	"stt_operations_simple_list_tests.h"
+	"stt_operations_simple_list_tests.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\stt\stt_rational_literal_subnode.c
+	"../cmn/amara_string.h"
+	"../asr/assertion.h"
+	"../brt/rational.h"
+	"stt_rational_literal_subnode.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_rational_literal_subnode_tests.c
+	"../asr/assertion.h"
+	"stt_rational_literal_subnode.h"
+	"stt_rational_literal_subnode_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_rational_literal_subnode_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_string_literal_subnode.c
+	"../cmn/amara_boolean.h"
+	"../asr/assertion.h"
+	"stt_string_literal_subnode.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_string_literal_subnode_tests.c
+	"../asr/assertion.h"
+	"../log/logging.h"
+	"stt_string_literal_subnode.h"
+	"stt_string_literal_subnode_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_string_literal_subnode_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_tests.c
+	<stdio.h>
+	<string.h>
+	"../asr/assertion.h"
+	"stt_application_tests.h"
+	"stt_applications_simple_list_tests.h"
+	"stt_application_subnode_tests.h"
+	"stt_condition_tests.h"
+	"stt_condition_subnode_tests.h"
+	"stt_dice_expression_tests.h"
+	"stt_doc_subnode_tests.h"
+	"stt_execution_request_tests.h"
+	"stt_execution_requests_simple_list_tests.h"
+	"stt_execution_request_subnode_tests.h"
+	"stt_expression_sub_conditional_tests.h"
+	"stt_expression_sub_dice_tests.h"
+	"stt_expression_sub_identifier_tests.h"
+	"stt_expression_tests.h"
+	"stt_expression_subnode_tests.h"
+	"stt_identifier_subnode_tests.h"
+	"stt_integer_literal_subnode_tests.h"
+	"stt_named_function_tests.h"
+	"stt_named_functions_simple_list_tests.h"
+	"stt_named_function_subnode_tests.h"
+	"stt_natural_literal_subnode_tests.h"
+	"stt_node.h"
+	"stt_node_tests.h"
+	"stt_operation_arg_tests.h"
+	"stt_operation_args_simple_list_tests.h"
+	"stt_operation_subnode_tests.h"
+	"stt_operation_tests.h"
+	"stt_operations_list_subnode_tests.h"
+	"stt_operations_simple_list_tests.h"
+	"stt_rational_literal_subnode_tests.h"
+	"stt_string_literal_subnode_tests.h"
+	"stt_where_value_binding_tests.h"
+	"stt_where_value_binding_subnode_tests.h"
+	"stt_where_value_bindings_simple_list_tests.h"
+	"stt_where_value_bindings_subnode_tests.h"
+	"stt_tests.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_where_value_binding_subnode_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_where_value_bindings_subnode_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\stt\stt_tests.h
+	"../tst/tests_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_where_value_binding.c
+	"../asr/assertion.h"
+	"stt_where_value_binding.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\stt\stt_where_value_binding_subnode.c
+	"../asr/assertion.h"
+	"stt_where_value_binding_subnode.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_where_value_binding_subnode_tests.c
+	"../asr/assertion.h"
+	"stt_where_value_binding_subnode.h"
+	"stt_where_value_binding_tests.h"
+	"stt_where_value_binding_subnode_tests.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_where_value_binding_tests.c
+	"../asr/assertion.h"
+	"stt_expression_tests.h"
+	"stt_where_value_binding_tests.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_where_value_bindings_simple_list.c
+	"../asr/assertion.h"
+	"stt_where_value_bindings_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_where_value_bindings_simple_list_tests.c
+	"../asr/assertion.h"
+	"stt_where_value_binding_tests.h"
+	"stt_where_value_bindings_simple_list_tests.h"
+	"stt_where_value_bindings_simple_list_tests.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\stt\stt_where_value_bindings_subnode.c
+	"../asr/assertion.h"
+	"stt_where_value_bindings_subnode.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\stt\stt_where_value_bindings_subnode_tests.c
+	"../asr/assertion.h"
+	"stt_where_value_bindings_subnode.h"
+	"stt_where_value_bindings_subnode_tests.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\tst\tests_pseudo_random_numbers_generation.c
+	<limits.h>
+	<time.h>
+	"../asr/assertion.h"
+	"tests_pseudo_random_numbers_generation.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\tst\tests_pseudo_random_numbers_generation.h
+	"../definitions.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\tst\tests_pseudo_random_numbers_generation_tests.c
+	<stdio.h>
+	"../asr/assertion.h"
+	"tests_pseudo_random_numbers_generation.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\tst\tests_runner.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../arn/app_runner_tests.h"
+	"../arn/arn_tests.h"
+	"../asr/assertion.h"
+	"../brt/basic_arithmetic_tests.h"
+	"../bsn/bison_tests.h"
+	"../bsn/flex_tests.h"
+	"../cmn/common_tests.h"
+	"../prs/persistence_tests.h"
+	"../rtg/rtg_tests.h"
+	"../stt/stt_tests.h"
+	"tests_simple_list_tests.h"
+	"tests_pseudo_random_numbers_generation_tests.h"
+	"tests_runner.h"
+
+1589123406 c:\users\uprego\desktop\amara\src\tst\tests_simple_list_tests.h
+
+1589123406 c:\users\uprego\desktop\amara\src\tst\tests_pseudo_random_numbers_generation_tests.h
+
+1589123406 source:c:\users\uprego\desktop\amara\src\tst\tests_simple_list.c
+	<stdlib.h>
+	"../asr/assertion.h"
+	"tests_pseudo_random_numbers_generation.h"
+	"tests_simple_list.h"
+
+1589123406 source:c:\users\uprego\desktop\amara\src\tst\tests_simple_list_tests.c
+	<stdlib.h>
+	"../asr/assertion.h"
+	"tests_simple_list.h"
+
+1587032010 source:c:\users\uprego\desktop\amara\src\wrp\dirent_wrapper.c
+	<errno.h>
+	<dirent.h>
+	<stdlib.h>
+	"../asr/assertion.h"
+	"dirent_wrapper.h"
+
