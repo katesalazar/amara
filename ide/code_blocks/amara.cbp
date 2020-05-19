@@ -12,6 +12,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="cygwin" />
+				<Option parameters="run tests" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
@@ -21,6 +22,7 @@
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="cygwin" />
+				<Option parameters="run tests" />
 				<Compiler>
 					<Add option="-O2" />
 				</Compiler>
@@ -669,7 +671,7 @@
 		<Unit filename="../../src/wrp/dirent_wrapper.h" />
 		<Extensions>
 			<debugger>
-				<search_path add="..\..\src" />
+				<search_path add="..\..\..\amara" />
 			</debugger>
 		</Extensions>
 	</Project>
