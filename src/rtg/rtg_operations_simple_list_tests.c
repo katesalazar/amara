@@ -358,14 +358,14 @@ rtg_operations_simple_list_transformation_constructor_test_0()
 	assertion(stt_operations_->next == NULL);
 #endif
 
-	transformation_ret_ = rtg_operations_simple_list_out_of_stt_operations_simple_list(stt_operations_, NULL, NULL);
+	transformation_ret_ = rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list(stt_operations_, NULL, NULL);
 #ifndef NDEBUG
 	assertion(stt_operations_->first == NULL);
 	assertion(stt_operations_->next == NULL);
 #endif
 	forced_assertion(transformation_ret_ != NULL);
 	forced_assertion(transformation_ret_->status ==
-			RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
+			RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_AND_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
 	forced_assertion(transformation_ret_->operations != NULL);
 #ifndef NDEBUG
 	assertion(transformation_ret_->operations->first == NULL);
@@ -387,10 +387,10 @@ rtg_operations_simple_list_transformation_constructor_test_1()
 	rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret * transformation_ret_;
 	rtg_operations_simple_list * rtg_operations_;
 
-	transformation_ret_ = rtg_operations_simple_list_out_of_stt_operations_simple_list(NULL, NULL, NULL);
+	transformation_ret_ = rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list(NULL, NULL, NULL);
 	forced_assertion(transformation_ret_ != NULL);
 	forced_assertion(transformation_ret_->status ==
-			RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
+			RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_AND_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
 	forced_assertion(transformation_ret_->operations != NULL);
 #ifndef NDEBUG
 	assertion(transformation_ret_->operations->first == NULL);

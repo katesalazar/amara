@@ -325,9 +325,9 @@ rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list
 	return returning_;
 }
 
-rtg_where_value_bindings_simple_list *
+rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret *
 rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list(
-		stt_where_value_bindings_simple_list * list)
+		const stt_where_value_bindings_simple_list * list)
 {
 	rtg_where_value_bindings_simple_list * returning_;
 

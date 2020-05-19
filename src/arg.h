@@ -19,6 +19,9 @@
 #ifndef __AMARA__ARG__H__
 #define __AMARA__ARG__H__
 
+/*   For `__amara__warn_unused_result__`. */
+#include "definitions.h"
+
 typedef struct {
 
 	unsigned char value;

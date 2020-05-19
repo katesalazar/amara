@@ -75,10 +75,10 @@ typedef struct rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindi
     rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret_status status;
 
     /**  Error messages. */
-    amara_string error_messages;
+    amara_string * error_messages;
 
     /**  The returned list. */
-    rtg_where_value_bindings_simple_list where_value_bindings;
+    rtg_where_value_bindings_simple_list * where_value_bindings;
 } rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret
 ;
 
@@ -86,7 +86,7 @@ typedef struct rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindi
  * no RTG named functions known yet). */
 rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret *
 rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list(
-	stt_where_value_bindings_simple_list * list)
+		const stt_where_value_bindings_simple_list * list)
 __amara__warn_unused_result__
 ;
 
@@ -119,8 +119,8 @@ typedef struct rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindi
 /**  Transformation constructor (general case). */
 rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_ret *
 rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions(
-		stt_where_value_bindings_simple_list * list,
-		rtg_named_functions_simple_list * rtg_named_functions)
+		const stt_where_value_bindings_simple_list * list,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 __amara__warn_unused_result__
 ;
 

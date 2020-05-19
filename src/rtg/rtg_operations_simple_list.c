@@ -138,7 +138,7 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value
 	forced_assertion(input_ret !=
 			NULL);
 
-	if (input_ret->status == RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
+	if (input_ret->status == RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_AND_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS) {
 
 		forced_assertion(input_ret->operations == NULL);
 
@@ -151,7 +151,7 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value
 
 		forced_assertion(input_ret->error_messages == NULL);
 	} else {
-		forced_assertion(input_ret->status == RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION);
+		forced_assertion(input_ret->status == RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_AND_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION);
 
 		forced_assertion(input_ret->error_messages == NULL);
 
@@ -185,7 +185,7 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value
 #endif
 			amara_malloc(sizeof(rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret));
 	forced_assertion(ret_ != NULL);
-	ret_->status = RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_INVALID;
+	ret_->status = RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_AND_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID;
 	ret_->error_messages = NULL;
 	ret_->operations = NULL;
 	if (operations == NULL || operations->first == NULL) {
@@ -196,7 +196,7 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value
 		assertion(ret_list_->next == NULL);
 #endif
 		ret_->operations = ret_list_;
-		ret_->status = RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
+		ret_->status = RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_AND_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
 
 #ifdef DUMP_FLOW_TO_STDERR
 		fprintf(stderr, "%s:%u <---- rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * rtg_operations_simple_list_out_of_stt_operations_simple_list(const stt_operations_simple_list *)\n",
@@ -246,7 +246,7 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value
 		rtg_operation_out_of_stt_operation_ret_destructor(
 				single_operation_transformation_);
 
-		ret_->status = RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION;
+		ret_->status = RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_AND_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION;
 
 		free(ret_list_);  /* XXX */
 
@@ -285,7 +285,7 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value
 	}
 	ret_list_ptr_->next = NULL;
 	ret_->operations = ret_list_;
-	ret_->status = RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
+	ret_->status = RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_AND_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
 
 #ifdef DUMP_FLOW_TO_STDERR
 	fprintf(stderr, "%s:%u <---- rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * rtg_operations_simple_list_out_of_stt_operations_simple_list(const stt_operations_simple_list *)\n",
