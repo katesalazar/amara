@@ -20,6 +20,9 @@
 #ifndef __AMARA__RUN_TIME_GRAPH__WHERE_VALUE_BINDINGS_SIMPLE_LIST__H__
 #define __AMARA__RUN_TIME_GRAPH__WHERE_VALUE_BINDINGS_SIMPLE_LIST__H__
 
+/*   For `__amara__warn_unused_result__`. */
+#include "../definitions.h"
+
 /*   For `stt_where_value_bindings_simple_list`. */
 #include "../stt/stt_where_value_bindings_simple_list.h"
 
@@ -63,11 +66,31 @@ rtg_where_value_bindings_simple_list_push_front(
 __attribute__((warn_unused_result))
 ;
 
+typedef unsigned char rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_ret_status;
+
+#define RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_RET_STATUS_INVALID 0x00
+#define RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_RET_STATUS_SUCCESS (unsigned char) 0x55
+#define RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_RET_STATUS_ERROR ((unsigned char) ~RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_RET_STATUS_SUCCESS)
+
+/**  TODO. */
+typedef struct rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_ret {
+
+	/**  Return status. */
+	rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_ret_status status;
+
+	/**  Error messages. */
+	amara_string error_messages;
+
+	/**  The returned list. */
+	rtg_where_value_bindings_simple_list where_value_bindings;
+} rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_ret
+;
+
 /**  Transformation constructor. */
-rtg_where_value_bindings_simple_list *
-rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list(
+rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_ret *
+rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions(
 		stt_where_value_bindings_simple_list * list)
-__attribute__((warn_unused_result))
+__amara__warn_unused_result__
 ;
 
 #endif
