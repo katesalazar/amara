@@ -42,7 +42,7 @@
 #define AMARA_MAIN_RET_ERR     0x01
 
 unsigned char
-amara_main(const int argc, const char * * argv)
+amara_main(int argc, const char * * argv)
 __attribute__((warn_unused_result))
 ;
 
@@ -164,8 +164,6 @@ main(int argc, const char * * argv)
 	unsigned char amara_main_ret_;
 
 	amara_main_ret_ = amara_main(argc, argv);
-
 	assertion(amara_main_ret_ <= 0x7F);
-
 	return amara_main_ret_;
 }

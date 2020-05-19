@@ -19,6 +19,8 @@
 #ifndef __AMARA__ARG__H__
 #define __AMARA__ARG__H__
 
+#include "definitions.h"
+
 typedef struct {
 
 	unsigned char value;
@@ -33,21 +35,23 @@ typedef struct {
 	char * option_one;
 } arg_ret;
 
-#define ARG_RET_NONE        0x00
-#define ARG_RET_PRINT_HELP 0x01
-#define ARG_RET_RUN_TESTS  0x02
-#define ARG_RET_RUN_APP    0x04
-#define ARG_RET_GREET      0x08
-#define ARG_RET_RUN_SCRAMBLED_TESTS 0x10
-#define ARG_RET_NO_BANNER   0x20
-#define ARG_RET_ASSERT_EXPR 0x40
-#define ARG_RET_ERR        0x80
+#define ARG_RET_NONE                (unsigned char) 0x00
+#define ARG_RET_PRINT_HELP          (unsigned char) 0x01
+#define ARG_RET_RUN_TESTS           (unsigned char) 0x02
+#define ARG_RET_RUN_APP             (unsigned char) 0x04
+#define ARG_RET_GREET               (unsigned char) 0x08
+#define ARG_RET_RUN_SCRAMBLED_TESTS (unsigned char) 0x10
+#define ARG_RET_NO_BANNER           (unsigned char) 0x20
+#define ARG_RET_ASSERT_EXPR         (unsigned char) 0x40
+#define ARG_RET_ERR                 (unsigned char) 0x80
 
 arg_ret *
-arg(const int argc, const char * * argv)
-__attribute__((warn_unused_result));
+arg(int argc, const char * * argv)
+__amara__warn_unused_result__
+;
 
 void
-destroy_arg_ret(arg_ret * arg_ret);
+destroy_arg_ret(arg_ret * arg_ret)
+;
 
 #endif
