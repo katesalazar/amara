@@ -326,7 +326,7 @@ bison_annex_cli_named_function_out_of_token_function_and_token_identifier_and_to
 			STT_NODE_TYPE_IDENTIFIER);
 	assertion(identifier_at_position_twenty_one->identifier_subnode_ !=
 			NULL);
-	if (!amara_string_equality(
+	if (AMARA_BOOLEAN_FALSE == amara_string_equality(
 			identifier_at_position_two->identifier_subnode_->value_,
 			identifier_at_position_twenty_one->identifier_subnode_->value_)) {
 

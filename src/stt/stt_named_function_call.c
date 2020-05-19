@@ -116,7 +116,8 @@ stt_named_function_call_exhaustive_constructor(
 	returning_->call_arguments_ = stt_node_copy_constructor(call_arguments);
 	forced_assertion(returning_->call_arguments_ != NULL);
 
-	returning_->pending_semantic_checks_ = NULL;
+	returning_->pending_semantic_checks_ = stt_named_function_call_pending_semantic_checks_default_constructor();
+	returning_->pending_semantic_checks_->called_function_has_no_return_value_ = AMARA_BOOLEAN_INVALID;
 
 	return returning_;
 }
