@@ -158,8 +158,16 @@ endif
 CFLAGS_RELEASE = -O2 -DNDEBUG
 
 ifeq ($(XCODE), yes)
-BISON_FLAGS ?= --no-lines
+NO_BISON_LINES = yes
 FLEX_FLAGS ?= --noline
+else
+ifeq ($(CLION), yes)
+NO_BISON_LINES = yes
+endif
+endif
+
+ifeq ($(NO_BISON_LINES), yes)
+BISON_FLAGS ?= --no-lines
 endif
 
 ifeq ($(C), g++)

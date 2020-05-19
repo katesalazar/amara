@@ -221,8 +221,8 @@ run_app_main_doc_exists(
 
 #ifndef NDEBUG
 	assertion(main_doc_descriptor != NULL);
-	assertion(app_name != NULL);
 #endif
+	forced_assertion(app_name != NULL);
 
 	minia_bison_main_ret_ = minia_bison_main((FILE *) main_doc_descriptor);
 	forced_assertion(minia_bison_main_ret_ != NULL);
