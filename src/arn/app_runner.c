@@ -173,17 +173,17 @@ run_app_dir_exists(const char * app_name)
 	assertion(app_name_len_ < 0x7F);
 #endif
 	if (app_name[app_name_len_ - 1] == '/') {
-		must_append_slash_ = 0x00;
+		must_append_slash_ = AMARA_BOOLEAN_FALSE;
 	} else {
-		must_append_slash_ = 0xFF;
+		must_append_slash_ = AMARA_BOOLEAN_TRUE;
 	}
-	appended_ = (const char *) malloc(sizeof(MAIN_NAME) + 1);
+	appended_ = (const char *) amara_malloc(sizeof(MAIN_NAME) + 1);
 	forced_assertion(appended_ != NULL);
 	strcpy((char *) appended_, MAIN_NAME);
-	path_to_main_len_ = app_name_len_ + (must_append_slash_ ? 1 : 0) + strlen(appended_);
-	path_to_main_ = (const char *) malloc(path_to_main_len_ + 1);
+	path_to_main_len_ = app_name_len_ + (must_append_slash_ == AMARA_BOOLEAN_TRUE ? 1 : 0) + strlen(appended_);
+	path_to_main_ = (const char *) amara_malloc(path_to_main_len_ + 1);
 	strcpy((char *) path_to_main_, app_name);
-	strcat((char *) path_to_main_, must_append_slash_ ? "/" : "");
+	strcat((char *) path_to_main_, must_append_slash_ == AMARA_BOOLEAN_TRUE ? "/" : "");
 	strcat((char *) path_to_main_, appended_);
 	free((char *) appended_);
 	appended_ = NULL;
@@ -235,8 +235,7 @@ run_app_main_doc_exists(
 
 	dump_syntax_tree(minia_bison_main_ret_);
 
-	look_for_undefined_labels_ret_ =
-			look_for_undefined_labels(minia_bison_main_ret_);
+	look_for_undefined_labels_ret_ = look_for_undefined_labels(minia_bison_main_ret_);
 
 	if (look_for_undefined_labels_ret_->status != LOOK_FOR_UNDEFINED_LABELS_RET_STATUS_OK) {
 #ifndef NDEBUG
