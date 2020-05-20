@@ -301,6 +301,7 @@ rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list
 	rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret * returning_;
 	rtg_where_value_bindings_simple_list * returning_sub_;
 	rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret * recursive_returning_;
+	rtg_where_value_binding_out_of_stt_where_value_binding_ret  * element_transformation_result_;
 
 	if (list == NULL) {
 		returning_sub_ = NULL;
@@ -317,7 +318,11 @@ rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list
 	returning_sub_ = ALLOCATE_rtg_where_value_bindings_simple_list;
 	forced_assertion(returning_sub_ != NULL);
 
-	returning_sub_->first = rtg_where_value_binding_out_of_stt_where_value_binding(list->first);
+	element_transformation_result_ = rtg_where_value_binding_out_of_stt_where_value_binding(list->first);
+	forced_assertion(element_transformation_result_ != NULL);
+	forced_assertion(element_transformation_result_->status == RTG_WHERE_VALUE_BINDING_OUT_OF_STT_WHERE_VALUE_BINDING_RET_STATUS_SUCCESS);
+
+	returning_sub_->first = ...
 	forced_assertion(returning_sub_->first != NULL);
 
 	recursive_returning_ = rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_inner(list->next);
@@ -391,8 +396,21 @@ rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list
 		const stt_where_value_bindings_simple_list * list,
 		const rtg_named_functions_simple_list * rtg_named_functions)
 {
-	forced_assertion(list != NULL);
+	rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret * returning_;
+	rtg_where_value_binding_out_of_stt_where_value_binding_and_rtg_named_functions_simple_list_ret * first_element_returned_;
+
 	forced_assertion(rtg_named_functions != NULL);
+
+	if (list == NULL) {
+		returning_ = ALLOCATE_rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret;
+		forced_assertion(returning_ != NULL);
+		returning_->where_value_bindings = NULL;
+		returning_->error_messages = NULL;
+		returning_->status = RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
+	}
+
+	forced_assertion(list->first != NULL);
+
 
 	forced_assertion(0);
 	return NULL;
