@@ -400,6 +400,7 @@ rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list
 {
 	rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret * returning_;
 	rtg_where_value_binding_out_of_stt_where_value_binding_and_rtg_named_functions_simple_list_ret * first_element_returned_;
+	rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret * recursive_call_results_;
 
 	forced_assertion(rtg_named_functions != NULL);
 
@@ -412,7 +413,13 @@ rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list
 	}
 
 	forced_assertion(list->first != NULL);
+	first_element_returned_ = rtg_where_value_binding_out_of_stt_where_value_binding_and_rtg_named_functions_simple_list(list->first, rtg_named_functions);
+	forced_assertion(first_element_returned_ != NULL);
+	forced_assertion(first_element_returned_->status == RTG_WHERE_VALUE_BINDING_OUT_OF_STT_WHERE_VALUE_BINDING_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
 
+	...
+
+	recursive_call_results_ = ....
 
 	forced_assertion(0);
 	return NULL;

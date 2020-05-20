@@ -140,17 +140,17 @@ rtg_where_value_binding_assert_healthy(
 
 rtg_where_value_binding_out_of_stt_where_value_binding_ret *
 rtg_where_value_binding_out_of_stt_where_value_binding(
-		const stt_where_value_binding * where_value_binding_)
+		const stt_where_value_binding * where_value_binding)
 {
 	rtg_where_value_binding_out_of_stt_where_value_binding_ret * returning_;
 	rtg_expression_out_of_stt_expression_ret * rtg_exp_ret_;
 	rtg_where_value_binding * returning_sub_;
 
-	assertion(where_value_binding_ != NULL);
-	assertion(where_value_binding_->value_name_ != NULL);
-	assertion(where_value_binding_->value_name_->value_ != NULL);
-	assertion(where_value_binding_->value_expression_ != NULL);
-	assertion(where_value_binding_->value_expression_->type_ != STT_EXPRESSION_TYPE_INVALID);
+	assertion(where_value_binding != NULL);
+	assertion(where_value_binding->value_name_ != NULL);
+	assertion(where_value_binding->value_name_->value_ != NULL);
+	assertion(where_value_binding->value_expression_ != NULL);
+	assertion(where_value_binding->value_expression_->type_ != STT_EXPRESSION_TYPE_INVALID);
 
 	returning_ = ALLOCATE_rtg_where_value_binding_out_of_stt_where_value_binding_ret;
 	forced_assertion(returning_ != NULL);
@@ -158,8 +158,7 @@ rtg_where_value_binding_out_of_stt_where_value_binding(
 	returning_sub_ = ALLOCATE_rtg_where_value_binding;
 	forced_assertion(returning_sub_ != NULL);
 
-	returning_sub_->value_name_ = amara_string_copy_constructor(
-			where_value_binding_->value_name_);
+	returning_sub_->value_name_ = amara_string_copy_constructor(where_value_binding->value_name_);
 
 	/*
 
@@ -210,8 +209,7 @@ rtg_where_value_binding_out_of_stt_where_value_binding(
 
 	*/
 
-	rtg_exp_ret_ = rtg_expression_out_of_stt_expression(
-			where_value_binding_->value_expression_);
+	rtg_exp_ret_ = rtg_expression_out_of_stt_expression(where_value_binding->value_expression_);
 #ifndef NDEBUG
 	assertion(rtg_exp_ret_->status ==
 			RTG_EXPRESSION_OUT_OF_STT_EXPRESSION_RET_STATUS_SUCCESS);
