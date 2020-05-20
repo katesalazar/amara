@@ -5,6 +5,26 @@ project(amara C)
 
 set(CMAKE_C_STANDARD 90)
 
+##   https://stackoverflow.com/a/24379666
+#sugar_generate_warning_flags(
+#        target_compile_options
+#        target_properties
+#        ENABLE conversion
+#        TREAT_AS_ERRORS ALL
+#)
+#
+##   https://stackoverflow.com/a/24379666
+#set_target_properties(
+#        foo
+#        PROPERTIES
+#        ${target_properties}
+#        COMPILE_OPTIONS
+#        "${target_compile_options}"
+#)
+
+#   https://stackoverflow.com/a/61381440
+add_compile_options(-Wall -Wextra -Werror -pedantic)
+
 #   XXX ASSUMING CYGWIN.
 add_definitions(-D__CYG__ -DAMARA_USE_STD_C89)
 

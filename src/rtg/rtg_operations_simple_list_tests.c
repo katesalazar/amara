@@ -364,8 +364,7 @@ rtg_operations_simple_list_transformation_constructor_test_0()
 	assertion(stt_operations_->next == NULL);
 #endif
 	forced_assertion(transformation_ret_ != NULL);
-	forced_assertion(transformation_ret_->status ==
-			RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_AND_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
+	forced_assertion(transformation_ret_->status == RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_AND_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
 	forced_assertion(transformation_ret_->operations != NULL);
 #ifndef NDEBUG
 	assertion(transformation_ret_->operations->first == NULL);

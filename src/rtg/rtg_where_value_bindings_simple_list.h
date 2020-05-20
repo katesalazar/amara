@@ -107,12 +107,10 @@ typedef struct rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindi
 	rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_ret_status status;
 
 	/**  Error messages. */
-	amara_string error_messages;
+	amara_string * error_messages;
 
 	/**  The returned list. */
-	/*
-	rtg_where_value_bindings_simple_list where_value_bindings;
-	*/
+	rtg_where_value_bindings_simple_list * where_value_bindings;
 } rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_ret
 ;
 
