@@ -1,4 +1,7 @@
-cmake_minimum_required(VERSION 3.16)
+#   Created by CLion as requiring 3.16, moved down to 3.14 in order to
+# be used from Cygwin's CMake outside CLion.
+cmake_minimum_required(VERSION 3.14)
+
 project(amara C)
 
 set(CMAKE_C_STANDARD 90)
