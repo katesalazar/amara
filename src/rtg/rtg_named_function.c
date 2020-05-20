@@ -19,7 +19,9 @@
 
 /*   For `int fprintf(FILE * restrict stream,
  * const char * restrict format, ...)`. */
+/*
 #include <stdio.h>
+*/
 
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
@@ -280,7 +282,7 @@ rtg_named_function_out_of_stt_named_function(
 	forced_assertion(ret_->named_function != NULL);
 
 	where_value_bindings_sub_ret_ = rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list(named_function->where_value_bindings_);
-	forced_assertion(where_value_bindings_sub_ret_->status == RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_RET_STATUS_SUCCESS);
+	forced_assertion(where_value_bindings_sub_ret_->status == RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
 	forced_assertion(where_value_bindings_sub_ret_->error_messages == NULL);
 	forced_assertion(where_value_bindings_sub_ret_->where_value_bindings != NULL);
 	where_value_bindings_sub_ret_sub_ = where_value_bindings_sub_ret_->where_value_bindings;
@@ -403,7 +405,7 @@ rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list
 #ifndef NDEBUG
 	amara_boolean equality_;
 #endif
-	rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_ret * where_value_bindings_sub_ret_;
+	rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret * where_value_bindings_sub_ret_;
 	rtg_where_value_bindings_simple_list * where_value_bindings_sub_ret_sub_;
 
 	/*
@@ -425,9 +427,9 @@ rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list
 	ret_->named_function = rtg_named_function_default_constructor();
 	forced_assertion(ret_->named_function != NULL);
 
-	where_value_bindings_sub_ret_ = rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions(stt_named_function->where_value_bindings_, rtg_named_functions);
+	where_value_bindings_sub_ret_ = rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list(stt_named_function->where_value_bindings_, rtg_named_functions);
 	forced_assertion(where_value_bindings_sub_ret_ != NULL);
-	forced_assertion(where_value_bindings_sub_ret_->status == RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_RET_STATUS_SUCCESS);
+	forced_assertion(where_value_bindings_sub_ret_->status == RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS);
 	forced_assertion(where_value_bindings_sub_ret_->error_messages == NULL);
 	forced_assertion(where_value_bindings_sub_ret_->where_value_bindings != NULL);
 

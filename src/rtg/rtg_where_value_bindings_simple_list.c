@@ -30,9 +30,11 @@
 #include "rtg_where_value_bindings_simple_list.h"
 
 #if defined AMARA_USE_STD_C89
+#define ALLOCATE_rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret amara_malloc(sizeof(rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret))
 #define ALLOCATE_rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret amara_malloc(sizeof(rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret))
 #define ALLOCATE_rtg_where_value_bindings_simple_list amara_malloc(sizeof(rtg_where_value_bindings_simple_list))
 #elif defined AMARA_USE_STD_CXX98
+#define ALLOCATE_rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret (rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret *) amara_malloc(sizeof(rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret))
 #define ALLOCATE_rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret (rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret *) amara_malloc(sizeof(rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret))
 #define ALLOCATE_rtg_where_value_bindings_simple_list (rtg_where_value_bindings_simple_list *) amara_malloc(sizeof(rtg_where_value_bindings_simple_list))
 #else
@@ -302,6 +304,12 @@ rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list
 
 	if (list == NULL) {
 		returning_sub_ = NULL;
+		returning_ = ALLOCATE_rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret;
+		forced_assertion(returning_ != NULL);
+		returning_->error_messages = NULL;
+		returning_->where_value_bindings = NULL;
+		returning_->status = RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_RET_STATUS_SUCCESS;
+		return returning_;
 	}
 
 	assertion(list->first != NULL);
@@ -317,13 +325,19 @@ rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list
 
 	forced_assertion(recursive_returning_->status == RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_RET_STATUS_SUCCESS);
 	forced_assertion(recursive_returning_->error_messages == NULL);
-	forced_assertion(recursive_returning_->where_value_bindings != NULL);
-
-	returning_sub_->next = recursive_returning_->where_value_bindings;
-	recursive_returning_->where_value_bindings = NULL;
+	if (recursive_returning_->where_value_bindings == NULL) {
+		returning_sub_->next = NULL;
+	} else {
+		returning_sub_->next = recursive_returning_->where_value_bindings;
+		recursive_returning_->where_value_bindings = NULL;
+	}
 
 	returning_ = ALLOCATE_rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret;
 	forced_assertion(returning_ != NULL);
+
+	returning_->where_value_bindings = returning_sub_;
+	returning_->error_messages = NULL;
+	returning_->status = RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_RET_STATUS_SUCCESS;
 
 	return returning_;
 }
@@ -346,10 +360,6 @@ rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list
 	rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret * returning_;
 	rtg_where_value_bindings_simple_list * returning_sub_;
 
-	/* if (list == NULL) { *//* XXX *//*
-		return NULL; *//* XXX *//*
-	} *//* XXX */
-
 	assertion(list != NULL);
 
 	if (list->first == NULL) {
@@ -369,14 +379,48 @@ rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list
 	return rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_inner(list);
 }
 
-rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_ret *
-rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions(
-	const stt_where_value_bindings_simple_list * list,
-	const rtg_named_functions_simple_list * rtg_named_functions)
+rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret *
+rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_inner(
+		const stt_where_value_bindings_simple_list * list,
+		const rtg_named_functions_simple_list * rtg_named_functions)
+__amara__warn_unused_result__
+;
+
+rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret *
+rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_inner(
+		const stt_where_value_bindings_simple_list * list,
+		const rtg_named_functions_simple_list * rtg_named_functions)
 {
 	forced_assertion(list != NULL);
 	forced_assertion(rtg_named_functions != NULL);
 
 	forced_assertion(0);
 	return NULL;
+}
+
+rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret *
+rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list(
+		const stt_where_value_bindings_simple_list * list,
+		const rtg_named_functions_simple_list * rtg_named_functions)
+{
+	rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret * returning_;
+	rtg_where_value_bindings_simple_list * returning_sub_;
+
+	assertion(list != NULL);
+
+	if (list->first == NULL) {
+		returning_sub_ = rtg_where_value_bindings_simple_list_default_constructor();
+		forced_assertion(returning_sub_ != NULL);
+
+		returning_ = ALLOCATE_rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret;
+		forced_assertion(returning_ != NULL);
+
+		returning_->error_messages = NULL;
+		returning_->where_value_bindings = returning_sub_;
+		returning_->status = RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
+
+		return returning_;
+	}
+
+	return rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_inner(list, rtg_named_functions);
 }
