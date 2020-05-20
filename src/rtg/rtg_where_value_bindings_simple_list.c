@@ -368,3 +368,15 @@ rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list
 
 	return rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_inner(list);
 }
+
+rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions_ret *
+rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_and_rtg_named_functions(
+	const stt_where_value_bindings_simple_list * list,
+	const rtg_named_functions_simple_list * rtg_named_functions)
+{
+	forced_assertion(list != NULL);
+	forced_assertion(rtg_named_functions != NULL);
+
+	forced_assertion(0);
+	return NULL;
+}
