@@ -66,6 +66,11 @@ typedef struct rtg_where_value_binding_out_of_stt_where_value_binding_ret {
 } rtg_where_value_binding_out_of_stt_where_value_binding_ret
 ;
 
+void
+rtg_where_value_binding_out_of_stt_where_value_binding_ret_destructor(
+		rtg_where_value_binding_out_of_stt_where_value_binding_ret * input_ret)
+;
+
 /**  Transformation constructor. */
 rtg_where_value_binding_out_of_stt_where_value_binding_ret *
 rtg_where_value_binding_out_of_stt_where_value_binding(

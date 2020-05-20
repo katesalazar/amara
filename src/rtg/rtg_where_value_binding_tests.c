@@ -30,22 +30,35 @@ rtg_where_value_binding *
 rtg_where_value_binding_example_bind_value_foo_to_expression_natural_zero(void)
 {
 	stt_where_value_binding * stt_where_value_binding_;
+	rtg_where_value_binding_out_of_stt_where_value_binding_ret * returning_nest_;
 	rtg_where_value_binding * returning_;
 
-	stt_where_value_binding_ =
-			stt_where_value_binding_example_simple_value_bind_foo_to_zero();
+	stt_where_value_binding_ = stt_where_value_binding_example_simple_value_bind_foo_to_zero();
+	forced_assertion(stt_where_value_binding_ != NULL);
 #ifndef NDEBUG
 	assert_expectations_on_stt_where_value_binding_example_simple_value_bind_foo_to_zero(
 			stt_where_value_binding_);
 #endif
 
-	returning_ = rtg_where_value_binding_out_of_stt_where_value_binding(
+	returning_nest_ = rtg_where_value_binding_out_of_stt_where_value_binding(
 			stt_where_value_binding_);
 #ifndef NDEBUG
+	assert_expectations_on_stt_where_value_binding_example_simple_value_bind_foo_to_zero(
+			stt_where_value_binding_);
+#endif
+	forced_assertion(returning_nest_ != NULL);
+	forced_assertion(returning_nest_->status == RTG_WHERE_VALUE_BINDING_OUT_OF_STT_WHERE_VALUE_BINDING_RET_STATUS_SUCCESS);
+	forced_assertion(returning_nest_->error_messages == NULL);
+	forced_assertion(returning_nest_->where_value_binding != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_where_value_binding_example_bind_value_foo_to_expression_natural_zero(
-			returning_);
+			returning_nest_->where_value_binding);
 #endif
 
+	returning_ = returning_nest_->where_value_binding;
+	returning_nest_->where_value_binding = NULL;
+
+	rtg_where_value_binding_out_of_stt_where_value_binding_ret_destructor(returning_nest_);
 	stt_where_value_binding_destructor(stt_where_value_binding_);
 
 	return returning_;
@@ -87,22 +100,35 @@ rtg_where_value_binding *
 rtg_where_value_binding_example_bind_value_bar_to_expression_natural_one(void)
 {
 	stt_where_value_binding * stt_where_value_binding_;
+	rtg_where_value_binding_out_of_stt_where_value_binding_ret * returning_nest_;
 	rtg_where_value_binding * returning_;
 
-	stt_where_value_binding_ =
-			stt_where_value_binding_example_simple_value_bind_bar_to_one();
+	stt_where_value_binding_ = stt_where_value_binding_example_simple_value_bind_bar_to_one();
+	forced_assertion(stt_where_value_binding_ != NULL);
 #ifndef NDEBUG
 	assert_expectations_on_stt_where_value_binding_example_simple_value_bind_bar_to_one(
 			stt_where_value_binding_);
 #endif
 
-	returning_ = rtg_where_value_binding_out_of_stt_where_value_binding(
+	returning_nest_ = rtg_where_value_binding_out_of_stt_where_value_binding(
 			stt_where_value_binding_);
 #ifndef NDEBUG
+	assert_expectations_on_stt_where_value_binding_example_simple_value_bind_bar_to_one(
+			stt_where_value_binding_);
+#endif
+	forced_assertion(returning_nest_ != NULL);
+	forced_assertion(returning_nest_->status == RTG_WHERE_VALUE_BINDING_OUT_OF_STT_WHERE_VALUE_BINDING_RET_STATUS_SUCCESS);
+	forced_assertion(returning_nest_->error_messages == NULL);
+	forced_assertion(returning_nest_->where_value_binding != NULL);
+#ifndef NDEBUG
 	assert_expectations_on_rtg_where_value_binding_example_bind_value_bar_to_expression_natural_one(
-			returning_);
+			returning_nest_->where_value_binding);
 #endif
 
+	returning_ = returning_nest_->where_value_binding;
+	returning_nest_->where_value_binding = NULL;
+
+	rtg_where_value_binding_out_of_stt_where_value_binding_ret_destructor(returning_nest_);
 	stt_where_value_binding_destructor(stt_where_value_binding_);
 
 	return returning_;

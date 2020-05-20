@@ -321,9 +321,11 @@ rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list
 	element_transformation_result_ = rtg_where_value_binding_out_of_stt_where_value_binding(list->first);
 	forced_assertion(element_transformation_result_ != NULL);
 	forced_assertion(element_transformation_result_->status == RTG_WHERE_VALUE_BINDING_OUT_OF_STT_WHERE_VALUE_BINDING_RET_STATUS_SUCCESS);
+	forced_assertion(element_transformation_result_->error_messages == NULL);
+	forced_assertion(element_transformation_result_->where_value_binding != NULL);
 
-	returning_sub_->first = ...
-	forced_assertion(returning_sub_->first != NULL);
+	returning_sub_->first = element_transformation_result_->where_value_binding;
+	element_transformation_result_->where_value_binding = NULL;
 
 	recursive_returning_ = rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_inner(list->next);
 	forced_assertion(recursive_returning_ != NULL);

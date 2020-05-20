@@ -35,6 +35,7 @@
 #include "rtg_where_value_binding.h"
 
 #if defined AMARA_USE_STD_C89
+#define ALLOCATE_rtg_where_value_binding_out_of_stt_where_value_binding_ret amara_malloc(sizeof(rtg_where_value_binding_out_of_stt_where_value_binding_ret))
 #define ALLOCATE_rtg_where_value_binding amara_malloc(sizeof(rtg_where_value_binding))
 #elif defined AMARA_USE_STD_CXX98
 #define ALLOCATE_rtg_where_value_binding (rtg_where_value_binding *) amara_malloc(sizeof(rtg_where_value_binding))
@@ -149,13 +150,15 @@ rtg_where_value_binding_out_of_stt_where_value_binding(
 	assertion(where_value_binding_->value_name_ != NULL);
 	assertion(where_value_binding_->value_name_->value_ != NULL);
 	assertion(where_value_binding_->value_expression_ != NULL);
-	assertion(where_value_binding_->value_expression_->type_ !=
-			STT_EXPRESSION_TYPE_INVALID);
+	assertion(where_value_binding_->value_expression_->type_ != STT_EXPRESSION_TYPE_INVALID);
 
-	returning_ = ALLOCATE_rtg_where_value_binding;
+	returning_ = ALLOCATE_rtg_where_value_binding_out_of_stt_where_value_binding_ret;
 	forced_assertion(returning_ != NULL);
 
-	returning_->value_name_ = amara_string_copy_constructor(
+	returning_sub_ = ALLOCATE_rtg_where_value_binding;
+	forced_assertion(returning_sub_ != NULL);
+
+	returning_sub_->value_name_ = amara_string_copy_constructor(
 			where_value_binding_->value_name_);
 
 	/*
@@ -215,9 +218,12 @@ rtg_where_value_binding_out_of_stt_where_value_binding(
 	assertion(rtg_exp_ret_->expression != NULL);
 #endif
 
-	returning_->value_expression_ = rtg_exp_ret_->expression;
+	returning_sub_->value_expression_ = rtg_exp_ret_->expression;
 	rtg_exp_ret_->expression = NULL;
 	rtg_expression_out_of_stt_expression_ret_destructor(rtg_exp_ret_);
 
+	returning_->where_value_binding = returning_sub_;
+	returning_->error_messages = NULL;
+	returning_->status = RTG_WHERE_VALUE_BINDING_OUT_OF_STT_WHERE_VALUE_BINDING_RET_STATUS_SUCCESS;
 	return returning_;
 }
