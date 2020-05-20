@@ -179,11 +179,15 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value
 			__FILE__, __LINE__);
 #endif
 
-	ret_ =
-#ifdef AMARA_USE_STD_CXX98
-			(rtg_operations_simple_list_out_of_stt_operations_simple_list_ret *)
+	forced_assertion(rtg_named_functions == NULL);  /* XXX */
+
+#if defined AMARA_USE_STD_C89
+	ret_ = amara_malloc(sizeof(rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret));
+#elif defined AMARA_USE_STD_CXX98
+	ret_ = (rtg_operations_simple_list_out_of_stt_operations_simple_list_ret *) amara_malloc(sizeof(rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret));
+#else
+	PREPROCESSOR_FATAL;
 #endif
-			amara_malloc(sizeof(rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret));
 	forced_assertion(ret_ != NULL);
 	ret_->status = RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_AND_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID;
 	ret_->error_messages = NULL;
@@ -207,11 +211,14 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value
 	}
 	assertion(operations->first != NULL);
 
-	ret_list_ =
-#ifdef AMARA_USE_STD_CXX98
-			(rtg_operations_simple_list *)
+#if defined AMARA_USE_STD_C89
+	ret_list_ = amara_malloc(sizeof(rtg_operations_simple_list));
+#elif defined AMARA_USE_STD_CXX98
+	ret_list_ = (rtg_operations_simple_list *) amara_malloc(sizeof(rtg_operations_simple_list));
+#else
+	PREPROCESSOR_FATAL;
 #endif
-			malloc(sizeof(rtg_operations_simple_list));
+
 	forced_assertion(ret_list_ != NULL);
 
 #ifndef NDEBUG
@@ -219,32 +226,23 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value
 	ret_list_->next = NULL;
 #endif
 
-	single_operation_transformation_ =
-			rtg_operation_out_of_stt_operation(
-					operations->first,
-					function_where_bindings);
+	single_operation_transformation_ = rtg_operation_out_of_stt_operation(operations->first, function_where_bindings);
 	forced_assertion(single_operation_transformation_ != NULL);
 
-	if (single_operation_transformation_->status !=
-			RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS) {
+	if (single_operation_transformation_->status != RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS) {
 
-		forced_assertion(single_operation_transformation_->status ==
-				RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER);
+		forced_assertion(single_operation_transformation_->status == RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER);
 
-		forced_assertion(single_operation_transformation_->error_messages !=
-				NULL);
+		forced_assertion(single_operation_transformation_->error_messages != NULL);
 
-		forced_assertion(single_operation_transformation_->operation ==
-				NULL);
+		forced_assertion(single_operation_transformation_->operation == NULL);
 
 		ret_->operations = NULL;
 
-		ret_->error_messages =
-				single_operation_transformation_->error_messages;
+		ret_->error_messages = single_operation_transformation_->error_messages;
 		single_operation_transformation_->error_messages = NULL;
 
-		rtg_operation_out_of_stt_operation_ret_destructor(
-				single_operation_transformation_);
+		rtg_operation_out_of_stt_operation_ret_destructor(single_operation_transformation_);
 
 		ret_->status = RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_AND_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_ERROR_UNABLE_TO_RESOLVE_AT_LEAST_ONE_IDENTIFIER_IN_AT_LEAST_ONE_OPERATION;
 
@@ -253,12 +251,10 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value
 		return ret_;
 	}
 
-	assertion(single_operation_transformation_->status ==
-			RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS);
+	assertion(single_operation_transformation_->status == RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS);
 	new_rtg_op_ = single_operation_transformation_->operation;
 	single_operation_transformation_->operation = NULL;
-	rtg_operation_out_of_stt_operation_ret_destructor(
-			single_operation_transformation_);
+	rtg_operation_out_of_stt_operation_ret_destructor(single_operation_transformation_);
 	ret_list_->first = new_rtg_op_;
 	operations_ptr_ = operations;
 	ret_list_ptr_ = ret_list_;
@@ -267,18 +263,13 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value
 #ifdef AMARA_USE_STD_CXX98
 				(rtg_operations_simple_list *)
 #endif
-				malloc(sizeof(rtg_operations_simple_list));
+				amara_malloc(sizeof(rtg_operations_simple_list));
 		forced_assertion(ret_list_ptr_->next != NULL);
-		single_operation_transformation_ =
-				rtg_operation_out_of_stt_operation(
-						operations_ptr_->next->first,
-						function_where_bindings);
-		assertion(single_operation_transformation_->status ==
-				RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS);
+		single_operation_transformation_ = rtg_operation_out_of_stt_operation(operations_ptr_->next->first, function_where_bindings);
+		assertion(single_operation_transformation_->status == RTG_OPERATION_OUT_OF_STT_OPERATION_RET_STATUS_SUCCESS);
 		new_rtg_op_ = single_operation_transformation_->operation;
 		single_operation_transformation_->operation = NULL;
-		rtg_operation_out_of_stt_operation_ret_destructor(
-				single_operation_transformation_);
+		rtg_operation_out_of_stt_operation_ret_destructor(single_operation_transformation_);
 		ret_list_ptr_->next->first = new_rtg_op_;
 		operations_ptr_ = operations_ptr_->next;
 		ret_list_ptr_ = ret_list_ptr_->next;
@@ -288,8 +279,7 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value
 	ret_->status = RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_AND_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_SUCCESS;
 
 #ifdef DUMP_FLOW_TO_STDERR
-	fprintf(stderr, "%s:%u <---- rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * rtg_operations_simple_list_out_of_stt_operations_simple_list(const stt_operations_simple_list *)\n",
-			__FILE__, __LINE__);
+	fprintf(stderr, "%s:%u <---- rtg_operations_simple_list_out_of_stt_operations_simple_list_ret * rtg_operations_simple_list_out_of_stt_operations_simple_list(const stt_operations_simple_list *)\n", __FILE__, __LINE__);
 #endif
 
 	return ret_;

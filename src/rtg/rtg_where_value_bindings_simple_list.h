@@ -68,6 +68,8 @@ __attribute__((warn_unused_result))
 
 typedef unsigned char rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret_status;
 
+#define RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_RET_STATUS_SUCCESS 0x55
+
 /**  TODO. */
 typedef struct rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret {
 
