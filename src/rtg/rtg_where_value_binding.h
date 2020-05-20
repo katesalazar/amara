@@ -33,7 +33,7 @@
 rtg_where_value_binding *
 rtg_where_value_binding_copy_constructor(
 		const rtg_where_value_binding * where_value_binding_)
-__attribute__((warn_unused_result))
+__amara__warn_unused_result__
 ;
 
 /**  Destructor. */
@@ -75,7 +75,7 @@ rtg_where_value_binding_out_of_stt_where_value_binding_ret_destructor(
 rtg_where_value_binding_out_of_stt_where_value_binding_ret *
 rtg_where_value_binding_out_of_stt_where_value_binding(
 		const stt_where_value_binding * where_value_binding)
-__attribute__((warn_unused_result))
+__amara__warn_unused_result__
 ;
 
 typedef unsigned char rtg_where_value_binding_out_of_stt_where_value_binding_and_rtg_named_functions_simple_list_ret_status;
@@ -92,16 +92,19 @@ typedef struct rtg_where_value_binding_out_of_stt_where_value_binding_and_rtg_na
 } rtg_where_value_binding_out_of_stt_where_value_binding_and_rtg_named_functions_simple_list_ret
 ;
 
+/*
 void
 rtg_where_value_binding_out_of_stt_where_value_binding_and_rtg_named_functions_simple_list_ret_destructor(
 		rtg_where_value_binding_out_of_stt_where_value_binding_and_rtg_named_functions_simple_list_ret * input_ret)
 ;
+ */
 
 /**  Transformation constructor. */
 rtg_where_value_binding_out_of_stt_where_value_binding_and_rtg_named_functions_simple_list_ret *
 rtg_where_value_binding_out_of_stt_where_value_binding_and_rtg_named_functions_simple_list(
 		const stt_where_value_binding * where_value_binding,
 		const rtg_named_functions_simple_list * rtg_named_functions)
-__attribute__((warn_unused_result))
+__amara__warn_unused_result__
 ;
+
 #endif

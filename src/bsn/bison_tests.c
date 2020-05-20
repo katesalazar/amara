@@ -208,7 +208,16 @@ bison_test_11()
 {
 	char ret_;
 
-	ret_ = run_app("./res/tst/function_call/");
+	ret_ = run_app("./res/tst/function_call_0/");
+	forced_assertion(ret_ == APP_RUNNER_RUN_APP_RET_SUCCESS);
+}
+
+void
+bison_test_12()
+{
+	char ret_;
+
+	ret_ = run_app("./res/tst/function_call_1/");
 	forced_assertion(ret_ == APP_RUNNER_RUN_APP_RET_SUCCESS);
 }
 
@@ -287,6 +296,8 @@ bison_tests(void)
 
 	bison_test_11();
 
+	bison_test_12();
+
 #ifdef __APPLE__
 	} else {
 
@@ -314,5 +325,6 @@ register_bison_tests(tests_simple_list * tests)
 	tests_simple_list_push_back(tests, & bison_test_9);
 	tests_simple_list_push_back(tests, & bison_test_10);
 	tests_simple_list_push_back(tests, & bison_test_11);
+	tests_simple_list_push_back(tests, & bison_test_12);
 	return tests;
 }

@@ -29,17 +29,21 @@
 /*   For own definitions. */
 #include "rtg_operations_simple_list.h"
 
+#if defined AMARA_USE_STD_C89
+#define ALLOCATE_rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret amara_malloc(sizeof(rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret))
+#define ALLOCATE_rtg_operations_simple_list amara_malloc(sizeof(rtg_operations_simple_list))
+#else
+#define ALLOCATE_rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret PREPROCESSOR_FATAL
+#endif
+
 rtg_operations_simple_list *
 rtg_operations_simple_list_default_constructor()
 {
 	rtg_operations_simple_list * ret_;
 
-	ret_ =
-#ifdef AMARA_USE_STD_CXX98
-			(rtg_operations_simple_list *)
-#endif
-			malloc(sizeof(rtg_operations_simple_list));
+	ret_ = ALLOCATE_rtg_operations_simple_list;
 	forced_assertion(ret_ != NULL);
+
 	ret_->first = NULL;
 	ret_->next = NULL;
 
@@ -179,15 +183,13 @@ rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value
 			__FILE__, __LINE__);
 #endif
 
-	forced_assertion(rtg_named_functions == NULL);  /* XXX */
+	if (rtg_named_functions == NULL) {
+		forced_assertion(rtg_named_functions == NULL);
+	} else {
+		forced_assertion(rtg_named_functions != NULL);
+	}
 
-#if defined AMARA_USE_STD_C89
-	ret_ = amara_malloc(sizeof(rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret));
-#elif defined AMARA_USE_STD_CXX98
-		ret_ = (rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret *) amara_malloc(sizeof(rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret));
-#else
-	PREPROCESSOR_FATAL;
-#endif
+	ret_ = ALLOCATE_rtg_operations_simple_list_out_of_stt_operations_simple_list_and_stt_where_value_bindings_simple_list_and_rtg_named_functions_simple_list_ret;
 	forced_assertion(ret_ != NULL);
 	ret_->status = RTG_OPERATIONS_SIMPLE_LIST_OUT_OF_STT_OPERATIONS_SIMPLE_LIST_AND_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_AND_RTG_NAMED_FUNCTIONS_SIMPLE_LIST_RET_STATUS_INVALID;
 	ret_->error_messages = NULL;

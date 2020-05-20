@@ -32,16 +32,19 @@
 /*   For own definitions. */
 #include "rtg_named_function.h"
 
+#if defined AMARA_USE_STD_C89
+#define ALLOCATE_rtg_named_function_out_of_stt_named_function_ret amara_malloc(sizeof(rtg_named_function_out_of_stt_named_function_ret))
+#define ALLOCATE_rtg_named_function amara_malloc(sizeof(rtg_named_function))
+#else
+#define ALLOCATE_rtg_named_function_out_of_stt_named_function_ret PREPROCESSOR_FATAL
+#endif
+
 rtg_named_function *
 rtg_named_function_default_constructor()
 {
 	rtg_named_function * ret_;
 
-	ret_ =
-#ifdef AMARA_USE_STD_CXX98
-			(rtg_named_function *)
-#endif
-			malloc(sizeof(rtg_named_function));
+	ret_ = ALLOCATE_rtg_named_function;
 	forced_assertion(ret_ != NULL);
 
 	ret_->where_value_bindings_ = NULL;
@@ -69,11 +72,7 @@ rtg_named_function_exhaustive_constructor(
 		assertion(type != RTG_NAMED_FUNCTION_TYPE_INVALID);
 	}
 
-	ret_ =
-#ifdef AMARA_USE_STD_CXX98
-			(rtg_named_function *)
-#endif
-			malloc(sizeof(rtg_named_function));
+	ret_ = ALLOCATE_rtg_named_function;
 	forced_assertion(ret_ != NULL);
 
 #ifndef NDEBUG
@@ -413,11 +412,7 @@ rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list
 			__FILE__, __LINE__);
 	*/
 
-#ifdef AMARA_USE_STD_CXX98
-	ret_ = (rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list_ret *) malloc(sizeof(rtg_named_function_out_of_stt_named_function_and_rtg_named_functions_simple_list_ret));
-#else
-	ret_ = malloc(sizeof(rtg_named_function_out_of_stt_named_function_ret));
-#endif
+	ret_ = ALLOCATE_rtg_named_function_out_of_stt_named_function_ret;
 	forced_assertion(ret_ != NULL);
 
 	ret_->status = RTG_NAMED_FUNCTION_OUT_OF_STT_NAMED_FUNCTION_RET_STATUS_INVALID;

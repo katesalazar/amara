@@ -138,6 +138,17 @@ rtg_where_value_binding_assert_healthy(
 
 #endif
 
+void
+rtg_where_value_binding_out_of_stt_where_value_binding_ret_destructor(
+		rtg_where_value_binding_out_of_stt_where_value_binding_ret * input_ret)
+{
+	forced_assertion(input_ret != NULL);
+	forced_assertion(input_ret->status == RTG_WHERE_VALUE_BINDING_OUT_OF_STT_WHERE_VALUE_BINDING_RET_STATUS_SUCCESS);
+	forced_assertion(input_ret->error_messages == NULL);
+	forced_assertion(input_ret->where_value_binding == NULL);
+	amara_free(input_ret);
+}
+
 rtg_where_value_binding_out_of_stt_where_value_binding_ret *
 rtg_where_value_binding_out_of_stt_where_value_binding(
 		const stt_where_value_binding * where_value_binding)
@@ -146,11 +157,101 @@ rtg_where_value_binding_out_of_stt_where_value_binding(
 	rtg_expression_out_of_stt_expression_ret * rtg_exp_ret_;
 	rtg_where_value_binding * returning_sub_;
 
-	assertion(where_value_binding != NULL);
-	assertion(where_value_binding->value_name_ != NULL);
-	assertion(where_value_binding->value_name_->value_ != NULL);
-	assertion(where_value_binding->value_expression_ != NULL);
-	assertion(where_value_binding->value_expression_->type_ != STT_EXPRESSION_TYPE_INVALID);
+	forced_assertion(where_value_binding != NULL);
+	forced_assertion(where_value_binding->value_name_ != NULL);
+	forced_assertion(where_value_binding->value_name_->value_ != NULL);
+	forced_assertion(where_value_binding->value_expression_ != NULL);
+	forced_assertion(where_value_binding->value_expression_->type_ != STT_EXPRESSION_TYPE_INVALID);
+
+	returning_ = ALLOCATE_rtg_where_value_binding_out_of_stt_where_value_binding_ret;
+	forced_assertion(returning_ != NULL);
+
+	returning_sub_ = ALLOCATE_rtg_where_value_binding;
+	forced_assertion(returning_sub_ != NULL);
+
+	returning_sub_->value_name_ = amara_string_copy_constructor(where_value_binding->value_name_);
+
+	/*
+
+	returning_->value_expression_ = rtg_expression_default_constructor();
+
+	if (where_value_binding_->value_expression_->type_ ==
+			STT_EXPRESSION_TYPE_DICE) {
+
+		stt_expression_assert_clean_dice(
+				where_value_binding_->value_expression_*//*->sub_dice_*//*);*/
+
+		/*
+		returning_->value_expression_->sub_dice_ =
+				rtg_expression_sub_dice_out_of_stt_expression_sub_dice(
+						where_value_binding_->value_expression_->sub_dice_);
+
+		returning_->value_expression_->type_ =
+				RTG_EXPRESSION_TYPE_DICE;
+		*/
+
+	/*
+
+		fixme
+		rtg_expression_set_dice(;
+	} else {
+		assertion(where_value_binding_->value_expression_->type_ ==
+				STT_EXPRESSION_TYPE_CONDITIONAL);
+
+		stt_expression_assert_clean_conditional(
+				where_value_binding_->value_expression_*//*->sub_conditional_*//*);
+
+	*/
+
+		/*
+		returning_->value_expression_->sub_conditional_ =
+				rtg_expression_sub_conditional_out_of_stt_expression_sub_conditional(
+						where_value_binding_->value_expression_->sub_conditional_);
+
+		returning_->value_expression_->type_ =
+				RTG_EXPRESSION_TYPE_CONDITIONAL;
+		*/
+
+	/*
+
+		fixme
+		;
+	}
+
+	*/
+
+	rtg_exp_ret_ = rtg_expression_out_of_stt_expression(where_value_binding->value_expression_);
+#ifndef NDEBUG
+	assertion(rtg_exp_ret_->status ==
+			RTG_EXPRESSION_OUT_OF_STT_EXPRESSION_RET_STATUS_SUCCESS);
+	assertion(rtg_exp_ret_->expression != NULL);
+#endif
+
+	returning_sub_->value_expression_ = rtg_exp_ret_->expression;
+	rtg_exp_ret_->expression = NULL;
+	rtg_expression_out_of_stt_expression_ret_destructor(rtg_exp_ret_);
+
+	returning_->where_value_binding = returning_sub_;
+	returning_->error_messages = NULL;
+	returning_->status = RTG_WHERE_VALUE_BINDING_OUT_OF_STT_WHERE_VALUE_BINDING_RET_STATUS_SUCCESS;
+	return returning_;
+}
+
+rtg_where_value_binding_out_of_stt_where_value_binding_and_rtg_named_functions_simple_list_ret *
+rtg_where_value_binding_out_of_stt_where_value_binding_and_rtg_named_functions_simple_list(
+		const stt_where_value_binding * where_value_binding,
+		const rtg_named_functions_simple_list * rtg_named_functions)
+{
+	rtg_where_value_binding_out_of_stt_where_value_binding_and_rtg_named_functions_simple_list_ret * returning_;
+	rtg_expression_out_of_stt_expression_ret * rtg_exp_ret_;
+	rtg_where_value_binding * returning_sub_;
+
+	forced_assertion(where_value_binding != NULL);
+	forced_assertion(where_value_binding->value_name_ != NULL);
+	forced_assertion(where_value_binding->value_name_->value_ != NULL);
+	forced_assertion(where_value_binding->value_expression_ != NULL);
+	forced_assertion(where_value_binding->value_expression_->type_ != STT_EXPRESSION_TYPE_INVALID);
+	forced_assertion(rtg_named_functions != NULL);
 
 	returning_ = ALLOCATE_rtg_where_value_binding_out_of_stt_where_value_binding_ret;
 	forced_assertion(returning_ != NULL);
