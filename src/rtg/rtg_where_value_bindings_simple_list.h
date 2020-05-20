@@ -38,7 +38,7 @@ __attribute__((warn_unused_result))
 /**  Copy constructor. */
 rtg_where_value_bindings_simple_list *
 rtg_where_value_bindings_simple_list_copy_constructor(
-         const rtg_where_value_bindings_simple_list * list)
+		const rtg_where_value_bindings_simple_list * list)
 __attribute__((warn_unused_result))
 ;
 
