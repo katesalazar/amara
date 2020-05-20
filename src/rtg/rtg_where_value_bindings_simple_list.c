@@ -17,6 +17,9 @@
  * _where_ value bindings simple list.
  */
 
+/*   For `PREPROCESSOR_FATAL`. */
+#include "../macros.h"
+
 /*   For `void assertion(int expression)`. */
 #include "../asr/assertion.h"
 
@@ -26,16 +29,23 @@
 /*   For own definitions. */
 #include "rtg_where_value_bindings_simple_list.h"
 
+#if defined AMARA_USE_STD_C89
+#define ALLOCATE_rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret amara_malloc(sizeof(rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret))
+#define ALLOCATE_rtg_where_value_bindings_simple_list amara_malloc(sizeof(rtg_where_value_bindings_simple_list))
+#elif defined AMARA_USE_STD_CXX98
+#define ALLOCATE_rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret (rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret *) amara_malloc(sizeof(rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret))
+#define ALLOCATE_rtg_where_value_bindings_simple_list (rtg_where_value_bindings_simple_list *) amara_malloc(sizeof(rtg_where_value_bindings_simple_list))
+#else
+#define ALLOCATE_rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret PREPROCESSOR_FATAL
+#define ALLOCATE_rtg_where_value_bindings_simple_list PREPROCESSOR_FATAL
+#endif
+
 rtg_where_value_bindings_simple_list *
 rtg_where_value_bindings_simple_list_default_constructor()
 {
 	rtg_where_value_bindings_simple_list * returning_;
 
-	returning_ =
-#ifdef AMARA_USE_STD_CXX98
-			(rtg_where_value_bindings_simple_list *)
-#endif
-			malloc(sizeof(rtg_where_value_bindings_simple_list));
+	returning_ = ALLOCATE_rtg_where_value_bindings_simple_list;
 	forced_assertion(returning_ != NULL);
 
 	returning_->first = NULL;
@@ -60,11 +70,7 @@ rtg_where_value_bindings_simple_list_copy_constructor_inner(
 		return NULL;
 	}
 
-	returning_ =
-#ifdef AMARA_USE_STD_CXX98
-			(rtg_where_value_bindings_simple_list *)
-#endif
-			malloc(sizeof(rtg_where_value_bindings_simple_list));
+	returning_ = ALLOCATE_rtg_where_value_bindings_simple_list;
 	forced_assertion(returning_ != NULL);
 
 	returning_->first = rtg_where_value_binding_copy_constructor(
@@ -95,13 +101,7 @@ rtg_where_value_bindings_simple_list_copy_constructor(
 		assertion(list->next == NULL);
 #endif
 
-#if defined AMARA_USE_STD_C89
-		returning_ = amara_malloc(sizeof(rtg_where_value_bindings_simple_list));
-#elif defined AMARA_USE_STD_CXX98
-		returning_ = (rtg_where_value_bindings_simple_list *) amara_malloc(sizeof(rtg_where_value_bindings_simple_list));
-#else
-		PREPROCESSOR_FATAL;
-#endif
+		returning_ =ALLOCATE_rtg_where_value_bindings_simple_list;
 		forced_assertion(returning_ != NULL);
 
 		returning_->first = NULL;
@@ -212,11 +212,7 @@ rtg_where_value_bindings_simple_list_push_front_inner(
 			RTG_EXPRESSION_TYPE_INVALID);
 #endif
 
-	new_list_node_ =
-#ifdef AMARA_USE_STD_CXX98
-			(rtg_where_value_bindings_simple_list *)
-#endif
-			malloc(sizeof(rtg_where_value_bindings_simple_list));
+	new_list_node_ = ALLOCATE_rtg_where_value_bindings_simple_list;
 	forced_assertion(new_list_node_ != NULL);
 
 	new_list_node_->first =
@@ -292,13 +288,13 @@ rtg_where_value_bindings_simple_list_push_front(
 
 rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret *
 rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_inner(
-		stt_where_value_bindings_simple_list * list)
-__attribute__((warn_unused_result))
+		const stt_where_value_bindings_simple_list * list)
+__amara__warn_unused_result__
 ;
 
 rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret *
 rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_inner(
-		stt_where_value_bindings_simple_list * list)
+		const stt_where_value_bindings_simple_list * list)
 {
 	rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret * returning_;
 	rtg_where_value_bindings_simple_list * returning_sub_;
@@ -310,11 +306,7 @@ rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list
 
 	assertion(list->first != NULL);
 
-	returning_sub_ =
-#ifdef AMARA_USE_STD_CXX98
-			(rtg_where_value_bindings_simple_list *)
-#endif
-			amara_malloc(sizeof(rtg_where_value_bindings_simple_list));
+	returning_sub_ = ALLOCATE_rtg_where_value_bindings_simple_list;
 	forced_assertion(returning_sub_ != NULL);
 
 	returning_sub_->first = rtg_where_value_binding_out_of_stt_where_value_binding(list->first);
@@ -330,14 +322,21 @@ rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list
 	returning_sub_->next = recursive_returning_->where_value_bindings;
 	recursive_returning_->where_value_bindings = NULL;
 
-#if defined AMARA_USE_STD_C89
-	returning_ = amara_malloc(sizeof(rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret));
-#else
-	PREPROCESSOR_FATAL;
-#endif
+	returning_ = ALLOCATE_rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret;
 	forced_assertion(returning_ != NULL);
 
 	return returning_;
+}
+
+void
+rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret_destructor(
+		rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret * input_ret)
+{
+	forced_assertion(input_ret != NULL);
+	forced_assertion(input_ret->status == RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_RET_STATUS_SUCCESS);
+	forced_assertion(input_ret->error_messages == NULL);
+	forced_assertion(input_ret->where_value_bindings == NULL);
+	free(input_ret);
 }
 
 rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret *
@@ -357,13 +356,7 @@ rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list
 		returning_sub_ = rtg_where_value_bindings_simple_list_default_constructor();
 		forced_assertion(returning_sub_ != NULL);
 
-#if defined AMARA_USE_STD_C89
-		returning_ = amara_malloc(sizeof(rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret));
-#elif defined AMARA_USE_STD_CXX98
-		returning_ = (rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret *) amara_malloc(sizeof(rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret));
-#else
-		PREPROCESSOR_FATAL;
-#endif
+		returning_ = ALLOCATE_rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret;
 		forced_assertion(returning_ != NULL);
 
 		returning_->error_messages = NULL;
@@ -373,6 +366,5 @@ rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list
 		return returning_;
 	}
 
-	return rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_inner(
-			list);
+	return rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_inner(list);
 }

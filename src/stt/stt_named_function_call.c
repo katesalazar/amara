@@ -29,6 +29,17 @@
 
 #include "stt_named_function_call.h"
 
+#if defined AMARA_USE_STD_C89
+#define ALLOCATE_stt_named_function_call_pending_semantic_checks amara_malloc(sizeof(stt_named_function_call_pending_semantic_checks))
+#define ALLOCATE_stt_named_function_call amara_malloc(sizeof(stt_named_function_call))
+#elif defined AMARA_USE_STD_CXX98
+#define ALLOCATE_stt_named_function_call_pending_semantic_checks (stt_named_function_call_pending_semantic_checks *) amara_malloc(sizeof(stt_named_function_call_pending_semantic_checks))
+#define ALLOCATE_stt_named_function_call (stt_named_function_call *) amara_malloc(sizeof(stt_named_function_call))
+#else
+#define ALLOCATE_stt_named_function_call_pending_semantic_checks PREPROCESSOR_FATAL;
+#define ALLOCATE_stt_named_function_call PREPROCESSOR_FATAL;
+#endif
+
 /**  Warning: fields are returned unitialized. */
 stt_named_function_call_pending_semantic_checks *
 stt_named_function_call_pending_semantic_checks_default_constructor()
@@ -40,13 +51,7 @@ stt_named_function_call_pending_semantic_checks_default_constructor()
 {
 	stt_named_function_call_pending_semantic_checks * returning_;
 
-#if defined AMARA_USE_STD_C89
-	returning_ = amara_malloc(sizeof(stt_named_function_call_pending_semantic_checks));
-#elif defined AMARA_USE_STD_CXX98
-	returning_ = (stt_named_function_call *) amara_malloc(sizeof(stt_named_function_call_pending_semantic_checks));
-#else
-	PREPROCESSOR_ASSERT(AMARA_BOOLEAN_FALSE, stt_named_function_call);
-#endif
+	returning_ = ALLOCATE_stt_named_function_call_pending_semantic_checks;
 	forced_assertion(returning_ != NULL);
 
 	return returning_;
@@ -79,13 +84,7 @@ stt_named_function_call_copy_constructor(
 	stt_node_assertion_clean_named_function_call_arguments_list_node(named_function_call->call_arguments_);
 #endif
 
-#if defined AMARA_USE_STD_C89
-	returning_ = amara_malloc(sizeof(stt_named_function_call));
-#elif defined AMARA_USE_STD_CXX98
-	returning_ = (stt_named_function_call *) amara_malloc(sizeof(stt_named_function_call));
-#else
-	PREPROCESSOR_ASSERT(AMARA_BOOLEAN_FALSE, stt_named_function_call);
-#endif
+	returning_ = ALLOCATE_stt_named_function_call;
 	forced_assertion(returning_ != NULL);
 
 	returning_->function_name_identifier_ = stt_node_copy_constructor(named_function_call->function_name_identifier_);
@@ -114,13 +113,7 @@ stt_named_function_call_exhaustive_constructor(
 	forced_assertion(call_arguments != NULL);
 	stt_node_forced_assertion_clean_named_function_call_arguments_list_node(call_arguments);
 
-#if defined AMARA_USE_STD_C89
-	returning_ = amara_malloc(sizeof(stt_named_function_call));
-#elif defined AMARA_USE_STD_CXX98
-	returning_ = (stt_named_function_call *) amara_malloc(sizeof(stt_named_function_call));
-#else
-	PREPROCESSOR_ASSERT(AMARA_BOOLEAN_FALSE, stt_named_function_call);
-#endif
+	returning_ = ALLOCATE_stt_named_function_call;
 	forced_assertion(returning_ != NULL);
 
 	returning_->function_name_identifier_ = stt_node_copy_constructor(function_name_identifier);
@@ -153,10 +146,11 @@ stt_named_function_call_equality(
 		const stt_named_function_call * nfc0,
 		const stt_named_function_call * nfc1)
 {
-	forced_assertion(nfc0 != NULL);
-	forced_assertion(nfc1 != NULL);
 	amara_boolean identifier_nodes_equal_;
 	amara_boolean arguments_nodes_equal_;
+
+	forced_assertion(nfc0 != NULL);
+	forced_assertion(nfc1 != NULL);
 
 	forced_assertion(nfc0->function_name_identifier_ != NULL);
 	forced_assertion(nfc1->function_name_identifier_ != NULL);

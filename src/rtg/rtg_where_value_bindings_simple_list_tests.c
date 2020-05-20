@@ -241,39 +241,33 @@ void
 rtg_where_value_bindings_simple_list_transformation_constructors_test_0()
 {
 	stt_where_value_bindings_simple_list * stt_where_bindings_list_;
-	/*
 	rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret * transformation_ret_;
-	*/
 	rtg_where_value_bindings_simple_list * rtg_where_bindings_list_;
 
-	stt_where_bindings_list_ =
-			stt_where_value_bindings_simple_list_example_simple_value_bind();
+	stt_where_bindings_list_ = stt_where_value_bindings_simple_list_example_simple_value_bind();
 	forced_assertion(stt_where_bindings_list_ != NULL);
 #ifndef NDEBUG
-	assert_expectations_on_stt_where_value_bindings_simple_list_example_simple_value_bind(
-			stt_where_bindings_list_);
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_simple_value_bind(stt_where_bindings_list_);
 #endif
 
-	rtg_where_bindings_list_ =
-			rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list(
-					stt_where_bindings_list_);
+	transformation_ret_ = rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list(stt_where_bindings_list_);
 #ifndef NDEBUG
-	assert_expectations_on_stt_where_value_bindings_simple_list_example_simple_value_bind(
-			stt_where_bindings_list_);
+	assert_expectations_on_stt_where_value_bindings_simple_list_example_simple_value_bind(stt_where_bindings_list_);
 #endif
-	forced_assertion(rtg_where_bindings_list_ != NULL);
+	forced_assertion(transformation_ret_ != NULL);
+	forced_assertion(transformation_ret_->status == RTG_WHERE_VALUE_BINDINGS_SIMPLE_LIST_OUT_OF_STT_WHERE_VALUE_BINDINGS_SIMPLE_LIST_RET_STATUS_SUCCESS);
+	forced_assertion(transformation_ret_->error_messages != NULL);
+	forced_assertion(transformation_ret_->where_value_bindings != NULL);
+
+	rtg_where_bindings_list_ = transformation_ret_->where_value_bindings;
+	transformation_ret_->where_value_bindings = NULL;
 #ifndef NDEBUG
-	assert_expectations_on_rtg_where_value_bindings_simple_list_example_simple_value_bind(
-			rtg_where_bindings_list_);
+	assert_expectations_on_rtg_where_value_bindings_simple_list_example_simple_value_bind(rtg_where_bindings_list_);
 #endif
 
-	rtg_where_value_bindings_simple_list_destructor(
-			rtg_where_bindings_list_);
-	/*
-	free(transformation_ret_);
-	*/
-	stt_where_value_bindings_simple_list_destructor(
-			stt_where_bindings_list_);
+	rtg_where_value_bindings_simple_list_destructor(rtg_where_bindings_list_);
+	rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret_destructor(transformation_ret_);
+	stt_where_value_bindings_simple_list_destructor(stt_where_bindings_list_);
 }
 
 void

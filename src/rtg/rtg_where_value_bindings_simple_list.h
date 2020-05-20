@@ -84,6 +84,11 @@ typedef struct rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindi
 } rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret
 ;
 
+void
+rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret_destructor(
+		rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret * input_ret)
+;
+
 /**  Transformation constructor (legacy code, particular case: there are
  * no RTG named functions known yet). */
 rtg_where_value_bindings_simple_list_out_of_stt_where_value_bindings_simple_list_ret *
