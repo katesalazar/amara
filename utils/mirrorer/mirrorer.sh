@@ -8,7 +8,7 @@ PASSWORD="baz"
 
 until false
 do
-    for repo in amara minia
+    for repo in minia amara pangolin
     do
         rm -rfv "${repo}/"
         git clone "git://localhost/home/admin/repositories/${repo}"
